@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby    '2.3.0'
+ruby '2.3.0'
 
 # Configuration management. keep on top of Gemfile
 gem 'dotenv-rails', groups: [:development, :test]
@@ -18,9 +18,14 @@ gem 'puma'
 
 gem 'active_model_serializers'
 
+# Colored output to console
+gem 'colored', '~> 1.2'
+
 group :development, :test do
   gem 'annotate'
   gem 'foreman'
+
+  gem 'rubocop', '~> 0.35.0', require: false
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

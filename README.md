@@ -8,6 +8,7 @@
     cd backend
     bundle install --without production
     cp env-example .env
+    bundle exec rake app:setup
 
 ### Frontend
 
