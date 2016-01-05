@@ -9,8 +9,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'rails', '4.2.5'
 gem 'rails-api'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use postgresql and mongo as the database for Active Record
+gem 'pg'
 gem 'mongoid', '~> 5.0.0'
 
 # Use Puma as the app server
