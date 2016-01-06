@@ -21,6 +21,7 @@ gem 'puma'
 
 # Authentication libraries
 gem 'devise', '~> 3.5.3'
+gem 'devise_invitable', '~> 1.5.2'
 
 # Colored output to console
 gem 'colored', '~> 1.2'

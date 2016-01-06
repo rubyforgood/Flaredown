@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  # Authentication
+  devise_for :users,
+             skip: [:sessions, :passwords, :registrations, :confirmations],
+             skip_helpers: false
+
   #
   # API
   #

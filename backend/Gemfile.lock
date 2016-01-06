@@ -58,6 +58,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.5.5)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
@@ -159,6 +162,7 @@ DEPENDENCIES
   byebug
   colored (~> 1.2)
   devise (~> 3.5.3)
+  devise_invitable (~> 1.5.2)
   dotenv-rails
   foreman
   mongoid (~> 5.0.0)
