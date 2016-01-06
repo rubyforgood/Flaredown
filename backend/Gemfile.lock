@@ -97,6 +97,7 @@ GEM
     coderay (1.1.0)
     colored (1.2)
     concurrent-ruby (1.0.0)
+    connection_pool (2.2.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     devise (3.5.3)
@@ -239,6 +240,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    redis (3.2.2)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.3.2)
@@ -267,6 +269,10 @@ GEM
       tins (<= 1.6.0)
     ruby-progressbar (1.7.5)
     shellany (0.0.1)
+    sidekiq (4.0.2)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
     slop (3.6.0)
     spring (1.6.1)
     sprockets (3.5.2)
@@ -308,6 +314,7 @@ DEPENDENCIES
   rails-api
   rails_12factor
   rspec-rails (~> 3.3.0)
+  sidekiq (~> 4.0)
   spring
   tzinfo-data
 

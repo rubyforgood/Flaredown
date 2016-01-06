@@ -1,0 +1,6 @@
+---
+:concurrency: 25
+:pidfile: tmp/sidekiq.pid
+:queues:
+  - <%= ENV['RACK_ENV'] %>.default
+  - <%= ENV['RACK_ENV'] %>.mailers
