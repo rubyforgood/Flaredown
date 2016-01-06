@@ -29,6 +29,9 @@ gem 'colored', '~> 1.2'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  gem 'database_cleaner', '~> 1.4.0'
+  gem 'rspec-rails',      '~> 3.3.0'
 end
 
 group :development do

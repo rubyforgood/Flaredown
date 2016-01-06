@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'application#root'
 
   # Authentication
   devise_for :users,
