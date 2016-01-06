@@ -16,3 +16,9 @@ task :run do
     Process.wait pid
   end
 end
+
+desc "deploy application"
+task :deploy do
+  system("git subtree push --prefix backend git@heroku.com:flaredown-api.git master")
+  system("git subtree push --prefix frontend git@heroku.com:flaredown-webapp.git master")
+end
