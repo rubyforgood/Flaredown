@@ -27,16 +27,13 @@ gem 'devise_invitable', '~> 1.5.2'
 gem 'colored', '~> 1.2'
 
 group :development, :test do
-  gem 'annotate'
-  gem 'foreman'
-
-  gem 'rubocop', '~> 0.35.0', require: false
-
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
 
 group :development do
+  gem 'onrails', git: 'git@lab.algonauti.com:algonauti/onrails.git'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
