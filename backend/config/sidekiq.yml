@@ -1,5 +1,10 @@
 ---
-:concurrency: 5
+:verbose: false
+:concurrency: 2
+
+# Set timeout to 8 on Heroku, longer if you manage your own systems.
+:timeout: 30
+
 :pidfile: tmp/sidekiq.pid
 :queues:
   - <%= ENV['RACK_ENV'] %>.default
