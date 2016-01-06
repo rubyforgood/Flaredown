@@ -9,6 +9,9 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'rails', '4.2.5'
 gem 'rails-api'
 
+# JSON serializer
+gem 'active_model_serializers'
+
 # Use postgresql and mongo as the database for Active Record
 gem 'pg'
 gem 'mongoid', '~> 5.0.0'
@@ -16,7 +19,8 @@ gem 'mongoid', '~> 5.0.0'
 # Use Puma as the app server
 gem 'puma'
 
-gem 'active_model_serializers'
+# Authentication libraries
+gem 'devise', '~> 3.5.3'
 
 # Colored output to console
 gem 'colored', '~> 1.2'
