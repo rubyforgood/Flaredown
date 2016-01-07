@@ -29,31 +29,14 @@
 #  updated_at             :datetime         not null
 #
 
-class User < ActiveRecord::Base
-  include Authenticatable
+FactoryGirl.define do
+  factory :user do
+    first_name  { FFaker::Name.first_name }
+    last_name   { FFaker::Name.last_name }
+    sequence(:username) { |number| "#{FFaker::Internet.user_name.slice(0, 10)}#{number}" }
+    sequence(:email) { |number| "user#{number}@example.com" }
 
-  #
-  # Validations
-  #
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
-
-  validates :username, presence: true
-  validates :username, uniqueness: true, allow_blank: false
-  validates :username, length: { in: 3..15 }, allow_blank: false
-
-  #
-  # Callbacks
-  #
-  before_create :generate_authentication_token
-
-  private
-
-  def generate_authentication_token
-    self.authentication_token = loop do
-      random_token = SecureRandom.hex
-      break random_token unless User.exists?(authentication_token: random_token)
-    end
+    password 'password123'
+    password_confirmation { 'password123' }
   end
-
 end

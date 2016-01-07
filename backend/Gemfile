@@ -27,12 +27,17 @@ gem 'colored', '~> 1.2'
 # Background jobs
 gem 'sidekiq', '~> 4.0'
 
+# Structured seed data
+gem 'seedbank'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
   gem 'database_cleaner', '~> 1.4.0'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  # Generate Fake data
+  gem 'ffaker', '~> 2.0.0'
   gem 'rspec-rails',      '~> 3.3.0'
 end
 
