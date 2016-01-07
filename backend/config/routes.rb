@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   #
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
-      resources :sessions, only: :show
+      resources :sessions, only: [:show, :create]
+      #
+      # Users
+      #
+      resources :users, only: [:show]
     end
   end
 

@@ -1,4 +1,4 @@
-class SessionSerializer < ActiveModel::Serializer
+class SessionSerializer < ApplicationSerializer
   attributes :id
 
   def id

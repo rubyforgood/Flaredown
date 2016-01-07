@@ -1,7 +1,15 @@
 module Flaredown
 
   def self.config
-    Settings.instance
+    Flaredown::Settings.instance
+  end
+
+  def self.session
+    Flaredown::Session.instance
+  end
+
+  class Session
+    include Singleton, ActiveModel::Serialization
   end
 
   class Settings
