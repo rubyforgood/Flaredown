@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   #
   # Validations
   #
+  validates :authentication_token, presence: true
+
   validates :first_name, presence: true
   validates :last_name,  presence: true
 
@@ -45,7 +47,7 @@ class User < ActiveRecord::Base
   #
   # Callbacks
   #
-  before_create :generate_authentication_token
+  before_validation :generate_authentication_token
 
   private
 

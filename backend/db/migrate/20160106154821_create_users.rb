@@ -21,7 +21,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :last_sign_in_ip
 
       ## API authentication token
-      t.string :authentication_token,   default: '', null: false
+      t.string :authentication_token, null: false
 
       ## Invitable
       t.string   :invitation_token

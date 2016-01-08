@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160106154821) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "authentication_token",   default: "", null: false
+    t.string   "authentication_token",                null: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
