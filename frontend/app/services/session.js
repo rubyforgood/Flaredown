@@ -11,7 +11,7 @@ export default SessionService.extend({
     if (Ember.isPresent(userId)) {
       this.get('dataStore').find('user', userId).then( (user) => {
         this.set('currentUser', user);
-      })
+      });
     } else {
       this.set('currentUser', null);
     }
