@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Authentication
   devise_for :users,
-             skip: [:sessions, :passwords, :registrations, :confirmations],
+             skip: [:sessions, :passwords, :registrations, :confirmations, :invitation],
              skip_helpers: false
 
   #
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       #
       # Invitations
       #
-      resources :invitations, only: [:show]
+      resources :invitations, only: [:show, :update]
       #
       # Sessions
       #
