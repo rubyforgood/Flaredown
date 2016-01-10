@@ -1,4 +1,4 @@
-<form {{action 'authenticateWithDevise' on='submit'}}>
+{{#form-for onSubmit="authenticateWithDevise"}}
   <div class="form-group">
     <label for="identification">Login</label>
     {{input value=identification placeholder='Enter Login' class='form-control'}}
@@ -7,8 +7,9 @@
     <label for="password">Password</label>
     {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
   </div>
-  <button type="submit" class="btn btn-default">Login</button>
-</form>
+  {{input type="submit" value="Accept Invitation"}}
+{{/form-for}}
+
 {{#if errorMessage}}
   <div class="alert alert-danger">
     <p>
