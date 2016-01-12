@@ -10,7 +10,6 @@ class Api::V1::SessionsController < ApplicationController
 
     render json: user, root: false, serializer: AuthorizationSerializer
   rescue => e
-    Rails.logger.debug(e.inspect.red)
     render json: { errors: Array(e.message) }, status: 401
   end
 

@@ -7,7 +7,7 @@ export default Ember.Component.extend({
 
   model: Ember.computed.alias('parentView.for'),
 
-  shouldAlwaysBeWithinAFormForComponent: Ember.on('didInsertElement', function() {
+  shouldAlwaysBeWithinAFormForComponent: Ember.on('didInsertElement', () => {
     Ember.run.scheduleOnce('afterRender', () => {
       var parentView = this.get('parentView');
       var elementId = this.get('elementId');
@@ -16,16 +16,7 @@ export default Ember.Component.extend({
     });
   }),
 
-  hasError: Ember.computed('model.errors.[]', function() {
-    var ref;
-    if ((ref = this.get('model.errors')) != null) {
-      return ref.has(this.get('for'));
-    } else {
-      return false;
-    }
-  }),
-
-  hasError: Ember.computed('model.errors.[]', function() {
+  hasError: Ember.computed('model.errors.[]', () => {
     var errors = this.get('model.errors');
     return errors.errorsFor(this.get('for')).mapBy('message').join(', ');
   })
