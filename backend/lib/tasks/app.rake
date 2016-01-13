@@ -10,6 +10,7 @@ namespace :app do
     puts 'This will create the necessary stuff. You will lose any previous data stored'
     ask_to_continue
 
+    drop_database
     build_database
 
   rescue OperationAbortedException
@@ -17,9 +18,14 @@ namespace :app do
     exit 1
   end
 
+  def drop_database
+    Rake::Task['db:drop'].invoke
+  rescue
+    nil
+  end
+
   def build_database
     header 'build database'
-    Rake::Task['db:drop'].invoke
     Rake::Task['db:setup'].invoke
   rescue PG::ObjectInUse => e
     puts "\n#{e.message}.".red
