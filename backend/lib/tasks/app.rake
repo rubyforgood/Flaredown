@@ -25,7 +25,7 @@ namespace :app do
     end
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
-  rescue PG::ObjectInUse => e
+  rescue ::PG::ObjectInUse => e
     puts "\n#{e.message}.".red
   end
 
