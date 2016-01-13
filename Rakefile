@@ -18,6 +18,11 @@ task :run do
 end
 
 namespace :heroku do
+  desc "restart application"
+  task :restart do
+    system("heroku restart --app flaredown-api")
+  end
+
   desc "deploy application"
   task :deploy do
     system("git subtree push --prefix backend git@heroku.com:flaredown-api.git master")
