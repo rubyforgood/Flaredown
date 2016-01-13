@@ -19,7 +19,7 @@ namespace :app do
 
   def build_database
     header 'build database'
-    Rake::Task['schema:load'].invoke
+    Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
   rescue PG::ObjectInUse => e
     puts "\n#{e.message}.".red
