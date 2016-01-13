@@ -17,8 +17,17 @@ task :run do
   end
 end
 
-desc "deploy application"
-task :deploy do
-  system("git subtree push --prefix backend git@heroku.com:flaredown-api.git master")
-  system("git subtree push --prefix frontend git@heroku.com:flaredown-webapp.git master")
+namespace :heroku do
+  desc "deploy application"
+  task :deploy do
+    system("git subtree push --prefix backend git@heroku.com:flaredown-api.git master")
+    system("git subtree push --prefix frontend git@heroku.com:flaredown-webapp.git master")
+  end
+
+  desc "setup application"
+  task :setup do
+    system("heroku pg:reset DATABASE --app flaredown-api --confirm flaredown-api")
+    system("heroku run rake app:setup --app flaredown-api")
+  end
+
 end
