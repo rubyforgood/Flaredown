@@ -30,4 +30,9 @@ namespace :heroku do
     system("heroku run rake app:setup --app flaredown-api")
   end
 
+  desc "invite user to join into application"
+  task :invite do
+    system("heroku run rake app:invite --app flaredown-api")
+  end
+
 end

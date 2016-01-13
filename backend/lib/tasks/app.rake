@@ -4,7 +4,19 @@ namespace :app do
     setup
   end
 
+  desc 'flaredown | setup application'
+  task invite: :environment do
+    invite
+  end
+
+
   class OperationAbortedException < StandardError; end
+
+  def invite
+    email = prompt 'Please insert email address: '
+    username = prompt 'Please insert username: '
+    User.invite!(email: email, username: username)
+  end
 
   def setup
     puts 'This will create the necessary stuff. You will lose any previous data stored'
