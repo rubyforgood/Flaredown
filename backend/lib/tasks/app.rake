@@ -19,6 +19,10 @@ namespace :app do
 
   def build_database
     header 'build database'
+    if Rails.env.development?
+      Rake::Task['db:drop'].invoke
+      Rake::Task['db:create'].invoke
+    end
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
   rescue PG::ObjectInUse => e
