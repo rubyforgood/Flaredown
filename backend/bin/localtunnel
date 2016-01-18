@@ -1,9 +1,33 @@
 #!/usr/bin/env ruby
 
+def shut_down
+  puts "\nShutting down gracefully..."
+  sleep 1
+end
+
+# Trap ^C
+Signal.trap("INT") {
+  shut_down
+  exit
+}
+
+# Trap `Kill `
+Signal.trap("TERM") {
+  shut_down
+  exit
+}
+
 if ENV['LOCALTUNNEL_ENABLED'] && ENV['LOCALTUNNEL_ENABLED'].eql?('true')
-  system "lt --port #{ENV['LOCALTUNNEL_PORT']} --subdomain #{ENV['LOCALTUNNEL_SUBDOMAIN']}"
+  begin
+    system "lt --port #{ENV['LOCALTUNNEL_PORT']} --subdomain #{ENV['LOCALTUNNEL_SUBDOMAIN']}"
+  rescue => e
+    puts e.message
+    retry
+  end
 else
   loop do
     sleep 0.5
   end
 end
+
+
