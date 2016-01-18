@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+if ENV['LOCALTUNNEL_ENABLED'] && ENV['LOCALTUNNEL_ENABLED'].eql?('true')
+  system "lt --port #{ENV['LOCALTUNNEL_PORT']} --subdomain #{ENV['LOCALTUNNEL_SUBDOMAIN']}"
+else
+  loop do
+    sleep 0.5
+  end
+end
