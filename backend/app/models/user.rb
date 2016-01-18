@@ -35,9 +35,6 @@ class User < ActiveRecord::Base
   #
   # Validations
   #
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
-
   validates :username, presence: true
   validates :username, uniqueness: true, allow_blank: false
   validates :username, length: { in: 3..15 }, allow_blank: false

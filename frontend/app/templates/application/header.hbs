@@ -1,0 +1,12 @@
+{{#if session.isAuthenticated}}
+  <header class="main">
+    <a {{action 'invalidateSession'}}>Logout</a>
+  </header>
+{{else}}
+  <header>
+    <div>
+      <h4>Early Access</h4>
+    </div>
+  </header>
+{{/if}}
+

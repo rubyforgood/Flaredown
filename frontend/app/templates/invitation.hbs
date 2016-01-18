@@ -1,22 +1,2 @@
-Invitation for {{model.user.email}}
+{{invitation-form model=model}}
 
-{{#form-for for=model onSubmit="acceptInvitation"}}
-
-  {{#form-field for="firstName" label="First Name"}}
-    {{input value=model.firstName placeholder="First Name"}}
-  {{/form-field}}
-
-  {{#form-field for="lastName" label="Last Name"}}
-    {{input value=model.lastName placeholder="Last Name"}}
-  {{/form-field}}
-
-  {{#form-field for="password" label="Password"}}
-    {{input value=model.password placeholder="Password"}}
-  {{/form-field}}
-
-  {{#form-field for="passwordConfirmation" label="Password Confirmation"}}
-    {{input value=model.passwordConfirmation placeholder="Password Confirmation"}}
-  {{/form-field}}
-
-  {{input type="submit" value="Accept Invitation"}}
-{{/form-for}}

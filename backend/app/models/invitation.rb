@@ -1,11 +1,12 @@
 class Invitation
   include ActiveModel::Serialization
 
-  attr_reader :id, :user
+  attr_reader :id, :email, :user
 
   def initialize(id, user)
     @id = id
     @user = user
+    @email = user.email
   end
 
   def accept!(params={})

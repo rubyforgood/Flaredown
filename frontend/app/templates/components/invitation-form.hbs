@@ -1,0 +1,16 @@
+{{#form-for for=model onSubmit="acceptInvitation"}}
+
+  {{#form-field for="email" label="Email"}}
+    {{input value=model.email placeholder="Email"}}
+  {{/form-field}}
+
+  {{#form-field for="password" label="Password"}}
+    {{input value=model.password placeholder="Password"}}
+  {{/form-field}}
+
+  {{#form-field for="passwordConfirmation" label="Password Confirmation"}}
+    {{input value=model.passwordConfirmation placeholder="Password Confirmation"}}
+  {{/form-field}}
+
+  {{input type="submit" value="Unlock early access"}}
+{{/form-for}}
