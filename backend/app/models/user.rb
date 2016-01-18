@@ -38,10 +38,6 @@ class User < ActiveRecord::Base
   #
   before_create :generate_authentication_token
 
-  def invitation
-    @invitation ||= Invitation.new(self)
-  end
-
   private
 
   def generate_authentication_token
