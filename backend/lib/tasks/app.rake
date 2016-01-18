@@ -14,8 +14,7 @@ namespace :app do
 
   def invite
     email = prompt 'Please insert email address: '
-    username = prompt 'Please insert username: '
-    User.invite!(email: email, username: username)
+    User.invite!(email: email)
   end
 
   def setup

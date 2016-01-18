@@ -32,19 +32,12 @@ class CreateUsers < ActiveRecord::Migration
       t.integer  :invited_by_id
       t.string   :invited_by_type
 
-      #
-      t.string :first_name,             default: '', null: false
-      t.string :last_name,              default: '', null: false
-      t.string :username,                            null: false
-      t.text   :bio
-
       t.timestamps null: false
     end
 
     add_index :users, :authentication_token, unique: true
     add_index :users, :email, unique: true
     add_index :users, :reset_password_token
-    add_index :users, :username, unique: true
     add_index :users, :invitation_token, unique: true
   end
 end

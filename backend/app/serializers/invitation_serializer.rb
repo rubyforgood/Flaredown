@@ -1,5 +1,5 @@
 class InvitationSerializer < ApplicationSerializer
   attributes :id, :email
 
-  has_one :user, include: true
+  has_one :user, embed_in_root: true
 end

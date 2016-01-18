@@ -13,7 +13,7 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string
 #  last_sign_in_ip        :string
-#  authentication_token   :string           default(""), not null
+#  authentication_token   :string           not null
 #  invitation_token       :string
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
@@ -21,10 +21,6 @@
 #  invitation_limit       :integer
 #  invited_by_id          :integer
 #  invited_by_type        :string
-#  first_name             :string           default(""), not null
-#  last_name              :string           default(""), not null
-#  username               :string           not null
-#  bio                    :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -35,9 +31,7 @@ class User < ActiveRecord::Base
   #
   # Validations
   #
-  validates :username, presence: true
-  validates :username, uniqueness: true, allow_blank: false
-  validates :username, length: { in: 3..15 }, allow_blank: false
+  validates :email, presence: true
 
   #
   # Callbacks
