@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   # Authentication
   devise_for :users,
              skip: [:sessions, :passwords, :registrations, :confirmations, :invitation],
-             skip_helpers: false
+             skip_helpers: false,
+             controllers: {
+               omniauth_callbacks: 'api/v1/omniauth_callbacks'
+             }
 
   #
   # API
@@ -19,10 +22,12 @@ Rails.application.routes.draw do
       # Invitations
       #
       resources :invitations, only: [:show, :update]
+
       #
       # Sessions
       #
       resources :sessions, only: [:show, :create]
+
       #
       # Users
       #
