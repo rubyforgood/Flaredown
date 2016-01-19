@@ -11,8 +11,5 @@
     "qunit": "~1.20.0",
     "bourbon": "4.2.3",
     "neat": "~1.7.2"
-  },
-  "resolutions": {
-    "ember": "2.2.0"
   }
 }
