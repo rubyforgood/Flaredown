@@ -12,7 +12,9 @@ export default Ember.Component.extend({
     },
 
     authenticateWithFacebook() {
-      this.get('session').authenticate('authenticator:facebook');
+      this.get('session').authenticate('authenticator:facebook').catch((reason) => {
+        this.set('errorMessage', reason);
+      });
     }
   }
 });
