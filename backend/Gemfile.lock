@@ -98,6 +98,10 @@ GEM
     colored (1.2)
     concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
+    countries (1.2.2)
+      currencies (~> 0.4.2)
+      i18n_data (~> 0.7.0)
+    currencies (0.4.2)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     devise (3.5.3)
@@ -149,6 +153,7 @@ GEM
       multi_json (~> 1.8)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
+    i18n_data (0.7.0)
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -308,6 +313,7 @@ DEPENDENCIES
   active_model_serializers
   byebug
   colored (~> 1.2)
+  countries
   database_cleaner (~> 1.4.0)
   devise (~> 3.5.3)
   devise_invitable (~> 1.5.2)

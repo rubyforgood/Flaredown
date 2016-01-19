@@ -30,6 +30,9 @@ gem 'sidekiq', '~> 4.0'
 # Structured seed data
 gem 'seedbank'
 
+# ISO 3166 standard countries
+gem 'countries', :require => 'countries/global'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
