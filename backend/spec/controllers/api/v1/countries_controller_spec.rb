@@ -16,7 +16,6 @@ RSpec.describe Api::V1::CountriesController do
       before { I18n.locale = 'en' }
       it "returns 'en' translations" do
         get :index
-        Rails.logger.debug(response_body[:countries])
         test_country = response_body[:countries].find {|c| c[:id].eql?(test_country_id)}
         expect(test_country[:name]).to eq test_country_name_en
       end
