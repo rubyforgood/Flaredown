@@ -1,6 +1,7 @@
-import Ember from 'ember';
-import FacebookConnect from 'torii/providers/facebook-connect';
+import Provider from 'torii/providers/base';
+import {configurable} from 'torii/configuration';
 
+var on = Ember.on;
 var fbPromise;
 
 function fbLoad(settings){
@@ -25,16 +26,78 @@ function fbLoad(settings){
   return fbPromise;
 }
 
-export default FacebookConnect.extend({
+function fbLogin(scope, returnScopes, authType){
+  return new Ember.RSVP.Promise(function(resolve, reject){
+    FB.login(function(response){
+      if (response.authResponse) {
+        Ember.run(null, resolve, response.authResponse);
+      } else {
+        Ember.run(null, reject, response.status);
+      }
+    }, { scope: scope, return_scopes: returnScopes, auth_type: authType });
+  });
+}
+
+function fbNormalize(response){
+  var normalized = {
+    userId: response.userID,
+    accessToken: response.accessToken,
+    expiresIn: response.expiresIn
+  };
+  if (response.grantedScopes) {
+    normalized.grantedScopes = response.grantedScopes;
+  }
+  return normalized;
+}
+
+var Facebook = Provider.extend({
   session: Ember.inject.service('session'),
 
   name:  'facebook',
   appId: Ember.computed.alias('session.extraSession.facebookAppId'),
 
-  setExtraSession: Ember.observer('session.extraSession', function() {
-    fbLoad( this.settings() );
-  }),
+  scope: configurable('scope', 'email'),
+  returnScopes: configurable('returnScopes', false),
+
+
+  version: configurable('version', 'v2.2'),
+  xfbml: configurable('xfbml', false),
+  channelUrl: configurable('channelUrl', null),
+  locale: configurable('locale', 'en_US'),
+
+  // API:
+  //
+  open: function(options){
+    if (options === undefined) options = {};
+    var scope = this.get('scope');
+    var authType = options.authType;
+    var returnScopes = this.get('returnScopes');
+
+    return fbLoad( this.settings() )
+      .then(function(){
+        return fbLogin(scope, returnScopes, authType);
+      })
+      .then(fbNormalize);
+  },
+
+  settings: function(){
+    return {
+      status: true,
+      cookie: true,
+      xfbml: this.get('xfbml'),
+      version: this.get('version'),
+      appId: this.get('appId'),
+      channelUrl: this.get('channelUrl'),
+      locale: this.get('locale')
+    };
+  },
+
+  setupFDK: Ember.on('init', Ember.observer('session.extraSession', function() {
+    if(Ember.isPresent(this.get('session.extraSession.facebookAppId'))) {
+      fbLoad( this.settings() );
+    }
+  }))
 
 });
 
-
+export default Facebook;
