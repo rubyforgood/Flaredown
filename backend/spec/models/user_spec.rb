@@ -25,32 +25,32 @@
 #  updated_at             :datetime         not null
 #
 
-class User < ActiveRecord::Base
-  include Authenticatable
+require 'rails_helper'
 
-  #
-  # Associations
-  #
-  has_one :profile, dependent: :destroy
+RSpec.describe User do
 
-  #
-  # Validations
-  #
-  validates :email, presence: true
-
-  #
-  # Callbacks
-  #
-  before_create :generate_authentication_token
-  after_create :create_profile!
-
-  private
-
-  def generate_authentication_token
-    self.authentication_token = loop do
-      random_token = SecureRandom.hex
-      break random_token unless User.exists?(authentication_token: random_token)
-    end
+  describe 'Associations' do
+    it { is_expected.to have_one(:profile) }
   end
 
+  describe 'Validations' do
+    it { is_expected.to validate_presence_of(:email) }
+  end
+
+  describe 'Callbacks' do
+    subject { create(:user) }
+    context 'before_create' do
+      it 'generates authentication token' do
+        expect(subject.reload.authentication_token).to be_present
+      end
+    end
+    context 'after_create' do
+      it 'creates profile' do
+        profile = subject.reload.profile
+        expect(profile).to be_present
+        expect(profile.id).to be_present
+        expect(profile.user.id).to eq subject.id
+      end
+    end
+  end
 end
