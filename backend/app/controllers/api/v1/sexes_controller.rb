@@ -13,7 +13,7 @@ class Api::V1::SexesController < Api::BaseController
 
   def sex_id
     id = params.require(:id)
-    raise ActionController::BadRequest.new("id param is not a valid sex id") unless Sex.all_ids.include?(id)
+    fail ActionController::BadRequest.new("id param is not a valid sex id") unless Sex.all_ids.include?(id)
     id
   end
 
