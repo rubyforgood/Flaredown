@@ -10,11 +10,8 @@ export default ToriiAuthenticator.extend({
     return new Ember.RSVP.Promise((resolve, reject) => {
       this._super('facebook-connect').then( (data) => {
         this.get('ajax').request('/api/auth/facebook/callback', {
-          method: 'GET',
-          dataType: 'json',
-          data:     {
-            'code': data.authorizationCode
-          }
+          method: 'POST',
+          dataType: 'json'
         }).then((response) => {
           resolve({
             // jscs:disable requireCamelCaseOrUpperCaseIdentifiers

@@ -16,7 +16,8 @@ module.exports = function(environment) {
     torii: {
       providers: {
         'facebook-connect': {
-          appId: process.env.FACEBOOK_APP_ID
+          appId: process.env.FACEBOOK_APP_ID,
+          version: 'v2.5'
         }
       }
     },
