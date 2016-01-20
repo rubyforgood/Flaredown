@@ -13,14 +13,7 @@ class Api::V1::ProfilesController < Api::BaseController
   private
 
   def check_authorization
-    fail UnauthorizedException unless current_user && profile_id.eql?(current_user.profile.id)
-  end
-
-  def profile_id
-    id = params.require(:id)
-    match_data = /^[[:digit:]]*$/.match(id)
-    fail ActionController::BadRequest.new("id param must be a number") if match_data.nil?
-    match_data[0].to_i
+    fail UnauthorizedException unless current_user && fetch_numeric_id_param.eql?(current_user.profile.id)
   end
 
   def update_params
