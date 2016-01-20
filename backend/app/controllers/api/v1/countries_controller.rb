@@ -1,13 +1,13 @@
 class Api::V1::CountriesController < Api::BaseController
 
   def index
-    render json: Country.all, each_serializer: CountrySerializer
+    render json: Country.all
   end
 
   def show
     country = Country.find_country_by_alpha2(alpha2)
     raise ActiveRecord::RecordNotFound if country.nil?
-    render json: country, each_serializer: CountrySerializer
+    render json: country
   end
 
   private
