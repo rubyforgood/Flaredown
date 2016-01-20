@@ -301,6 +301,8 @@ GEM
     ruby-progressbar (1.7.5)
     seedbank (0.3.0)
     shellany (0.0.1)
+    shoulda-matchers (3.1.0)
+      activesupport (>= 4.0.0)
     sidekiq (4.0.2)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -352,6 +354,7 @@ DEPENDENCIES
   rails_12factor
   rspec-rails (~> 3.3.0)
   seedbank
+  shoulda-matchers
   sidekiq (~> 4.0)
   spring
   tzinfo-data
