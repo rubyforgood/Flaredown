@@ -18,10 +18,16 @@ Rails.application.routes.draw do
       # Countries
       #
       resources :countries, only: [:index, :show]
+
       #
       # Invitations
       #
       resources :invitations, only: [:show, :update]
+
+      #
+      # Profiles
+      #
+      resources :profiles, only: [:show, :update]
 
       #
       # Sessions

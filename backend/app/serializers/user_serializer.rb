@@ -27,4 +27,5 @@
 
 class UserSerializer < ApplicationSerializer
   attributes :id, :email
+  has_one :profile
 end
