@@ -22,4 +22,9 @@ class Api::BaseController < ApplicationController
     render json: { errors: ["Bad request: #{exception.message}"] }, status: :bad_request
   end
 
+  rescue_from UnauthorizedException do |exception|
+    log_exception(exception)
+    render json: { errors: ['Unauthorized'] }, status: :unauthorized
+  end
+
 end
