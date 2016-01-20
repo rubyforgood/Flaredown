@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 it:
-  hello: "Ciao Mondo"
+  sex:
+    male: "Maschio"
+    female: "Femmina"
+    other: "Altro"
+    doesnt_say: "Preferisco non dirlo"

@@ -29,6 +29,11 @@ Rails.application.routes.draw do
       resources :sessions, only: [:show, :create]
 
       #
+      # Sexes
+      #
+      resources :sexes, only: [:index, :show]
+
+      #
       # Users
       #
       resources :users, only: [:show]

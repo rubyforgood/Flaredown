@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  sex:
+    male: "Male"
+    female: "Female"
+    other: "Other"
+    doesnt_say: "Prefer not to say"
