@@ -15,5 +15,8 @@ module.exports = function(defaults) {
   // pace
   app.import('bower_components/pace/pace.js');
 
+  // spinkit
+  app.import('bower_components/spinkit/css/spinners/7-three-bounce.css');
+
   return app.toTree();
 };
