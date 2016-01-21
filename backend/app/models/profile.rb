@@ -32,6 +32,19 @@ class Profile < ActiveRecord::Base
   validates :sex_id, inclusion: {
     in: Sex.all_ids,
     message: "%{value} is not a valid sex_id"
-    }, if: 'sex_id.present?'
+  }, if: 'sex_id.present?'
+
+
+  #
+  # Instance Methods
+  #
+
+  def country
+    @country ||= Country.find_country_by_alpha2(country_id) if country_id.present?
+  end
+
+  def locale
+    country.languages.first if country.present?
+  end
 
 end

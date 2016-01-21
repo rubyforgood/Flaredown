@@ -44,6 +44,13 @@ class User < ActiveRecord::Base
   before_create :generate_authentication_token
   after_create :create_profile!
 
+
+  #
+  # Delegates
+  #
+  delegate :locale, to: :profile
+
+
   private
 
   def generate_authentication_token

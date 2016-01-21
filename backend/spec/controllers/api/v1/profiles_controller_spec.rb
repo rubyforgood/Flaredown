@@ -60,6 +60,20 @@ RSpec.describe Api::V1::ProfilesController do
         expect(updated_profile[:sex_id]).to eq profile_attributes[:sex_id]
         expect(updated_profile[:birth_date]).to eq profile_attributes[:birth_date].to_date.to_s
       end
+      context 'with available locale for country' do
+        before { profile_attributes[:country_id] = 'IT' }
+        it "sets the first country's language as locale" do
+          put :update, id: profile.id, profile: profile_attributes
+          expect(I18n.locale).to eq :it
+        end
+      end
+      context 'with unavailable locale for country' do
+        before { profile_attributes[:country_id] = 'IN' }
+        it "sets locale to default" do
+          put :update, id: profile.id, profile: profile_attributes
+          expect(I18n.locale).to eq I18n.default_locale
+        end
+      end
 
       context 'when some attribute is invalid' do
         before { profile_attributes[:sex_id] = 'blah' }

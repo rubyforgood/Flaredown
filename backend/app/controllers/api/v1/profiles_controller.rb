@@ -7,6 +7,8 @@ class Api::V1::ProfilesController < Api::BaseController
 
   def update
     @profile.update_attributes!(update_params)
+    current_user.profile.reload
+    set_locale
     render json: @profile
   end
 
