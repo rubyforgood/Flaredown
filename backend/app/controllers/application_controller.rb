@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  include ActionController::Serialization
+  include ActionController::Serialization, CanCan::ControllerAdditions
 
   before_filter :authenticate_user_from_token!, if: :presence_of_authentication_token?
 

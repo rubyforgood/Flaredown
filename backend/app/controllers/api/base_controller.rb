@@ -22,18 +22,9 @@ class Api::BaseController < ApplicationController
     render json: { errors: ["Bad request: #{exception.message}"] }, status: :bad_request
   end
 
-  rescue_from UnauthorizedException do |exception|
+  rescue_from CanCan::AccessDenied do |exception|
     log_exception(exception)
     render json: { errors: ['Unauthorized'] }, status: :unauthorized
-  end
-
-  protected
-
-  def fetch_numeric_id_param
-    id = params.require(:id)
-    match_data = /^[[:digit:]]*$/.match(id)
-    fail ActionController::BadRequest.new("id param must be a number") if match_data.nil?
-    match_data[0].to_i
   end
 
 end

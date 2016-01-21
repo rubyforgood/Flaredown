@@ -32,9 +32,9 @@ RSpec.describe Api::V1::ProfilesController do
       end
 
       context 'with invalid profile id' do
-        it 'returns 400 (Bad Request)' do
+        it 'returns 404 (RecordNotFound)' do
           get :show, id: 'a123'
-          expect(response.status).to eq 400
+          expect(response.status).to eq 404
         end
       end
 
