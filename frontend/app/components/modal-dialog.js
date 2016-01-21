@@ -6,11 +6,11 @@ export default Ember.Component.extend({
   action: 'closeModal',
 
   onDidInsertElement: Ember.on('didInsertElement', function() {
-    $("body").addClass("modal-open");
+    Ember.$("body").addClass("modal-open");
   }),
 
   onWillDestroyElement: Ember.on('willDestroyElement', function(){
-    $("body").removeClass("modal-open");
+    Ember.$("body").removeClass("modal-open");
   }),
 
   actions: {
