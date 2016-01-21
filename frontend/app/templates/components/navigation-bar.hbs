@@ -12,7 +12,7 @@
         <a href="#">{{session.currentUser.email}}</a>
         <ul class="submenu">
           <li class="nav-link">
-            {{#link-to "index"}}Profile{{/link-to}}
+            <a {{action 'openEditProfileModal'}}>Profile</a>
           </li>
           <li class="nav-link">
             <a {{action 'invalidateSession'}}>Logout</a>

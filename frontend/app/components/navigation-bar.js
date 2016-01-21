@@ -6,7 +6,12 @@ export default Ember.Component.extend({
   actions: {
     invalidateSession() {
       this.get('session').invalidate();
-    }
+    },
+
+    openEditProfileModal() {
+      this.container.lookup('route:application').send('openModal', 'profile', null, 'application');
+    },
+
   }
 
 });
