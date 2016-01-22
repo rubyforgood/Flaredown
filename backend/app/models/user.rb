@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   # Callbacks
   #
   before_create :generate_authentication_token
-  after_create :create_profile!
+  after_create :init_profile
 
 
   #
@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
       random_token = SecureRandom.hex
       break random_token unless User.exists?(authentication_token: random_token)
     end
+  end
+
+  def init_profile
+    create_profile!(onboarding_step_id: Step.by_group(:onboarding).first)
   end
 
 end

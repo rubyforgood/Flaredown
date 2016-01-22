@@ -2,13 +2,14 @@
 #
 # Table name: profiles
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  country_id :string
-#  birth_date :date
-#  sex_id     :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  country_id         :string
+#  birth_date         :date
+#  sex_id             :string
+#  onboarding_step_id :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
 class Profile < ActiveRecord::Base

@@ -22,8 +22,9 @@ ActiveRecord::Schema.define(version: 20160119185831) do
     t.string   "country_id"
     t.date     "birth_date"
     t.string   "sex_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "onboarding_step_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
