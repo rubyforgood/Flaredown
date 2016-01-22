@@ -40,6 +40,11 @@ Rails.application.routes.draw do
       resources :sexes, only: [:index, :show]
 
       #
+      # Steps
+      #
+      resources :steps, only: [:index, :show]
+
+      #
       # Users
       #
       resources :users, only: [:show]
