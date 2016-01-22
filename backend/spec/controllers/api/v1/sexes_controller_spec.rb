@@ -13,7 +13,7 @@ RSpec.describe Api::V1::SexesController do
       expect(response_body[:sexes].size).to eq all_sexes_count
     end
     context "with 'en' locale" do
-      before { I18n.locale = 'en' }
+      before { I18n.default_locale = 'en' }
       it "returns 'en' translations" do
         get :index
         test_sex = response_body[:sexes].find {|c| c[:id].eql?(test_sex_id)}
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::SexesController do
       end
     end
     context "with 'it' locale" do
-      before { I18n.locale = 'it' }
+      before { I18n.default_locale = 'it' }
       it "returns 'it' translations" do
         get :index
         test_sex = response_body[:sexes].find {|c| c[:id].eql?(test_sex_id)}
@@ -36,14 +36,14 @@ RSpec.describe Api::V1::SexesController do
       expect(response_body[:sex][:id]).to eq test_sex_id
     end
     context "with 'en' locale" do
-      before { I18n.locale = 'en' }
+      before { I18n.default_locale = 'en' }
       it "returns 'en' translation" do
         get :show, id: test_sex_id
         expect(response_body[:sex][:name]).to eq test_sex_name_en
       end
     end
     context "with 'it' locale" do
-      before { I18n.locale = 'it' }
+      before { I18n.default_locale = 'it' }
       it "returns 'it' translation" do
         get :show, id: test_sex_id
         expect(response_body[:sex][:name]).to eq test_sex_name_it

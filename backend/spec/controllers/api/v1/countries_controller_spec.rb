@@ -13,7 +13,7 @@ RSpec.describe Api::V1::CountriesController do
       expect(response_body[:countries].size).to eq all_countries_count
     end
     context "with 'en' locale" do
-      before { I18n.locale = 'en' }
+      before { I18n.default_locale = 'en' }
       it "returns 'en' translations" do
         get :index
         test_country = response_body[:countries].find {|c| c[:id].eql?(test_country_id)}
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::CountriesController do
       end
     end
     context "with 'it' locale" do
-      before { I18n.locale = 'it' }
+      before { I18n.default_locale = 'it' }
       it "returns 'it' translations" do
         get :index
         test_country = response_body[:countries].find {|c| c[:id].eql?(test_country_id)}
@@ -40,14 +40,14 @@ RSpec.describe Api::V1::CountriesController do
       expect(response_body[:country][:id]).to eq test_country_id
     end
     context "with 'en' locale" do
-      before { I18n.locale = 'en' }
+      before { I18n.default_locale = 'en' }
       it "returns 'en' translation" do
         get :show, id: test_country_id
         expect(response_body[:country][:name]).to eq test_country_name_en
       end
     end
     context "with 'it' locale" do
-      before { I18n.locale = 'it' }
+      before { I18n.default_locale = 'it' }
       it "returns 'it' translation" do
         get :show, id: test_country_id
         expect(response_body[:country][:name]).to eq test_country_name_it
