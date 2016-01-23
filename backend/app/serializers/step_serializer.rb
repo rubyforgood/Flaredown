@@ -6,7 +6,7 @@ class StepSerializer < ApplicationSerializer
   end
 
   def hint
-    I18n.t "step.#{object.group}.#{object.key}.hint"
+    I18n.t "step.#{object.group}.#{object.key}.hint", raise: true
   rescue I18n::MissingTranslationData
     nil
   end
