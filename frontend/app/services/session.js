@@ -9,7 +9,7 @@ export default SessionService.extend({
   setCurrentUser: Ember.on('init', Ember.observer('isAuthenticated', function() {
     var userId = this.get('userId');
     if (Ember.isPresent(userId)) {
-      this.get('dataStore').find('user', userId).then( (user) => {
+      this.set('currentUser', this.get('dataStore').find('user', userId)).then( (user) => {
         this.set('currentUser', user);
       });
     } else {
@@ -21,6 +21,6 @@ export default SessionService.extend({
     this.get('dataStore').find('session', 1).then( (session) => {
       this.set('extraSession', session);
     });
-  })),
+  }))
 
 });
