@@ -50,6 +50,7 @@ RSpec.describe User do
         expect(profile).to be_present
         expect(profile.id).to be_present
         expect(profile.user.id).to eq subject.id
+        expect(profile.onboarding_step_id).to eq Step.by_group(:onboarding).first.id
       end
     end
   end
