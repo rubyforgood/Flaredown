@@ -5,7 +5,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :country_id
       t.date :birth_date
       t.string :sex_id
-      t.integer :onboarding_step_id
+      t.string :onboarding_step_id
 
       t.timestamps null: false
     end

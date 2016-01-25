@@ -1,5 +1,5 @@
 class StepSerializer < ApplicationSerializer
-  attributes :id, :group, :key, :title, :hint, :prev_id, :next_id
+  attributes :id, :group, :key, :title, :hint, :priority, :prev_id, :next_id
 
   def title
     I18n.t "step.#{object.group}.#{object.key}.title"

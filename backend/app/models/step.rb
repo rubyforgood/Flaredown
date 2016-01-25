@@ -6,66 +6,88 @@
 class Step
   include ActiveModel::Serialization
 
-  attr_accessor :id, :group, :priority, :key
+  attr_accessor :id, :priority
 
-  def initialize(id, group, priority, key)
+  def initialize(id, priority)
     @id = id
-    @group = group
     @priority = priority
-    @key = key
+  end
+
+  def group
+    id.split('-')[0].to_sym
+  end
+
+  def key
+    id.split('-')[1].to_sym
   end
 
   def prev_id
-    (priority > 1) ? id-1 : nil
+    @@all_hash[id][:earlier].id rescue nil
   end
 
   def next_id
-    max_priority = self.class.by_group(group).sort_by { |step| step.priority}.last.priority
-    (priority < max_priority) ? id+1 : nil
+    @@all_hash[id][:later].id rescue nil
   end
 
-  class << self
+  SEEDS = {
+    onboarding: %w(
+      personal
+      demographic
+      conditions
+      symptoms
+      treatments
+      completed
+    ),
+    checkin: %w(
+      start
+      conditions
+      symptoms
+      treatments
+      tags
+    )
+  }
 
+  class << self
     def all
-      @@all ||= begin
-        result = []
-        all_hash = {
-          onboarding: %w(
-            personal
-            demographic
-            conditions
-            symptoms
-            treatments
-            completed
-          ),
-          checkin: %w(
-            start
-            conditions
-            symptoms
-            treatments
-            tags
-          )
-        }
-        offset = 0
-        all_hash.each_with_index do |item, i|
-          group, steps = item[0], item[1]
-          steps.each_with_index { |key, j| result << new(offset+j+1, group, j+1, key) }
-          offset += steps.count
+      @@all ||= all_hash.values.map { |v| v[:current] }
+    end
+
+    def by_group(group)
+      all.select { |step| step.group.eql? group }
+    end
+
+    def find(id)
+      all_hash[id][:current] rescue nil
+    end
+
+    def all_hash
+      @@all_hash ||= begin
+        result = {}
+        SEEDS.each do |seed|
+          group, steps = seed[0], seed[1]
+          steps.each_with_index do |step, i|
+            current_key = "#{group}-#{step}"
+            earlier =
+              if i==0
+                nil
+              else
+                earlier_key = "#{group}-#{steps[i-1]}"
+                result[earlier_key][:current]
+              end
+            current = new(current_key, i+1)
+            result[current_key] = {
+              current: current,
+              earlier: earlier
+            }
+            result[key_for(earlier)][:later] = current if earlier.present?
+          end
         end
         result
       end
     end
 
-    def by_group(group)
-      self.all.select { |step| step.group.eql? group }
-    end
-
-    def find(id)
-      self.all.find { |step| step.id.eql? id }
-    end
-
-    def find_by_key(key)
-      self.all.find { |step| step.key.eql? key }
+    def key_for(step)
+      "#{step.group}-#{step.key}"
     end
 
   end

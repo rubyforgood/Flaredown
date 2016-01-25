@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::StepsController do
 
-  let(:step_id) { 3 }
+  let(:step_id) { 'onboarding-conditions' }
   let(:step_title_en) { 'What conditions will you track?' }
 
   describe 'index' do

@@ -13,7 +13,7 @@ class Api::V1::StepsController < Api::BaseController
   private
 
   def step_id
-    params.require(:id).to_i
+    params.require(:id)
   end
 
 end

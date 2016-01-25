@@ -7,7 +7,7 @@
 #  country_id         :string
 #  birth_date         :date
 #  sex_id             :string
-#  onboarding_step_id :integer
+#  onboarding_step_id :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
