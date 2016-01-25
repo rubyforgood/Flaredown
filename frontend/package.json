@@ -42,6 +42,6 @@
     "ember-export-application-global": "^1.0.4",
     "ember-resolver": "^2.0.3",
     "ember-simple-auth": "git://github.com/simplabs/ember-simple-auth.git",
-    "torii": "~0.7.0-beta1"
+    "torii": "~0.6.1"
   }
 }
