@@ -11,6 +11,6 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{step-controls}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.ok(/Continue/.test(this.$().text().trim()));
 
 });

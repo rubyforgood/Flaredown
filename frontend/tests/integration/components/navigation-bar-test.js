@@ -11,6 +11,6 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{navigation-bar}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.ok(/MENU/.test(this.$().text().trim()));
 
 });
