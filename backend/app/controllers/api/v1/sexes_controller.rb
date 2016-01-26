@@ -5,7 +5,7 @@ class Api::V1::SexesController < Api::BaseController
   end
 
   def show
-    sex = Sex.new(sex_id)
+    sex = Sex.find(sex_id)
     render json: sex
   end
 

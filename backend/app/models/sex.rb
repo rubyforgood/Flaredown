@@ -1,10 +1,11 @@
 class Sex
   include ActiveModel::Serialization
 
-  attr_accessor :id
+  attr_accessor :id, :rank
 
-  def initialize(id)
+  def initialize(id, rank)
     @id = id
+    @rank = rank
   end
 
   class << self
@@ -13,7 +14,15 @@ class Sex
     end
 
     def all
-      all_ids.map { |id| new(id) }
+      @@all ||= begin
+        result = []
+        all_ids.each_with_index { |id, i| result << new(id, i+1) }
+        result
+      end
+    end
+
+    def find(id)
+      self.all.find { |sex| sex.id.eql?(id) }
     end
   end
 
