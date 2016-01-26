@@ -7,12 +7,12 @@ export default Ember.Component.extend({
   actions: {
     completeStep() {
       Ember.Logger.debug('treatments-step: completeStep');
-      this.sendAction('onStepCompleted');
+      this.get('onStepCompleted')();
     },
 
     goBack() {
       Ember.Logger.debug('treatments-step: goBack');
-      this.sendAction('onGoBack');
+      this.get('onGoBack')();
     }
   }
 

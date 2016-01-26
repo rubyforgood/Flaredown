@@ -6,10 +6,10 @@ export default Ember.Component.extend({
 
   actions: {
     forward() {
-      this.sendAction('onForward');
+      this.get('onForward')();
     },
     backward() {
-      this.sendAction('onBackward');
+      this.get('onBackward')();
     }
   }
 
