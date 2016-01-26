@@ -41,6 +41,7 @@
     "ember-data": "^2.3.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
+    "ember-radio-button": "1.0.7",
     "ember-resolver": "^2.0.3",
     "ember-simple-auth": "git://github.com/simplabs/ember-simple-auth.git",
     "torii": "~0.6.1"
