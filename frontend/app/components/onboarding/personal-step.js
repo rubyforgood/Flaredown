@@ -6,8 +6,10 @@ export default Ember.Component.extend({
 
   actions: {
     completeStep() {
-      Ember.Logger.debug('personal-step: completeStep');
-      this.get('onStepCompleted')();
+      var profile = this.get('model.profile');
+      profile.save().then( () => {
+        this.get('onStepCompleted')();
+      });
     }
   }
 

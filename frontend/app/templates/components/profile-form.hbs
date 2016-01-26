@@ -1,0 +1,27 @@
+{{#form-for for=model}}
+
+  {{#form-field for="country" label="Country"}}
+    {{ember-selectize content=countries
+                      optionValuePath="content.id"
+                      optionLabelPath="content.name"
+                      selection=model.country
+                      placeholder="Select a country" }}
+  {{/form-field}}
+
+  {{#form-field for="birthDate" label="Birth Date"}}
+    {{input type="date" value=model.birthDate}}
+  {{/form-field}}
+
+  {{#form-field for="sex" label="Sex"}}
+    {{#each sexes as |sex|}}
+      {{#radio-button name="sex" value=sex.id groupValue=selectedSexId changed="sexChanged"}}
+        {{sex.name}}
+      {{/radio-button}}
+    {{/each}}
+  {{/form-field}}
+
+  {{#unless noSubmit}}
+    {{input type="submit" value="Save"}}
+  {{/unless}}
+
+{{/form-for}}
