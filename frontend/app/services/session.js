@@ -19,10 +19,6 @@ export default SessionService.extend({
     this.get('dataStore').find('session', 1).then( (session) => {
       this.set('extraSession', session);
     });
-  })),
-
-  getCurrentUser() {
-    return Ember.RSVP.resolve(this.get('currentUser'));
-  }
+  }))
 
 });

@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 
   beforeModel(transition) {
-    this.get('session').getCurrentUser().then(currentUser => {
+    this.get('session.currentUser').then(currentUser => {
       currentUser.get('profile').then(profile => {
         profile.get('onboardingStep').then(step => {
           if (profile.get('isOnboarded')) {
