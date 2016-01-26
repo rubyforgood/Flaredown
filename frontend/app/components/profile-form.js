@@ -18,6 +18,13 @@ export default Ember.Component.extend({
   actions: {
     sexChanged(newId) {
       this.get('model').set('sex', this.get('sexes').findBy('id', newId));
+    },
+    saveProfile() {
+      Ember.RSVP.resolve(this.get('model')).then(profile => {
+        profile.save().then(savedProfile => {
+          this.sendAction('onProfileSaved', savedProfile);
+        });
+      });
     }
   }
 
