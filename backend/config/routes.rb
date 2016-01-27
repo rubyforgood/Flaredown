@@ -20,6 +20,11 @@ Rails.application.routes.draw do
       resources :countries, only: [:index, :show]
 
       #
+      # Countries
+      #
+      resources :graphs, only: [:show]
+
+      #
       # Invitations
       #
       resources :invitations, only: [:show, :update]
