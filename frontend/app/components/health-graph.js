@@ -16,12 +16,20 @@ export default Ember.Component.extend({
     if(Ember.isPresent(this.get('model'))) {
       return this.get('model.series');
     } else {
-      return { columns: [] }
+      return { x: 'timeline', columns: [] }
     }
   }),
 
-  axis: Ember.computed('model', function() {
-    return this.get('model.axis');
+  axis: Ember.computed( function() {
+    return{
+      y: { show: false },
+      x: {
+        type: 'timeseries',
+        tick: {
+          format: '%Y-%m-%d'
+        }
+      }
+    }
   })
 
 });
