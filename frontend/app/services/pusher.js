@@ -1,38 +1,6 @@
 import Ember from 'ember';
-import ENV from 'flaredown/config/environment';
-
-
-var Connection = Ember.Object.extend({
-  setConnection: Ember.on('init', function() {
-    this.set('client', new window.Pusher(ENV.pusher.key, {
-      encrypted: true,
-      authEndpoint: '/api/pusher',
-      auth: {
-        headers: {
-          'Authorization': `Token token="${this.get('token')}", email="${this.get('email')}"`
-        }
-      }
-    }));
-    this.get('client').connection.bind('connected', this.onConnected.bind(this) );
-  }),
-
-  onConnected() {
-  }
-});
-
-var Subscription = Ember.Object.extend({
-  channelName: '',
-
-  initSubscription: Ember.on('init', function() {
-    this.get('connection.client').subscribe(this.get('channelName')) .bind_all(this.handlerEvents.bind(this));
-  }),
-
-  handlerEvents: function(eventName, data) {
-    if(Ember.isPresent(eventName)) {
-      Ember.tryInvoke(this, eventName, [data]);
-    }
-  }
-});
+import Connection from 'flaredown/services/pusher/connection';
+import Subscription from 'flaredown/services/pusher/subscription';
 
 
 export default Ember.Service.extend({
