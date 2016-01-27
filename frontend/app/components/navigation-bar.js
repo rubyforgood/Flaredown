@@ -24,7 +24,10 @@ export default Ember.Component.extend({
     },
 
     openEditProfileModal() {
-      Ember.getOwner(this).lookup('route:application').send('openModal', 'profile', this.get('session.currentUser'));
+      this.get('session.currentUser.profile').then( (profile) => {
+        Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/edit-profile', profile);
+      });
+
     },
 
   }
