@@ -12,13 +12,13 @@ module.exports = function(defaults) {
   });
 
   // pace
-  app.import('bower_components/pace/pace.js');
+  app.import(app.bowerDirectory + '/pace/pace.js');
 
   // spinkit
-  app.import('bower_components/spinkit/css/spinners/7-three-bounce.css');
+  app.import(app.bowerDirectory + '/spinkit/css/spinners/7-three-bounce.css');
 
   // pusher
-  app.import('bower_components/pusher/dist/pusher.js');
+  app.import(app.bowerDirectory + '/pusher/dist/pusher.js');
 
   return app.toTree();
 };
