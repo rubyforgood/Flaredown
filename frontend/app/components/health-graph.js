@@ -16,7 +16,7 @@ export default Ember.Component.extend({
     if(Ember.isPresent(this.get('model'))) {
       return this.get('model.series');
     } else {
-      return { x: 'timeline', columns: [] }
+      return { x: 'timeline', columns: [] };
     }
   }),
 
@@ -29,7 +29,7 @@ export default Ember.Component.extend({
           format: '%Y-%m-%d'
         }
       }
-    }
+    };
   })
 
 });

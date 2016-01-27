@@ -9,9 +9,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
       if(Ember.isEmpty(controller)) {
         try {
-          controller = this.controllerFor(modalName)
+          controller = this.controllerFor(modalName);
         } catch(err) {
-          controller = this.controllerFor('application')
+          controller = this.controllerFor('application');
         }
       }
 
