@@ -12,6 +12,7 @@
     "bourbon": "4.2.3",
     "neat": "~1.7.2",
     "pace": "vectart/pace",
-    "selectize": "miguelcobain/selectize.js#master"
+    "selectize": "miguelcobain/selectize.js#master",
+    "pusher": "~3.0.0"
   }
 }

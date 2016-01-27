@@ -30,6 +30,11 @@ Rails.application.routes.draw do
       resources :profiles, only: [:show, :update]
 
       #
+      # Profiles
+      #
+      resource :pusher, only: [:create]
+
+      #
       # Sessions
       #
       resources :sessions, only: [:show, :create]

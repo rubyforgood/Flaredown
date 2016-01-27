@@ -51,6 +51,14 @@ class User < ActiveRecord::Base
   delegate :locale, to: :profile
 
 
+  def notification_channel
+    "private-#{id}"
+  end
+
+  def push(event, message)
+    Flaredown.pusher.push(notification_channel, event, message)
+  end
+
   private
 
   def generate_authentication_token

@@ -8,6 +8,10 @@ module Flaredown
     Flaredown::Session.instance
   end
 
+  def self.pusher
+    PusherClient.instance
+  end
+
   class Session
     include Singleton, ActiveModel::Serialization
   end

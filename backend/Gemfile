@@ -36,6 +36,9 @@ gem 'seedbank'
 # ISO 3166 standard countries
 gem 'countries', :require => 'countries/global'
 
+# Pusher Client
+gem 'pusher'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

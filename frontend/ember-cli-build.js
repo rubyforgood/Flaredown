@@ -5,7 +5,6 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     dotEnv: {
-      clientAllowedKeys: ['FACEBOOK_APP_ID'],
       path: {
         development: '../backend/.env',
       }
@@ -17,6 +16,9 @@ module.exports = function(defaults) {
 
   // spinkit
   app.import('bower_components/spinkit/css/spinners/7-three-bounce.css');
+
+  // pusher
+  app.import('bower_components/pusher/dist/pusher.js');
 
   return app.toTree();
 };

@@ -5,6 +5,10 @@ export default SessionService.extend({
   dataStore: Ember.inject.service('store'),
 
   userId: Ember.computed.alias('session.authenticated.user_id'),
+  email: Ember.computed.alias('session.authenticated.email'),
+  token: Ember.computed.alias('session.authenticated.token'),
+
+  notificationChannel: Ember.computed.alias('extraSession.notificationChannel'),
 
   setCurrentUser: Ember.on('init', Ember.observer('isAuthenticated', function() {
     var userId = this.get('userId');
@@ -16,9 +20,7 @@ export default SessionService.extend({
   })),
 
   setExtraSession: Ember.on('init', Ember.observer('currentUser', function() {
-    this.get('dataStore').find('session', 1).then( (session) => {
-      this.set('extraSession', session);
-    });
+    this.set('extraSession', this.get('dataStore').find('session', 1));
   }))
 
 });

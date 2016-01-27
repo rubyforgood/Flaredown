@@ -22,6 +22,10 @@ module.exports = function(environment) {
       }
     },
 
+    pusher: {
+      'key': process.env.PUSHER_KEY
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
