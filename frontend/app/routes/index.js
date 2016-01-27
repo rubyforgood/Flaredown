@@ -3,9 +3,9 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import OnboardedRouteMixin from 'flaredown/mixins/onboarded-route-mixin';
 
 export default Ember.Route.extend(OnboardedRouteMixin, AuthenticatedRouteMixin, {
-  actions: {
-    invalidateSession() {
-      this.get('session').invalidate();
-    }
+
+  model() {
+    return this.get('store').findRecord('graph', 'health');
   }
+
 });

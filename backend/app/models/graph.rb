@@ -18,6 +18,18 @@ class Graph
     }
   end
 
+  def axis
+    {
+      y: { show: false },
+      x: {
+        type: 'timeseries',
+        tick: {
+          format: '%Y-%m-%d'
+        }
+      }
+    }
+  end
+
   private
 
   def columns

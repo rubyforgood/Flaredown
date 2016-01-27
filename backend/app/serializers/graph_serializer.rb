@@ -1,3 +1,3 @@
 class GraphSerializer < ApplicationSerializer
-  attributes :id, :series
+  attributes :id, :series, :axis
 end
