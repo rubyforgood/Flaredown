@@ -13,6 +13,8 @@
     "neat": "~1.7.2",
     "pace": "vectart/pace",
     "selectize": "miguelcobain/selectize.js#master",
-    "pusher": "~3.0.0"
+    "pusher": "~3.0.0",
+    "d3": "~3.5.13",
+    "c3": "~0.4.10"
   }
 }
