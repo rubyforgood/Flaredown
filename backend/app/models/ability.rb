@@ -10,5 +10,9 @@ class Ability
     can :read, Condition, global: true
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
+
+    can :read, Symptom, global: true
+    can :create, Symptom, global: false
+    can :manage, Symptom, id: user.symptom_ids
   end
 end

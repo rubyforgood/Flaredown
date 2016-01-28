@@ -60,6 +60,11 @@ Rails.application.routes.draw do
       resources :steps, only: [:index, :show]
 
       #
+      # Symptoms
+      #
+      resources :symptoms, only: [:index, :show, :create]
+
+      #
       # Users
       #
       resources :users, only: [:show]
