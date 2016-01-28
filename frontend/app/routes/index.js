@@ -4,8 +4,4 @@ import OnboardedRouteMixin from 'flaredown/mixins/onboarded-route-mixin';
 
 export default Ember.Route.extend(OnboardedRouteMixin, AuthenticatedRouteMixin, {
 
-  model() {
-    return this.get('store').findRecord('graph', 'health');
-  }
-
 });

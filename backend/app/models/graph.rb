@@ -3,6 +3,11 @@ class Graph
 
   attr_accessor :id, :user, :filters
 
+  #
+  # Validations
+  #
+  validates :user, presence: true
+
   def series
     {
       x: 'timeline',
