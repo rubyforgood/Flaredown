@@ -28,10 +28,16 @@
 class User < ActiveRecord::Base
   include Authenticatable
 
+
   #
   # Associations
   #
+
   has_one :profile, dependent: :destroy
+
+  has_many :user_conditions, dependent: :destroy
+  has_many :conditions, through: :user_conditions
+
 
   #
   # Validations
