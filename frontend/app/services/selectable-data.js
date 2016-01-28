@@ -13,4 +13,12 @@ export default Ember.Service.extend({
     return this.get('dataStore').findAll('sex');
   }),
 
+  conditions: Ember.computed(function() {
+    return this.get('dataStore').findAll('condition');
+  }),
+
+  symptoms: Ember.computed(function() {
+    return this.get('dataStore').findAll('symptom');
+  })
+
 });
