@@ -20,5 +20,8 @@ module.exports = function(defaults) {
   // pusher
   app.import(app.bowerDirectory + '/pusher/dist/pusher.js');
 
+  // d3
+  app.import(app.bowerDirectory + '/d3/d3.min.js');
+
   return app.toTree();
 };

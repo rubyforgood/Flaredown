@@ -4,14 +4,14 @@ class Api::V1::GraphsController < Api::BaseController
     graph = Graph.new(graph_params)
 
     if graph.invalid?
-      raise ActiveRecord::RecordInvalid(graph)
+      raise ActiveRecord::RecordInvalid.new(graph)
     end
 
     render json: graph
   end
 
   def graph_params
-    params.permit(:id, :filters).tap do |params|
+    params.permit(:id, :start_at, :end_at, :filters).tap do |params|
       params[:user] = current_user
     end
   end
