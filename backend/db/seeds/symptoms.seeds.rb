@@ -245,5 +245,5 @@ SEED_SYMPTOMS = [
 
 I18n.locale = :en
 SEED_SYMPTOMS.each_with_index do |name, i|
-  Symptom.find_or_create_by!(id: i+1).update_attributes!(name: name)
+  Symptom.find_or_create_by!(name: name)
 end

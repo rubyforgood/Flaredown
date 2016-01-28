@@ -1133,5 +1133,5 @@ SEED_CONDITIONS = [
 
 I18n.locale = :en
 SEED_CONDITIONS.each_with_index do |name, i|
-  Condition.find_or_create_by!(id: i+1).update_attributes!(name: name)
+  Condition.find_or_create_by!(name: name)
 end
