@@ -32,6 +32,7 @@ RSpec.describe User do
   describe 'Associations' do
     it { is_expected.to have_one(:profile) }
     it { is_expected.to have_many(:conditions).through(:user_conditions) }
+    it { is_expected.to have_many(:symptoms).through(:user_symptoms) }
   end
 
   describe 'Validations' do
