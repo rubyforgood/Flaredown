@@ -1,7 +1,13 @@
 class Api::V1::GraphsController < Api::BaseController
 
   def show
-    render json: Graph.new(graph_params)
+    graph = Graph.new(graph_params)
+
+    if graph.invalid?
+      raise ActiveRecord::RecordInvalid(graph)
+    end
+
+    render json: graph
   end
 
   def graph_params
