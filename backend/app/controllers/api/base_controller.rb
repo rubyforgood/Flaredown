@@ -15,7 +15,7 @@ class Api::BaseController < ApplicationController
   end
 
   rescue_from ActionController::ParameterMissing do |exception|
-    render json: { errors: "Required parameter missing: #{exception.param}" }, status: :unprocessable_entity
+    render json: { errors: ["Required parameter missing: #{exception.param}"] }, status: :unprocessable_entity
   end
 
   rescue_from ActionController::BadRequest do |exception|
