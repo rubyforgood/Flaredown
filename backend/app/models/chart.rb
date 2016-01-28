@@ -1,4 +1,4 @@
-class Graph
+class Chart
   include ActiveModel::Model, ActiveModel::Serialization
 
   attr_accessor :id, :user, :start_at, :end_at, :filters

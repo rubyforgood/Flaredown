@@ -15,14 +15,14 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       #
+      # Charts
+      #
+      resource :charts, only: [:show]
+
+      #
       # Countries
       #
       resources :countries, only: [:index, :show]
-
-      #
-      # Graphs
-      #
-      resource :graphs, only: [:show]
 
       #
       # Invitations

@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('health-graph', 'Integration | Component | health graph', {
+moduleForComponent('health-chart', 'Integration | Component | health chart', {
   integration: true
 });
 
@@ -15,9 +15,9 @@ test('it renders', function(assert) {
 
   // Template block usage:"
   this.render(hbs`
-    {{#health-graph}}
+    {{#health-chart}}
       template block text
-    {{/health-graph}}
+    {{/health-chart}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');
