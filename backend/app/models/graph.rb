@@ -1,11 +1,7 @@
 class Graph
-  include ActiveModel::Serialization
+  include ActiveModel::Model, ActiveModel::Serialization
 
   attr_accessor :id, :user, :filters
-
-  def initialize(id, user, filters = {})
-    @id, @user, @filters = id, user, filters
-  end
 
   def series
     {
