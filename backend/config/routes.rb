@@ -20,7 +20,12 @@ Rails.application.routes.draw do
       resource :charts, only: [:show]
 
       #
-      # Countries
+      # Conditions
+      #
+      resources :conditions, only: [:index, :show, :create]
+
+      #
+      # Graphs
       #
       resources :countries, only: [:index, :show]
 
@@ -35,7 +40,7 @@ Rails.application.routes.draw do
       resources :profiles, only: [:show, :update]
 
       #
-      # Profiles
+      # Pusher
       #
       resource :pusher, only: [:create]
 
