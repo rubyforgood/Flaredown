@@ -70,6 +70,11 @@ Rails.application.routes.draw do
       resources :trackings, only: [:index, :show, :create, :destroy]
 
       #
+      # Treatments
+      #
+      resources :treatments, only: [:index, :show, :create]
+
+      #
       # Users
       #
       resources :users, only: [:show]

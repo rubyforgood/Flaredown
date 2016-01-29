@@ -15,6 +15,10 @@ class Ability
     can :create, Symptom, global: false
     can :manage, Symptom, id: user.symptom_ids
 
+    can :read, Treatment, global: true
+    can :create, Treatment, global: false
+    can :manage, Treatment, id: user.treatment_ids
+
     can :manage, Tracking, user_id: user.id
   end
 end
