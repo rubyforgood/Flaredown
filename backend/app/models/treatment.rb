@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: symptoms
+# Table name: treatments
 #
 #  id         :integer          not null, primary key
 #  global     :boolean          default(TRUE)
@@ -8,14 +8,11 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+class Treatment < ActiveRecord::Base
 
-  factory :symptom do
-    sequence(:name) { |n| "Symptom#{n}" }
-
-    trait :personal do
-      global false
-    end
-  end
+  #
+  # Localized attributes
+  #
+  translates :name
 
 end

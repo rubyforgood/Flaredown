@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
   has_many :user_symptoms, dependent: :destroy
   has_many :symptoms, through: :user_symptoms
 
+  has_many :user_treatments, dependent: :destroy
+  has_many :treatments, through: :user_treatments
+
 
   #
   # Validations

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: symptoms
+# Table name: treatments
 #
 #  id         :integer          not null, primary key
 #  global     :boolean          default(TRUE)
@@ -10,8 +10,8 @@
 
 FactoryGirl.define do
 
-  factory :symptom do
-    sequence(:name) { |n| "Symptom#{n}" }
+  factory :treatment do
+    sequence(:name) { |n| "Treatment#{n}" }
 
     trait :personal do
       global false

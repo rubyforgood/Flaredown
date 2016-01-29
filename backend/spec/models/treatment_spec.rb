@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: symptoms
+# Table name: treatments
 #
 #  id         :integer          not null, primary key
 #  global     :boolean          default(TRUE)
@@ -8,14 +8,10 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+require 'rails_helper'
 
-  factory :symptom do
-    sequence(:name) { |n| "Symptom#{n}" }
-
-    trait :personal do
-      global false
-    end
+RSpec.describe Treatment, type: :model do
+  describe 'Respond to' do
+    it { is_expected.to respond_to(:name) }
   end
-
 end
