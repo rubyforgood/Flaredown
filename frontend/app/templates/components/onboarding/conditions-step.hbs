@@ -1,5 +1,20 @@
-<p>TODO: conditions form</p>
-
+{{#each existingTrackings as |tracking| }}
+  {{#if tracking.isForCondition}}
+    <h6 class="condition">{{tracking.trackable.name}}</h6>
+  {{/if}}
+{{/each}}
+{{#each newTrackings as |tracking| }}
+  <h6 class="condition">{{tracking.trackable.name}}</h6>
+{{/each}}
+{{ember-selectize content=conditions
+                  optionValuePath="content.id"
+                  optionLabelPath="content.name"
+                  selection=selectedCondition
+                  select-item="trackCondition"
+                  placeholder="Add a condition" }}
+<div class="explainer">
+  Not required, and you can change these later
+</div>
 {{step-controls step=model.currentStep
                 onBackward=(action "goBack")
                 onForward=(action "completeStep") }}
