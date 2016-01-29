@@ -65,6 +65,11 @@ Rails.application.routes.draw do
       resources :symptoms, only: [:index, :show, :create]
 
       #
+      # Trackings
+      #
+      resources :trackings, only: [:index, :show, :create, :destroy]
+
+      #
       # Users
       #
       resources :users, only: [:show]

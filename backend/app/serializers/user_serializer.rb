@@ -28,5 +28,4 @@
 class UserSerializer < ApplicationSerializer
   attributes :id, :email
   has_one :profile
-  has_many :conditions, :symptoms
 end

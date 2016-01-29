@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128191329) do
+ActiveRecord::Schema.define(version: 20160128210332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,18 @@ ActiveRecord::Schema.define(version: 20160128191329) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "trackings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.datetime "start_at"
+    t.datetime "end_at"
+  end
+
+  add_index "trackings", ["trackable_type", "trackable_id"], name: "index_trackings_on_trackable_type_and_trackable_id", using: :btree
+  add_index "trackings", ["trackable_type"], name: "index_trackings_on_trackable_type", using: :btree
+  add_index "trackings", ["user_id"], name: "index_trackings_on_user_id", using: :btree
+
   create_table "user_conditions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "condition_id"
@@ -112,6 +124,7 @@ ActiveRecord::Schema.define(version: 20160128191329) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
   add_foreign_key "profiles", "users"
+  add_foreign_key "trackings", "users"
   add_foreign_key "user_conditions", "conditions"
   add_foreign_key "user_conditions", "users"
   add_foreign_key "user_symptoms", "symptoms"
