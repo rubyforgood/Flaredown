@@ -19,6 +19,10 @@ export default Ember.Service.extend({
 
   symptoms: Ember.computed(function() {
     return this.get('dataStore').findAll('symptom');
+  }),
+
+  treatments: Ember.computed(function() {
+    return this.get('dataStore').findAll('treatment');
   })
 
 });
