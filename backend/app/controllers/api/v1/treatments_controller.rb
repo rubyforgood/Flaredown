@@ -2,6 +2,7 @@ class Api::V1::TreatmentsController < Api::BaseController
   load_and_authorize_resource
 
   def index
+    @treatments = @treatments.where(id: ids) if ids.present?
     render json: @treatments
   end
 
@@ -18,6 +19,10 @@ class Api::V1::TreatmentsController < Api::BaseController
 
   def create_params
     params.require(:treatment).permit(:name)
+  end
+
+  def ids
+    @ids ||= params[:ids]
   end
 
 end

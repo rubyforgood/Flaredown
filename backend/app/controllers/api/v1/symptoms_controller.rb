@@ -2,6 +2,7 @@ class Api::V1::SymptomsController < Api::BaseController
   load_and_authorize_resource
 
   def index
+    @symptoms = @symptoms.where(id: ids) if ids.present?
     render json: @symptoms
   end
 
@@ -18,6 +19,10 @@ class Api::V1::SymptomsController < Api::BaseController
 
   def create_params
     params.require(:symptom).permit(:name)
+  end
+
+  def ids
+    @ids ||= params[:ids]
   end
 
 end
