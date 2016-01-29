@@ -1,0 +1,14 @@
+h6.trackable {
+	font-size: 1.2em;
+	&:before {
+		content: "✔ ";
+		color: $primary;
+	}
+}
+.explainer {
+  font-size: 0.8em;
+  font-style: italic;
+	margin: .5em;
+	color: grey;
+	text-align: left;
+}

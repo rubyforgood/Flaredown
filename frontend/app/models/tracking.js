@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
 
@@ -12,5 +13,8 @@ export default DS.Model.extend({
   trackable: DS.belongsTo('trackable', { polymorphic: true }),
 
   // Properties
-  isForCondition: Ember.computed.equal('trackableType', 'Condition')
+  isForCondition: Ember.computed.equal('trackableType', 'Condition'),
+  isForSymptom: Ember.computed.equal('trackableType', 'Symptom'),
+  isForTreatment: Ember.computed.equal('trackableType', 'Treatment')
+
 });

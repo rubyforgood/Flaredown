@@ -1,0 +1,22 @@
+{{#each existingTrackings as |tracking| }}
+  {{#if (and trackableTypeIsCondition tracking.isForCondition)}}
+    <h6 class="trackable">{{tracking.trackable.name}}</h6>
+  {{else if (and trackableTypeIsSymptom tracking.isForSymptom)}}
+    <h6 class="trackable">{{tracking.trackable.name}}</h6>
+  {{else if (and trackableTypeIsTreatment tracking.isForTreatment)}}
+    <h6 class="trackable">{{tracking.trackable.name}}</h6>
+  {{/if}}
+{{/each}}
+{{#each newTrackings as |tracking| }}
+  <h6 class="trackable">{{tracking.trackable.name}}</h6>
+{{/each}}
+
+{{ember-selectize content=trackables
+                  optionValuePath="content.id"
+                  optionLabelPath="content.name"
+                  selection=selectedTrackable
+                  select-item="trackSelected"
+                  placeholder=selectPlaceholder }}
+<div class="explainer">
+  Not required, and you can change these later
+</div>
