@@ -10,6 +10,16 @@
 #
 
 class UserCondition < ActiveRecord::Base
+
+  #
+  # Associations
+  #
   belongs_to :user
   belongs_to :condition
+
+  #
+  # Validations
+  #
+  validates :user, :condition, presence: true
+
 end

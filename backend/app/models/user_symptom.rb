@@ -10,6 +10,16 @@
 #
 
 class UserSymptom < ActiveRecord::Base
+
+  #
+  # Associations
+  #
   belongs_to :user
   belongs_to :symptom
+
+  #
+  # Validations
+  #
+  validates :user, :symptom, presence: true
+
 end
