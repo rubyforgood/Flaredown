@@ -1,0 +1,34 @@
+.health-chart {
+
+  svg {
+
+    path.line {
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .chart {
+      .axis {
+        path {
+          fill: none;
+          stroke-width: 1;
+          stroke-dasharray: 3,3;
+        }
+      }
+    }
+
+    .timeline {
+      .axis {
+        path, line {
+          fill: none;
+          stroke: grey;
+          stroke-width: 1;
+          shape-rendering: crispEdges;
+        }
+      }
+    }
+
+
+  }
+
+}

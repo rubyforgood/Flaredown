@@ -1,3 +1,3 @@
 class ChartSerializer < ApplicationSerializer
-  attributes :id, :start_at, :end_at, :series
+  attributes :id, :start_at, :end_at, :series, :timeline
 end

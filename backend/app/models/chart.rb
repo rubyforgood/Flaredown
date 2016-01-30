@@ -8,12 +8,34 @@ class Chart
   #
   validates :user, :start_at, :end_at, presence: true
 
+  def timeline
+    (start_at..end_at).map { |day| { x: day } }
+  end
+
   def series
     [
-      ['timeline', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
-      ['data1', 30, 200, 100, 400, 150, 250],
-      ['data2', 130, 340, 200, 500, 250, 350]
+      {
+        type: 'line',
+        color: '#8bcac4',
+        name: "Crohn's Disease 1",
+        data: (start_at..end_at).map { |day| { x: day, y:  random_value} }
+      },
+      {
+        type: 'line',
+        color: '#ca77b4',
+        name: "Crohn's Disease 2",
+        data: (start_at..end_at).map { |day| { x: day, y: random_value } }
+      },
+      {
+        type: 'line',
+        color: '#fc8931',
+        name: "Crohn's Disease 3",
+        data: (start_at..end_at).map { |day| { x: day, y: random_value } }
+      }
     ]
   end
 
+  def random_value
+    rand(1...5)
+  end
 end
