@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :user_treatments, dependent: :destroy
   has_many :treatments, through: :user_treatments
 
+  has_many :trackings, dependent: :destroy
 
   #
   # Validations
@@ -62,6 +63,10 @@ class User < ActiveRecord::Base
   #
   delegate :locale, to: :profile
 
+
+  def checkins
+    Checkin.where(user_id: id)
+  end
 
   def notification_channel
     "private-#{id}"
