@@ -10,6 +10,9 @@ if email.present?
   Checkin.destroy_all
   Checkin::Tag.destroy_all
 
+  # Set locale to default
+  I18n.locale = I18n.default_locale
+
   # Create some trackables (both global and personal)
   conditions = FactoryGirl.create_list(:condition, 2, :personal)
   conditions += FactoryGirl.create_list(:condition, 3)
