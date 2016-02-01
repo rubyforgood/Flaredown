@@ -4,7 +4,7 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   model(params) {
-    return Ember.RSVP.resolve(this.get('session.currentUser')).then((currentUser) => {
+    return this.get('session.currentUser').then(currentUser => {
       var stepId = `${this.routeName}-${params.step_key}`;
       return Ember.RSVP.hash({
         profile: currentUser.get('profile'),
