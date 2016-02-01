@@ -14,11 +14,11 @@ if email.present?
   I18n.locale = I18n.default_locale
 
   # Create some trackables (both global and personal)
-  conditions = FactoryGirl.create_list(:condition, 2, :personal)
+  conditions = FactoryGirl.create_list(:user_condition, 2, user: user).map(&:condition)
   conditions += FactoryGirl.create_list(:condition, 3)
-  symptoms = FactoryGirl.create_list(:symptom, 2, :personal)
+  symptoms = FactoryGirl.create_list(:user_symptom, 2, user: user).map(&:symptom)
   symptoms += FactoryGirl.create_list(:symptom, 5)
-  treatments = FactoryGirl.create_list(:treatment, 3, :personal)
+  treatments = FactoryGirl.create_list(:user_treatment, 3, user: user).map(&:treatment)
   treatments += FactoryGirl.create_list(:treatment, 6)
 
   # Setup time frame
@@ -74,13 +74,19 @@ if email.present?
     active_trackings = user.trackings.reload.active_at(day)
     active_trackings.map(&:trackable).each do |trackable|
       if trackable.is_a? Condition
-        condition_checkin = FactoryGirl.create(:checkin_condition, checkin: checkin)
+        condition_checkin = FactoryGirl.create(
+          :checkin_condition, checkin: checkin, condition_id: trackable.id
+        )
         puts "Checked-in #{trackable.name}, value: #{condition_checkin.value}"
       elsif trackable.is_a? Symptom
-        symptom_checkin = FactoryGirl.create(:checkin_symptom, checkin: checkin)
+        symptom_checkin = FactoryGirl.create(
+          :checkin_symptom, checkin: checkin, symptom_id: trackable.id
+        )
         puts "Checked-in #{trackable.name}, value: #{symptom_checkin.value}"
       elsif trackable.is_a? Treatment
-        treatment_checkin = FactoryGirl.create(:checkin_treatment, checkin: checkin)
+        treatment_checkin = FactoryGirl.create(
+          :checkin_treatment, checkin: checkin, treatment_id: trackable.id
+        )
         puts "Checked-in #{trackable.name}, dose: #{treatment_checkin.dose}"
       end
     end
