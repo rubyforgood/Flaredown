@@ -20,6 +20,11 @@ Rails.application.routes.draw do
       resource :charts, only: [:show]
 
       #
+      # Checkins
+      #
+      resources :checkins, only: [:show]
+
+      #
       # Conditions
       #
       resources :conditions, only: [:index, :show, :create]

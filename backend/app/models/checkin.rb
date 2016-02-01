@@ -12,6 +12,7 @@ class Checkin
   # Relations
   #
   has_and_belongs_to_many :tags, class_name: 'Checkin::Tag'
+
   embeds_many :conditions, class_name: 'Checkin::Condition'
   embeds_many :symptoms, class_name: 'Checkin::Symptom'
   embeds_many :treatments, class_name: 'Checkin::Treatment'
@@ -27,4 +28,11 @@ class Checkin
   #
   validates :user_id, presence: true
   validates :date, presence: true, uniqueness: { scope: :user_id }
+
+  #
+  # Scopes
+  #
+  scope :by_date, ->(startkey, endkey) { where(:date.gte => startkey, :date.lte => endkey) }
+
 end
+

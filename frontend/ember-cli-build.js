@@ -23,5 +23,8 @@ module.exports = function(defaults) {
   // d3
   app.import(app.bowerDirectory + '/d3/d3.min.js');
 
+  // MomentJS
+  app.import('bower_components/momentjs/moment.js');
+
   return app.toTree();
 };

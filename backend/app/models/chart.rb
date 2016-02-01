@@ -12,30 +12,12 @@ class Chart
     (start_at..end_at).map { |day| { x: day } }
   end
 
-  def series
-    [
-      {
-        type: 'line',
-        color: '#8bcac4',
-        name: "Crohn's Disease 1",
-        data: (start_at..end_at).map { |day| { x: day, y:  random_value} }
-      },
-      {
-        type: 'line',
-        color: '#ca77b4',
-        name: "Crohn's Disease 2",
-        data: (start_at..end_at).map { |day| { x: day, y: random_value } }
-      },
-      {
-        type: 'line',
-        color: '#fc8931',
-        name: "Crohn's Disease 3",
-        data: (start_at..end_at).map { |day| { x: day, y: random_value } }
-      }
-    ]
+  def checkins
+    @checkins ||= user.checkins.by_date(start_at, end_at)
   end
 
-  def random_value
-    rand(1...5)
+  def trackings
+    user.trackings.active_at(Date.today)
   end
+
 end
