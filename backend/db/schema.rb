@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160129064538) do
 
   add_index "trackings", ["trackable_type", "trackable_id"], name: "index_trackings_on_trackable_type_and_trackable_id", using: :btree
   add_index "trackings", ["trackable_type"], name: "index_trackings_on_trackable_type", using: :btree
+  add_index "trackings", ["user_id", "trackable_id", "trackable_type", "start_at"], name: "index_trackings_unique_trackable", unique: true, using: :btree
   add_index "trackings", ["user_id"], name: "index_trackings_on_user_id", using: :btree
 
   create_table "treatment_translations", force: :cascade do |t|
