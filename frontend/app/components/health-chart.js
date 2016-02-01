@@ -32,7 +32,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
   SVGWidth: Ember.computed(function() {
     return this.$().width();
-  }),
+  }).volatile(),
 
   viewport: Ember.computed(function() {
     return d3.select(this.$('.health-chart-viewport').get(0));
