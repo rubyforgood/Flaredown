@@ -61,7 +61,9 @@ if email.present?
     # (either something new, or something tracked earlier)
     if i % divisors_range.to_a.sample == 0
       tracked_earlier = (user.trackings.to_a - active_trackings.to_a).map(&:trackable)
-      trackables = conditions + treatments + tracked_earlier + symptoms
+      trackables_matrix = [conditions, treatments, tracked_earlier, symptoms]
+      trackables = []
+      trackables = trackables_matrix.pop while trackables.empty?
       trackable = trackables.pop
       Tracking.create!(user: user, trackable: trackable, start_at: day)
       puts "Start tracking #{trackable.name}"
