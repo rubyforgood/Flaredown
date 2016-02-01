@@ -71,7 +71,7 @@ if email.present?
 
     # Checkin
     checkin = FactoryGirl.create(:checkin, user_id: user.id, date: day)
-    active_trackings = user.trackings.active_at(day)
+    active_trackings = user.trackings.reload.active_at(day)
     active_trackings.map(&:trackable).each do |trackable|
       if trackable.is_a? Condition
         condition_checkin = FactoryGirl.create(:checkin_condition, checkin: checkin)
