@@ -12,10 +12,9 @@ class Checkin
   # Relations
   #
   has_and_belongs_to_many :tags, class_name: 'Checkin::Tag'
-
+  has_many :treatments, class_name: 'Checkin::Treatment'
   embeds_many :conditions, class_name: 'Checkin::Condition'
   embeds_many :symptoms, class_name: 'Checkin::Symptom'
-  embeds_many :treatments, class_name: 'Checkin::Treatment'
 
   #
   # Indexes

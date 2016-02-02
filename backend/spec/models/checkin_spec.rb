@@ -7,7 +7,7 @@ RSpec.describe Checkin, type: :model do
     it { is_expected.to have_and_belong_to_many(:tags) }
     it { is_expected.to embed_many(:conditions) }
     it { is_expected.to embed_many(:symptoms) }
-    it { is_expected.to embed_many(:treatments) }
+    it { is_expected.to have_many(:treatments) }
   end
 
   describe 'Validations' do
