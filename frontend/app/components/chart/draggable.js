@@ -12,6 +12,7 @@ export default Ember.Mixin.create( {
 
   onDragEnd: Ember.on('dragEnd', function(event){
     Ember.debug("onDragEnd: " + this.get('dragDirection'));
+    this.trigger('onDragged', this.get('dragDirection'), this.get('dragDistance'));
   }),
 
   onDragOver: Ember.on('dragOver', function(event){

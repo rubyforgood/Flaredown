@@ -8,6 +8,9 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
   store: Ember.inject.service(),
 
+  checkins: [],
+  trackings: [],
+
   serieHeight: 75,
   serieOffset: 10,
   seriesLength: Ember.computed.alias('trackables.length'),
@@ -18,9 +21,6 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
   timelineHeight: 25,
   timelineLength: Ember.computed.alias('timeline.length'),
-
-  startAt: '2016-01-01',
-  endAt: '2016-01-31',
 
   SVGHeight: Ember.computed('timelineLength', 'seriesLength', function() {
     if(Ember.isPresent(this.get('seriesLength'))) {
@@ -34,14 +34,22 @@ export default Ember.Component.extend(Resizable, Draggable, {
     return this.$().width();
   }).volatile(),
 
+  chartWidth: Ember.computed('SVGWidth', function() {
+    return this.get('SVGWidth');
+  }),
+
   viewport: Ember.computed(function() {
     return d3.select(this.$('.health-chart-viewport').get(0));
   }),
 
   timeline: Ember.computed('checkins', function() {
-    return this.get('checkins').sortBy('date').map( (item) => {
-      return item.get('date');
+    var timeline = Ember.A();
+    moment.range(this.get('startAt'), this.get('endAt') ).by('days', function(moment) {
+      timeline.push(
+        d3.time.format('%Y-%m-%d').parse(moment.format("YYYY-MM-DD"))
+      )
     });
+    return timeline;
   }),
 
   trackables: Ember.computed('trackings', function() {
@@ -55,19 +63,32 @@ export default Ember.Component.extend(Resizable, Draggable, {
   }),
 
   onInit: Ember.on('init',function(){
-    this.setupModel().then( () => {
+    this.set('startAt', moment().subtract(30, 'days')),
+    this.set('endAt', moment() )
+
+    this.fetchDataChart().then( () => {
       this.drawChart();
     });
   }),
 
-  onDragging(direction, distance){
-    Ember.debug("direction: " + direction + " distance: " + distance);
+  onDragged(direction, distance){
+    this.fetchDataChart().then( () => {
+      this.drawChart();
+    });
   },
 
-  setupModel() {
-    return this.get('store').queryRecord('chart', { id: 'health', start_at: this.get('startAt'), end_at: this.get('endAt') }).then( chart => {
-      this.set('checkins', chart.get('checkins').toArray() );
-      this.set('trackings', chart.get('trackings').toArray() );
+  onDragging(direction, distance){
+    Ember.debug("CALCULATE NUMBER OF PAGE");
+  },
+
+  fetchDataChart() {
+    var startAt = this.get('startAt').format("YYYY-MM-DD");
+    var endAt = this.get('endAt').format("YYYY-MM-DD");
+
+    Ember.debug("fetchDataChart from " + startAt + " to " + endAt);
+    return this.get('store').queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
+      this.set('checkins', Ember.merge(chart.get('checkins').toArray(), this.get('checkins')) );
+      this.set('trackings', Ember.merge(chart.get('trackings').toArray(), this.get('trackings')) );
     });
   },
 
@@ -80,40 +101,36 @@ export default Ember.Component.extend(Resizable, Draggable, {
   },
 
   drawChart() {
-    this.clearChart();
     Ember.RSVP.all(this.get('trackables')).then( (trackables) => {
+      this.clearChart();
       trackables.forEach( (trackable, index) => {
         this.buildChart(trackable, index);
       });
+      this.buildTimeline();
     });
-    this.buildTimeline();
   },
 
   fetchSerieFor(trackable) {
     var key = Ember.String.pluralize(trackable.get('constructor.modelName'));
 
-    return this.get('checkins').map( (checkin) => {
-      var coordinate = { x: checkin.get('date'), y: 0 };
+    return this.get('timeline').map( (day) => {
 
-      checkin.get(key).forEach( (item) => {
-        if(parseInt(item.id)  === parseInt(trackable.get('id') ) ) {
-          var value = parseInt(item.value);
-          if( Ember.$.isNumeric(value) ) {
-            coordinate.y = value;
-          } else {
-            coordinate.y = true;
+      var checkin = this.get('checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"))
+
+      var coordinate = { x: day, y: null };
+
+      if(Ember.isPresent(checkin)) {
+        checkin.get(key).forEach( (item) => {
+          if(parseInt(item.id)  === parseInt(trackable.get('id') ) ) {
+            coordinate.y = item.value;
           }
-        }
-      });
+        });
+      }
       return coordinate;
     }).sortBy('x');
-
   },
 
   buildChart(trackable, index) {
-
-    Ember.debug("buildChart for index: " + index + " " + trackable.get('name') + " -> " + trackable.get('id'));
-
     var data = this.fetchSerieFor(trackable);
 
     var chart = this.get('viewport').append("g").attr({
@@ -121,16 +138,16 @@ export default Ember.Component.extend(Resizable, Draggable, {
       transform: "translate(0," + (this.get('serieHeight') * index + (this.get('serieOffset') * index)) + ")"
     });
 
-    var x = d3.time.scale().range([0, this.get('SVGWidth')]);
+    var x = d3.time.scale().range([0, this.get('chartWidth')]);
     var y = d3.scale.linear().range([this.get('serieHeight') , 0]);
 
     x.domain(d3.extent(data, function (d) {
        return d.x;
      }));
 
-     y.domain([0, d3.max(data, function (d) {
+     y.domain([-1, d3.max(data, function (d) {
        return d.y;
-     })]);
+     }) + 1]);
 
     var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(0);
 
@@ -138,9 +155,15 @@ export default Ember.Component.extend(Resizable, Draggable, {
         .attr("class", "axis x")
         .attr("stroke", 'black')
         .attr("transform", "translate(0," + this.get('serieHeight') + ")")
-        .call(xAxis);
+        .call(xAxis)
+
 
     var lineFunction = d3.svg.line()
+                              .defined(function(d) {
+                                if(Ember.$.isNumeric(d.y) ) {
+                                  return d;
+                                }
+                              })
                              .x( function(d) { return x(d.x);})
                              .y(function(d) { return y(d.y); })
                              .interpolate("linear");
@@ -150,13 +173,23 @@ export default Ember.Component.extend(Resizable, Draggable, {
          .attr("class", "line")
          .attr("d", lineFunction(data));
 
+    chart.append("text")
+        .attr({
+          class: "title",
+          stroke: 'black',
+          transform: "translate(5,10)"
+        })
+        .text(function(d){
+          return trackable.get('name');
+        })
+
 
   },
 
   buildTimeline() {
     var data = this.get('timeline');
 
-    var x = d3.time.scale().range([0, this.get('SVGWidth')]);
+    var x = d3.time.scale().range([0, this.get('chartWidth')]);
 
     x.domain(d3.extent(data));
 
@@ -167,12 +200,19 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
     // Define the axes
     var xAxis = d3.svg.axis().scale(x)
-        .orient("bottom").ticks(data.length);
+        .orient("bottom").ticks(data.length).tickFormat(function(d, i){
+          return moment(d).format("YYYY-MM-DD")
+        });
 
     timeline.insert('g').attr({
       class: "axis timeline"
-    }).call(xAxis);
+    }).call(xAxis)
+    .selectAll('.tick')
+    .on('click', this.handleDataClick.bind(this));
+  },
 
+  handleDataClick(date) {
+    this.get('onDateClicked')(moment(date).format("YYYY-MM-DD"))
   }
 
 });

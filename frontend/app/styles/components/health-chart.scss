@@ -2,6 +2,10 @@
 
   svg {
 
+    .trackable-title {
+      margin-top: 21px;
+    }
+
     path.line {
       fill: none;
       stroke-width: 2;
@@ -25,6 +29,15 @@
           stroke-width: 1;
           shape-rendering: crispEdges;
         }
+
+        .tick {
+          font-size: 10px;
+        }
+        .tick:hover {
+          fill: grey;
+          stroke-width: 2;
+          cursor: pointer;
+        };
       }
     }
 

@@ -25,6 +25,7 @@ module.exports = function(defaults) {
 
   // MomentJS
   app.import('bower_components/momentjs/moment.js');
+  app.import('bower_components/moment-range/dist/moment-range.js');
 
   return app.toTree();
 };
