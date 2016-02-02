@@ -103,7 +103,7 @@ GEM
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
     currencies (0.4.2)
-    database_cleaner (1.4.1)
+    database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     devise (3.5.3)
       bcrypt (~> 3.0)
@@ -355,7 +355,7 @@ DEPENDENCIES
   cancancan (~> 1.10)
   colored (~> 1.2)
   countries
-  database_cleaner (~> 1.4.0)
+  database_cleaner (~> 1.5.1)
   devise (~> 3.5.3)
   devise_invitable (~> 1.5.2)
   dotenv-rails
