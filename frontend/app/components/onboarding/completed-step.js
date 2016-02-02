@@ -6,12 +6,10 @@ export default Ember.Component.extend({
 
   actions: {
     completeStep() {
-      Ember.Logger.debug('completed-step: completeStep');
       this.get('onStepCompleted')();
     },
 
     goBack() {
-      Ember.Logger.debug('completed-step: goBack');
       this.get('onGoBack')();
     }
   }
