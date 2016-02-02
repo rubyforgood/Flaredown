@@ -19,6 +19,14 @@ RSpec.describe Api::V1::StepsController do
         expect(step[:title]).to eq step_title_en
       end
     end
+    context 'with group param' do
+      let(:group) { :checkin }
+      it 'returns steps for that group only' do
+        get :index, group: group
+        returned_ids = response_body[:steps].map { |s| s[:id] }
+        expect(returned_ids.to_set).to eq Step.by_group(group).map(&:id).to_set
+      end
+    end
   end
 
   describe 'show' do
