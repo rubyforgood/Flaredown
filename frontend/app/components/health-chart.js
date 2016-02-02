@@ -47,7 +47,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     moment.range(this.get('startAt'), this.get('endAt') ).by('days', function(moment) {
       timeline.push(
         d3.time.format('%Y-%m-%d').parse(moment.format("YYYY-MM-DD"))
-      )
+      );
     });
     return timeline;
   }),
@@ -64,7 +64,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
   onInit: Ember.on('init',function(){
     this.set('startAt', moment().subtract(30, 'days')),
-    this.set('endAt', moment() )
+    this.set('endAt', moment());
 
     this.fetchDataChart().then( () => {
       this.drawChart();
@@ -115,7 +115,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
     return this.get('timeline').map( (day) => {
 
-      var checkin = this.get('checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"))
+      var checkin = this.get('checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
 
       var coordinate = { x: day, y: null };
 
@@ -155,7 +155,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
         .attr("class", "axis x")
         .attr("stroke", 'black')
         .attr("transform", "translate(0," + this.get('serieHeight') + ")")
-        .call(xAxis)
+        .call(xAxis);
 
 
     var lineFunction = d3.svg.line()
@@ -181,7 +181,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
         })
         .text(function(d){
           return trackable.get('name');
-        })
+        });
 
 
   },
@@ -201,7 +201,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     // Define the axes
     var xAxis = d3.svg.axis().scale(x)
         .orient("bottom").ticks(data.length).tickFormat(function(d, i){
-          return moment(d).format("YYYY-MM-DD")
+          return moment(d).format("YYYY-MM-DD");
         });
 
     timeline.insert('g').attr({
@@ -212,7 +212,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
   },
 
   handleDataClick(date) {
-    this.get('onDateClicked')(moment(date).format("YYYY-MM-DD"))
+    this.get('onDateClicked')(moment(date).format("YYYY-MM-DD"));
   }
 
 });

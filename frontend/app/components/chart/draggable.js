@@ -21,11 +21,11 @@ export default Ember.Mixin.create( {
   }),
 
   dragDirection: Ember.computed('dragStartX', 'dragOverX', function() {
-    return (this.get('dragStartX') > this.get('dragOverX')) ? 'left' : 'right'
+    return (this.get('dragStartX') > this.get('dragOverX')) ? 'left' : 'right';
   }),
 
   dragDistance: Ember.computed('dragStartX', 'dragOverX', function() {
-    return Math.abs(this.get('dragStartX') - this.get('dragOverX'))
+    return Math.abs(this.get('dragStartX') - this.get('dragOverX'));
   }),
 
   avoidDataTransfer(dataTransfer) {
