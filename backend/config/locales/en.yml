@@ -37,3 +37,5 @@ en:
         title: "Which treatments did you take today?"
       tags:
         title: "Tag your day"
+      summary:
+        title: 'Summary'

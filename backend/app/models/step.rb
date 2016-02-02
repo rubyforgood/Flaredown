@@ -44,6 +44,7 @@ class Step
       symptoms
       treatments
       tags
+      summary
     )
   }
 
