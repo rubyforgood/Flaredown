@@ -22,5 +22,9 @@ FactoryGirl.define do
     trait :for_symptom do
       association :trackable, factory: :symptom
     end
+
+    trait :for_treatment do
+      association :trackable, factory: :treatment
+    end
   end
 end

@@ -15,6 +15,7 @@ class Checkin
   has_many :treatments, class_name: 'Checkin::Treatment'
   embeds_many :conditions, class_name: 'Checkin::Condition'
   embeds_many :symptoms, class_name: 'Checkin::Symptom'
+  accepts_nested_attributes_for :conditions, :symptoms, :treatments
 
   #
   # Indexes
@@ -33,5 +34,5 @@ class Checkin
   #
   scope :by_date, ->(startkey, endkey) { where(:date.gte => startkey, :date.lte => endkey) }
 
-end
 
+end
