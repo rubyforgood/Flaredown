@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       #
       # Checkins
       #
-      resources :checkins, only: [:show]
+      resources :checkins, only: [:index, :show, :create, :update]
 
       #
       # Conditions
