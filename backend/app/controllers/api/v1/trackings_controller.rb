@@ -10,14 +10,14 @@ class Api::V1::TrackingsController < Api::BaseController
   end
 
   def create
-    tracking = Tracking.new(create_params.merge(start_at: Time.now, user: current_user))
+    tracking = Tracking.new(create_params.merge(start_at: Date.today, user: current_user))
     authorize! :create, tracking
     tracking.save!
     render json: tracking
   end
 
   def destroy
-    @tracking.update_attributes!(end_at: Time.now)
+    @tracking.update_attributes!(end_at: Date.today)
     head :no_content
   end
 

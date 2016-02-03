@@ -54,8 +54,8 @@ RSpec.describe Api::V1::TrackingsController do
       expect(response_body[:tracking][:user_id]).to eq user.id
       expect(response_body[:tracking][:trackable_id]).to eq symptom.id
       expect(response_body[:tracking][:trackable_type]).to eq symptom.class.name
-      start_at = DateTime.parse(response_body[:tracking][:start_at])
-      expect(start_at.strftime('%Y%m%d')).to eq Time.now.strftime('%Y%m%d')
+      start_at = Date.parse(response_body[:tracking][:start_at])
+      expect(start_at.strftime('%F')).to eq Date.today.strftime('%F')
     end
   end
 

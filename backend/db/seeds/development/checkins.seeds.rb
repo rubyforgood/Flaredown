@@ -22,7 +22,7 @@ if email.present?
   treatments += FactoryGirl.create_list(:treatment, 6)
 
   # Setup time frame
-  end_at = Time.now
+  end_at = Date.today
   day = end_at - (DAYS-1).days
 
   # Start tracking some trackable

@@ -6,14 +6,14 @@
 #  user_id        :integer
 #  trackable_id   :integer
 #  trackable_type :string
-#  start_at       :datetime
-#  end_at         :datetime
+#  start_at       :date
+#  end_at         :date
 #
 
 FactoryGirl.define do
   factory :tracking do
     user
-    start_at Time.now
+    start_at Date.today
 
     trait :for_condition do
       association :trackable, factory: :condition

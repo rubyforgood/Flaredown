@@ -64,11 +64,11 @@ ActiveRecord::Schema.define(version: 20160129064538) do
   end
 
   create_table "trackings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.integer "user_id"
+    t.integer "trackable_id"
+    t.string  "trackable_type"
+    t.date    "start_at"
+    t.date    "end_at"
   end
 
   add_index "trackings", ["trackable_type", "trackable_id"], name: "index_trackings_on_trackable_type_and_trackable_id", using: :btree

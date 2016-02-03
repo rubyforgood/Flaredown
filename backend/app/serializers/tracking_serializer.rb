@@ -6,8 +6,8 @@
 #  user_id        :integer
 #  trackable_id   :integer
 #  trackable_type :string
-#  start_at       :datetime
-#  end_at         :datetime
+#  start_at       :date
+#  end_at         :date
 #
 
 class TrackingSerializer < ApplicationSerializer
