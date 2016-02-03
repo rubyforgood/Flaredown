@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: a105c603c4169375d3664ebef79846caa8e80902
+  branch: 0-9-stable
+  specs:
+    active_model_serializers (0.9.4)
+      activemodel (>= 3.2)
+
+GIT
   remote: git@lab.algonauti.com:algonauti/onrails.git
   revision: 95599ee48a4bb514ea0a7971ff189bdaeb1026e3
   specs:
@@ -44,8 +52,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_model_serializers (0.9.3)
-      activemodel (>= 3.2)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -350,7 +356,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers!
   byebug
   cancancan (~> 1.10)
   colored (~> 1.2)
