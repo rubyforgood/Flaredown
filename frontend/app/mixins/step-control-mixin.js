@@ -1,11 +1,7 @@
 import Ember from 'ember';
+import ComponentsRouter from 'flaredown/mixins/components-router';
 
-export default Ember.Mixin.create({
-
-  router: function() {
-    return Ember.getOwner(this).lookup('route:application');
-  },
-
+export default Ember.Mixin.create(ComponentsRouter, {
 
   actions: {
 
@@ -41,7 +37,6 @@ export default Ember.Mixin.create({
     }
 
   },
-
 
   transitionTo: function(step) {
     this.router().transitionTo(step.get('group'), step.get('key'));
