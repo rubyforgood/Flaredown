@@ -3,14 +3,19 @@ import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 export default Ember.Component.extend(TrackablesFromType, {
 
-
-  activeTrackables: Ember.computed(''), //fetch them from the checkin object
+  checkinTrackables: Ember.computed('checkin', function() {
+    if (this.get('trackableTypeIsCondition')) {
+      return this.get('checkin.conditions');
+    } // TODO else
+  }),
 
   actions: {
     trackSelected() {
-      this.get('tracking').track(this.get('selectedTrackable'), () => {
-        this.set('selectedTrackable', null);
-      });
+      Ember.Logger.debug('trackSelected');
+      /* TODO:
+         1) Add tracking to checkin
+         2) invoke track() only if isToday
+      */
     }
   }
 

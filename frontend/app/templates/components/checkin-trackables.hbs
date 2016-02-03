@@ -1,0 +1,9 @@
+{{#each checkinTrackables as |trackable|}}
+  {{trackable.condition.name}}: {{trackable.value}}<br>
+{{/each}}
+{{ember-selectize content=trackables
+                  optionValuePath="content.id"
+                  optionLabelPath="content.name"
+                  selection=selectedTrackable
+                  select-item="checkinSelected"
+                  placeholder=selectPlaceholder }}
