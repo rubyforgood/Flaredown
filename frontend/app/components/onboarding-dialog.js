@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import StepControlMixin from 'flaredown/mixins/step-control-mixin';
+import StepControlMixin from 'flaredown/mixins/step-control';
 
 export default Ember.Component.extend(StepControlMixin, {
 
-  classNames: ['onboarding'],
+  classNames: ['process-step-container'],
 
   step: Ember.computed.alias('model.currentStep'),
 

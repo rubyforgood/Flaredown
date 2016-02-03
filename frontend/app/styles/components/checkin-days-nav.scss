@@ -1,0 +1,40 @@
+.checkin-days-nav {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  .checkin-date {
+    color: $primary;
+    display: inline-block;
+    padding: 20px 0 20px 0;
+    cursor: pointer;
+  }
+  .yesterday, .tomorrow {
+    display: inline-block;
+    font-size: 2em;
+    position: relative;
+    top: 3px;
+    transition: all .25s;
+    &:hover {
+      transform: scale(1.4);
+      a {
+        color: $primary;
+      }
+    }
+    a {
+      padding: 5px 20px;
+      color: $primary;
+    }
+  }
+}
+@media (min-width: $tablet) {
+  .checkin-days-nav {
+    &:hover {
+      .yesterday, .tomorrow {
+        opacity: 1;
+      }
+    }
+    .yesterday, .tomorrow {
+      opacity: 0;
+    }
+  }
+}

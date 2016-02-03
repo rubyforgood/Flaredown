@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import ComponentsRouter from 'flaredown/mixins/components-router';
+import ComponentsRouterMixin from 'flaredown/mixins/components-router';
 
-export default Ember.Component.extend(ComponentsRouter, {
+export default Ember.Component.extend(ComponentsRouterMixin, {
 
   store: Ember.inject.service(),
 

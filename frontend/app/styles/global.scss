@@ -1,0 +1,24 @@
+.tip {
+  background: #ECF7F6;
+  color: $primary;
+  padding: .5em 1em;
+  text-align: left;
+  border: 1px solid $primary;
+  border-radius: 3px;
+}
+
+.process-step-container {
+	@include outer-container;
+	@include single-col;
+	margin-bottom: 2em;
+
+	h2 {
+	  text-align: center;
+	  margin: 1em 0;
+	}
+
+  .tip {
+  	margin: 1em auto 2em auto;
+  }
+}
+
