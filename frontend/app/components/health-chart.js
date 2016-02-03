@@ -112,7 +112,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
   fetchSerieFor(trackable) {
     var type = trackable.get('constructor.modelName');
-    var key = `checkin_${type.pluralize()}`.camelize();
+    var key = type.pluralize();
 
     return this.get('timeline').map( (day) => {
 

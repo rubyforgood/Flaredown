@@ -8,6 +8,10 @@ export default DS.Model.extend({
   checkinSymptoms: DS.hasMany('checkinSymptom'),
   checkinTreatments: DS.hasMany('checkinTreatment'),
 
+  conditions: Ember.computed.alias('checkinConditions'),
+  symptoms: Ember.computed.alias('checkinSymptoms'),
+  treatments: Ember.computed.alias('checkinTreatments'),
+
   formattedDate: Ember.computed('date', function() {
     return moment(this.get('date')).format("YYYY-MM-DD");
   }),
