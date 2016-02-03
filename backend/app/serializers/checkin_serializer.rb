@@ -2,9 +2,9 @@ class CheckinSerializer < ApplicationSerializer
 
   attributes :id, :date
 
-  has_many :checkin_conditions, embed: :objects, serializer: ::Checkin::ConditionSerializer
-  has_many :checkin_symptoms, embed: :objects, serializer: ::Checkin::SymptomSerializer
-  has_many :checkin_treatments, embed: :objects, serializer: ::Checkin::TreatmentSerializer
+  has_many :checkin_conditions, embed: :objects, serializer: CheckinConditionSerializer
+  has_many :checkin_symptoms, embed: :objects, serializer: CheckinSymptomSerializer
+  has_many :checkin_treatments, embed: :objects, serializer: CheckinTreatmentSerializer
 
   def checkin_conditions
     object.conditions

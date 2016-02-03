@@ -1,4 +1,4 @@
-class Checkin::TreatmentSerializer < ApplicationSerializer
+class CheckinTreatmentSerializer < ApplicationSerializer
   attributes :id, :treatment_id, :value
 
   def value
