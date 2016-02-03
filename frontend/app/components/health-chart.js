@@ -111,7 +111,8 @@ export default Ember.Component.extend(Resizable, Draggable, {
   },
 
   fetchSerieFor(trackable) {
-    var key = Ember.String.pluralize(trackable.get('constructor.modelName'));
+    var type = trackable.get('constructor.modelName');
+    var key = `checkin_${type.pluralize()}`.camelize();
 
     return this.get('timeline').map( (day) => {
 
@@ -120,9 +121,9 @@ export default Ember.Component.extend(Resizable, Draggable, {
       var coordinate = { x: day, y: null };
 
       if(Ember.isPresent(checkin)) {
-        checkin.get(key).forEach( (item) => {
-          if(parseInt(item.id)  === parseInt(trackable.get('id') ) ) {
-            coordinate.y = item.value;
+        checkin.get(key).forEach( item => {
+          if(parseInt(item.get(`${type}.id`)) === parseInt(trackable.get('id'))) {
+            coordinate.y = item.get('value');
           }
         });
       }
