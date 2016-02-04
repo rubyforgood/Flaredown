@@ -15,7 +15,6 @@ export default Ember.Mixin.create( {
   }),
 
   onDragEnd: Ember.on('dragEnd', function(event){
-    event.dataTransfer.dropEffect = "copy";
     this.set('isDragging', false);
     this.trigger('onDragged');
   }),
