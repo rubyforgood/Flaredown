@@ -1,0 +1,18 @@
+<h4>
+  {{label}}
+  <span class="x-to-remove" {{action 'xClick'}}>×</span>
+</h4>
+<div>
+  <ul class="pips">
+    {{#each values as |value|}}
+      <li class="basic {{model.bgClass}}
+                 {{if (gte currentValue value) 'highlight' 'no-highlight'}}
+                 {{if (eq currentValue value) 'selected' 'not-selected'}}
+                 {{if (eq value 0) 'smiley'}}
+                 {{if (gt currentValue 0) 'hide-color'}}"
+          {{action 'pipClick' value}}>
+        {{value}}
+      </li>
+    {{/each}}
+  </ul>
+</div>

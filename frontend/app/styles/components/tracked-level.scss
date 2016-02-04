@@ -1,0 +1,51 @@
+.tracked-level {
+  margin-bottom: 1.5em;
+  .pips {
+    li {
+      display: inline-block;
+      margin-right: 4px;
+      border-radius: 5px;
+      width: 50px;
+      height: 40px;
+      color: transparent;
+      cursor: pointer;
+
+      &:first-of-type {
+        width: 40px;
+        border-radius: 999px;
+        background-image: url(smiley.svg);
+        background-repeat: no-repeat;
+        background-size: 25px 25px;
+        background-position: center;
+      }
+
+      &.bg-default, &.sbg- { background-color: $primary; }
+
+      // the selected option
+      &.selected {}
+      &.not-selected {}
+      &.not-selected:hover {}
+
+      // Values that are, or are to be filled in given current selection/hover
+      &.highlight {}
+      &.no-highlight { background-color: $lightgrey; }
+
+      // Special smiley input
+      &.smiley { color: transparent !important; }
+      &.smiley.hide-color { background-color: $lightgrey; }
+    }
+  }
+  h4 {
+    position: relative;
+    display: inline;
+  }
+  .x-to-remove {
+    position: absolute;
+    color: grey;
+    margin-left: 5px;
+    &:hover {
+      color: black;
+      cursor: pointer;
+    }
+  }
+}

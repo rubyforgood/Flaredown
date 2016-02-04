@@ -1,5 +1,7 @@
-{{#each checkinTrackables as |trackable|}}
-  {{trackable.condition.name}}: {{trackable.value}}<br>
+{{#each checkinTrackeds as |tracked|}}
+  {{tracked-level model=tracked
+                  valueKey='value'
+                  onRemove=(action 'remove')}}
 {{/each}}
 {{ember-selectize content=trackables
                   optionValuePath="content.id"
