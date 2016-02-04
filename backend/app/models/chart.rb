@@ -20,4 +20,8 @@ class Chart
     user.trackings.active_at(Date.today)
   end
 
+  def trackables
+    trackings.map(&:trackable)
+  end
+
 end

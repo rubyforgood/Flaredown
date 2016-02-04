@@ -9,7 +9,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
   store: Ember.inject.service(),
 
   checkins: [],
-  trackings: [],
+  trackables: [],
 
   serieHeight: 75,
   serieOffset: 10,
@@ -52,16 +52,6 @@ export default Ember.Component.extend(Resizable, Draggable, {
     return timeline;
   }),
 
-  trackables: Ember.computed('trackings', function() {
-    if(Ember.isPresent(this.get('trackings'))) {
-      return this.get('trackings').map( (item) => {
-        return item.get('trackable');
-      });
-    } else {
-      return Ember.A();
-    }
-  }),
-
   onInit: Ember.on('init',function(){
     this.set('startAt', moment().subtract(30, 'days')),
     this.set('endAt', moment());
@@ -88,7 +78,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     Ember.debug("fetchDataChart from " + startAt + " to " + endAt);
     return this.get('store').queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
       this.set('checkins', Ember.merge(chart.get('checkins').toArray(), this.get('checkins')) );
-      this.set('trackings', Ember.merge(chart.get('trackings').toArray(), this.get('trackings')) );
+      this.set('trackables', Ember.merge(chart.get('trackables').toArray(), this.get('trackables')) );
     });
   },
 
@@ -101,13 +91,11 @@ export default Ember.Component.extend(Resizable, Draggable, {
   },
 
   drawChart() {
-    Ember.RSVP.all(this.get('trackables')).then( (trackables) => {
-      this.clearChart();
-      trackables.forEach( (trackable, index) => {
-        this.buildChart(trackable, index);
-      });
-      this.buildTimeline();
+    this.clearChart();
+    this.get('trackables').sortBy('type').forEach( (trackable, index) => {
+      this.buildChart(trackable, index);
     });
+    this.buildTimeline();
   },
 
   fetchSerieFor(trackable) {
