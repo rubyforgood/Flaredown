@@ -1,4 +1,7 @@
 .health-chart {
+  &.dragging {
+    cursor: move;
+  }
 
   svg {
 

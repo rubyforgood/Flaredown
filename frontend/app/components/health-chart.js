@@ -42,7 +42,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     return d3.select(this.$('.health-chart-viewport').get(0));
   }),
 
-  timeline: Ember.computed('checkins', function() {
+  timeline: Ember.computed('startAt', 'endAt', function() {
     var timeline = Ember.A();
     moment.range(this.get('startAt'), this.get('endAt') ).by('days', function(moment) {
       timeline.push(
@@ -50,10 +50,10 @@ export default Ember.Component.extend(Resizable, Draggable, {
       );
     });
     return timeline;
-  }),
+  }).volatile(),
 
   onInit: Ember.on('init',function(){
-    this.set('startAt', moment().subtract(30, 'days')),
+    this.set('startAt', moment().subtract(15, 'days')),
     this.set('endAt', moment());
 
     this.fetchDataChart().then( () => {
@@ -61,24 +61,55 @@ export default Ember.Component.extend(Resizable, Draggable, {
     });
   }),
 
-  onDragged(direction, distance){
+  onDragged(){
     this.fetchDataChart().then( () => {
       this.drawChart();
     });
   },
 
   onDragging(direction, distance){
-    Ember.debug("CALCULATE NUMBER OF PAGE");
+    var checkinDate = null;
+
+    if(Ember.isEqual('right', direction)) {
+
+      var nextStartAt = moment(this.get('startAt')).subtract(1, 'days')
+      var nextEndAt = moment(this.get('endAt')).subtract(1, 'days')
+
+      if( nextStartAt > moment().subtract(90, 'days') ) {
+        this.set('startAt',  nextStartAt);
+        this.set('endAt',  nextEndAt);
+        checkinDate = this.get('startAt').format("YYYY-MM-DD");
+      }
+
+    } else {
+      var nextStartAt = moment(this.get('startAt')).add(1, 'days')
+      var nextEndAt = moment(this.get('endAt')).add(1, 'days');
+
+      if( nextEndAt < moment().add(3, 'days') ) {
+        this.set('startAt', nextStartAt );
+        this.set('endAt',  nextEndAt );
+        checkinDate = nextEndAt.format("YYYY-MM-DD");
+      }
+    }
+
+    var checkin = this.get('cachedCheckins').findBy('formattedDate', checkinDate);
+
+    if(Ember.isPresent(checkin)) {
+      this.get('checkins').pushObject( checkin );
+    }
+
+    this.drawChart();
+
   },
 
   fetchDataChart() {
     var startAt = this.get('startAt').format("YYYY-MM-DD");
     var endAt = this.get('endAt').format("YYYY-MM-DD");
 
-    Ember.debug("fetchDataChart from " + startAt + " to " + endAt);
     return this.get('store').queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
-      this.set('checkins', Ember.merge(chart.get('checkins').toArray(), this.get('checkins')) );
-      this.set('trackables', Ember.merge(chart.get('trackables').toArray(), this.get('trackables')) );
+      this.set('checkins', chart.get('checkins').sortBy('date:asc') );
+      this.set('cachedCheckins', chart.get('cachedCheckins').sortBy('date:asc'));
+      this.set('trackables', chart.get('trackables').sortBy('date:asc'));
     });
   },
 

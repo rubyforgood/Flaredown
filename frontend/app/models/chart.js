@@ -6,6 +6,8 @@ export default DS.Model.extend({
 
   //Associations
   checkins: DS.hasMany('checkin', { async: false } ),
-  trackables: DS.hasMany('trackable', { async: false, polymorphic: true, inverse: null } )
+  trackables: DS.hasMany('trackable', { async: false, polymorphic: true, inverse: null } ),
+
+  cachedCheckins: DS.hasMany('checkin', { async: false } )
 
 });

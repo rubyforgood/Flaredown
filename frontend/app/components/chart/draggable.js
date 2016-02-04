@@ -2,22 +2,29 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create( {
   attributeBindings: [ 'draggable' ],
+  classNameBindings: ['isDragging:dragging'],
+
   draggable: true,
 
+
   onDragStart: Ember.on('dragStart', function(event) {
+    this.set('isDragging', true);
     this.avoidDataTransfer(event.dataTransfer);
-    this.setDragStartPosition(event.originalEvent);
+    this.setDragPositions(event.originalEvent);
 
   }),
 
   onDragEnd: Ember.on('dragEnd', function(event){
-    Ember.debug("onDragEnd: " + this.get('dragDirection'));
-    this.trigger('onDragged', this.get('dragDirection'), this.get('dragDistance'));
+    event.dataTransfer.dropEffect = "copy";
+    this.set('isDragging', false);
+    this.trigger('onDragged');
   }),
 
   onDragOver: Ember.on('dragOver', function(event){
-    this.setDragOverPosition(event.originalEvent);
-    this.trigger('onDragging', this.get('dragDirection'), this.get('dragDistance'));
+    this.updateDragPositions(event.originalEvent);
+    if( 10 < this.get('dragDistance') &&  this.get('dragDistance') < 20 ) {
+      this.trigger('onDragging', this.get('dragDirection'), this.get('dragDistance'));
+    }
   }),
 
   dragDirection: Ember.computed('dragStartX', 'dragOverX', function() {
@@ -36,12 +43,16 @@ export default Ember.Mixin.create( {
     }
   },
 
-  setDragStartPosition(event) {
+  setDragPositions(event) {
     this.set('dragStartX', event.pageX);
     this.set('dragStartY', event.pageY);
+    this.set('dragOverX',  event.pageX);
+    this.set('dragOverY',  event.pageY);
   },
 
-  setDragOverPosition(event) {
+  updateDragPositions(event) {
+    this.set('dragStartX', this.get('dragOverX'));
+    this.set('dragStartY', this.get('dragOverY'));
     this.set('dragOverX', event.pageX);
     this.set('dragOverY', event.pageY);
   }
