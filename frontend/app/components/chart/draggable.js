@@ -37,8 +37,8 @@ export default Ember.Mixin.create( {
   avoidDataTransfer(dataTransfer) {
     var image = this.$('.trans-pixel').get(0);
     if( Ember.isPresent(image) ) {
-      event.dataTransfer.setDragImage(image, 0, 0);
-      event.dataTransfer.setData("text/plain", "");
+      dataTransfer.setDragImage(image, 0, 0);
+      dataTransfer.setData("text/plain", "");
     }
   },
 
