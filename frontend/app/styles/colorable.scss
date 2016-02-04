@@ -1,0 +1,25 @@
+$colors: #145B7F, #D8AB41, #ED544E, #88A146, #7D4282, #E25E32, #1B6F4C, #C5265B, #43B0D6, #F2CB43, #F28E8B, #B3CB84, #867EB8, #F59958, #58AF8D, #E25097, #709CB2, #E7CC89, #F07670, #B2BE84, #B18DB4, #ED9E81, #74A893, #DB7B9C, #A1CAE1, #F7DF89, #F7BBB9, #D1DFB5, #CEBAD8, #F9C29A, #9ACFBA, #ED95C1, #8CCFE7, #B6B2D5;
+
+@each $color in $colors {
+    $i: index($colors, $color);
+
+    .colorable-bg-{ background-color: $primary; }
+    .colorable-bg-#{$i} { background-color: $color; }
+
+    .colorable-clr- { color: $primary; }
+    .colorable-clr-#{$i} { color: $color !important; }
+
+    .colorable-fill- { fill: $primary; }
+    .colorable-fill-#{$i} { fill: $color; }
+
+    .colorable-stroke- { stroke: $primary; }
+    .colorable-stroke-#{$i} { stroke: $color; }
+
+    .colorable-border- { border-color: $primary !important; }
+    .colorable-border-#{$i} { border-color: $color !important; }
+
+    // switch bg
+    input.cmn-toggle-round.checked.tbg-#{$i} + label:before {
+      background-color: $color;
+    }
+}

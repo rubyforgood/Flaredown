@@ -136,13 +136,12 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
      y.domain([-1, d3.max(data, function (d) {
        return d.y;
-     }) + 1]);
+     }) + 2]);
 
     var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(0);
 
     chart.insert('g')
-        .attr("class", "axis x")
-        .attr("stroke", 'black')
+        .attr("class", "axis x colorable-stroke-" + trackable.get('colorId') )
         .attr("transform", "translate(0," + this.get('serieHeight') + ")")
         .call(xAxis);
 
@@ -158,21 +157,15 @@ export default Ember.Component.extend(Resizable, Draggable, {
                              .interpolate("linear");
 
     chart.append("path")
-         .attr("stroke", 'black')
-         .attr("class", "line")
+         .attr("class", "line colorable-stroke-" + trackable.get('colorId') )
          .attr("d", lineFunction(data));
 
     chart.append("text")
-        .attr({
-          class: "title",
-          stroke: 'black',
-          transform: "translate(5,10)"
-        })
+        .attr("class", "title colorable-stroke-" + trackable.get('colorId') )
+        .attr("transform", "translate(5,12)")
         .text(function(d){
           return trackable.get('name');
         });
-
-
   },
 
   buildTimeline() {
