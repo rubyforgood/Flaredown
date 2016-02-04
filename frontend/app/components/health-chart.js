@@ -141,7 +141,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(0);
 
     chart.insert('g')
-        .attr("class", "axis x colorable-stroke-" + trackable.get('colorId') )
+        .attr("class", "axis x " + trackable.get('strokeClass'))
         .attr("transform", "translate(0," + this.get('serieHeight') + ")")
         .call(xAxis);
 
@@ -157,11 +157,11 @@ export default Ember.Component.extend(Resizable, Draggable, {
                              .interpolate("linear");
 
     chart.append("path")
-         .attr("class", "line colorable-stroke-" + trackable.get('colorId') )
+         .attr("class", "line " + trackable.get('strokeClass'))
          .attr("d", lineFunction(data));
 
     chart.append("text")
-        .attr("class", "title colorable-stroke-" + trackable.get('colorId') )
+        .attr("class", "title " + trackable.get('strokeClass'))
         .attr("transform", "translate(5,12)")
         .text(function(d){
           return trackable.get('name');
