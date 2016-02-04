@@ -17,7 +17,7 @@ export default Ember.Mixin.create( {
   },
 
   removeHandlers() {
-    Ember.$(window).off("resize." + this.elementId, this.handlerManager.bind(this));
+    Ember.$(window).off("resize." + this.elementId);
   },
 
   endResize(event) {
