@@ -5,7 +5,10 @@ class CreateTrackings < ActiveRecord::Migration
       t.references :trackable, polymorphic: true, index: true
       t.date :start_at
       t.date :end_at
+      t.integer :color_id
+      t.timestamps null: false
     end
+
     add_index :trackings, :trackable_type
     add_index(:trackings,
       [:user_id, :trackable_id, :trackable_type, :start_at],

@@ -9,5 +9,7 @@
 #
 
 class TreatmentSerializer < ApplicationSerializer
+  include TrackableSerializer
+
   attributes :id, :name
 end

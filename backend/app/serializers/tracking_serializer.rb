@@ -8,6 +8,9 @@
 #  trackable_type :string
 #  start_at       :date
 #  end_at         :date
+#  color_id       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class TrackingSerializer < ApplicationSerializer
