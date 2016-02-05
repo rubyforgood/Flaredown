@@ -1,14 +1,9 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import ColorClassesMixin from 'flaredown/mixins/color-classes';
 
-export default DS.Model.extend({
-  colorId: DS.attr('string'),
+export default DS.Model.extend(ColorClassesMixin, {
 
-  strokeClass: Ember.computed('colorId', function() {
-    return `colorable-stroke-${this.get('colorId')}`;
-  }),
-  bgClass: Ember.computed('colorId', function() {
-    return `colorable-bg-${this.get('colorId')}`;
-  })
+  colorId: DS.attr('string')
 
 });

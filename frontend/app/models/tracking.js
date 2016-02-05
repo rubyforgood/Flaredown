@@ -7,6 +7,7 @@ export default DS.Model.extend({
   startAt: DS.attr('date'),
   endAt: DS.attr('date'),
   trackableType: DS.attr('string'),
+  colorId: DS.attr('string'),
 
   // Associations
   user: DS.belongsTo('user'),
