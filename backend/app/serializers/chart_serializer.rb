@@ -5,8 +5,6 @@ class ChartSerializer < ApplicationSerializer
 
 
   has_many :checkins, embed: :ids, embed_in_root: true
-  has_many :cached_checkins, embed: :ids, embed_in_root: true, root: :checkins
-
   has_many :trackables, embed: :objects
 
 end

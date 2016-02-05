@@ -92,12 +92,6 @@ export default Ember.Component.extend(Resizable, Draggable, {
       }
     }
 
-    var checkin = this.get('cachedCheckins').findBy('formattedDate', checkinDate);
-
-    if(Ember.isPresent(checkin)) {
-      this.get('checkins').pushObject( checkin );
-    }
-
     this.drawChart();
 
   },
@@ -108,7 +102,6 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
     return this.get('store').queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
       this.set('checkins', chart.get('checkins').sortBy('date:asc') );
-      this.set('cachedCheckins', chart.get('cachedCheckins').sortBy('date:asc'));
       this.set('trackables', chart.get('trackables').sortBy('date:asc'));
     });
   },
