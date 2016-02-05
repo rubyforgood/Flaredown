@@ -1,4 +1,8 @@
-{{checkin-trackeds checkin=model.checkin trackableType="condition"}}
+{{checkin-trackeds trackeds=checkin.conditions
+                   trackableType=trackableType
+                   onTrackedRemoved=(action "rememberRemovedTracked")
+                   onTrackedAdded=(action "rememberAddedTracked")}}
+
 {{step-controls step=model.currentStep
                 onBackward=(action "goBack")
                 onForward=(action "completeStep") }}

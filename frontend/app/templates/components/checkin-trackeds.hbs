@@ -1,11 +1,13 @@
-{{#each checkinTrackeds as |tracked|}}
-  {{tracked-level model=tracked
-                  valueKey='value'
-                  onRemove=(action 'remove')}}
+{{#each trackeds as |tracked|}}
+  {{#unless tracked.isDeleted}}
+    {{tracked-level model=tracked
+                    valueKey='value'
+                    onRemove=(action 'remove')}}
+  {{/unless}}
 {{/each}}
 {{ember-selectize content=trackables
                   optionValuePath="content.id"
                   optionLabelPath="content.name"
                   selection=selectedTrackable
-                  select-item="checkinSelected"
+                  select-item="add"
                   placeholder=selectPlaceholder }}

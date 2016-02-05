@@ -9,7 +9,10 @@ export default Ember.Component.extend({
   setCurrentValue: Ember.on('init', function() {
     var valueKey = this.get('valueKey');
     Ember.RSVP.resolve(this.get('model')).then(model => {
-      this.set('currentValue', model.get(valueKey));
+      var value = model.get(valueKey);
+      if (Ember.isPresent(value)) {
+        this.set('currentValue', value);
+      }
     });
   }),
 

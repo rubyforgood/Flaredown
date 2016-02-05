@@ -1,29 +1,34 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 export default Ember.Component.extend(TrackablesFromType, {
 
-  checkinTrackeds: Ember.computed('checkin', function() {
-    var key = this.get('trackableType').pluralize();
-    return this.get(`checkin.${key}`);
-  }),
+  store: Ember.inject.service(),
 
   actions: {
     remove(tracked) {
-      Ember.Logger.debug('remove');
-      Ember.Logger.debug(tracked);
-      /* TODO:
-         1) Remove tracking from checkin
-         2) invoke untrack() only if isToday
-      */
+      tracked.deleteRecord();
+      this.get('onTrackedRemoved')(tracked);
     },
 
-    checkinSelected() {
-      Ember.Logger.debug('checkinSelected');
-      /* TODO:
-         1) Add tracking to checkin
-         2) invoke track() only if isToday
-      */
+    add() {
+      var selectedTrackable = this.get('selectedTrackable');
+      var trackableType = this.get('trackableType');
+      // check if selectedTrackable is already present in this checkin
+      var trackable = this.get('trackeds').findBy(`${trackableType}.id`, selectedTrackable.get('id'));
+      if (Ember.isNone(trackable)) {
+        var randomColor = Math.floor(Math.random()*32)+'';
+        var recordAttrs = {colorId: randomColor};
+        recordAttrs[trackableType] = selectedTrackable;
+
+        var recordType = `checkin_${trackableType}`.camelize();
+        var tracked = this.get('store').createRecord(recordType, recordAttrs);
+        this.get('trackeds').pushObject(tracked);
+
+        this.set('selectedTrackable', null);
+        this.get('onTrackedAdded')(tracked);
+      }
     }
   }
 
