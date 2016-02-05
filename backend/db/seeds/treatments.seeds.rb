@@ -9953,5 +9953,5 @@ SEED_TREATMENTS = [
 
 I18n.locale = :en
 SEED_TREATMENTS.each_with_index do |name, i|
-  Treatment.find_or_create_by!(name: name)
+  Treatment.find_or_create_by!(name: name) if (i%50==0)
 end
