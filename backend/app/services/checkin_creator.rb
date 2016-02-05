@@ -17,7 +17,7 @@ class CheckinCreator
       elsif trackable.is_a? Symptom
         symptom_attrs << {symptom_id: trackable.id, value: nil}
       elsif trackable.is_a? Treatment
-        treatment_attrs << {treatment_id: trackable.id, dose: nil}
+        treatment_attrs << {treatment_id: trackable.id, value: nil}
       end
     end
     Checkin.create!(

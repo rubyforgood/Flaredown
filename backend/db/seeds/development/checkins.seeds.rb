@@ -87,7 +87,7 @@ if email.present?
         treatment_checkin = FactoryGirl.create(
           :checkin_treatment, checkin: checkin, treatment_id: trackable.id
         )
-        puts "Checked-in #{trackable.name}, dose: #{treatment_checkin.dose}"
+        puts "Checked-in #{trackable.name}, value: #{treatment_checkin.value}"
       end
     end
 

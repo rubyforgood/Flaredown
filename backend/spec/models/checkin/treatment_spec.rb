@@ -8,7 +8,7 @@ RSpec.describe Checkin::Treatment, type: :model do
   end
 
   describe 'Respond to' do
-    it { is_expected.to respond_to(:dose) }
+    it { is_expected.to respond_to(:value) }
   end
 
 end

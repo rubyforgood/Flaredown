@@ -5,7 +5,7 @@ class Checkin::Treatment
   # Fields
   #
   field :treatment_id, type: Integer
-  field :dose, type: String
+  field :value, type: String
 
   #
   # Relations
@@ -16,5 +16,5 @@ class Checkin::Treatment
   # Indexes
   #
   index(treatment_id: 1)
-  index(treatment_id: 1, dose: 1)
+  index(treatment_id: 1, value: 1)
 end
