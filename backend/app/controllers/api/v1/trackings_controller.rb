@@ -28,7 +28,7 @@ class Api::V1::TrackingsController < Api::BaseController
   end
 
   def create_params
-    params.require(:tracking).permit(:trackable_id, :trackable_type)
+    params.require(:tracking).permit(:trackable_id, :trackable_type, :color_id)
   end
 
 end
