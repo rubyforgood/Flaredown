@@ -2,7 +2,8 @@ class Checkin::Condition
   include Mongoid::Document
 
   field :condition_id, type: Integer
+  field :color_id, type: String
   include Checkin::Fiveable
 
-  embedded_in :checkin
+  belongs_to :checkin
 end

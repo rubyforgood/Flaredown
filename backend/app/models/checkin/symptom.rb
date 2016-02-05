@@ -4,5 +4,5 @@ class Checkin::Symptom
   field :symptom_id, type: Integer
   include Checkin::Fiveable
 
-  embedded_in :checkin
+  belongs_to :checkin
 end
