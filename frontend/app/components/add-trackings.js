@@ -14,7 +14,7 @@ export default Ember.Component.extend(TrackablesFromTypeMixin, {
 
   actions: {
     trackSelected() {
-      this.get('tracking').track(this.get('selectedTrackable'), () => {
+      this.get('tracking').track(this.get('selectedTrackable'), null, () => {
         this.set('selectedTrackable', null);
       });
     }
