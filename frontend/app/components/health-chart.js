@@ -63,7 +63,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     Ember.run.scheduleOnce('afterRender', this, () => {
       this.fetchDataChart().then( () => {
         this.set('chartLoaded', true);
-      })
+      });
     });
   }),
 
@@ -81,7 +81,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     this.fetchDataChart();
   },
 
-  onDragging(direction, distance){
+  onDragging(direction){
     var nextStartAt, nextEndAt;
 
     if(Ember.isEqual('right', direction)) {
@@ -103,10 +103,6 @@ export default Ember.Component.extend(Resizable, Draggable, {
       }
     }
 
-  },
-
-  onResizeEnd() {
-    this.fetchDataChart();
   },
 
   actions: {

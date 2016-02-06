@@ -1,3 +1,4 @@
+/* global moment */
 import Ember from 'ember';
 
 export default Ember.Mixin.create( {
@@ -15,7 +16,7 @@ export default Ember.Mixin.create( {
 
   }),
 
-  onDragEnd: Ember.on('dragEnd', function(event){
+  onDragEnd: Ember.on('dragEnd', function(){
     this.set('isDragging', false);
     this.trigger('onDragged');
   }),
@@ -25,7 +26,7 @@ export default Ember.Mixin.create( {
 
     if( this.isTimeToTrigger() ) {
       this.set('lastTriggerAt', moment() );
-      this.trigger('onDragging', this.get('dragDirection'), this.get('dragDistance'));
+      this.trigger('onDragging', this.get('dragDirection'));
     }
 
   }),
@@ -45,11 +46,11 @@ export default Ember.Mixin.create( {
   }),
 
   isTimeToTrigger() {
-    var milliFromLastTrigger = moment() - this.get('lastTriggerAt')
-    if( this.get('dragDistance') == 0) {
-      return false
+    var milliFromLastTrigger = moment() - this.get('lastTriggerAt');
+    if( this.get('dragDistance') === 0) {
+      return false;
     } else {
-      return (milliFromLastTrigger > 100)
+      return (milliFromLastTrigger > 100);
     }
   },
 
