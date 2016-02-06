@@ -9,6 +9,7 @@ export default Ember.Mixin.create( {
 
   onDragStart: Ember.on('dragStart', function(event) {
     this.set('isDragging', true);
+    this.set('lastTriggerAt', moment() );
     this.avoidDataTransfer(event.dataTransfer);
     this.setDragPositions(event.originalEvent);
 
@@ -21,18 +22,36 @@ export default Ember.Mixin.create( {
 
   onDragOver: Ember.on('dragOver', function(event){
     this.updateDragPositions(event.originalEvent);
-    if( 10 < this.get('dragDistance') &&  this.get('dragDistance') < 20 ) {
+
+    if( this.isTimeToTrigger() ) {
+      this.set('lastTriggerAt', moment() );
       this.trigger('onDragging', this.get('dragDirection'), this.get('dragDistance'));
     }
+
   }),
 
   dragDirection: Ember.computed('dragStartX', 'dragOverX', function() {
-    return (this.get('dragStartX') > this.get('dragOverX')) ? 'left' : 'right';
+    if(Ember.isPresent(this.get('dragStartX')) && Ember.isPresent(this.get('dragOverX'))) {
+      if(this.get('dragStartX') > this.get('dragOverX')) {
+        return 'left';
+      } else if (this.get('dragStartX') < this.get('dragOverX')) {
+        return 'right';
+      }
+    }
   }),
 
   dragDistance: Ember.computed('dragStartX', 'dragOverX', function() {
     return Math.abs(this.get('dragStartX') - this.get('dragOverX'));
   }),
+
+  isTimeToTrigger() {
+    var milliFromLastTrigger = moment() - this.get('lastTriggerAt')
+    if( this.get('dragDistance') == 0) {
+      return false
+    } else {
+      return (milliFromLastTrigger > 100)
+    }
+  },
 
   avoidDataTransfer(dataTransfer) {
     var image = this.$('.trans-pixel').get(0);

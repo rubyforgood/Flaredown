@@ -1,4 +1,11 @@
 <svg width='100%' height={{SVGHeight}}>
-  <g class="health-chart-viewport"></g>
+  <g class="health-chart-viewport">
+    {{#if chartLoaded }}
+      {{#each trackables as |trackable index|}}
+        {{chart/g-trackable model=trackable index=index}}
+      {{/each}}
+      {{chart/g-timeline onDateClicked=(action "setCurrentDate") onDateHovered=(action "openInfoWindow") }}
+    {{/if}}
+  </g>
 </svg>
 <img class="trans-pixel" src="/assets/trans-pixel.png">

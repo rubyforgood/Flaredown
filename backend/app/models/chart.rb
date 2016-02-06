@@ -3,8 +3,6 @@ class Chart
 
   attr_accessor :id, :user, :start_at, :end_at, :filters
 
-  CACHE_SIZE = 15
-
   #
   # Validations
   #
@@ -15,7 +13,7 @@ class Chart
   end
 
   def checkins
-    @checkins ||= user.checkins.by_date(start_at.to_date - CACHE_SIZE, end_at.to_date + CACHE_SIZE)
+    @checkins ||= user.checkins.by_date(start_at.to_date, end_at.to_date)
   end
 
   def trackings
