@@ -33,11 +33,11 @@ export default Ember.Component.extend( {
   })),
 
   xAxisElementId: Ember.computed('model', function() {
-    return `x-axis-${this.get('model.constructor.modelName')}-${this.get('model.id')}`
+    return `x-axis-${this.get('model.constructor.modelName')}-${this.get('model.id')}`;
   }),
 
   transform: Ember.computed('height', 'padding', 'index', function() {
-    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index')})`
+    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index')})`;
   }),
 
   xAxisTransform: Ember.computed('height', 'startAt', 'data', function() {

@@ -1,3 +1,4 @@
+/* global d3, moment */
 import Ember from 'ember';
 import HealthChartComponent from '../health-chart';
 
@@ -31,7 +32,7 @@ export default Ember.Component.extend( {
   }),
 
   transform: Ember.computed('xScale', 'startAt', 'totalSeriesHeight', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('totalSeriesHeight')})`
+    return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('totalSeriesHeight')})`;
   }),
 
   drawAxis: Ember.on('didInsertElement', Ember.observer('xAxis', function() {

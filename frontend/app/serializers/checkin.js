@@ -11,11 +11,11 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
 
   serialize(snapshot, options) {
     var json = this._super(...arguments);
-    json.conditions_attributes = json.conditions
+    json.conditions_attributes = json.conditions;
     delete json.conditions;
-    json.symptoms_attributes = json.symptoms
+    json.symptoms_attributes = json.symptoms;
     delete json.symptoms;
-    json.treatments_attributes = json.treatments
+    json.treatments_attributes = json.treatments;
     delete json.treatments;
 
     return json;
