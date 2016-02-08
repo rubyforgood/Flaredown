@@ -9,7 +9,6 @@ export default Ember.Component.extend({
     this.get('tracking').setAt(new Date());  // Trackings in the past don't matter by reqs
   }),
 
-  trackableType: "condition",
   model: Ember.computed.alias('parentView.model'),
   checkin: Ember.computed.alias('model.checkin'),
   isTodaysCheckin: Ember.computed('checkin', function() {

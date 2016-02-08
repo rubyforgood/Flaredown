@@ -24,12 +24,16 @@
                        onGoBack=(action 'moveToPrevStep') }}
 
 {{else if isConditions}}
-  {{checkin/conditions-step onStepCompleted=(action 'moveToNextStep')
+  {{checkin/trackables-step trackeds=checkin.conditions
+                            trackableType='condition'
+                            onStepCompleted=(action 'moveToNextStep')
                             onGoBack=(action 'moveToPrevStep') }}
 
 {{else if isSymptoms}}
-  {{checkin/symptoms-step onStepCompleted=(action 'moveToNextStep')
-                          onGoBack=(action 'moveToPrevStep') }}
+  {{checkin/trackables-step trackeds=checkin.symptoms
+                            trackableType='symptom'
+                            onStepCompleted=(action 'moveToNextStep')
+                            onGoBack=(action 'moveToPrevStep') }}
 
 {{else if isTreatments}}
   {{checkin/treatments-step onStepCompleted=(action 'moveToNextStep')

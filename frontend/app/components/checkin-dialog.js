@@ -7,7 +7,6 @@ export default Ember.Component.extend(StepControlMixin, {
   classNames: ['process-step-container'],
 
   step: Ember.computed.alias('model.currentStep'),
-
   isStart: Ember.computed.equal('step.key', 'start'),
   isConditions: Ember.computed.equal('step.key', 'conditions'),
   isSymptoms: Ember.computed.equal('step.key', 'symptoms'),
@@ -15,12 +14,11 @@ export default Ember.Component.extend(StepControlMixin, {
   isTags: Ember.computed.equal('step.key', 'tags'),
   isSummary: Ember.computed.equal('step.key', 'summary'),
 
-  currentDate: Ember.computed.alias('model.checkin.date'),
-
+  checkin: Ember.computed.alias('model.checkin'),
+  currentDate: Ember.computed.alias('checkin.date'),
   isToday: Ember.computed('currentDate', function() {
     return moment(this.get('currentDate')).isSame(new Date(), 'day');
   }),
-
   monthAndDay: Ember.computed('currentDate', function() {
     return moment(this.get('currentDate')).format("MMMM Do");
   }),
