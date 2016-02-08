@@ -1,7 +1,8 @@
 /* global moment */
 import Ember from 'ember';
+import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(TrackablesFromType, {
 
   tracking: Ember.inject.service(),
 
@@ -15,7 +16,36 @@ export default Ember.Component.extend({
     return moment(this.get('checkin.date')).isSame(new Date(), 'day');
   }),
 
+  store: Ember.inject.service(),
+
+  removedTrackeds: Ember.A([]),
+  addedTrackeds: Ember.A([]),
+
   actions: {
+
+    remove(tracked) {
+      tracked.prepareForDestroy();
+      this.get('removedTrackeds').pushObject(tracked);
+    },
+    add() {
+      var selectedTrackable = this.get('selectedTrackable');
+      var trackableType = this.get('trackableType');
+      // check if selectedTrackable is already present in this checkin
+      var trackable = this.get('trackeds').findBy(`${trackableType}.id`, selectedTrackable.get('id'));
+      if (Ember.isNone(trackable)) {
+        var randomColor = Math.floor(Math.random()*32)+'';
+        var recordAttrs = {colorId: randomColor};
+        recordAttrs[trackableType] = selectedTrackable;
+
+        var recordType = `checkin_${trackableType}`.camelize();
+        var tracked = this.get('store').createRecord(recordType, recordAttrs);
+        this.get('trackeds').pushObject(tracked);
+
+        this.get('addedTrackeds').pushObject(tracked);
+      }
+      this.set('selectedTrackable', null);
+    },
+
     completeStep() {
       this.saveCheckin();
       this.get('onStepCompleted')();
@@ -23,17 +53,8 @@ export default Ember.Component.extend({
     goBack() {
       this.saveCheckin();
       this.get('onGoBack')();
-    },
-    rememberRemovedTracked(tracked) {
-      this.get('removedTrackeds').pushObject(tracked);
-    },
-    rememberAddedTracked(tracked) {
-      this.get('addedTrackeds').pushObject(tracked);
     }
   },
-
-  removedTrackeds: Ember.A([]),
-  addedTrackeds: Ember.A([]),
 
   saveCheckin: function() {
     var trackableType = this.get('trackableType');
