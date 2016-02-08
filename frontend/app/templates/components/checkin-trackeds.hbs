@@ -1,5 +1,5 @@
 {{#each trackeds as |tracked|}}
-  {{#unless tracked.isDeleted}}
+  {{#unless tracked.isPreparedForDestroy}}
     {{tracked-level model=tracked
                     valueKey='value'
                     onRemove=(action 'remove')}}

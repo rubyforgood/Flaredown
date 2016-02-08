@@ -1,8 +1,9 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import ColorableMixin from 'flaredown/mixins/colorable';
+import NestedDestroyableMixin from 'flaredown/mixins/nested-destroyable';
 
-export default DS.Model.extend(ColorableMixin, {
+export default DS.Model.extend(ColorableMixin, NestedDestroyableMixin {
   value: DS.attr('number'),
 
   condition: DS.belongsTo('condition'),
@@ -17,4 +18,5 @@ export default DS.Model.extend(ColorableMixin, {
       }
     });
   }))
+
 });

@@ -15,7 +15,7 @@ class Checkin
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
   has_many :symptoms, class_name: 'Checkin::Symptom'
-  accepts_nested_attributes_for :conditions, :symptoms, :treatments
+  accepts_nested_attributes_for :conditions, :symptoms, :treatments, allow_destroy: true
 
   #
   # Indexes

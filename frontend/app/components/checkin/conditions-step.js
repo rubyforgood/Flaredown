@@ -42,7 +42,6 @@ export default Ember.Component.extend({
       if (this.get('isTodaysCheckin')) {
         this.get('tracking').untrack(record.get(trackableType));
       }
-      record.destroyRecord();
     });
 
     // track() all addedTrackeds if isTodaysCheckin

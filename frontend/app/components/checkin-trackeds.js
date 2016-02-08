@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 export default Ember.Component.extend(TrackablesFromType, {
@@ -8,7 +7,7 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   actions: {
     remove(tracked) {
-      tracked.deleteRecord();
+      tracked.prepareForDestroy();
       this.get('onTrackedRemoved')(tracked);
     },
 
