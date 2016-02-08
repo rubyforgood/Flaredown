@@ -26,8 +26,8 @@ class Api::V1::CheckinsController < Api::BaseController
   def update_params
     params.require(:checkin).permit(:note,
       conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
-      symptoms_attributes: [:id, :value, :symptom_id],
-      treatments_attributes: [:id, :value, :treatment_id])
+      symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
+      treatments_attributes: [:id, :value, :treatment_id, :color_id, :_destroy])
   end
 
   def id
