@@ -4,8 +4,14 @@
       {{#each trackables as |trackable index|}}
         {{chart/g-trackable model=trackable index=index}}
       {{/each}}
-      {{chart/g-timeline onDateClicked=(action "setCurrentDate") onDateHovered=(action "openInfoWindow") }}
+      {{chart/g-timeline  onDateClicked=(action "setCurrentDate")
+                          oneMouseHover=(action "openInfoWindow")
+                          onMouseLeave=(action "closeInfoWindow")}}
     {{/if}}
   </g>
+
+  {{#if openInfoWindow }}
+    <line x1="{{xPosition}}" y1="0" x2="{{xPosition}}" y2="{{totalSeriesHeight}}" class="vertical-line" />
+  {{/if}}
 </svg>
 <img class="trans-pixel" src="/assets/trans-pixel.png">

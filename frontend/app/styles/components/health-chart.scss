@@ -25,6 +25,13 @@
       stroke-width: 2;
     }
 
+    .vertical-line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+    }
+
     .chart {
       .axis {
         path {

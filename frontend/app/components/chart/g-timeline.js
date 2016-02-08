@@ -8,12 +8,15 @@ export default Ember.Component.extend( {
   attributeBindings: ['transform'],
 
   startAt: Ember.computed.alias('parentView.startAt'),
+  endAt: Ember.computed.alias('parentView.endAt'),
 
   timeline: Ember.computed.alias('parentView.timeline'),
   timelineLength: Ember.computed.alias('parentView.timelineLength'),
 
   width: Ember.computed.alias('parentView.seriesWidth'),
   totalSeriesHeight: Ember.computed.alias('parentView.totalSeriesHeight'),
+
+  SVGWidth: Ember.computed.alias('parentView.SVGWidth'),
 
   shouldAlwaysBeWithinAHelthChartComponent: Ember.on('didInsertElement', function() {
     Ember.run.scheduleOnce('afterRender', () => {
@@ -40,7 +43,8 @@ export default Ember.Component.extend( {
       .call(this.get('xAxis'))
       .selectAll('.tick')
       .on('click', this.handleDataClick.bind(this))
-      .on('mouseover', this.handleDataHover.bind(this));
+      .on('mouseover', this.handleMouseHover.bind(this))
+      .on('mouseleave', this.handleMouseLeave.bind(this));
   })),
 
 
@@ -64,8 +68,23 @@ export default Ember.Component.extend( {
     this.get('onDateClicked')(moment(date).format("YYYY-MM-DD"));
   },
 
-  handleDataHover(date) {
-    this.get('onDateHovered')(moment(date).format("YYYY-MM-DD"));
+  handleMouseHover(date, event) {
+    var formattedDate = moment(date).format("YYYY-MM-DD");
+    var position = null;
+
+    d3.select(`g#${this.get('xAxisElementId')}`).selectAll('.tick').get(0).forEach( function(elem) {
+      if(Ember.isEqual(elem.textContent, formattedDate)) {
+        var clientRect = Ember.$(elem).get(0).getBoundingClientRect();
+        position = clientRect.left + ( clientRect.width / 2);
+      }
+    })
+
+    this.get('oneMouseHover')(formattedDate, position );
+  },
+
+  handleMouseLeave(date) {
+    this.get('onMouseLeave')(moment(date).format("YYYY-MM-DD") );
   }
+
 
 });

@@ -110,8 +110,14 @@ export default Ember.Component.extend(Resizable, Draggable, {
       this.get('onDateClicked')(date);
     },
 
-    openInfoWindow(date) {
-      Ember.debug("openInfoWindow for date: " + date);
+    openInfoWindow(date, xPosition) {
+      this.set('xPosition', xPosition)
+      this.set('openInfoWindow', true)
+    },
+
+    closeInfoWindow(date, xPosition) {
+      this.set('xPosition', null)
+      this.set('openInfoWindow', false)
     }
 
   }
