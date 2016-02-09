@@ -13,11 +13,11 @@ class CheckinCreator
     treatment_attrs = []
     active_trackables.each do |trackable|
       if trackable.is_a? Condition
-        condition_attrs << {condition_id: trackable.id, value: nil}
+        condition_attrs << {condition_id: trackable.id}
       elsif trackable.is_a? Symptom
-        symptom_attrs << {symptom_id: trackable.id, value: nil}
+        symptom_attrs << {symptom_id: trackable.id}
       elsif trackable.is_a? Treatment
-        treatment_attrs << {treatment_id: trackable.id, value: nil}
+        treatment_attrs << {treatment_id: trackable.id}
       end
     end
     Checkin.create!(
