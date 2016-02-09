@@ -5,5 +5,6 @@ FactoryGirl.define do
     end
     treatment_id { FactoryGirl.create(:treatment).id }
     value { values.sample }
+    is_taken { value.present? ? true : [true, false].sample }
   end
 end
