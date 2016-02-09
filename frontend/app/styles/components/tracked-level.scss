@@ -32,7 +32,7 @@
 
       // Special smiley input
       &.smiley { color: transparent !important; }
-      &.smiley.hide-color { background-color: $lightgrey; }
+      &.smiley.hide-color { background-color: $lightgrey !important; }
     }
   }
   h4 {

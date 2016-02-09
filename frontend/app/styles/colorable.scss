@@ -4,7 +4,7 @@ $colors: #145B7F, #D8AB41, #ED544E, #88A146, #7D4282, #E25E32, #1B6F4C, #C5265B,
     $i: index($colors, $color);
 
     .colorable-bg-{ background-color: $primary; }
-    .colorable-bg-#{$i} { background-color: $color; }
+    .colorable-bg-#{$i} { background-color: $color !important; }
 
     .colorable-clr- { color: $primary; }
     .colorable-clr-#{$i} { color: $color !important; }

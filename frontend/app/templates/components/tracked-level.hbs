@@ -5,11 +5,10 @@
 <div>
   <ul class="pips">
     {{#each values as |value|}}
-      <li class="basic {{model.bgClass}}
-                 {{if (gte currentValue value) 'highlight' 'no-highlight'}}
+      <li class="basic
+                 {{if (gte currentValue value) (concat 'highlight ' model.bgClass) 'no-highlight'}}
                  {{if (eq currentValue value) 'selected' 'not-selected'}}
-                 {{if (eq value 0) 'smiley'}}
-                 {{if (gt currentValue 0) 'hide-color'}}"
+                 {{if (eq value 0) (if (gt currentValue 0) 'smiley hide-color' 'smiley') }}"
           {{action 'pipClick' value}}>
         {{value}}
       </li>
