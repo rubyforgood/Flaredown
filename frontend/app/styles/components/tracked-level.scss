@@ -39,13 +39,4 @@
     position: relative;
     display: inline;
   }
-  .x-to-remove {
-    position: absolute;
-    color: grey;
-    margin-left: 5px;
-    &:hover {
-      color: black;
-      cursor: pointer;
-    }
-  }
 }

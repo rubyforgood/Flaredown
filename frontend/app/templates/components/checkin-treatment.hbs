@@ -1,0 +1,16 @@
+{{label-switch checked=isTaken bgColorClass=model.bgClass}}
+<h4 class="name {{unless isTaken 'untaken'}}">
+  &nbsp;{{treatment.name}}
+  <span class="x-to-remove" {{action 'xClick'}}>×</span>
+</h4>
+<br>
+{{#if isTaken}}
+  {{#if isEditMode}}
+    {{input value=model.value placeholder="e.g. 2 x 30mg" class=(concat "indented dose-field " model.borderClass) }}
+    <a href="#" {{action 'doneEditing'}} class="done {{model.clrClass}}">Done</a>
+  {{else}}
+    <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>
+      {{if model.value model.value "No dose"}}
+    </a>
+  {{/if}}
+{{/if}}

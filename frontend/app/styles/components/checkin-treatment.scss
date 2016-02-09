@@ -1,0 +1,32 @@
+.checkin-treatment {
+  margin-bottom: 15px;
+  .name {
+    position: absolute;
+    display: inline;
+    margin-top: 3px;
+  }
+  .untaken {
+    color: $light-gray;
+  }
+  .indented {
+    margin-left: 58px;
+  }
+  .dose {
+    border-radius: 999px;
+    border: 2px solid;
+    padding: 5px 10px 5px 10px;
+    &:hover {
+      opacity: .75;
+    }
+  }
+  .dose-field {
+    display: inline;
+    border: 2px solid;
+    margin-bottom: 0px;
+    width: auto;
+  }
+  .done {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+}

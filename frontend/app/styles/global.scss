@@ -22,3 +22,11 @@
   }
 }
 
+.x-to-remove {
+  color: grey;
+  margin-left: 5px;
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+}
