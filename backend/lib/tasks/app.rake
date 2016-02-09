@@ -30,6 +30,8 @@ namespace :app do
 
   def build_database
     header 'build database'
+    Rake::Task['db:mongoid:purge'].invoke
+
     if Rails.env.development?
       Rake::Task['db:drop'].invoke
       Rake::Task['db:create'].invoke
