@@ -6,6 +6,7 @@ class Checkin::Treatment
   #
   field :treatment_id, type: Integer
   field :value, type: String
+  field :is_taken, type: Boolean
   field :color_id, type: String
 
   #
