@@ -18,6 +18,13 @@ export default DS.Model.extend(ColorableMixin, NestedDestroyableMixin, {
         }
       }
     });
-  }))
+  })),
+
+  isntTaken: Ember.computed.not('isTaken'),
+  cleanIfUntaken: function() {
+    if (this.get('isntTaken')) {
+      this.set('value', null);
+    }
+  }
 
 });

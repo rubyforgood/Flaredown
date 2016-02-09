@@ -36,7 +36,9 @@
                             onGoBack=(action 'moveToPrevStep') }}
 
 {{else if isTreatments}}
-  {{checkin/treatments-step onStepCompleted=(action 'moveToNextStep')
+  {{checkin/trackables-step trackeds=checkin.treatments
+                            trackableType='treatment'
+                            onStepCompleted=(action 'moveToNextStep')
                             onGoBack=(action 'moveToPrevStep') }}
 
 {{else if isTags}}

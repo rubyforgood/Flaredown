@@ -1,16 +1,16 @@
 /* global moment */
 import Ember from 'ember';
-import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
+import TrackablesFromTypeMixin from 'flaredown/mixins/trackables-from-type';
 
-export default Ember.Component.extend(TrackablesFromType, {
+export default Ember.Component.extend(TrackablesFromTypeMixin, {
+
+  model: Ember.computed.alias('parentView.model'),
 
   tracking: Ember.inject.service(),
-
   setupTracking: Ember.on('init', function() {
     this.get('tracking').setAt(new Date());  // Trackings in the past don't matter by reqs
   }),
 
-  model: Ember.computed.alias('parentView.model'),
   checkin: Ember.computed.alias('model.checkin'),
   isTodaysCheckin: Ember.computed('checkin', function() {
     return moment(this.get('checkin.date')).isSame(new Date(), 'day');
@@ -72,6 +72,13 @@ export default Ember.Component.extend(TrackablesFromType, {
         this.get('tracking').track(trackable, trackable.get('colorId'));
       }
     });
+
+    // we need to delete value on treatments not taken
+    if (this.get('trackableTypeIsTreatment')) {
+      this.get('trackeds').forEach(record => {
+        record.cleanIfUntaken();
+      });
+    }
 
     // save checkin
     this.get('checkin').save().then(() => {

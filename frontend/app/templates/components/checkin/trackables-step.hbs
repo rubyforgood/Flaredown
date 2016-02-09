@@ -1,10 +1,23 @@
-{{#each trackeds as |tracked|}}
-  {{#unless tracked.isPreparedForDestroy}}
-    {{tracked-level model=tracked
-                    valueKey='value'
-                    onRemove=(action 'remove')}}
-  {{/unless}}
-{{/each}}
+{{#if trackableTypeIsTreatment}}
+
+  {{#each trackeds as |tracked|}}
+    {{#unless tracked.isPreparedForDestroy}}
+      {{checkin-treatment model=tracked
+                          onRemove=(action 'remove')}}
+    {{/unless}}
+  {{/each}}
+
+{{else}}
+
+  {{#each trackeds as |tracked|}}
+    {{#unless tracked.isPreparedForDestroy}}
+      {{tracked-level model=tracked
+                      valueKey='value'
+                      onRemove=(action 'remove')}}
+    {{/unless}}
+  {{/each}}
+
+{{/if}}
 
 {{select-field resource=trackableType
                selection=selectedTrackable
