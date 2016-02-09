@@ -31,14 +31,14 @@ class Search
   def where_conditions
     @where_conditions ||= Array.new.tap do |conditions|
       query_hash.each do |key,value|
-        conditions << [':key ILIKE :value', { key: key, value: value }]
+        conditions << ["similarity(#{key}, :value) > #{Flaredown.config.similarity_tolerance}", { value: value }]
       end
       conditions
     end
   end
 
   def resources
-    resource.classify.constantize
+    resource.classify.constantize.with_translations(I18n.locale)
   end
 
   def query_hash

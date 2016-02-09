@@ -22,6 +22,10 @@ module Flaredown
     def redis_url
       ENV["REDISCLOUD_URL"].present? ? ENV['REDISCLOUD_URL'] : ENV['REDIS_URL']
     end
+
+    def similarity_tolerance
+      '0.25'
+    end
   end
 
 end
