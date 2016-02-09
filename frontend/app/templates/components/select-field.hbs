@@ -1,0 +1,9 @@
+{{ember-selectize content=items
+                  optionValuePath="content.id"
+                  optionLabelPath="content.name"
+                  selection=selection
+                  select-item="selectItem"
+                  on-focus="fetchItems"
+                  create-item=createItemAction
+                  update-filter="updateFilter"
+                  placeholder=placeholder }}

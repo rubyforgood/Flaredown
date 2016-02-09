@@ -1,11 +1,11 @@
 {{#form-for for=model onSubmit="saveProfile"}}
 
   {{#form-field for="country" label="Country"}}
-    {{ember-selectize content=countries
-                      optionValuePath="content.id"
-                      optionLabelPath="content.name"
-                      selection=model.country
-                      placeholder="Select a country" }}
+    {{select-field resource="country" async=false
+                   selection=model.country
+                   placeholder="Select a country"}}
+
+
   {{/form-field}}
 
   {{#form-field for="birthDate" label="Birth Date"}}

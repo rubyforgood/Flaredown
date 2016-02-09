@@ -6,12 +6,11 @@
   {{/unless}}
 {{/each}}
 
-{{ember-selectize content=trackables
-                  optionValuePath="content.id"
-                  optionLabelPath="content.name"
-                  selection=selectedTrackable
-                  select-item="add"
-                  placeholder=selectPlaceholder }}
+{{select-field resource=trackableType
+               selection=selectedTrackable
+               onSelect=(action "add")
+               create=true
+               placeholder=selectPlaceholder}}
 
 {{step-controls step=model.currentStep
                 onBackward=(action "goBack")

@@ -50,6 +50,11 @@ Rails.application.routes.draw do
       resource :pusher, only: [:create]
 
       #
+      # Searches
+      #
+      resource :searches, only: [:show]
+
+      #
       # Sessions
       #
       resources :sessions, only: [:show, :create]
