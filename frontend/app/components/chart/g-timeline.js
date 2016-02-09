@@ -77,7 +77,7 @@ export default Ember.Component.extend( {
         var clientRect = Ember.$(elem).get(0).getBoundingClientRect();
         position = clientRect.left + ( clientRect.width / 2);
       }
-    })
+    });
 
     this.get('oneMouseHover')(formattedDate, position );
   },
