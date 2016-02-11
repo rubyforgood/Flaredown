@@ -4,7 +4,6 @@ RSpec.describe Checkin, type: :model do
   include Mongoid::Matchers
 
   describe 'Relations' do
-    it { is_expected.to have_and_belong_to_many(:tags) }
     it { is_expected.to have_many(:conditions) }
     it { is_expected.to have_many(:symptoms) }
     it { is_expected.to have_many(:treatments) }

@@ -7,11 +7,11 @@ class Checkin
   field :date,       type: Date
   field :user_id,    type: Integer
   field :note,       type: String
+  field :tag_ids,    type: Array
 
   #
   # Relations
   #
-  has_and_belongs_to_many :tags, class_name: 'Checkin::Tag'
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
   has_many :symptoms, class_name: 'Checkin::Symptom'

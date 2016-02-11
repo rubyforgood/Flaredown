@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129064538) do
+ActiveRecord::Schema.define(version: 20160211105611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,22 @@ ActiveRecord::Schema.define(version: 20160129064538) do
     t.boolean  "global",     default: true
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "tag_translations", force: :cascade do |t|
+    t.integer  "tag_id",     null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+  end
+
+  add_index "tag_translations", ["locale"], name: "index_tag_translations_on_locale", using: :btree
+  add_index "tag_translations", ["tag_id"], name: "index_tag_translations_on_tag_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trackings", force: :cascade do |t|
