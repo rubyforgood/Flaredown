@@ -8,7 +8,7 @@ class Search
   #
   validates :resource, presence: true
 
-  validates_inclusion_of :resource, in: %w(treatment symptom condition)
+  validates_inclusion_of :resource, in: %w(treatment symptom condition tag)
 
   def id
     Digest::SHA256.base64digest(resource)
