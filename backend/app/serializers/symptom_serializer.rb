@@ -9,6 +9,7 @@
 #
 
 class SymptomSerializer < ApplicationSerializer
+  include SearchableSerializer
   include TrackableSerializer
 
   attributes :id, :name

@@ -8,5 +8,6 @@
 #
 
 class TagSerializer < ApplicationSerializer
+  include SearchableSerializer
   attributes :id, :name
 end

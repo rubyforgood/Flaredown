@@ -9,6 +9,7 @@
 #
 
 class ConditionSerializer < ApplicationSerializer
+  include SearchableSerializer
   include TrackableSerializer
 
   attributes :id, :name
