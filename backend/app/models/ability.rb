@@ -20,5 +20,7 @@ class Ability
     can :manage, Treatment, id: user.treatment_ids
 
     can :manage, Tracking, user_id: user.id
+
+    can :manage, Tag
   end
 end
