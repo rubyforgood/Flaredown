@@ -1,0 +1,26 @@
+.checkin-tag {
+  margin: 0 5px 5px 0;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  &:hover {
+    opacity: .85;
+  }
+  .checkin-tag-text {
+    font-size: 1.5em;
+    display: inline-block;
+    cursor: pointer;
+    height: 100%;
+    background: orange;
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+    padding: 0 10px 0 0;
+    color: white;
+  }
+  .checkin-tag-pointer {
+    vertical-align: bottom;
+    height: 100%;
+    position: relative;
+    right: -1px;
+  }
+}

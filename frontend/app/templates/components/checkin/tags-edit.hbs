@@ -1,0 +1,14 @@
+<ul>
+  {{#each tags as |tag|}}
+    <li class="checkin-tag" {{action "remove" tag}}>
+      <img class="checkin-tag-pointer" src="assets/tag-point.svg">
+      <div class="checkin-tag-text">{{tag.name}}</div>
+    </li>
+  {{/each}}
+</ul>
+
+{{select-field resource="tag"
+               selection=selectedTag
+               onSelect=(action "add")
+               create=true
+               placeholder=selectPlaceholder}}
