@@ -4,7 +4,7 @@ RSpec.describe Checkin::Condition, type: :model do
   include Mongoid::Matchers
 
   describe 'Relations' do
-    it { is_expected.to be_embedded_in(:checkin) }
+    it { is_expected.to belong_to(:checkin) }
   end
 
   describe 'Respond to' do
