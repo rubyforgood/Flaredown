@@ -49,7 +49,7 @@ export default Ember.Component.extend( {
 
 
   xAxis: Ember.computed('xScale', function() {
-    return d3.svg.axis().scale(this.get('xScale')).orient("bottom").ticks(this.get('timelineLength')).tickFormat(function(d, i){
+    return d3.svg.axis().scale(this.get('xScale')).orient("bottom").ticks(this.get('timelineLength')).tickFormat(function(d){
       return moment(d).format("YYYY-MM-DD");
     });
   }),

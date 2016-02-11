@@ -9,7 +9,7 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
     treatments: { embedded: 'always' }
   },
 
-  serialize(snapshot, options) {
+  serialize() {
     var json = this._super(...arguments);
     json.conditions_attributes = json.conditions;
     delete json.conditions;

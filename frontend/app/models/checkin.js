@@ -1,3 +1,4 @@
+/* global moment */
 import DS from 'ember-data';
 import Ember from 'ember';
 
