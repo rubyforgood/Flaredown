@@ -29,25 +29,25 @@ export default Ember.Component.extend({
   actions: {
     fetchItems() {
       if(this.get('async')) {
-        this.findByQuery({ resource: this.get('resource') })
+        this.findByQuery({ resource: this.get('resource') });
       } else if(Ember.isEmpty(this.get('items')) ) {
         this.findAll();
       }
     },
 
     selectItem(item) {
-      Ember.tryInvoke(this, 'onSelect', item)
+      Ember.tryInvoke(this, 'onSelect', item);
     },
 
     createItem(value) {
       var item = this.get('store').createRecord(this.get('resource'), { name: value });
       this.set('selection', item);
-      Ember.tryInvoke(this, 'onSelect', item)
+      Ember.tryInvoke(this, 'onSelect', item);
     },
 
     updateFilter(value) {
       if( this.get('async') && value.length === 3 ) {
-        this.findByQuery({ resource: this.get('resource'), query: { name: value } })
+        this.findByQuery({ resource: this.get('resource'), query: { name: value } });
       }
     },
 
