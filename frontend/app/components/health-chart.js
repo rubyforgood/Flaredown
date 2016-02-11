@@ -22,6 +22,20 @@ export default Ember.Component.extend(Resizable, Draggable, {
     return moment(this.get('endAt')).add(15, 'days');
   }),
 
+  series: Ember.computed('trackables', function() {
+    var series = { }
+
+    this.get('trackables').forEach( (item, index) => {
+      var modelName = item.get('constructor.modelName').pluralize();
+
+      if(Ember.isEmpty( series[modelName] )) {
+        series[modelName] = []
+      }
+      series[modelName].pushObject({ model: item, index: index });
+    })
+    return series;
+  }),
+
   serieHeight: 75,
   seriePadding: 10,
   seriesLength: Ember.computed.alias('trackables.length'),
@@ -73,7 +87,9 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
     return this.get('store').queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
       this.set('checkins', chart.get('checkins').sortBy('date:asc') );
-      this.set('trackables', chart.get('trackables').sortBy('type'));
+      if(Ember.isEmpty( this.get('trackables') )) {
+        this.set('trackables', chart.get('trackables').sortBy('type'));
+      }
     });
   },
 

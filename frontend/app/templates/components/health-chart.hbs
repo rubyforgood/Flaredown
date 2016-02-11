@@ -1,9 +1,18 @@
 <svg width='100%' height={{SVGHeight}}>
   <g class="health-chart-viewport">
     {{#if chartLoaded }}
-      {{#each trackables as |trackable index|}}
-        {{chart/g-trackable model=trackable index=index}}
+      {{#each series.conditions as |condition|}}
+        {{chart/g-trackable model=condition.model index=condition.index}}
       {{/each}}
+
+      {{#each series.treatments as |treatment|}}
+        {{chart/g-trackable model=treatment.model index=treatment.index}}
+      {{/each}}
+
+      {{#each series.symptoms as |symptom|}}
+        {{chart/g-trackable model=symptom.model index=symptom.index}}
+      {{/each}}
+
       {{chart/g-timeline  onDateClicked=(action "setCurrentDate")
                           oneMouseHover=(action "openInfoWindow")
                           onMouseLeave=(action "closeInfoWindow")}}
