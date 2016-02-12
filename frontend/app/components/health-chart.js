@@ -23,16 +23,30 @@ export default Ember.Component.extend(Resizable, Draggable, {
   }),
 
   series: Ember.computed('trackables', function() {
-    var series = { }
+    var index = 0;
+
+    var series = {
+      conditions: [],
+      symptoms:   [],
+      treatments: [],
+    };
 
     this.get('trackables').forEach( (item, index) => {
       var modelName = item.get('constructor.modelName').pluralize();
+      series[modelName].pushObject({ model: item, index: 0 });
+    });
 
-      if(Ember.isEmpty( series[modelName] )) {
-        series[modelName] = []
-      }
-      series[modelName].pushObject({ model: item, index: index });
-    })
+    series.conditions.forEach( (item) => {
+      item.index = index++;
+    });
+    series.symptoms.forEach( (item) => {
+      item.index = index++;
+    });
+
+    series.treatments.forEach( (item) => {
+      item.index = index++;
+    });
+
     return series;
   }),
 

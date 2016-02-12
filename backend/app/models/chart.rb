@@ -16,12 +16,14 @@ class Chart
     @checkins ||= user.checkins.by_date(start_at.to_date, end_at.to_date)
   end
 
-  def trackings
-    user.trackings.active_at(Date.today)
-  end
-
   def trackables
     trackings.map(&:trackable)
   end
 
+
+  private
+
+  def trackings
+    user.trackings.active_at(Date.today)
+  end
 end
