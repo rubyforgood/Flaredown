@@ -32,21 +32,13 @@ export default Ember.Component.extend(TrackablesFromTypeMixin, {
     },
     add() {
       var selectedTrackable = this.get('selectedTrackable');
-      var trackableType = this.get('trackableType');
-      // check if selectedTrackable is already present in this checkin
-      var trackable = this.get('trackeds').findBy(`${trackableType}.id`, selectedTrackable.get('id'));
-      if (Ember.isNone(trackable)) {
-        var randomColor = Math.floor(Math.random()*32)+'';
-        var recordAttrs = {colorId: randomColor};
-        recordAttrs[trackableType] = selectedTrackable;
-
-        var recordType = `checkin_${trackableType}`.camelize();
-        var tracked = this.get('store').createRecord(recordType, recordAttrs);
-        this.get('trackeds').pushObject(tracked);
-
-        this.get('addedTrackeds').pushObject(tracked);
+      if (Ember.isPresent(selectedTrackable.get('id'))) {
+        this.addTrackable(selectedTrackable);
+      } else {
+        selectedTrackable.save().then( savedTrackable => {
+          this.addTrackable(savedTrackable);
+        });
       }
-      this.set('selectedTrackable', null);
     },
 
     completeStep() {
@@ -57,6 +49,24 @@ export default Ember.Component.extend(TrackablesFromTypeMixin, {
       this.saveCheckin();
       this.get('onGoBack')();
     }
+  },
+
+  addTrackable: function(trackable) {
+    var trackableType = this.get('trackableType');
+    // check if trackable is already present in this checkin
+    var foundTrackable = this.get('trackeds').findBy(`${trackableType}.id`, trackable.get('id'));
+    if (Ember.isNone(foundTrackable)) {
+      var randomColor = Math.floor(Math.random()*32)+'';
+      var recordAttrs = {colorId: randomColor};
+      recordAttrs[trackableType] = trackable;
+
+      var recordType = `checkin_${trackableType}`.camelize();
+      var tracked = this.get('store').createRecord(recordType, recordAttrs);
+      this.get('trackeds').pushObject(tracked);
+
+      this.get('addedTrackeds').pushObject(tracked);
+    }
+    this.set('selectedTrackable', null);
   },
 
   saveCheckin: function() {
