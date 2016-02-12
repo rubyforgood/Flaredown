@@ -11,12 +11,12 @@
   <h6 class="trackable">{{tracking.trackable.name}}</h6>
 {{/each}}
 
-{{ember-selectize content=trackables
-                  optionValuePath="content.id"
-                  optionLabelPath="content.name"
-                  selection=selectedTrackable
-                  select-item="trackSelected"
-                  placeholder=selectPlaceholder }}
+{{select-field resource=trackableType
+               selection=selectedTrackable
+               onSelect=(action "trackSelected")
+               create=true
+               placeholder=selectPlaceholder}}
+
 <div class="explainer">
   Not required, and you can change these later
 </div>
