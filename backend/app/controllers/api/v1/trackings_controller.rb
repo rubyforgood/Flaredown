@@ -2,7 +2,7 @@ class Api::V1::TrackingsController < Api::BaseController
   load_and_authorize_resource except: :create
 
   def index
-    render json: @trackings.active_at(at)
+    render json: @trackings.by_trackable_type(trackable_type).active_at(at)
   end
 
   def show
@@ -25,6 +25,10 @@ class Api::V1::TrackingsController < Api::BaseController
 
   def at
     DateTime.parse(params.require(:at))
+  end
+
+  def trackable_type
+    params.require(:trackable_type)
   end
 
   def create_params

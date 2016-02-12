@@ -11,18 +11,20 @@ RSpec.describe Api::V1::TrackingsController do
 
   describe 'index' do
     context 'at current time' do
+      let(:trackable_type) { current_tracking.trackable_type }
       let(:at) { Time.now }
       it 'returns current trackings only' do
-        get :index, at: at
+        get :index, at: at, trackable_type: trackable_type
         returned_ids = response_body[:trackings].map { |t| t[:id] }
         expect(returned_ids).to include current_tracking.id
         expect(returned_ids).not_to include old_tracking.id
       end
     end
     context 'at past time' do
+      let(:trackable_type) { old_tracking.trackable_type }
       let(:at) { 10.days.ago }
       it 'returns old trackings only' do
-        get :index, at: at
+        get :index, at: at, trackable_type: trackable_type
         returned_ids = response_body[:trackings].map { |t| t[:id] }
         expect(returned_ids).to include old_tracking.id
         expect(returned_ids).not_to include current_tracking.id
