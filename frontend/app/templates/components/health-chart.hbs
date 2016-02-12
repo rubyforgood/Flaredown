@@ -5,12 +5,12 @@
         {{chart/g-trackable model=condition.model index=condition.index}}
       {{/each}}
 
-      {{#each series.treatments as |treatment|}}
-        {{chart/g-trackable model=treatment.model index=treatment.index}}
-      {{/each}}
-
       {{#each series.symptoms as |symptom|}}
         {{chart/g-trackable model=symptom.model index=symptom.index}}
+      {{/each}}
+
+      {{#each series.treatments as |treatment|}}
+        {{chart/g-trackable model=treatment.model index=treatment.index}}
       {{/each}}
 
       {{chart/g-timeline  onDateClicked=(action "setCurrentDate")

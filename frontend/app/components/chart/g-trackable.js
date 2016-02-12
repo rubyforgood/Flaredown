@@ -96,7 +96,7 @@ export default Ember.Component.extend( {
      return d3.svg.line().defined(this.getPoint)
                          .x(this.getX.bind(this))
                          .y(this.getY.bind(this))
-                         .interpolate("monotone")(this.get('data'));
+                         .interpolate("basis")(this.get('data'));
   }),
 
   getPoint(d) {
