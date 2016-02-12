@@ -21,7 +21,7 @@ class CheckinCreator
       end
     end
     Checkin.create!(
-      user_id: user.id, date: date,
+      user_id: user.id, date: date, tag_ids: [],
       conditions_attributes: condition_attrs,
       symptoms_attributes: symptom_attrs,
       treatments_attributes: treatment_attrs
