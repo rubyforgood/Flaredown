@@ -1,14 +1,9 @@
 {{#each existingTrackings as |tracking| }}
-  {{#if (and trackableTypeIsCondition tracking.isForCondition)}}
-    <h6 class="trackable">{{tracking.trackable.name}}</h6>
-  {{else if (and trackableTypeIsSymptom tracking.isForSymptom)}}
-    <h6 class="trackable">{{tracking.trackable.name}}</h6>
-  {{else if (and trackableTypeIsTreatment tracking.isForTreatment)}}
-    <h6 class="trackable">{{tracking.trackable.name}}</h6>
-  {{/if}}
+  {{partial "components/view-remove-tracking"}}
 {{/each}}
+
 {{#each newTrackings as |tracking| }}
-  <h6 class="trackable">{{tracking.trackable.name}}</h6>
+  {{partial "components/view-remove-tracking"}}
 {{/each}}
 
 {{select-field resource=trackableType

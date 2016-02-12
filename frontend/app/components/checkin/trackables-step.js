@@ -8,7 +8,10 @@ export default Ember.Component.extend(TrackablesFromTypeMixin, {
 
   tracking: Ember.inject.service(),
   setupTracking: Ember.on('init', function() {
-    this.get('tracking').setAt(new Date());  // Trackings in the past don't matter by reqs
+    this.get('tracking').setup({
+      at: new Date(),
+      trackableType: this.get('trackableType').capitalize()
+    })
   }),
 
   checkin: Ember.computed.alias('model.checkin'),
@@ -61,7 +64,9 @@ export default Ember.Component.extend(TrackablesFromTypeMixin, {
     // untrack() all removedTrackeds if isTodaysCheckin
     this.get('removedTrackeds').forEach(record => {
       if (this.get('isTodaysCheckin')) {
-        this.get('tracking').untrack(record.get(trackableType));
+        this.get('tracking').untrack({
+          trackable: record.get(trackableType)
+        });
       }
     });
 
