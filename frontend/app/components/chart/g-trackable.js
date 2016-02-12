@@ -16,24 +16,46 @@ export default Ember.Component.extend( {
   startAt: Ember.computed.alias('parentView.startAt'),
   endAt: Ember.computed.alias('parentView.endAt'),
 
-  shouldAlwaysBeWithinAHelthChartComponent: Ember.on('didInsertElement', function() {
+
+  type: 'line',
+  isLineSerie: Ember.computed.equal('type', 'line'),
+  isSymbolSerie: Ember.computed.equal('type', 'symbol'),
+
+  onDidInsertElement: Ember.on('didInsertElement', function() {
     Ember.run.scheduleOnce('afterRender', () => {
-      var parentView = this.get('parentView');
-      var elementId = this.get('elementId');
-      Ember.assert("HealthChartComponent (element ID: " + elementId + ") must have a parent view in order to yield.", parentView);
-      Ember.assert(
-        "HealthChartComponent (element ID: " + elementId + ") should be inside a HealthChartComponent.",
-        HealthChartComponent.detectInstance(parentView)
-      );
+      this.shouldAlwaysBeWithinAHelthChartComponent();
+      this.drawAxis();
     });
   }),
 
-  drawAxis: Ember.on('didInsertElement', Ember.observer('xAxis', function() {
-    d3.select(`g#${this.get('xAxisElementId')}`).call(this.get('xAxis'));
-  })),
+  shouldAlwaysBeWithinAHelthChartComponent() {
+    var parentView = this.get('parentView');
+    var elementId = this.get('elementId');
+    Ember.assert("HealthChartComponent (element ID: " + elementId + ") must have a parent view in order to yield.", parentView);
+    Ember.assert(
+      "HealthChartComponent (element ID: " + elementId + ") should be inside a HealthChartComponent.",
+      HealthChartComponent.detectInstance(parentView)
+    );
+  },
+
+  drawAxis: Ember.observer('xAxis', function() {
+    d3.select(`g#x-axis-${this.get('xAxisElementId')}`).call(this.get('xAxis'));
+  }),
+
+  markers: Ember.computed('data', function() {
+    return this.get('data').filter( (item) => {
+      return item.y === true;
+    }).map( (item) => {
+      return {
+        x: this.get('xScale')(item.x) - 20 ,
+        y: this.get('yScale')(1),
+        css: this.get('model.fillClass')
+      };
+    });
+  }),
 
   xAxisElementId: Ember.computed('model', function() {
-    return `x-axis-${this.get('model.constructor.modelName')}-${this.get('model.id')}`;
+    return `${this.get('model.constructor.modelName')}-${this.get('model.id')}`;
   }),
 
   transform: Ember.computed('height', 'padding', 'index', function() {
@@ -42,6 +64,10 @@ export default Ember.Component.extend( {
 
   xAxisTransform: Ember.computed('height', 'startAt', 'data', function() {
     return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('height')})`;
+  }),
+
+  circleTransform: Ember.computed('height', 'startAt', 'data', function() {
+    return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
   }),
 
   pathTransform: Ember.computed('height', 'startAt', 'data', function() {
@@ -76,18 +102,22 @@ export default Ember.Component.extend( {
     var key = type.pluralize();
 
     return this.get('timeline').map( (day) => {
-
       var checkin = this.get('checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
 
       var coordinate = { x: day, y: null };
 
       if(Ember.isPresent(checkin)) {
-        checkin.get(key).forEach( item => {
-          if(parseInt(item.get(`${type}.id`)) === parseInt(trackable.get('id'))) {
+        var item = checkin.get(key).findBy(`${type}.id`, trackable.get('id'));
+
+        if(Ember.isPresent(item) && Ember.isPresent(item.get('value'))) {
+          if(Ember.$.isNumeric(item.get('value')) ) {
             coordinate.y = item.get('value');
+          } else {
+            coordinate.y = true;
           }
-        });
+        }
       }
+
       return coordinate;
     }).sortBy('x');
   }),
@@ -99,8 +129,9 @@ export default Ember.Component.extend( {
                          .interpolate("basis")(this.get('data'));
   }),
 
+
   getPoint(d) {
-    if(Ember.$.isNumeric(d.y) ) {
+    if(d.y != null) {
       return d;
     }
   },

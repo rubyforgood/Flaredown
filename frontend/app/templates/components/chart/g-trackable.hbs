@@ -1,4 +1,21 @@
-<path class="line {{model.strokeClass}}" d="{{lineFunction}}" transform="{{pathTransform}}"></path>
-<g id="{{xAxisElementId}}" class="axis x {{model.strokeClass}}" transform="{{xAxisTransform}}"></g>
+{{#if isLineSerie}}
+  <path class="line {{model.strokeClass}}" d="{{lineFunction}}" transform="{{pathTransform}}"></path>
+{{else}}
+  <g id="markers-{{xAxisElementId}}" transform="{{circleTransform}}">
+    <defs>
+      <g id="marker-{{xAxisElementId}}" transform="translate(0.000000,53.000000) scale(0.100000,-0.100000)" >
+      	<path d="M154.722,378.574c-20.864-8.657-36.836-26.377-42.153-47.324c-8.174-32.153,9.424-69.736,50.742-107.666l26.621-24.209
+      		l25.781,23.838c36.016,33.965,49.922,59.263,49.922,92.124c0,28.906-8.584,44.097-33.955,59.253
+      		C212.432,386.528,177.656,388.325,154.722,378.574z"/>
+      </g>
+    </defs>
+
+    {{#each markers as |marker|}}
+      <use x="{{marker.x}}" y="{{marker.y}}" class="{{marker.css}}" xlink:href="#marker-{{xAxisElementId}}" />
+    {{/each}}
+  </g>
+{{/if}}
+
+<g id="x-axis-{{xAxisElementId}}" class="axis x {{model.strokeClass}}" transform="{{xAxisTransform}}"></g>
 
 <text class="title {{model.strokeClass}}" transform="translate(5,12)">{{model.name}}</text>

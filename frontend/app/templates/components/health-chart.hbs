@@ -10,7 +10,7 @@
       {{/each}}
 
       {{#each series.treatments as |treatment|}}
-        {{chart/g-trackable model=treatment.model index=treatment.index}}
+        {{chart/g-trackable model=treatment.model index=treatment.index type="symbol"}}
       {{/each}}
 
       {{chart/g-timeline  onDateClicked=(action "setCurrentDate")

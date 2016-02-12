@@ -16,6 +16,9 @@ export default Ember.Mixin.create({
   }),
   clrClass: Ember.computed('colorId', function() {
     return `colorable-clr-${this.get('colorId')}`;
-  })
+  }),
+  fillClass: Ember.computed('colorId', function() {
+    return `colorable-fill-${this.get('colorId')}`;
+  }),
 
 });
