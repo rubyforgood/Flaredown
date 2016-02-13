@@ -49,7 +49,8 @@ export default Ember.Component.extend( {
       return {
         x: this.get('xScale')(item.x) - 20 ,
         y: this.get('yScale')(1),
-        css: this.get('model.fillClass')
+        css: this.get('model.fillClass'),
+        tip: item.label
       };
     });
   }),
@@ -110,6 +111,7 @@ export default Ember.Component.extend( {
         var item = checkin.get(key).findBy(`${type}.id`, trackable.get('id'));
 
         if(Ember.isPresent(item) && Ember.isPresent(item.get('value'))) {
+          coordinate.label = item.get('value')
           if(Ember.$.isNumeric(item.get('value')) ) {
             coordinate.y = item.get('value');
           } else {
@@ -142,6 +144,17 @@ export default Ember.Component.extend( {
 
   getY(d) {
     return this.get('yScale')(d.y);
-  }
+  },
 
+  actions: {
+    openTooltip(marker) {
+      this.set('openToolTip', true);
+      this.set('currentMarker', marker);
+    },
+
+    closeTooltip(marker) {
+      this.set('openToolTip', false);
+      this.set('currentMarker', null);
+    }
+  }
 });
