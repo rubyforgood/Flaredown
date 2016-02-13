@@ -11,7 +11,7 @@ export default Ember.Component.extend(TrackablesFromType, {
     this.get('tracking').setup({
       at: new Date(),
       trackableType: this.get('trackableType').capitalize()
-    })
+    });
   }),
 
   checkin: Ember.computed.alias('model.checkin'),

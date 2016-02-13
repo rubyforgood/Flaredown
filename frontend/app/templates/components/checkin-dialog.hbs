@@ -1,18 +1,4 @@
-<!-- TODO: checkin-days-nav component to move back and forth in days -->
-<div class="checkin-days-nav">
-  <div class="yesterday"><a href="#">‹</a></div>
-  <div class="checkin-date">
-    {{monthAndDay}}
-  </div>
-  <div class="tomorrow"><a href="#">›</a></div>
-</div>
-
-<!-- TODO: move this to individual components -->
-{{#unless isToday}}
-  <div class="tip">
-    You are currently editing in the past, changes made here won't be taken into account for future checkins
-  </div>
-{{/unless}}
+{{checkin/days-nav checkin=checkin step=step}}
 
 <h2>{{step.title}}</h2>
 {{#if step.hint}}

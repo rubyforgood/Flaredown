@@ -15,13 +15,6 @@ export default Ember.Component.extend(StepControl, {
   isSummary: Ember.computed.equal('step.key', 'summary'),
 
   checkin: Ember.computed.alias('model.checkin'),
-  currentDate: Ember.computed.alias('checkin.date'),
-  isToday: Ember.computed('currentDate', function() {
-    return moment(this.get('currentDate')).isSame(new Date(), 'day');
-  }),
-  monthAndDay: Ember.computed('currentDate', function() {
-    return moment(this.get('currentDate')).format("MMMM Do");
-  }),
 
   // Needed by StepControlMixin
   stepKey: 'model.currentStep',
