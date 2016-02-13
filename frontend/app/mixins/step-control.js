@@ -1,14 +1,15 @@
 import Ember from 'ember';
-import ComponentsRouter from 'flaredown/mixins/components-router';
 
-export default Ember.Mixin.create(ComponentsRouter, {
+// Assumes this.router exists
+
+export default Ember.Mixin.create({
 
   actions: {
 
     moveToNextStep() {
       var step = this.get(this.stepKey);
       if (step.get('isLast')) {
-        this.router().transitionTo(this.routeAfterCompleted);
+        this.router.transitionTo(this.routeAfterCompleted);
       } else {
         step.get('next').then(nextStep => {
           if (Ember.isPresent(this.saveToModel)) {
@@ -39,7 +40,7 @@ export default Ember.Mixin.create(ComponentsRouter, {
   },
 
   transitionTo: function(step) {
-    this.router().transitionTo(step.get('group'), step.get('key'));
+    this.router.transitionTo(step.get('group'), step.get('key'));
   }
 
 });
