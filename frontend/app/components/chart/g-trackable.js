@@ -66,7 +66,7 @@ export default Ember.Component.extend( {
     return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('height')})`;
   }),
 
-  circleTransform: Ember.computed('height', 'startAt', 'data', function() {
+  markersTransform: Ember.computed('height', 'startAt', 'data', function() {
     return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
   }),
 

@@ -1,7 +1,7 @@
 {{#if isLineSerie}}
   <path class="line {{model.strokeClass}}" d="{{lineFunction}}" transform="{{pathTransform}}"></path>
 {{else}}
-  <g id="markers-{{xAxisElementId}}" transform="{{circleTransform}}">
+  <g id="markers-{{xAxisElementId}}" transform="{{markersTransform}}">
     <defs>
       <g id="marker-{{xAxisElementId}}" transform="translate(0.000000,53.000000) scale(0.100000,-0.100000)" >
       	<path d="M154.722,378.574c-20.864-8.657-36.836-26.377-42.153-47.324c-8.174-32.153,9.424-69.736,50.742-107.666l26.621-24.209

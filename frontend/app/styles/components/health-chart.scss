@@ -16,6 +16,12 @@
 
   svg {
 
+    .marker:hover {
+      fill: grey !important;
+      stroke-width: 2;
+      cursor: pointer;
+    };
+
     .trackable-title {
       margin-top: 21px;
     }
