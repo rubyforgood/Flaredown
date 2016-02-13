@@ -1,8 +1,8 @@
 /* global moment */
 import Ember from 'ember';
-import StepControlMixin from 'flaredown/mixins/step-control';
+import StepControl from 'flaredown/mixins/step-control';
 
-export default Ember.Component.extend(StepControlMixin, {
+export default Ember.Component.extend(StepControl, {
 
   classNames: ['process-step-container'],
 

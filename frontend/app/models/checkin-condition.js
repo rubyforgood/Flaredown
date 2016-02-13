@@ -1,9 +1,9 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import ColorableMixin from 'flaredown/mixins/colorable';
-import NestedDestroyableMixin from 'flaredown/mixins/nested-destroyable';
+import Colorable from 'flaredown/mixins/colorable';
+import NestedDestroyable from 'flaredown/mixins/nested-destroyable';
 
-export default DS.Model.extend(ColorableMixin, NestedDestroyableMixin, {
+export default DS.Model.extend(Colorable, NestedDestroyable, {
   value: DS.attr('number'),
 
   condition: DS.belongsTo('condition'),

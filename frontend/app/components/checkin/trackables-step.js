@@ -1,8 +1,8 @@
 /* global moment */
 import Ember from 'ember';
-import TrackablesFromTypeMixin from 'flaredown/mixins/trackables-from-type';
+import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
-export default Ember.Component.extend(TrackablesFromTypeMixin, {
+export default Ember.Component.extend(TrackablesFromType, {
 
   model: Ember.computed.alias('parentView.model'),
 
