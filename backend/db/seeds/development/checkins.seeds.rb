@@ -21,6 +21,9 @@ if email.present?
   treatments = FactoryGirl.create_list(:user_treatment, 3, user: user).map(&:treatment)
   treatments += FactoryGirl.create_list(:treatment, 6)
 
+  # Create some tags
+  tags = FactoryGirl.create_list(:tag, 10)
+
   # Setup time frame
   end_at = Date.today
   day = end_at - (DAYS-1).days
@@ -70,7 +73,9 @@ if email.present?
     end
 
     # Checkin
-    checkin = FactoryGirl.create(:checkin, user_id: user.id, date: day)
+    checkin = FactoryGirl.create(:checkin,
+      user_id: user.id, date: day, tag_ids: tags.sample(3).map(&:id)
+    )
     active_trackings = user.trackings.reload.active_at(day)
     active_trackings.map(&:trackable).each do |trackable|
       if trackable.is_a? Condition
