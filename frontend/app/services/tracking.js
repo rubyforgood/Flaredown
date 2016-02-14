@@ -8,10 +8,10 @@ export default Ember.Service.extend({
       at: options.at,
       trackableType: options.trackableType
     });
+    this.set('newTrackings', Ember.A([]));
   },
 
-  existingTrackings: Ember.computed('at', function() {
-    this.set('newTrackings', Ember.A([]));
+  existingTrackings: Ember.computed('at', 'trackableType', function() {
     return this.get('store').query('tracking', {
       at: this.get('at'), trackable_type: this.get('trackableType')
     });
@@ -23,7 +23,9 @@ export default Ember.Service.extend({
     var tracking = this.get('store').createRecord('tracking', {trackable: trackable, colorId: colorId});
     tracking.save().then( savedTracking => {
       this.get('newTrackings').pushObject(savedTracking);
-      callback(savedTracking);
+      if (Ember.isPresent(callback)) {
+        callback(savedTracking);
+      }
     });
   },
 
@@ -44,7 +46,9 @@ export default Ember.Service.extend({
                  Ember.isEqual(record.get('trackableType'), trackable.get('constructor.modelName'));
         });
         tracking.destroyRecord().then(function() {
-          callback();
+          if (Ember.isPresent(callback)) {
+            callback();
+          }
         });
       });
     }
