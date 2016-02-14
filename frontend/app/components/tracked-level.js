@@ -23,14 +23,11 @@ export default Ember.Component.extend({
   actions: {
 
     pipClick(pipValue) {
-      Ember.Logger.debug('pipClick');
-      Ember.Logger.debug(pipValue);
       this.get('model').set(this.get('valueKey'), pipValue);
       this.set('currentValue', pipValue);
     },
 
     xClick() {
-      Ember.Logger.debug('xClick');
       var model = this.get('model');
       this.get('onRemove')(model);
     }
