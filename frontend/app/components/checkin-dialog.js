@@ -4,7 +4,7 @@ import StepControl from 'flaredown/mixins/step-control';
 
 export default Ember.Component.extend(StepControl, {
 
-  classNames: ['process-step-container'],
+  classNames: ['flaredown-white-box'],
 
   step: Ember.computed.alias('model.currentStep'),
   isStart: Ember.computed.equal('step.key', 'start'),
