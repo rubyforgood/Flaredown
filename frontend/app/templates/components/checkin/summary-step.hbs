@@ -2,17 +2,20 @@
 <div class="flaredown-white-box">
   {{checkin/trackables-step trackeds=checkin.conditions
                             trackableType='condition'
-                            stepControls=false }}
+                            stepControls=false
+                            isSaving=isSaving }}
 </div>
 <div class="flaredown-white-box">
   {{checkin/trackables-step trackeds=checkin.symptoms
                             trackableType='symptom'
-                            stepControls=false }}
+                            stepControls=false
+                            isSaving=isSaving }}
 </div>
 <div class="flaredown-white-box">
   {{checkin/trackables-step trackeds=checkin.treatments
                             trackableType='treatment'
-                            stepControls=false }}
+                            stepControls=false
+                            isSaving=isSaving }}
 </div>
 <div class="flaredown-white-box">
   {{checkin/tags-edit checkin=checkin}}
