@@ -6,6 +6,7 @@ export default DS.Model.extend({
   // Attributes
   startAt: DS.attr('date'),
   endAt: DS.attr('date'),
+  trackableType: DS.attr('string'),
   colorId: DS.attr('string'),
 
   // Associations

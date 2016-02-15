@@ -33,25 +33,37 @@ export default Ember.Service.extend({
   untrack: function(params, callback) {
     var tracking = params.tracking;
     if (Ember.isPresent(tracking)) {
-      tracking.destroyRecord().then(function() {
-        if (Ember.isPresent(callback)) {
-          callback();
-        }
-      });
+      this.destroyTracking(tracking, callback);
     } else {
-      var trackable = params.trackable;
-      this.get('existingTrackings').then(function(trackings) {
-        tracking = trackings.find(function(record) {
-          return Ember.isEqual(record.get('trackable.id'), trackable.get('id')) &&
-                 Ember.isEqual(record.get('trackableType'), trackable.get('constructor.modelName'));
-        });
-        tracking.destroyRecord().then(function() {
-          if (Ember.isPresent(callback)) {
-            callback();
+      Ember.RSVP.resolve(params.trackable).then(trackable => {
+        this.get('existingTrackings').then(trackings => {
+          tracking = trackings.find(record => {
+            return this.compare(record, trackable);
+          });
+          if (Ember.isPresent(tracking)) {
+            this.destroyTracking(tracking, callback);
+          } else {
+            tracking = this.get('newTrackings').find(record => {
+              return this.compare(record, trackable);
+            });
+            this.destroyTracking(tracking, callback);
           }
         });
       });
     }
+  },
+
+  compare: function(tracking, trackable) {
+    return Ember.isEqual(tracking.get('trackable.id'), trackable.get('id')) &&
+    Ember.isEqual(tracking.get('trackableType').toLowerCase(), trackable.get('constructor.modelName'));
+  },
+
+  destroyTracking: function(tracking, callback) {
+    tracking.destroyRecord().then(function() {
+      if (Ember.isPresent(callback)) {
+        callback();
+      }
+    });
   }
 
 });
