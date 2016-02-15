@@ -14,24 +14,40 @@ export default Ember.Component.extend(RunEvery, {
 
   isSaving: false,
   saveCheckin: function() {
-    var checkin = this.get('checkin');
-    if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.hasChanged()) {
-      this.set('isSaving', true);
-      checkin.save().then(savedCheckin => {
-        checkin.set('tagsChanged', false);
-        this.set('isSaving', false);
-        Ember.Logger.debug('Checkin successfully saved');
-      });
+    this.checkinSavePromise().then(() => {
+      this.onCheckinSaved();
+    });
+  },
+  checkinSavePromise: function() {
+    return new Ember.RSVP.Promise(resolve => {
+      var checkin = this.get('checkin');
+      if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.hasChanged()) {
+        this.set('isSaving', true);
+        checkin.save().then(() => {
+          resolve();
+        });
+      } else {
+        Ember.Logger.debug("Checkin didn't change, no need to save");
+      }
+    });
+  },
+  onCheckinSaved: function() {
+    Ember.Logger.debug('Checkin successfully saved');
+    if (this.get('isDestroyed') || this.get('isDestroying')) {
+      return;
     } else {
-      Ember.Logger.debug("Checkin didn't change, no need to save");
+      this.get('checkin').set('tagsChanged', false);
+      this.set('isSaving', false);
     }
   },
 
   actions: {
     completeStep() {
+      this.saveCheckin();
       this.get('onStepCompleted')();
     },
     goBack() {
+      this.saveCheckin();
       this.get('onGoBack')();
     }
   }

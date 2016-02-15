@@ -49,9 +49,11 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
     },
 
     completeStep() {
+      this.saveCheckin();
       this.get('onStepCompleted')();
     },
     goBack() {
+      this.saveCheckin();
       this.get('onGoBack')();
     }
   },
@@ -76,22 +78,36 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
 
   isSaving: false,
   saveCheckin: function() {
-    var checkin = this.get('checkin');
-    if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.hasChanged()) {
-      this.set('isSaving', true);
-      this.untrackRemovedTrackeds();
-      this.trackAddedTrackeds();
-      this.cleanUntakenTreatments();
-      checkin.save().then(() => {
-        this.deleteAddedTrackeds();
-        checkin.set('tagsChanged', false);
-        this.set('isSaving', false);
-        this.set('addedTrackeds', Ember.A([]));
-        this.set('removedTrackeds', Ember.A([]));
-        Ember.Logger.debug('Checkin successfully saved');
-      });
+    this.checkinSavePromise().then(() => {
+      this.onCheckinSaved();
+    });
+  },
+  checkinSavePromise: function() {
+    return new Ember.RSVP.Promise(resolve => {
+      var checkin = this.get('checkin');
+      if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.hasChanged()) {
+        this.set('isSaving', true);
+        this.untrackRemovedTrackeds();
+        this.trackAddedTrackeds();
+        this.cleanUntakenTreatments();
+        checkin.save().then(() => {
+          resolve();
+        });
+      } else {
+        Ember.Logger.debug("Checkin didn't change, no need to save");
+      }
+    });
+  },
+  onCheckinSaved: function() {
+    Ember.Logger.debug('Checkin successfully saved');
+    if (this.get('isDestroyed') || this.get('isDestroying')) {
+      return;
     } else {
-      Ember.Logger.debug("Checkin didn't change, no need to save");
+      this.deleteAddedTrackeds();
+      this.get('checkin').set('tagsChanged', false);
+      this.set('isSaving', false);
+      this.set('addedTrackeds', Ember.A([]));
+      this.set('removedTrackeds', Ember.A([]));
     }
   },
 
