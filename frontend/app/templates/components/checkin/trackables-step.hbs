@@ -25,6 +25,8 @@
                create=true
                placeholder=selectPlaceholder}}
 
-{{step-controls step=model.currentStep
-                onBackward=(action "goBack")
-                onForward=(action "completeStep") }}
+{{#if stepControls}}
+  {{step-controls step=model.currentStep
+                  onBackward=(action "goBack")
+                  onForward=(action "completeStep") }}
+{{/if}}

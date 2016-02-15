@@ -1,5 +1,20 @@
 <br>
 <div class="flaredown-white-box">
+  {{checkin/trackables-step trackeds=checkin.conditions
+                            trackableType='condition'
+                            stepControls=false }}
+</div>
+<div class="flaredown-white-box">
+  {{checkin/trackables-step trackeds=checkin.symptoms
+                            trackableType='symptom'
+                            stepControls=false }}
+</div>
+<div class="flaredown-white-box">
+  {{checkin/trackables-step trackeds=checkin.treatments
+                            trackableType='treatment'
+                            stepControls=false }}
+</div>
+<div class="flaredown-white-box">
   {{checkin/tags-edit checkin=checkin}}
 </div>
 

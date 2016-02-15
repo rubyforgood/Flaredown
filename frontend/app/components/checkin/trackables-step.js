@@ -7,6 +7,8 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
 
   model: Ember.computed.alias('parentView.model'),
 
+  stepControls: true,
+
   tracking: Ember.inject.service(),
   setupTracking: Ember.on('init', function() {
     this.get('tracking').setup({
