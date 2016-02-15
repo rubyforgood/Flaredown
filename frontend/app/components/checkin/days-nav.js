@@ -5,6 +5,7 @@ import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 export default Ember.Component.extend(CheckinByDate, {
 
   classNames: ['checkin-days-nav'],
+  classNameBindings: ['big'],
 
   currentDate: Ember.computed.alias('checkin.date'),
   monthAndDay: Ember.computed('currentDate', function() {

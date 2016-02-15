@@ -1,5 +1,9 @@
-<p>TODO: checkin summary step</p>
+<br>
+<div class="flaredown-white-box">
+  {{checkin/tags-edit checkin=checkin}}
+</div>
 
 {{step-controls step=model.currentStep
-                onBackward=(action "goBack")
+                showBack=false
+                forwardLabel="Back to Dashboard"
                 onForward=(action "completeStep") }}

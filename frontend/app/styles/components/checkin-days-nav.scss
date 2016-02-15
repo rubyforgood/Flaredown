@@ -2,6 +2,9 @@
   display: inline-block;
   width: 100%;
   text-align: center;
+  &.big {
+    font-size: larger;
+  }
   .checkin-date {
     color: $primary;
     display: inline-block;

@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   model: Ember.computed.alias('parentView.model'),
+  checkin: Ember.computed.alias('model.checkin'),
 
   actions: {
     completeStep() {

@@ -1,4 +1,4 @@
-{{#if step.hasPrev}}
-  <a {{action "backward"}}>Back</a>&nbsp;
+{{#if (and showBack step.hasPrev)}}
+  <a {{action "backward"}}>{{backLabel}}</a>&nbsp;
 {{/if}}
-<button class="btn-primary" {{action "forward"}}>Continue</button>
+<button class="btn-primary" {{action "forward"}}>{{forwardLabel}}</button>

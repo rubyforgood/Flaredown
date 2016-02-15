@@ -1,8 +1,12 @@
-{{checkin/days-nav checkin=checkin step=step}}
-
-<h2>{{step.title}}</h2>
-{{#if step.hint}}
-  <div class="tip">{{{step.hint}}}</div>
+{{#if isSummary}}
+  <h2 class="summary-title">{{step.title}}</h2>
+  {{checkin/days-nav big=true checkin=checkin step=step}}
+{{else}}
+  {{checkin/days-nav checkin=checkin step=step}}
+  <h2>{{step.title}}</h2>
+  {{#if step.hint}}
+    <div class="tip">{{{step.hint}}}</div>
+  {{/if}}
 {{/if}}
 
 {{#if isStart}}
