@@ -21,13 +21,13 @@ export default Ember.Component.extend(RunEvery, {
   checkinSavePromise: function() {
     return new Ember.RSVP.Promise(resolve => {
       var checkin = this.get('checkin');
-      if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.hasChanged()) {
+      if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.get('tagsChanged')) {
         this.set('isSaving', true);
         checkin.save().then(() => {
           resolve();
         });
       } else {
-        Ember.Logger.debug("Checkin didn't change, no need to save");
+        // Ember.Logger.debug("No need to save checkin");
       }
     });
   },

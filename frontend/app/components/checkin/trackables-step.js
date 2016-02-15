@@ -79,6 +79,7 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
   },
 
   isSaving: false,
+  othersAreSaving: false,
   saveCheckin: function() {
     this.checkinSavePromise().then(() => {
       this.onCheckinSaved();
@@ -87,7 +88,9 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
   checkinSavePromise: function() {
     return new Ember.RSVP.Promise(resolve => {
       var checkin = this.get('checkin');
-      if (!this.get('isSaving') && Ember.isPresent(checkin) && checkin.hasChanged()) {
+      if (!(this.get('isSaving') || this.get('othersAreSaving')) &&
+          Ember.isPresent(checkin) &&
+          checkin.trackablesChanged(this.get('trackableType'))) {
         this.set('isSaving', true);
         this.untrackRemovedTrackeds();
         this.trackAddedTrackeds();
@@ -96,7 +99,7 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
           resolve();
         });
       } else {
-        Ember.Logger.debug("Checkin didn't change, no need to save");
+        // Ember.Logger.debug("No need to save checkin");
       }
     });
   },

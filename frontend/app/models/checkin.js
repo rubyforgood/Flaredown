@@ -33,17 +33,10 @@ export default DS.Model.extend({
     this.set('tagsChanged', true);
   },
 
-  hasChanged: function() {
-    // for some reason tags aren't captured by hasDirtyAttributes
-    var changed = this.get('hasDirtyAttributes') || this.get('tagsChanged');
-    ['conditions', 'symptoms', 'treatments'].forEach(item => {
-      if (!changed) {
-        changed = this.get(item).reduce(function(previousValue, item) {
-          return previousValue || item.get('hasDirtyAttributes');
-        }, false);
-      }
-    });
-    return changed;
+  trackablesChanged: function(trackableType) {
+    return this.get(trackableType.pluralize()).reduce(function(previousValue, item) {
+      return previousValue || item.get('hasDirtyAttributes');
+    }, false);
   }
 
 });

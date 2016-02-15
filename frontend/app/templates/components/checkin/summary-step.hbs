@@ -3,19 +3,22 @@
   {{checkin/trackables-step trackeds=checkin.conditions
                             trackableType='condition'
                             stepControls=false
-                            isSaving=isSaving }}
+                            isSaving=savingConditions
+                            othersAreSaving=(or savingSymptoms savingTreatments) }}
 </div>
 <div class="flaredown-white-box">
   {{checkin/trackables-step trackeds=checkin.symptoms
                             trackableType='symptom'
                             stepControls=false
-                            isSaving=isSaving }}
+                            isSaving=savingSymptoms
+                            othersAreSaving=(or savingConditions savingTreatments) }}
 </div>
 <div class="flaredown-white-box">
   {{checkin/trackables-step trackeds=checkin.treatments
                             trackableType='treatment'
                             stepControls=false
-                            isSaving=isSaving }}
+                            isSaving=savingTreatments
+                            othersAreSaving=(or savingSymptoms savingConditions) }}
 </div>
 <div class="flaredown-white-box">
   {{checkin/tags-edit checkin=checkin}}
