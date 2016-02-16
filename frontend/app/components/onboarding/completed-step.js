@@ -1,12 +1,16 @@
+/* global moment */
 import Ember from 'ember';
+import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(CheckinByDate, {
 
   model: Ember.computed.alias('parentView.model'),
 
+  store: Ember.inject.service(),
+
   actions: {
     completeStep() {
-      this.get('onStepCompleted')();
+      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
     },
 
     goBack() {

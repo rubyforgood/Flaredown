@@ -24,7 +24,6 @@
                                onGoBack=(action 'moveToPrevStep') }}
 
 {{else if isCompleted}}
-  {{onboarding/completed-step onStepCompleted=(action 'moveToNextStep')
-                              onGoBack=(action 'moveToPrevStep') }}
+  {{onboarding/completed-step onGoBack=(action 'moveToPrevStep') }}
 
 {{/if}}
