@@ -11,14 +11,16 @@
 	@include outer-container;
 	@include single-col;
 	margin-bottom: 2em;
-
 	h2 {
 	  text-align: center;
 	  margin: 1em 0;
 	}
-
   .tip {
   	margin: 1em auto 2em auto;
+  }
+  .success_img {
+  	margin: 2em auto;
+  	display: block;
   }
 }
 
