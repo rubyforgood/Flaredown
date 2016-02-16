@@ -17,7 +17,7 @@ class Api::V1::TrackingsController < Api::BaseController
   end
 
   def destroy
-    @tracking.update_attributes!(end_at: Date.today)
+    TrackingDestroyer.new(current_user, @tracking, Date.today).destroy
     head :no_content
   end
 
