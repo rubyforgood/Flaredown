@@ -27,6 +27,7 @@
 
 {{#if stepControls}}
   {{step-controls step=model.currentStep
+                  forwardLabel="Next"
                   onBackward=(action "goBack")
                   onForward=(action "completeStep") }}
 {{/if}}

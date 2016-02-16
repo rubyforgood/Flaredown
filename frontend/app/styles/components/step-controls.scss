@@ -1,0 +1,20 @@
+.step-controls {
+  @include outer-container;
+  margin-top: 20px;
+  .back,
+  .forward {
+    @include span-columns(6);
+    text-align: center;
+    a {
+      margin-top: 8px;
+      display: inline-block;
+    }
+    button {
+      background-color: darken($lightgrey, 15%);
+      &:hover,
+      &:focus {
+        background-color: darken($lightgrey, 30%);
+      }
+    }
+  }
+}
