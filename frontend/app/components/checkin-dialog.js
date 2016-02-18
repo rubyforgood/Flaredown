@@ -1,4 +1,3 @@
-/* global moment */
 import Ember from 'ember';
 import StepControl from 'flaredown/mixins/step-control';
 

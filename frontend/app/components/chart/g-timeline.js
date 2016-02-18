@@ -68,7 +68,7 @@ export default Ember.Component.extend( {
     this.get('onDateClicked')(moment(date).format("YYYY-MM-DD"));
   },
 
-  handleMouseHover(date, event) {
+  handleMouseHover(date) {
     var formattedDate = moment(date).format("YYYY-MM-DD");
     var position = null;
 

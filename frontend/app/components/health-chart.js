@@ -31,7 +31,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
       treatments: [],
     };
 
-    this.get('trackables').forEach( (item, index) => {
+    this.get('trackables').forEach( (item) => {
       var modelName = item.get('constructor.modelName').pluralize();
       series[modelName].pushObject({ model: item, index: 0 });
     });

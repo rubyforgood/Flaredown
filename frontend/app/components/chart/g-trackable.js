@@ -111,7 +111,7 @@ export default Ember.Component.extend( {
         var item = checkin.get(key).findBy(`${type}.id`, trackable.get('id'));
 
         if(Ember.isPresent(item) && Ember.isPresent(item.get('value'))) {
-          coordinate.label = item.get('value')
+          coordinate.label = item.get('value');
           if(Ember.$.isNumeric(item.get('value')) ) {
             coordinate.y = item.get('value');
           } else {
@@ -152,7 +152,7 @@ export default Ember.Component.extend( {
       this.set('currentMarker', marker);
     },
 
-    closeTooltip(marker) {
+    closeTooltip() {
       this.set('openToolTip', false);
       this.set('currentMarker', null);
     }
