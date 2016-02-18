@@ -110,7 +110,7 @@ export default Ember.Component.extend( {
       if(Ember.isPresent(checkin)) {
         var item = checkin.get(key).findBy(`${type}.id`, trackable.get('id'));
 
-        if(Ember.isPresent(item) && (item.get('value') || item.get('isTaken') ) ) {
+        if(Ember.isPresent(item) && (Ember.isPresent(item.get('value')) || item.get('isTaken')) ) {
           coordinate.label = item.get('value');
 
           if(Ember.$.isNumeric(item.get('value')) ) {
