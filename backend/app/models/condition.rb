@@ -9,10 +9,8 @@
 #
 
 class Condition < ActiveRecord::Base
-
   #
   # Localized attributes
   #
   translates :name
-
 end

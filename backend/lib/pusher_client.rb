@@ -12,10 +12,6 @@ class PusherClient
   end
 
   def authenticate!(user, socket_id)
-    Pusher[user.notification_channel].authenticate(socket_id, {
-      user_id: user.id
-    })
+    Pusher[user.notification_channel].authenticate(socket_id, user_id: user.id)
   end
-
-
 end

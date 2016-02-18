@@ -18,5 +18,4 @@ FactoryGirl.define do
     country_id FFaker::Address.country_code
     sex_id Sex.all_ids.sample
   end
-
 end

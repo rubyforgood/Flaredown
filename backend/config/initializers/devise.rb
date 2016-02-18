@@ -270,7 +270,7 @@ Devise.setup do |config|
   # config.invite_for = 2.weeks
 end
 
-OmniAuth.config.on_failure = Proc.new do |env|
+OmniAuth.config.on_failure = proc do |env|
   env['devise.mapping'] = Devise.mappings[:user]
   Api::V1::OmniauthCallbacksController.action(:failure).call(env)
 end

@@ -24,5 +24,4 @@ class Api::V1::TagsController < Api::BaseController
   def ids
     @ids ||= params[:ids]
   end
-
 end

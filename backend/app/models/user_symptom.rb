@@ -10,7 +10,6 @@
 #
 
 class UserSymptom < ActiveRecord::Base
-
   #
   # Associations
   #
@@ -21,5 +20,4 @@ class UserSymptom < ActiveRecord::Base
   # Validations
   #
   validates :user, :symptom, presence: true
-
 end

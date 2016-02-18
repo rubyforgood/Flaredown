@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Step do
-
   context 'onboarding' do
     let(:onboarding_steps) { Step.by_group(:onboarding) }
     context 'first step' do
@@ -63,5 +62,4 @@ RSpec.describe Step do
       end
     end
   end
-
 end

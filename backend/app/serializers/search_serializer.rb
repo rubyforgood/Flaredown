@@ -1,7 +1,5 @@
 class SearchSerializer < ApplicationSerializer
-  attributes  :id
-
+  attributes :id
 
   has_many :searchables, embed: :objects
-
 end

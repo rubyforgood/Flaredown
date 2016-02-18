@@ -10,5 +10,4 @@ RSpec.describe Checkin::Treatment, type: :model do
   describe 'Respond to' do
     it { is_expected.to respond_to(:value) }
   end
-
 end

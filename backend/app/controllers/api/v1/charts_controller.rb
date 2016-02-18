@@ -1,11 +1,8 @@
 class Api::V1::ChartsController < Api::BaseController
-
   def show
     chart = Chart.new(chart_params)
 
-    if chart.invalid?
-      raise ActiveRecord::RecordInvalid.new(chart)
-    end
+    fail ActiveRecord::RecordInvalid.new(chart) if chart.invalid?
 
     render json: chart
   end

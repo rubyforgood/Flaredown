@@ -33,6 +33,4 @@ class Checkin
   # Scopes
   #
   scope :by_date, ->(startkey, endkey) { where(:date.gte => startkey, :date.lte => endkey) }
-
-
 end

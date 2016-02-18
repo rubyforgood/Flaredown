@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CountriesController do
-
   let(:test_country_id) { 'IT' }
   let(:test_country_name_en) { 'Italy' }
   let(:test_country_name_it) { 'Italia' }
@@ -16,7 +15,7 @@ RSpec.describe Api::V1::CountriesController do
       before { I18n.default_locale = 'en' }
       it "returns 'en' translations" do
         get :index
-        test_country = response_body[:countries].find {|c| c[:id].eql?(test_country_id)}
+        test_country = response_body[:countries].find { |c| c[:id].eql?(test_country_id) }
         expect(test_country[:name]).to eq test_country_name_en
       end
     end
@@ -24,7 +23,7 @@ RSpec.describe Api::V1::CountriesController do
       before { I18n.default_locale = 'it' }
       it "returns 'it' translations" do
         get :index
-        test_country = response_body[:countries].find {|c| c[:id].eql?(test_country_id)}
+        test_country = response_body[:countries].find { |c| c[:id].eql?(test_country_id) }
         expect(test_country[:name]).to eq test_country_name_it
       end
     end
@@ -68,5 +67,4 @@ RSpec.describe Api::V1::CountriesController do
       end
     end
   end
-
 end

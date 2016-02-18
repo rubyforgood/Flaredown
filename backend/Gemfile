@@ -34,7 +34,7 @@ gem 'sidekiq', '~> 4.0'
 gem 'seedbank'
 
 # ISO 3166 standard countries
-gem 'countries', :require => 'countries/global'
+gem 'countries', require: 'countries/global'
 
 # Pusher Client
 gem 'pusher'
@@ -50,7 +50,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   # Generate Fake data
   gem 'ffaker', '~> 2.0.0'
-  gem 'rspec-rails',      '~> 3.3.0'
+  gem 'rspec-rails', '~> 3.3.0'
 end
 
 group :development do

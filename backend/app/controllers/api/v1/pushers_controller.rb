@@ -1,5 +1,4 @@
 class Api::V1::PushersController < Api::BaseController
-
   def create
     render json: Flaredown.pusher.authenticate!(current_user, socket_id)
   rescue
@@ -11,5 +10,4 @@ class Api::V1::PushersController < Api::BaseController
   def socket_id
     params.require(:socket_id)
   end
-
 end

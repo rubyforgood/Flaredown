@@ -14,5 +14,4 @@ RSpec.describe Checkin, type: :model do
     it { is_expected.to validate_presence_of(:user_id) }
     it { is_expected.to validate_uniqueness_of(:date).scoped_to(:user_id) }
   end
-
 end

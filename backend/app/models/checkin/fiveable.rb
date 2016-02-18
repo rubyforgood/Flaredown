@@ -3,7 +3,6 @@ module Checkin::Fiveable
 
   included do
     field :value, type: Integer
-    validates :value, inclusion: {in: (0..4)}, if: 'value.present?'
+    validates :value, inclusion: { in: (0..4) }, if: 'value.present?'
   end
-
 end

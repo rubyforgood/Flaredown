@@ -9,10 +9,8 @@
 #
 
 class Symptom < ActiveRecord::Base
-
   #
   # Localized attributes
   #
   translates :name
-
 end

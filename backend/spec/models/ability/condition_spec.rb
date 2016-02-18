@@ -1,10 +1,10 @@
 require 'rails_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 RSpec.describe Ability do
   let!(:user) { create(:user) }
 
-  subject() { Ability.new(user) }
+  subject { Ability.new(user) }
 
   context 'for conditions' do
     let!(:global_condition) { create(:condition) }
@@ -35,7 +35,7 @@ RSpec.describe Ability do
     context 'create' do
       let(:new_condition) { Condition.new(global: false) }
       let(:new_global_condition) { Condition.new }
-      it "allow to create non-global conditions" do
+      it 'allow to create non-global conditions' do
         is_expected.to be_able_to(:create, new_condition)
       end
       it "don't allow to create global conditions" do
@@ -43,5 +43,4 @@ RSpec.describe Ability do
       end
     end
   end
-
 end

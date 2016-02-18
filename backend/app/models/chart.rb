@@ -20,7 +20,6 @@ class Chart
     trackings.map(&:trackable)
   end
 
-
   private
 
   def trackings

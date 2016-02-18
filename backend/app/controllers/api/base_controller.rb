@@ -26,5 +26,4 @@ class Api::BaseController < ApplicationController
     log_exception(exception)
     render json: { errors: ['Unauthorized'] }, status: :unauthorized
   end
-
 end

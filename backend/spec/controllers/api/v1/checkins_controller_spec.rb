@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CheckinsController do
-
   let!(:user) { create(:user) }
   let(:date) { '2016-01-06' }
 
@@ -27,10 +26,9 @@ RSpec.describe Api::V1::CheckinsController do
 
   describe 'create' do
     it 'returns new checkin' do
-      post :create, checkin: {date: date}
+      post :create, checkin: { date: date }
       returned_checkin = response_body[:checkin]
       expect(Date.parse(returned_checkin[:date])).to eq Date.parse(date)
     end
   end
-
 end

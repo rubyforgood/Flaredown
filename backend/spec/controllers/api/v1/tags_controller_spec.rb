@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TagsController do
-
   let!(:user) { create(:user) }
   let!(:tag) { create(:tag) }
 
@@ -35,12 +34,11 @@ RSpec.describe Api::V1::TagsController do
   end
 
   describe 'create' do
-    let(:tag_attributes) { {name: 'had sex'} }
+    let(:tag_attributes) { { name: 'had sex' } }
     it 'creates the tag' do
       post :create, tag: tag_attributes
       created_tag = response_body[:tag]
       expect(created_tag[:name]).to eq tag_attributes[:name]
     end
   end
-
 end

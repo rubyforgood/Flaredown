@@ -10,7 +10,6 @@
 #
 
 class UserCondition < ActiveRecord::Base
-
   #
   # Associations
   #
@@ -21,5 +20,4 @@ class UserCondition < ActiveRecord::Base
   # Validations
   #
   validates :user, :condition, presence: true
-
 end

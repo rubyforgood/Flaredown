@@ -7,12 +7,9 @@
 #  updated_at :datetime         not null
 #
 
-
 class Tag < ActiveRecord::Base
-
   #
   # Localized attributes
   #
   translates :name
-
 end

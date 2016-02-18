@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::StepsController do
-
   let(:step_id) { 'onboarding-conditions' }
   let(:step_title_en) { 'What conditions will you track?' }
 
@@ -15,7 +14,7 @@ RSpec.describe Api::V1::StepsController do
       before { I18n.default_locale = 'en' }
       it "returns 'en' translations" do
         get :index
-        step = response_body[:steps].find {|s| s[:id].eql?(step_id)}
+        step = response_body[:steps].find { |s| s[:id].eql?(step_id) }
         expect(step[:title]).to eq step_title_en
       end
     end
@@ -49,5 +48,4 @@ RSpec.describe Api::V1::StepsController do
       end
     end
   end
-
 end

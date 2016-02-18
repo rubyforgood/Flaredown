@@ -6,16 +6,16 @@ def shut_down
 end
 
 # Trap ^C
-Signal.trap("INT") {
+Signal.trap('INT') do
   shut_down
   exit
-}
+end
 
 # Trap `Kill `
-Signal.trap("TERM") {
+Signal.trap('TERM') do
   shut_down
   exit
-}
+end
 
 if ENV['LOCALTUNNEL_ENABLED'] && ENV['LOCALTUNNEL_ENABLED'].eql?('true')
   begin
@@ -29,5 +29,3 @@ else
     sleep 0.5
   end
 end
-
-

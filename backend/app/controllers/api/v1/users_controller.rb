@@ -4,5 +4,4 @@ class Api::V1::UsersController < Api::BaseController
   def show
     render json: @user
   end
-
 end

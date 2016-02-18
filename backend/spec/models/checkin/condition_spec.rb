@@ -14,5 +14,4 @@ RSpec.describe Checkin::Condition, type: :model do
   describe 'Validations' do
     it { is_expected.to validate_inclusion_of(:value).to_allow(0..4) }
   end
-
 end

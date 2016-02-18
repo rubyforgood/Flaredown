@@ -1,5 +1,4 @@
 class Api::V1::StepsController < Api::BaseController
-
   def index
     steps = group.present? ? Step.by_group(group) : Step.all
     render json: steps
@@ -18,7 +17,10 @@ class Api::V1::StepsController < Api::BaseController
   end
 
   def group
-    @group ||= params[:group].to_sym rescue nil
+    @group ||= begin
+                 params[:group].to_sym
+               rescue
+                 nil
+               end
   end
-
 end

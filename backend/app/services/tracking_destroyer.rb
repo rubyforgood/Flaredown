@@ -21,5 +21,4 @@ class TrackingDestroyer
       tracking.update_attributes!(end_at: Date.today)
     end
   end
-
 end

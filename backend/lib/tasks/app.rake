@@ -9,7 +9,6 @@ namespace :app do
     invite
   end
 
-
   class OperationAbortedException < StandardError; end
 
   def invite
@@ -58,7 +57,6 @@ namespace :app do
     end while choices.present? && !choices.include?(answer)
     answer
   rescue Interrupt
-    fail OperationAbortedException
+    raise OperationAbortedException
   end
-
 end

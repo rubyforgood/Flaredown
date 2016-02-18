@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ConditionsController do
-
   let!(:user) { create(:user) }
   let!(:global_condition) { create(:condition) }
   let!(:personal_condition) { create(:user_condition, user: user).condition }
@@ -37,7 +36,7 @@ RSpec.describe Api::V1::ConditionsController do
   end
 
   describe 'create' do
-    let(:condition_attributes) { {name: 'Headache'} }
+    let(:condition_attributes) { { name: 'Headache' } }
     it 'creates the condition as personal for the current user' do
       post :create, condition: condition_attributes
       created_condition = response_body[:condition]
@@ -45,5 +44,4 @@ RSpec.describe Api::V1::ConditionsController do
       expect(Condition.find(created_condition[:id]).global).to be false
     end
   end
-
 end

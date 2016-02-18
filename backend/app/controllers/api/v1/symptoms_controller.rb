@@ -24,5 +24,4 @@ class Api::V1::SymptomsController < Api::BaseController
   def ids
     @ids ||= params[:ids]
   end
-
 end

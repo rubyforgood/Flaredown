@@ -1,5 +1,4 @@
 class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   Devise.omniauth_providers.each do |provider|
     define_method provider do
       handle_omniauth

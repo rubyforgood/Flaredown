@@ -16,5 +16,4 @@ class ApplicationSerializer < ActiveModel::Serializer
   def updated_at
     object.try :updated_at
   end
-
 end

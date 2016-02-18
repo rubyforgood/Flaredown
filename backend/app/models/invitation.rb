@@ -9,12 +9,11 @@ class Invitation
     @email = user.email
   end
 
-  def accept!(params={})
-    User.accept_invitation!( { invitation_token: id }.merge(params) )
+  def accept!(params = {})
+    User.accept_invitation!({ invitation_token: id }.merge(params))
   end
 
   def self.find(id)
     new(id, User.find_by_invitation_token(id, true))
   end
-
 end

@@ -29,8 +29,8 @@ class Search
   end
 
   def where_conditions
-    @where_conditions ||= Array.new.tap do |conditions|
-      query_hash.each do |key,value|
+    @where_conditions ||= [].tap do |conditions|
+      query_hash.each do |key, value|
         conditions << ["similarity(#{key}, :value) > #{Flaredown.config.similarity_tolerance}", { value: value }]
       end
       conditions

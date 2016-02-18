@@ -5,11 +5,11 @@ module Authenticatable
     #
     # Devise
     #
-    devise  :database_authenticatable,
-            :rememberable,
-            :trackable,
-            :validatable,
-            :invitable,
-            :omniauthable
+    devise :database_authenticatable,
+           :rememberable,
+           :trackable,
+           :validatable,
+           :invitable,
+           :omniauthable
   end
 end

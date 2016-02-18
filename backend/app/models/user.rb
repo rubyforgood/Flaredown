@@ -28,7 +28,6 @@
 class User < ActiveRecord::Base
   include Authenticatable
 
-
   #
   # Associations
   #
@@ -57,12 +56,10 @@ class User < ActiveRecord::Base
   before_create :generate_authentication_token
   after_create :init_profile
 
-
   #
   # Delegates
   #
   delegate :locale, to: :profile
-
 
   def checkins
     Checkin.where(user_id: id)
@@ -88,5 +85,4 @@ class User < ActiveRecord::Base
   def init_profile
     create_profile!(onboarding_step_id: Step.by_group(:onboarding).first.id)
   end
-
 end

@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ProfilesController do
-
   let(:user) { create(:user) }
   let(:profile) { user.profile }
   let(:another_user) { create(:user) }
   let(:another_profile) { another_user.profile }
 
   describe 'show' do
-
     context 'when no user logged-in' do
       it 'returns 401 (unauthorized)' do
         get :show, id: profile.id
@@ -45,7 +43,6 @@ RSpec.describe Api::V1::ProfilesController do
         end
       end
     end
-
   end
 
   describe 'update' do
@@ -69,7 +66,7 @@ RSpec.describe Api::V1::ProfilesController do
       end
       context 'with unavailable locale for country' do
         before { profile_attributes[:country_id] = 'IN' }
-        it "sets locale to default" do
+        it 'sets locale to default' do
           put :update, id: profile.id, profile: profile_attributes
           expect(I18n.locale).to eq I18n.default_locale
         end
@@ -84,6 +81,4 @@ RSpec.describe Api::V1::ProfilesController do
       end
     end
   end
-
-
 end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SexesController do
-
   let(:test_sex_id) { 'male' }
   let(:test_sex_name_en) { 'Male' }
   let(:test_sex_name_it) { 'Maschio' }
@@ -16,7 +15,7 @@ RSpec.describe Api::V1::SexesController do
       before { I18n.default_locale = 'en' }
       it "returns 'en' translations" do
         get :index
-        test_sex = response_body[:sexes].find {|c| c[:id].eql?(test_sex_id)}
+        test_sex = response_body[:sexes].find { |c| c[:id].eql?(test_sex_id) }
         expect(test_sex[:name]).to eq test_sex_name_en
       end
     end
@@ -24,7 +23,7 @@ RSpec.describe Api::V1::SexesController do
       before { I18n.default_locale = 'it' }
       it "returns 'it' translations" do
         get :index
-        test_sex = response_body[:sexes].find {|c| c[:id].eql?(test_sex_id)}
+        test_sex = response_body[:sexes].find { |c| c[:id].eql?(test_sex_id) }
         expect(test_sex[:name]).to eq test_sex_name_it
       end
     end
@@ -57,5 +56,4 @@ RSpec.describe Api::V1::SexesController do
       end
     end
   end
-
 end

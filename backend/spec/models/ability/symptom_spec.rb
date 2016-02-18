@@ -1,10 +1,10 @@
 require 'rails_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 RSpec.describe Ability do
   let!(:user) { create(:user) }
 
-  subject() { Ability.new(user) }
+  subject { Ability.new(user) }
 
   context 'for symptoms' do
     let!(:global_symptom) { create(:symptom) }
@@ -35,7 +35,7 @@ RSpec.describe Ability do
     context 'create' do
       let(:new_symptom) { Symptom.new(global: false) }
       let(:new_global_symptom) { Symptom.new }
-      it "allow to create non-global symptoms" do
+      it 'allow to create non-global symptoms' do
         is_expected.to be_able_to(:create, new_symptom)
       end
       it "don't allow to create global symptoms" do
@@ -43,5 +43,4 @@ RSpec.describe Ability do
       end
     end
   end
-
 end

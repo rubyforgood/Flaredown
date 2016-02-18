@@ -26,7 +26,7 @@ if email.present?
 
   # Setup time frame
   end_at = Date.today
-  day = end_at - (DAYS-1).days
+  day = end_at - (DAYS - 1).days
 
   # Start tracking some trackable
   2.times do
@@ -47,8 +47,8 @@ if email.present?
 
   # Iterate on days
   i = 1
-  divisors_range_start = DAYS/4+2
-  divisors_range = (divisors_range_start..divisors_range_start+2)
+  divisors_range_start = DAYS / 4 + 2
+  divisors_range = (divisors_range_start..divisors_range_start + 2)
   while day <= end_at
     puts "\n\n=== Day: #{day} ==="
 
@@ -74,8 +74,8 @@ if email.present?
 
     # Checkin
     checkin = FactoryGirl.create(:checkin,
-      user_id: user.id, date: day, tag_ids: tags.sample(3).map(&:id)
-    )
+                                 user_id: user.id, date: day, tag_ids: tags.sample(3).map(&:id)
+                                )
     active_trackings = user.trackings.reload.active_at(day)
     active_trackings.map(&:trackable).each do |trackable|
       if trackable.is_a? Condition

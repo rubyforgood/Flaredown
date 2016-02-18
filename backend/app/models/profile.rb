@@ -13,13 +13,10 @@
 #
 
 class Profile < ActiveRecord::Base
-
-
   #
   # Associations
   #
   belongs_to :user
-
 
   #
   # Validations
@@ -27,14 +24,13 @@ class Profile < ActiveRecord::Base
 
   validates :country_id, inclusion: {
     in: Country.codes,
-    message: "%{value} is not a valid country_id"
+    message: '%{value} is not a valid country_id'
   }, if: 'country_id.present?'
 
   validates :sex_id, inclusion: {
     in: Sex.all_ids,
-    message: "%{value} is not a valid sex_id"
+    message: '%{value} is not a valid sex_id'
   }, if: 'sex_id.present?'
-
 
   #
   # Instance Methods
@@ -47,5 +43,4 @@ class Profile < ActiveRecord::Base
   def locale
     country.languages.first if country.present?
   end
-
 end

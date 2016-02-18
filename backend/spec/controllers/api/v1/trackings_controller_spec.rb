@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TrackingsController do
-
   let!(:user) { create(:user) }
   let!(:current_tracking) { create(:tracking, :for_condition, user: user) }
   let!(:old_tracking) { create(:tracking, :for_symptom, user: user, start_at: 20.days.ago, end_at: 5.days.ago) }
@@ -49,7 +48,7 @@ RSpec.describe Api::V1::TrackingsController do
 
   describe 'create' do
     let(:symptom) { create(:symptom) }
-    let(:tracking_attributes) { {trackable_id: symptom.id, trackable_type: symptom.class.name} }
+    let(:tracking_attributes) { { trackable_id: symptom.id, trackable_type: symptom.class.name } }
     it 'saves a current tracking record' do
       post :create, tracking: tracking_attributes
       expect(response_body[:tracking][:id]).to be_present
@@ -64,7 +63,7 @@ RSpec.describe Api::V1::TrackingsController do
   describe 'destroy' do
     context "when destroying a current user's tracking" do
       context 'when tracking started in the past' do
-        before { current_tracking.update_attributes!(start_at: Date.today-2.days) }
+        before { current_tracking.update_attributes!(start_at: Date.today - 2.days) }
         it 'sets end_date on that tracking' do
           delete :destroy, id: current_tracking.id
           end_at = current_tracking.reload.end_at
@@ -86,5 +85,4 @@ RSpec.describe Api::V1::TrackingsController do
       end
     end
   end
-
 end

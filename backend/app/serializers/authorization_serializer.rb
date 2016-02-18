@@ -16,5 +16,4 @@ class AuthorizationSerializer < ApplicationSerializer
   def token
     object.try :authentication_token
   end
-
 end

@@ -1,5 +1,4 @@
 class Api::V1::SessionsController < ApplicationController
-
   def show
     render json: Flaredown.session
   end
@@ -18,11 +17,7 @@ class Api::V1::SessionsController < ApplicationController
   def user
     @user ||= begin
       user = User.find_for_database_authentication(email: params[:user][:email])
-      if user && user.valid_password?(params[:user][:password])
-        user
-      else
-        nil
-      end
+      user if user && user.valid_password?(params[:user][:password])
     end
   end
 end

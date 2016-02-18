@@ -10,7 +10,6 @@
 #
 
 class UserTreatment < ActiveRecord::Base
-
   #
   # Associations
   #
@@ -21,5 +20,4 @@ class UserTreatment < ActiveRecord::Base
   # Validations
   #
   validates :user, :treatment, presence: true
-
 end

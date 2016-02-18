@@ -14,5 +14,4 @@ FactoryGirl.define do
     user
     association :condition, :personal
   end
-
 end

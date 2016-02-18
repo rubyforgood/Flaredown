@@ -1,5 +1,4 @@
 class Api::V1::CountriesController < Api::BaseController
-
   def index
     render json: Country.all
   end
@@ -15,8 +14,7 @@ class Api::V1::CountriesController < Api::BaseController
   def alpha2
     id = params.require(:id)
     match_data = /^[[:alpha:]]{2}$/.match(id)
-    fail ActionController::BadRequest.new("id param must be a 2 alphabetic characters string") if match_data.nil?
+    fail ActionController::BadRequest.new('id param must be a 2 alphabetic characters string') if match_data.nil?
     match_data[0]
   end
-
 end

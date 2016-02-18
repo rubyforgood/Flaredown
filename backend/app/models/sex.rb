@@ -16,14 +16,13 @@ class Sex
     def all
       @@all ||= begin
         result = []
-        all_ids.each_with_index { |id, i| result << new(id, i+1) }
+        all_ids.each_with_index { |id, i| result << new(id, i + 1) }
         result
       end
     end
 
     def find(id)
-      self.all.find { |sex| sex.id.eql?(id) }
+      all.find { |sex| sex.id.eql?(id) }
     end
   end
-
 end

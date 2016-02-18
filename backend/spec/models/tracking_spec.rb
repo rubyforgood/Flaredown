@@ -16,7 +16,6 @@
 require 'rails_helper'
 
 RSpec.describe Tracking, type: :model do
-
   describe 'Associations' do
     it { is_expected.to belong_to(:user) }
   end
@@ -48,5 +47,4 @@ RSpec.describe Tracking, type: :model do
       end
     end
   end
-
 end

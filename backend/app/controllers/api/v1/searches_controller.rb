@@ -1,11 +1,8 @@
 class Api::V1::SearchesController < Api::BaseController
-
   def show
     search = Search.new(search_params)
 
-    if search.invalid?
-      raise ActiveRecord::RecordInvalid.new(search)
-    end
+    fail ActiveRecord::RecordInvalid.new(search) if search.invalid?
 
     render json: search
   end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SearchesController do
-
   let!(:user) { create(:user) }
   let!(:conditions) { create_list(:condition, 5) }
 
@@ -9,7 +8,6 @@ RSpec.describe Api::V1::SearchesController do
 
   describe 'show' do
     context 'when searchable exists for the requested date' do
-
       before { I18n.default_locale = :en }
 
       let!(:condition_to_find) { create(:condition, name: 'ACL injury') }
@@ -31,5 +29,4 @@ RSpec.describe Api::V1::SearchesController do
       end
     end
   end
-
 end

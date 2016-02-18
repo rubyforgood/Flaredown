@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController do
-
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
 
   describe 'show' do
-
     context 'when no user logged-in' do
       it 'returns 401 (unauthorized)' do
         get :show, id: user.id
@@ -43,7 +41,5 @@ RSpec.describe Api::V1::UsersController do
         end
       end
     end
-
   end
-
 end

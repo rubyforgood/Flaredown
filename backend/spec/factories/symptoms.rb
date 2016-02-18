@@ -9,7 +9,6 @@
 #
 
 FactoryGirl.define do
-
   factory :symptom do
     sequence(:name) { |n| "Symptom#{n}" }
 
@@ -17,5 +16,4 @@ FactoryGirl.define do
       global false
     end
   end
-
 end

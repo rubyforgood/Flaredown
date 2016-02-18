@@ -9,10 +9,8 @@
 #
 
 class Treatment < ActiveRecord::Base
-
   #
   # Localized attributes
   #
   translates :name
-
 end

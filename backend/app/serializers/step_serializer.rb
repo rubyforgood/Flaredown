@@ -10,5 +10,4 @@ class StepSerializer < ApplicationSerializer
   rescue I18n::MissingTranslationData
     nil
   end
-
 end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe CheckinCreator do
-
   let!(:user) { create(:user) }
   let!(:condition) { create(:tracking, :for_condition, user: user).trackable }
   let!(:symptom) { create(:tracking, :for_symptom, user: user).trackable }
@@ -19,5 +18,4 @@ RSpec.describe CheckinCreator do
       expect(subject.treatments[0].treatment_id).to eq treatment.id
     end
   end
-
 end

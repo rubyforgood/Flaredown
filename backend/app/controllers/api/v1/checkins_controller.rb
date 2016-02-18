@@ -1,5 +1,4 @@
 class Api::V1::CheckinsController < Api::BaseController
-
   def index
     date = Date.parse(params.require(:date))
     render json: current_user.checkins.where(date: date)
@@ -25,13 +24,12 @@ class Api::V1::CheckinsController < Api::BaseController
 
   def update_params
     params.require(:checkin).permit(:note, tag_ids: [],
-      conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
-      symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
-      treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy])
+                                           conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
+                                           symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
+                                           treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy])
   end
 
   def id
     params.require(:id)
   end
-
 end

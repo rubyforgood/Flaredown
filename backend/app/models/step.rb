@@ -22,11 +22,15 @@ class Step
   end
 
   def prev_id
-    @@all_hash[id][:earlier].id rescue nil
+    @@all_hash[id][:earlier].id
+  rescue
+    nil
   end
 
   def next_id
-    @@all_hash[id][:later].id rescue nil
+    @@all_hash[id][:later].id
+  rescue
+    nil
   end
 
   SEEDS = {
@@ -58,24 +62,27 @@ class Step
     end
 
     def find(id)
-      all_hash[id][:current] rescue nil
+      all_hash[id][:current]
+    rescue
+      nil
     end
 
     def all_hash
       @@all_hash ||= begin
         result = {}
         SEEDS.each do |seed|
-          group, steps = seed[0], seed[1]
+          group = seed[0]
+          steps = seed[1]
           steps.each_with_index do |step, i|
             current_key = "#{group}-#{step}"
             earlier =
-              if i==0
+              if i == 0
                 nil
               else
-                earlier_key = "#{group}-#{steps[i-1]}"
+                earlier_key = "#{group}-#{steps[i - 1]}"
                 result[earlier_key][:current]
               end
-            current = new(current_key, i+1)
+            current = new(current_key, i + 1)
             result[current_key] = {
               current: current,
               earlier: earlier
@@ -90,7 +97,5 @@ class Step
     def key_for(step)
       "#{step.group}-#{step.key}"
     end
-
   end
-
 end

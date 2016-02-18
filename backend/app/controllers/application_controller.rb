@@ -8,7 +8,6 @@ class ApplicationController < ActionController::API
     render text: 'flaredown'
   end
 
-
   protected
 
   def set_locale
@@ -18,14 +17,11 @@ class ApplicationController < ActionController::API
     I18n.locale = I18n.default_locale
   end
 
-
   private
 
   def authenticate_user_from_token!
     user = User.find_by(authorization)
-    if user
-      sign_in user, store: false
-    end
+    sign_in user, store: false if user
   end
 
   def authorization
@@ -38,5 +34,4 @@ class ApplicationController < ActionController::API
   def presence_of_authentication_token?
     authorization[:authentication_token].present?
   end
-
 end

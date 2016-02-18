@@ -1,8 +1,8 @@
 class SessionSerializer < ApplicationSerializer
-  attributes  :id,
-              :base_url,
-              :notification_channel,
-              :facebook_app_id
+  attributes :id,
+             :base_url,
+             :notification_channel,
+             :facebook_app_id
 
   def id
     1
@@ -19,5 +19,4 @@ class SessionSerializer < ApplicationSerializer
   def notification_channel
     current_user.try :notification_channel
   end
-
 end

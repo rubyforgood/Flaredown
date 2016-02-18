@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TreatmentsController do
-
   let!(:user) { create(:user) }
   let!(:global_treatment) { create(:treatment) }
   let!(:personal_treatment) { create(:user_treatment, user: user).treatment }
@@ -37,7 +36,7 @@ RSpec.describe Api::V1::TreatmentsController do
   end
 
   describe 'create' do
-    let(:treatment_attributes) { {name: 'Aspirin'} }
+    let(:treatment_attributes) { { name: 'Aspirin' } }
     it 'creates the treatment as personal for the current user' do
       post :create, treatment: treatment_attributes
       created_treatment = response_body[:treatment]
@@ -45,5 +44,4 @@ RSpec.describe Api::V1::TreatmentsController do
       expect(Treatment.find(created_treatment[:id]).global).to be false
     end
   end
-
 end

@@ -1,10 +1,10 @@
 require 'rails_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 RSpec.describe Ability do
   let!(:user) { create(:user) }
 
-  subject() { Ability.new(user) }
+  subject { Ability.new(user) }
 
   context 'for treatments' do
     let!(:global_treatment) { create(:treatment) }
@@ -35,7 +35,7 @@ RSpec.describe Ability do
     context 'create' do
       let(:new_treatment) { Treatment.new(global: false) }
       let(:new_global_treatment) { Treatment.new }
-      it "allow to create non-global treatments" do
+      it 'allow to create non-global treatments' do
         is_expected.to be_able_to(:create, new_treatment)
       end
       it "don't allow to create global treatments" do
@@ -43,5 +43,4 @@ RSpec.describe Ability do
       end
     end
   end
-
 end

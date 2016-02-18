@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SymptomsController do
-
   let!(:user) { create(:user) }
   let!(:global_symptom) { create(:symptom) }
   let!(:personal_symptom) { create(:user_symptom, user: user).symptom }
@@ -37,7 +36,7 @@ RSpec.describe Api::V1::SymptomsController do
   end
 
   describe 'create' do
-    let(:symptom_attributes) { {name: 'Headache'} }
+    let(:symptom_attributes) { { name: 'Headache' } }
     it 'creates the symptom as personal for the current user' do
       post :create, symptom: symptom_attributes
       created_symptom = response_body[:symptom]
@@ -45,5 +44,4 @@ RSpec.describe Api::V1::SymptomsController do
       expect(Symptom.find(created_symptom[:id]).global).to be false
     end
   end
-
 end

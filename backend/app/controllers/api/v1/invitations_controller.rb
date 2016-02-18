@@ -1,5 +1,4 @@
 class Api::V1::InvitationsController < ApplicationController
-
   def show
     render json: Invitation.find(params[:id])
   end
