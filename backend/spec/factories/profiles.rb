@@ -14,7 +14,7 @@
 
 FactoryGirl.define do
   factory :profile do
-    birth_date (25..55).to_a.sample.years.ago
+    birth_date { (25..55).to_a.sample.years.ago }
     country_id FFaker::Address.country_code
     sex_id Sex.all_ids.sample
   end
