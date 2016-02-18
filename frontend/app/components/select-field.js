@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   items: [],
   selection: null,
   resource: null,
+  defaultQueryParams: null,
   placeholder: 'select item',
   async: true,
   create: false,
@@ -16,14 +17,35 @@ export default Ember.Component.extend({
 
   findAll() {
     this.get('store').findAll(this.get('resource')).then( (items) => {
-      this.set('items', items);
+      this.refreshItems(items);
     });
   },
 
   findByQuery(params = { }) {
-    this.get('store').queryRecord('search', params).then( (items) => {
-      this.set('items', items.get('searchables'));
+    this.get('store').queryRecord('search', this.queryParams(params)).then( (items) => {
+      this.refreshItems(items);
     });
+  },
+
+  refreshItems(items) {
+    this.set('items', items.get('searchables'));
+    var displayVal = this.get('displayValue');
+    var currentVal = this.$('input').val();
+    debugger;
+    if (Ember.isPresent(displayVal) && Ember.isEmpty(currentVal)) {
+      this.$('input').val(displayVal);
+    }
+  },
+
+  queryParams(params) {
+    var defaults = this.get('defaultQueryParams');
+    if (Ember.isPresent(defaults)) {
+      if (Ember.isNone(params['query'])) {
+        params['query'] = {};
+      }
+      for (var key in defaults) { params['query'][key] = defaults[key]; }
+    }
+    return params;
   },
 
   actions: {

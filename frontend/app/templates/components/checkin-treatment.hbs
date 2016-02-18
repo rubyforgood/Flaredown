@@ -6,10 +6,16 @@
 <br>
 {{#if isTaken}}
   {{#if isEditMode}}
-    {{input value=model.value
-            placeholder="e.g. 2 x 30mg"
-            enter=(action "doneEditing")
-            class=(concat "indented dose-field " model.borderClass) }}
+
+    {{select-field resource="dose"
+                   defaultQueryParams=doseQueryParams
+                   displayValue=model.value
+                   selection=selectedDose
+                   onSelect=(action "doneEditing")
+                   create=true
+                   placeholder="e.g. 2 x 30mg"
+                   class=(concat "indented dose-field " model.borderClass) }}
+
     <a href="#" {{action 'doneEditing'}} class="done {{model.clrClass}}">Done</a>
   {{else}}
     <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>

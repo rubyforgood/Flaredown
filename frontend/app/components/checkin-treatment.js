@@ -4,10 +4,15 @@ export default Ember.Component.extend({
 
   classNames: ['checkin-treatment'],
 
-  isEditMode: false,
+  store: Ember.inject.service(),
 
+  isEditMode: false,
   treatment: Ember.computed.alias('model.treatment'),
   isTaken: Ember.computed.alias('model.isTaken'),
+
+  doseQueryParams: Ember.computed('treatment', function() {
+    return {treatment_id: this.get('treatment.id')};
+  }),
 
   actions: {
 
@@ -20,6 +25,7 @@ export default Ember.Component.extend({
     },
 
     doneEditing() {
+      this.get('model').set('value', this.get('selectedDose.name'));
       this.set('isEditMode', false);
     }
 
