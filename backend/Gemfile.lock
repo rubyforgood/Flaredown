@@ -311,7 +311,7 @@ DEPENDENCIES
   rails-api
   rails_12factor
   rspec-rails (~> 3.3.0)
-  rubocop (~> 0.35)
+  rubocop (~> 0.35.0)
   seedbank
   shoulda-matchers
   sidekiq (~> 4.0)
