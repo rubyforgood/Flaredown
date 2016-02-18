@@ -8,7 +8,7 @@ class Search
   #
   validates :resource, presence: true
 
-  validates_inclusion_of :resource, in: %w(treatment symptom condition tag)
+  validates_inclusion_of :resource, in: %w(treatment symptom condition tag dose)
 
   def id
     Digest::SHA256.base64digest(resource)
@@ -18,7 +18,12 @@ class Search
     @searchables ||= find_by_query
   end
 
-  private
+
+  protected
+
+  def query_hash
+    @query_hash ||= Hash(query)
+  end
 
   def find_by_query
     if query_hash.present?
@@ -27,6 +32,9 @@ class Search
       resources.limit(10)
     end
   end
+
+
+  private
 
   def where_conditions
     @where_conditions ||= [].tap do |conditions|
@@ -41,7 +49,4 @@ class Search
     resource.classify.constantize.with_translations(I18n.locale)
   end
 
-  def query_hash
-    @query_hash ||= Hash(query)
-  end
 end

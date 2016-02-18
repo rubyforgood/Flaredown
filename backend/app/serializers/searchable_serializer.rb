@@ -6,6 +6,6 @@ module SearchableSerializer
   end
 
   def type
-    object.class.name.downcase.dasherize
+    object.class.name.demodulize.downcase.dasherize
   end
 end
