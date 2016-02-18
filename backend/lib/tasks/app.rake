@@ -4,7 +4,7 @@ namespace :app do
     setup
   end
 
-  desc 'flaredown | setup application'
+  desc 'flaredown | invite beta user to join in'
   task invite: :environment do
     invite
   end
