@@ -21,6 +21,7 @@ export default Ember.Component.extend({
     },
 
     edit() {
+      this.set('dosePreviousValue', this.get('model.value'));
       this.set('isEditMode', true);
     },
 
@@ -29,7 +30,12 @@ export default Ember.Component.extend({
       // we need to wait before unsetting edit mode
       // to avoid selectize being destroyed too early
       Ember.run.later(() => {
-        this.set('isEditMode', false);
+        //stay in edit mode when user deletes selection
+        if (Ember.isNone(this.get('dosePreviousValue')) ||
+            Ember.isPresent(this.get('model.value'))) {
+          this.set('isEditMode', false);
+        }
+        this.set('dosePreviousValue', this.get('model.value'));
       }, 100);
     }
 
