@@ -2,6 +2,7 @@
   margin-bottom: 1.5em;
   .pips {
     li {
+      position: relative;
       display: inline-block;
       margin-right: 4px;
       border-radius: 5px;
@@ -19,20 +20,51 @@
         background-position: center;
       }
 
-      &.bg-default, &.sbg- { background-color: $primary; }
+      &:focus,
+      &:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
 
-      // the selected option
-      &.selected {}
-      &.not-selected {}
-      &.not-selected:hover {}
+      .tooltip {
+        @include position(absolute, null 0 3em 0);
+        @include transition (all 0.2s ease-in-out);
+        background-color: black;
+        background: black;
+        border-radius: 3px;
+        box-shadow: 0 2px 2px black;
+        color: #333;
+        font-size: 0.7em;
+        line-height: 1.5em;
+        margin: 0 auto;
+        margin-left: -25px;
+        max-width: 100px;
+        min-width: 100px;
+        opacity: 0;
+        padding: 0.7em;
+        text-align: center;
+        visibility: hidden;
+        z-index: 10;
 
-      // Values that are, or are to be filled in given current selection/hover
-      &.highlight {}
-      &.no-highlight { background-color: $lightgrey; }
+        p {
+          color: white;
+          line-height: 12px;
+          margin: 0;
+        }
 
-      // Special smiley input
-      &.smiley { color: transparent !important; }
-      &.smiley.hide-color { background-color: $lightgrey !important; }
+        &:after {
+          @include position(absolute, null 0 null 0);
+          border: 8px solid transparent;
+          bottom: -1.3em;
+          color: black;
+          content: '▼';
+          font-size: 1.4em;
+          margin-left: -8px;
+          text-align: center;
+          text-shadow: 0 2px 2px silver;
+        }
+      }
+
     }
   }
   h4 {

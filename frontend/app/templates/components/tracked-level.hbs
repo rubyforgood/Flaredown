@@ -4,14 +4,11 @@
 </h4>
 <div>
   <ul class="pips">
-    {{#each values as |value|}}
-      <li class="basic
-                 {{if (gte currentValue value) (concat 'highlight ' model.bgClass) 'no-highlight'}}
-                 {{if (eq currentValue value) 'selected' 'not-selected'}}
-                 {{if (eq value 0) (if (gt currentValue 0) 'smiley hide-color' 'smiley') }}"
-          {{action 'pipClick' value}}>
-        {{value}}
-      </li>
+    {{#each pips as |pip|}}
+      {{pip-tag value=pip.value tooltip=pip.tooltip selected=selectedValue current=currentValue modelBgClass=model.bgClass
+                  onClick=(action "setSelectedValue")
+                  onMouseEnter=(action "setCurrentValue")
+                  onMouseLeave=(action "unsetCurrentValue")}}
     {{/each}}
   </ul>
 </div>
