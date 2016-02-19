@@ -9,7 +9,9 @@
 
     {{select-field resource="dose"
                    defaultQueryParams=doseQueryParams
-                   displayValue=model.value
+                   autoSelectName=model.value
+                   setFocus=true
+                   openOnFocus=false
                    selection=selectedDose
                    onSelect=(action "doneEditing")
                    create=true

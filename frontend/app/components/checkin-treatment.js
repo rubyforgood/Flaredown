@@ -26,7 +26,11 @@ export default Ember.Component.extend({
 
     doneEditing() {
       this.get('model').set('value', this.get('selectedDose.name'));
-      this.set('isEditMode', false);
+      // we need to wait before unsetting edit mode
+      // to avoid selectize being destroyed too early
+      Ember.run.later(() => {
+        this.set('isEditMode', false);
+      }, 100);
     }
 
   }

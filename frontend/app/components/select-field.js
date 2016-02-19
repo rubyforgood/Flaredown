@@ -29,12 +29,8 @@ export default Ember.Component.extend({
 
   refreshItems(items) {
     this.set('items', items.get('searchables'));
-    var displayVal = this.get('displayValue');
-    var currentVal = this.$('input').val();
-    debugger;
-    if (Ember.isPresent(displayVal) && Ember.isEmpty(currentVal)) {
-      this.$('input').val(displayVal);
-    }
+    this.selectByName();
+    this.autoFocus();
   },
 
   queryParams(params) {
@@ -46,6 +42,20 @@ export default Ember.Component.extend({
       for (var key in defaults) { params['query'][key] = defaults[key]; }
     }
     return params;
+  },
+
+  selectByName() {
+    var name = this.get('autoSelectName');
+    if (Ember.isPresent(name)) {
+      var item = this.get('items').findBy('name', name);
+      this.set('selection', item);
+    }
+  },
+
+  autoFocus() {
+    if (this.get('setFocus')) {
+      this.$('input').focus();
+    }
   },
 
   actions: {
@@ -71,7 +81,7 @@ export default Ember.Component.extend({
       if( this.get('async') && value.length === 3 ) {
         this.findByQuery({ resource: this.get('resource'), query: { name: value } });
       }
-    },
+    }
 
   }
 });
