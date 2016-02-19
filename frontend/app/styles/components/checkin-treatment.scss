@@ -20,10 +20,32 @@
     }
   }
   .dose-field {
-    display: inline;
+    display: inline-block;
     border: 2px solid;
+    border-radius: 4px;
     margin-bottom: 0px;
-    width: auto;
+    width: 180px;
+    .selectize-control {
+      display: inline-block;
+      .selectize-input {
+        background-color: white;
+        background-image: none;
+        border: none;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        font-size: 1em;
+        height: 30px;
+        width: 176px;
+        padding: 8px 4px;
+        &:after {
+          top: 20px;
+        }
+      }
+      .selectize-dropdown {
+        font-size: 1em;
+      }
+    }
+
   }
   .done {
     font-weight: bold;
