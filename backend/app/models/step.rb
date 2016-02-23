@@ -22,13 +22,13 @@ class Step
   end
 
   def prev_id
-    @@all_hash[id][:earlier].id
+    Store.instance.all_hash[id][:earlier].id
   rescue
     nil
   end
 
   def next_id
-    @@all_hash[id][:later].id
+    Store.instance.all_hash[id][:later].id
   rescue
     nil
   end
@@ -54,7 +54,11 @@ class Step
 
   class << self
     def all
-      @@all ||= all_hash.values.map { |v| v[:current] }
+      Store.instance.all
+    end
+
+    def all_hash
+      Store.instance.all_hash
     end
 
     def by_group(group)
@@ -66,36 +70,42 @@ class Step
     rescue
       nil
     end
+  end
 
-    def all_hash
-      @@all_hash ||= begin
-        result = {}
-        SEEDS.each do |seed|
-          group = seed[0]
-          steps = seed[1]
-          steps.each_with_index do |step, i|
-            current_key = "#{group}-#{step}"
-            earlier =
-              if i == 0
-                nil
-              else
-                earlier_key = "#{group}-#{steps[i - 1]}"
-                result[earlier_key][:current]
-              end
-            current = new(current_key, i + 1)
-            result[current_key] = {
-              current: current,
-              earlier: earlier
-            }
-            result[key_for(earlier)][:later] = current if earlier.present?
-          end
+  class Store
+    include Singleton
+    attr_reader :all, :all_hash
+
+    def initialize
+      # Build @all_hash
+      @all_hash = {}
+      SEEDS.each do |seed|
+        group = seed[0]
+        steps = seed[1]
+        steps.each_with_index do |step, i|
+          current_key = "#{group}-#{step}"
+          earlier =
+            if i == 0
+              nil
+            else
+              earlier_key = "#{group}-#{steps[i - 1]}"
+              @all_hash[earlier_key][:current]
+            end
+          current = Step.new(current_key, i + 1)
+          @all_hash[current_key] = {
+            current: current,
+            earlier: earlier
+          }
+          @all_hash[key_for(earlier)][:later] = current if earlier.present?
         end
-        result
       end
+      # Build @all
+      @all = @all_hash.values.map { |v| v[:current] }
     end
 
     def key_for(step)
       "#{step.group}-#{step.key}"
     end
   end
+
 end
