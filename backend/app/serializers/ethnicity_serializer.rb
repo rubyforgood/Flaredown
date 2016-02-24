@@ -1,0 +1,2 @@
+class EthnicitySerializer < RankedEnumSerializer
+end

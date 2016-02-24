@@ -1,5 +1,18 @@
 en:
 
+  ethnicity:
+    latino: "Latino or Hispanic"
+    white: "European or White"
+    east_asian: "East Asian"
+    south_asian: "South Asian"
+    black: "African American or Black"
+    oceanian: "Pacific Islander or Oceanian"
+    middle_eastern: "Middle Eastern or North African"
+    native_american: "Native American or Alaska Native"
+    african: "Sub-Saharan African"
+    other: "Other"
+    not_sure: "I'm not sure"
+
   sex:
     male: "Male"
     female: "Female"

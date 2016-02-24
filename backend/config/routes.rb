@@ -30,6 +30,12 @@ Rails.application.routes.draw do
       resources :conditions, only: [:index, :show, :create]
 
       #
+      #
+      # Ethnicities
+      #
+      resources :ethnicities, only: [:index, :show]
+
+      #
       # Graphs
       #
       resources :countries, only: [:index, :show]
