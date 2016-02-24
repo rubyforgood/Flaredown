@@ -30,6 +30,11 @@ Rails.application.routes.draw do
       resources :conditions, only: [:index, :show, :create]
 
       #
+      # Day Habits
+      #
+      resources :day_habits, only: [:index, :show]
+
+      #
       # Education Levels
       #
       resources :education_levels, only: [:index, :show]

@@ -1,5 +1,22 @@
 en:
 
+  day_habit:
+    lying_down:
+      name: "Lying down"
+      description: "bedridden"
+    sitting_down:
+      name: "Sitting down or at a computer"
+      description: "e.g. student, programmer, architect"
+    on_feet:
+      name: "On your feet"
+      description: "e.g. physician, retail salesperson, tour guide"
+    driving:
+      name: "Driving around"
+      description: "e.g. pharmaceutical representative, taxi driver, truck driver"
+    working_with_hands:
+      name: "Working with your hands"
+      description: "e.g. farmer, fishery worker, landscaper"
+
   education_level:
     less_than_hi_school: "Less than high school"
     hi_school: "High school diploma"
