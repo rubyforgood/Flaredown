@@ -1,0 +1,2 @@
+class EducationLevelSerializer < RankedEnumSerializer
+end

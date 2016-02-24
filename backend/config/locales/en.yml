@@ -1,5 +1,12 @@
 en:
 
+  education_level:
+    less_than_hi_school: "Less than high school"
+    hi_school: "High school diploma"
+    college_degree: "Some college or associate's degree"
+    bachelors_degree: "Bachelor's degree"
+    advanced_degree: "Advanced degree"
+
   ethnicity:
     latino: "Latino or Hispanic"
     white: "European or White"

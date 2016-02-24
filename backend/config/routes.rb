@@ -30,6 +30,10 @@ Rails.application.routes.draw do
       resources :conditions, only: [:index, :show, :create]
 
       #
+      # Education Levels
+      #
+      resources :education_levels, only: [:index, :show]
+
       #
       # Ethnicities
       #
