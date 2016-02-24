@@ -17,8 +17,6 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
     });
   }),
 
-  store: Ember.inject.service(),
-
   autosaveCheckin: Ember.on('init', function() {
     this.runEvery(2, () => {
       this.saveCheckin();
@@ -70,7 +68,7 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
         var recordAttrs = {colorId: randomColor};
         recordAttrs[trackableType] = trackable;
         var recordType = `checkin_${trackableType}`.camelize();
-        var tracked = this.get('store').createRecord(recordType, recordAttrs);
+        var tracked = this.store.createRecord(recordType, recordAttrs);
         this.get('trackeds').pushObject(tracked);
         this.get('addedTrackeds').pushObject(tracked);
       }

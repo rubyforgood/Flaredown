@@ -1,8 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  store: Ember.inject.service(),
-
   items: [],
   selection: null,
   resource: null,
@@ -18,13 +16,13 @@ export default Ember.Component.extend({
   }),
 
   findAll() {
-    this.get('store').findAll(this.get('resource')).then( (items) => {
+    this.store.findAll(this.get('resource')).then( (items) => {
       this.refreshItems(items);
     });
   },
 
   findByQuery(params = { }) {
-    this.get('store').queryRecord('search', this.queryParams(params)).then( (items) => {
+    this.store.queryRecord('search', this.queryParams(params)).then( (items) => {
       this.refreshItems(items.get('searchables'));
     });
   },
@@ -74,7 +72,7 @@ export default Ember.Component.extend({
     },
 
     createItem(value) {
-      var item = this.get('store').createRecord(this.get('resource'), { name: value });
+      var item = this.store.createRecord(this.get('resource'), { name: value });
       this.set('selection', item);
       Ember.tryInvoke(this, 'onSelect', item);
     },

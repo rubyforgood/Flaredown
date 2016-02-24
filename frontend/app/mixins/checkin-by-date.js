@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 /*
-  Assumes the following exit:
+  Assumes the following exist:
     this.get('store')
     this.router
 */

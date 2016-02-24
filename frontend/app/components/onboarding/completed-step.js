@@ -6,8 +6,6 @@ export default Ember.Component.extend(CheckinByDate, {
 
   model: Ember.computed.alias('parentView.model'),
 
-  store: Ember.inject.service(),
-
   actions: {
     completeStep() {
       this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));

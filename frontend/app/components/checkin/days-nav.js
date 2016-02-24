@@ -16,8 +16,6 @@ export default Ember.Component.extend(CheckinByDate, {
   }),
   isntToday: Ember.computed.not('isToday'),
 
-  store: Ember.inject.service(),
-
   actions: {
     goToYesterday() {
       var yesterday = moment(this.get('currentDate')).subtract(1, 'days');

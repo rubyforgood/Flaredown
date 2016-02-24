@@ -4,8 +4,6 @@ export default Ember.Component.extend({
 
   classNames: ['checkin-treatment'],
 
-  store: Ember.inject.service(),
-
   isEditMode: false,
   treatment: Ember.computed.alias('model.treatment'),
   isTaken: Ember.computed.alias('model.isTaken'),
