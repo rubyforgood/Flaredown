@@ -19,14 +19,14 @@ RSpec.describe Search::Dose, type: :model do
     before { params[:query].delete(:name) }
     it 'returns all doses for the requested treatment' do
       returned_doses = subject.searchables.map(&:name)
-      expect(returned_doses.to_set).to eq all_treatment_doses.to_set
+      expect(returned_doses.to_set).to eq all_treatment_doses.compact.to_set
     end
   end
 
   context 'with name param' do
     it 'returns matching doses for the requested treatment' do
       returned_doses = subject.searchables.map(&:name)
-      expect(returned_doses).to eq [treatment.value]
+      expect(returned_doses).to include treatment.value
     end
   end
 
