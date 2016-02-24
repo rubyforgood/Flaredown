@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   async: true,
   create: false,
   openOnFocus: true,
+  multiple: false,
 
   createItemAction: Ember.computed('create', function() {
     return this.get('create') ? 'createItem' : false;
