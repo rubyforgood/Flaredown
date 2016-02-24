@@ -15,6 +15,10 @@ class Api::V1::ProfilesController < Api::BaseController
   private
 
   def update_params
-    params.require(:profile).permit(:country_id, :birth_date, :sex_id, :onboarding_step_id)
+    params.require(:profile).permit(
+      :country_id, :birth_date, :sex_id, :onboarding_step_id,
+      :day_habit_id, :education_level_id, :day_walking_hours,
+      ethnicity_ids: []
+    )
   end
 end

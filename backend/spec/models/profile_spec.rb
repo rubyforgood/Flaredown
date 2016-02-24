@@ -2,14 +2,18 @@
 #
 # Table name: profiles
 #
-#  id                 :integer          not null, primary key
-#  user_id            :integer
-#  country_id         :string
-#  birth_date         :date
-#  sex_id             :string
-#  onboarding_step_id :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id                   :integer          not null, primary key
+#  user_id              :integer
+#  country_id           :string
+#  birth_date           :date
+#  sex_id               :string
+#  onboarding_step_id   :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  ethnicity_ids_string :string
+#  day_habit_id         :string
+#  education_level_id   :string
+#  day_walking_hours    :integer
 #
 
 require 'rails_helper'
@@ -24,5 +28,19 @@ RSpec.describe Profile do
   end
   describe 'Respond to' do
     it { is_expected.to respond_to(:birth_date) }
+  end
+  describe 'ethnicities' do
+    context 'get' do
+      before { subject.ethnicity_ids_string='latino,white' }
+      it 'transforms to array' do
+        expect(subject.ethnicity_ids).to eq ['latino','white']
+      end
+    end
+    context 'set' do
+      before { subject.ethnicity_ids=['latino','white'] }
+      it 'transforms to string' do
+        expect(subject.ethnicity_ids_string).to eq 'latino,white'
+      end
+    end
   end
 end
