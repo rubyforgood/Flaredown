@@ -10,6 +10,7 @@ export default Ember.Component.extend({
   placeholder: 'select item',
   async: true,
   create: false,
+  openOnFocus: true,
 
   createItemAction: Ember.computed('create', function() {
     return this.get('create') ? 'createItem' : false;
@@ -23,12 +24,12 @@ export default Ember.Component.extend({
 
   findByQuery(params = { }) {
     this.get('store').queryRecord('search', this.queryParams(params)).then( (items) => {
-      this.refreshItems(items);
+      this.refreshItems(items.get('searchables'));
     });
   },
 
   refreshItems(items) {
-    this.set('items', items.get('searchables'));
+    this.set('items', items);
     this.selectByName();
     this.autoFocus();
   },
