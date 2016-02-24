@@ -27,6 +27,7 @@ namespace :heroku do
   task :deploy do
     system("git subtree push --prefix backend git@heroku.com:flaredown-api.git master")
     system("git subtree push --prefix frontend git@heroku.com:flaredown-webapp.git master")
+    system("heroku run rake db:migrate --app flaredown-api")
   end
 
   desc "setup application"
