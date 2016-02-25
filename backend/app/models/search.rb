@@ -46,7 +46,12 @@ class Search
   end
 
   def resources
-    resource.classify.constantize.with_translations(I18n.locale)
+    resource_class = resource.classify.constantize
+    resource_class.accessible_by(current_ability).with_translations(I18n.locale)
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(user)
   end
 
 end
