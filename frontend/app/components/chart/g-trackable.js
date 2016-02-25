@@ -118,6 +118,8 @@ export default Ember.Component.extend( {
           } else {
             coordinate.y = true;
           }
+        } else if( Ember.isEqual(this.get('type'), 'line') ){
+          coordinate.y = true;
         }
       }
 
