@@ -23,7 +23,7 @@ module Flaredown
     end
 
     def similarity_tolerance
-      '0.1'
+      '0.07'
     end
   end
 end
