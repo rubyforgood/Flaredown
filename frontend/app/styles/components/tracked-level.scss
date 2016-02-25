@@ -42,8 +42,8 @@
         color: #333;
         font-size: 0.7em;
         line-height: 1.5em;
-        margin: 0 auto;
-        margin-left: -25px;
+        margin-left: -21px;
+        margin-bottom: 20px;
         max-width: 100px;
         min-width: 100px;
         opacity: 0;
@@ -61,7 +61,7 @@
         &:after {
           @include position(absolute, null 0 null 0);
           border: 8px solid transparent;
-          bottom: -1.3em;
+          bottom: -1.5em;
           color: black;
           content: '▼';
           font-size: 1.4em;
