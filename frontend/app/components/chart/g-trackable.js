@@ -49,7 +49,6 @@ export default Ember.Component.extend( {
       return {
         x: this.get('xScale')(item.x) - 20 ,
         y: this.get('yScale')(1),
-        css: this.get('model.fillClass'),
         tip: item.label
       };
     });
@@ -131,7 +130,7 @@ export default Ember.Component.extend( {
      return d3.svg.line().defined(this.getPoint)
                          .x(this.getX.bind(this))
                          .y(this.getY.bind(this))
-                         .interpolate("basis")(this.get('data'));
+                         .interpolate("linear")(this.get('data'));
   }),
 
 

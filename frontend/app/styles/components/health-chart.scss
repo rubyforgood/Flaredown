@@ -21,7 +21,7 @@
   svg {
 
     .marker:hover {
-      fill: grey !important;
+      opacity: 0.5;
       stroke-width: 2;
       cursor: pointer;
     };
