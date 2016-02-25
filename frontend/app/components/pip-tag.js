@@ -16,7 +16,13 @@ export default Ember.Component.extend({
   }),
 
   isActive: Ember.computed('value', 'selected', 'current', function() {
-    if(Ember.isPresent(this.get('current'))) {
+    if(Ember.isEqual(this.get('value'), 0)) {
+      if(Ember.isPresent(this.get('current'))) {
+        return  Ember.isEqual(this.get('value'), this.get('current')) || false;
+      } else {
+        return  Ember.isEqual(this.get('value'), this.get('selected')) || false;
+      }
+    } else if(Ember.isPresent(this.get('current'))) {
       return this.get('value') <= this.get('current');
     } else {
       return this.get('value') <= this.get('selected');
