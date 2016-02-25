@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   label: Ember.computed.alias('model.label'),
 
   pips: [
-    { value: 0, tooltip: 'very well' },
+    { value: 0, tooltip: 'Very well' },
     { value: 1, tooltip: 'Slightly below par' },
     { value: 2, tooltip: 'Poor' },
     { value: 3, tooltip: 'Very poor' },
