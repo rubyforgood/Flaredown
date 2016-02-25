@@ -10,6 +10,12 @@
       height: 40px;
       color: transparent;
       cursor: pointer;
+      background-color: grey;
+      opacity: 0.4;
+
+      &.highlight {
+        opacity: 1;
+      }
 
       &:first-of-type {
         width: 40px;
