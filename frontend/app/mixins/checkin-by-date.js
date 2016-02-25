@@ -13,7 +13,7 @@ export default Ember.Mixin.create({
       if (Ember.isPresent(checkin)) {
         this.router.transitionTo('checkin', checkin.get('id'), step ? step : 'summary');
       } else {
-        var newCheckin = this.get('store').createRecord('checkin', {date: new Date(date)});
+        var newCheckin = this.get('store').createRecord('checkin', {date: date});
         newCheckin.save().then(savedCheckin => {
           this.router.transitionTo('checkin', savedCheckin.get('id'), step ? step : 'start');
         });

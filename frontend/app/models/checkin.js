@@ -3,7 +3,7 @@ import DS from 'ember-data';
 import Ember from 'ember';
 
 export default DS.Model.extend({
-  date: DS.attr('date'),
+  date: DS.attr('string'),  // please keep this as string as we don't need timezone info
   note: DS.attr('string'),
   tagIds: DS.attr(),
 
