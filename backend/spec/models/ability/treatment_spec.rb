@@ -10,6 +10,8 @@ RSpec.describe Ability do
     let!(:global_treatment) { create(:treatment) }
     let!(:personal_treatment) { create(:user_treatment, user: user).treatment }
     let!(:another_user_treatment) { create(:user_treatment).treatment }
+    let!(:popular_treatment) { create(:treatment, :personal) }
+    before { create_list(:user_treatment, Flaredown.config.trackables_min_popularity+1, treatment: popular_treatment) }
 
     context 'read' do
       it 'allow to read global treatments' do
@@ -17,6 +19,9 @@ RSpec.describe Ability do
       end
       it 'allow to read personal treatments' do
         is_expected.to be_able_to(:read, personal_treatment)
+      end
+      it "allow to read popular treatments" do
+        is_expected.to be_able_to(:read, popular_treatment)
       end
       it "don't allow to read another user's personal treatments" do
         is_expected.not_to be_able_to(:read, another_user_treatment)

@@ -25,5 +25,9 @@ module Flaredown
     def similarity_tolerance
       '0.07'
     end
+
+    def trackables_min_popularity
+      3
+    end
   end
 end
