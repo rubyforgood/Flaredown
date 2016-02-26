@@ -79,7 +79,7 @@ export default Ember.Component.extend( {
   }),
 
   transform: Ember.computed('height', 'padding', 'index', function() {
-    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index')})`;
+    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index') + 20})`;
   }),
 
   xAxisTransform: Ember.computed('height', 'startAt', 'data', function() {
@@ -111,9 +111,7 @@ export default Ember.Component.extend( {
   }),
 
   yScale: Ember.computed('data', function() {
-    return d3.scale.linear().range([this.get('height') , 0]).domain([-1, d3.max(this.get('data'), function (d) {
-       return d.y;
-     }) + 2]);
+    return d3.scale.linear().range([this.get('height') , 0]).domain([4, 0]);
   }),
 
   xAxis: Ember.computed('xScale', function() {
