@@ -6,11 +6,11 @@ export default Ember.Component.extend({
   label: Ember.computed.alias('model.label'),
 
   pips: [
-    { value: 0, tooltip: 'Very well' },
-    { value: 1, tooltip: 'Slightly below par' },
-    { value: 2, tooltip: 'Poor' },
-    { value: 3, tooltip: 'Very poor' },
-    { value: 4, tooltip: 'Terrible' }
+    { value: 0 },
+    { value: 1 },
+    { value: 2 },
+    { value: 3 },
+    { value: 4 },
   ],
 
   onDidInsertElement: Ember.on('didInsertElement', function() {

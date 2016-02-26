@@ -3,8 +3,8 @@
 
   <g id="points-{{xAxisElementId}}" transform="{{circlesTransform}}">
     {{#if openPointTooltip}}
-      <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{model.fillClass}}">
-        {{currentPoint.tip.label}}
+      <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{model.fillClass}}" stroke="black" >
+        {{pip-label currentPoint.tip.label}}
       </text>
     {{/if}}
 

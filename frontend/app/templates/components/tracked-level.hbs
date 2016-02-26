@@ -5,7 +5,7 @@
 <div>
   <ul class="pips">
     {{#each pips as |pip|}}
-      {{pip-tag value=pip.value tooltip=pip.tooltip selected=selectedValue current=currentValue modelBgClass=model.bgClass
+      {{pip-tag value=pip.value selected=selectedValue current=currentValue modelBgClass=model.bgClass
                   onClick=(action "setSelectedValue")
                   onMouseEnter=(action "setCurrentValue")
                   onMouseLeave=(action "unsetCurrentValue")}}

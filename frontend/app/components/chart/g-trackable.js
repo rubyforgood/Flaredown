@@ -67,7 +67,7 @@ export default Ember.Component.extend( {
         y: this.get('yScale')(item.y),
         tip: {
           label: item.label,
-          x: this.get('xScale')(item.x) - 2,
+          x: this.get('xScale')(item.x) - 15,
           y: this.get('yScale')(item.y) - 10
         }
       };
