@@ -1,5 +1,21 @@
 {{#if isLineSerie}}
   <path class="line {{model.strokeClass}}" d="{{lineFunction}}" transform="{{pathTransform}}"></path>
+
+  <g id="points-{{xAxisElementId}}" transform="{{circlesTransform}}">
+    {{#if openPointTooltip}}
+      <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{model.fillClass}}">
+        {{currentPoint.tip.label}}
+      </text>
+    {{/if}}
+
+    {{#each points as |point|}}
+      <circle cx="{{point.x}}" cy="{{point.y}}" r="4" class="{{model.strokeClass}}" stroke-width="3" fill="white"
+        {{action "openPointTooltip" point on="mouseEnter"}}
+        {{action "closePointTooltip" point on="mouseLeave"}}
+      />
+    {{/each}}
+  </g>
+
 {{else}}
   <g id="markers-{{xAxisElementId}}" transform="{{markersTransform}}">
     <defs>
@@ -11,8 +27,8 @@
     </defs>
 
     {{#if openMarkerTooltip }}
-      <text x="{{currentMarker.x}}" y="{{currentMarker.y}}" class="tool-tip {{model.fillClass}}">
-        {{currentMarker.tip}}
+      <text x="{{currentMarker.tip.x}}" y="{{currentMarker.tip.y}}" class="tool-tip {{model.fillClass}}">
+        {{currentMarker.tip.label}}
       </text>
     {{/if}}
 

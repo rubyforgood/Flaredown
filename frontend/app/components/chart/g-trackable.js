@@ -49,7 +49,27 @@ export default Ember.Component.extend( {
       return {
         x: this.get('xScale')(item.x) - 20 ,
         y: this.get('yScale')(1),
-        tip: item.label
+        tip: {
+          label: item.label,
+          x: this.get('xScale')(item.x) - 15,
+          y: this.get('yScale')(item.y)
+        }
+      };
+    });
+  }),
+
+  points: Ember.computed('data', function() {
+    return this.get('data').filter( (item) => {
+      return Ember.$.isNumeric(item.y);
+    }).map( (item) => {
+      return {
+        x: this.get('xScale')(item.x),
+        y: this.get('yScale')(item.y),
+        tip: {
+          label: item.label,
+          x: this.get('xScale')(item.x) - 2,
+          y: this.get('yScale')(item.y) - 10
+        }
       };
     });
   }),
@@ -71,6 +91,10 @@ export default Ember.Component.extend( {
   }),
 
   pathTransform: Ember.computed('height', 'startAt', 'data', function() {
+    return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
+  }),
+
+  circlesTransform: Ember.computed('height', 'startAt', 'data', function() {
     return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
   }),
 
@@ -149,8 +173,16 @@ export default Ember.Component.extend( {
   },
 
   actions: {
-    openTooltip(marker) {
-      this.set('openToolTip', true);
+    openPointTooltip(point) {
+      this.set('openPointTooltip', true);
+      this.set('currentPoint', point);
+    },
+
+    closePointTooltip() {
+      this.set('openPointTooltip', false);
+      this.set('currentPoint', null);
+    },
+
     openMarkerTooltip(marker) {
       this.set('openMarkerTooltip', true);
       this.set('currentMarker', marker);
