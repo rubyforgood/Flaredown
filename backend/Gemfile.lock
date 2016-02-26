@@ -171,7 +171,7 @@ GEM
       yard (~> 0.8)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (2.15.3)
+    puma (3.0.1)
     pusher (0.16.0)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
