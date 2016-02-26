@@ -50,7 +50,7 @@ export default Ember.Component.extend( {
 
   xAxis: Ember.computed('xScale', function() {
     return d3.svg.axis().scale(this.get('xScale')).orient("bottom").ticks(this.get('timelineLength')).tickFormat(function(d){
-      return moment(d).format("YYYY-MM-DD");
+      return moment(d).format("MMM DD");
     });
   }),
 
@@ -69,7 +69,7 @@ export default Ember.Component.extend( {
   },
 
   handleMouseHover(date) {
-    var formattedDate = moment(date).format("YYYY-MM-DD");
+    var formattedDate = moment(date).format("MMM DD");
     var position = null;
 
     d3.select(`g#${this.get('xAxisElementId')}`).selectAll('.tick').get(0).forEach( function(elem) {

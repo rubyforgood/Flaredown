@@ -87,7 +87,7 @@ export default Ember.Component.extend( {
   }),
 
   nestedTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )}, 15)`;
+    return `translate(${ - this.get('xScale')( this.get('startAt') )}, 5)`;
   }),
 
   xDomain: Ember.computed('data', function() {
