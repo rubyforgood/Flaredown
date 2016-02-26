@@ -11,8 +11,7 @@ class Api::V1::SymptomsController < Api::BaseController
   end
 
   def create
-    UserSymptom.create!(user: current_user, symptom: @symptom)
-    render json: @symptom.reload
+    render json: TrackableCreator.new(@symptom, current_user).create!
   end
 
   private

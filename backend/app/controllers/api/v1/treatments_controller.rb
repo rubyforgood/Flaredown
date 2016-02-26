@@ -11,8 +11,7 @@ class Api::V1::TreatmentsController < Api::BaseController
   end
 
   def create
-    UserTreatment.create!(user: current_user, treatment: @treatment)
-    render json: @treatment.reload
+    render json: TrackableCreator.new(@treatment, current_user).create!
   end
 
   private

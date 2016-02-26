@@ -11,8 +11,7 @@ class Api::V1::ConditionsController < Api::BaseController
   end
 
   def create
-    UserCondition.create!(user: current_user, condition: @condition)
-    render json: @condition.reload
+    render json: TrackableCreator.new(@condition, current_user).create!
   end
 
   private
