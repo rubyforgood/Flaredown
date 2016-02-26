@@ -151,11 +151,13 @@ export default Ember.Component.extend( {
   actions: {
     openTooltip(marker) {
       this.set('openToolTip', true);
+    openMarkerTooltip(marker) {
+      this.set('openMarkerTooltip', true);
       this.set('currentMarker', marker);
     },
 
-    closeTooltip() {
-      this.set('openToolTip', false);
+    closeMarkerTooltip() {
+      this.set('openMarkerTooltip', false);
       this.set('currentMarker', null);
     }
   }

@@ -10,7 +10,7 @@
       </g>
     </defs>
 
-    {{#if openToolTip }}
+    {{#if openMarkerTooltip }}
       <text x="{{currentMarker.x}}" y="{{currentMarker.y}}" class="tool-tip {{model.fillClass}}">
         {{currentMarker.tip}}
       </text>
@@ -19,8 +19,8 @@
     {{#each markers as |marker|}}
       <use xlink:href="#marker-{{xAxisElementId}}"
         x="{{marker.x}}" y="{{marker.y}}" class="marker {{model.fillClass}}"
-        {{action "openTooltip" marker on="mouseEnter"}}
-        {{action "closeTooltip" marker on="mouseLeave"}}
+        {{action "openMarkerTooltip" marker on="mouseEnter"}}
+        {{action "closeMarkerTooltip" marker on="mouseLeave"}}
       />
     {{/each}}
   </g>
