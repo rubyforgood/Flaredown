@@ -79,23 +79,15 @@ export default Ember.Component.extend( {
   }),
 
   transform: Ember.computed('height', 'padding', 'index', function() {
-    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index') + 20})`;
+    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index')})`;
   }),
 
   xAxisTransform: Ember.computed('height', 'startAt', 'data', function() {
     return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('height')})`;
   }),
 
-  markersTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
-  }),
-
-  pathTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
-  }),
-
-  circlesTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )},0)`;
+  nestedTransform: Ember.computed('height', 'startAt', 'data', function() {
+    return `translate(${ - this.get('xScale')( this.get('startAt') )}, 15)`;
   }),
 
   xDomain: Ember.computed('data', function() {
@@ -111,7 +103,7 @@ export default Ember.Component.extend( {
   }),
 
   yScale: Ember.computed('data', function() {
-    return d3.scale.linear().range([this.get('height') , 0]).domain([4, 0]);
+    return d3.scale.linear().range([this.get('height') , 0]).domain([5, -1]);
   }),
 
   xAxis: Ember.computed('xScale', function() {
