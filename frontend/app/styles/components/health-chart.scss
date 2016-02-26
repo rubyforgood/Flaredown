@@ -20,11 +20,16 @@
 
   svg {
 
+    circle.point:hover {
+      stroke-width: 3;
+      cursor: pointer;
+    }
+
     .marker:hover {
       opacity: 0.5;
       stroke-width: 2;
       cursor: pointer;
-    };
+    }
 
     .trackable-title {
       margin-top: 21px;

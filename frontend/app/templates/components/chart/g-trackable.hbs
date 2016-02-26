@@ -9,7 +9,7 @@
     {{/if}}
 
     {{#each points as |point|}}
-      <circle cx="{{point.x}}" cy="{{point.y}}" r="4" class="{{model.strokeClass}}" stroke-width="3" fill="white"
+      <circle cx="{{point.x}}" cy="{{point.y}}" r="4" class="point {{model.strokeClass}}" stroke-width="2" fill="white"
         {{action "openPointTooltip" point on="mouseEnter"}}
         {{action "closePointTooltip" point on="mouseLeave"}}
       />
