@@ -33,4 +33,21 @@ class Checkin
   # Scopes
   #
   scope :by_date, ->(startkey, endkey) { where(:date.gte => startkey, :date.lte => endkey) }
+
+
+  class << self
+
+    def most_recent_value_for(trackable_type, trackable_id)
+      return nil unless %w(
+        Checkin::Treatment
+        Checkin::Condition
+        Checkin::Symptom
+      ).include? trackable_type
+      trackable_id_sym = "#{trackable_type.split('::')[1].underscore}_id".to_sym
+      trackable_type.constantize.where(
+        :value.ne => nil, trackable_id_sym => trackable_id
+      ).order_by('checkin.date' => 'desc').first.try(:value)
+    end
+
+  end
 end

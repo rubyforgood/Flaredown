@@ -17,7 +17,10 @@ class CheckinCreator
       elsif trackable.is_a? Symptom
         symptom_attrs << { symptom_id: trackable.id }
       elsif trackable.is_a? Treatment
-        treatment_attrs << { treatment_id: trackable.id }
+        treatment_attrs << {
+          treatment_id: trackable.id,
+          value: Checkin.most_recent_value_for('Checkin::Treatment', trackable.id)
+        }
       end
     end
     Checkin.create!(
@@ -27,4 +30,5 @@ class CheckinCreator
       treatments_attributes: treatment_attrs
     )
   end
+
 end

@@ -17,5 +17,16 @@ RSpec.describe CheckinCreator do
       expect(subject.symptoms[0].symptom_id).to eq symptom.id
       expect(subject.treatments[0].treatment_id).to eq treatment.id
     end
+    context 'when the same treatment with dose is in a previous checkin' do
+      let!(:checkin1) { create(:checkin, date: Date.yesterday) }
+      let!(:checkin1_treatment) { create(:checkin_treatment, checkin: checkin1, treatment_id: treatment.id) }
+      let!(:checkin2) { create(:checkin, date: Date.today - 2.days) }
+      let!(:checkin2_treatment) { create(:checkin_treatment, checkin: checkin2, treatment_id: treatment.id) }
+      it 'sets the most recently used dose on the new checkin' do
+        checkin_treatment = subject.treatments[0]
+        expect(checkin_treatment.treatment_id).to eq treatment.id
+        expect(checkin_treatment.value).to eq checkin1_treatment.value
+      end
+    end
   end
 end
