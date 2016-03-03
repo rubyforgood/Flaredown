@@ -55,6 +55,11 @@ Rails.application.routes.draw do
       resources :invitations, only: [:show, :update]
 
       #
+      # Passwords
+      #
+      resources :passwords, only: [:show, :create, :update]
+
+      #
       # Profiles
       #
       resources :profiles, only: [:show, :update]
