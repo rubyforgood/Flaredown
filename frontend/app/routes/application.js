@@ -4,6 +4,10 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 export default Ember.Route.extend(ApplicationRouteMixin, {
 
   actions: {
+    routeToLogin() {
+      this.router.transitionTo('login');
+    },
+
     openModal: function(modalName, model, controller) {
       this.send('closeModal');
 

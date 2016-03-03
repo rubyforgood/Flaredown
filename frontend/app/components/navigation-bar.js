@@ -12,6 +12,12 @@ export default Ember.Component.extend({
       this.get('session.currentUser.profile').then( (profile) => {
         Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/edit-profile', profile);
       });
+    },
+
+    openChangePasswordModal() {
+      this.store.find('password', 1).then( (password) => {
+        Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/change-password', password);
+      })
 
     },
 

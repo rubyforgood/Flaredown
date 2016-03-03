@@ -6,8 +6,8 @@ export default Ember.Component.extend({
 
   actions: {
     updatePassword(){
-      this.get('model').save().then( () => {
-        this.router.transitionTo('login');
+      this.get('model').save().then( (password) => {
+        this.sendAction('onPasswordUpdated', password);
       });
     }
   }
