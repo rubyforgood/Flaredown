@@ -11,7 +11,7 @@ RSpec.describe Ability do
     let!(:personal_symptom) { create(:user_symptom, user: user).symptom }
     let!(:another_user_symptom) { create(:user_symptom).symptom }
     let!(:popular_symptom) { create(:symptom, :personal) }
-    before { create_list(:user_symptom, Flaredown.config.trackables_min_popularity+1, symptom: popular_symptom) }
+    before { create_list(:user_symptom, Flaredown.config.trackables_min_popularity, symptom: popular_symptom) }
 
     context 'read' do
       it 'allow to read global symptoms' do

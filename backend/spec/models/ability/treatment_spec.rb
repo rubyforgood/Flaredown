@@ -11,7 +11,7 @@ RSpec.describe Ability do
     let!(:personal_treatment) { create(:user_treatment, user: user).treatment }
     let!(:another_user_treatment) { create(:user_treatment).treatment }
     let!(:popular_treatment) { create(:treatment, :personal) }
-    before { create_list(:user_treatment, Flaredown.config.trackables_min_popularity+1, treatment: popular_treatment) }
+    before { create_list(:user_treatment, Flaredown.config.trackables_min_popularity, treatment: popular_treatment) }
 
     context 'read' do
       it 'allow to read global treatments' do
