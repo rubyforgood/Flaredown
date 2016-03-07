@@ -17,8 +17,7 @@ export default Ember.Component.extend({
     openChangePasswordModal() {
       this.store.find('password', 1).then( (password) => {
         Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/change-password', password);
-      })
-
+      });
     },
 
   }
