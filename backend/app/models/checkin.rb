@@ -46,9 +46,9 @@ class Checkin
       Checkin::Symptom
     ).include? trackable_type
     trackable_id_sym = "#{trackable_type.split('::')[1].underscore}_id".to_sym
-    trackable_type.constantize.in(checkin_id: user.checkin_ids)
-      .where(:value.ne => nil, trackable_id_sym => trackable_id)
-      .order_by('checkin.date' => 'desc').first.try(:value)
+    trackable_type.constantize
+      .where(:checkin.in => user.checkin_ids, trackable_id_sym => trackable_id, :value.ne => nil)
+      .and(:value.ne => '').order_by('checkin.date' => 'desc').first.try(:value)
   end
 
 end
