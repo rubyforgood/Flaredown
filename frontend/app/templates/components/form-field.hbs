@@ -2,10 +2,10 @@
   {{label}}
 </label>
 
-{{yield}}
+{{yield this}}
 
 {{#if hasError}}
-  <div class="text-danger errors">
+  <p class="error-message">
     {{errors}}
-  </div>
+  </p>
 {{/if}}

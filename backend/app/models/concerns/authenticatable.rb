@@ -12,5 +12,11 @@ module Authenticatable
            :validatable,
            :invitable,
            :omniauthable
+
+
+    #
+    # Validates
+    #
+    validates_confirmation_of :password
   end
 end
