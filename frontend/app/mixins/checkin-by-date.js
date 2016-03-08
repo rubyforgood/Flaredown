@@ -9,14 +9,16 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 
   routeToCheckin: function(date, step) {
-    this.get('store').queryRecord('checkin', {date: date}).then(checkin => {
-      if (Ember.isPresent(checkin)) {
-        this.router.transitionTo('checkin', checkin.get('id'), step ? step : 'summary');
-      } else {
+    this.get('store').query('checkin', {date: date}).then(results => {
+      var records = results.toArray();
+      if (Ember.isEmpty(records)) {
         var newCheckin = this.get('store').createRecord('checkin', {date: date});
         newCheckin.save().then(savedCheckin => {
           this.router.transitionTo('checkin', savedCheckin.get('id'), step ? step : 'start');
         });
+      } else {
+        let checkin = records[0];
+        this.router.transitionTo('checkin', checkin.get('id'), step ? step : 'summary');
       }
     });
   }
