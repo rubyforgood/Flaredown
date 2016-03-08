@@ -7,6 +7,7 @@ class CheckinCreator
   end
 
   def create!
+    checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [])
     active_trackables = user.trackings.active_at(date).map(&:trackable)
     condition_attrs = []
     symptom_attrs = []
@@ -19,16 +20,16 @@ class CheckinCreator
       elsif trackable.is_a? Treatment
         treatment_attrs << {
           treatment_id: trackable.id,
-          value: Checkin.most_recent_value_for('Checkin::Treatment', trackable.id)
+          value: checkin.most_recent_value_for('Checkin::Treatment', trackable.id)
         }
       end
     end
-    Checkin.create!(
-      user_id: user.id, date: date, tag_ids: [],
+    checkin.update_attributes!(
       conditions_attributes: condition_attrs,
       symptoms_attributes: symptom_attrs,
       treatments_attributes: treatment_attrs
     )
+    checkin
   end
 
 end

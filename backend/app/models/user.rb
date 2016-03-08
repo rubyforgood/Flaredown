@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     Checkin.where(user_id: id)
   end
 
+  def checkin_ids
+    checkins.map(&:id)
+  end
+
   def notification_channel
     "private-#{id}"
   end
