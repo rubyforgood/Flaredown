@@ -128,7 +128,7 @@ export default Ember.Component.extend( {
 
           if(Ember.$.isNumeric(item.get('value')) ) {
             coordinate.y = item.get('value');
-          } else {
+          } else if (Ember.isEqual(item.get('isTaken'), true)) {
             coordinate.y = true;
           }
         } else if( Ember.isEqual(this.get('type'), 'line') ){
