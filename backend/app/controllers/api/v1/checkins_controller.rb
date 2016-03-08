@@ -15,18 +15,23 @@ class Api::V1::CheckinsController < Api::BaseController
   end
 
   def update
-    checkin = Checkin.find(id)
-    checkin.update_attributes!(update_params)
-    render json: checkin
+    @checkin = Checkin.find(id)
+    @checkin.update_attributes!(update_params)
+    render json: @checkin
   end
 
   private
 
   def update_params
     params.require(:checkin).permit(:note, tag_ids: [],
-                                           conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
-                                           symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
-                                           treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy])
+        conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
+        symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
+        treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy]
+    ).tap do |p|
+      p[:treatments_attributes].select { |t| t[:id].blank? }.each do |t|
+        t[:value] = @checkin.most_recent_value_for('Checkin::Treatment', t[:treatment_id])
+      end if p[:treatments_attributes].present?
+    end
   end
 
   def id
