@@ -131,8 +131,6 @@ export default Ember.Component.extend( {
           } else if (Ember.isEqual(item.get('isTaken'), true)) {
             coordinate.y = true;
           }
-        } else if( Ember.isEqual(this.get('type'), 'line') ){
-          coordinate.y = true;
         }
       }
 
@@ -140,19 +138,18 @@ export default Ember.Component.extend( {
     }).sortBy('x');
   }),
 
-  lineFunction: Ember.computed('data', function() {
-     return d3.svg.line().defined(this.getPoint)
-                         .x(this.getX.bind(this))
-                         .y(this.getY.bind(this))
-                         .interpolate("linear")(this.get('data'));
+  lineData: Ember.computed('data', function() {
+    return this.get('data').reject( (item) => {
+      return Ember.isEmpty(item.y);
+    });
   }),
 
+  lineFunction: Ember.computed('lineData', function() {
+     return d3.svg.line().x(this.getX.bind(this))
+                         .y(this.getY.bind(this))
+                         .interpolate("linear")(this.get('lineData'));
+  }),
 
-  getPoint(d) {
-    if(d.y != null) {
-      return d;
-    }
-  },
 
   getX(d) {
     return this.get('xScale')(d.x);
