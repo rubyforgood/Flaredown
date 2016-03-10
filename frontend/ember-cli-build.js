@@ -8,14 +8,17 @@ module.exports = function(defaults) {
       path: {
         development: '../backend/.env',
       }
+    },
+
+    sassOptions: {
+      includePaths: [
+        'bower_components/spinkit/scss'
+      ]
     }
   });
 
   // pace
   app.import(app.bowerDirectory + '/pace/pace.js');
-
-  // spinkit
-  app.import(app.bowerDirectory + '/spinkit/css/spinners/7-three-bounce.css');
 
   // pusher
   app.import(app.bowerDirectory + '/pusher/dist/pusher.js');
@@ -24,8 +27,8 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/d3/d3.min.js');
 
   // MomentJS
-  app.import('bower_components/momentjs/moment.js');
-  app.import('bower_components/moment-range/dist/moment-range.js');
+  app.import(app.bowerDirectory + '/momentjs/moment.js');
+  app.import(app.bowerDirectory + '/moment-range/dist/moment-range.js');
 
   return app.toTree();
 };
