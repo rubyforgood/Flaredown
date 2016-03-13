@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('checkin', { path: '/checkin/:checkin_id/:step_key' });
 
   this.route('terms-of-service');
+  this.route('privacy-policy');
 
 });
 
