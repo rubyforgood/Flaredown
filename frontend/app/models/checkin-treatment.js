@@ -1,9 +1,8 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import Colorable from 'flaredown/mixins/colorable';
-import NestedDestroyable from 'flaredown/mixins/nested-destroyable';
+import CheckinTrackable from 'flaredown/models/checkin-trackable';
 
-export default DS.Model.extend(Colorable, NestedDestroyable, {
+export default CheckinTrackable.extend({
   value: DS.attr('string'),
   isTaken: DS.attr('boolean'),
 
@@ -18,13 +17,6 @@ export default DS.Model.extend(Colorable, NestedDestroyable, {
         }
       }
     });
-  })),
-
-  isntTaken: Ember.computed.not('isTaken'),
-  cleanIfUntaken: function() {
-    if (this.get('isntTaken')) {
-      this.set('value', null);
-    }
-  }
+  }))
 
 });

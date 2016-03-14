@@ -1,9 +1,8 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import Colorable from 'flaredown/mixins/colorable';
-import NestedDestroyable from 'flaredown/mixins/nested-destroyable';
+import CheckinTrackable from 'flaredown/models/checkin-trackable';
 
-export default DS.Model.extend(Colorable, NestedDestroyable, {
+export default CheckinTrackable.extend({
   value: DS.attr('number'),
 
   condition: DS.belongsTo('condition'),
