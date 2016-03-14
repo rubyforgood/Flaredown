@@ -32,3 +32,18 @@
     cursor: pointer;
   }
 }
+
+.legal {
+  @include outer-container;
+	border-radius: 5px;
+	background: white;
+	padding: 30px;
+	box-shadow: 0 4px 0 $shadow;
+  max-width: 700px;
+  ul {
+    list-style-type: circle;
+  }
+  p + h5, ul + h5 {
+    margin-top: 2em;
+  }
+}
