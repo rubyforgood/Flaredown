@@ -1,9 +1,9 @@
 /* global moment */
 import Ember from 'ember';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
-import RunEvery from 'flaredown/mixins/run-every';
+import CheckinAutosave from 'flaredown/mixins/checkin-autosave';
 
-export default Ember.Component.extend(TrackablesFromType, RunEvery, {
+export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
 
   model: Ember.computed.alias('parentView.model'),
 
@@ -14,12 +14,6 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
     this.get('tracking').setup({
       at: new Date(),
       trackableType: this.get('trackableType').capitalize()
-    });
-  }),
-
-  autosaveCheckin: Ember.on('init', function() {
-    this.runEvery(2, () => {
-      this.saveCheckin();
     });
   }),
 
@@ -76,41 +70,30 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
     });
   },
 
-  isSaving: false,
-  othersAreSaving: false,
-  saveCheckin: function() {
-    this.checkinSavePromise().then(() => {
-      this.onCheckinSaved();
-    });
-  },
   checkinSavePromise: function() {
-    return new Ember.RSVP.Promise(resolve => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
       var checkin = this.get('checkin');
-      if (!(this.get('isSaving') || this.get('othersAreSaving')) &&
-          Ember.isPresent(checkin) &&
-          checkin.trackablesChanged(this.get('trackableType'))) {
-        this.set('isSaving', true);
+      if (checkin.get('hasDirtyAttributes')) {
         this.untrackRemovedTrackeds();
         this.trackAddedTrackeds();
-        checkin.save().then(() => {
-          resolve();
+        checkin.save().then(savedCheckin => {
+          Ember.Logger.debug('Checkin successfully saved');
+          resolve(savedCheckin);
+        }, () => {
+          reject();
         });
       } else {
+        resolve();
         // Ember.Logger.debug("No need to save checkin");
       }
     });
   },
   onCheckinSaved: function() {
-    Ember.Logger.debug('Checkin successfully saved');
-    if (this.get('isDestroyed') || this.get('isDestroying')) {
-      return;
-    } else {
-      this.deleteAddedTrackeds();
-      this.get('checkin').set('tagsChanged', false);
-      this.set('isSaving', false);
-      this.set('addedTrackeds', Ember.A([]));
-      this.set('removedTrackeds', Ember.A([]));
-    }
+    this.deleteAddedTrackeds();
+    this.get('checkin').set('hasDirtyAttributes', false);
+    this.get('checkin').set('tagsChanged', false);
+    this.set('addedTrackeds', Ember.A([]));
+    this.set('removedTrackeds', Ember.A([]));
   },
 
   untrackRemovedTrackeds: function() {

@@ -31,12 +31,6 @@ export default DS.Model.extend({
     this.get('tags').removeObject(tag);
     this.get('tagIds').removeObject(parseInt(tag.get('id')));
     this.set('tagsChanged', true);
-  },
-
-  trackablesChanged: function(trackableType) {
-    return this.get(trackableType.pluralize()).reduce(function(previousValue, item) {
-      return previousValue || item.get('hasDirtyAttributes');
-    }, false);
   }
 
 });
