@@ -1,3 +1,3 @@
-class CheckinSymptomSerializer < ApplicationSerializer
-  attributes :id, :symptom_id, :value, :color_id
+class CheckinSymptomSerializer < CheckinTrackableSerializer
+  attributes :symptom_id
 end
