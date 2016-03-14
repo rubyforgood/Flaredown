@@ -9,6 +9,8 @@
   {{/if}}
 {{/if}}
 
+{{save-status record=checkin}}
+
 {{#if isStart}}
   {{checkin/start-step onStepCompleted=(action 'moveToNextStep')
                        onGoBack=(action 'moveToPrevStep') }}
