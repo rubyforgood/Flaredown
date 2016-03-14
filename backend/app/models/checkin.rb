@@ -39,16 +39,18 @@ class Checkin
     @user ||= User.find(user_id)
   end
 
-  def most_recent_value_for(trackable_type, trackable_id)
-    return nil unless %w(
-      Checkin::Treatment
-      Checkin::Condition
-      Checkin::Symptom
-    ).include? trackable_type
-    trackable_id_sym = "#{trackable_type.split('::')[1].underscore}_id".to_sym
-    trackable_type.constantize
-      .where(:checkin.in => user.checkin_ids, trackable_id_sym => trackable_id, :value.ne => nil)
-      .and(:value.ne => '').order_by('checkin.date' => 'desc').first.try(:value)
+  def most_recent_dose_for(treatment_id)
+    result = nil
+    recent_checkins = user.checkins.sort(date: -1)
+    recent_checkins.each do |checkin|
+      next if checkin.treatments.empty?
+      taken_treatment = checkin.treatments.where(
+        is_taken: true, treatment_id: treatment_id
+      ).first
+      result = taken_treatment.try(:value)
+      result.present? ? break : next
+    end
+    result
   end
 
 end

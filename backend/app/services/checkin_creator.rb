@@ -20,7 +20,8 @@ class CheckinCreator
       elsif trackable.is_a? Treatment
         treatment_attrs << {
           treatment_id: trackable.id,
-          value: checkin.most_recent_value_for('Checkin::Treatment', trackable.id)
+          is_taken: false,
+          value: checkin.most_recent_dose_for(trackable.id)
         }
       end
     end

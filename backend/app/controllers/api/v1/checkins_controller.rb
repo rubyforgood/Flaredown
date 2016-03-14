@@ -29,7 +29,7 @@ class Api::V1::CheckinsController < Api::BaseController
         treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy]
     ).tap do |p|
       p[:treatments_attributes].select { |t| t[:id].blank? }.each do |t|
-        t[:value] = @checkin.most_recent_value_for('Checkin::Treatment', t[:treatment_id])
+        t[:value] = @checkin.most_recent_dose_for(t[:treatment_id])
       end if p[:treatments_attributes].present?
     end
   end
