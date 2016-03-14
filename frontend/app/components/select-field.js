@@ -48,7 +48,9 @@ export default Ember.Component.extend({
     var name = this.get('autoSelectName');
     if (Ember.isPresent(name)) {
       var item = this.get('items').findBy('name', name);
-      this.set('selection', item);
+      if (Ember.isPresent(item)) {
+        this.set('selection', item);
+      }
     }
   },
 
