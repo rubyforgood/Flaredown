@@ -33,6 +33,18 @@
   }
 }
 
+footer {
+  text-align: center;
+  margin-top: 2em;
+  color: $dark-shadow;
+  a {
+    color: $dark-shadow;
+    & + a {
+      margin-left: 25px;
+    }
+  }
+}
+
 .legal {
   @include outer-container;
 	border-radius: 5px;
