@@ -92,7 +92,6 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
         this.set('isSaving', true);
         this.untrackRemovedTrackeds();
         this.trackAddedTrackeds();
-        this.cleanUntakenTreatments();
         checkin.save().then(() => {
           resolve();
         });
@@ -145,15 +144,6 @@ export default Ember.Component.extend(TrackablesFromType, RunEvery, {
     while (!Ember.isEmpty(addedTrackeds)) {
       var record = addedTrackeds.popObject();
       record.deleteRecord();
-    }
-  },
-
-  cleanUntakenTreatments: function() {
-    // we need to delete value on treatments not taken
-    if (this.get('trackableTypeIsTreatment')) {
-      this.get('trackeds').forEach(record => {
-        record.cleanIfUntaken();
-      });
     }
   }
 
