@@ -31,7 +31,7 @@ module Flaredown
     end
 
     def airbrake_enabled?
-      ENV['AIRBRAKE_HOST'].present?
+      ENV['AIRBRAKE_ENABLED'].present? && ENV['AIRBRAKE_ENABLED'].eql(true)
     end
 
   end
