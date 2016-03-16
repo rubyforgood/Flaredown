@@ -29,10 +29,5 @@ module Flaredown
     def trackables_min_popularity
       3
     end
-
-    def airbrake_enabled?
-      ENV['AIRBRAKE_ENABLED'].present? && ENV['AIRBRAKE_ENABLED'].to_s.eql?("true")
-    end
-
   end
 end
