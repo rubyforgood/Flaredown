@@ -1,5 +1,9 @@
 {{checkin/tags-edit checkin=checkin}}
 
+{{tags-group scope="most_popular"
+             title="Popular"
+             onTagClicked=(action "addTag") }}
+
 {{step-controls step=model.currentStep
                 forwardLabel="Review"
                 onBackward=(action "goBack")

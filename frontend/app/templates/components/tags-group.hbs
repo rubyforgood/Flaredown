@@ -1,0 +1,8 @@
+{{#if tags}}
+  <h4>{{title}}</h4>
+  <ul>
+  {{#each tags as |tag|}}
+    <li><a href="#" {{action "clickTag" tag}}>{{tag.name}}</a></li>
+  {{/each}}
+  </ul>
+{{/if}}

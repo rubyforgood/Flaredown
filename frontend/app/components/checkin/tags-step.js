@@ -7,6 +7,9 @@ export default Ember.Component.extend(CheckinAutosave, {
   checkin: Ember.computed.alias('model.checkin'),
 
   actions: {
+    addTag(tag) {
+      this.get('checkin').addTag(tag);
+    },
     completeStep() {
       this.saveCheckin();
       this.get('onStepCompleted')();
