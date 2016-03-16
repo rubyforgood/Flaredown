@@ -45,6 +45,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    airbrake (5.1.0)
+      airbrake-ruby (~> 1.1)
+    airbrake-ruby (1.2.0)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -278,6 +281,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
+  airbrake (~> 5.0)
   annotate (~> 2.6)
   awesome_print (~> 1.6)
   better_errors (~> 2.1)
