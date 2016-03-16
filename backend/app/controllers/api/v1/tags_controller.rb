@@ -2,7 +2,11 @@ class Api::V1::TagsController < Api::BaseController
   load_and_authorize_resource
 
   def index
-    @tags = @tags.where(id: ids) if ids.present?
+    if ids.present?
+      @tags = @tags.where(id: ids)
+    elsif scope.present?
+      @tags = TagsRetriever.new(scope).retrieve
+    end
     render json: @tags
   end
 
@@ -23,5 +27,9 @@ class Api::V1::TagsController < Api::BaseController
 
   def ids
     @ids ||= params[:ids]
+  end
+
+  def scope
+    @scope ||= params[:scope].to_sym
   end
 end
