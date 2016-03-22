@@ -3,7 +3,7 @@
 
   <g id="points-{{xAxisElementId}}" transform="{{nestedTransform}}">
     {{#if openPointTooltip}}
-      <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{model.fillClass}}" stroke="black" >
+      <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{model.fillClass}}" >
         {{pip-label currentPoint.tip.label}}
       </text>
     {{/if}}
@@ -44,4 +44,4 @@
 
 <g id="x-axis-{{xAxisElementId}}" class="axis x {{model.strokeClass}}" transform="{{xAxisTransform}}"></g>
 
-<text class="title {{model.strokeClass}}" transform="translate(5,12)">{{model.name}}</text>
+<text class="title {{model.fillClass}}" transform="translate(5,12)">{{model.name}}</text>

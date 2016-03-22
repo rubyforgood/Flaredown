@@ -5,19 +5,19 @@ export function pipLabel(params/*, hash*/) {
 
   switch(params[0]) {
     case 0:
-      label = "Very well";
+      label = "Not active";
       break;
     case 1:
-      label = "Slightly below par";
+      label = "Slightly active";
       break;
     case 2:
-      label = "Poor";
+      label = "Fairly active";
       break;
     case 3:
-      label = "Very poor";
+      label = "Very active";
       break;
     case 4:
-      label = "Terrible";
+      label = "Extremely active";
       break;
     default:
       label = "";
