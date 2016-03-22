@@ -20,9 +20,14 @@
 
   svg {
 
+    circle.point {
+      fill: $background;
+    }
+
     circle.point:hover {
       stroke-width: 3;
       cursor: pointer;
+      fill: $background;
     }
 
     .marker:hover {
