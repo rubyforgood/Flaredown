@@ -15,6 +15,7 @@ a {
   cursor: pointer;
   &:hover {
     text-decoration: none;
+    color: darken($primary, 30%)
   }
 }
 
