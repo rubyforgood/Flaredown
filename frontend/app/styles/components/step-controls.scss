@@ -10,10 +10,10 @@
       display: inline-block;
     }
     button {
-      background-color: darken($lightgrey, 15%);
+      background-color: $primary;
       &:hover,
       &:focus {
-        background-color: darken($lightgrey, 30%);
+        background-color: darken($primary, 30%);
       }
     }
   }
