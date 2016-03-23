@@ -30,6 +30,7 @@ class Api::V1::TagsController < Api::BaseController
   end
 
   def scope
-    @scope ||= params[:scope].to_sym
+    @scope ||= params[:scope].try(:to_sym)
   end
+
 end
