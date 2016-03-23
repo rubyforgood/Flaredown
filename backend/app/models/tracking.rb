@@ -34,7 +34,7 @@ class Tracking < ActiveRecord::Base
   before_create :ensure_color_id
   def ensure_color_id
     if color_id.nil?
-      self.color_id = Flaredown::Colorable.color_id_for(trackable)
+      self.color_id = Flaredown::Colorable.color_id_for(trackable, user)
     end
   end
 end
