@@ -26,4 +26,13 @@ class RankedEnum
       end
     end
   end
+
+  def name
+    I18n.t "#{key}.#{id}"
+  end
+
+  def key
+    self.class.name.underscore
+  end
+
 end
