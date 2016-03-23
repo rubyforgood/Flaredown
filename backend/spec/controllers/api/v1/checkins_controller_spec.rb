@@ -56,7 +56,7 @@ RSpec.describe Api::V1::CheckinsController do
       let!(:treatment) { create(:treatment) }
       let!(:checkin1) { create(:checkin, user_id: user.id, date: Date.yesterday) }
       let!(:checkin1_treatment) { create(:checkin_treatment, checkin: checkin1, treatment_id: treatment.id, value: '20 mg') }
-      let!(:checkin2) { create(:checkin, user_id: user.id, date: Date.today - 2.days) }
+      let!(:checkin2) { create(:checkin, user_id: user.id, date: Date.today - 3.days) }
       let!(:checkin2_treatment) { create(:checkin_treatment, checkin: checkin2, treatment_id: treatment.id) }
       let(:attributes) { { id: checkin.id, checkin: { treatments_attributes: [{ treatment_id: treatment.id }] } } }
       it 'auto-sets the most recently used dose on added treatments' do

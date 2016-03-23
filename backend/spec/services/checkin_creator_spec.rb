@@ -21,7 +21,7 @@ RSpec.describe CheckinCreator do
     context "when same treatment's doses exist in user's previous checkins" do
       let!(:checkin1) { create(:checkin, user_id: user.id, date: Date.yesterday) }
       let!(:checkin1_treatment) { create(:checkin_treatment, checkin: checkin1, treatment_id: treatment.id, value: '20 mg') }
-      let!(:checkin2) { create(:checkin, user_id: user.id, date: Date.today - 2.days) }
+      let!(:checkin2) { create(:checkin, user_id: user.id, date: Date.today - 3.days) }
       let!(:checkin2_treatment) { create(:checkin_treatment, checkin: checkin2, treatment_id: treatment.id) }
       it 'sets the most recently used dose on the new checkin' do
         checkin_treatment = subject.treatments[0]
