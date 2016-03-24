@@ -6,6 +6,7 @@ namespace :import do
   end
 
   task users_and_checkins: :environment do
+    Rails.logger.level = 3
     delete_users_and_checkins
     Export.all.each do |export|
       user = import_user(export.user)
