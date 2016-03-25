@@ -1,4 +1,6 @@
-class Api::V1::DayHabitsController < Api::BaseController
+class Api::V1::DayHabitsController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def index
     render json: DayHabit.all
   end

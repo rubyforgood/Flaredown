@@ -1,4 +1,4 @@
-class Api::V1::TrackingsController < Api::BaseController
+class Api::V1::TrackingsController < ApplicationController
   load_and_authorize_resource except: :create
 
   def index

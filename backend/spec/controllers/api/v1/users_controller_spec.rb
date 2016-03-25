@@ -6,9 +6,9 @@ RSpec.describe Api::V1::UsersController do
 
   describe 'show' do
     context 'when no user logged-in' do
-      it 'returns 401 (unauthorized)' do
+      it 'returns 302 (Permanent Redirect)' do
         get :show, id: user.id
-        expect(response.status).to eq 401
+        expect(response.status).to eq 302
       end
     end
 

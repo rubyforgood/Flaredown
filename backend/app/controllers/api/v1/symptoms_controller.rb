@@ -1,4 +1,4 @@
-class Api::V1::SymptomsController < Api::BaseController
+class Api::V1::SymptomsController < ApplicationController
   load_and_authorize_resource
 
   def index

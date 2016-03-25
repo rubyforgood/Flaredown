@@ -1,4 +1,6 @@
-class Api::V1::CountriesController < Api::BaseController
+class Api::V1::CountriesController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def index
     render json: Country.all
   end

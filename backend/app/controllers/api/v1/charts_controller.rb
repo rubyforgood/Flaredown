@@ -1,4 +1,5 @@
-class Api::V1::ChartsController < Api::BaseController
+class Api::V1::ChartsController < ApplicationController
+
   def show
     chart = Chart.new(chart_params)
 

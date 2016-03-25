@@ -1,4 +1,6 @@
-class Api::V1::EthnicitiesController < Api::BaseController
+class Api::V1::EthnicitiesController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def index
     render json: Ethnicity.all
   end

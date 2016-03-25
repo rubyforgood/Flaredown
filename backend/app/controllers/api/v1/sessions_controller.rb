@@ -1,4 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def show
     render json: Flaredown.session
   end

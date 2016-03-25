@@ -1,4 +1,4 @@
-class Api::V1::SearchesController < Api::BaseController
+class Api::V1::SearchesController < ApplicationController
   def show
     search =
       if resource_param.eql? 'dose'

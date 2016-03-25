@@ -1,4 +1,6 @@
-class Api::V1::EducationLevelsController < Api::BaseController
+class Api::V1::EducationLevelsController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def index
     render json: EducationLevel.all
   end

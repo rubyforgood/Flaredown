@@ -1,4 +1,4 @@
-class Api::V1::CheckinsController < Api::BaseController
+class Api::V1::CheckinsController < ApplicationController
   def index
     date = Date.parse(params.require(:date))
     render json: current_user.checkins.where(date: date)

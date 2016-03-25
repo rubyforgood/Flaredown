@@ -1,4 +1,4 @@
-class Api::V1::UsersController < Api::BaseController
+class Api::V1::UsersController < ApplicationController
   load_and_authorize_resource
 
   def show

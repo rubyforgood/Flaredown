@@ -1,4 +1,5 @@
-class Api::V1::PasswordsController < Api::BaseController
+class Api::V1::PasswordsController < ApplicationController
+  skip_before_filter :authenticate_user!
 
   def show
     if user_signed_in?

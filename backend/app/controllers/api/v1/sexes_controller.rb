@@ -1,4 +1,6 @@
-class Api::V1::SexesController < Api::BaseController
+class Api::V1::SexesController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def index
     render json: Sex.all
   end

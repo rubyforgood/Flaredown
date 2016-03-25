@@ -1,4 +1,4 @@
-class Api::V1::TreatmentsController < Api::BaseController
+class Api::V1::TreatmentsController < ApplicationController
   load_and_authorize_resource
 
   def index

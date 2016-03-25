@@ -1,4 +1,4 @@
-class Api::V1::PushersController < Api::BaseController
+class Api::V1::PushersController < ApplicationController
   def create
     render json: Flaredown.pusher.authenticate!(current_user, socket_id)
   rescue

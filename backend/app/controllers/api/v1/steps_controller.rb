@@ -1,4 +1,6 @@
-class Api::V1::StepsController < Api::BaseController
+class Api::V1::StepsController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def index
     steps = group.present? ? Step.by_group(group) : Step.all
     render json: steps

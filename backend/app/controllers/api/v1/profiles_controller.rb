@@ -1,4 +1,4 @@
-class Api::V1::ProfilesController < Api::BaseController
+class Api::V1::ProfilesController < ApplicationController
   load_and_authorize_resource
 
   def show
