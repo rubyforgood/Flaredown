@@ -1,7 +1,7 @@
 DAYS = 60
 email = ENV['CHECKINS_FOR']
-puts "email=#{email}"
 if email.present?
+  puts "email=#{email}"
 
   user = User.find_or_create_by(email: email)
 
