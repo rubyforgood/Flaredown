@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ExceptionLogger, ActionController::Serialization, CanCan::ControllerAdditions
 
   before_action :authenticate_user_from_token!, if: :presence_of_authentication_token?
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :root
   before_action :set_locale
 
   def root
