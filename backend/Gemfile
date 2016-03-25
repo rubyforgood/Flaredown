@@ -31,6 +31,8 @@ gem 'colored', '~> 1.2'
 
 # Background jobs
 gem 'sidekiq', '~> 4.0'
+# Needed by Sidekiq Web UI
+gem 'sinatra', :require => nil
 
 # Structured seed data
 gem 'seedbank'
