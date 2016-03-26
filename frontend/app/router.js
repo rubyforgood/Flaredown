@@ -8,6 +8,9 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('upcoming');
   this.route('login');
+
+  this.route('discourse-sign-in', { path: '/discourse/sign_in' });
+
   this.route('password', function() {
     this.route('reset');
     this.route('update', { path: ':password_id' });

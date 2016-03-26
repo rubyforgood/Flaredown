@@ -10,6 +10,9 @@ export default SessionService.extend({
 
   notificationChannel: Ember.computed.alias('extraSession.notificationChannel'),
 
+  discourseUrl: Ember.computed.alias('extraSession.discourseUrl'),
+  discourseEnabled: Ember.computed.alias('extraSession.discourseEnabled'),
+
   setCurrentUser: Ember.on('init', Ember.observer('isAuthenticated', function() {
     var userId = this.get('userId');
     if (Ember.isPresent(userId)) {

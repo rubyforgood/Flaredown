@@ -9,9 +9,12 @@
       <li class="nav-link">
         {{#link-to 'upcoming'}}Upcoming{{/link-to}}
       </li>
-      <li class="nav-link">
-        <a href="http://talk.flaredown.com" target="_blank">Discussion</a>
-      </li>
+      {{#if session.discourseEnabled}}
+        <li class="nav-link">
+          <a href="{{session.discourseUrl}}" target="_blank">Discussion</a>
+        </li>
+      {{/if}}
+
       <li class="nav-link nav-right hover-menu">
         <a href="#">{{session.currentUser.email}}</a>
         <ul class="submenu">

@@ -35,6 +35,11 @@ Rails.application.routes.draw do
       resources :day_habits, only: [:index, :show]
 
       #
+      # Discourse SSO
+      #
+      resource :discourse, only: [:create]
+
+      #
       # Education Levels
       #
       resources :education_levels, only: [:index, :show]

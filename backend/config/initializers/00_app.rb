@@ -29,5 +29,13 @@ module Flaredown
     def trackables_min_popularity
       3
     end
+
+    def discourse_enabled?
+      !!(Rails.env.production? || ENV.fetch('DISCOURSE_ENABLED') { false })
+    end
+
+    def discourse_url
+      ENV.fetch('DISCOURSE_URL')
+    end
   end
 end

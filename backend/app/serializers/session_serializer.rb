@@ -2,7 +2,9 @@ class SessionSerializer < ApplicationSerializer
   attributes :id,
              :base_url,
              :notification_channel,
-             :facebook_app_id
+             :facebook_app_id,
+             :discourse_url,
+             :discourse_enabled
 
   def id
     1
@@ -18,5 +20,13 @@ class SessionSerializer < ApplicationSerializer
 
   def notification_channel
     current_user.try :notification_channel
+  end
+
+  def discourse_url
+    Flaredown.config.discourse_url
+  end
+
+  def discourse_enabled
+    Flaredown.config.discourse_enabled?
   end
 end
