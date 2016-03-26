@@ -5,7 +5,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   ajax: Ember.inject.service(),
 
   beforeModel(transition) {
-    return this.get('ajax').request('/api/discourse', {
+     var promise = this.get('ajax').request('/api/discourse', {
       headers: {
         "Authorization": `Token token="${this.get('session.token')}", email="${this.get('session.email')}"`
       },
@@ -15,11 +15,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         sig: transition.queryParams.sig
       }
     });
-  },
 
-  model(params) {
-    Ember.debug(Ember.inspect(params));
-    return ;
+    promise.then( (payload) => {
+      window.location = payload.url;
+    });
+
+    return promise;
   }
 
 });

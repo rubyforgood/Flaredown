@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
     Flaredown.pusher.push(notification_channel, event, message)
   end
 
+  def external_id
+    "#{self.id}-#{Digest::SHA1.hexdigest(self.authentication_token).strip}"
+  end
+
   private
 
   def generate_authentication_token
