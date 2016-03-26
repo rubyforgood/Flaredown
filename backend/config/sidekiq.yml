@@ -1,6 +1,6 @@
 ---
 :verbose: false
-:concurrency: 1
+:concurrency: 2
 
 # Set timeout to 8 on Heroku, longer if you manage your own systems.
 :timeout: 30
@@ -9,4 +9,3 @@
 :queues:
   - <%= ENV['RACK_ENV'] %>.default
   - <%= ENV['RACK_ENV'] %>.mailers
-  - <%= ENV['RACK_ENV'] %>.import
