@@ -6,7 +6,7 @@ class DiscourseClient
   end
 
   def generate_url
-    uri = URI(ENV.fetch('DISCOURCE_AUTH_URL'))
+    uri = URI(ENV.fetch('DISCOURSE_AUTH_URL'))
 
     if OpenSSL::HMAC.hexdigest('sha256', ENV.fetch('DISCOURSE_SECRET'), sso) == sig
       nonce = Base64.decode64(sso)
