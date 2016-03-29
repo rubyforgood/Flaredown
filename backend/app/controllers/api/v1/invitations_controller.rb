@@ -1,4 +1,6 @@
 class Api::V1::InvitationsController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def show
     render json: Invitation.find(params[:id])
   end
