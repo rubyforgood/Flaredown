@@ -2,8 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: <%= ENV['PG_DATABASE_USERNAME'] %>
-  password: <%= ENV['PG_DATABASE_PASSWORD'] %>
+  username: <%= ENV.fetch('PG_DATABASE_USERNAME') { 'root' } %>
+  password: <%= ENV.fetch('PG_DATABASE_PASSWORD') { '' } %>
 
 development:
   <<: *default
@@ -15,5 +15,6 @@ test:
 
 production:
   <<: *default
-  host: <%= ENV['PG_DATABASE_HOST'] || 'localhost' %>
-  database: <%= ENV['PG_DATABASE_NAME'] %>
+  host: <%= ENV.fetch('PG_DATABASE_HOST') { 'localhost' } %>
+  database: <%= ENV.fetch('PG_DATABASE_NAME') %>
+  pool: <%= ENV.fetch('DB_POOL') { 30 } %>
