@@ -15,7 +15,7 @@ environment ENV.fetch('RACK_ENV') { 'development' }
 #
 # The default is "0".
 #
-workers Integer(ENV.fetch('WEB_CONCURRENCY') { 2 })
+workers Integer(ENV.fetch('WEB_CONCURRENCY') { 0 })
 
 # Configure "min" to be the minimum number of threads to use to answer
 # requests and "max" the maximum.
