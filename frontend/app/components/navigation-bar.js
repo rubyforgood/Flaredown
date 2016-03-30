@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(CheckinByDate, {
   classNames: 'navigation-bar',
 
   actions: {
@@ -19,6 +20,10 @@ export default Ember.Component.extend({
         Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/change-password', password);
       });
     },
+
+    goToTodaysCheckin() {
+      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
+    }
 
   }
 
