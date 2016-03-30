@@ -103,7 +103,7 @@ export default Ember.Component.extend( {
   }),
 
   yScale: Ember.computed('data', function() {
-    return d3.scale.linear().range([this.get('height') , 0]).domain([5, -1]);
+    return d3.scale.linear().range([this.get('height') , 0]).domain([-1, 5]);
   }),
 
   xAxis: Ember.computed('xScale', function() {
