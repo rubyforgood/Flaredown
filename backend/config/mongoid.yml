@@ -140,3 +140,6 @@ production:
   clients:
     default:
       uri: <%= ENV['MONGOLAB_URI'] %>
+      options:
+        # The maximum number of connections in the connection pool. (default: 5)
+        max_pool_size: 50
