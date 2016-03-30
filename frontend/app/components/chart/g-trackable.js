@@ -48,11 +48,11 @@ export default Ember.Component.extend( {
     }).map( (item) => {
       return {
         x: this.get('xScale')(item.x) - 20 ,
-        y: this.get('yScale')(1),
+        y: this.get('yScale')(2.5),
         tip: {
           label: item.label,
           x: this.get('xScale')(item.x) - 15,
-          y: this.get('yScale')(item.y)
+          y: this.get('yScale')(item.y) - 15
         }
       };
     });
