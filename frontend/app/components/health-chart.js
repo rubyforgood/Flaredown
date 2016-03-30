@@ -113,13 +113,8 @@ export default Ember.Component.extend(Resizable, Draggable, {
     var nextStartAt, nextEndAt;
 
     if(Ember.isEqual('right', direction)) {
-      nextStartAt = moment(this.get('startAt')).subtract(1, 'days');
-      nextEndAt = moment(this.get('endAt')).subtract(1, 'days');
-
-      if( nextStartAt > moment().subtract(90, 'days') ) {
-        this.set('startAt',  nextStartAt);
-        this.set('endAt',  nextEndAt);
-      }
+      this.set('startAt',  moment(this.get('startAt')).subtract(1, 'days'));
+      this.set('endAt',  moment(this.get('endAt')).subtract(1, 'days'));
 
     } else if( Ember.isEqual('left', direction) ) {
       nextStartAt = moment(this.get('startAt')).add(1, 'days');
