@@ -16,5 +16,4 @@ test:
 production:
   <<: *default
   host: <%= ENV.fetch('PG_DATABASE_HOST') { 'localhost' } %>
-  database: <%= ENV.fetch('PG_DATABASE_NAME') %>
   pool: <%= ENV.fetch('DB_POOL') { 30 } %>
