@@ -2,6 +2,7 @@ class Api::V1::ConditionsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @conditions = @conditions.includes(:translations)
     @conditions = @conditions.where(id: ids) if ids.present?
     render json: @conditions
   end

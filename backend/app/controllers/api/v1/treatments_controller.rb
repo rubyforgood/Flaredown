@@ -2,6 +2,7 @@ class Api::V1::TreatmentsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @treatments = @treatments.includes(:translations)
     @treatments = @treatments.where(id: ids) if ids.present?
     render json: @treatments
   end

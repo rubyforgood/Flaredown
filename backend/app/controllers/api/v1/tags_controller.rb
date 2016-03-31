@@ -2,6 +2,7 @@ class Api::V1::TagsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @tags = @tags.includes(:translations)
     if ids.present?
       @tags = @tags.where(id: ids)
     elsif scope.present?
