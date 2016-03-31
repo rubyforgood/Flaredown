@@ -62,7 +62,9 @@ class User < ActiveRecord::Base
   delegate :locale, to: :profile
 
   def checkins
-    Checkin.where(user_id: id)
+    Checkin.includes(:conditions)
+           .includes(:symptoms)
+           .includes(:treatments).where(user_id: id)
   end
 
   def checkin_ids
