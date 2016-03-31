@@ -5,5 +5,5 @@ class Checkin::Symptom
   field :color_id, type: String
   include Checkin::Fiveable
 
-  belongs_to :checkin
+  belongs_to :checkin, index: true
 end

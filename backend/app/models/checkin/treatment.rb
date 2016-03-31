@@ -12,11 +12,11 @@ class Checkin::Treatment
   #
   # Relations
   #
-  belongs_to :checkin
+  belongs_to :checkin, index: true
 
   #
   # Indexes
   #
   index(treatment_id: 1)
-  index(treatment_id: 1, value: 1)
+  index(treatment_id: 1, is_taken: 1, value: 1)
 end
