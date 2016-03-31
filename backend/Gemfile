@@ -44,6 +44,9 @@ gem 'pusher'
 # ActiveRecord data translations
 gem 'globalize', '~> 5.0.0'
 
+# Abort requests that are taking too long
+gem "rack-timeout"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
