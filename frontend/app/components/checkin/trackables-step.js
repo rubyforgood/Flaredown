@@ -62,7 +62,8 @@ export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
         recordAttrs[trackableType] = trackable;
         var recordType = `checkin_${trackableType}`.camelize();
         var tracked = this.store.createRecord(recordType, recordAttrs);
-        this.get('trackeds').pushObject(tracked);
+        trackeds.pushObject(tracked);
+        tracked.syncCheckinDirty();
         this.get('addedTrackeds').pushObject(tracked);
       }
       this.set('selectedTrackable', null);

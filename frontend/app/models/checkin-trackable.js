@@ -7,12 +7,18 @@ export default DS.Model.extend(Colorable, NestedDestroyable, {
 
   checkin: DS.belongsTo('checkin'),
 
-  setCheckinDirty: Ember.on('init', Ember.observer('hasDirtyAttributes', function() {
-    if (this.get('hasDirtyAttributes')) {
-      if (!this.get('checkin.hasDirtyAttributes')) {
-        this.get('checkin').set('hasDirtyAttributes', true);
+  syncCheckinDirty: Ember.observer('hasDirtyAttributes', function() {
+    this.setCheckinDirty();
+  }),
+
+  setCheckinDirty() {
+    Ember.RSVP.resolve(this.get('checkin')).then(checkin => {
+      if (this.get('hasDirtyAttributes')) {
+        if (!checkin.get('hasDirtyAttributes')) {
+          checkin.set('hasDirtyAttributes', true);
+        }
       }
-    }
-  }))
+    });
+  }
 
 });

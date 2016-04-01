@@ -1,3 +1,4 @@
+/* global moment */
 import Ember from 'ember';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
