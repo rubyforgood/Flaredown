@@ -1,4 +1,3 @@
-/* global d3, moment */
 import Ember from 'ember';
 import HealthChartComponent from '../health-chart';
 

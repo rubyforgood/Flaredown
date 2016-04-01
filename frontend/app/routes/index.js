@@ -1,4 +1,3 @@
-/* global moment */
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';

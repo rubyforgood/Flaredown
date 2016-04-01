@@ -1,4 +1,3 @@
-/* global moment */
 import Ember from 'ember';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 import CheckinAutosave from 'flaredown/mixins/checkin-autosave';

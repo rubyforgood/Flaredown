@@ -1,5 +1,3 @@
-/* global Pusher */
-
 import Ember from 'ember';
 import ENV from 'flaredown/config/environment';
 

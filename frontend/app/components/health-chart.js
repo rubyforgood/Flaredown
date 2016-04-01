@@ -1,4 +1,3 @@
-/* global d3, moment */
 import Ember from 'ember';
 import Resizable from './chart/resizable';
 import Draggable from './chart/draggable';
