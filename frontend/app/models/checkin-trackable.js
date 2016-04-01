@@ -5,20 +5,28 @@ import NestedDestroyable from 'flaredown/mixins/nested-destroyable';
 
 export default DS.Model.extend(Colorable, NestedDestroyable, {
 
+  init() {
+    this._super(...arguments);
+    /* We need to make sure that the hasDirtyAttributes property has been consumed at least once
+       in order to activate the observer. See:
+       https://guides.emberjs.com/v2.4.0/object-model/observers/#toc_unconsumed-computed-properties-do-not-trigger-observers
+    */
+    this.get('hasDirtyAttributes');
+  },
+
+  syncCheckinDirty: Ember.observer('hasDirtyAttributes', function() {
+    this.setCheckinDirty();
+  }),
+
   checkin: DS.belongsTo('checkin'),
 
-  syncCheckinDirty: Ember.on('init', Ember.observer('hasDirtyAttributes', function() {
-    this.setCheckinDirty();
-  })),
-
   setCheckinDirty() {
-    Ember.RSVP.resolve(this.get('checkin')).then(checkin => {
-      if (Ember.isPresent(checkin) && this.get('hasDirtyAttributes')) {
-        if (!checkin.get('hasDirtyAttributes')) {
-          checkin.set('hasDirtyAttributes', true);
-        }
+    if (this.get('hasDirtyAttributes')) {
+      let checkin = this.get('checkin.content');
+      if (Ember.isPresent(checkin)) {
+        checkin.set('hasDirtyAttributes', true);
       }
-    });
+    }
   }
 
 });

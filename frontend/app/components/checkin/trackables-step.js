@@ -28,6 +28,7 @@ export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
   actions: {
     remove(tracked) {
       tracked.prepareForDestroy();
+      this.get('checkin').set('hasDirtyAttributes', true);
       this.get('removedTrackeds').pushObject(tracked);
     },
     add() {
@@ -63,8 +64,8 @@ export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
         var recordType = `checkin_${trackableType}`.camelize();
         var tracked = this.store.createRecord(recordType, recordAttrs);
         trackeds.pushObject(tracked);
-        tracked.syncCheckinDirty();
         this.get('addedTrackeds').pushObject(tracked);
+        this.get('checkin').set('hasDirtyAttributes', true);
       }
       this.set('selectedTrackable', null);
     });
