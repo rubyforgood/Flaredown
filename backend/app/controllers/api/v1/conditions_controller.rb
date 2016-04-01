@@ -3,7 +3,11 @@ class Api::V1::ConditionsController < ApplicationController
 
   def index
     @conditions = @conditions.includes(:translations)
-    @conditions = @conditions.where(id: ids) if ids.present?
+    if ids.present?
+      @conditions = @conditions.where(id: ids)
+    else
+      @conditions = @conditions.order(:name).limit(50)
+    end
     render json: @conditions
   end
 
@@ -22,6 +26,8 @@ class Api::V1::ConditionsController < ApplicationController
   end
 
   def ids
-    @ids ||= params[:ids]
+    @ids ||= if params[:ids].is_a?(Array)
+      params[:ids]
+    end
   end
 end
