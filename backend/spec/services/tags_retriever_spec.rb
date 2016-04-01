@@ -43,7 +43,7 @@ RSpec.describe TagsRetriever do
   end
 
   def occurrences_for(tag_id)
-    Checkin.where(tag_ids: {"$elemMatch" => {"$eq" => tag_id}}).count
+    Checkin.where(tag_ids: { "$elemMatch" => { "$eq" => tag_id } }).count
   end
 
 end

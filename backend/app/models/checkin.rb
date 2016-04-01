@@ -44,9 +44,9 @@ class Checkin
     recent_checkins = user.checkins.sort(date: -1)
     recent_checkins.each do |checkin|
       next if checkin.treatments.empty?
-      taken_treatment = checkin.treatments.where(
+      taken_treatment = checkin.treatments.find_by(
         is_taken: true, treatment_id: treatment_id
-      ).first
+      )
       result = taken_treatment.try(:value)
       result.present? ? break : next
     end

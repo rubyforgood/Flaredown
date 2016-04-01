@@ -5,4 +5,3 @@ class EducationLevel < RankedEnum
     end
   end
 end
-

@@ -1,5 +1,5 @@
 class Api::V1::StepsController < ApplicationController
-  skip_before_filter :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def index
     steps = group.present? ? Step.by_group(group) : Step.all

@@ -1,5 +1,5 @@
 class Api::V1::PasswordsController < ApplicationController
-  skip_before_filter :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def show
     if user_signed_in?
@@ -38,7 +38,7 @@ class Api::V1::PasswordsController < ApplicationController
   private
 
   def email_param
-     params.require(:password).fetch(:email)
+    params.require(:password).fetch(:email)
   end
 
   def update_password_params
