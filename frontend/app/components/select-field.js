@@ -70,13 +70,13 @@ export default Ember.Component.extend({
     },
 
     selectItem(item) {
-      Ember.tryInvoke(this, 'onSelect', item);
+      Ember.tryInvoke(this, 'onSelect', [item]);
     },
 
     createItem(value) {
       var item = this.store.createRecord(this.get('resource'), { name: value });
       this.set('selection', item);
-      Ember.tryInvoke(this, 'onSelect', item);
+      Ember.tryInvoke(this, 'onSelect', [item]);
     },
 
     updateFilter(value) {
