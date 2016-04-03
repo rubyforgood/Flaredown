@@ -59,3 +59,14 @@ footer {
     margin-top: 2em;
   }
 }
+
+input[type="submit"] {
+  background-color: $primary;
+  &:hover {
+    background-color: darken($primary,10%);
+  }
+}
+
+.right {
+  float: right;
+}
