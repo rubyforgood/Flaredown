@@ -8,11 +8,9 @@ export default Ember.Component.extend(CheckinAutosave, {
 
   actions: {
     completeStep() {
-      this.saveCheckin();
       this.get('onStepCompleted')();
     },
     goBack() {
-      this.saveCheckin();
       this.get('onGoBack')();
     }
   }

@@ -45,11 +45,9 @@ export default Ember.Component.extend(TrackablesFromType, {
     },
 
     completeStep() {
-      this.saveCheckin();
       this.get('onStepCompleted')();
     },
     goBack() {
-      this.saveCheckin();
       this.get('onGoBack')();
     }
   },
