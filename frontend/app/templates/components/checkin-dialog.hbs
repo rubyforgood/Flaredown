@@ -9,7 +9,9 @@
   {{/if}}
 {{/if}}
 
-{{save-status record=checkin}}
+{{#unless isStart}}
+  {{save-status record=checkin}}
+{{/unless}}
 
 {{#if isStart}}
   {{checkin/start-step onStepCompleted=(action 'moveToNextStep')
