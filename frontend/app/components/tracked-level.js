@@ -29,8 +29,8 @@ export default Ember.Component.extend({
 
     setSelectedValue(pipValue) {
       this.set('selectedValue', pipValue);
-      // TODO update into parent
       this.get('model').set(this.get('valueKey'), pipValue);
+      this.get('onValueChanged')();
     },
 
     setCurrentValue(pipValue) {

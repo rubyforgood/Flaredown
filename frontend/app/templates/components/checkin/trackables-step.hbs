@@ -13,7 +13,8 @@
     {{#unless tracked.isPreparedForDestroy}}
       {{tracked-level model=tracked
                       valueKey='value'
-                      onRemove=(action 'remove')}}
+                      onValueChanged=(action 'saveChanges')
+                      onRemove=(action 'remove') }}
     {{/unless}}
   {{/each}}
 
