@@ -29,33 +29,38 @@ export default Ember.Service.extend({
     });
   },
 
-  // params can be either {trackable: aTrackable} or {tracking: aTracking}
+  /* params can be either:
+       {tracking: aTracking}
+     or:
+       {
+         trackable: aTrackable,
+         trackableType: 'Condition' | 'Symptom' | 'Treatment'
+       }
+  */
   untrack: function(params, callback) {
-    var tracking = params.tracking;
-    if (Ember.isPresent(tracking)) {
-      this.destroyTracking(tracking, callback);
+    if (Ember.isPresent(params.tracking)) {
+      this.destroyTracking(params.tracking, callback);
     } else {
-      Ember.RSVP.resolve(params.trackable).then(trackable => {
-        this.get('existingTrackings').then(trackings => {
-          tracking = trackings.find(record => {
-            return this.compare(record, trackable);
-          });
-          if (Ember.isPresent(tracking)) {
-            this.destroyTracking(tracking, callback);
-          } else {
-            tracking = this.get('newTrackings').find(record => {
-              return this.compare(record, trackable);
-            });
-            this.destroyTracking(tracking, callback);
-          }
+      this.set('trackableType', params.trackableType);
+      this.get('existingTrackings').then(trackings => {
+        let tracking = trackings.find(record => {
+          return this.compare(record, params.trackable);
         });
+        if (!Ember.isPresent(tracking)) {
+          tracking = this.get('newTrackings').find(record => {
+            return this.compare(record, params.trackable);
+          });
+        }
+        if (Ember.isPresent(tracking)) {
+          this.destroyTracking(tracking, callback);
+        }
       });
     }
   },
 
   compare: function(tracking, trackable) {
     return Ember.isEqual(tracking.get('trackable.id'), trackable.get('id')) &&
-    Ember.isEqual(tracking.get('trackableType').toLowerCase(), trackable.get('constructor.modelName'));
+           Ember.isEqual(tracking.get('trackableType').toLowerCase(), trackable.get('constructor.modelName'));
   },
 
   destroyTracking: function(tracking, callback) {

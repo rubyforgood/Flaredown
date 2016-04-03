@@ -1,8 +1,8 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
-import CheckinAutosave from 'flaredown/mixins/checkin-autosave';
 
-export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
+export default Ember.Component.extend(TrackablesFromType, {
 
   model: Ember.computed.alias('parentView.model'),
 
@@ -10,10 +10,7 @@ export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
 
   tracking: Ember.inject.service(),
   setupTracking: Ember.on('init', function() {
-    this.get('tracking').setup({
-      at: new Date(),
-      trackableType: this.get('trackableType').capitalize()
-    });
+    this.get('tracking').setup({at: new Date()});
   }),
 
   checkin: Ember.computed.alias('model.checkin'),
@@ -22,24 +19,29 @@ export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
   }),
 
 
-  removedTrackeds: Ember.A([]),
-  addedTrackeds: Ember.A([]),
+  removedTracked: null,
+  addedTracked: null,
 
   actions: {
     remove(tracked) {
       tracked.prepareForDestroy();
+      this.set('removedTracked', tracked);
       this.get('checkin').set('hasDirtyAttributes', true);
-      this.get('removedTrackeds').pushObject(tracked);
+      this.saveCheckin();
     },
-    add() {
-      var selectedTrackable = this.get('selectedTrackable');
+    add(selectedTrackable) {
+      // var selectedTrackable = this.get('selectedTrackable');
       if (Ember.isPresent(selectedTrackable.get('id'))) {
-        this.addTrackable(selectedTrackable);
+        this.shouldAddTrackable(selectedTrackable);
       } else {
         selectedTrackable.save().then( savedTrackable => {
-          this.addTrackable(savedTrackable);
+          this.shouldAddTrackable(savedTrackable);
         });
       }
+    },
+    saveChanges() {
+      this.get('checkin').set('hasDirtyAttributes', true);
+      this.saveCheckin();
     },
 
     completeStep() {
@@ -52,82 +54,140 @@ export default Ember.Component.extend(TrackablesFromType, CheckinAutosave, {
     }
   },
 
-  addTrackable: function(trackable) {
-    var trackableType = this.get('trackableType');
-    // check if trackable is already present in this checkin
-    Ember.RSVP.resolve(this.get('trackeds')).then(trackeds => {
-      var foundTrackable = trackeds.findBy(`${trackableType}.id`, trackable.get('id'));
-      if (Ember.isNone(foundTrackable)) {
-        var randomColor = Math.floor(Math.random()*32)+'';
-        var recordAttrs = {colorId: randomColor};
-        recordAttrs[trackableType] = trackable;
-        var recordType = `checkin_${trackableType}`.camelize();
-        var tracked = this.store.createRecord(recordType, recordAttrs);
-        trackeds.pushObject(tracked);
-        this.get('addedTrackeds').pushObject(tracked);
-        this.get('checkin').set('hasDirtyAttributes', true);
-      }
-      this.set('selectedTrackable', null);
-    });
+  shouldAddTrackable(trackable) {
+    if (this.get('trackeds.isFulfilled')) {
+      this.addTrackable(this.get('trackeds.content'), trackable);
+    } else {
+      this.addTrackable(this.get('trackeds'), trackable);
+    }
   },
 
-  checkinSavePromise: function() {
-    return new Ember.RSVP.Promise((resolve, reject) => {
-      var checkin = this.get('checkin');
-      if (checkin.get('hasDirtyAttributes')) {
-        this.untrackRemovedTrackeds();
-        this.trackAddedTrackeds();
-        checkin.save().then(savedCheckin => {
-          Ember.Logger.debug('Checkin successfully saved');
-          resolve(savedCheckin);
-        }, () => {
-          reject();
+  addTrackable(trackeds, trackable) {
+    let trackableType = this.get('trackableType');
+    // check if trackable is already present in this checkin
+    var foundTrackable = trackeds.findBy(`${trackableType}.id`, trackable.get('id'));
+    if (Ember.isNone(foundTrackable)) {
+      let randomColor = Math.floor(Math.random()*32)+'';
+      let recordAttrs = {colorId: randomColor};
+      recordAttrs[trackableType] = trackable;
+      let recordType = `checkin_${trackableType}`.camelize();
+      let tracked = this.store.createRecord(recordType, recordAttrs);
+      trackeds.pushObject(tracked);
+      this.set('addedTracked', tracked);
+      this.get('checkin').set('hasDirtyAttributes', true);
+      this.saveCheckin();
+    }
+    this.set('selectedTrackable', null);
+  },
+
+  saveCheckin() {
+    if (this.get('checkin.hasDirtyAttributes')) {
+      Ember.run.next(this, function() {
+        Ember.RSVP.all([
+          this.untrackRemovedTracked(),
+          this.trackAddedTracked()
+        ]).then(() => {
+          this.get('checkin').save().then(() => {
+            Ember.Logger.debug('Checkin successfully saved');
+            this.onCheckinSaved();
+          }, (error) => {
+            Ember.logger.error(error);
+          });
         });
+      });
+    } else {
+      // Ember.Logger.debug("No need to save checkin");
+    }
+  },
+
+  onCheckinSaved() {
+    this.deleteAddedTracked();
+    this.get('checkin').set('hasDirtyAttributes', false);
+    this.set('addedTracked', null);
+    this.set('removedTracked', null);
+  },
+
+  untrackRemovedTracked() {
+    // untrack() removedTracked if isTodaysCheckin
+    return new Ember.RSVP.Promise(resolve => {
+      let removedTracked = this.get('removedTracked');
+      if (this.get('isTodaysCheckin') && Ember.isPresent(removedTracked)) {
+        let rawTrackable = removedTracked.get(this.get('trackableType'));
+        if (DS.PromiseObject.detectInstance(rawTrackable)) {
+          let trackablePromise = rawTrackable;
+          if (trackablePromise.get('isFulfilled')) {
+            this.untrack(trackablePromise.get('content'), resolve);
+          } else {
+            trackablePromise.then(trackable => {
+              this.untrack(trackable, resolve);
+            });
+          }
+        } else {
+          Ember.Logger.debug('rawTrackable is not a DS.PromiseObject');
+          if (Ember.isPresent(rawTrackable)) {
+            this.untrack(rawTrackable, resolve);
+          }
+        }
       } else {
         resolve();
-        // Ember.Logger.debug("No need to save checkin");
       }
     });
   },
-  onCheckinSaved: function() {
-    this.deleteAddedTrackeds();
-    this.get('checkin').set('hasDirtyAttributes', false);
-    this.get('checkin').set('tagsChanged', false);
-    this.set('addedTrackeds', Ember.A([]));
-    this.set('removedTrackeds', Ember.A([]));
+
+  untrack(trackable, resolve) {
+    this.get('tracking').untrack(
+      {
+        trackable: trackable,
+        trackableType: this.get('trackableType').capitalize()
+      },
+      resolve
+    );
   },
 
-  untrackRemovedTrackeds: function() {
-    // untrack() all removedTrackeds if isTodaysCheckin
-    if (this.get('isTodaysCheckin')) {
-      var removedTrackeds = this.get('removedTrackeds');
-      while (!Ember.isEmpty(removedTrackeds)) {
-        var record = removedTrackeds.popObject();
-        this.get('tracking').untrack({
-          trackable: record.get(this.get('trackableType'))
-        });
+  trackAddedTracked() {
+    // track() addedTracked if isTodaysCheckin
+    return new Ember.RSVP.Promise(resolve => {
+      var addedTracked = this.get('addedTracked');
+      if (this.get('isTodaysCheckin') && Ember.isPresent(addedTracked)) {
+        let rawTrackable = addedTracked.get(this.get('trackableType'));
+        if (DS.PromiseObject.detectInstance(rawTrackable)) {
+          let trackablePromise = rawTrackable;
+          if (trackablePromise.get('isFulfilled')) {
+            this.get('tracking').track(
+              trackablePromise.get('content'),
+              addedTracked.get('colorId'),
+              resolve
+            );
+          } else {
+            trackablePromise.then(trackable => {
+              this.get('tracking').track(
+                trackable,
+                addedTracked.get('colorId'),
+                resolve
+              );
+            });
+          }
+        } else {
+          Ember.Logger.debug('rawTrackable is not a DS.PromiseObject');
+          if (Ember.isPresent(rawTrackable)) {
+            this.get('tracking').track(
+              rawTrackable,
+              addedTracked.get('colorId'),
+              resolve
+            );
+          }
+        }
+      } else {
+        resolve();
       }
-    }
+    });
   },
 
-  trackAddedTrackeds: function() {
-    // track() all addedTrackeds if isTodaysCheckin
-    if (this.get('isTodaysCheckin')) {
-      this.get('addedTrackeds').forEach(record => {
-        var trackable = record.get(this.get('trackableType'));
-        this.get('tracking').track(
-          trackable, trackable.get('colorId')
-        );
-      });
-    }
-  },
-
-  deleteAddedTrackeds: function() {
-    // remove the added ones to avoid 'ghost' records
-    var addedTrackeds = this.get('addedTrackeds');
-    while (!Ember.isEmpty(addedTrackeds)) {
-      var record = addedTrackeds.popObject();
-      record.deleteRecord();
+  deleteAddedTracked() {
+    // remove addedTracked to avoid 'ghost' record
+    let addedTracked = this.get('addedTracked');
+    if (Ember.isPresent(addedTracked)) {
+      addedTracked.deleteRecord();
     }
   }
 
