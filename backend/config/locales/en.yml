@@ -76,3 +76,12 @@ en:
         title: "Tag your day"
       summary:
         title: 'Summary for'
+  devise:
+    mailer:
+      invitation_instructions:
+        subject: "You're invited to Flaredown Early Access"
+        hello: "Hello %{email}"
+        someone_invited_you: "Your Early Access invite to Flaredown is here! You can accept it through the link below. Right now, Flaredown is exclusively on the web. You will be invited to the mobile apps when they are ready."
+        accept: "Accept invitation"
+        accept_until: "This invitation will expire at %{due_date}."
+        ignore: "If you don't want to accept the invitation, please ignore this email.<br />Your account won't be created until you access the link above and set your password."
