@@ -3,7 +3,9 @@
   {{#each trackeds as |tracked|}}
     {{#unless tracked.isPreparedForDestroy}}
       {{checkin-treatment model=tracked
-                          onRemove=(action 'remove')}}
+                          onIsTakenChanged=(action 'saveChanges')
+                          onDoseChanged=(action 'saveChanges')
+                          onRemove=(action 'remove') }}
     {{/unless}}
   {{/each}}
 

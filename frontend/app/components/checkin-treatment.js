@@ -8,6 +8,10 @@ export default Ember.Component.extend({
   treatment: Ember.computed.alias('model.treatment'),
   isTaken: Ember.computed.alias('model.isTaken'),
 
+  isTakenObserver: Ember.observer('isTaken', function() {
+    this.get('onIsTakenChanged')();
+  }),
+
   doseQueryParams: Ember.computed('treatment', function() {
     return {treatment_id: this.get('treatment.id')};
   }),
@@ -25,6 +29,7 @@ export default Ember.Component.extend({
 
     doneEditing() {
       this.get('model').set('value', this.get('selectedDose.name'));
+      this.get('onDoseChanged')();
       // we need to wait before unsetting edit mode
       // to avoid selectize being destroyed too early
       Ember.run.later(() => {
