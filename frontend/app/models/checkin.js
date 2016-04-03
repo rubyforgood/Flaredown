@@ -23,13 +23,13 @@ export default DS.Model.extend({
     } else {
       this.get('tags').pushObject(tag);
       this.get('tagIds').pushObject(tagId);
-      this.set('tagsChanged', true);
+      this.set('hasDirtyAttributes', true);
     }
   },
   removeTag: function(tag) {
     this.get('tags').removeObject(tag);
     this.get('tagIds').removeObject(parseInt(tag.get('id')));
-    this.set('tagsChanged', true);
+    this.set('hasDirtyAttributes', true);
   }
 
 });

@@ -1,10 +1,15 @@
-{{checkin/tags-edit checkin=checkin}}
+{{checkin/tags-edit tags=checkin.tags
+                    selectedTag=selectedTag
+                    onClicked=(action "remove")
+                    onSelected=(action "add") }}
 
 {{tags-group scope="most_popular"
              title="Popular"
-             onTagClicked=(action "addTag") }}
+             onTagClicked=(action "add") }}
 
-{{step-controls step=model.currentStep
-                forwardLabel="Review"
-                onBackward=(action "goBack")
-                onForward=(action "completeStep") }}
+{{#if stepControls}}
+  {{step-controls step=model.currentStep
+                  forwardLabel="Review"
+                  onBackward=(action "goBack")
+                  onForward=(action "completeStep") }}
+{{/if}}
