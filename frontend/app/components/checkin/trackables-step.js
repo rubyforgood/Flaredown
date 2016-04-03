@@ -30,7 +30,6 @@ export default Ember.Component.extend(TrackablesFromType, {
       this.saveCheckin();
     },
     add(selectedTrackable) {
-      // var selectedTrackable = this.get('selectedTrackable');
       if (Ember.isPresent(selectedTrackable.get('id'))) {
         this.shouldAddTrackable(selectedTrackable);
       } else {

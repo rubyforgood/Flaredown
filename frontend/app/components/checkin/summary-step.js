@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import CheckinAutosave from 'flaredown/mixins/checkin-autosave';
 
-export default Ember.Component.extend(CheckinAutosave, {
+export default Ember.Component.extend({
 
   model: Ember.computed.alias('parentView.model'),
   checkin: Ember.computed.alias('model.checkin'),
