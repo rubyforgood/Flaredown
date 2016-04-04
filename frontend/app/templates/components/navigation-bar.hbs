@@ -7,9 +7,6 @@
     <ul id="js-navigation-menu" class="navigation-menu show">
       <li class="nav-link"><a href="#" {{action "goToTodaysCheckin"}}>Checkin</a></li>
       <li class="nav-link"><a href="#">Graph</a></li>
-      <li class="nav-link">
-        {{#link-to 'upcoming'}}Upcoming{{/link-to}}
-      </li>
       {{#if session.discourseEnabled}}
         <li class="nav-link">
           <a href="{{session.discourseUrl}}" target="_blank">Discussion</a>

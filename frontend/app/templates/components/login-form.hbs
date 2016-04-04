@@ -11,7 +11,7 @@
     Early access is open to <a href="http://igg.me/at/flaredown">Flaredown backers</a>.
     If you are a backer and you have not received an email invite, <a href="mailto:contact@flaredown.com">contact us</a>.
   </p>
-  {{input type="submit" class="btn btn-primary" value="Login"}}
+  {{input type="submit" class="btn btn-default right" value="Login"}}
 {{/form-for}}
 
 {{#if errorMessage}}
@@ -22,4 +22,5 @@
   </div>
 {{/if}}
 <a {{action 'authenticateWithFacebook'}} class="btn btn-default" style="cursor: pointer;">Login with Facebook</a>
+<br>
 {{#link-to 'password.reset'}}Forgot password{{/link-to}}
