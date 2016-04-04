@@ -41,9 +41,8 @@ class Checkin
 
   def most_recent_dose_for(treatment_id)
     result = nil
-    recent_checkins = user.checkins.sort(date: -1)
+    recent_checkins = user.checkins.where(treatments: {"$ne" => []}).sort(date: -1).limit(100)
     recent_checkins.each do |checkin|
-      next if checkin.treatments.empty?
       taken_treatment = checkin.treatments.where(
         is_taken: true, treatment_id: treatment_id
       ).first
