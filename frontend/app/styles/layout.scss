@@ -52,13 +52,3 @@ h5 {
   display: inline-block;
   width: 50px;
 }
-
-.submenu {
-  @include card;
-  padding: 0;
-  li a{
-    display: inline-block;
-    padding: .25em .5em;
-    border-bottom: 1px solid $background;
-  }
-}

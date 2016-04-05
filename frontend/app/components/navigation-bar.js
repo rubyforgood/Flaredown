@@ -4,6 +4,20 @@ import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 export default Ember.Component.extend(CheckinByDate, {
   classNames: 'navigation-bar',
 
+  didInsertElement() {
+    this._super(...arguments);
+    this.installHandlers();
+  },
+
+  installHandlers() {
+    Ember.$('#js-navigation-menu').removeClass("show");
+
+    Ember.$('.sliding-panel-button,.sliding-panel-fade-screen,.sliding-panel-close').on('click touchstart', (e) => {
+      Ember.$('.sliding-panel-content,.sliding-panel-fade-screen').toggleClass('is-visible');
+      e.preventDefault();
+    });
+  },
+
   actions: {
     invalidateSession() {
       this.get('session').invalidate();
