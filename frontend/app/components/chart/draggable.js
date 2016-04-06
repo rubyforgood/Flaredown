@@ -6,40 +6,6 @@ export default Ember.Mixin.create( {
 
   draggable: true,
 
-  onTouchStart: Ember.on('touchStart', function(event) {
-    this.set('isDragging', true);
-    this.set('lastTriggerAt', moment() );
-    this.setDragPositions(event.originalEvent.touches[0]);
-  }),
-
-  onTouchMove: Ember.on('touchMove', function(event) {
-    this.updateDragPositions(event.originalEvent.touches[0]);
-    this.triggerIfNeed();
-  }),
-
-  onTouchEnd: Ember.on('touchEnd', function() {
-    this.set('isDragging', false);
-    this.trigger('onDragged');
-  }),
-
-  onDragStart: Ember.on('dragStart', function(event) {
-    this.set('isDragging', true);
-    this.set('lastTriggerAt', moment() );
-    this.avoidDataTransfer(event.dataTransfer);
-    this.setDragPositions(event.originalEvent);
-
-  }),
-
-  onDragEnd: Ember.on('dragEnd', function(){
-    this.set('isDragging', false);
-    this.trigger('onDragged');
-  }),
-
-  onDragOver: Ember.on('dragOver', function(event){
-    this.updateDragPositions(event.originalEvent);
-    this.triggerIfNeed();
-  }),
-
   dragDirection: Ember.computed('dragStartX', 'dragOverX', function() {
     if(Ember.isPresent(this.get('dragStartX')) && Ember.isPresent(this.get('dragOverX'))) {
       if(this.get('dragStartX') > this.get('dragOverX')) {
@@ -53,6 +19,46 @@ export default Ember.Mixin.create( {
   dragDistance: Ember.computed('dragStartX', 'dragOverX', function() {
     return Math.abs(this.get('dragStartX') - this.get('dragOverX'));
   }),
+
+  touchStart(event) {
+    this._super(...arguments);
+    this.set('isDragging', true);
+    this.set('lastTriggerAt', moment() );
+    this.setDragPositions(event.originalEvent.touches[0]);
+  },
+
+  touchMove(event) {
+    this._super(...arguments);
+    this.updateDragPositions(event.originalEvent.touches[0]);
+    this.triggerIfNeed();
+  },
+
+  touchEnd() {
+    this._super(...arguments);
+    this.set('isDragging', false);
+    this.trigger('onDragged');
+  },
+
+  dragStart(event) {
+    this._super(...arguments);
+    this.set('isDragging', true);
+    this.set('lastTriggerAt', moment() );
+    this.avoidDataTransfer(event.dataTransfer);
+    this.setDragPositions(event.originalEvent);
+
+  },
+
+  dragEnd(){
+    this._super(...arguments);
+    this.set('isDragging', false);
+    this.trigger('onDragged');
+  },
+
+  dragOver(event){
+    this._super(...arguments);
+    this.updateDragPositions(event.originalEvent);
+    this.triggerIfNeed();
+  },
 
   triggerIfNeed() {
     if( this.isTimeToTrigger() ) {
