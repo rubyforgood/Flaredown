@@ -1,16 +1,18 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create( {
-  resizeEndDelay: 200,
+  resizeEndDelay: 350,
   resizing: false,
 
-  onDidInsertElement: Ember.on('didInsertElement', function(){
+  didInsertElement(){
+    this._super(...arguments);
     this.installHandlers();
-  }),
+  },
 
-  onWillDestroyElement: Ember.on('willDestroyElement', function(){
+  willDestroyElement(){
+    this._super(...arguments);
     this.removeHandlers();
-  }),
+  },
 
   installHandlers() {
     return Ember.$(window).on("resize." + this.elementId, this.handlerManager.bind(this));

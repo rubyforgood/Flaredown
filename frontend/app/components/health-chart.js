@@ -8,12 +8,19 @@ export default Ember.Component.extend(Resizable, Draggable, {
   checkins: [],
   trackables: [],
 
-  startAt: moment().subtract(15, 'days'),
-  endAt: moment(),
+  startAt: Ember.computed('SVGWidth', function() {
+    if( this.get('SVGWidth') <= 500) {
+      return moment().subtract(5, 'days');
+    } else {
+      return moment().subtract(15, 'days');
+    }
+  }),
 
   startAtWithCache: Ember.computed('startAt', function() {
     return moment(this.get('startAt')).subtract(15, 'days');
   }),
+
+  endAt: moment(),
 
   endAtWithCache: Ember.computed('endAt', function() {
     return moment(this.get('endAt')).add(15, 'days');
@@ -62,7 +69,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
   timelineHeight: 25,
   timelineLength: Ember.computed.alias('timeline.length'),
 
-  timeline: Ember.computed('startAtWithCache', 'endAtWithCache', function() {
+  timeline: Ember.computed('checkins', 'startAtWithCache', 'endAtWithCache', function() {
     var timeline = Ember.A();
     moment.range(this.get('startAtWithCache'), this.get('endAtWithCache') ).by('days', function(moment) {
       timeline.push(
@@ -80,17 +87,18 @@ export default Ember.Component.extend(Resizable, Draggable, {
     }
   }),
 
-  SVGWidth: Ember.computed(function() {
+  SVGWidth: Ember.computed('checkins',function() {
     return this.$().width();
   }),
 
-  onDidInsertElement: Ember.on('didInsertElement', function() {
+  didInsertElement() {
+    this._super(...arguments)
     Ember.run.scheduleOnce('afterRender', this, () => {
       this.fetchDataChart().then( () => {
         this.set('chartLoaded', true);
       });
     });
-  }),
+  },
 
   fetchDataChart() {
     var startAt = this.get('startAtWithCache').format("YYYY-MM-DD");
@@ -102,6 +110,10 @@ export default Ember.Component.extend(Resizable, Draggable, {
         this.set('trackables', chart.get('trackables').sortBy('type'));
       }
     });
+  },
+
+  onResizeEnd() {
+    this.fetchDataChart();
   },
 
   onDragged(){
