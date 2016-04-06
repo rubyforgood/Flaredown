@@ -6,6 +6,21 @@ export default Ember.Mixin.create( {
 
   draggable: true,
 
+  onTouchStart: Ember.on('touchStart', function(event) {
+    this.set('isDragging', true);
+    this.set('lastTriggerAt', moment() );
+    this.setDragPositions(event.originalEvent.touches[0]);
+  }),
+
+  onTouchMove: Ember.on('touchMove', function(event) {
+    this.updateDragPositions(event.originalEvent.touches[0]);
+    this.triggerIfNeed();
+  }),
+
+  onTouchEnd: Ember.on('touchEnd', function() {
+    this.set('isDragging', false);
+    this.trigger('onDragged');
+  }),
 
   onDragStart: Ember.on('dragStart', function(event) {
     this.set('isDragging', true);
@@ -22,12 +37,7 @@ export default Ember.Mixin.create( {
 
   onDragOver: Ember.on('dragOver', function(event){
     this.updateDragPositions(event.originalEvent);
-
-    if( this.isTimeToTrigger() ) {
-      this.set('lastTriggerAt', moment() );
-      this.trigger('onDragging', this.get('dragDirection'));
-    }
-
+    this.triggerIfNeed();
   }),
 
   dragDirection: Ember.computed('dragStartX', 'dragOverX', function() {
@@ -43,6 +53,13 @@ export default Ember.Mixin.create( {
   dragDistance: Ember.computed('dragStartX', 'dragOverX', function() {
     return Math.abs(this.get('dragStartX') - this.get('dragOverX'));
   }),
+
+  triggerIfNeed() {
+    if( this.isTimeToTrigger() ) {
+      this.set('lastTriggerAt', moment() );
+      this.trigger('onDragging', this.get('dragDirection'));
+    }
+  },
 
   isTimeToTrigger() {
     var milliFromLastTrigger = moment() - this.get('lastTriggerAt');
