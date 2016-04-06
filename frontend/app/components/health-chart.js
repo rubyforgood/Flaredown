@@ -92,7 +92,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
   }),
 
   didInsertElement() {
-    this._super(...arguments)
+    this._super(...arguments);
     Ember.run.scheduleOnce('afterRender', this, () => {
       this.fetchDataChart().then( () => {
         this.set('chartLoaded', true);
