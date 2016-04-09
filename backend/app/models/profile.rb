@@ -14,6 +14,7 @@
 #  day_habit_id         :string
 #  education_level_id   :string
 #  day_walking_hours    :integer
+#  most_recent_doses    :hstore
 #
 
 class Profile < ActiveRecord::Base

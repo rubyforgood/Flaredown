@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224141256) do
+ActiveRecord::Schema.define(version: 20160404073731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
+  enable_extension "hstore"
 
   create_table "condition_translations", force: :cascade do |t|
     t.integer  "condition_id", null: false
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20160224141256) do
     t.string   "day_habit_id"
     t.string   "education_level_id"
     t.integer  "day_walking_hours"
+    t.hstore   "most_recent_doses"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree

@@ -93,6 +93,9 @@ class User < ActiveRecord::Base
   end
 
   def init_profile
-    create_profile!(onboarding_step_id: Step.by_group(:onboarding).first.id)
+    create_profile!(
+      onboarding_step_id: Step.by_group(:onboarding).first.id,
+      most_recent_doses: {}
+    )
   end
 end
