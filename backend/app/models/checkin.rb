@@ -39,17 +39,4 @@ class Checkin
     @user ||= User.find(user_id)
   end
 
-  def most_recent_dose_for(treatment_id)
-    result = nil
-    recent_checkins = user.checkins.where(treatments: {"$ne" => []}).sort(date: -1).limit(100)
-    recent_checkins.each do |checkin|
-      taken_treatment = checkin.treatments.where(
-        is_taken: true, treatment_id: treatment_id
-      ).first
-      result = taken_treatment.try(:value)
-      result.present? ? break : next
-    end
-    result
-  end
-
 end
