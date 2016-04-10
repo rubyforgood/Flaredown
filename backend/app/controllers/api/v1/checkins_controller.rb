@@ -15,24 +15,10 @@ class Api::V1::CheckinsController < ApplicationController
   end
 
   def update
-    @checkin = Checkin.find(id)
-    @checkin.update_attributes!(update_params)
-    render json: @checkin
+    render json: Checkin::Updater.new(current_user, params).update!
   end
 
   private
-
-  def update_params
-    params.require(:checkin).permit(:note, tag_ids: [],
-        conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
-        symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
-        treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy]
-    ).tap do |p|
-      p[:treatments_attributes].select { |t| t[:id].blank? }.each do |t|
-        t[:value] = @checkin.most_recent_dose_for(t[:treatment_id])
-      end if p[:treatments_attributes].present?
-    end
-  end
 
   def id
     params.require(:id)

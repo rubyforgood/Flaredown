@@ -75,4 +75,13 @@ class Profile < ActiveRecord::Base
   def ethnicity_ids=(ids)
     self.ethnicity_ids_string = ids.join(',')
   end
+
+  def set_most_recent_dose(treatment_id, dose)
+    self.most_recent_doses[treatment_id.to_s] = dose
+  end
+
+  def most_recent_dose_for(treatment_id)
+    self.most_recent_doses[treatment_id.to_s]
+  end
+
 end

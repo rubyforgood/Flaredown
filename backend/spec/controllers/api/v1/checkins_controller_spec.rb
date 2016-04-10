@@ -52,20 +52,21 @@ RSpec.describe Api::V1::CheckinsController do
         expect(returned_checkin[:date]).not_to eq attributes[:checkin][:date]
       end
     end
-    context "when same treatment's doses exist in user's previous checkins" do
-      let!(:treatment) { create(:treatment) }
-      let!(:checkin1) { create(:checkin, user_id: user.id, date: Date.yesterday) }
-      let!(:checkin1_treatment) { create(:checkin_treatment, checkin: checkin1, treatment_id: treatment.id, value: '20 mg') }
-      let!(:checkin2) { create(:checkin, user_id: user.id, date: Date.today - 3.days) }
-      let!(:checkin2_treatment) { create(:checkin_treatment, checkin: checkin2, treatment_id: treatment.id) }
+    context "when recent dose exists for treatment in user's profile" do
+      let(:treatment) { create(:treatment) }
       let(:attributes) { { id: checkin.id, checkin: { treatments_attributes: [{ treatment_id: treatment.id }] } } }
+      before do
+        user.profile.set_most_recent_dose(treatment.id, '20 mg')
+        user.profile.save!
+      end
       it 'auto-sets the most recently used dose on added treatments' do
         put :update, attributes
         returned_treatments = response_body[:checkin][:treatments]
         expect(returned_treatments).to be_a Array
         returned_treatment = returned_treatments[0]
         expect(returned_treatment[:treatment_id]).to eq treatment.id
-        expect(returned_treatment[:value]).to eq checkin1_treatment.value
+        saved_dose = user.profile.most_recent_dose_for(treatment.id)
+        expect(returned_treatment[:value]).to eq saved_dose
       end
     end
   end
