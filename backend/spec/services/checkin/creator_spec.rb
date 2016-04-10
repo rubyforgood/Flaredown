@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe CheckinCreator do
+RSpec.describe Checkin::Creator do
   let!(:user) { create(:user) }
   let!(:condition) { create(:tracking, :for_condition, user: user).trackable }
   let!(:symptom) { create(:tracking, :for_symptom, user: user).trackable }
   let!(:treatment) { create(:tracking, :for_treatment, user: user).trackable }
   let!(:date) { Date.today }
 
-  subject { CheckinCreator.new(user.id, date).create! }
+  subject { Checkin::Creator.new(user.id, date).create! }
 
   describe 'create' do
     it 'returns a new checkin prefilled with active trackables' do
@@ -18,15 +18,16 @@ RSpec.describe CheckinCreator do
       expect(subject.symptoms[0].symptom_id).to eq symptom.id
       expect(subject.treatments[0].treatment_id).to eq treatment.id
     end
-    context "when same treatment's doses exist in user's previous checkins" do
-      let!(:checkin1) { create(:checkin, user_id: user.id, date: Date.yesterday) }
-      let!(:checkin1_treatment) { create(:checkin_treatment, checkin: checkin1, treatment_id: treatment.id, value: '20 mg') }
-      let!(:checkin2) { create(:checkin, user_id: user.id, date: Date.today - 3.days) }
-      let!(:checkin2_treatment) { create(:checkin_treatment, checkin: checkin2, treatment_id: treatment.id) }
-      it 'sets the most recently used dose on the new checkin' do
+    context "when recent dose exists for treatment in user's profile" do
+      before do
+        user.profile.set_most_recent_dose(treatment.id, '20 mg')
+        user.profile.save!
+      end
+      it 'sets dose from profile on the new checkin' do
         checkin_treatment = subject.treatments[0]
         expect(checkin_treatment.treatment_id).to eq treatment.id
-        expect(checkin_treatment.value).to eq checkin1_treatment.value
+        saved_dose = user.profile.most_recent_dose_for(treatment.id)
+        expect(checkin_treatment.value).to eq saved_dose
       end
     end
   end

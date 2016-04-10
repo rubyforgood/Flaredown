@@ -1,4 +1,4 @@
-class CheckinCreator
+class Checkin::Creator
   attr_reader :user, :date
 
   def initialize(user_id, date)
@@ -21,7 +21,7 @@ class CheckinCreator
         treatment_attrs << {
           treatment_id: trackable.id,
           is_taken: false,
-          value: checkin.most_recent_dose_for(trackable.id)
+          value: user.profile.most_recent_dose_for(trackable.id)
         }
       end
     end

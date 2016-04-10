@@ -1,4 +1,5 @@
 class Api::V1::CheckinsController < ApplicationController
+
   def index
     date = Date.parse(params.require(:date))
     render json: current_user.checkins.where(date: date)
@@ -10,7 +11,7 @@ class Api::V1::CheckinsController < ApplicationController
 
   def create
     date = params.require(:checkin).require(:date)
-    checkin = CheckinCreator.new(current_user.id, Date.parse(date)).create!
+    checkin = Checkin::Creator.new(current_user.id, Date.parse(date)).create!
     render json: checkin
   end
 
