@@ -1,6 +1,6 @@
 ---
 :verbose: false
-:concurrency: 1
+:concurrency: 2
 
 # Set timeout to 8 on Heroku, longer if you manage your own systems.
 :timeout: 30

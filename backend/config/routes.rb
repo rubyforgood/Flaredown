@@ -9,9 +9,6 @@ Rails.application.routes.draw do
                omniauth_callbacks: 'api/v1/omniauth_callbacks'
              }
 
-  require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
-
   #
   # API
   #
