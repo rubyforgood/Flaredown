@@ -5,7 +5,12 @@ export default Ember.Component.extend({
   model: Ember.computed.alias('parentView.model'),
   checkin: Ember.computed.alias('model.checkin'),
 
-  stepControls: true,
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.set('step', this.store.findRecord('step', 'checkin-tags'));
+  },
+
+  embeddedInSummary: false,
   selectedTag: null,
 
   actions: {

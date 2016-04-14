@@ -1,3 +1,5 @@
+{{partial "components/checkin/step-header"}}
+
 {{#if trackableTypeIsTreatment}}
 
   {{#each trackeds as |tracked|}}
@@ -28,9 +30,9 @@
                create=true
                placeholder=selectPlaceholder}}
 
-{{#if stepControls}}
+{{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep
                   forwardLabel="Next"
                   onBackward=(action "goBack")
                   onForward=(action "completeStep") }}
-{{/if}}
+{{/unless}}

@@ -1,3 +1,5 @@
+{{partial "components/checkin/step-header"}}
+
 {{checkin/tags-edit tags=checkin.tags
                     selectedTag=selectedTag
                     onClicked=(action "remove")
@@ -7,9 +9,9 @@
              title="Popular"
              onTagClicked=(action "add") }}
 
-{{#if stepControls}}
+{{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep
                   forwardLabel="Review"
                   onBackward=(action "goBack")
                   onForward=(action "completeStep") }}
-{{/if}}
+{{/unless}}

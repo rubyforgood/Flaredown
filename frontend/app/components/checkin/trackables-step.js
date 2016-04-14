@@ -6,7 +6,7 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   model: Ember.computed.alias('parentView.model'),
 
-  stepControls: true,
+  embeddedInSummary: false,
 
   tracking: Ember.inject.service(),
   setupTracking: Ember.on('init', function() {
@@ -18,6 +18,12 @@ export default Ember.Component.extend(TrackablesFromType, {
     return moment(this.get('checkin.date')).isSame(new Date(), 'day');
   }),
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.set('step',
+      this.store.findRecord('step', `checkin-${this.get('trackableType').pluralize()}`)
+    );
+  },
 
   removedTracked: null,
   addedTracked: null,
