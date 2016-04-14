@@ -6,6 +6,7 @@ export default DS.Model.extend({
   group: DS.attr('string'),
   key: DS.attr('string'),
   title: DS.attr('string'),
+  shortTitle: DS.attr('string'),
   hint: DS.attr('string'),
   priority: DS.attr('number'),
 

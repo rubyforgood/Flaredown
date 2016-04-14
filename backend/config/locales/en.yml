@@ -68,12 +68,16 @@ en:
         hint: "Tap <b>next</b> to get started!"
       conditions:
         title: "How active were your conditions today?"
+        short_title: "Conditions"
       symptoms:
         title: "How active were your symptoms today?"
+        short_title: "Symptoms"
       treatments:
         title: "Which treatments did you take today?"
+        short_title: "Treatments"
       tags:
         title: "Tag your day"
+        short_title: "Tags"
       summary:
         title: 'Summary for'
   devise:
