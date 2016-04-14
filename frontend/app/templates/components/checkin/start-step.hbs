@@ -1,3 +1,8 @@
+<h2>{{step.title}}</h2>
+{{#if step.hint}}
+  <div class="tip">{{{step.hint}}}</div>
+{{/if}}
+
 {{step-controls step=model.currentStep
                 forwardLabel="Next"
                 onBackward=(action "goBack")
