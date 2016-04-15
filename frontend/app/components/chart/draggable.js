@@ -69,7 +69,7 @@ export default Ember.Mixin.create( {
 
   isTimeToTrigger() {
     var milliFromLastTrigger = moment() - this.get('lastTriggerAt');
-    if( this.get('dragDistance') === 0) {
+    if( this.get('dragDistance') < 10) {
       return false;
     } else {
       return (milliFromLastTrigger > 100);
