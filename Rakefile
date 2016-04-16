@@ -17,7 +17,7 @@ task :run do
   end
 end
 
-namespace :heroku do
+namespace :production do
   desc "restart application"
   task :restart do
     system("heroku restart --app flaredown-api")
@@ -39,6 +39,32 @@ namespace :heroku do
   desc "invite user to join into application"
   task :invite do
     system("heroku run rake app:invite --app flaredown-api")
+  end
+
+end
+
+namespace :staging do
+  desc "restart application"
+  task :restart do
+    system("heroku restart --app flaredown-staging-api")
+  end
+
+  desc "deploy application"
+  task :deploy do
+    system("git subtree push --prefix backend git@heroku.com:flaredown-staging-api.git master")
+    system("git subtree push --prefix frontend git@heroku.com:flaredown-staging-webapp.git master")
+    system("heroku run rake db:migrate --app flaredown-staging-api")
+  end
+
+  desc "setup application"
+  task :setup do
+    system("heroku pg:reset DATABASE --app flaredown-staging-api --confirm flaredown-staging-api")
+    system("heroku run rake app:setup --app flaredown-staging-api")
+  end
+
+  desc "invite user to join into application"
+  task :invite do
+    system("heroku run rake app:invite --app flaredown-staging-api")
   end
 
 end
