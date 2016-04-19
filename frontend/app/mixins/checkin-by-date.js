@@ -23,7 +23,8 @@ export default Ember.Mixin.create({
 
   routeToCheckin(date, step) {
     this.checkinByDate(date).then( checkin => {
-      this.router.transitionTo('checkin', checkin.get('id'), step ? step : 'summary');
+      let defaultStep = checkin.get('isBlank') ? 'start' : 'summary';
+      this.router.transitionTo('checkin', checkin.get('id'), step ? step : defaultStep);
     }, () => {
       this.routeToNewCheckin(date, step);
     });
