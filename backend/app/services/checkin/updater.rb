@@ -11,6 +11,7 @@ class Checkin::Updater
       p[:treatments_attributes].select { |t| t[:id].blank? }.each do |t|
         t[:value] = current_user.profile.most_recent_dose_for(t[:treatment_id])
       end if p[:treatments_attributes].present?
+      p[:tag_ids] = [] if p[:tag_ids].nil?
     end
     @id = params.require(:id)
   end
