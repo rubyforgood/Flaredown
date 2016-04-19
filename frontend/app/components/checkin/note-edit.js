@@ -17,6 +17,7 @@ export default Ember.Component.extend({
 
   scheduleSave() {
     this.set('saveScheduled', true);
+    this.get('checkin').set('hasDirtyAttributes', true);
     Ember.run.later(this, function() {
       this.save();
     }, 2500);
@@ -25,6 +26,7 @@ export default Ember.Component.extend({
   save() {
     this.get('checkin').save().then(() => {
       this.set('saveScheduled', false);
+      this.get('checkin').set('hasDirtyAttributes', false);
     });
   }
 
