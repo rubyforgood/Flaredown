@@ -8,10 +8,6 @@ class Chart
   #
   validates :user, :start_at, :end_at, presence: true
 
-  def timeline
-    (start_at..end_at).map { |day| { x: day } }
-  end
-
   def checkins
     @checkins ||= user.checkins.by_date(start_at.to_date, end_at.to_date)
   end
