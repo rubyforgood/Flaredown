@@ -37,23 +37,23 @@ export default DS.Model.extend({
   conditionsBlank: Ember.computed('conditions', 'conditions.[]', function() {
     return this.get('conditions').toArray().filter(function(condition) {
       return Ember.isPresent(condition.get('value'));
-    }).length == 0;
+    }).length === 0;
   }),
 
   symptomsBlank: Ember.computed('symptoms', 'symptoms.[]', function() {
     return this.get('symptoms').toArray().filter(function(symptom) {
       return Ember.isPresent(symptom.get('value'));
-    }).length == 0;
+    }).length === 0;
   }),
 
   treatmentsBlank: Ember.computed('treatments', 'treatments.[]', function() {
     return this.get('treatments').toArray().filter(function(treatment) {
       return treatment.get('isTaken');
-    }).length == 0;
+    }).length === 0;
   }),
 
   tagsBlank: Ember.computed('tags', 'tags.[]', function() {
-    return this.get('tags').toArray().length == 0;
+    return this.get('tags').toArray().length === 0;
   }),
 
   noteBlank: Ember.computed('note', function() {
