@@ -2,7 +2,7 @@ module TrackableSerializer
   extend ActiveSupport::Concern
 
   included do
-    attributes :color_id, :type
+    attributes :color_id, :type, :users_count
   end
 
   def color_id
@@ -11,5 +11,9 @@ module TrackableSerializer
 
   def type
     object.class.name.downcase.dasherize
+  end
+
+  def users_count
+    object.trackable_usages_count
   end
 end

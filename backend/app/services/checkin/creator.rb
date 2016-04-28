@@ -30,7 +30,25 @@ class Checkin::Creator
       symptoms_attributes: symptom_attrs,
       treatments_attributes: treatment_attrs
     )
+    create_or_update_trackable_usages(checkin)
     checkin
+  end
+
+  private
+
+  def create_or_update_trackable_usages(checkin)
+    %w(Condition Symptom Treatment).each do |trackable_class_name|
+      trackable_class = trackable_class_name.constantize
+      trackable_id_method = "#{trackable_class_name.downcase}_id"
+      checkin_trackables_method = "#{trackable_class_name.downcase.pluralize}"
+      checkin.send(checkin_trackables_method).each do |checkin_trackable|
+        trackable_id = checkin_trackable.send(trackable_id_method)
+        TrackableUsage.create_or_update_by(
+          user: user,
+          trackable: trackable_class.find(trackable_id)
+        )
+      end
+    end
   end
 
 end
