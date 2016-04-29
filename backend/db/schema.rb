@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404073731) do
+ActiveRecord::Schema.define(version: 20160427055217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(version: 20160404073731) do
   add_index "condition_translations", ["locale"], name: "index_condition_translations_on_locale", using: :btree
 
   create_table "conditions", force: :cascade do |t|
-    t.boolean  "global",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "global",                 default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "trackable_usages_count", default: 0
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -64,9 +65,10 @@ ActiveRecord::Schema.define(version: 20160404073731) do
   add_index "symptom_translations", ["symptom_id"], name: "index_symptom_translations_on_symptom_id", using: :btree
 
   create_table "symptoms", force: :cascade do |t|
-    t.boolean  "global",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "global",                 default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "trackable_usages_count", default: 0
   end
 
   create_table "tag_translations", force: :cascade do |t|
@@ -84,6 +86,19 @@ ActiveRecord::Schema.define(version: 20160404073731) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "trackable_usages", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "count",          default: 1
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "trackable_usages", ["trackable_type", "trackable_id"], name: "index_trackable_usages_on_trackable_type_and_trackable_id", using: :btree
+  add_index "trackable_usages", ["user_id", "trackable_type", "trackable_id"], name: "index_trackable_usages_on_unique_columns", unique: true, using: :btree
+  add_index "trackable_usages", ["user_id"], name: "index_trackable_usages_on_user_id", using: :btree
 
   create_table "trackings", force: :cascade do |t|
     t.integer  "user_id"
@@ -113,9 +128,10 @@ ActiveRecord::Schema.define(version: 20160404073731) do
   add_index "treatment_translations", ["treatment_id"], name: "index_treatment_translations_on_treatment_id", using: :btree
 
   create_table "treatments", force: :cascade do |t|
-    t.boolean  "global",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "global",                 default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "trackable_usages_count", default: 0
   end
 
   create_table "user_conditions", force: :cascade do |t|
@@ -177,6 +193,7 @@ ActiveRecord::Schema.define(version: 20160404073731) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
   add_foreign_key "profiles", "users"
+  add_foreign_key "trackable_usages", "users"
   add_foreign_key "trackings", "users"
   add_foreign_key "user_conditions", "conditions"
   add_foreign_key "user_conditions", "users"
