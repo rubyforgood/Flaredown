@@ -244,6 +244,6 @@ SEED_SYMPTOMS = [
 ]
 
 I18n.locale = :en
-SEED_SYMPTOMS.each_with_index do |name, _i|
+SEED_SYMPTOMS.each do |name|
   Symptom.find_or_create_by!(name: name)
 end

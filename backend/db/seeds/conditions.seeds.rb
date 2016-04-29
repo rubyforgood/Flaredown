@@ -1132,6 +1132,6 @@ SEED_CONDITIONS = [
 ]
 
 I18n.locale = :en
-SEED_CONDITIONS.each_with_index do |name, i|
+SEED_CONDITIONS.each do |name|
   Condition.find_or_create_by!(name: name)
 end

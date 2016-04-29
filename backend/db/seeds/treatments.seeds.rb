@@ -9952,6 +9952,6 @@ SEED_TREATMENTS = [
 ]
 
 I18n.locale = :en
-SEED_TREATMENTS.each_with_index do |name, i|
+SEED_TREATMENTS.each do |name|
   Treatment.find_or_create_by!(name: name)
 end
