@@ -24,6 +24,7 @@ class TrackableUsage < ActiveRecord::Base
       trackable_usage = self.find_by(user: user, trackable: trackable)
       if trackable_usage.present?
         trackable_usage.increment_count!
+        trackable_usage
       else
         self.create!(user: user, trackable: trackable)
       end
