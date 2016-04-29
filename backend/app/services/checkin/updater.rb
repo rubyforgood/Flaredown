@@ -67,7 +67,7 @@ class Checkin::Updater
         if trackable_usage.count.eql?(1)
           trackable_usage.destroy
         else
-          trackable_usage.decrement_count!
+          trackable_usage.decrement! :count
         end
       end
     end

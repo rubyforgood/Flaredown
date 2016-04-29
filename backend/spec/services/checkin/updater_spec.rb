@@ -63,7 +63,7 @@ RSpec.describe Checkin::Updater do
       end
       context "used more than once before" do
         let!(:previous_count) { usage.count }
-        before { usage.increment_count! }
+        before { usage.increment! :count }
         it "removes trackable and decrements count on usage record" do
           expect(subject.conditions.map(&:id)).not_to include checkin_condition.id
           expect(usage.count).to eq previous_count+1
