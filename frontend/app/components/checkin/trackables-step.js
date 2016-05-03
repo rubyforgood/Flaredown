@@ -74,8 +74,7 @@ export default Ember.Component.extend(TrackablesFromType, {
     // check if trackable is already present in this checkin
     var foundTrackable = trackeds.findBy(`${trackableType}.id`, trackable.get('id'));
     if (Ember.isNone(foundTrackable)) {
-      let randomColor = Math.floor(Math.random()*32)+'';
-      let recordAttrs = {colorId: randomColor};
+      let recordAttrs = {colorId: this.computeNewColorId()};
       recordAttrs[trackableType] = trackable;
       let recordType = `checkin_${trackableType}`.camelize();
       let tracked = this.store.createRecord(recordType, recordAttrs);
@@ -85,6 +84,23 @@ export default Ember.Component.extend(TrackablesFromType, {
       this.saveCheckin();
     }
     this.set('selectedTrackable', null);
+  },
+
+  computeNewColorId() {
+    var nColors = 32;
+    let usedColorIds = this.get('checkin.allColorIds');
+    // if all colors have been used
+    if (usedColorIds.length >= nColors) {
+      // re-use them again in the same order
+      return usedColorIds[(usedColorIds.length % nColors)];
+    } else {
+      // return a random unused color
+      let randomColor = '';
+      do {
+        randomColor = Math.floor(Math.random()*nColors)+'';
+      } while (usedColorIds.contains(randomColor));
+      return randomColor;
+    }
   },
 
   saveCheckin() {

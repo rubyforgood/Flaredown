@@ -58,6 +58,14 @@ export default DS.Model.extend({
 
   noteBlank: Ember.computed('note', function() {
     return Ember.isBlank(this.get('note'));
+  }),
+
+  allColorIds: Ember.computed('conditions', 'symptoms', 'treatments', function() {
+    let result = Ember.A();
+    result.pushObjects(this.get('conditions').mapBy('colorId'));
+    result.pushObjects(this.get('symptoms').mapBy('colorId'));
+    result.pushObjects(this.get('treatments').mapBy('colorId'));
+    return result;
   })
 
 });
