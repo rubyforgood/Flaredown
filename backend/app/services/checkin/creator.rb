@@ -8,18 +8,26 @@ class Checkin::Creator
 
   def create!
     checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [])
-    active_trackables = user.trackings.includes(:trackable).active_at(date).map(&:trackable)
+    active_trackings = user.trackings.includes(:trackable).active_at(date)
     condition_attrs = []
     symptom_attrs = []
     treatment_attrs = []
-    active_trackables.each do |trackable|
+    active_trackings.each do |tracking|
+      trackable = tracking.trackable
       if trackable.is_a? Condition
-        condition_attrs << { condition_id: trackable.id }
+        condition_attrs << {
+          condition_id: trackable.id,
+          color_id: tracking.color_id
+        }
       elsif trackable.is_a? Symptom
-        symptom_attrs << { symptom_id: trackable.id }
+        symptom_attrs << {
+          symptom_id: trackable.id,
+          color_id: tracking.color_id
+        }
       elsif trackable.is_a? Treatment
         treatment_attrs << {
           treatment_id: trackable.id,
+          color_id: tracking.color_id,
           is_taken: false,
           value: user.profile.most_recent_dose_for(trackable.id)
         }
