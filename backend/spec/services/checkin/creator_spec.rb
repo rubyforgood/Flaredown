@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Checkin::Creator do
   let!(:user) { create(:user) }
-  let!(:condition_tracking) { create(:tracking, :for_condition, user: user) }
+  let!(:condition_tracking) { create(:tracking, :active, :for_condition, user: user) }
   let!(:condition) { condition_tracking.trackable }
-  let!(:symptom_tracking) { create(:tracking, :for_symptom, user: user) }
+  let!(:symptom_tracking) { create(:tracking, :active, :for_symptom, user: user) }
   let!(:symptom) { symptom_tracking.trackable }
-  let!(:treatment_tracking) { create(:tracking, :for_treatment, user: user) }
+  let!(:treatment_tracking) { create(:tracking, :active, :for_treatment, user: user) }
   let!(:treatment) { treatment_tracking.trackable }
   let!(:date) { Date.today }
 

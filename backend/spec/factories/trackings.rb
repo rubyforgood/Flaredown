@@ -16,7 +16,6 @@
 FactoryGirl.define do
   factory :tracking do
     user
-    start_at Date.today
 
     trait :for_condition do
       association :trackable, factory: :condition
@@ -28,6 +27,15 @@ FactoryGirl.define do
 
     trait :for_treatment do
       association :trackable, factory: :treatment
+    end
+
+    trait :active do
+      start_at { Date.today }
+    end
+
+    trait :inactive do
+      start_at { Date.today - 7.days }
+      end_at { Date.yesterday }
     end
   end
 end

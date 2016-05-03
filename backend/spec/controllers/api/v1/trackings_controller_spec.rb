@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::TrackingsController do
   let!(:user) { create(:user) }
-  let!(:current_tracking) { create(:tracking, :for_condition, user: user) }
-  let!(:old_tracking) { create(:tracking, :for_symptom, user: user, start_at: 20.days.ago, end_at: 5.days.ago) }
-  let(:another_user_tracking) { create(:tracking, :for_condition) }
+  let!(:current_tracking) { create(:tracking, :active, :for_condition, user: user) }
+  let!(:old_tracking) { create(:tracking, :inactive, :for_symptom, user: user) }
+  let(:another_user_tracking) { create(:tracking, :active, :for_condition) }
 
   before { sign_in user }
 
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::TrackingsController do
     end
     context 'at past time' do
       let(:trackable_type) { old_tracking.trackable_type }
-      let(:at) { 10.days.ago }
+      let(:at) { 5.days.ago }
       it 'returns old trackings only' do
         get :index, at: at, trackable_type: trackable_type
         returned_ids = response_body[:trackings].map { |t| t[:id] }
