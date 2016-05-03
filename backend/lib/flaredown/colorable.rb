@@ -1,7 +1,7 @@
 module Flaredown
   class Colorable
     def self.color_id_for(trackable, user)
-      parent = Tracking.find_by(trackable: trackable)
+      parent = Tracking.find_by(user: user, trackable: trackable)
       color_id = parent.try(:color_id)
       if color_id.nil?
         used_color_ids = Tracking.where(user_id: user.id).pluck(:color_id)

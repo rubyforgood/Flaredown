@@ -24,7 +24,7 @@ RSpec.describe Tracking, type: :model do
     context 'when have a parent' do
       let(:parent) { create(:tracking, :for_condition, :inactive) }
 
-      subject { create(:tracking, :active, trackable: parent.trackable) }
+      subject { create(:tracking, :active, trackable: parent.trackable, user: parent.user) }
 
       it 'has the same color previous Tracking' do
         expect(subject.color_id).to be_equal(parent.color_id)
