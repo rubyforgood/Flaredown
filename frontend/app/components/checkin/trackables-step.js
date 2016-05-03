@@ -9,9 +9,12 @@ export default Ember.Component.extend(TrackablesFromType, {
   embeddedInSummary: false,
 
   tracking: Ember.inject.service(),
-  setupTracking: Ember.on('init', function() {
-    this.get('tracking').setup({at: new Date()});
-  }),
+  setupTracking() {
+    this.get('tracking').setup({
+      at: new Date(this.get('checkin.date')),
+      trackableType: this.get('trackableType').capitalize()
+    });
+  },
 
   checkin: Ember.computed.alias('model.checkin'),
   isTodaysCheckin: Ember.computed('checkin', function() {
@@ -23,6 +26,7 @@ export default Ember.Component.extend(TrackablesFromType, {
     this.set('step',
       this.store.findRecord('step', `checkin-${this.get('trackableType').pluralize()}`)
     );
+    this.setupTracking();
   },
 
   removedTracked: null,
