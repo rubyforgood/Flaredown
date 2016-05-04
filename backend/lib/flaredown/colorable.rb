@@ -7,7 +7,7 @@ module Flaredown
         used_color_ids = Tracking.where(user_id: user.id).pluck(:color_id)
         colors = (0..32).to_a
         if used_color_ids.count >= colors.count
-          color_id = rand(colors.count)
+          color_id = used_color_ids.count % colors.count
         else
           color_id = (colors - used_color_ids).sample
         end
