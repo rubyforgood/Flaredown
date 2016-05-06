@@ -106,9 +106,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
 
     return this.store.queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
       this.set('checkins', chart.get('checkins').sortBy('date:asc') );
-      if(Ember.isEmpty( this.get('trackables') )) {
-        this.set('trackables', chart.get('trackables').sortBy('type'));
-      }
+      this.set('trackables', chart.get('trackables').sortBy('type'));
     });
   },
 
