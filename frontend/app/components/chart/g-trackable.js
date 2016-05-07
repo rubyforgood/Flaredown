@@ -38,7 +38,9 @@ export default Ember.Component.extend( {
   },
 
   drawAxis: Ember.observer('xAxis', function() {
-    d3.select(`g#x-axis-${this.get('xAxisElementId')}`).call(this.get('xAxis'));
+    if( Ember.isPresent(this.get('data')) ) {
+      d3.select(`g#x-axis-${this.get('xAxisElementId')}`).call(this.get('xAxis'));
+    }
   }),
 
   markers: Ember.computed('data', function() {
@@ -113,8 +115,8 @@ export default Ember.Component.extend( {
     var trackable = this.get('model');
     var type = trackable.get('constructor.modelName');
     var key = type.pluralize();
-
-    return this.get('timeline').map( (day) => {
+    var timeline = this.get('timeline') || [];
+    return timeline.map( (day) => {
       var checkin = this.get('checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
 
       var coordinate = { x: day, y: null };
