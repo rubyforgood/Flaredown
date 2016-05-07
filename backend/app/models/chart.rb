@@ -19,6 +19,6 @@ class Chart
   private
 
   def trackings
-    user.trackings.active_at(end_at.to_date)
+    user.trackings.active_in_range(start_at.to_date, end_at.to_date)
   end
 end
