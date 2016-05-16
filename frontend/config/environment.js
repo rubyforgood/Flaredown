@@ -26,6 +26,10 @@ module.exports = function(environment) {
       'key': process.env.PUSHER_KEY
     },
 
+    'ember-cli-intercom': {
+      appId: process.env.INTERCOM_APP_ID
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
