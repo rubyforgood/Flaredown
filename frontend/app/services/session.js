@@ -24,6 +24,26 @@ export default SessionService.extend({
 
   setExtraSession: Ember.on('init', Ember.observer('currentUser', function() {
     this.set('extraSession', this.get('dataStore').find('session', 1));
+  })),
+
+  intercom: Ember.inject.service(),
+  setIntercomUser: Ember.on('init', Ember.observer('currentUser', function() {
+    let currentUser = this.get('currentUser');
+    if (Ember.isPresent(currentUser)) {
+      currentUser.then( user => {
+        user.get('profile').then( profile => {
+          this.get('intercom').boot({
+            email: user.get('email'),
+            created_at: user.get('createdAt'),
+            country_code: profile.get('country.id'),
+            sex: profile.get('sex.id'),
+            birth_date: profile.get('birthDate'),
+            education_level: profile.get('educationLevel.id'),
+            is_onboarded: profile.get('isOnboarded')
+          });
+        });
+      });
+    }
   }))
 
 });
