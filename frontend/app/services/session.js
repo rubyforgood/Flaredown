@@ -39,7 +39,7 @@ export default SessionService.extend({
             sex: profile.get('sex.id'),
             birth_date: profile.get('birthDate'),
             education_level: profile.get('educationLevel.id'),
-            is_onboarded: profile.get('isOnboarded')
+            onboarded: profile.get('isOnboarded')
           });
         });
       });
