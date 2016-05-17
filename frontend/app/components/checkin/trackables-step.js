@@ -118,8 +118,6 @@ export default Ember.Component.extend(TrackablesFromType, {
           });
         });
       });
-    } else {
-      // Ember.Logger.debug("No need to save checkin");
     }
   },
 

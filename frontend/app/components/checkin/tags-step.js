@@ -41,8 +41,6 @@ export default Ember.Component.extend({
           Ember.logger.error(error);
         });
       });
-    } else {
-      // Ember.Logger.debug("No need to save checkin");
     }
   }
 
