@@ -33,6 +33,7 @@ export default SessionService.extend({
       currentUser.then( user => {
         user.get('profile').then( profile => {
           this.get('intercom').boot({
+            user_hash: user.get('intercomHash'),
             email: user.get('email'),
             created_at: user.get('createdAt'),
             country_code: profile.get('country.id'),

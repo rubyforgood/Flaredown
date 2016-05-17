@@ -26,6 +26,11 @@
 #
 
 class UserSerializer < ApplicationSerializer
-  attributes :id, :email
+  attributes :id, :email, :intercom_hash
   has_one :profile
+
+  def intercom_hash
+    OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_SECRET"], object.email)
+  end
+
 end
