@@ -14,5 +14,5 @@
 #
 
 class TrackingSerializer < ApplicationSerializer
-  attributes :id, :user_id, :trackable_id, :trackable_type, :start_at, :end_at
+  attributes :id, :user_id, :trackable_id, :trackable_type, :start_at, :end_at, :color_id
 end
