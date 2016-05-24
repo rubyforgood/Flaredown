@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
 
   has_many :trackings, dependent: :destroy
 
+  has_many :trackable_usages, dependent: :destroy
+
   #
   # Validations
   #
