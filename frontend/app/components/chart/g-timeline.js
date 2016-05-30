@@ -78,7 +78,7 @@ export default Ember.Component.extend( {
       }
     });
 
-    this.get('oneMouseHover')(formattedDate, position );
+    this.get('onMouseHover')(formattedDate, position );
   },
 
   handleMouseLeave(date) {
