@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: trackable_usages
+#
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  trackable_id   :integer
+#  trackable_type :string
+#  count          :integer          default(1)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe TrackableUsage, type: :model do
