@@ -3,6 +3,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   // Attributes
+  screenName: DS.attr('string'),
   birthDate: DS.attr('string'),  // please keep this as string as we don't need time info
                                  // and HTML5 date input likes yyyy-dd-mm format as returned by APIs
   dayWalkingHours: DS.attr('number'),
