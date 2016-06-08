@@ -48,11 +48,6 @@ class User < ActiveRecord::Base
   has_many :trackable_usages, dependent: :destroy
 
   #
-  # Validations
-  #
-  validates :email, presence: true
-
-  #
   # Callbacks
   #
   before_create :generate_authentication_token
