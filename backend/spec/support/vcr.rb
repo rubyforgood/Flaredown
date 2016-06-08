@@ -7,4 +7,7 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.allow_http_connections_when_no_cassette = true
   c.ignore_localhost = true
+
+  # Put placeholders instead of sensitive data in our cassettes
+  c.filter_sensitive_data('<RECAPTCHA_SECRET_KEY>') { ENV['RECAPTCHA_SECRET_KEY'] }
 end
