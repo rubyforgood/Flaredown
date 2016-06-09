@@ -26,6 +26,7 @@ RSpec.describe Api::V1::SexesController do
         test_sex = response_body[:sexes].find { |c| c[:id].eql?(test_sex_id) }
         expect(test_sex[:name]).to eq test_sex_name_it
       end
+      after { I18n.default_locale = 'en' }
     end
   end
 
@@ -47,6 +48,7 @@ RSpec.describe Api::V1::SexesController do
         get :show, id: test_sex_id
         expect(response_body[:sex][:name]).to eq test_sex_name_it
       end
+      after { I18n.default_locale = 'en' }
     end
     context 'with invalid sex id' do
       let(:invalid_sex_id) { 'blah' }

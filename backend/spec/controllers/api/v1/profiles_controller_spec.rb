@@ -63,6 +63,7 @@ RSpec.describe Api::V1::ProfilesController do
           put :update, id: profile.id, profile: profile_attributes
           expect(I18n.locale).to eq :it
         end
+        after { I18n.locale = :en }
       end
       context 'with unavailable locale for country' do
         before { profile_attributes[:country_id] = 'IN' }
