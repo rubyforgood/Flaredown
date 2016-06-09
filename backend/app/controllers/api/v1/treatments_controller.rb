@@ -26,8 +26,9 @@ class Api::V1::TreatmentsController < ApplicationController
   end
 
   def ids
-    @ids ||= if params[:ids].is_a?(Array)
-      params[:ids]
-    end
+    @ids ||=
+      if params[:ids].is_a?(Array)
+        params[:ids]
+      end
   end
 end
