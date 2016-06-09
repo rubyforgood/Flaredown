@@ -1,6 +1,8 @@
 import Ember from 'ember';
+import FacebookAuthAction from 'flaredown/mixins/facebook-auth-action';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(FacebookAuthAction, {
+
   classNames: ['login-form'],
 
   actions: {
@@ -9,12 +11,7 @@ export default Ember.Component.extend({
       this.get('session').authenticate('authenticator:devise', identification, password).catch((reason) => {
         this.set('errorMessage', reason.errors);
       });
-    },
-
-    authenticateWithFacebook() {
-      this.get('session').authenticate('authenticator:facebook').catch((reason) => {
-        this.set('errorMessage', reason);
-      });
     }
   }
+
 });

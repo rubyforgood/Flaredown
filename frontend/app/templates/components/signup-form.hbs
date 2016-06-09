@@ -1,0 +1,30 @@
+{{#form-for for=model onSubmit="save"}}
+
+  {{#form-field for="email" label="Email"}}
+    {{input value=model.email placeholder="Enter your email"}}
+  {{/form-field}}
+
+  {{#form-field for="password" label="Password"}}
+    {{input type="password" value=model.password placeholder="Enter a secure password"}}
+  {{/form-field}}
+
+  {{#form-field for="screenName" label="Screen Name"}}
+    {{input value=model.screenName placeholder="This is how other users would see you"}}
+  {{/form-field}}
+
+  {{#form-field for="captchaResponse" label="Are you a robot?"}}
+    {{g-recaptcha onSuccess=(action "onCaptchaResolved")}}
+  {{/form-field}}
+
+  <br>
+  {{input type="submit" class="btn btn-default left" value="Signup"}}
+{{/form-for}}
+
+{{#if errorMessage}}
+  <div class="alert alert-danger">
+    <p><strong>Signup failed:</strong> <code>{{errorMessage}}</code></p>
+  </div>
+{{/if}}
+<br>
+<a href="#" onclick="return false;"
+   class="btn btn-default right" style="cursor: pointer;">Signup with Facebook</a>
