@@ -25,7 +25,7 @@ class Google::RecaptchaVerifier
   end
 
   def connection
-    Faraday.new(headers: { 'Accept' => 'application/json'})
+    Faraday.new(headers: { 'Accept' => 'application/json' })
   end
 
 end
