@@ -30,6 +30,10 @@ module.exports = function(environment) {
       appId: process.env.INTERCOM_APP_ID
     },
 
+    gReCaptcha: {
+      siteKey: process.env.RECAPTCHA_SITE_KEY
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
