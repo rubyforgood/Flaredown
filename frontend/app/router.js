@@ -7,6 +7,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('login');
+  this.route('signup');
 
   this.route('discourse-sign-in', { path: '/discourse/sign_in' });
 
