@@ -2,8 +2,7 @@ class Registration
   include ActiveModel::Validations
   include ActiveModel::Serialization
 
-  attr_reader :user
-  attr_accessor :errors, :captcha_response, :screen_name
+  attr_accessor :user, :errors, :captcha_response, :screen_name
 
   validates :captcha_response, :screen_name, presence: true
   validate :captcha_response_verified
