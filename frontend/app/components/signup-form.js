@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import FacebookAuthAction from 'flaredown/mixins/facebook-auth-action';
 
-export default Ember.Component.extend(FacebookAuthAction, {
+export default Ember.Component.extend({
 
   classNames: ['signup-form'],
 
