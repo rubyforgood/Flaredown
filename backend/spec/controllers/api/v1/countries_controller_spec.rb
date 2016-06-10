@@ -26,6 +26,7 @@ RSpec.describe Api::V1::CountriesController do
         test_country = response_body[:countries].find { |c| c[:id].eql?(test_country_id) }
         expect(test_country[:name]).to eq test_country_name_it
       end
+      after { I18n.default_locale = 'en' }
     end
   end
 
@@ -51,6 +52,7 @@ RSpec.describe Api::V1::CountriesController do
         get :show, id: test_country_id
         expect(response_body[:country][:name]).to eq test_country_name_it
       end
+      after { I18n.default_locale = 'en' }
     end
     context 'with unexisting country id' do
       let(:unexisting_country_id) { 'XY' }

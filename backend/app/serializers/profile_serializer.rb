@@ -15,10 +15,11 @@
 #  education_level_id   :string
 #  day_walking_hours    :integer
 #  most_recent_doses    :hstore
+#  screen_name          :string
 #
 
 class ProfileSerializer < ApplicationSerializer
-  attributes :id, :birth_date, :country_id, :sex_id, :onboarding_step_id,
+  attributes :id, :screen_name, :birth_date, :country_id, :sex_id, :onboarding_step_id,
              :ethnicity_ids, :day_habit_id, :education_level_id, :day_walking_hours
 
 end

@@ -37,5 +37,7 @@ RSpec.describe Condition do
         expect(t[0].locale).to eq locale
       end
     end
+
+    after { I18n.locale = :en }
   end
 end

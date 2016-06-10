@@ -15,6 +15,7 @@
 #  education_level_id   :string
 #  day_walking_hours    :integer
 #  most_recent_doses    :hstore
+#  screen_name          :string
 #
 
 FactoryGirl.define do

@@ -75,6 +75,11 @@ Rails.application.routes.draw do
       resource :pusher, only: [:create]
 
       #
+      # Registrations
+      #
+      resources :registrations, only: [:create]
+
+      #
       # Searches
       #
       resource :searches, only: [:show]

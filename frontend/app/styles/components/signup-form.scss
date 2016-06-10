@@ -1,0 +1,8 @@
+.signup-form {
+	@include outer-container;
+	@include single-col;
+
+  .g-recaptcha {
+    margin-bottom: 0.75em;
+  }
+}

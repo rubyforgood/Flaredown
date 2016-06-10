@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   classNames: ['login-form'],
 
   actions: {
@@ -10,11 +11,11 @@ export default Ember.Component.extend({
         this.set('errorMessage', reason.errors);
       });
     },
-
     authenticateWithFacebook() {
       this.get('session').authenticate('authenticator:facebook').catch((reason) => {
         this.set('errorMessage', reason);
       });
     }
   }
+
 });

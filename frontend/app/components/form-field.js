@@ -2,7 +2,7 @@ import Ember from 'ember';
 import FormForComponent from './form-for';
 
 export default Ember.Component.extend({
-  classNames: 'form-group form-field input',
+  classNames: 'form-field input',
   type: 'text',
 
   model: Ember.computed.alias('parentView.for'),
