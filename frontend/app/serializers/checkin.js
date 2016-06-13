@@ -19,6 +19,6 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
     delete json.treatments;
 
     return json;
-  },
+  }
 
 });
