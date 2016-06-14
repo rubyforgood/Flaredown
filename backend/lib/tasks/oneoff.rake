@@ -85,4 +85,16 @@ namespace :oneoff do
     end
   end
 
+  task generate_screen_names: :environment do
+    generate_screen_names
+  end
+  def generate_screen_names
+    Profile.all.each do |profile|
+      if profile.screen_name.blank?
+        generated_screen_name = profile.user.email.split('@')[0]
+        profile.update_attributes!(screen_name: generated_screen_name)
+      end
+    end
+  end
+
 end
