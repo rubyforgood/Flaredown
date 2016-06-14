@@ -12,7 +12,7 @@ const Router = Ember.Router.extend({
   notifyPageChange() {
     Ember.run.scheduleOnce('afterRender', this, () => {
       if (Ember.isPresent(window.AndroidInterface)) {
-        AndroidInterface.pageChanged(document.location.href);
+        window.AndroidInterface.pageChanged(document.location.href);
       }
     });
   }
