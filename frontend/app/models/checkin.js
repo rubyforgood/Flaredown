@@ -32,6 +32,17 @@ export default DS.Model.extend({
     this.set('hasDirtyAttributes', true);
   },
 
+  deleteTrackablesPreparedForDestroy() {
+    ['conditions', 'symptoms', 'treatments'].forEach( trackables => {
+      this.get(`${trackables}`).toArray().forEach( trackable => {
+        if (trackable.get('isPreparedForDestroy')) {
+          this.get(trackables).removeObject(trackable);
+          trackable.deleteRecord();
+        }
+      });
+    });
+  },
+
   isBlank: Ember.computed.and('conditionsBlank', 'symptomsBlank', 'treatmentsBlank', 'tagsBlank', 'noteBlank'),
 
   conditionsBlank: Ember.computed('conditions', 'conditions.[]', function() {

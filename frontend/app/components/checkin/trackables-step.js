@@ -123,7 +123,9 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   onCheckinSaved() {
     this.deleteAddedTracked();
-    this.get('checkin').set('hasDirtyAttributes', false);
+    let checkin = this.get('checkin');
+    checkin.set('hasDirtyAttributes', false);
+    checkin.deleteTrackablesPreparedForDestroy();
     this.set('addedTracked', null);
     this.set('removedTracked', null);
   },
