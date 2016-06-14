@@ -2,7 +2,20 @@ import Ember from 'ember';
 import config from './config/environment';
 
 const Router = Ember.Router.extend({
-  location: config.locationType
+  location: config.locationType,
+
+  didTransition() {
+    this._super(...arguments);
+    this.notifyPageChange();
+  },
+
+  notifyPageChange() {
+    Ember.run.scheduleOnce('afterRender', this, () => {
+      if (Ember.isPresent(window.AndroidInterface)) {
+        AndroidInterface.pageChanged(document.location.href);
+      }
+    });
+  }
 });
 
 Router.map(function() {
