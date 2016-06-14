@@ -114,7 +114,7 @@ export default Ember.Component.extend(TrackablesFromType, {
             Ember.Logger.debug('Checkin successfully saved');
             this.onCheckinSaved();
           }, (error) => {
-            Ember.logger.error(error);
+            Ember.Logger.error(error);
           });
         });
       });
