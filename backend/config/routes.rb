@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   #
   # API
   #
+  get "/api/minimum-client", to: "application#minimum_client"
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       #

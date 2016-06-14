@@ -2,11 +2,24 @@ class ApplicationController < ActionController::API
   include ExceptionLogger, ActionController::Serialization, CanCan::ControllerAdditions
 
   before_action :authenticate_user_from_token!, if: :presence_of_authentication_token?
-  before_action :authenticate_user!, except: :root
+  before_action :authenticate_user!, except: [:root, :minimum_client]
   before_action :set_locale
 
   def root
     render text: 'flaredown'
+  end
+
+  def minimum_client
+    render json: {
+      ios: {
+        major: 0,
+        minor: 0
+      },
+      android: {
+        major: 0,
+        minor: 0
+      }
+    }
   end
 
   protected
