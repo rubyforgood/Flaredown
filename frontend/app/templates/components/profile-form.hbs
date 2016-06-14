@@ -1,5 +1,11 @@
 {{#form-for for=model onSubmit="saveProfile"}}
 
+  {{#unless forOnboarding}}
+    {{#form-field for="screenName" label="Screen Name"}}
+      {{input value=model.screenName placeholder="This is how other users would see you"}}
+    {{/form-field}}
+  {{/unless}}
+
   {{#form-field for="country" label="Country"}}
     {{select-field resource="country" async=false
                    selection=model.country
@@ -18,7 +24,8 @@
     {{/each}}
   {{/form-field}}
 
-  {{#unless noSubmit}}
+  {{#unless forOnboarding}}
+    <br>
     {{input type="submit" value="Save"}}
   {{/unless}}
 
