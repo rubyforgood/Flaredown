@@ -1,10 +1,10 @@
 <div class="back">
   {{#if (and showBack step.hasPrev)}}
-    <a {{action "backward"}}>{{backLabel}}</a>
+    <a class="{{if disabled 'disabled'}}" {{action "backward"}}>{{backLabel}}</a>
   {{else}}
     &nbsp;
   {{/if}}
 </div>
 <div class="forward">
-  <button class="btn-primary" {{action "forward"}}>{{forwardLabel}}</button>
+  <button class="btn-primary {{if disabled 'disabled'}}" {{action "forward"}}>{{forwardLabel}}</button>
 </div>

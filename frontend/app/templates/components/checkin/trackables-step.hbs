@@ -34,6 +34,7 @@
 {{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep
                   forwardLabel="Next"
+                  disabled=checkin.hasDirtyAttributes
                   onBackward=(action "goBack")
                   onForward=(action "completeStep") }}
 {{/unless}}

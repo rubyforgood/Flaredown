@@ -10,10 +10,14 @@ export default Ember.Component.extend({
 
   actions: {
     forward() {
-      this.get('onForward')();
+      if (!this.get('disabled')) {
+        this.get('onForward')();
+      }
     },
     backward() {
-      this.get('onBackward')();
+      if (!this.get('disabled')) {
+        this.get('onBackward')();
+      }
     }
   }
 
