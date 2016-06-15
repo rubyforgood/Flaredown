@@ -38,7 +38,7 @@ export default Ember.Component.extend({
           Ember.Logger.debug('Checkin successfully saved');
           this.get('checkin').set('hasDirtyAttributes', false);
         }, (error) => {
-          Ember.Logger.error(error);
+          this.get('checkin').handleSaveError(error);
         });
       });
     }

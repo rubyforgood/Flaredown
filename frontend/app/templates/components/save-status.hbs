@@ -1,7 +1,11 @@
 {{#if record.isSaving}}
   Saving changes...
 {{else if record.hasDirtyAttributes}}
-  You have unsaved changes, please wait
+  {{#if saveFailed}}
+    <span class="error-message">{{{saveFailureMessage}}}</span>
+  {{else}}
+    You have unsaved changes, please wait
+  {{/if}}
 {{else}}
   All changes saved
 {{/if}}

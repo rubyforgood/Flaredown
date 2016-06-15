@@ -43,6 +43,14 @@ export default DS.Model.extend({
     });
   },
 
+  handleSaveError(error) {
+    this.get('errors')._add(
+      'saveFailure',
+      ['Checkin save failed!<br>Please check your connection and then refresh the page.']
+    );
+    Ember.Logger.error(error);
+  },
+
   isBlank: Ember.computed.and('conditionsBlank', 'symptomsBlank', 'treatmentsBlank', 'tagsBlank', 'noteBlank'),
 
   conditionsBlank: Ember.computed('conditions', 'conditions.[]', function() {
