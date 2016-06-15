@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Search::Dose, type: :model do
 
-  let!(:checkin) { create(:checkin) }
-  let!(:treatment) { create(:checkin_treatment, checkin: checkin, is_taken: true, value: '2 x 10 mg') }
-  let!(:other_treatments) { create_list(:checkin_treatment, 2, checkin: checkin, is_taken: true, treatment_id: treatment.treatment_id) }
-  let(:all_treatment_doses) { [treatment.value] + other_treatments.map(&:value) }
+  let!(:checkins) { create_list(:checkin, 3) }
+  let!(:treatment) { create(:checkin_treatment, checkin: checkins[0], is_taken: true, value: '2 x 10 mg') }
+  let!(:other_dose_1) { create(:checkin_treatment, checkin: checkins[1], is_taken: true, treatment_id: treatment.treatment_id) }
+  let!(:other_dose_2) { create(:checkin_treatment, checkin: checkins[2], is_taken: true, treatment_id: treatment.treatment_id) }
+  let(:all_treatment_doses) { [treatment.value] + [other_dose_1.value, other_dose_2.value] }
   let(:params) { { resource: 'dose', query: { treatment_id: treatment.treatment_id, name: '2 x' } } }
 
   subject { Search::Dose.new(params) }

@@ -19,4 +19,10 @@ class Checkin::Treatment
   #
   index(treatment_id: 1)
   index(treatment_id: 1, is_taken: 1, value: 1)
+
+  #
+  # Validations
+  #
+  validates :treatment_id, uniqueness: { scope: :checkin_id }
+
 end

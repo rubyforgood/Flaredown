@@ -6,4 +6,6 @@ class Checkin::Condition
   include Checkin::Fiveable
 
   belongs_to :checkin, index: true
+
+  validates :condition_id, uniqueness: { scope: :checkin_id }
 end
