@@ -97,4 +97,20 @@ namespace :oneoff do
     end
   end
 
+  task remove_checkin_trackable_duplicates: :environment do
+    remove_checkin_trackable_duplicates
+  end
+  def remove_checkin_trackable_duplicates
+    [Checkin::Condition, Checkin::Symptom, Checkin::Treatment].each do |c|
+      c.all.each do |trackable|
+        key = "#{c.name.demodulize.downcase}_id"
+        count = c.where(
+          checkin: trackable.checkin,
+          key.to_sym => trackable.send(key)
+        ).count
+        trackable.destroy if count > 1
+      end
+    end
+  end
+
 end
