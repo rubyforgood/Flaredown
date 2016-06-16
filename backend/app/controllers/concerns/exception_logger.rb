@@ -2,7 +2,7 @@ module ExceptionLogger
   extend ActiveSupport::Concern
 
   included do
-    rescue_from ActiveRecord::RecordNotFound do
+    rescue_from ActiveRecord::RecordNotFound, Mongoid::Errors::DocumentNotFound do
       render json: { errors: ['Resource Not Found'] }, status: 404
     end
 
