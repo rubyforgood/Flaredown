@@ -68,7 +68,7 @@ RSpec.describe Api::V1::TrackingsController do
           delete :destroy, id: current_tracking.id
           end_at = current_tracking.reload.end_at
           expect(end_at).to be_present
-          expect(end_at.strftime('%Y%m%d')).to eq Time.now.strftime('%Y%m%d')
+          expect(end_at.strftime('%F')).to eq Time.now.strftime('%F')
         end
       end
       context 'when tracking started today' do
