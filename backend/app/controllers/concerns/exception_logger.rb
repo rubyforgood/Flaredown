@@ -10,7 +10,7 @@ module ExceptionLogger
       render json: { errors: ['Format not supported'] }, status: 406
     end
 
-    rescue_from ActiveRecord::RecordInvalid do |exception|
+    rescue_from ActiveRecord::RecordInvalid, Mongoid::Errors::Validations do |exception|
       log_exception(exception)
       render json: { errors: exception.record.errors }, status: :unprocessable_entity
     end
