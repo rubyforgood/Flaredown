@@ -24,6 +24,7 @@ class Tracking < ActiveRecord::Base
   # Validations
   #
   validates :user, :trackable, :start_at, presence: true
+  validates :user, uniqueness: { scope: [:trackable, :start_at], message: 'is already tracking this trackable' }
 
   #
   # Scopes
