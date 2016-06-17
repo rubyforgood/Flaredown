@@ -22,10 +22,6 @@ module Flaredown
       ENV['REDISCLOUD_URL'].present? ? ENV['REDISCLOUD_URL'] : ENV['REDIS_URL']
     end
 
-    def similarity_tolerance
-      '0.1'
-    end
-
     def trackables_min_popularity
       3
     end

@@ -1,5 +1,7 @@
 class Search
-  include ActiveModel::Model, ActiveModel::Serialization
+  include ActiveModel::Model,
+          ActiveModel::Serialization,
+          ActiveRecord::Sanitization::ClassMethods
 
   attr_accessor :resource, :user, :query
 
@@ -17,7 +19,6 @@ class Search
   def searchables
     @searchables ||= find_by_query
   end
-
 
   protected
 
@@ -39,7 +40,10 @@ class Search
   def where_conditions
     @where_conditions ||= [].tap do |conditions|
       query_hash.each do |key, value|
-        conditions << ["similarity(#{key}, :value) > #{Flaredown.config.similarity_tolerance}", { value: value }]
+        conditions << [
+          "lower(#{key}) LIKE ?",
+          "%#{sanitize_sql_like(value.downcase)}%"
+        ]
       end
       conditions
     end

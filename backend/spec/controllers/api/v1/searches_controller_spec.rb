@@ -17,11 +17,6 @@ RSpec.describe Api::V1::SearchesController do
         expect_valid_responses(response_body)
       end
 
-      it 'returns correct searchables with bad type' do
-        get :show, resource: 'condition', query: { name: 'ACL inuj' }
-        expect_valid_responses(response_body)
-      end
-
       def expect_valid_responses(response)
         expect(response[:search][:searchables].count).to eq 1
         expect(response[:search][:searchables][0][:type]).to eq 'condition'
