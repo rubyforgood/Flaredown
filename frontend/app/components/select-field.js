@@ -80,7 +80,7 @@ export default Ember.Component.extend({
     },
 
     updateFilter(value) {
-      if( this.get('async') && value.length >= 3 ) {
+      if( this.get('async') && value.length >= 1 ) {
         this.findByQuery({ resource: this.get('resource'), query: { name: value } });
       }
     }
