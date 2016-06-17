@@ -7,9 +7,7 @@ RSpec.describe Search, type: :model do
   let(:params) do
     ActionController::Parameters.new(
       resource: 'treatment',
-      query: {
-        name: 'mediterr'
-      },
+      query: { name: '' },
       user: user
     )
   end
@@ -18,9 +16,36 @@ RSpec.describe Search, type: :model do
 
   subject { Search.new(params) }
 
-  it 'returns matching treatment' do
-    returned_treatment_names = subject.searchables.map(&:name)
-    expect(returned_treatment_names).to include treatment.name
+  context 'success' do
+    context 'when search text is more than 3 characters' do
+      before { params[:query][:name] = 'terra' }
+      it 'returns string containing search text' do
+        returned_treatment_names = subject.searchables.map(&:name)
+        expect(returned_treatment_names).to include treatment.name
+      end
+    end
+    context 'when search text is less than 3 characters' do
+      before { params[:query][:name] = 'me' }
+      it 'returns string starting with search text' do
+        returned_treatment_names = subject.searchables.map(&:name)
+        expect(returned_treatment_names).to include treatment.name
+      end
+    end
+  end
+
+  context 'failure' do
+    context 'when search text is more than 3 characters' do
+      before { params[:query][:name] = 'teran' }
+      it 'returns no results' do
+        expect(subject.searchables).to be_empty
+      end
+    end
+    context 'when search text is less than 3 characters' do
+      before { params[:query][:name] = 'te' }
+      it 'returns no results' do
+        expect(subject.searchables).to be_empty
+      end
+    end
   end
 
 end

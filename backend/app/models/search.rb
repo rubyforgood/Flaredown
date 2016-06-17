@@ -40,10 +40,14 @@ class Search
   def where_conditions
     @where_conditions ||= [].tap do |conditions|
       query_hash.each do |key, value|
-        conditions << [
-          "lower(#{key}) LIKE ?",
-          "%#{sanitize_sql_like(value.downcase)}%"
-        ]
+        sanitized_value = sanitize_sql_like(value.downcase)
+        pattern =
+          if sanitized_value.length < 3
+            "#{sanitized_value}%"
+          else
+            "%#{sanitized_value}%"
+          end
+        conditions << ["lower(#{key}) LIKE ?", pattern]
       end
       conditions
     end

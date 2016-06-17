@@ -44,7 +44,6 @@ en:
     doesnt_say: "Prefer not to say"
 
   step:
-
     onboarding:
       personal:
         title: "Create an account to get started"
@@ -80,6 +79,7 @@ en:
         short_title: "Tags"
       summary:
         title: 'Summary for'
+
   devise:
     mailer:
       invitation_instructions:
