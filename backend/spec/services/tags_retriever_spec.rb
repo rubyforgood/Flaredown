@@ -46,4 +46,28 @@ RSpec.describe TagsRetriever do
     Checkin.where(tag_ids: { "$elemMatch" => { "$eq" => tag_id } }).count
   end
 
+  describe 'most_recent' do
+    let(:user) { create(:user) }
+    let(:tags) { create_list(:tag, 20) }
+    let(:tag_ids) { tags.map(&:id) }
+
+    before do
+      today = Date.today
+      (0..4).each do |i|
+        create(:checkin, user_id: user.id, date: today+i.days, tag_ids: [tag_ids[i], tag_ids[i+5]])
+      end
+    end
+
+    subject { TagsRetriever.new(:most_recent, user) }
+
+    it 'retrieves the most recent tags for the given user' do
+      subject.retrieve
+      retrieved_tags = subject.retrieve
+      expect(retrieved_tags.first).to be_a Tag
+      retrieved_tag_ids = retrieved_tags.map(&:id)
+      expect(retrieved_tag_ids.to_set).to eq tag_ids.slice(0..9).to_set
+      expect(retrieved_tag_ids).not_to include tag_ids.slice(10..19)
+    end
+  end
+
 end
