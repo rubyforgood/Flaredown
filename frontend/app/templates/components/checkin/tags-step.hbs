@@ -8,6 +8,10 @@
 {{tags-group scope="most_popular"
              title="Popular"
              onTagClicked=(action "add") }}
+<br>
+{{tags-group scope="most_recent"
+             title="Recent"
+             onTagClicked=(action "add") }}
 
 {{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep
