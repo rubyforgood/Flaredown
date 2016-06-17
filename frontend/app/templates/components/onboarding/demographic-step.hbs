@@ -12,7 +12,8 @@
                 label="How you spend most of your day?"}}
     {{select-field resource="dayHabit" async=false
                    selection=profile.dayHabit
-                   placeholder="Select one option"}}
+                   placeholder="Select one option"
+                   optionComponent="enum-select-option" }}
   {{/form-field}}
 
   {{#form-field for="educationLevel"
