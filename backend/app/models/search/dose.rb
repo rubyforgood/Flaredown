@@ -32,7 +32,8 @@ class Search::Dose < Search
   end
 
   def name
-    query[:name]
+    text = query[:name]
+    Regexp.escape(text) if text
   end
 
 end
