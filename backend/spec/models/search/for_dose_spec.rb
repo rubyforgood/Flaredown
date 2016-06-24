@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Search::Dose, type: :model do
+RSpec.describe Search::ForDose, type: :model do
 
   let!(:checkins) { create_list(:checkin, 3) }
   let!(:treatment) { create(:checkin_treatment, checkin: checkins[0], is_taken: true, value: '2 x 10 mg') }
@@ -9,7 +9,7 @@ RSpec.describe Search::Dose, type: :model do
   let(:all_treatment_doses) { [treatment.value] + [other_dose_1.value, other_dose_2.value] }
   let(:params) { { resource: 'dose', query: { treatment_id: treatment.treatment_id, name: '2 x' } } }
 
-  subject { Search::Dose.new(params) }
+  subject { Search::ForDose.new(params) }
 
   context 'without treatment_id param' do
     before { params[:query].delete(:treatment_id) }
