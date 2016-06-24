@@ -34,6 +34,11 @@ module.exports = function(environment) {
       siteKey: process.env.RECAPTCHA_SITE_KEY
     },
 
+    'full-story': {
+      enabled: process.env.FULLSTORY_ENABLED,
+      org: process.env.FULLSTORY_ORG
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
