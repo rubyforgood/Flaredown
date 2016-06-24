@@ -6,6 +6,7 @@ export default Ember.Component.extend({
 
   isEditMode: false,
   treatment: Ember.computed.alias('model.treatment'),
+  dose: Ember.computed.alias('model.dose'),
   isTaken: Ember.computed.alias('model.isTaken'),
 
   isTakenObserver: Ember.observer('isTaken', function() {
@@ -16,30 +17,42 @@ export default Ember.Component.extend({
     return {treatment_id: this.get('treatment.id')};
   }),
 
+  unsetEditMode() {
+    // we need to wait before unsetting edit mode
+    // to avoid selectize being destroyed too early
+    Ember.run.later(() => {
+      this.set('isEditMode', false);
+    }, 100);
+  },
+
   actions: {
 
-    xClick() {
+    removeTreatment() {
       this.get('onRemove')(this.get('model'));
     },
 
     edit() {
-      this.set('dosePreviousValue', this.get('model.value'));
       this.set('isEditMode', true);
+      Ember.run.next(() => {
+        this.$('input').focus();
+      });
     },
 
     doneEditing() {
-      this.get('model').set('value', this.get('selectedDose.name'));
+      if (Ember.isPresent(this.get('dose'))) {
+        this.get('onDoseChanged')();
+        this.unsetEditMode();
+      }
+    },
+
+    cancelEditing() {
+      this.unsetEditMode();
+    },
+
+    clearDose() {
+      this.get('model').set('dose', null);
       this.get('onDoseChanged')();
-      // we need to wait before unsetting edit mode
-      // to avoid selectize being destroyed too early
-      Ember.run.later(() => {
-        //stay in edit mode when user deletes selection
-        if (Ember.isNone(this.get('dosePreviousValue')) ||
-            Ember.isPresent(this.get('model.value'))) {
-          this.set('isEditMode', false);
-        }
-        this.set('dosePreviousValue', this.get('model.value'));
-      }, 100);
+      this.unsetEditMode();
     }
 
   }

@@ -4,7 +4,7 @@ class Dose
   attr_accessor :name
 
   def id
-    Digest::SHA256.base64digest(name)
+    name.parameterize
   end
 
 end

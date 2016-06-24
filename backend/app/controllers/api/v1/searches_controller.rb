@@ -2,7 +2,7 @@ class Api::V1::SearchesController < ApplicationController
   def show
     search =
       if resource_param.eql? 'dose'
-        Search::Dose.new(search_params)
+        Search::ForDose.new(search_params)
       else
         Search.new(search_params)
       end

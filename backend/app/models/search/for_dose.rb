@@ -1,4 +1,4 @@
-class Search::Dose < Search
+class Search::ForDose < ::Search
 
   validates :query, presence: true
 
