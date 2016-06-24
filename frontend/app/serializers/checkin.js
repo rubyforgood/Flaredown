@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 import { ActiveModelSerializer } from 'active-model-adapter';
 
 export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
@@ -20,8 +21,12 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
 
     json.treatments_attributes = json.treatments;
     json.treatments_attributes.forEach(function(item) {
-      item.value = item.dose.name;
-      delete item.dose;
+      if (Ember.isPresent(item.dose)) {
+        item.value = item.dose.name;
+        delete item.dose;
+      } else {
+        item.value = null;
+      }
     });
     delete json.treatments;
 
