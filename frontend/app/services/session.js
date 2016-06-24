@@ -45,6 +45,15 @@ export default SessionService.extend({
         });
       });
     }
+  })),
+
+  setFullStoryUser: Ember.on('init', Ember.observer('currentUser', function() {
+    let currentUser = this.get('currentUser');
+    if (Ember.isPresent(currentUser)) {
+      currentUser.then( user => {
+        window.FS.identify(user.get('email'));
+      });
+    }
   }))
 
 });
