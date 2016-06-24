@@ -21,16 +21,21 @@ export default Ember.Component.extend({
     });
   },
 
-  findByQuery(params = { }) {
+  findByQuery(params = { }, autoAddSelection=false) {
     this.store.queryRecord('search', this.queryParams(params)).then( (items) => {
-      this.refreshItems(items.get('searchables'));
+      this.refreshItems(items.get('searchables'), autoAddSelection);
     });
   },
 
-  refreshItems(items) {
+  refreshItems(items, autoAddSelection=false) {
     this.set('items', items);
-    this.selectByName();
-    this.autoFocus();
+    let selectedItem = this.get('selection');
+    if (autoAddSelection && Ember.isPresent(selectedItem)) {
+      let foundItem = items.toArray().findBy('name', selectedItem.get('name'));
+      if (!Ember.isPresent(foundItem)) {
+        items.addObject(selectedItem);
+      }
+    }
   },
 
   queryParams(params) {
@@ -44,26 +49,10 @@ export default Ember.Component.extend({
     return params;
   },
 
-  selectByName() {
-    var name = this.get('autoSelectName');
-    if (Ember.isPresent(name)) {
-      var item = this.get('items').findBy('name', name);
-      if (Ember.isPresent(item)) {
-        this.set('selection', item);
-      }
-    }
-  },
-
-  autoFocus() {
-    if (this.get('setFocus')) {
-      this.$('input').focus();
-    }
-  },
-
   actions: {
     fetchItems() {
       if(this.get('async')) {
-        this.findByQuery({ resource: this.get('resource') });
+        this.findByQuery({ resource: this.get('resource') }, true);
       } else if(Ember.isEmpty(this.get('items')) ) {
         this.findAll();
       }
@@ -86,4 +75,5 @@ export default Ember.Component.extend({
     }
 
   }
+
 });

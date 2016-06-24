@@ -2,7 +2,7 @@
                bgColorClass=model.bgClass}}
 <h4 class="name {{unless isTaken 'untaken'}}">
   &nbsp;{{treatment.name}}
-  <span class="x-to-remove" {{action 'xClick'}}>×</span>
+  <span class="x-to-remove" {{action 'removeTreatment'}}>×</span>
 </h4>
 <br>
 {{#if isTaken}}
@@ -10,19 +10,21 @@
 
     {{select-field resource="dose"
                    defaultQueryParams=doseQueryParams
-                   autoSelectName=model.value
-                   setFocus=true
                    openOnFocus=false
-                   selection=selectedDose
+                   selection=(mut dose)
                    onSelect=(action "doneEditing")
+                   onBlur=(action "cancelEditing")
                    create=true
+                   plugins="restore_on_backspace,remove_button"
                    placeholder="e.g. 2 x 30mg"
                    class=(concat "indented dose-field " model.borderClass) }}
 
-    <a href="#" {{action 'doneEditing'}} class="done {{model.clrClass}}">Done</a>
   {{else}}
     <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>
-      {{if model.value model.value "No dose"}}
+      {{if dose dose.name "No dose"}}
     </a>
+  {{/if}}
+  {{#if dose}}
+    &nbsp;<span class="x-to-remove" {{action 'clearDose'}}>×</span>
   {{/if}}
 {{/if}}
