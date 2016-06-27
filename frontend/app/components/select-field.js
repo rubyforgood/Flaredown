@@ -11,6 +11,8 @@ export default Ember.Component.extend({
   openOnFocus: true,
   multiple: false,
 
+  classNames: ['select-field'],
+
   createItemAction: Ember.computed('create', function() {
     return this.get('create') ? 'createItem' : false;
   }),

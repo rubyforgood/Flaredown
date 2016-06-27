@@ -1,0 +1,26 @@
+.select-field {
+  &.flat {
+    .selectize-input {
+      background-color: white;
+      background-image: none;
+      font-size: 1.1em;
+      line-height: 1.3em;
+      input[type="text"] {
+        font-family: $proxima-regular;
+      }
+    }
+    .selectize-dropdown {
+      .selectize-dropdown-content {
+        .create,
+        .option {
+          color: $base-font-color;
+          font-family: $proxima-regular;
+          font-size: 1.3em;
+        }
+        .create {
+          line-height: 1.7em;
+        }
+      }
+    }
+  }
+}
