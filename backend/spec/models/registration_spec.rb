@@ -43,7 +43,7 @@ RSpec.describe Registration do
     it 'raises record invalid exception with proper error' do
       expect { subject }.to raise_error do |e|
         expect(e).to be_a(ActiveRecord::RecordInvalid)
-        expect(e.record.errors[:captcha_response]).to eq ["verification failed"]
+        expect(e.record.errors[:captcha_response]).to eq ["verification failed or response expired"]
       end
     end
   end
