@@ -48,7 +48,7 @@ class Registration
 
   def captcha_response_verified
     verified = Google::RecaptchaVerifier.exec(captcha_response)
-    errors.add(:captcha_response, 'verification failed') unless verified
+    errors.add(:captcha_response, 'verification failed or response expired') unless verified
   end
 
 end
