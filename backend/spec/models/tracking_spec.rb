@@ -16,8 +16,24 @@
 require 'rails_helper'
 
 RSpec.describe Tracking, type: :model do
+
   describe 'Associations' do
     it { is_expected.to belong_to(:user) }
+  end
+
+  describe 'Validations' do
+    it { is_expected.to validate_presence_of(:start_at) }
+    it { is_expected.to validate_presence_of(:user) }
+    it { is_expected.to validate_presence_of(:trackable) }
+    context 'without foreign key checks' do
+      before { disable_foreign_key_checks('trackings') }
+      after { enable_foreign_key_checks('trackings') }
+      it do
+        is_expected.to validate_uniqueness_of(:user_id).
+          scoped_to([:trackable_id, :trackable_type, :start_at]).
+          with_message('is already tracking this trackable')
+      end
+    end
   end
 
   describe 'ensure_color_id' do
@@ -47,4 +63,5 @@ RSpec.describe Tracking, type: :model do
       end
     end
   end
+
 end

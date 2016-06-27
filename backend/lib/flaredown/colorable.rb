@@ -3,7 +3,7 @@ module Flaredown
     def self.color_id_for(trackable, user)
       parent = Tracking.find_by(user: user, trackable: trackable)
       color_id = parent.try(:color_id)
-      if color_id.nil?
+      if color_id.nil? && user.present?
         used_color_ids = Tracking.where(user_id: user.id).pluck(:color_id)
         colors = (0..32).to_a
         if used_color_ids.count >= colors.count
