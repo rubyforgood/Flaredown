@@ -13,7 +13,7 @@
   {{/form-field}}
 
   {{#form-field for="captchaResponse" label="Are you a robot?"}}
-    {{g-recaptcha onSuccess=(action "onCaptchaResolved")}}
+    {{g-recaptcha onSuccess=(action "onCaptchaResolved") ref=(mut gRecaptcha) }}
   {{/form-field}}
 
   <br>

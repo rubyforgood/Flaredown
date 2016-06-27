@@ -18,6 +18,8 @@ export default Ember.Component.extend({
           model.get('email'),
           model.get('password')
         );
+      }, () => {
+        this.get('gRecaptcha').resetReCaptcha();
       });
     }
   }
