@@ -90,11 +90,11 @@ input[type="submit"] {
 
 .rich-select-option {
   .title {
-    color: #333;
+    color: $base-font-color;
     font-size: 1.3em;
   }
   .subtitle {
-    color: #999;
+    color: $primary;
     font-size: 0.8em;
     font-style: italic;
   }
