@@ -49,12 +49,16 @@ export default Ember.Component.extend({
     return params;
   },
 
+  fetchItemsOnInit: true,
+
   actions: {
     fetchItems() {
-      if(this.get('async')) {
-        this.findByQuery({ resource: this.get('resource') }, true);
-      } else if(Ember.isEmpty(this.get('items')) ) {
-        this.findAll();
+      if (this.get('fetchItemsOnInit')) {
+        if(this.get('async')) {
+          this.findByQuery({ resource: this.get('resource') }, true);
+        } else if(Ember.isEmpty(this.get('items')) ) {
+          this.findAll();
+        }
       }
     },
 
