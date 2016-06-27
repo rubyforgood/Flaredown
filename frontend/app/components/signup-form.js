@@ -19,7 +19,9 @@ export default Ember.Component.extend({
           model.get('password')
         );
       }, () => {
-        this.get('gRecaptcha').resetReCaptcha();
+        if (model.get('errors').has('captchaResponse')) {
+          this.get('gRecaptcha').resetReCaptcha();
+        }
       });
     }
   }
