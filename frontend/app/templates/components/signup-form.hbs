@@ -1,7 +1,7 @@
 {{#form-for for=model onSubmit="save"}}
 
   {{#form-field for="email" label="Email"}}
-    {{input value=model.email placeholder="Enter your email"}}
+    {{input value=model.email placeholder="Enter your email" class="fs-private"}}
   {{/form-field}}
 
   {{#form-field for="password" label="Password"}}
@@ -9,7 +9,7 @@
   {{/form-field}}
 
   {{#form-field for="screenName" label="Screen Name"}}
-    {{input value=model.screenName placeholder="This is how other users would see you"}}
+    {{input value=model.screenName placeholder="This is how other users would see you" class="fs-private"}}
   {{/form-field}}
 
   {{#form-field for="captchaResponse" label="Are you a robot?"}}

@@ -5,7 +5,8 @@
     {{select-field resource="ethnicity" async=false
                    multiple=true
                    selection=profile.ethnicities
-                   placeholder="Select all that apply"}}
+                   placeholder="Select all that apply"
+                   class="fs-private"}}
   {{/form-field}}
 
   {{#form-field for="dayHabit"
@@ -13,19 +14,21 @@
     {{select-field resource="dayHabit" async=false
                    selection=profile.dayHabit
                    placeholder="Select one option"
-                   optionComponent="enum-select-option" }}
+                   optionComponent="enum-select-option"
+                   class="fs-private"}}
   {{/form-field}}
 
   {{#form-field for="educationLevel"
                 label="Highest level of education completed"}}
     {{select-field resource="educationLevel" async=false
                    selection=profile.educationLevel
-                   placeholder="Select one option"}}
+                   placeholder="Select one option"
+                   class="fs-private"}}
   {{/form-field}}
 
   {{#form-field for="dayWalkingHours"
                 label="How many hours a day do you spend walking or exercising, on average?"}}
-    {{input type="number" value=profile.dayWalkingHours}}
+    {{input type="number" value=profile.dayWalkingHours class="fs-private"}}
   {{/form-field}}
 
 {{/form-for}}
