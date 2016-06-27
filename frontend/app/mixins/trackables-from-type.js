@@ -14,7 +14,7 @@ export default Ember.Mixin.create({
   }),
 
   selectPlaceholder: Ember.computed('trackableType', function() {
-    return 'Add a '+this.get('trackableType');
+    return 'Start typing a '+this.get('trackableType');
   })
 
 });

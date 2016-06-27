@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-  selectPlaceholder: 'Add tag',
+  selectPlaceholder: 'Start typing a tag',
 
   onSelected: function(tag) {
     this.get('onSelected')(tag);

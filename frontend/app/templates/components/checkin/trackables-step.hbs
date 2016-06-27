@@ -28,8 +28,10 @@
                selection=selectedTrackable
                onSelect=(action "add")
                create=true
+               fetchItemsOnInit=false
                placeholder=selectPlaceholder
-               optionComponent="trackable-select-option" }}
+               optionComponent="trackable-select-option"
+               class="flat" }}
 
 {{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep
