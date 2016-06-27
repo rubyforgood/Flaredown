@@ -14,6 +14,8 @@ class Invitation
   end
 
   def self.find(id)
-    new(id, User.find_by_invitation_token(id, true))
+    user = User.find_by_invitation_token(id, true)
+    fail ActiveRecord::RecordNotFound if user.nil?
+    new(id, user)
   end
 end
