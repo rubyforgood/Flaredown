@@ -51,7 +51,7 @@ export default SessionService.extend({
     let currentUser = this.get('currentUser');
     if (Ember.isPresent(currentUser)) {
       currentUser.then( user => {
-        window.FS.identify(user.get('email'));
+        window.FS.identify(user.get('id'));
       });
     }
   }))
