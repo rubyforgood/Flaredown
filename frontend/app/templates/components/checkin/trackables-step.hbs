@@ -30,8 +30,9 @@
                create=true
                fetchItemsOnInit=false
                placeholder=selectPlaceholder
-               optionComponent="trackable-select-option"
-               class="flat" }}
+               class="flat"
+               optionComponent="select-field/trackable-select-option"
+               optionCreateComponent=optionCreateComponent }}
 
 {{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep
