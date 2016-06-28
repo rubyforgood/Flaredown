@@ -89,9 +89,11 @@ input[type="submit"] {
 }
 
 .rich-select-option {
+  font-size: initial;
+  line-height: normal;
   .title {
     color: $base-font-color;
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
   .subtitle {
     color: $primary;

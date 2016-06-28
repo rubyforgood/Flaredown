@@ -1,7 +1,8 @@
-import TrackableSelectOption from 'flaredown/components/select-field/trackable-select-option';
+import Ember from 'ember';
 
-export default TrackableSelectOption.extend({
+export default Ember.Component.extend({
 
+  classNames: ['rich-select-option', 'create'],
   trackableType: 'Condition'
 
 });
