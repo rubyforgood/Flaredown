@@ -24,15 +24,9 @@
 
 {{/if}}
 
-{{select-field resource=trackableType
-               selection=selectedTrackable
-               onSelect=(action "add")
-               create=true
-               fetchItemsOnInit=false
-               placeholder=selectPlaceholder
-               class="flat"
-               optionComponent="select-field/trackable-select-option"
-               optionCreateComponent=optionCreateComponent }}
+{{trackables-select trackableType=trackableType
+                    selected=selectedTrackable
+                    onSelect=(action "add") }}
 
 {{#unless embeddedInSummary}}
   {{step-controls step=model.currentStep

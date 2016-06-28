@@ -6,11 +6,9 @@
   {{partial "components/view-remove-tracking"}}
 {{/each}}
 
-{{select-field resource=trackableType
-               selection=selectedTrackable
-               onSelect=(action "trackSelected")
-               create=true
-               placeholder=selectPlaceholder}}
+{{trackables-select trackableType=trackableType
+                    selected=selectedTrackable
+                    onSelect=(action "trackSelected") }}
 
 <div class="explainer">
   Not required, and you can change these later

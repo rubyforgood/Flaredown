@@ -51,14 +51,19 @@ export default Ember.Component.extend({
     return params;
   },
 
-  fetchItemsOnInit: true,
+  randomItemsOnInit: false,
 
   actions: {
     fetchItems() {
-      if (this.get('fetchItemsOnInit')) {
+      if (this.get('randomItemsOnInit')) {
+        this.findByQuery({
+          resource: this.get('resource'),
+          scope: 'random',
+        }, true);
+      } else {
         if(this.get('async')) {
           this.findByQuery({ resource: this.get('resource') }, true);
-        } else if(Ember.isEmpty(this.get('items')) ) {
+        } else if (Ember.isEmpty(this.get('items'))) {
           this.findAll();
         }
       }

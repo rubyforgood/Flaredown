@@ -1,0 +1,11 @@
+{{select-field resource=trackableType
+               selection=selected
+               onSelect=(action "onSelectAction")
+               create=true
+               randomItemsOnInit=true
+               placeholder=placeholder
+               onFocus=(action "toggleSelectFocused")
+               onBlur=(action "toggleSelectFocused")
+               class="flat"
+               optionComponent="select-field/trackable-select-option"
+               optionCreateComponent=optionCreateComponent }}

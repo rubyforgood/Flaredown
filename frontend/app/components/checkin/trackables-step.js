@@ -8,10 +8,6 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   embeddedInSummary: false,
 
-  optionCreateComponent: Ember.computed('trackableType', function() {
-    return `select-field/${this.get('trackableType')}-create-option`;
-  }),
-
   tracking: Ember.inject.service(),
   setupTracking() {
     this.get('tracking').setup({

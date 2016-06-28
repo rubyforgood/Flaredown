@@ -91,9 +91,12 @@ input[type="submit"] {
 .rich-select-option {
   font-size: initial;
   line-height: normal;
+}
+.rich-select-option,
+.enum-select-option {
   .title {
     color: $base-font-color;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
   .subtitle {
     color: $primary;

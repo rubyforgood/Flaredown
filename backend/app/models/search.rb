@@ -3,7 +3,7 @@ class Search
           ActiveModel::Serialization,
           ActiveRecord::Sanitization::ClassMethods
 
-  attr_accessor :resource, :user, :query
+  attr_accessor :resource, :scope, :user, :query
 
   #
   # Validations
@@ -20,6 +20,8 @@ class Search
     @searchables ||= find_by_query
   end
 
+  MAX_ROWS = 10
+
   protected
 
   def query_hash
@@ -28,9 +30,14 @@ class Search
 
   def find_by_query
     if query_hash.present?
-      resources.where(*where_conditions).limit(10)
+      resources.where(*where_conditions).limit(MAX_ROWS)
+    elsif scope.present?
+      case scope
+      when 'random'
+        resources.limit(MAX_ROWS).order('RANDOM()')
+      end
     else
-      resources.limit(10)
+      resources.limit(MAX_ROWS)
     end
   end
 
