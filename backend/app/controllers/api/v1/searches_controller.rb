@@ -13,7 +13,7 @@ class Api::V1::SearchesController < ApplicationController
   end
 
   def search_params
-    params.permit(:resource, query: [:name, :treatment_id]).tap do |params|
+    params.permit(:resource, :scope, query: [:name, :treatment_id]).tap do |params|
       params[:user] = current_user
     end
   end
