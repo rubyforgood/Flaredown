@@ -16,8 +16,7 @@ export default Ember.Component.extend(TrackablesFromType, {
   newTrackings: Ember.computed.alias('tracking.newTrackings'),
 
   actions: {
-    trackSelected() {
-      var selectedTrackable = this.get('selectedTrackable');
+    trackSelected(selectedTrackable) {
       if (Ember.isPresent(selectedTrackable.get('id'))) {
         this.track(selectedTrackable);
       } else {

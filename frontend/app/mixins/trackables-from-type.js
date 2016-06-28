@@ -11,10 +11,6 @@ export default Ember.Mixin.create({
   trackables: Ember.computed('trackableType', function() {
     var key = this.get('trackableType').pluralize();
     return this.get(`selectableData.${key}`);
-  }),
-
-  selectPlaceholder: Ember.computed('trackableType', function() {
-    return 'Start typing a '+this.get('trackableType');
   })
 
 });
