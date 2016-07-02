@@ -104,3 +104,8 @@ input[type="submit"] {
     font-style: italic;
   }
 }
+
+// https://github.com/emberjs/ember.js/issues/13171#issuecomment-200521638
+[data-ember-action] {
+  cursor: pointer;
+}
