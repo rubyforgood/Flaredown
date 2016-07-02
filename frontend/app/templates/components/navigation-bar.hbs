@@ -30,16 +30,14 @@
   </nav>
   <nav class="sliding-panel-content">
     <ul>
-      <li><a href="#" {{action "goToTodaysCheckin"}}>Checkin</a></li>
-      <li>{{#link-to "index"}}Chart{{/link-to}}</li>
+      <li><a {{action "goToTodaysCheckin"}}>Checkin</a></li>
+      <li><a {{action "goToChart"}}>Chart</a></li>
       {{#if session.discourseEnabled}}
-        <li>
-          <a href="{{session.discourseUrl}}" target="_blank">Discussion</a>
-        </li>
+        <li><a {{action "goToDiscourse"}}>Discussion</a></li>
       {{/if}}
-      <li><a {{action 'openEditProfileModal'}}>Profile</a></li>
-      <li><a {{action 'openChangePasswordModal'}}>Change Password</a></li>
-      <li><a {{action 'invalidateSession'}}>Logout</a></li>
+      <li><a {{action "openEditProfileModal"}}>Profile</a></li>
+      <li><a {{action "openChangePasswordModal"}}>Change Password</a></li>
+      <li><a {{action "invalidateSession"}}>Logout</a></li>
     </ul>
   </nav>
   <div class="js-menu-screen sliding-panel-fade-screen"></div>

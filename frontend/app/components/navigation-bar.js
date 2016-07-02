@@ -10,33 +10,50 @@ export default Ember.Component.extend(CheckinByDate, {
   },
 
   installHandlers() {
-    Ember.$('#js-navigation-menu').removeClass("show");
-
-    Ember.$('.sliding-panel-button,.sliding-panel-fade-screen,.sliding-panel-close').on('click touchstart', (e) => {
-      Ember.$('.sliding-panel-content,.sliding-panel-fade-screen').toggleClass('is-visible');
+    this.$('#js-navigation-menu').removeClass("show");
+    this.$('.sliding-panel-button,.sliding-panel-fade-screen').on('click touchstart', (e) => {
+      this.$('.sliding-panel-content,.sliding-panel-fade-screen').toggleClass('is-visible');
       e.preventDefault();
     });
   },
 
+  hideSlidingPanel() {
+    this.$('.sliding-panel-content,.sliding-panel-fade-screen').removeClass('is-visible');
+  },
+
   actions: {
     invalidateSession() {
+      this.hideSlidingPanel();
       this.get('session').invalidate();
     },
 
     openEditProfileModal() {
+      this.hideSlidingPanel();
       this.get('session.currentUser.profile').then( (profile) => {
         Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/edit-profile', profile);
       });
     },
 
     openChangePasswordModal() {
+      this.hideSlidingPanel();
       this.store.find('password', 1).then( (password) => {
         Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/change-password', password);
       });
     },
 
     goToTodaysCheckin() {
+      this.hideSlidingPanel();
       this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
+    },
+
+    goToChart() {
+      this.hideSlidingPanel();
+      this.router.transitionTo('index');
+    },
+
+    goToDiscourse() {
+      this.hideSlidingPanel();
+      window.open(this.get('session.discourseUrl'), '_blank');
     }
 
   }
