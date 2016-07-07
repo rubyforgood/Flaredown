@@ -22,14 +22,17 @@ RSpec.describe Checkin::Creator do
       checkin_condition = subject.conditions[0]
       expect(checkin_condition.condition_id).to eq condition.id
       expect(checkin_condition.color_id).to eq condition_tracking.color_id.to_s
+      expect(checkin_condition.position).to eq 0
       # Symptom
       checkin_symptom = subject.symptoms[0]
       expect(checkin_symptom.symptom_id).to eq symptom.id
       expect(checkin_symptom.color_id).to eq symptom_tracking.color_id.to_s
+      expect(checkin_symptom.position).to eq 0
       # Treatment
       checkin_treatment = subject.treatments[0]
       expect(checkin_treatment.treatment_id).to eq treatment.id
       expect(checkin_treatment.color_id).to eq treatment_tracking.color_id.to_s
+      expect(checkin_treatment.position).to eq 0
       expect(checkin_treatment.is_taken).to be false
     end
 
