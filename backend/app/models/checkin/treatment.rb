@@ -1,5 +1,6 @@
 class Checkin::Treatment
   include Mongoid::Document
+  include Checkin::Trackable
 
   #
   # Fields
@@ -7,12 +8,6 @@ class Checkin::Treatment
   field :treatment_id, type: Integer
   field :value, type: String
   field :is_taken, type: Boolean
-  field :color_id, type: String
-
-  #
-  # Relations
-  #
-  belongs_to :checkin, index: true
 
   #
   # Indexes

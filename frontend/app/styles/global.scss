@@ -25,10 +25,10 @@
 }
 
 .x-to-remove {
-  color: grey;
+  color: $primary;
   margin-left: 5px;
   &:hover {
-    color: black;
+    color: $base-font-color;
     cursor: pointer;
   }
 }

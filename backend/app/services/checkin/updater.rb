@@ -1,24 +1,23 @@
 class Checkin::Updater
-  attr_reader :current_user, :permitted_params, :id
+  attr_reader :current_user, :checkin, :permitted_params
 
   def initialize(current_user, params)
     @current_user = current_user
+    id = params.require(:id)
+    @checkin = Checkin.find(id)
     @permitted_params = params.require(:checkin).permit(
       :note, tag_ids: [],
-      conditions_attributes: [:id, :value, :condition_id, :color_id, :_destroy],
-      symptoms_attributes: [:id, :value, :symptom_id, :color_id, :_destroy],
-      treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :_destroy]
+      conditions_attributes: [:id, :value, :condition_id, :color_id, :position, :_destroy],
+      symptoms_attributes: [:id, :value, :symptom_id, :color_id, :position, :_destroy],
+      treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :position, :_destroy]
     ).tap do |p|
-      p[:treatments_attributes].select { |t| t[:id].blank? }.each do |t|
-        t[:value] = current_user.profile.most_recent_dose_for(t[:treatment_id])
-      end if p[:treatments_attributes].present?
+      set_most_recent_doses(p[:treatments_attributes])
+      update_trackables_positions(p)
       p[:tag_ids] = [] if p[:tag_ids].nil?
     end
-    @id = params.require(:id)
   end
 
   def update!
-    checkin = Checkin.find(id)
     checkin.update_attributes!(permitted_params)
     save_most_recent_doses if checkin.date.today?
     update_trackable_usages
@@ -26,6 +25,48 @@ class Checkin::Updater
   end
 
   private
+
+  def update_trackables_positions(params)
+    %w(Condition Symptom Treatment).each do |trackable_class_name|
+      update_trackables_positions_on_destroy(trackable_class_name, params)
+      set_added_trackables_positions(trackable_class_name, params)
+    end
+  end
+
+  def update_trackables_positions_on_destroy(trackable_class_name, params)
+    trackables_attrs = trackables_attrs(trackable_class_name, params)
+    removed_trackables = removed_trackables_attrs(trackables_attrs)
+    removed_trackables.each do |removed_trackable|
+      trackables_attrs.each do |trackable|
+        if trackable[:position].present? &&
+            removed_trackable[:position].present? &&
+            trackable[:position] > removed_trackable[:position]
+          trackable[:position] -= 1
+        end
+      end
+    end
+  end
+
+  def set_added_trackables_positions(trackable_class_name, params)
+    trackables_attrs = trackables_attrs(trackable_class_name, params)
+    trackable_max = trackables_attrs
+      .reject { |t| t[:position].blank? }
+      .max_by { |t| t[:position] }
+    max_position = if trackable_max.present? then trackable_max[:position] else 0 end
+    added_trackables = added_trackables_attrs(trackables_attrs)
+    added_trackables.each do |added_trackable|
+      if added_trackable[:position].blank?
+        max_position += 1
+        added_trackable[:position] = max_position
+      end
+    end
+  end
+
+  def set_most_recent_doses(treatments_attrs)
+    added_trackables_attrs(treatments_attrs).each do |t|
+      t[:value] = current_user.profile.most_recent_dose_for(t[:treatment_id])
+    end if treatments_attrs.present?
+  end
 
   def save_most_recent_doses
     treatments_attributes = permitted_params[:treatments_attributes]
@@ -48,14 +89,13 @@ class Checkin::Updater
     end
   end
 
-  # For trackables that have been removed from checkin, look for TrackbleUsage records
+  # For trackables that have been removed from checkin, look for TrackableUsage records
   # for the current user. When a record exists with count 1 it's destroyed,
   # else count is decremented
   def update_removed_trackables_usages(trackable_class_name)
-    attrs_key = "#{trackable_class_name.downcase.pluralize}_attributes".to_sym
-    trackables_attrs = permitted_params[attrs_key]
-    return unless trackables_attrs.present?
-    removed_trackables = trackables_attrs.select { |attrs| attrs[:_destroy].eql?('1') }
+    removed_trackables = removed_trackables_attrs(
+      trackables_attrs(trackable_class_name, permitted_params)
+    )
     trackable_class = trackable_class_name.constantize
     trackable_id_key = "#{trackable_class_name.downcase}_id".to_sym
     removed_trackables.each do |t|
@@ -73,20 +113,37 @@ class Checkin::Updater
     end
   end
 
-  # For trackables that have been added to checkin, look for TrackbleUsage records
+  def removed_trackables_attrs(trackables_attrs)
+    trackables_attrs.select { |attrs| attrs[:_destroy].eql?('1') }
+  end
+
+  def trackables_attrs(trackable_class_name, params)
+    attrs_key = "#{trackable_class_name.downcase.pluralize}_attributes".to_sym
+    trackables_attrs = params[attrs_key]
+    if trackables_attrs.blank?
+      return []
+    else
+      return trackables_attrs
+    end
+  end
+
+  # For trackables that have been added to checkin, look for TrackableUsage records
   # for the current user. When a record exists its count is incremented,
   # else a new record is created
   def update_added_trackables_usages(trackable_class_name)
-    attrs_key = "#{trackable_class_name.downcase.pluralize}_attributes".to_sym
-    trackables_attrs = permitted_params[attrs_key]
-    return unless trackables_attrs.present?
-    added_trackables = trackables_attrs.select { |attrs| attrs[:id].blank? }
+    added_trackables = added_trackables_attrs(
+      trackables_attrs(trackable_class_name, permitted_params)
+    )
     trackable_class = trackable_class_name.constantize
     trackable_id_key = "#{trackable_class_name.downcase}_id".to_sym
     added_trackables.each do |t|
       trackable = trackable_class.find(t[trackable_id_key])
       TrackableUsage.create_or_update_by(user: current_user, trackable: trackable)
     end
+  end
+
+  def added_trackables_attrs(trackables_attrs)
+    trackables_attrs.select { |attrs| attrs[:id].blank? }
   end
 
 end

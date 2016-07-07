@@ -17,16 +17,19 @@ class Checkin::Creator
       if trackable.is_a? Condition
         condition_attrs << {
           condition_id: trackable.id,
+          position: condition_attrs.length,
           color_id: tracking.color_id
         }
       elsif trackable.is_a? Symptom
         symptom_attrs << {
           symptom_id: trackable.id,
+          position: symptom_attrs.length,
           color_id: tracking.color_id
         }
       elsif trackable.is_a? Treatment
         treatment_attrs << {
           treatment_id: trackable.id,
+          position: treatment_attrs.length,
           color_id: tracking.color_id,
           is_taken: false,
           value: user.profile.most_recent_dose_for(trackable.id)

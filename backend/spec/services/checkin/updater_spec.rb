@@ -78,7 +78,7 @@ RSpec.describe Checkin::Updater do
           id: checkin.id.to_s,
           checkin: {
             conditions_attributes: [{
-              condition_id: condition.id,
+              condition_id: condition.id
             }]
           }
         )
@@ -99,6 +99,67 @@ RSpec.describe Checkin::Updater do
       end
     end
 
+  end
+
+
+  context "trackables positions" do
+
+    let(:n) { 5 }
+    let(:trackables) do
+      result = []
+      n.times do |i|
+        result << create(:checkin_condition, checkin: checkin, position: i)
+      end
+      result
+    end
+    let(:trackables_attrs) do
+      trackables.map do |t|
+        {
+          id: t.id.to_s,
+          condition_id: t.condition_id,
+          position: t.position
+        }
+      end
+    end
+
+    context "when adding a trackable and client didn't pass position" do
+      let(:condition) { create(:condition) }
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {
+            conditions_attributes: trackables_attrs + [{ condition_id: condition.id }]
+          }
+        )
+      end
+      it "auto-sets position to last" do
+        added_trackable = subject.conditions.find_by(condition_id: condition.id)
+        expect(added_trackable.position).to eq n
+      end
+    end
+
+    context "when removing a trackable" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {
+            conditions_attributes: trackables_attrs
+          }
+        )
+      end
+      let(:pos) { 1 }
+      before do
+        trackable_to_remove = params[:checkin][:conditions_attributes].find { |a| a[:position].eql? pos }
+        trackable_to_remove[:_destroy] = '1'
+      end
+      it "updates positions of removed trackable's successors" do
+        successors_attrs = params[:checkin][:conditions_attributes].select { |a| a[:position] > pos }
+        successors_attrs.each do |successor_attrs|
+          successor = subject.conditions.find(successor_attrs[:id])
+          expect(successor.position).to eq successor_attrs[:position] - 1
+        end
+      end
+    end
   end
 
 end

@@ -1,11 +1,9 @@
 class Checkin::Condition
   include Mongoid::Document
-
-  field :condition_id, type: Integer
-  field :color_id, type: String
+  include Checkin::Trackable
   include Checkin::Fiveable
 
-  belongs_to :checkin, index: true
+  field :condition_id, type: Integer
 
   validates :condition_id, uniqueness: { scope: :checkin_id }
 end

@@ -1,29 +1,30 @@
 {{partial "components/checkin/step-header"}}
 
-{{#if trackableTypeIsTreatment}}
-
-  {{#each trackeds as |tracked|}}
-    {{#unless tracked.isPreparedForDestroy}}
-      {{checkin-treatment model=tracked
-                          onIsTakenChanged=(action 'saveChanges')
-                          onDoseChanged=(action 'saveChanges')
+{{#each sortedTrackeds as |tracked|}}
+  {{#unless tracked.isPreparedForDestroy}}
+    <div class="trackable-row {{trackableType}}-row">
+      {{draggable-dropzone itemId=tracked.id
+                           onDropped=(action 'move') }}
+      <div class="1-col-filler"></div>
+      {{#draggable-item itemId=tracked.id}}
+        {{#if trackableTypeIsTreatment}}
+          {{checkin-treatment model=tracked
+                              onIsTakenChanged=(action 'saveChanges')
+                              onDoseChanged=(action 'saveChanges')
+                              onRemove=(action 'remove') }}
+        {{else}}
+          {{tracked-level model=tracked
+                          valueKey='value'
+                          onValueChanged=(action 'saveChanges')
                           onRemove=(action 'remove') }}
-    {{/unless}}
-  {{/each}}
+        {{/if}}
+      {{/draggable-item}}
+      <div class="1-col-filler"></div>
+    </div>
+  {{/unless}}
+{{/each}}
 
-{{else}}
-
-  {{#each trackeds as |tracked|}}
-    {{#unless tracked.isPreparedForDestroy}}
-      {{tracked-level model=tracked
-                      valueKey='value'
-                      onValueChanged=(action 'saveChanges')
-                      onRemove=(action 'remove') }}
-    {{/unless}}
-  {{/each}}
-
-{{/if}}
-
+<br>
 {{trackables-select trackableType=trackableType
                     selected=selectedTrackable
                     onSelect=(action "add") }}
