@@ -36,9 +36,9 @@ export default Ember.Component.extend(TrackablesFromType, {
     remove(tracked) {
       tracked.prepareForDestroy();
       this.set('removedTracked', tracked);
-      this.get('checkin').set('hasDirtyAttributes', true);
       this.saveCheckin();
     },
+
     add(selectedTrackable) {
       if (Ember.isPresent(selectedTrackable.get('id'))) {
         this.shouldAddTrackable(selectedTrackable);
@@ -49,7 +49,6 @@ export default Ember.Component.extend(TrackablesFromType, {
       }
     },
     saveChanges() {
-      this.get('checkin').set('hasDirtyAttributes', true);
       this.saveCheckin();
     },
 
@@ -80,7 +79,6 @@ export default Ember.Component.extend(TrackablesFromType, {
       let tracked = this.store.createRecord(recordType, recordAttrs);
       trackeds.pushObject(tracked);
       this.set('addedTracked', tracked);
-      this.get('checkin').set('hasDirtyAttributes', true);
       this.saveCheckin();
     }
     this.set('selectedTrackable', null);
@@ -104,21 +102,20 @@ export default Ember.Component.extend(TrackablesFromType, {
   },
 
   saveCheckin() {
-    if (this.get('checkin.hasDirtyAttributes')) {
-      Ember.run.next(this, function() {
-        Ember.RSVP.all([
-          this.untrackRemovedTracked(),
-          this.trackAddedTracked()
-        ]).then(() => {
-          this.get('checkin').save().then(() => {
-            Ember.Logger.debug('Checkin successfully saved');
-            this.onCheckinSaved();
-          }, (error) => {
-            this.get('checkin').handleSaveError(error);
-          });
+    this.get('checkin').set('hasDirtyAttributes', true);
+    Ember.run.next(this, function() {
+      Ember.RSVP.all([
+        this.untrackRemovedTracked(),
+        this.trackAddedTracked()
+      ]).then(() => {
+        this.get('checkin').save().then(() => {
+          Ember.Logger.info('Checkin successfully saved');
+          this.onCheckinSaved();
+        }, (error) => {
+          this.get('checkin').handleSaveError(error);
         });
       });
-    }
+    });
   },
 
   onCheckinSaved() {
