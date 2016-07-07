@@ -30,5 +30,11 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/momentjs/moment.js');
   app.import(app.bowerDirectory + '/moment-range/dist/moment-range.js');
 
+  // HTML5 Drag and Drop Polyfill for Mobile
+  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.js');
+  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-scroll-behaviour.js');
+  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.css');
+  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-icons.css');
+
   return app.toTree();
 };
