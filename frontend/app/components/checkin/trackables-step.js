@@ -3,6 +3,7 @@ import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 export default Ember.Component.extend(TrackablesFromType, {
+  classNames: ['trackables-step'],
 
   model: Ember.computed.alias('parentView.model'),
 
@@ -19,6 +20,10 @@ export default Ember.Component.extend(TrackablesFromType, {
   checkin: Ember.computed.alias('model.checkin'),
   isTodaysCheckin: Ember.computed('checkin', function() {
     return moment(this.get('checkin.date')).isSame(new Date(), 'day');
+  }),
+
+  sortedTrackeds: Ember.computed('trackeds', 'trackeds.[]', 'trackeds.@each.position', function() {
+    return this.get('trackeds').toArray().sortBy('position');
   }),
 
   didReceiveAttrs() {
@@ -48,6 +53,38 @@ export default Ember.Component.extend(TrackablesFromType, {
         });
       }
     },
+
+    move(draggedId, droppedId) {
+      // Return if the item has been dropped onto its own dropzone
+      if (Ember.isEqual(draggedId, droppedId)) { return; }
+      let sortedTrackeds = this.get('sortedTrackeds');
+      let draggedItem = sortedTrackeds.findBy('id', draggedId);
+      let droppedItem = sortedTrackeds.findBy('id', droppedId);
+      // draggedItem might not be found if it's dragged from a different
+      // trackables' collection (this might happen in summary screen)
+      if (Ember.isNone(draggedItem)) { return; }
+      let draggedPosition = draggedItem.get('position');
+      let droppedPosition = droppedItem.get('position');
+      // Return if the item has been dropped onto its next item's dropzone
+      if (Ember.isEqual(droppedPosition, draggedPosition + 1)) { return; }
+      if (draggedPosition > droppedPosition) {
+        // Case 1: Item Moved Up
+        // Shift down items between droppedPosition and draggedPosition
+        for (let i = droppedPosition; i < draggedPosition; i++) {
+          sortedTrackeds[i].set('position', i + 1);
+        }
+        draggedItem.set('position', droppedPosition);
+      } else {
+        // Case 2: Move Down
+        // Shift up items between draggedPosition and droppedPosition
+        for (let i = draggedPosition + 1; i < droppedPosition ; i++) {
+          sortedTrackeds[i].set('position', i - 1);
+        }
+        draggedItem.set('position', droppedPosition - 1);
+      }
+      this.saveCheckin();
+    },
+
     saveChanges() {
       this.saveCheckin();
     },
@@ -73,7 +110,10 @@ export default Ember.Component.extend(TrackablesFromType, {
     // check if trackable is already present in this checkin
     var foundTrackable = trackeds.findBy(`${trackableType}.id`, trackable.get('id'));
     if (Ember.isNone(foundTrackable)) {
-      let recordAttrs = {colorId: this.computeNewColorId()};
+      let recordAttrs = {
+        colorId: this.computeNewColorId(),
+        position: trackeds.get('length')
+      };
       recordAttrs[trackableType] = trackable;
       let recordType = `checkin_${trackableType}`.camelize();
       let tracked = this.store.createRecord(recordType, recordAttrs);

@@ -1,0 +1,28 @@
+.trackables-step {
+  .trackable-row {
+    @include outer-container;
+    .draggable-dropzone {
+      @include span-columns(11);
+      height: 1.5em;
+      &.activated {
+        height: 5em;
+        background-color: $lightgrey;
+        border-radius: 5px;
+        border: 3px dashed $primary;
+      }
+      &.deactivated {
+        background-color: white;
+      }
+    }
+    .draggable-item {
+      @include span-columns(11);
+      &.dragging {
+        border-radius: 5px;
+        border: 3px dashed $primary;
+      }
+    }
+    .1-col-filler {
+      @include span-columns(1);
+    }
+  }
+}
