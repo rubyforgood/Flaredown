@@ -113,4 +113,18 @@ namespace :oneoff do
     end
   end
 
+  task generate_trackable_positions: :environment do
+    Checkin.all.each do |checkin|
+      checkin.conditions.each_with_index do |condition, i|
+        condition.update_attributes!(position: i)
+      end
+      checkin.symptoms.each_with_index do |symptom, i|
+        symptom.update_attributes!(position: i)
+      end
+      checkin.treatments.each_with_index do |treatment, i|
+        treatment.update_attributes!(position: i)
+      end
+    end
+  end
+
 end
