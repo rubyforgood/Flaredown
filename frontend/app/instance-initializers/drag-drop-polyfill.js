@@ -1,6 +1,6 @@
 export function initialize() {
   window.DragDropPolyfill.Initialize({
-    dragImageOffset: { x: -20, y: 0 }
+    dragImageOffset: { x: 20, y: 0 }
   });
 }
 
