@@ -54,6 +54,10 @@ export default SessionService.extend({
         window.FS.identify(user.get('id'));
       });
     }
-  }))
+  })),
+
+  setDeviceType: Ember.on('init', function() {
+    this.set('isMobileDevice', /iPad|iPhone|iPod|Android/.test(navigator.userAgent));
+  })
 
 });
