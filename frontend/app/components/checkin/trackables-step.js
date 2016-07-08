@@ -59,12 +59,17 @@ export default Ember.Component.extend(TrackablesFromType, {
       if (Ember.isEqual(draggedId, droppedId)) { return; }
       let sortedTrackeds = this.get('sortedTrackeds');
       let draggedItem = sortedTrackeds.findBy('id', draggedId);
-      let droppedItem = sortedTrackeds.findBy('id', droppedId);
       // draggedItem might not be found if it's dragged from a different
       // trackables' collection (this might happen in summary screen)
       if (Ember.isNone(draggedItem)) { return; }
       let draggedPosition = draggedItem.get('position');
-      let droppedPosition = droppedItem.get('position');
+      let droppedPosition = 0;
+      if (Ember.isEqual(droppedId, 'after-last')) {
+        droppedPosition = sortedTrackeds.get('length');
+      } else {
+        let droppedItem = sortedTrackeds.findBy('id', droppedId);
+        droppedPosition = droppedItem.get('position');
+      }
       // Return if the item has been dropped onto its next item's dropzone
       if (Ember.isEqual(droppedPosition, draggedPosition + 1)) { return; }
       if (draggedPosition > droppedPosition) {
@@ -77,12 +82,25 @@ export default Ember.Component.extend(TrackablesFromType, {
       } else {
         // Case 2: Move Down
         // Shift up items between draggedPosition and droppedPosition
-        for (let i = draggedPosition + 1; i < droppedPosition ; i++) {
+        for (let i = draggedPosition + 1; i < droppedPosition; i++) {
           sortedTrackeds[i].set('position', i - 1);
         }
         draggedItem.set('position', droppedPosition - 1);
       }
+      this.set('clickedTrackableId', null);
       this.saveCheckin();
+    },
+
+    onTrackableClicked(trackableId) {
+      if (Ember.isPresent(this.get('clickedTrackableId'))) {
+        if (Ember.isEqual(trackableId, this.get('clickedTrackableId'))) {
+          this.set('clickedTrackableId', null);
+        } else {
+          this.set('clickedTrackableId', trackableId);
+        }
+      } else {
+        this.set('clickedTrackableId', trackableId);
+      }
     },
 
     saveChanges() {

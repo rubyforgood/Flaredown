@@ -1,8 +1,6 @@
 .trackables-step {
   .trackable-row {
-    @include outer-container;
     .draggable-dropzone {
-      @include span-columns(11);
       height: 1.5em;
       &.activated {
         height: 5em;
@@ -15,14 +13,10 @@
       }
     }
     .draggable-item {
-      @include span-columns(11);
-      &.dragging {
+      &.activated {
         border-radius: 5px;
         border: 3px dashed $primary;
       }
-    }
-    .1-col-filler {
-      @include span-columns(1);
     }
   }
 }

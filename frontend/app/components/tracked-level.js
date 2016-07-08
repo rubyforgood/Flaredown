@@ -26,6 +26,9 @@ export default Ember.Component.extend({
   }),
 
   actions: {
+    titleClicked() {
+      this.get('onTitleClicked')(this.get('model.id'));
+    },
 
     setSelectedValue(pipValue) {
       this.set('selectedValue', pipValue);

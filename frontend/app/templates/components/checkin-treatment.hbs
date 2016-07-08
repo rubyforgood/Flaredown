@@ -1,6 +1,6 @@
 {{label-switch checked=(mut isTaken)
                bgColorClass=model.bgClass}}
-<h4 class="name {{unless isTaken 'untaken'}}">
+<h4 class="name {{unless isTaken 'untaken'}}" {{action "titleClicked"}}>
   &nbsp;{{treatment.name}}
   <span class="x-to-remove" {{action 'removeTreatment'}}>×</span>
 </h4>

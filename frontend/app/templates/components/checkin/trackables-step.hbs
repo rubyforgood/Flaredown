@@ -5,26 +5,27 @@
     <div class="trackable-row {{trackableType}}-row">
       {{draggable-dropzone itemId=tracked.id
                            onDropped=(action 'move') }}
-      <div class="1-col-filler"></div>
-      {{#draggable-item itemId=tracked.id}}
-        {{#if trackableTypeIsTreatment}}
-          {{checkin-treatment model=tracked
-                              onIsTakenChanged=(action 'saveChanges')
-                              onDoseChanged=(action 'saveChanges')
-                              onRemove=(action 'remove') }}
+      {{#if session.isMobileDevice}}
+        {{#if (eq clickedTrackableId tracked.id)}}
+          {{#draggable-item itemId=tracked.id class="activated"}}
+            {{partial "components/checkin/trackable-item"}}
+          {{/draggable-item}}
         {{else}}
-          {{tracked-level model=tracked
-                          valueKey='value'
-                          onValueChanged=(action 'saveChanges')
-                          onRemove=(action 'remove') }}
+          {{partial "components/checkin/trackable-item"}}
         {{/if}}
-      {{/draggable-item}}
-      <div class="1-col-filler"></div>
+      {{else}}
+        {{#draggable-item itemId=tracked.id}}
+          {{partial "components/checkin/trackable-item"}}
+        {{/draggable-item}}
+      {{/if}}
     </div>
   {{/unless}}
 {{/each}}
+<div class="trackable-row {{trackableType}}-row">
+  {{draggable-dropzone itemId="after-last"
+                       onDropped=(action 'move') }}
+</div>
 
-<br>
 {{trackables-select trackableType=trackableType
                     selected=selectedTrackable
                     onSelect=(action "add") }}

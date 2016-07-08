@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['draggable-item'],
 
-  classNameBindings: ['dragging'],
+  classNameBindings: ['dragging:activated'],
   dragging: false,
 
   attributeBindings: ['draggable'],
