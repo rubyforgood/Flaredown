@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608161002) do
+ActiveRecord::Schema.define(version: 20160711182546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "hstore"
+  enable_extension "pg_trgm"
 
   create_table "condition_translations", force: :cascade do |t|
     t.integer  "condition_id", null: false
@@ -42,14 +42,17 @@ ActiveRecord::Schema.define(version: 20160608161002) do
     t.date     "birth_date"
     t.string   "sex_id"
     t.string   "onboarding_step_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "ethnicity_ids_string"
     t.string   "day_habit_id"
     t.string   "education_level_id"
     t.integer  "day_walking_hours"
     t.hstore   "most_recent_doses"
     t.string   "screen_name"
+    t.hstore   "most_recent_conditions_positions"
+    t.hstore   "most_recent_symptoms_positions"
+    t.hstore   "most_recent_treatments_positions"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
