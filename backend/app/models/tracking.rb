@@ -25,6 +25,7 @@ class Tracking < ActiveRecord::Base
   #
   validates :user, :trackable, :start_at, presence: true
   validates :user_id, uniqueness: { scope: [:trackable_id, :trackable_type, :start_at], message: 'is already tracking this trackable' }
+  validates :trackable_type, inclusion: { in: %w(Condition Symptom Treatment), message: "is not an allowed trackable type" }
 
   #
   # Scopes
