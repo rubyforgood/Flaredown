@@ -127,4 +127,29 @@ namespace :oneoff do
     end
   end
 
+  task save_most_recent_trackables_positions: :environment do
+    Profile.update_all(
+      most_recent_conditions_positions: {},
+      most_recent_symptoms_positions: {},
+      most_recent_treatments_positions: {}
+    )
+    User.all.each do |user|
+      latest_checkin = user.checkins.sort(date: -1).first
+      next if latest_checkin.nil?
+      latest_checkin.conditions.each_with_index do |cc, i|
+        condition = Condition.find(cc.condition_id)
+        user.profile.set_most_recent_condition_position(condition, cc.position || i)
+      end
+      latest_checkin.symptoms.each_with_index do |cs, i|
+        symptom = Symptom.find(cs.symptom_id)
+        user.profile.set_most_recent_symptom_position(symptom, cs.position || i)
+      end
+      latest_checkin.treatments.each_with_index do |ct, i|
+        treatment = Treatment.find(ct.treatment_id)
+        user.profile.set_most_recent_treatment_position(treatment, ct.position || i)
+      end
+      user.profile.save!
+    end
+  end
+
 end
