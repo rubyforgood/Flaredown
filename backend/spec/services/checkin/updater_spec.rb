@@ -160,6 +160,45 @@ RSpec.describe Checkin::Updater do
         end
       end
     end
+
+    context "when reordering trackables" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {
+            conditions_attributes: trackables_attrs
+          }
+        )
+      end
+      before do
+        # swap first and last trackable's positions
+        attrs = params[:checkin][:conditions_attributes]
+        attrs[0][:position] = attrs[trackables_attrs.length-1][:position]
+      end
+      context "on today's checkin" do
+        it "updates trackables positions in checkin and saves them in profile" do
+          params[:checkin][:conditions_attributes].each do |condition_attr|
+            checkin_condition = subject.conditions.find(condition_attr[:id])
+            expect(checkin_condition.position).to eq condition_attr[:position]
+            condition = Condition.find(condition_attr[:condition_id])
+            saved_position = user.profile.most_recent_trackable_position_for(condition)
+            expect(saved_position).to eq condition_attr[:position]
+          end
+        end
+      end
+      context "on a past checkin" do
+        before { checkin.update_attributes!(date: Date.today - 1.day) }
+        it "updates trackables positions in checkin but doesn't save them in profile" do
+          params[:checkin][:conditions_attributes].each do |condition_attr|
+            checkin_condition = subject.conditions.find(condition_attr[:id])
+            expect(checkin_condition.position).to eq condition_attr[:position]
+            condition = Condition.find(condition_attr[:condition_id])
+            saved_position = user.profile.most_recent_trackable_position_for(condition)
+            expect(saved_position).to eq nil
+          end
+        end
+      end
+    end
   end
 
 end

@@ -19,7 +19,10 @@ class Checkin::Updater
 
   def update!
     checkin.update_attributes!(permitted_params)
-    save_most_recent_doses if checkin.date.today?
+    if checkin.date.today?
+      save_most_recent_doses
+      save_most_recent_trackables_positions
+    end
     update_trackable_usages
     checkin
   end
@@ -58,6 +61,20 @@ class Checkin::Updater
       if added_trackable[:position].blank?
         max_position += 1
         added_trackable[:position] = max_position
+      end
+    end
+  end
+
+  def save_most_recent_trackables_positions
+    %w(condition symptom treatment).each do |trackable_type|
+      trackable_class = "#{trackable_type.capitalize}".constantize
+      trackables_attributes = permitted_params["#{trackable_type.pluralize}_attributes".to_sym]
+      next if trackables_attributes.blank?
+      trackables_attributes.each do |trackable_attrs|
+        trackable = trackable_class.find(trackable_attrs["#{trackable_type}_id".to_sym])
+        current_user.profile.set_most_recent_trackable_position(
+          trackable, trackable_attrs[:position]
+        )
       end
     end
   end
