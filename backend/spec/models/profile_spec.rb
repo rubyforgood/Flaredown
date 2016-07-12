@@ -33,6 +33,16 @@ RSpec.describe Profile do
   end
   describe 'Respond to' do
     it { is_expected.to respond_to(:birth_date) }
+    context 'most recent trackables positions' do
+      it { is_expected.to respond_to(:set_most_recent_trackable_position).with(2).arguments }
+      it { is_expected.to respond_to(:most_recent_trackable_position_for).with(1).argument }
+      it { is_expected.to respond_to(:set_most_recent_condition_position).with(2).arguments }
+      it { is_expected.to respond_to(:most_recent_condition_position_for).with(1).argument }
+      it { is_expected.to respond_to(:set_most_recent_symptom_position).with(2).arguments }
+      it { is_expected.to respond_to(:most_recent_symptom_position_for).with(1).argument }
+      it { is_expected.to respond_to(:set_most_recent_treatment_position).with(2).arguments }
+      it { is_expected.to respond_to(:most_recent_treatment_position_for).with(1).argument }
+    end
   end
   describe 'ethnicities' do
     context 'get' do

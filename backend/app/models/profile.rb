@@ -88,4 +88,33 @@ class Profile < ActiveRecord::Base
     self.most_recent_doses[treatment_id.to_s]
   end
 
+  def set_most_recent_trackable_position(trackable, position)
+    trackable_type = trackable.class.name.underscore
+    self.send("set_most_recent_#{trackable_type}_position", trackable, position)
+  end
+
+  def most_recent_trackable_position_for(trackable)
+    trackable_type = trackable.class.name.underscore
+    self.send("most_recent_#{trackable_type}_position_for", trackable)
+  end
+
+  %w(condition symptom treatment).each do |trackable_type|
+
+    define_method "set_most_recent_#{trackable_type}_position" do |trackable, position|
+      self.send(
+        "most_recent_#{trackable_type.pluralize}_positions"
+      )[trackable.id.to_s] = position.to_s
+    end
+
+    define_method "most_recent_#{trackable_type}_position_for" do |trackable|
+      trackables_positions = self.send("most_recent_#{trackable_type.pluralize}_positions")
+      if trackables_positions.blank?
+        return nil
+      else
+        return trackables_positions[trackable.id.to_s].to_i
+      end
+    end
+
+  end
+
 end
