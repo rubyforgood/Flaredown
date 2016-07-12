@@ -14,22 +14,23 @@ class Checkin::Creator
     treatment_attrs = []
     active_trackings.each do |tracking|
       trackable = tracking.trackable
+      most_recent_position = user.profile.most_recent_trackable_position_for(trackable)
       if trackable.is_a? Condition
         condition_attrs << {
           condition_id: trackable.id,
-          position: condition_attrs.length,
+          position: most_recent_position || condition_attrs.length,
           color_id: tracking.color_id
         }
       elsif trackable.is_a? Symptom
         symptom_attrs << {
           symptom_id: trackable.id,
-          position: symptom_attrs.length,
+          position: most_recent_position || symptom_attrs.length,
           color_id: tracking.color_id
         }
       elsif trackable.is_a? Treatment
         treatment_attrs << {
           treatment_id: trackable.id,
-          position: treatment_attrs.length,
+          position: most_recent_position || treatment_attrs.length,
           color_id: tracking.color_id,
           is_taken: false,
           value: user.profile.most_recent_dose_for(trackable.id)

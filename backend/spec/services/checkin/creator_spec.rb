@@ -49,6 +49,27 @@ RSpec.describe Checkin::Creator do
       end
     end
 
+    context "when recent position exists for a trackable in user's profile" do
+      before do
+        user.profile.set_most_recent_trackable_position(condition, 5)
+        user.profile.save!
+      end
+      it 'sets trackable position from profile on the new checkin' do
+        checkin_condition = subject.conditions[0]
+        expect(checkin_condition.condition_id).to eq condition.id
+        saved_position = user.profile.most_recent_trackable_position_for(condition)
+        expect(checkin_condition.position).to eq saved_position
+      end
+    end
+
+    context "when no recent position exists for a trackable in user's profile" do
+      before { create(:tracking, :active, :for_condition, user: user) }
+      it "sets positions with auto-increment counter starting by 1" do
+        positions = subject.conditions.map(&:position)
+        expect(positions.to_set).to eq [0,1].to_set
+      end
+    end
+
     context "when trackables never used before" do
       it "creates new usage records" do
         # For Condition
