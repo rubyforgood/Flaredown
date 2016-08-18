@@ -9,6 +9,11 @@ namespace :app do
     invite
   end
 
+  desc "flaredown | delete a user's account"
+  task delete_account: :environment do
+    delete_account
+  end
+
   class OperationAbortedException < StandardError; end
 
   def invite
@@ -59,4 +64,20 @@ namespace :app do
   rescue Interrupt
     raise OperationAbortedException
   end
+
+  def delete_account
+    puts "DANGER ZONE: This action can't be undone!".yellow
+    email = prompt "Please insert user's email address: "
+    user = User.find_by(email: email)
+    if user.nil?
+      puts "No user found for the entered email address".red
+    else
+      user.destroy!
+      puts "User account successfully deleted".blue
+    end
+  rescue OperationAbortedException
+    puts "\nQuitting..."
+    exit 1
+  end
+
 end
