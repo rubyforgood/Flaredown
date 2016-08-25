@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20160711182546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
   enable_extension "pg_trgm"
+  enable_extension "hstore"
 
   create_table "condition_translations", force: :cascade do |t|
     t.integer  "condition_id", null: false
