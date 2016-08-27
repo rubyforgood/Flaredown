@@ -73,6 +73,12 @@ class Profile < ActiveRecord::Base
     country.languages.first if country.present?
   end
 
+  def age
+    return if birth_date.nil?
+    _age = Date.today.year - birth_date.year
+    Date.today < birth_date + _age.years ? _age-1 : _age
+  end
+
   def ethnicity_ids
     ethnicity_ids_string.split(',') rescue []
   end
