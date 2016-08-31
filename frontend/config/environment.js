@@ -26,8 +26,6 @@ module.exports = function(environment) {
       'key': process.env.PUSHER_KEY
     },
 
-    'ember-cli-intercom': {
-      appId: process.env.INTERCOM_APP_ID
     },
 
     gReCaptcha: {
