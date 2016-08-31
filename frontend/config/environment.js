@@ -26,6 +26,8 @@ module.exports = function(environment) {
       'key': process.env.PUSHER_KEY
     },
 
+    userEngage: {
+      apiKey: process.env.USERENGAGE_API_KEY
     },
 
     gReCaptcha: {
