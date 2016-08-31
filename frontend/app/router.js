@@ -11,10 +11,23 @@ const Router = Ember.Router.extend({
 
   notifyPageChange() {
     Ember.run.scheduleOnce('afterRender', this, () => {
-      if (Ember.isPresent(window.AndroidInterface)) {
-        window.AndroidInterface.pageChanged(document.location.href);
-      }
+      this.userengagePageChange();
+      this.androidPageChange();
     });
+  },
+
+  session: Ember.inject.service(),
+  userengage: Ember.inject.service(),
+  userengagePageChange() {
+    if (this.get('session.isUserengageSet')) {
+      this.get('userengage').pageHit();
+    }
+  },
+
+  androidPageChange() {
+    if (Ember.isPresent(window.AndroidInterface)) {
+      window.AndroidInterface.pageChanged(document.location.href);
+    }
   }
 });
 
