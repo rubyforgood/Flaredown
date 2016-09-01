@@ -1,7 +1,7 @@
 <ul>
   {{#each tags as |tag|}}
     <li class="checkin-tag" {{action "clicked" tag}}>
-      <img class="checkin-tag-pointer" src="{{rootURL}}assets/tag-point.svg">
+      <img class="checkin-tag-pointer" src="{{router.rootURL}}assets/tag-point.svg">
       <div class="checkin-tag-text">{{tag.name}}</div>
     </li>
   {{/each}}
