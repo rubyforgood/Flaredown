@@ -13,6 +13,6 @@
     "d3": "~3.5.13",
     "momentjs": "~2.11",
     "moment-range": "~2.1.0",
-    "drag-drop-polyfill": "~2.0.0-beta.0"
+    "drag-drop-polyfill": "~2.0.0-beta.1"
   }
 }
