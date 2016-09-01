@@ -27,6 +27,13 @@ module ExceptionLogger
       log_exception(exception)
       render json: { errors: ['Unauthorized'] }, status: :unauthorized
     end
+
+    if Rails.env.staging? || Rails.env.production?
+      rescue_from :all do |exception|
+        Rollbar.error(exception)
+        render json: { errors: exception.message }, status: :unprocessable_entity
+      end
+    end
   end
 
   protected
