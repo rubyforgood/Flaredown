@@ -28,7 +28,7 @@ module ExceptionLogger
       render json: { errors: ['Unauthorized'] }, status: :unauthorized
     end
 
-    if Rails.env.staging? || Rails.env.production?
+    if Rails.env.production?
       rescue_from Exception do |exception|
         Airbrake.notify(exception)
         render json: { errors: exception.message }, status: :unprocessable_entity
