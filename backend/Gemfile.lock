@@ -45,6 +45,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    airbrake (5.4.5)
+      airbrake-ruby (~> 1.4)
+    airbrake-ruby (1.4.6)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -223,8 +226,6 @@ GEM
     redis (3.2.2)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
-    rollbar (2.12.0)
-      multi_json
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -290,6 +291,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
+  airbrake (~> 5.4)
   annotate (~> 2.6)
   awesome_print (~> 1.6)
   better_errors (~> 2.1)
@@ -323,7 +325,6 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails-api
   rails_12factor
-  rollbar
   rspec-rails (~> 3.3.0)
   rubocop (~> 0.35.0)
   seedbank
