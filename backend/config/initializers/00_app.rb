@@ -27,7 +27,7 @@ module Flaredown
     end
 
     def enable_airbrake?
-      Rails.env.production? || Rails.env.staging?
+      Rails.env.production?
     end
 
     def discourse_enabled?
