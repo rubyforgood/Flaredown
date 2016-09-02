@@ -29,7 +29,7 @@ module ExceptionLogger
     end
 
     if Rails.env.staging? || Rails.env.production?
-      rescue_from :all do |exception|
+      rescue_from Exception do |exception|
         Airbrake.notify(exception)
         render json: { errors: exception.message }, status: :unprocessable_entity
       end
