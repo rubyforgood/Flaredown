@@ -50,7 +50,7 @@ Airbrake.configure do |c|
   # replaced.
   # https://github.com/airbrake/airbrake-ruby#blacklist_keys
   c.blacklist_keys = [/password/i]
-end
+end if Flaredown.config.enable_airbrake?
 
 # If Airbrake doesn't send any expected exceptions, we suggest to uncomment the
 # line below. It might simplify debugging of background Airbrake workers, which
