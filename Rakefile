@@ -25,8 +25,8 @@ namespace :production do
 
   desc "deploy application"
   task :deploy do
-    system("git subtree push --prefix backend git@heroku.com:flaredown-api.git master")
-    system("git subtree push --prefix frontend git@heroku.com:flaredown-webapp.git master")
+    system("git push git@heroku.com:flaredown-api.git `git subtree split --prefix backend master`:master --force")
+    system("git push git@heroku.com:flaredown-webapp.git `git subtree split --prefix frontend master`:master --force")
     system("heroku run rake db:migrate --app flaredown-api")
   end
 
@@ -51,8 +51,8 @@ namespace :staging do
 
   desc "deploy application"
   task :deploy do
-    system("git subtree push --prefix backend git@heroku.com:flaredown-staging-api.git master")
-    system("git subtree push --prefix frontend git@heroku.com:flaredown-staging-webapp.git master")
+    system("git push git@heroku.com:flaredown-staging-api.git `git subtree split --prefix backend master`:master --force")
+    system("git push git@heroku.com:flaredown-staging-webapp.git `git subtree split --prefix frontend master`:master --force")
     system("heroku run rake db:migrate --app flaredown-staging-api")
   end
 
