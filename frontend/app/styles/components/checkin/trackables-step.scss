@@ -2,19 +2,22 @@
   .trackable-row {
     .draggable-dropzone {
       height: 1.5em;
+      overflow: visible;
       &.activated {
         height: 5em;
-        background-color: $lightgrey;
-        border-radius: 5px;
-        border: 3px dashed $primary;
+        background-color: lighten($primary,20%);
+        border: 2px dashed $primary;
       }
       &.deactivated {
-        background-color: white;
+        background-color: transparent;
       }
     }
     .draggable-item {
       &.activated {
-        box-shadow: 0 10px 0 5px lightgrey;
+        background: white;
+        position: relative;
+        outline: 1px solid $grey;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       }
     }
   }
