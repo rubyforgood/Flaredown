@@ -14,8 +14,7 @@
     }
     .draggable-item {
       &.activated {
-        border-radius: 5px;
-        border: 3px dashed $primary;
+        box-shadow: 0 10px 0 5px lightgrey;
       }
     }
   }

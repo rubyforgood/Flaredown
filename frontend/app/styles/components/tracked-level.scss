@@ -3,7 +3,6 @@
     li {
       position: relative;
       display: inline-block;
-      margin-right: 4px;
       border-radius: 5px;
       width: 15%;
       max-width: 50px;
@@ -75,6 +74,7 @@
   }
   h4 {
     position: relative;
-    display: inline;
+    display: inline-block;
+    margin-bottom: 10px;
   }
 }
