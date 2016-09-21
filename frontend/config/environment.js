@@ -35,7 +35,7 @@ module.exports = function(environment) {
     },
 
     'full-story': {
-      enabled: process.env.FULLSTORY_ENABLED,
+      enabled: process.env.FULLSTORY_ENABLED === 'true',
       org: process.env.FULLSTORY_ORG
     },
 
