@@ -10,11 +10,12 @@ export default Ember.Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
       default route is the last completed onboarding step
     Else
       If the user has already checked-in today
-        default route when they open the app should be the chart
+        default route should be start screen of today's check-in
       Else
-        default route should be today's check-in
+        default route should be summary screen of today's check-in
   */
   beforeModel(transition) {
+    transition.abort();
     if (this.get('session.isAuthenticated')) {
       this.get('session.currentUser').then(currentUser => {
         currentUser.get('profile').then(profile => {
@@ -23,15 +24,13 @@ export default Ember.Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
               var date = moment(new Date()).format('YYYY-MM-DD');
               this.checkinByDate(date).then(
                 () => {
-                  return this._super(...arguments);
+                  this.routeToCheckin(date);
                 },
                 () => {
-                  transition.abort();
                   this.routeToNewCheckin(date);
                 }
               );
             } else {
-              transition.abort();
               this.transitionTo("onboarding", step.get('key'));
             }
           });
