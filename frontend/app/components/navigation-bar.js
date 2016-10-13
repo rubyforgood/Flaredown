@@ -48,7 +48,7 @@ export default Ember.Component.extend(CheckinByDate, {
 
     goToChart() {
       this.hideSlidingPanel();
-      this.router.transitionTo('index');
+      this.router.transitionTo('chart');
     },
 
     goToDiscourse() {
