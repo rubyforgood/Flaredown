@@ -17,6 +17,6 @@ export default Ember.Component.extend(StepControl, {
 
   // Needed by StepControlMixin
   stepKey: 'model.currentStep',
-  routeAfterCompleted: 'index'
+  routeAfterCompleted: 'chart'
 
 });
