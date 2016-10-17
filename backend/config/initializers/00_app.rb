@@ -3,16 +3,8 @@ module Flaredown
     Flaredown::Settings.instance
   end
 
-  def self.session
-    Flaredown::Session.instance
-  end
-
   def self.pusher
     PusherClient.instance
-  end
-
-  class Session
-    include Singleton, ActiveModel::Serialization
   end
 
   class Settings

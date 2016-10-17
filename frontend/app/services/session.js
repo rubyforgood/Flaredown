@@ -8,23 +8,20 @@ export default SessionService.extend({
   email: Ember.computed.alias('session.authenticated.email'),
   token: Ember.computed.alias('session.authenticated.token'),
 
-  notificationChannel: Ember.computed.alias('extraSession.notificationChannel'),
+  settings: Ember.computed.alias('session.authenticated.settings'),
 
-  discourseUrl: Ember.computed.alias('extraSession.discourseUrl'),
-  discourseEnabled: Ember.computed.alias('extraSession.discourseEnabled'),
+  notificationChannel: Ember.computed.alias('settings.notificationChannel'),
 
-  setCurrentUser: Ember.on('init', Ember.observer('isAuthenticated', function() {
-    var userId = this.get('userId');
-    if (Ember.isPresent(userId)) {
-      this.set('currentUser', this.get('dataStore').find('user', userId));
+  discourseUrl: Ember.computed.alias('settings.discourseUrl'),
+  discourseEnabled: Ember.computed.alias('settings.discourseEnabled'),
+
+  currentUser: Ember.computed('isAuthenticated', function() {
+    if (this.get('isAuthenticated')) {
+      return this.get('dataStore').find('user', this.get('session.authenticated.user_id'));
     } else {
-      this.set('currentUser', null);
+      return null;
     }
-  })),
-
-  setExtraSession: Ember.on('init', Ember.observer('currentUser', function() {
-    this.set('extraSession', this.get('dataStore').find('session', 1));
-  })),
+  }),
 
   isUserengageSet: false,
   userengage: Ember.inject.service(),

@@ -15,7 +15,7 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def handle_omniauth
     user = User.find_for_database_authentication(email: email_param)
     if user && user.invitation_token.nil?
-      render json: user, root: false, serializer: AuthorizationSerializer
+      render json: user, root: false, serializer: SessionSerializer
     else
       render json: { errors: 'User not found' }, status: 401
     end
