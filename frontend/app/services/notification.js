@@ -4,10 +4,15 @@ export default Ember.Service.extend({
   pusher: Ember.inject.service(),
   session: Ember.inject.service(),
 
-  notificationChannel: Ember.computed.alias('session.extraSession.notificationChannel'),
+  notificationChannel: Ember.computed.alias('session.settings.notificationChannel'),
   notifications: Ember.A([]),
 
-  subscribe: Ember.on('init', Ember.observer('notificationChannel', function(){
+  init() {
+    this._super(...arguments);
+    this.subscribe();
+  },
+
+  subscribe() {
     var notificationChannel = this.get('notificationChannel');
 
     if(Ember.isPresent(notificationChannel)) {
@@ -17,7 +22,7 @@ export default Ember.Service.extend({
         }
       });
     }
-  })),
+  },
 
   handleEvent(data) {
     Ember.debug("notificatonEvent: " +  Ember.inspect(data));
