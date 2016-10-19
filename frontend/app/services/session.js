@@ -60,8 +60,8 @@ export default SessionService.extend({
     }
   })),
 
-  setDeviceType: Ember.on('init', function() {
-    this.set('isMobileDevice', /iPad|iPhone|iPod|Android/.test(navigator.userAgent));
+  isMobileDevice: Ember.computed(function() {
+    return /iPad|iPhone|iPod|Android/.test(navigator.userAgent);
   })
 
 });
