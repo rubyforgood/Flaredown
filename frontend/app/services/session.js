@@ -45,6 +45,7 @@ export default SessionService.extend({
     } else {
       if (this.get('isUserengageSet')) {
         this.get('userengage').destroy();
+        this.set('isUserengageSet', false);
       }
     }
   })),
