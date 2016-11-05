@@ -27,7 +27,7 @@ export default Ember.Mixin.create(AuthenticatedRouteMixin, {
             education_level: profile.get('educationLevel.id'),
             onboarded: profile.get('isOnboarded')
           });
-          this.set('session.isUserengageSet', true);
+          this.set('session.userEngageInitialized', true);
         });
       });
     }
