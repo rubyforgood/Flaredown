@@ -89,7 +89,7 @@ Rails.application.routes.draw do
       #
       # Sessions
       #
-      resources :sessions, only: [:show, :create]
+      resources :sessions, only: [:create]
 
       #
       # Sexes

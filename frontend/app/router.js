@@ -2,33 +2,7 @@ import Ember from 'ember';
 import config from './config/environment';
 
 const Router = Ember.Router.extend({
-  location: config.locationType,
-
-  didTransition() {
-    this._super(...arguments);
-    this.notifyPageChange();
-  },
-
-  notifyPageChange() {
-    Ember.run.scheduleOnce('afterRender', this, () => {
-      this.userengagePageChange();
-      this.androidPageChange();
-    });
-  },
-
-  session: Ember.inject.service(),
-  userengage: Ember.inject.service(),
-  userengagePageChange() {
-    if (this.get('session.isUserengageSet')) {
-      this.get('userengage').pageHit();
-    }
-  },
-
-  androidPageChange() {
-    if (Ember.isPresent(window.AndroidInterface)) {
-      window.AndroidInterface.pageChanged(document.location.href);
-    }
-  }
+  location: config.locationType
 });
 
 Router.map(function() {
