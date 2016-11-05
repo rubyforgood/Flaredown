@@ -39,6 +39,7 @@ export default Ember.Mixin.create(AuthenticatedRouteMixin, {
       currentUser.then( user => {
         if (Ember.isPresent(window.FS)) {
           window.FS.identify(user.get('id'));
+          this.set('session.fullStoryInitialized', true);
         }
       });
     }
