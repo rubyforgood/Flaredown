@@ -53,7 +53,7 @@ export default Ember.Mixin.create(AuthenticatedRouteMixin, {
 
   userengagePageChange() {
     if (this.get('session.userEngageInitialized')) {
-      this.get('userengage').pageHit();
+      this.get('session.userEngage').pageHit();
     }
   },
 
