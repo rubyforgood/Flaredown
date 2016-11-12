@@ -2,6 +2,14 @@ module ExceptionLogger
   extend ActiveSupport::Concern
 
   included do
+    # keep this on top
+    if Rails.env.production?
+      rescue_from Exception do |exception|
+        Airbrake.notify(exception)
+        render json: { errors: exception.message }, status: :unprocessable_entity
+      end
+    end
+
     rescue_from ActiveRecord::RecordNotFound, Mongoid::Errors::DocumentNotFound do
       render json: { errors: ['Resource Not Found'] }, status: 404
     end
@@ -26,13 +34,6 @@ module ExceptionLogger
     rescue_from CanCan::AccessDenied do |exception|
       log_exception(exception)
       render json: { errors: ['Unauthorized'] }, status: :unauthorized
-    end
-
-    if Rails.env.production?
-      rescue_from Exception do |exception|
-        Airbrake.notify(exception)
-        render json: { errors: exception.message }, status: :unprocessable_entity
-      end
     end
   end
 
