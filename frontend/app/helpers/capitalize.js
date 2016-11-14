@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export function capitalize(params/*, hash*/) {
-  return params[0].capitalize();
+  return Ember.String.capitalize(params[0]);
 }
 
 export default Ember.Helper.helper(capitalize);
