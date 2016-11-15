@@ -2,7 +2,6 @@
 @import "bitters/base";
 @import "neat";
 
-
 @import "fonts";
 @import "variables";
 @import "mixins";
@@ -11,6 +10,8 @@
 @import "global";
 @import "colorable";
 @import "spinner";
+
+@import "ember-power-select";
 
 /* Keep in alphabetical order */
 @import "components/add-trackings";
