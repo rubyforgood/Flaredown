@@ -20,10 +20,16 @@
 
   {{#form-field for="educationLevel"
                 label="Highest level of education completed"}}
-    {{select-field resource="educationLevel" async=false
-                   selection=profile.educationLevel
-                   placeholder="Select one option"
-                   class="fs-private"}}
+    {{#power-select options=educationLevels
+                    placeholder="Select one option"
+                    selected=profile.educationLevel
+                    onchange=(action (mut profile.educationLevel))
+                    renderInPlace=true
+                    searchEnabled=false
+                    class="fs-private"
+                    as |educationLevel| }}
+      {{educationLevel.name}}
+    {{/power-select}}
   {{/form-field}}
 
   {{#form-field for="dayWalkingHours"
