@@ -7,10 +7,16 @@
   {{/unless}}
 
   {{#form-field for="country" label="Country"}}
-    {{select-field resource="country" async=false
-                   selection=model.country
-                   placeholder="Select a country"
-                   class="fs-private"}}
+    {{#power-select options=countries
+                    placeholder="Select a country"
+                    selected=model.country
+                    onchange=(action (mut model.country))
+                    renderInPlace=true
+                    searchEnabled=false
+                    class="fs-private"
+                    as |country| }}
+      {{country.name}}
+    {{/power-select}}
   {{/form-field}}
 
   {{#form-field for="birthDate" label="Birth Date"}}

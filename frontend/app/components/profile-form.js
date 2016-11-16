@@ -4,7 +4,9 @@ export default Ember.Component.extend({
 
   selectableData: Ember.inject.service('selectable-data'),
 
-  countries: Ember.computed.alias('selectableData.countries'),
+  countrySorting: ['name:asc'],
+  countries: Ember.computed.sort('selectableData.countries', 'countrySorting'),
+
   sexes: Ember.computed.alias('selectableData.sexes'),
 
   setSelectedSexId: Ember.on('didInsertElement', function() {
