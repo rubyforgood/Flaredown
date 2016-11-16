@@ -9,6 +9,10 @@ export default Ember.Component.extend({
     return this.store.findAll('educationLevel');
   }),
 
+  ethnicities: Ember.computed(function() {
+    return this.store.findAll('ethnicity');
+  }),
+
   actions: {
     completeStep() {
       this.get('profile').save().then( () => {

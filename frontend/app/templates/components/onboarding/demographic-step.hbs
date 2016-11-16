@@ -2,11 +2,15 @@
 
   {{#form-field for="ethnicities"
                 label="Ethnic Origin"}}
-    {{select-field resource="ethnicity" async=false
-                   multiple=true
-                   selection=profile.ethnicities
-                   placeholder="Select all that apply"
-                   class="fs-private"}}
+    {{#power-select-multiple options=ethnicities
+                             placeholder="Select all that apply"
+                             selected=profile.ethnicities
+                             onchange=(action (mut profile.ethnicities))
+                             renderInPlace=true
+                             searchEnabled=false
+                             class="fs-private" as |ethnicity| }}
+      {{ethnicity.name}}
+    {{/power-select-multiple}}
   {{/form-field}}
 
   {{#form-field for="dayHabit"
@@ -26,8 +30,7 @@
                     onchange=(action (mut profile.educationLevel))
                     renderInPlace=true
                     searchEnabled=false
-                    class="fs-private"
-                    as |educationLevel| }}
+                    class="fs-private" as |educationLevel| }}
       {{educationLevel.name}}
     {{/power-select}}
   {{/form-field}}
