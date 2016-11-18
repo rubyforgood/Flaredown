@@ -15,11 +15,16 @@
 
   {{#form-field for="dayHabit"
                 label="How you spend most of your day?"}}
-    {{select-field resource="dayHabit" async=false
-                   selection=profile.dayHabit
-                   placeholder="Select one option"
-                   optionComponent="enum-select-option"
-                   class="fs-private"}}
+    {{#power-select options=dayHabits
+                    placeholder="Select one option"
+                    selected=profile.dayHabit
+                    selectedItemComponent="power-select/selected-name"
+                    onchange=(action (mut profile.dayHabit))
+                    renderInPlace=true
+                    searchEnabled=false
+                    class="fs-private" as |dayHabit| }}
+      {{power-select/dropdown-name-desc option=dayHabit}}
+    {{/power-select}}
   {{/form-field}}
 
   {{#form-field for="educationLevel"

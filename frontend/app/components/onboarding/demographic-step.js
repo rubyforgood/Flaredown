@@ -13,6 +13,10 @@ export default Ember.Component.extend({
     return this.store.findAll('ethnicity');
   }),
 
+  dayHabits: Ember.computed(function() {
+    return this.store.findAll('dayHabit');
+  }),
+
   actions: {
     completeStep() {
       this.get('profile').save().then( () => {
