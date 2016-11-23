@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(SearchableDropdown, {
 
   selectPlaceholder: Ember.computed('isSelectFocused', function() {
     if (this.get('isSelectFocused')) {
@@ -27,6 +28,12 @@ export default Ember.Component.extend({
       } else {
         this.onSelected(selectedTag);
       }
+    },
+    searchTags(term) {
+      return this.searchByTerm('tag', term);
+    },
+    handleChange() {
+      Ember.Logger.debug('TODO');
     },
     clicked(tag) {
       this.get('onClicked')(tag);

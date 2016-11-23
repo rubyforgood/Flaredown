@@ -7,12 +7,9 @@
   {{/each}}
 </ul>
 
-{{select-field resource="tag"
-               selection=selectedTag
-               onSelect=(action "selected")
-               create=true
-               randomItemsOnInit=false
-               placeholder=selectPlaceholder
-               onFocus=(action "toggleSelectFocused")
-               onBlur=(action "toggleSelectFocused")
-               class="flat" }}
+{{#power-select placeholder=selectPlaceholder
+                search=(action "searchTags")
+                onchange=(action "handleChange")
+                renderInPlace=true as |tag| }}
+  {{tag.name}}
+{{/power-select}}
