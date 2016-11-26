@@ -7,11 +7,13 @@
   {{/each}}
 </ul>
 
-{{#power-select-with-create placeholder=selectPlaceholder
-                            search=(action "searchTags")
+{{#power-select-with-create search=(action "searchTags")
                             onchange=(action "handleChange")
                             oncreate=(action "createTag")
                             showCreateWhen=(action "shouldShowCreateOption")
+                            placeholder=selectPlaceholder
+                            onfocus=(action "handleFocus")
+                            onblur=(action "handleBlur")
                             renderInPlace=true
                             as |tag| }}
   {{tag.name}}

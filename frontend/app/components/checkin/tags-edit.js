@@ -3,8 +3,10 @@ import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 export default Ember.Component.extend(SearchableDropdown, {
 
+  isSelectFocused: false,
+
   selectPlaceholder: Ember.computed('isSelectFocused', function() {
-    if (this.get('isSelectFocused')) {   //TODO: make this work with EPS
+    if (this.get('isSelectFocused')) {
       return 'Start typing a tag';
     } else {
       return 'Add a tag';
@@ -14,6 +16,18 @@ export default Ember.Component.extend(SearchableDropdown, {
   actions: {
     toggleSelectFocused() {
       this.toggleProperty('isSelectFocused');
+    },
+    handleFocus() {
+      // TODO remove debug log when this is fixed:
+      // https://github.com/cibernox/ember-power-select/issues/739
+      Ember.Logger.debug('focus');
+      this.set('isSelectFocused', true);
+    },
+    handleBlur() {
+      // TODO remove debug log when this is fixed:
+      // https://github.com/cibernox/ember-power-select/issues/739
+      Ember.Logger.debug('blur');
+      this.set('isSelectFocused', false);
     },
     searchTags(term) {
       return this.searchByTerm('tag', term);
