@@ -154,7 +154,7 @@ export default Ember.Component.extend(TrackablesFromType, {
       let randomColor = '';
       do {
         randomColor = Math.floor(Math.random()*nColors)+'';
-      } while (usedColorIds.contains(randomColor));
+      } while (usedColorIds.includes(randomColor));
       return randomColor;
     }
   },
