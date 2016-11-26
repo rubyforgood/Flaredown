@@ -17,13 +17,7 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   actions: {
     trackSelected(selectedTrackable) {
-      if (Ember.isPresent(selectedTrackable.get('id'))) {
-        this.track(selectedTrackable);
-      } else {
-        selectedTrackable.save().then( savedTrackable => {
-          this.track(savedTrackable);
-        });
-      }
+      this.track(selectedTrackable);
     },
     remove(tracking) {
       this.get('tracking').untrack({

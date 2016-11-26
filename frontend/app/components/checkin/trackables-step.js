@@ -45,13 +45,7 @@ export default Ember.Component.extend(TrackablesFromType, {
     },
 
     add(selectedTrackable) {
-      if (Ember.isPresent(selectedTrackable.get('id'))) {
-        this.shouldAddTrackable(selectedTrackable);
-      } else {
-        selectedTrackable.save().then( savedTrackable => {
-          this.shouldAddTrackable(savedTrackable);
-        });
-      }
+      this.shouldAddTrackable(selectedTrackable);
     },
 
     move(draggedId, droppedId) {

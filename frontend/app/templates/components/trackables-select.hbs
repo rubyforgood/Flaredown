@@ -1,11 +1,15 @@
-{{select-field resource=trackableType
-               selection=selected
-               onSelect=(action "onSelectAction")
-               create=true
-               randomItemsOnInit=true
-               placeholder=placeholder
-               onFocus=(action "toggleSelectFocused")
-               onBlur=(action "toggleSelectFocused")
-               class="flat"
-               optionComponent="select-field/trackable-select-option"
-               optionCreateComponent=optionCreateComponent }}
+{{#power-select-with-create options=randomTrackables
+                            search=(action "searchTrackables")
+                            onchange=(action "handleChange")
+                            oncreate=(action "createTrackable")
+                            showCreateWhen=(action "shouldShowCreateOption")
+                            selectedItemComponent="power-select/selected-name"
+                            buildSuggestion=(action "handleBuildSuggestion")
+                            placeholder=placeholder
+                            onfocus=(action "handleFocus")
+                            onblur=(action "handleBlur")
+                            renderInPlace=true
+                            class="flat"
+                            as |trackable| }}
+  {{power-select/dropdown-trackable trackable=trackable}}
+{{/power-select-with-create}}
