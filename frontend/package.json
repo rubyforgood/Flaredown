@@ -44,7 +44,7 @@
     "ember-export-application-global": "^1.0.5",
     "ember-g-recaptcha": "0.4.0",
     "ember-load-initializers": "^0.5.1",
-    "ember-power-select": "1.0.0-beta.30",
+    "ember-power-select": "1.0.0-beta.31",
     "ember-power-select-with-create": "0.2.2",
     "ember-radio-button": "1.0.7",
     "ember-resolver": "^2.0.3",
