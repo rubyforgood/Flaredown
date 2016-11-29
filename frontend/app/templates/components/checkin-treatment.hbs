@@ -8,16 +8,20 @@
 {{#if isTaken}}
   {{#if isEditMode}}
 
-    {{select-field resource="dose"
-                   defaultQueryParams=doseQueryParams
-                   openOnFocus=false
-                   selection=(mut dose)
-                   onSelect=(action "doneEditing")
-                   onBlur=(action "cancelEditing")
-                   create=true
-                   plugins="restore_on_backspace,remove_button"
-                   placeholder="e.g. 2 x 30mg"
-                   class=(concat "indented dose-field " model.borderClass) }}
+    {{#power-select-with-create options=allTreatmentDoses
+                                search=(action "searchDoses")
+                                onchange=(action "handleChange")
+                                oncreate=(action "createDose")
+                                showCreateWhen=(action "shouldShowCreateOption")
+                                selected=dose
+                                placeholder="e.g. 2 x 30mg"
+                                onfocus=(action "handleFocus")
+                                onblur=(action "handleBlur")
+                                renderInPlace=true
+                                class=(concat "indented dose-field " model.borderClass)
+                                as |dose| }}
+      {{dose.name}}
+    {{/power-select-with-create}}
 
   {{else}}
     <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>

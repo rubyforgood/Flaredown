@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(SearchableDropdown, {
 
   classNames: ['checkin-treatment'],
 
@@ -13,16 +14,18 @@ export default Ember.Component.extend({
     this.get('onIsTakenChanged')();
   }),
 
-  doseQueryParams: Ember.computed('treatment', function() {
-    return {treatment_id: this.get('treatment.id')};
+  allTreatmentDoses: Ember.computed('treatment', function() {
+    return this.customSearch({
+      resource: 'dose',
+      query: {
+        treatment_id: this.get('treatment.id')
+      }
+    });
   }),
 
-  unsetEditMode() {
-    // we need to wait before unsetting edit mode
-    // to avoid selectize being destroyed too early
-    Ember.run.later(() => {
-      this.set('isEditMode', false);
-    }, 100);
+  changeDose(newDose) {
+    this.get('model').set('dose', newDose);
+    this.set('isEditMode', false);
   },
 
   actions: {
@@ -36,27 +39,46 @@ export default Ember.Component.extend({
 
     edit() {
       this.set('isEditMode', true);
-      Ember.run.next(() => {
-        this.$('input').focus();
-      });
-    },
-
-    doneEditing() {
-      if (Ember.isPresent(this.get('dose'))) {
-        this.get('onDoseChanged')();
-        this.unsetEditMode();
-      }
-    },
-
-    cancelEditing() {
-      this.unsetEditMode();
+      // TODO: auto-focus the select
     },
 
     clearDose() {
-      this.get('model').set('dose', null);
+      this.changeDose(null);
       this.get('onDoseChanged')();
-      this.unsetEditMode();
-    }
+    },
 
+    searchDoses(term) {
+      return this.customSearch({
+        resource: 'dose',
+        query: {
+          treatment_id: this.get('treatment.id'),
+          name: term
+        }
+      });
+    },
+
+    handleChange(dose) {
+      this.changeDose(dose);
+      this.get('onDoseChanged')(dose);
+    },
+
+    createDose(name) {
+      let dose = this.createRecord('dose', name);
+      this.changeDose(dose);
+      this.get('onDoseChanged')(dose);
+    },
+
+    handleFocus() {
+      // TODO remove debug log when this is fixed:
+      // https://github.com/cibernox/ember-power-select/issues/739
+      Ember.Logger.debug('focus');
+      this.set('isSelectFocused', true);
+    },
+    handleBlur() {
+      // TODO remove debug log when this is fixed:
+      // https://github.com/cibernox/ember-power-select/issues/739
+      Ember.Logger.debug('blur');
+      this.set('isSelectFocused', false);
+    }
   }
 });
