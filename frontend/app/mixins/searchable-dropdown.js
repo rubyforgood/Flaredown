@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 
   searchByTerm(resource, term) {
-    return this._search({
+    return this.customSearch({
       resource: resource,
       query: {
         name: term
@@ -12,16 +12,25 @@ export default Ember.Mixin.create({
   },
 
   randomSearch(resource) {
-    return this._search({
+    return this.customSearch({
       resource: resource,
       scope: 'random'
     });
   },
 
+  customSearch(params) {
+    return this.store.queryRecord('search', params).then((searchRecord) => {
+      return searchRecord.get('searchables');
+    });
+  },
+
+  createRecord(resource, term) {
+    return this.store.createRecord(resource, { name: term });
+  },
+
   createAndSave(resource, term) {
     return new Ember.RSVP.Promise((resolve, reject) => {
-      let record = this.store.createRecord(resource, { name: term });
-      record.save().then(function(saved) {
+      this.createRecord(resource, term).save().then(function(saved) {
         resolve(saved);
       }, function() {
         reject(...arguments);
@@ -36,15 +45,6 @@ export default Ember.Mixin.create({
       });
       return !Ember.isPresent(foundOption);
     }
-  },
-
-
-  // Private Functions
-
-  _search(params) {
-    return this.store.queryRecord('search', params).then((searchRecord) => {
-      return searchRecord.get('searchables');
-    });
   }
 
 });
