@@ -17,54 +17,68 @@ task :run do
   end
 end
 
-namespace :production do
-  desc "restart application"
-  task :restart do
-    system("heroku restart --app flaredown-api")
-  end
+{
+  production: 'flaredown',
+  staging: 'flaredown-staging'
+}.each do |env, application|
+  namespace env.to_sym do
+    desc "restart application"
+    task :restart do
+      log "Restart #{application}"
+      restart "#{application}-api"
+    end
 
-  desc "deploy application"
-  task :deploy do
-    system("git push git@heroku.com:flaredown-api.git `git subtree split --prefix backend master`:master --force")
-    system("git push git@heroku.com:flaredown-webapp.git `git subtree split --prefix frontend master`:master --force")
-    system("heroku run rake db:migrate --app flaredown-api")
-  end
+    desc "deploy application"
+    task :deploy do
+      Rake::Task["#{env.to_s}:deploy:backend"].invoke
+      Rake::Task["#{env.to_s}:deploy:frontend"].invoke
+    end
 
-  desc "setup application"
-  task :setup do
-    system("heroku pg:reset DATABASE --app flaredown-api --confirm flaredown-api")
-    system("heroku run rake app:setup --app flaredown-api")
-  end
+    namespace :deploy do
+      desc "deploy frontend application"
+      task :frontend do
+        log "Deploy fontend #{application} with revision: #{revision}"
+        deploy_to "git@heroku.com:#{application}-webapp.git",  'frontend'
+      end
 
-  desc "invite user to join into application"
-  task :invite do
-    system("heroku run rake app:invite --app flaredown-api")
+      desc "deploy backend application"
+      task :backend do
+        log "Deploy backend #{application} with revision: #{revision}"
+        deploy_to "git@heroku.com:#{application}-api.git",  'backend'
+        migrate "#{application}-api"
+      end
+    end
+
+    desc "setup application"
+    task :setup do
+      system("heroku pg:reset DATABASE --app #{application}-api --confirm #{application}-api")
+      system("heroku run rake app:setup --app #{application}-api")
+    end
+
+    desc "invite user to join into application"
+    task :invite do
+      system("heroku run rake app:invite --app #{application}-api")
+    end
   end
 
 end
 
-namespace :staging do
-  desc "restart application"
-  task :restart do
-    system("heroku restart --app flaredown-staging-api")
-  end
+def deploy_to(remote, subtree)
+  system("git push #{remote} `git subtree split --prefix #{subtree} #{revision}`:master --force")
+end
 
-  desc "deploy application"
-  task :deploy do
-    system("git push git@heroku.com:flaredown-staging-api.git `git subtree split --prefix backend master`:master --force")
-    system("git push git@heroku.com:flaredown-staging-webapp.git `git subtree split --prefix frontend master`:master --force")
-    system("heroku run rake db:migrate --app flaredown-staging-api")
-  end
+def migrate(application)
+  system("heroku run rake db:migrate --app #{application}")
+end
 
-  desc "setup application"
-  task :setup do
-    system("heroku pg:reset DATABASE --app flaredown-staging-api --confirm flaredown-staging-api")
-    system("heroku run rake app:setup --app flaredown-staging-api")
-  end
+def restart(application)
+  system("heroku restart --app #{application}")
+end
 
-  desc "invite user to join into application"
-  task :invite do
-    system("heroku run rake app:invite --app flaredown-staging-api")
-  end
+def revision
+  ENV.fetch('REVISION') {'master'}
+end
 
+def log(message)
+  puts ">>> #{message}"
 end
