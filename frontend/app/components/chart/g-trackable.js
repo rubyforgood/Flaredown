@@ -1,40 +1,47 @@
 import Ember from 'ember';
-import HealthChartComponent from '../health-chart';
 
 export default Ember.Component.extend( {
   tagName: 'g',
   classNames: 'chart',
   attributeBindings: ['transform'],
 
-  padding: Ember.computed.alias('parentView.seriePadding'),
-  height: Ember.computed.alias('parentView.serieHeight'),
-  width: Ember.computed.alias('parentView.seriesWidth'),
+  padding: Ember.computed(function() {
+    return this.get('parentView.seriePadding');
+  }).volatile(),
 
-  checkins: Ember.computed.alias('parentView.checkins'),
-  timeline: Ember.computed.alias('parentView.timeline'),
-  startAt: Ember.computed.alias('parentView.startAt'),
-  endAt: Ember.computed.alias('parentView.endAt'),
+  height: Ember.computed(function() {
+    return this.get('parentView.serieHeight');
+  }).volatile(),
 
+  width: Ember.computed(function() {
+    return this.get('parentView.seriesWidth');
+  }).volatile(),
+
+  checkins: Ember.computed(function() {
+    return this.get('parentView.checkins');
+  }).volatile(),
+
+  timeline: Ember.computed(function() {
+    return this.get('parentView.timeline');
+  }).volatile(),
+
+  startAt: Ember.computed(function() {
+    return this.get('parentView.startAt');
+  }).volatile(),
+
+  endAt: Ember.computed(function() {
+    return this.get('parentView.endAt');
+  }).volatile(),
 
   type: 'line',
   isLineSerie: Ember.computed.equal('type', 'line'),
   isSymbolSerie: Ember.computed.equal('type', 'symbol'),
 
-  onDidInsertElement: Ember.on('didInsertElement', function() {
+  init() {
+    this._super(...arguments);
     Ember.run.scheduleOnce('afterRender', () => {
-      this.shouldAlwaysBeWithinAHelthChartComponent();
       this.drawAxis();
     });
-  }),
-
-  shouldAlwaysBeWithinAHelthChartComponent() {
-    var parentView = this.get('parentView');
-    var elementId = this.get('elementId');
-    Ember.assert("HealthChartComponent (element ID: " + elementId + ") must have a parent view in order to yield.", parentView);
-    Ember.assert(
-      "HealthChartComponent (element ID: " + elementId + ") should be inside a HealthChartComponent.",
-      HealthChartComponent.detectInstance(parentView)
-    );
   },
 
   drawAxis: Ember.observer('xAxis', function() {

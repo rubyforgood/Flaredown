@@ -1,33 +1,37 @@
 import Ember from 'ember';
-import HealthChartComponent from '../health-chart';
 
 export default Ember.Component.extend( {
   tagName: 'g',
   classNames: 'timeline',
   attributeBindings: ['transform'],
 
-  startAt: Ember.computed.alias('parentView.startAt'),
-  endAt: Ember.computed.alias('parentView.endAt'),
+  startAt: Ember.computed(function() {
+    return this.get('parentView.startAt');
+  }).volatile(),
 
-  timeline: Ember.computed.alias('parentView.timeline'),
-  timelineLength: Ember.computed.alias('parentView.timelineLength'),
+  endAt: Ember.computed(function() {
+    return this.get('parentView.endAt');
+  }).volatile(),
 
-  width: Ember.computed.alias('parentView.seriesWidth'),
-  totalSeriesHeight: Ember.computed.alias('parentView.totalSeriesHeight'),
+  timeline: Ember.computed(function() {
+    return this.get('parentView.timeline');
+  }).volatile(),
 
-  SVGWidth: Ember.computed.alias('parentView.SVGWidth'),
+  timelineLength: Ember.computed(function() {
+    return this.get('parentView.timelineLength');
+  }).volatile(),
 
-  shouldAlwaysBeWithinAHelthChartComponent: Ember.on('didInsertElement', function() {
-    Ember.run.scheduleOnce('afterRender', () => {
-      var parentView = this.get('parentView');
-      var elementId = this.get('elementId');
-      Ember.assert("HealthChartComponent (element ID: " + elementId + ") must have a parent view in order to yield.", parentView);
-      Ember.assert(
-        "HealthChartComponent (element ID: " + elementId + ") should be inside a HealthChartComponent.",
-        HealthChartComponent.detectInstance(parentView)
-      );
-    });
-  }),
+  width: Ember.computed(function() {
+    return this.get('parentView.seriesWidth');
+  }).volatile(),
+
+  totalSeriesHeight: Ember.computed(function() {
+    return this.get('parentView.totalSeriesHeight');
+  }).volatile(),
+
+  SVGWidth: Ember.computed(function() {
+    return this.get('parentView.SVGWidth');
+  }).volatile(),
 
   xAxisElementId: Ember.computed(function() {
     return "x-axis-timeline";
