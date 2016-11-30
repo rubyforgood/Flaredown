@@ -19,7 +19,8 @@
                                 onfocus=(action "handleFocus")
                                 onblur=(action "handleBlur")
                                 renderInPlace=true
-                                class=(concat "indented dose-field " model.borderClass)
+                                triggerClass=(concat "dose-trigger " model.borderClass)
+                                dropdownClass=(concat "dose-dropdown " model.borderClass)
                                 as |dose| }}
       {{dose.name}}
     {{/power-select-with-create}}
