@@ -17,10 +17,7 @@ task :run do
   end
 end
 
-{
-  production: 'flaredown',
-  staging: 'flaredown-staging'
-}.each do |env, application|
+{ production: 'flaredown', staging: 'flaredown-staging'}.each do |env, application|
   namespace env.to_sym do
     desc "restart application"
     task :restart do
@@ -37,7 +34,7 @@ end
     namespace :deploy do
       desc "deploy frontend application"
       task :frontend do
-        log "Deploy fontend #{application} with revision: #{revision}"
+        log "Deploy frontend #{application} with revision: #{revision}"
         deploy_to "git@heroku.com:#{application}-webapp.git",  'frontend'
       end
 
