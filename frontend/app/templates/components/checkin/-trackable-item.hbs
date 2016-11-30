@@ -5,9 +5,9 @@
                             onDoseChanged=(action 'saveChanges')
                             onRemove=(action 'remove') }}
 {{else}}
-  {{tracked-level model=tracked
-                  valueKey='value'
-                  onTitleClicked=(action 'onTrackableClicked')
-                  onValueChanged=(action 'saveChanges')
-                  onRemove=(action 'remove') }}
+  {{checkin/tracked-level model=tracked
+                          valueKey='value'
+                          onTitleClicked=(action 'onTrackableClicked')
+                          onValueChanged=(action 'saveChanges')
+                          onRemove=(action 'remove') }}
 {{/if}}
