@@ -3,7 +3,7 @@ import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 export default Ember.Component.extend(SearchableDropdown, {
 
-  classNames: ['checkin-treatment'],
+  classNames: ['treatment-taker'],
 
   isEditMode: false,
   treatment: Ember.computed.alias('model.treatment'),

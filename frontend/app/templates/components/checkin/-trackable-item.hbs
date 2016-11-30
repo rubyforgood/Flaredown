@@ -1,9 +1,9 @@
 {{#if trackableTypeIsTreatment}}
-  {{checkin-treatment model=tracked
-                      onTitleClicked=(action 'onTrackableClicked')
-                      onIsTakenChanged=(action 'saveChanges')
-                      onDoseChanged=(action 'saveChanges')
-                      onRemove=(action 'remove') }}
+  {{checkin/treatment-taker model=tracked
+                            onTitleClicked=(action 'onTrackableClicked')
+                            onIsTakenChanged=(action 'saveChanges')
+                            onDoseChanged=(action 'saveChanges')
+                            onRemove=(action 'remove') }}
 {{else}}
   {{tracked-level model=tracked
                   valueKey='value'
