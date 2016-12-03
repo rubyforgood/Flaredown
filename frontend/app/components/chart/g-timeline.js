@@ -5,34 +5,6 @@ export default Ember.Component.extend( {
   classNames: 'timeline',
   attributeBindings: ['transform'],
 
-  startAt: Ember.computed(function() {
-    return this.get('parentView.startAt');
-  }).volatile(),
-
-  endAt: Ember.computed(function() {
-    return this.get('parentView.endAt');
-  }).volatile(),
-
-  timeline: Ember.computed(function() {
-    return this.get('parentView.timeline');
-  }).volatile(),
-
-  timelineLength: Ember.computed(function() {
-    return this.get('parentView.timelineLength');
-  }).volatile(),
-
-  width: Ember.computed(function() {
-    return this.get('parentView.seriesWidth');
-  }).volatile(),
-
-  totalSeriesHeight: Ember.computed(function() {
-    return this.get('parentView.totalSeriesHeight');
-  }).volatile(),
-
-  SVGWidth: Ember.computed(function() {
-    return this.get('parentView.SVGWidth');
-  }).volatile(),
-
   xAxisElementId: Ember.computed(function() {
     return "x-axis-timeline";
   }),

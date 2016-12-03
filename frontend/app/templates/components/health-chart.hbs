@@ -3,18 +3,50 @@
     <g class="health-chart-viewport">
 
         {{#each series.conditions as |condition|}}
-          {{chart/g-trackable model=condition.model index=condition.index}}
+          {{chart/g-trackable padding=seriePadding
+                              height=serieHeight
+                              width=seriesWidth
+                              checkins=checkins
+                              timeline=timeline
+                              startAt=startAt
+                              endAt=endAt
+                              model=condition.model
+                              index=condition.index}}
         {{/each}}
 
         {{#each series.symptoms as |symptom|}}
-          {{chart/g-trackable model=symptom.model index=symptom.index}}
+          {{chart/g-trackable padding=seriePadding
+                              height=serieHeight
+                              width=seriesWidth
+                              checkins=checkins
+                              timeline=timeline
+                              startAt=startAt
+                              endAt=endAt
+                              model=symptom.model
+                              index=symptom.index}}
         {{/each}}
 
         {{#each series.treatments as |treatment|}}
-          {{chart/g-trackable model=treatment.model index=treatment.index type="symbol"}}
+          {{chart/g-trackable padding=seriePadding
+                              height=serieHeight
+                              width=seriesWidth
+                              checkins=checkins
+                              timeline=timeline
+                              startAt=startAt
+                              endAt=endAt
+                              type="symbol"
+                              model=treatment.model
+                              index=treatment.index}}
         {{/each}}
 
-        {{chart/g-timeline  onDateClicked=(action "setCurrentDate")
+        {{chart/g-timeline  startAt=startAt
+                            endAt=endAt
+                            timeline=timeline
+                            timelineLength=timelineLength
+                            width=seriesWidth
+                            totalSeriesHeight=totalSeriesHeight
+                            SVGWidth=SVGWidth
+                            onDateClicked=(action "setCurrentDate")
                             onMouseHover=(action "openInfoWindow")
                             onMouseLeave=(action "closeInfoWindow")}}
 

@@ -5,34 +5,6 @@ export default Ember.Component.extend( {
   classNames: 'chart',
   attributeBindings: ['transform'],
 
-  padding: Ember.computed(function() {
-    return this.get('parentView.seriePadding');
-  }).volatile(),
-
-  height: Ember.computed(function() {
-    return this.get('parentView.serieHeight');
-  }).volatile(),
-
-  width: Ember.computed(function() {
-    return this.get('parentView.seriesWidth');
-  }).volatile(),
-
-  checkins: Ember.computed(function() {
-    return this.get('parentView.checkins');
-  }).volatile(),
-
-  timeline: Ember.computed(function() {
-    return this.get('parentView.timeline');
-  }).volatile(),
-
-  startAt: Ember.computed(function() {
-    return this.get('parentView.startAt');
-  }).volatile(),
-
-  endAt: Ember.computed(function() {
-    return this.get('parentView.endAt');
-  }).volatile(),
-
   type: 'line',
   isLineSerie: Ember.computed.equal('type', 'line'),
   isSymbolSerie: Ember.computed.equal('type', 'symbol'),
