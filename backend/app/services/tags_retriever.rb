@@ -1,10 +1,10 @@
 class TagsRetriever
   attr_reader :scope, :occurrences, :current_user
 
-  def initialize(scope, _current_user=nil)
+  def initialize(scope, current_user=nil)
     fail ArgumentError unless [:most_popular, :most_recent].include?(scope)
     @scope = scope
-    @current_user = _current_user
+    @current_user = current_user
   end
 
   def retrieve

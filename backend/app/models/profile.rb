@@ -75,8 +75,8 @@ class Profile < ActiveRecord::Base
 
   def age
     return if birth_date.nil?
-    _age = Date.today.year - birth_date.year
-    Date.today < birth_date + _age.years ? _age-1 : _age
+    age = Date.today.year - birth_date.year
+    Date.today < birth_date + age.years ? age-1 : age
   end
 
   def ethnicity_ids

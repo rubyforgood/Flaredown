@@ -55,7 +55,7 @@ class Checkin::Updater
     trackable_max = trackables_attrs
       .reject { |t| t[:position].blank? }
       .max_by { |t| t[:position] }
-    max_position = if trackable_max.present? then trackable_max[:position] else 0 end
+    max_position =  trackable_max.present? ? trackable_max[:position] : 0
     added_trackables = added_trackables_attrs(trackables_attrs)
     added_trackables.each do |added_trackable|
       if added_trackable[:position].blank?

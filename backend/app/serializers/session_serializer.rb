@@ -6,20 +6,20 @@ class SessionSerializer < ApplicationSerializer
              :settings
 
 
-   def id
-     1
-   end
+  def id
+    1
+  end
 
   def user_id
-   object.try :id
+    object.try :id
   end
 
   def email
-   object.try :email
+    object.try :email
   end
 
   def token
-   object.try :authentication_token
+    object.try :authentication_token
   end
 
   def settings
