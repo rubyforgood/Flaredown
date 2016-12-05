@@ -4,34 +4,34 @@ module ExceptionLogger
   included do
     # keep this on top
     if Rails.env.production?
-      rescue_from Exception do |exception|
+      rescue_from 'Exception' do |exception|
         Airbrake.notify(exception)
         render json: { errors: exception.message }, status: :unprocessable_entity
       end
     end
 
-    rescue_from ActiveRecord::RecordNotFound, Mongoid::Errors::DocumentNotFound do
+    rescue_from 'ActiveRecord::RecordNotFound', 'Mongoid::Errors::DocumentNotFound' do |exception|
       render json: { errors: ['Resource Not Found'] }, status: 404
     end
 
-    rescue_from ActionController::UnknownFormat do
+    rescue_from 'ActionController::UnknownFormat' do |exception|
       render json: { errors: ['Format not supported'] }, status: 406
     end
 
-    rescue_from ActiveRecord::RecordInvalid, Mongoid::Errors::Validations do |exception|
+    rescue_from 'ActiveRecord::RecordInvalid', 'Mongoid::Errors::Validations' do |exception|
       log_exception(exception)
       render json: { errors: exception.record.errors }, status: :unprocessable_entity
     end
 
-    rescue_from ActionController::ParameterMissing do |exception|
+    rescue_from 'ActionController::ParameterMissing' do |exception|
       render json: { errors: ["Required parameter missing: #{exception.param}"] }, status: :unprocessable_entity
     end
 
-    rescue_from ActionController::BadRequest do |exception|
+    rescue_from 'ActionController::BadRequest' do |exception|
       render json: { errors: ["Bad request: #{exception.message}"] }, status: :bad_request
     end
 
-    rescue_from CanCan::AccessDenied do |exception|
+    rescue_from 'CanCan::AccessDenied' do |exception|
       log_exception(exception)
       render json: { errors: ['Unauthorized'] }, status: :unauthorized
     end
