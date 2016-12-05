@@ -71,7 +71,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     currencies (0.4.2)
-    database_cleaner (1.5.1)
+    database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     devise (3.5.3)
       bcrypt (~> 3.0)
