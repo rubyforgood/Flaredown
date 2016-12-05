@@ -82,11 +82,11 @@
     margin-top: 0;
     margin: auto;
     max-height: 95%;
-    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
     padding: $modal-padding / 2;
     position: relative;
     width: 95%;
-    font-size: 0.75em;
 
     @include media($medium-screen) {
       max-height: 70%;
