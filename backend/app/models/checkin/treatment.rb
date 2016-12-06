@@ -6,8 +6,13 @@ class Checkin::Treatment
   # Fields
   #
   field :treatment_id, type: Integer
-  field :value, type: String
   field :is_taken, type: Boolean
+
+  #
+  # Relations
+  #
+  has_many :takings, class_name: 'Checkin::Taking'
+  # TODO: use accepts_nested_attributes_for :takings ?
 
   #
   # Indexes
