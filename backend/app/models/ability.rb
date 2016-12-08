@@ -12,6 +12,9 @@ class Ability
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
 
+    can :read, Food
+    can :create, Food
+
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false

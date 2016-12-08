@@ -1,11 +1,11 @@
 class Api::V1::SearchesController < ApplicationController
+  SEARCH_MAPPER = {
+    'dose' => Search::ForDose,
+    'food' => Search::ForFood
+  }
+
   def show
-    search =
-      if resource_param.eql? 'dose'
-        Search::ForDose.new(search_params)
-      else
-        Search.new(search_params)
-      end
+    search = (SEARCH_MAPPER[resource_param] || Search).new(search_params)
 
     fail ActiveRecord::RecordInvalid.new(search) if search.invalid?
 
