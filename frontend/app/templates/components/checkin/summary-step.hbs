@@ -25,7 +25,13 @@
   }}
 </div>
 <div class="flaredown-white-box">
-  {{checkin/tags-step embeddedInSummary=true }}
+  {{checkin/multi-select-step
+    step='checkin-tags'
+    idsKey='tagIds'
+    modelName='tag'
+    relationName='tags'
+    embeddedInSummary=true
+  }}
 </div>
 
 {{step-controls step=model.currentStep

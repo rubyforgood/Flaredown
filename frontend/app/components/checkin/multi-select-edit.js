@@ -6,9 +6,9 @@ export default Ember.Component.extend(SearchableDropdown, {
 
   selectPlaceholder: Ember.computed('isSelectFocused', function() {
     if (this.get('isSelectFocused')) {
-      return 'Start typing a tag';
+      return 'Start typing a ' + this.get('modelName');
     } else {
-      return 'Add a tag';
+      return 'Add a ' + this.get('modelName');
     }
   }),
 

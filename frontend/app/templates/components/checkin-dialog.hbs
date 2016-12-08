@@ -42,8 +42,15 @@
   }}
 
 {{else if isTags}}
-  {{checkin/tags-step onStepCompleted=(action 'moveToNextStep')
-                      onGoBack=(action 'moveToPrevStep') }}
+  {{checkin/multi-select-step
+    step='checkin-tags'
+    idsKey='tagIds'
+    modelName='tag'
+    forwardLabel='Review'
+    relationName='tags'
+    onStepCompleted=(action 'moveToNextStep')
+    onGoBack=(action 'moveToPrevStep')
+  }}
 
 {{else if isSummary}}
   {{checkin/summary-step onStepCompleted=(action 'moveToNextStep')
