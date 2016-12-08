@@ -47,6 +47,7 @@ class Step
       conditions
       symptoms
       treatments
+      foods
       tags
       summary
     )

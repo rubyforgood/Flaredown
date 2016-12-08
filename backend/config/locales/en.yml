@@ -74,6 +74,9 @@ en:
       treatments:
         title: "Which treatments did you take today?"
         short_title: "Treatments"
+      foods:
+        title: "What did you ate?"
+        short_title: "Food"
       tags:
         title: "Tag your day"
         short_title: "Tags"

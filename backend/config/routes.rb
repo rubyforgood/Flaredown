@@ -112,6 +112,11 @@ Rails.application.routes.draw do
       resources :tags, only: [:index, :show, :create]
 
       #
+      # Foods
+      #
+      resources :foods, only: [:index, :show, :create]
+
+      #
       # Trackings
       #
       resources :trackings, only: [:index, :show, :create, :destroy]
