@@ -18,12 +18,6 @@ export default DS.Model.extend({
   }),
 
   tagsChanged: false,
-  addTag: function(tag) {
-    this.addObj(tag, 'tagIds', 'tags');
-  },
-  removeTag: function(tag) {
-    this.removeObj(tag, 'tagIds', 'tags');
-  },
 
   addObj: function(obj, idsKey, relationKey) {
     const objId = parseInt(obj.get('id'));
