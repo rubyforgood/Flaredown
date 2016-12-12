@@ -52,6 +52,11 @@ Rails.application.routes.draw do
       resources :ethnicities, only: [:index, :show]
 
       #
+      # Foods
+      #
+      resources :foods, only: [:index, :show, :create]
+
+      #
       # Graphs
       #
       resources :countries, only: [:index, :show]
@@ -110,11 +115,6 @@ Rails.application.routes.draw do
       # Tags
       #
       resources :tags, only: [:index, :show, :create]
-
-      #
-      # Foods
-      #
-      resources :foods, only: [:index, :show, :create]
 
       #
       # Trackings
