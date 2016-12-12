@@ -33,7 +33,7 @@ RSpec.describe Api::V1::SearchesController do
       it 'returns correct searchable food' do
         expect(response_body[:search][:searchables].count).to eq 1
         expect(response_body[:search][:searchables][0][:type]).to eq 'food'
-        expect(response_body[:search][:searchables][0][:long_desc]).to eq 'Banana'
+        expect(response_body[:search][:searchables][0][:name]).to eq 'Banana'
       end
     end
   end
