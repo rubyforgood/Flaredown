@@ -9,6 +9,10 @@
   .regular {
     color: $primary;
     font-size: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 400px;
   }
   .badge-text {
     font-size: 1.5em;

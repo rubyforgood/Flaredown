@@ -7,7 +7,7 @@ class Api::V1::FoodsController < ApplicationController
     foods = if ids.present?
       @foods.where(id: ids)
     elsif scope.present?
-      FoodsRetriever.new(scope, current_user).retrieve
+      CollectionRetriever.new(Food, scope, current_user).retrieve
     end
 
     render json: foods
