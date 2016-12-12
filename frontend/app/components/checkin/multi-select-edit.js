@@ -36,9 +36,7 @@ export default Ember.Component.extend(SearchableDropdown, {
     },
 
     createObject(name) {
-      this.createAndSave(this.get('modelName'), name).then(obj => {
-        this.get('onSelected')(obj); // Ololo!!!
-      });
+      this.createAndSave(this.get('modelName'), name).then(obj => this.get('onSelected')(obj));
     },
 
     handleChange(obj) {
