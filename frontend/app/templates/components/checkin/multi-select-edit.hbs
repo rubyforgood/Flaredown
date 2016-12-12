@@ -1,8 +1,12 @@
 <ul>
   {{#each objects as |object|}}
-    <li class="checkin-tag" {{action "clicked" object}}>
-      <img class="checkin-tag-pointer" src="/assets/tag-point.svg">
-      <div class="checkin-tag-text">{{object.name}}</div>
+    <li class="choosen-object" {{action "clicked" object}}>
+      {{#if badgeStyle}}
+        <img class="badge-pointer" src="/assets/tag-point.svg">
+        <div class="badge-text">{{object.name}}</div>
+      {{else}}
+        <div class="regular">{{object.name}}</div>
+      {{/if}}
     </li>
   {{/each}}
 </ul>

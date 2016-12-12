@@ -16,22 +16,7 @@
                             embeddedInSummary=true }}
 </div>
 <div class="flaredown-white-box">
-  {{checkin/multi-select-step
-    step='checkin-foods'
-    idsKey='foodIds'
-    modelName='food'
-    relationName='foods'
-    embeddedInSummary=true
-  }}
-</div>
-<div class="flaredown-white-box">
-  {{checkin/multi-select-step
-    step='checkin-tags'
-    idsKey='tagIds'
-    modelName='tag'
-    relationName='tags'
-    embeddedInSummary=true
-  }}
+  {{checkin/health-factors-step embeddedInSummary=true}}
 </div>
 
 {{step-controls step=model.currentStep

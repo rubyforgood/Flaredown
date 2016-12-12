@@ -1,8 +1,7 @@
-{{partial "components/checkin/step-header"}}
-
 {{checkin/multi-select-edit
   objects=relatedObjects
   modelName=modelName
+  badgeStyle=badgeStyle
   selectedTag=selectedObject
   onClicked=(action "remove")
   onSelected=(action "add")
@@ -21,12 +20,3 @@
   modelName=modelName
   onTagClicked=(action "add")
 }}
-
-{{#unless embeddedInSummary}}
-  {{step-controls
-    step=model.currentStep
-    forwardLabel=forwardLabel
-    onBackward=(action "goBack")
-    onForward=(action "completeStep")
-  }}
-{{/unless}}

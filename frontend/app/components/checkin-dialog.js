@@ -10,8 +10,7 @@ export default Ember.Component.extend(StepControl, {
   isConditions: Ember.computed.equal('step.key', 'conditions'),
   isSymptoms: Ember.computed.equal('step.key', 'symptoms'),
   isTreatments: Ember.computed.equal('step.key', 'treatments'),
-  isTags: Ember.computed.equal('step.key', 'tags'),
-  isFoods: Ember.computed.equal('step.key', 'foods'),
+  isHeathFactors: Ember.computed.equal('step.key', 'health_factors'),
   isSummary: Ember.computed.equal('step.key', 'summary'),
 
   checkin: Ember.computed.alias('model.checkin'),

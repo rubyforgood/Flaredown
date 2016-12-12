@@ -1,4 +1,4 @@
-.checkin-tag {
+.choosen-object {
   margin: 0 5px 5px 0;
   display: inline-flex;
   align-items: center;
@@ -6,7 +6,11 @@
   &:hover {
     opacity: .85;
   }
-  .checkin-tag-text {
+  .regular {
+    color: $primary;
+    font-size: 1.5em;
+  }
+  .badge-text {
     font-size: 1.5em;
     display: inline-block;
     cursor: pointer;
@@ -17,7 +21,7 @@
     padding: 0 10px 0 0;
     color: white;
   }
-  .checkin-tag-pointer {
+  .badge-pointer {
     vertical-align: bottom;
     height: 100%;
     position: relative;

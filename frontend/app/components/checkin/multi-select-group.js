@@ -1,19 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  model: Ember.computed.alias('parentView.model'),
-  checkin: Ember.computed.alias('model.checkin'),
+  checkin: Ember.computed.alias('parentView.checkin'),
 
   relatedObjects: Ember.computed('checkin', function() {
     return this.get('checkin.' + this.get('relationName'));
   }),
 
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this.set('step', this.store.findRecord('step', arguments[0].newAttrs.step));
-  },
-
-  embeddedInSummary: false,
   selectedObject: null,
 
   actions: {
@@ -26,14 +19,6 @@ export default Ember.Component.extend({
     remove(obj) {
       this.get('checkin').removeObj(obj, this.get('idsKey'), this.get('relationName'));
       this.saveCheckin();
-    },
-
-    completeStep() {
-      this.get('onStepCompleted')();
-    },
-
-    goBack() {
-      this.get('onGoBack')();
     },
   },
 
