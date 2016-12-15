@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
+-- Dumped from database version 9.4.10
 -- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
@@ -1208,7 +1208,7 @@ ALTER TABLE ONLY profiles
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user", public;
+SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20160101154821');
 
@@ -1247,8 +1247,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160608161002');
 INSERT INTO schema_migrations (version) VALUES ('20160711182546');
 
 INSERT INTO schema_migrations (version) VALUES ('20161206135858');
-
-INSERT INTO schema_migrations (version) VALUES ('20161212084256');
 
 INSERT INTO schema_migrations (version) VALUES ('20161214131805');
 
