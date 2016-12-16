@@ -4,11 +4,13 @@ class Checkin
   #
   # Fields
   #
-  field :date,       type: Date
-  field :user_id,    type: Integer
-  field :note,       type: String
-  field :tag_ids,    type: Array
-  field :food_ids,   type: Array, default: []
+  field :date,        type: Date
+  field :food_ids,    type: Array, default: []
+  field :note,        type: String
+  field :postal_code, type: String
+  field :tag_ids,     type: Array
+  field :user_id,     type: Integer
+  field :weather_id,  type: Integer
 
   #
   # Relations
@@ -40,4 +42,7 @@ class Checkin
     @user ||= User.find(user_id)
   end
 
+  def weather
+    @weather ||= Weather.find_by(id: weather_id)
+  end
 end

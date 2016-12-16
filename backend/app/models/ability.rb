@@ -28,6 +28,8 @@ class Ability
     can :manage, Tracking, user_id: user.id
 
     can :manage, Tag
+
+    can :read, Weather if user.persisted?
   end
 
   private

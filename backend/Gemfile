@@ -50,6 +50,11 @@ gem "rack-timeout"
 # exception tracking
 gem 'airbrake', '~> 5.4'
 
+# wrapper for forecast.io API, Dark Sky
+gem 'forecast_io'
+
+gem 'geocoder'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

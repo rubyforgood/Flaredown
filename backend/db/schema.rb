@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206135858) do
+ActiveRecord::Schema.define(version: 20161216123757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,6 +217,19 @@ ActiveRecord::Schema.define(version: 20161206135858) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
+
+  create_table "weathers", force: :cascade do |t|
+    t.string   "date"
+    t.string   "postal_code"
+    t.string   "icon"
+    t.float    "temperature_min"
+    t.float    "temperature_max"
+    t.float    "precip_intensity"
+    t.float    "pressure"
+    t.float    "humidity"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   add_foreign_key "profiles", "users"
   add_foreign_key "trackable_usages", "users"

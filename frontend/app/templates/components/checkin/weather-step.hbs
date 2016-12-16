@@ -1,0 +1,24 @@
+<h2>Weather</h2>
+{{#if inputVisible}}
+  <div class="grey">
+    {{#if hasWeather}}
+      Set location:
+    {{else}}
+      To enable weather tracking,
+      <br>
+      enter your location below
+    {{/if}}
+  </div>
+
+  {{input placeholder="Postal code" value=newPostalCode}}
+
+  <a class="save-status" {{action "updatePostalCode"}}>Submit</a>
+{{else}}
+  <div class="grey" {{action "showInput"}}>{{checkin.postalCode}}</div>
+{{/if}}
+
+{{#if hasWeather}}
+  <h3>
+    {{weather.icon}}
+  </h3>
+{{/if}}
