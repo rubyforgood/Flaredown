@@ -219,7 +219,7 @@ ActiveRecord::Schema.define(version: 20161216123757) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
   create_table "weathers", force: :cascade do |t|
-    t.string   "date"
+    t.date     "date"
     t.string   "postal_code"
     t.string   "icon"
     t.float    "temperature_min"

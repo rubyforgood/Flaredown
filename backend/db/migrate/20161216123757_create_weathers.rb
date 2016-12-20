@@ -1,7 +1,7 @@
 class CreateWeathers < ActiveRecord::Migration
   def change
     create_table :weathers do |t|
-      t.string :date
+      t.date :date
       t.string :postal_code
       t.string :icon
       t.float :temperature_min

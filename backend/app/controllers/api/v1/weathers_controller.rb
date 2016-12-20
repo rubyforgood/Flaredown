@@ -1,6 +1,6 @@
 class Api::V1::WeathersController < ApplicationController
   def index
-    weather = WeatherRetriver.get(params.require(:date), params.require(:postal_code))
+    weather = WeatherRetriver.get(Date.parse(params.require(:date)), params.require(:postal_code))
 
     authorize! :read, weather
 
