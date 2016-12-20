@@ -22,4 +22,33 @@
   <h3>
     {{weather.icon}}
   </h3>
+
+  <div class="measurements">
+    <div class="measurement">
+      <h3>{{weather.temperatureMin}}&deg;f</h3>
+      <label>Low</label>
+    </div>
+
+    <div class="measurement">
+      <h3>{{weather.temperatureMax}}&deg;f</h3>
+      <label>High</label>
+    </div>
+
+    <div class="measurement">
+      <h3>{{weather.precipIntensity}}</h3>
+      <label>Precip.</label>
+    </div>
+  </div>
+
+  <div class="measurements">
+    <div class="measurement">
+      <h3>{{weather.pressureInches}}in</h3>
+      <label>Pressure</label>
+    </div>
+
+    <div class="measurement">
+      <h3>{{weather.humidity}}%</h3>
+      <label>Humidity</label>
+    </div>
+  </div>
 {{/if}}

@@ -1,10 +1,18 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
-export default DS.Model.extend({
-  humidity: DS.attr('number'),
-  icon: DS.attr('string'),
-  precipIntensity: DS.attr('number'),
-  pressure: DS.attr('number'),
-  temperatureMax: DS.attr('number'),
-  temperatureMin: DS.attr('number'),
+let { Model, attr } = DS;
+let { computed } = Ember;
+
+export default Model.extend({
+  humidity:         attr('number'),
+  icon:             attr('string'),
+  precipIntensity:  attr('number'),
+  pressure:         attr('number'),
+  temperatureMax:   attr('number'),
+  temperatureMin:   attr('number'),
+
+  pressureInches: computed('pressure', function() {
+    return Math.round((29.92 * this.get('pressure')) / 10.1325) / 100;
+  }),
 });

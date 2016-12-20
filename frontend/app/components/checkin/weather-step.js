@@ -14,7 +14,9 @@ export default Component.extend({
   willRender() {
     this._super(...arguments);
 
-    if (!this.get('hasWeather')) this.set('inputVisible', true);
+    if (!this.get('hasWeather')) {
+      this.set('inputVisible', true);
+    }
   },
 
   actions: {
