@@ -9,7 +9,7 @@ class WeatherRetriver
     forecast = ForecastIO.forecast(
       position.latitude,
       position.longitude,
-      time: DateTime.parse(date).to_i,
+      time: (date.is_a?(String) ? DateTime.parse(date) : date.to_time).to_i,
       params: { exclude: 'minutely,hourly,alerts,flags' }
     )
 

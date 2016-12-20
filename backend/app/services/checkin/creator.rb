@@ -7,7 +7,14 @@ class Checkin::Creator
   end
 
   def create!
+    prev_checkin = Checkin.where(user_id: user.id).order_by(date: :desc).first
     checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [], food_ids: [])
+
+    if prev_checkin && prev_checkin.postal_code.present?
+      checkin.postal_code = prev_checkin.postal_code
+      checkin.weather_id = WeatherRetriver.get(date, checkin.postal_code)&.id
+    end
+
     active_trackings = user.trackings.includes(:trackable).active_at(date)
     condition_attrs = []
     symptom_attrs = []
