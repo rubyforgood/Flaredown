@@ -5,5 +5,5 @@ class CheckinSerializer < ApplicationSerializer
   has_many :symptoms, embed: :objects, serializer: CheckinSymptomSerializer
   has_many :treatments, embed: :objects, serializer: CheckinTreatmentSerializer
 
-  has_one :weather, include: true
+  has_one :weather, embed_in_root: true
 end
