@@ -29,9 +29,7 @@ class WeatherRetriver
     end
 
     def permitted(hash)
-      hash.slice(
-        :date, :postalCode, :icon, :temperatureMin, :temperatureMax, :precipIntensity, :pressure, :humidity
-      )
+      hash.slice(:icon, :temperatureMin, :temperatureMax, :precipIntensity, :pressure, :humidity)
     end
   end
 end
