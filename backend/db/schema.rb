@@ -231,6 +231,8 @@ ActiveRecord::Schema.define(version: 20161216123757) do
     t.datetime "updated_at",       null: false
   end
 
+  add_index "weathers", ["date", "postal_code"], name: "index_weathers_on_date_and_postal_code", unique: true, using: :btree
+
   add_foreign_key "profiles", "users"
   add_foreign_key "trackable_usages", "users"
   add_foreign_key "trackings", "users"
