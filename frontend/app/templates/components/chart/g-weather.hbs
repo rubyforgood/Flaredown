@@ -1,0 +1,20 @@
+<path class="line {{strokeClass}}" d="{{lineFunction}}" transform="{{nestedTransform}}"></path>
+
+<g id="points-{{xAxisElementId}}" transform="{{nestedTransform}}">
+  {{#if openPointTooltip}}
+    <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{fillClass}}" >
+      {{currentPoint.tip.label}}
+    </text>
+  {{/if}}
+
+  {{#each points as |point|}}
+    <circle cx="{{point.x}}" cy="{{point.y}}" r="4" class="point {{strokeClass}}" stroke-width="2" fill="white"
+      {{action "openPointTooltip" point on="mouseEnter"}}
+      {{action "closePointTooltip" point on="mouseLeave"}}
+    />
+  {{/each}}
+</g>
+
+<g id="x-axis-{{xAxisElementId}}" class="axis x {{strokeClass}}" transform="{{xAxisTransform}}"></g>
+
+<text class="title {{fillClass}}" transform="translate(5,12)">{{name}}</text>

@@ -33,6 +33,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
       conditions: [],
       symptoms:   [],
       treatments: [],
+      weathers_mesures: [],
     };
 
     this.get('trackables').forEach( (item) => {
@@ -51,12 +52,21 @@ export default Ember.Component.extend(Resizable, Draggable, {
       item.index = index++;
     });
 
+    series.weathers_mesures.pushObject(
+      { index: index++, field: 'humidity', name: 'Avg daily humidity' }
+    );
+    series.weathers_mesures.pushObject(
+      { index: index++, field: 'pressureInches', name: 'Avg daily atmospheric pressure' }
+    );
+
     return series;
   }),
 
   serieHeight: 75,
   seriePadding: 10,
-  seriesLength: Ember.computed.alias('trackables.length'),
+  seriesLength: Ember.computed('series.weathers_mesures.length', 'trackables.length', function() {
+    return this.get('trackables.length') + this.get('series.weathers_mesures.length');
+  }),
 
   seriesWidth: Ember.computed('SVGWidth', function() {
     return this.get('SVGWidth') * 3;
