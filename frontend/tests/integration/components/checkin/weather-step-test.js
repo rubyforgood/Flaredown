@@ -12,14 +12,8 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{checkin/weather-step}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#checkin/weather-step}}
-      template block text
-    {{/checkin/weather-step}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(
+    this.$().text().trim().replace(/\s+/g, ' '),
+    'Weather To enable weather tracking, enter your location below Submit'
+  );
 });
