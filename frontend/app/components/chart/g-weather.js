@@ -70,13 +70,27 @@ export default Ember.Component.extend(Colorable, {
     );
   }),
 
+  dataValuesY: Ember.computed('data', function() {
+    return (
+      this
+        .get('data')
+        .map(item => item.y)
+        .compact()
+    );
+  }),
+
+  dataValuesYMax: Ember.computed.max('dataValuesY'),
+  dataValuesYMin: Ember.computed.min('dataValuesY'),
+
   yScale: Ember.computed('data', function() {
+    let offset = (this.get('dataValuesYMax') - this.get('dataValuesYMin')) / 4;
+
     return(
       d3
         .scale
         .linear()
         .range([this.get('height'), 0])
-        .domain([-1, 5])
+        .domain([this.get('dataValuesYMin') - offset, this.get('dataValuesYMax') + offset])
     );
   }),
 
