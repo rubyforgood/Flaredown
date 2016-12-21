@@ -1,26 +1,10 @@
 import Ember from 'ember';
+import Graphable from 'flaredown/mixins/graphable';
 
-export default Ember.Component.extend( {
-  tagName: 'g',
-  classNames: 'chart',
-  attributeBindings: ['transform'],
-
+export default Ember.Component.extend(Graphable, {
   type: 'line',
   isLineSerie: Ember.computed.equal('type', 'line'),
   isSymbolSerie: Ember.computed.equal('type', 'symbol'),
-
-  init() {
-    this._super(...arguments);
-    Ember.run.scheduleOnce('afterRender', () => {
-      this.drawAxis();
-    });
-  },
-
-  drawAxis: Ember.observer('xAxis', function() {
-    if( Ember.isPresent(this.get('data')) ) {
-      d3.select(`g#x-axis-${this.get('xAxisElementId')}`).call(this.get('xAxis'));
-    }
-  }),
 
   markers: Ember.computed('data', function() {
     return this.get('data').filter( (item) => {
@@ -58,36 +42,8 @@ export default Ember.Component.extend( {
     return `${this.get('model.constructor.modelName')}-${this.get('model.id')}`;
   }),
 
-  transform: Ember.computed('height', 'padding', 'index', function() {
-    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index')})`;
-  }),
-
-  xAxisTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('height')})`;
-  }),
-
-  nestedTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )}, 5)`;
-  }),
-
-  xDomain: Ember.computed('data', function() {
-    return d3.extent(this.get('data'), function (d) {
-      return d.x;
-    });
-  }),
-
-  xScale: Ember.computed('data', function() {
-    return d3.time.scale()
-                  .range([0, this.get('width')])
-                  .domain(this.get('xDomain'));
-  }),
-
   yScale: Ember.computed('data', function() {
     return d3.scale.linear().range([this.get('height') , 0]).domain([-1, 5]);
-  }),
-
-  xAxis: Ember.computed('xScale', function() {
-    return d3.svg.axis().scale(this.get('xScale')).orient("bottom").ticks(0);
   }),
 
   data: Ember.computed('checkins', function() {
@@ -118,38 +74,7 @@ export default Ember.Component.extend( {
     }).sortBy('x');
   }),
 
-  lineData: Ember.computed('data', function() {
-    return this.get('data').reject( (item) => {
-      return Ember.isEmpty(item.y);
-    });
-  }),
-
-  lineFunction: Ember.computed('lineData', function() {
-     return d3.svg.line().x(this.getX.bind(this))
-                         .y(this.getY.bind(this))
-                         .interpolate("linear")(this.get('lineData'));
-  }),
-
-
-  getX(d) {
-    return this.get('xScale')(d.x);
-  },
-
-  getY(d) {
-    return this.get('yScale')(d.y);
-  },
-
   actions: {
-    openPointTooltip(point) {
-      this.set('openPointTooltip', true);
-      this.set('currentPoint', point);
-    },
-
-    closePointTooltip() {
-      this.set('openPointTooltip', false);
-      this.set('currentPoint', null);
-    },
-
     openMarkerTooltip(marker) {
       this.set('openMarkerTooltip', true);
       this.set('currentMarker', marker);
@@ -159,5 +84,5 @@ export default Ember.Component.extend( {
       this.set('openMarkerTooltip', false);
       this.set('currentMarker', null);
     }
-  }
+  },
 });
