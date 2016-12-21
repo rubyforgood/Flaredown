@@ -1,0 +1,156 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=55403&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Wed, 21 Dec 2016 13:39:41 GMT
+      Expires:
+      - Thu, 22 Dec 2016 13:39:41 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      Content-Length:
+      - '491'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - public, max-age=86400
+      Age:
+      - '1305'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "55403",
+                       "short_name" : "55403",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Minneapolis",
+                       "short_name" : "Minneapolis",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Hennepin County",
+                       "short_name" : "Hennepin County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Minnesota",
+                       "short_name" : "MN",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Minneapolis, MN 55403, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 44.99369000000001,
+                          "lng" : -93.24731380000001
+                       },
+                       "southwest" : {
+                          "lat" : 44.9626919,
+                          "lng" : -93.30455000000001
+                       }
+                    },
+                    "location" : {
+                       "lat" : 44.9691279,
+                       "lng" : -93.2878982
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 44.9831049,
+                          "lng" : -93.2705649
+                       },
+                       "southwest" : {
+                          "lat" : 44.9626919,
+                          "lng" : -93.30455000000001
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJKR8TIsIys1IRKXV3alxqfac",
+                 "types" : [ "postal_code" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 14:01:26 GMT
+- request:
+    method: get
+    uri: https://api.darksky.net/forecast/MY_MEGA_FORECAST_IO_KEY/44.9691279,-93.2878982,1452031200?exclude=minutely,hourly,alerts,flags
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.0 (Ubuntu)
+      Date:
+      - Wed, 21 Dec 2016 14:01:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '969'
+      Connection:
+      - keep-alive
+      X-Forecast-Api-Calls:
+      - '5'
+      Cache-Control:
+      - max-age=3600
+      Expires:
+      - Wed, 21 Dec 2016 15:01:27 +0000
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"3c9-o/C4mbTTDBTLG+sST41Ywg"
+      X-Response-Time:
+      - 31.981ms
+    body:
+      encoding: UTF-8
+      string: '{"latitude":44.9691279,"longitude":-93.2878982,"timezone":"America/Chicago","offset":-6,"currently":{"time":1452031200,"summary":"Clear","icon":"clear-day","precipIntensity":0,"precipProbability":0,"temperature":29.78,"apparentTemperature":19.65,"dewPoint":19.34,"humidity":0.65,"windSpeed":12.79,"windBearing":162,"visibility":9.85,"cloudCover":0,"pressure":1020.03},"daily":{"data":[{"time":1451973600,"summary":"Clear
+        throughout the day.","icon":"clear-day","sunriseTime":1452001945,"sunsetTime":1452033994,"moonPhase":0.86,"precipIntensity":0,"precipIntensityMax":0,"precipProbability":0,"temperatureMin":20.57,"temperatureMinTime":1451977200,"temperatureMax":31.48,"temperatureMaxTime":1452027600,"apparentTemperatureMin":7.43,"apparentTemperatureMinTime":1451977200,"apparentTemperatureMax":21.8,"apparentTemperatureMaxTime":1452027600,"dewPoint":18.13,"humidity":0.74,"windSpeed":12.48,"windBearing":175,"visibility":9.81,"cloudCover":0.18,"pressure":1023.32}]}}'
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 14:01:27 GMT
+recorded_with: VCR 3.0.3
