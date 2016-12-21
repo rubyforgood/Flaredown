@@ -12,7 +12,7 @@ class Checkin::Creator
 
     if prev_checkin && prev_checkin.postal_code.present?
       checkin.postal_code = prev_checkin.postal_code
-      checkin.weather_id = WeatherRetriver.get(date, checkin.postal_code)&.id
+      checkin.weather_id = WeatherRetriever.get(date, checkin.postal_code)&.id
     end
 
     active_trackings = user.trackings.includes(:trackable).active_at(date)

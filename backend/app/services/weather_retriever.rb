@@ -1,4 +1,4 @@
-class WeatherRetriver
+class WeatherRetriever
   def self.get(date, postal_code)
     weather = Weather.find_by(date: date, postal_code: postal_code)
 

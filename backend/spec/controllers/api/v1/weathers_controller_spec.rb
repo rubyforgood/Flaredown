@@ -9,7 +9,7 @@ describe Api::V1::WeathersController do
   context 'anonymous user' do
     describe 'index' do
       it 'should not hit weather API' do
-        expect(WeatherRetriver).not_to receive(:get)
+        expect(WeatherRetriever).not_to receive(:get)
 
         index_action
       end
@@ -31,7 +31,7 @@ describe Api::V1::WeathersController do
       let(:expected_keys) { %i(id humidity icon precip_intensity pressure temperature_max temperature_min) }
       let(:not_expected_keys) { %i(date postal_code) }
 
-      before { expect(WeatherRetriver).to receive(:get).with(Date.parse(date), postal_code).and_return(weather) }
+      before { expect(WeatherRetriever).to receive(:get).with(Date.parse(date), postal_code).and_return(weather) }
       before { index_action }
 
       subject { json_response[:weather].keys }
