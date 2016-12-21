@@ -31,7 +31,7 @@ export default Ember.Component.extend(Colorable, {
             x: this.get('xScale')(item.x),
             y: this.get('yScale')(item.y),
             tip: {
-              label: item.label,
+              label: `${item.y}${this.get('unit')}`,
               x: this.get('xScale')(item.x) - 15,
               y: this.get('yScale')(item.y) - 10
             }
@@ -114,8 +114,7 @@ export default Ember.Component.extend(Colorable, {
         let item = checkin.get('weather');
 
         if (Ember.isPresent(item)) {
-          coordinate.label = item.get(this.get('field'));
-          coordinate.y = coordinate.label;
+          coordinate.y = item.get(this.get('field'));
         }
       }
 
