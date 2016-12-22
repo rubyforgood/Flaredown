@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Graphable from 'flaredown/mixins/graphable';
+import Graphable from './mixins/graphable';
 
 export default Ember.Component.extend(Graphable, {
   type: 'line',

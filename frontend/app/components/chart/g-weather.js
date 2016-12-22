@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Colorable from 'flaredown/mixins/colorable';
-import Graphable from 'flaredown/mixins/graphable';
+import Graphable from './mixins/graphable';
 
 export default Ember.Component.extend(Colorable, Graphable, {
   colorId: '14',
@@ -41,7 +41,7 @@ export default Ember.Component.extend(Colorable, Graphable, {
   dataValuesYMin: Ember.computed.min('dataValuesY'),
 
   yScale: Ember.computed('data', function() {
-    let offset = (this.get('dataValuesYMax') - this.get('dataValuesYMin')) / 4;
+    let offset = (this.get('dataValuesYMax') - this.get('dataValuesYMin') + 1) / 4;
 
     return(
       d3
