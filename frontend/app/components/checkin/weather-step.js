@@ -4,12 +4,36 @@ let { Component, computed } = Ember;
 
 export default Component.extend({
   classNames: ['centered'],
+  weatherTypes: [
+    'clear-day',
+    'clear-night',
+    'cloudy',
+    'fog',
+    'partly-cloudy-day',
+    'partly-cloudy-night',
+    'rain',
+    'sleet',
+    'snow',
+    'wind',
+  ],
+
+  inputVisible: false,
 
   checkin: computed.alias('parentView.model.checkin'),
   weather: computed.alias('checkin.weather'),
   hasWeather: computed.notEmpty('weather'),
 
-  inputVisible: false,
+  iconType: computed('weather.icon', function() {
+    let icon = this.get('weather.icon');
+
+    return this.get('weatherTypes').includes(icon) ? icon : 'default';
+  }),
+
+  iconText: computed('weather.icon', function() {
+    let text = this.get('weather.icon').replace(/-/g, ' ');
+
+    return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+  }),
 
   willRender() {
     this._super(...arguments);
