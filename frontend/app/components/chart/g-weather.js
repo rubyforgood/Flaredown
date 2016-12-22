@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Colorable from 'flaredown/mixins/colorable';
-import Graphable from './mixins/graphable';
+import Graphable from './graphable';
 
 export default Ember.Component.extend(Colorable, Graphable, {
   colorId: '14',
