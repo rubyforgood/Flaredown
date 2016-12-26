@@ -1,6 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+  // In order do debounce search request the extended objects should implement "performSearch" function
+  // with the following signature:
+  //
+  // performSearch(term, resolve, reject) {
+  //   this
+  //     .yourSearchActionWhichReturnsPromise(term)
+  //     .then(function() { resolve(...arguments); }, reject);
+  // }
+  //
+  // and use "searchObjects(term)" action defined in this mixin
+  //
+  // also one can redefine "debounceTimeout" in his extended objects if need to
+
   debounceTimeout: 200,
 
   searchByTerm(resource, term) {
