@@ -1,0 +1,25 @@
+<div class="bottom-nav">
+  <div class="bottom-link">
+    {{inline-svg 'account' class='icon'}}
+
+    <label>SETTINGS</label>
+  </div>
+
+  {{!-- <div class="bottom-link">
+    {{inline-svg 'explore' class='icon'}}
+
+    <label>EXPLORE</label>
+  </div> --}}
+
+  {{#link-to 'chart' class='bottom-link'}}
+    {{inline-svg 'history' class='icon'}}
+
+    <label>HISTORY</label>
+  {{/link-to}}
+
+  <div class="bottom-link">
+    {{inline-svg 'checkin' class='icon'}}
+
+    <label>CHECKIN</label>
+  </div>
+</div>
