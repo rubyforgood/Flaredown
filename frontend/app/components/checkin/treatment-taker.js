@@ -81,6 +81,6 @@ export default Ember.Component.extend(SearchableDropdown, {
           name: term,
         }
       })
-      .then(function() { resolve(...arguments) }, reject);
+      .then(function() { resolve(...arguments); }, reject);
   },
 });

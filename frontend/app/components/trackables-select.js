@@ -46,6 +46,6 @@ export default Ember.Component.extend(SearchableDropdown, {
   performSearch(term, resolve, reject) {
     this
       .searchByTerm(this.get('trackableType'), term)
-      .then(function() { resolve(...arguments) }, reject);
+      .then(function() { resolve(...arguments); }, reject);
   }
 });

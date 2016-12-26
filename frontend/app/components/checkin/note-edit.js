@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     this.set('saveScheduled', true);
     this.get('checkin').set('hasDirtyAttributes', true);
 
-    Ember.run.debounce(this, this.save, 2500);
+    Ember.run.debounce(this, this.save, 2000);
   },
 
   save() {
