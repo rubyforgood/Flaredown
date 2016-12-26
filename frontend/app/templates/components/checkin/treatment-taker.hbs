@@ -9,7 +9,7 @@
   {{#if isEditMode}}
 
     {{#power-select-with-create options=allTreatmentDoses
-                                search=(action "searchDoses")
+                                search=(action "searchObjects")
                                 onchange=(action "handleChange")
                                 oncreate=(action "createDose")
                                 showCreateWhen=(action "shouldShowCreateOption")

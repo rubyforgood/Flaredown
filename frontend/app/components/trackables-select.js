@@ -17,9 +17,6 @@ export default Ember.Component.extend(SearchableDropdown, {
   }),
 
   actions: {
-    searchTrackables(term) {
-      return this.searchByTerm(this.get('trackableType'), term);
-    },
     createTrackable(name) {
       this.createAndSave(this.get('trackableType'), name).then(trackable => {
         this.get('onSelect')(trackable);
@@ -43,6 +40,12 @@ export default Ember.Component.extend(SearchableDropdown, {
       // https://github.com/cibernox/ember-power-select/issues/739
       Ember.Logger.debug('blur');
       this.set('isSelectFocused', false);
-    }
+    },
+  },
+
+  performSearch(term, resolve, reject) {
+    this
+      .searchByTerm(this.get('trackableType'), term)
+      .then(function() { resolve(...arguments); }, reject);
   }
 });

@@ -31,10 +31,6 @@ export default Ember.Component.extend(SearchableDropdown, {
       this.set('isSelectFocused', false);
     },
 
-    searchObjects(term) {
-      return this.searchByTerm(this.get('modelName'), term);
-    },
-
     createObject(name) {
       this.createAndSave(this.get('modelName'), name).then(obj => this.get('onSelected')(obj));
     },
@@ -46,5 +42,11 @@ export default Ember.Component.extend(SearchableDropdown, {
     clicked(obj) {
       this.get('onClicked')(obj);
     },
-  }
+  },
+
+  performSearch(term, resolve, reject) {
+    this
+      .searchByTerm(this.get('modelName'), term)
+      .then(function() { resolve(...arguments); }, reject);
+  },
 });
