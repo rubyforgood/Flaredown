@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 
   actions: {
     clickObj(obj) {
-      this.get('onTagClicked')(obj);
+      this.get('onItemClicked')(obj);
     }
   }
 });

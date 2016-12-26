@@ -7,13 +7,10 @@ export default Ember.Component.extend({
     return this.get('checkin.' + this.get('relationName'));
   }),
 
-  selectedObject: null,
-
   actions: {
     add(obj) {
       this.get('checkin').addObj(obj, this.get('idsKey'), this.get('relationName'));
       this.saveCheckin();
-      this.set('selectedObject', null);
     },
 
     remove(obj) {

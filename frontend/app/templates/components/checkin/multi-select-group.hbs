@@ -2,7 +2,6 @@
   objects=relatedObjects
   modelName=modelName
   badgeStyle=badgeStyle
-  selectedTag=selectedObject
   onClicked=(action "remove")
   onSelected=(action "add")
 }}
@@ -11,12 +10,12 @@
   scope="most_popular"
   title="Popular"
   modelName=modelName
-  onTagClicked=(action "add")
+  onItemClicked=(action "add")
 }}
 <br>
 {{multi-group
   scope="most_recent"
   title="Recent"
   modelName=modelName
-  onTagClicked=(action "add")
+  onItemClicked=(action "add")
 }}
