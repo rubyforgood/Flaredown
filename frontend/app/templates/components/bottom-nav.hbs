@@ -1,0 +1,23 @@
+<div class="bottom-link">
+  {{inline-svg 'account' class='icon'}}
+
+  <label>SETTINGS</label>
+</div>
+
+{{!-- <div class="bottom-link">
+  {{inline-svg 'explore' class='icon'}}
+
+  <label>EXPLORE</label>
+</div> --}}
+
+{{#link-to 'chart' class='bottom-link'}}
+  {{inline-svg 'history' class='icon'}}
+
+  <label>HISTORY</label>
+{{/link-to}}
+
+{{#link-to 'index' class=checkinNavClass}}
+  {{inline-svg 'checkin' class='icon'}}
+
+  <label>CHECKIN</label>
+{{/link-to}}
