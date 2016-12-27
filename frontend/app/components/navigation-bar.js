@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
+import OpenProfileModal from 'flaredown/mixins/open-profile-modal';
 
-export default Ember.Component.extend(CheckinByDate, {
+export default Ember.Component.extend(CheckinByDate, OpenProfileModal, {
   classNames: 'navigation-bar',
 
   didInsertElement() {
@@ -29,9 +30,7 @@ export default Ember.Component.extend(CheckinByDate, {
 
     openEditProfileModal() {
       this.hideSlidingPanel();
-      this.get('session.currentUser.profile').then( (profile) => {
-        Ember.getOwner(this).lookup('route:application').send('openModal', 'modals/edit-profile', profile);
-      });
+      this.openProfileModal();
     },
 
     openChangePasswordModal() {
