@@ -2,7 +2,7 @@ import Ember from 'ember';
 import StepControl from 'flaredown/mixins/step-control';
 
 export default Ember.Component.extend(StepControl, {
-  tagName: '',
+  classNames: ['checkin-summary'],
 
   step: Ember.computed.alias('model.currentStep'),
   isStart: Ember.computed.equal('step.key', 'start'),
