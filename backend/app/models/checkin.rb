@@ -8,7 +8,7 @@ class Checkin
   field :user_id,    type: Integer
   field :note,       type: String
   field :tag_ids,    type: Array
-  field :food_ids,   type: Array
+  field :food_ids,   type: Array, default: []
 
   #
   # Relations
