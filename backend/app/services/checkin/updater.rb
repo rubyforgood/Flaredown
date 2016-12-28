@@ -6,7 +6,7 @@ class Checkin::Updater
     id = params.require(:id)
     @checkin = Checkin.find(id)
     @permitted_params = params.require(:checkin).permit(
-      :note, tag_ids: [],
+      :note, tag_ids: [], food_ids: [],
       conditions_attributes: [:id, :value, :condition_id, :color_id, :position, :_destroy],
       symptoms_attributes: [:id, :value, :symptom_id, :color_id, :position, :_destroy],
       treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :position, :_destroy]
@@ -14,6 +14,7 @@ class Checkin::Updater
       set_most_recent_doses(p[:treatments_attributes])
       update_trackables_positions(p)
       p[:tag_ids] = [] if p[:tag_ids].nil?
+      p[:food_ids] = [] if p[:food_ids].nil?
     end
   end
 

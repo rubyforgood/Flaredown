@@ -6,7 +6,7 @@ class Api::V1::TagsController < ApplicationController
     if ids.present?
       @tags = @tags.where(id: ids)
     elsif scope.present?
-      @tags = TagsRetriever.new(scope, current_user).retrieve
+      @tags = CollectionRetriever.new(Tag, scope, current_user).retrieve
     end
     render json: @tags
   end

@@ -5,30 +5,32 @@ export default DS.Model.extend({
   date: DS.attr('string'),  // please keep this as string as we don't need timezone info
   note: DS.attr('string'),
   tagIds: DS.attr(),
+  foodIds: DS.attr(),
 
   conditions: DS.hasMany('checkinCondition'),
   symptoms: DS.hasMany('checkinSymptom'),
   treatments: DS.hasMany('checkinTreatment'),
   tags: DS.hasMany('tag'),
+  foods: DS.hasMany('food'),
 
   formattedDate: Ember.computed('date', function() {
     return moment(this.get('date')).format("YYYY-MM-DD");
   }),
 
   tagsChanged: false,
-  addTag: function(tag) {
-    var tagId = parseInt(tag.get('id'));
-    if (this.get('tagIds').contains(tagId)) {
-      return;
-    } else {
-      this.get('tags').pushObject(tag);
-      this.get('tagIds').pushObject(tagId);
+
+  addObj: function(obj, idsKey, relationKey) {
+    const objId = parseInt(obj.get('id'));
+
+    if (!this.get(idsKey).includes(objId)) {
+      this.get(relationKey).pushObject(obj);
+      this.get(idsKey).pushObject(objId);
       this.set('hasDirtyAttributes', true);
     }
   },
-  removeTag: function(tag) {
-    this.get('tags').removeObject(tag);
-    this.get('tagIds').removeObject(parseInt(tag.get('id')));
+  removeObj: function(obj, idsKey, relationKey) {
+    this.get(relationKey).removeObject(obj);
+    this.get(idsKey).removeObject(parseInt(obj.get('id')));
     this.set('hasDirtyAttributes', true);
   },
 

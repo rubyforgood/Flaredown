@@ -7,7 +7,7 @@ class Checkin::Creator
   end
 
   def create!
-    checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [])
+    checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [], food_ids: [])
     active_trackings = user.trackings.includes(:trackable).active_at(date)
     condition_attrs = []
     symptom_attrs = []

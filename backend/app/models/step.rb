@@ -47,7 +47,7 @@ class Step
       conditions
       symptoms
       treatments
-      tags
+      health_factors
       summary
     )
   }

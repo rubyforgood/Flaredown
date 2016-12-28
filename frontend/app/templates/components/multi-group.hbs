@@ -1,0 +1,8 @@
+{{#if objects}}
+  <h4>{{title}}</h4>
+  <ul>
+    {{#each objects as |obj|}}
+      <li><a href="#" {{action "clickObj" obj}}>{{obj.name}}</a></li>
+    {{/each}}
+  </ul>
+{{/if}}

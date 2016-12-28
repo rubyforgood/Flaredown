@@ -47,16 +47,6 @@ export default Ember.Component.extend(SearchableDropdown, {
       this.get('onDoseChanged')();
     },
 
-    searchDoses(term) {
-      return this.customSearch({
-        resource: 'dose',
-        query: {
-          treatment_id: this.get('treatment.id'),
-          name: term
-        }
-      });
-    },
-
     handleChange(dose) {
       this.changeDose(dose);
       this.get('onDoseChanged')(dose);
@@ -79,6 +69,18 @@ export default Ember.Component.extend(SearchableDropdown, {
       // https://github.com/cibernox/ember-power-select/issues/739
       Ember.Logger.debug('blur');
       this.set('isSelectFocused', false);
-    }
-  }
+    },
+  },
+
+  performSearch(term, resolve, reject) {
+    this
+      .customSearch({
+        resource: 'dose',
+        query: {
+          treatment_id: this.get('treatment.id'),
+          name: term,
+        }
+      })
+      .then(function() { resolve(...arguments); }, reject);
+  },
 });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711182546) do
+ActiveRecord::Schema.define(version: 20161206135858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,28 @@ ActiveRecord::Schema.define(version: 20160711182546) do
     t.datetime "updated_at",                            null: false
     t.integer  "trackable_usages_count", default: 0
   end
+
+  create_table "food_translations", force: :cascade do |t|
+    t.integer  "food_id",    null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "long_desc",  null: false
+    t.string   "shrt_desc"
+    t.string   "comname"
+    t.string   "sciname"
+  end
+
+  add_index "food_translations", ["food_id"], name: "index_food_translations_on_food_id", using: :btree
+  add_index "food_translations", ["locale"], name: "index_food_translations_on_locale", using: :btree
+
+  create_table "foods", force: :cascade do |t|
+    t.string   "ndb_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "foods", ["ndb_no"], name: "index_foods_on_ndb_no", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"

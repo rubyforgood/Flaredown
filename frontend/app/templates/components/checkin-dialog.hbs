@@ -30,9 +30,11 @@
                             onStepCompleted=(action 'moveToNextStep')
                             onGoBack=(action 'moveToPrevStep') }}
 
-{{else if isTags}}
-  {{checkin/tags-step onStepCompleted=(action 'moveToNextStep')
-                      onGoBack=(action 'moveToPrevStep') }}
+{{else if isHeathFactors}}
+  {{checkin/health-factors-step
+    onStepCompleted=(action 'moveToNextStep')
+    onGoBack=(action 'moveToPrevStep')
+  }}
 
 {{else if isSummary}}
   {{checkin/summary-step onStepCompleted=(action 'moveToNextStep')

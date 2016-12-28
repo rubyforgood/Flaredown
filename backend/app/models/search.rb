@@ -10,7 +10,7 @@ class Search
   #
   validates :resource, presence: true
 
-  validates_inclusion_of :resource, in: %w(treatment symptom condition tag dose)
+  validates_inclusion_of :resource, in: %w(treatment symptom condition tag dose food)
 
   def id
     Digest::SHA256.base64digest(resource)

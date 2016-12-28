@@ -74,9 +74,9 @@ en:
       treatments:
         title: "Which treatments did you take today?"
         short_title: "Treatments"
-      tags:
-        title: "Tag your day"
-        short_title: "Tags"
+      health_factors:
+        title: "Health factors"
+        short_title: "Health factors"
       summary:
         title: 'Summary for'
 

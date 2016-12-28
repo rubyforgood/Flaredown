@@ -1,0 +1,25 @@
+<ul>
+  {{#each objects as |object|}}
+    <li class="choosen-object" {{action "clicked" object}}>
+      {{#if badgeStyle}}
+        <img class="badge-pointer" src="/assets/tag-point.svg">
+        <div class="badge-text">{{object.name}}</div>
+      {{else}}
+        <div class="regular">{{object.name}}</div>
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
+
+{{#power-select-with-create
+  search=(action "searchObjects")
+  onchange=(action "handleChange")
+  oncreate=(action "createObject")
+  showCreateWhen=(action "shouldShowCreateOption")
+  placeholder=selectPlaceholder
+  onfocus=(action "handleFocus")
+  onblur=(action "handleBlur")
+  renderInPlace=true
+as |object| }}
+  {{object.name}}
+{{/power-select-with-create}}

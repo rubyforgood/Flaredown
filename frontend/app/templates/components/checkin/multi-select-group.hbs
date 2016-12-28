@@ -1,0 +1,21 @@
+{{checkin/multi-select-edit
+  objects=relatedObjects
+  modelName=modelName
+  badgeStyle=badgeStyle
+  onClicked=(action "remove")
+  onSelected=(action "add")
+}}
+
+{{multi-group
+  scope="most_popular"
+  title="Popular"
+  modelName=modelName
+  onItemClicked=(action "add")
+}}
+<br>
+{{multi-group
+  scope="most_recent"
+  title="Recent"
+  modelName=modelName
+  onItemClicked=(action "add")
+}}

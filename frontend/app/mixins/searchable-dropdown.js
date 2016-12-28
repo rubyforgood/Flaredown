@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+  debounceTimeout: 200,
 
   searchByTerm(resource, term) {
     return this.customSearch({
@@ -39,12 +40,17 @@ export default Ember.Mixin.create({
   },
 
   actions: {
+    searchObjects(term) {
+      return new Ember.RSVP.Promise((resolve, reject) => {
+        Ember.run.debounce(this, this.performSearch, term, resolve, reject, this.get('debounceTimeout'));
+      });
+    },
+
     shouldShowCreateOption(term, options) {
       let foundOption = options.find(function(item) {
         return Ember.isEqual(term.toLowerCase(), item.get('name').toLowerCase());
       });
       return !Ember.isPresent(foundOption);
-    }
-  }
-
+    },
+  },
 });

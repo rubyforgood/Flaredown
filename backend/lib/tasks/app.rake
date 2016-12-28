@@ -40,7 +40,7 @@ namespace :app do
       Rake::Task['db:drop'].invoke
       Rake::Task['db:create'].invoke
     end
-    Rake::Task['db:schema:load'].invoke
+    Rake::Task['db:structure:load'].invoke
     Rake::Task['db:seed'].invoke
   rescue ::PG::ObjectInUse => e
     puts "\n#{e.message}.".red
