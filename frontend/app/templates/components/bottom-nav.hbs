@@ -1,8 +1,8 @@
-<a class="bottom-link" {{action 'openSettings'}}>
+{{#link-to 'settings' class='bottom-link'}}
   {{inline-svg 'account' class='icon'}}
 
   <label>SETTINGS</label>
-</a>
+{{/link-to}}
 
 {{!-- <div class="bottom-link">
   {{inline-svg 'explore' class='icon'}}
@@ -16,8 +16,8 @@
   <label>HISTORY</label>
 {{/link-to}}
 
-{{#link-to 'index' class=checkinNavClass}}
+<a href="/" {{action "goToTodaysCheckin"}} class="{{checkinNavClass}}">
   {{inline-svg 'checkin' class='icon'}}
 
   <label>CHECKIN</label>
-{{/link-to}}
+</a>

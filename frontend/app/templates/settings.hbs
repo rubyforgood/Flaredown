@@ -1,0 +1,15 @@
+<h2 class="centered">Settings</h2>
+
+<div class="flaredown-white-box vert-offset-top-1">
+  <h3>Account</h3>
+
+  {{profile-form model=model class="vert-offset-bottom-2"}}
+
+  <a {{action 'invalidateSession'}}>Logout</a>
+</div>
+
+<div class="flaredown-white-box">
+  <h3>Password</h3>
+
+  {{update-password-form model=model}}
+</div>

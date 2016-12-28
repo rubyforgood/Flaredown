@@ -25,6 +25,7 @@ Router.map(function() {
   this.route('terms-of-service');
   this.route('privacy-policy');
 
+  this.route('settings');
 });
 
 export default Router;

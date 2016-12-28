@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import OpenProfileModal from 'flaredown/mixins/open-profile-modal';
+import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
-export default Ember.Component.extend(OpenProfileModal, {
+export default Ember.Component.extend(CheckinByDate, {
   classNames: ['bottom-nav'],
 
   isCheckinPath: Ember.computed('router.url', function() {
@@ -13,8 +13,8 @@ export default Ember.Component.extend(OpenProfileModal, {
   }),
 
   actions: {
-    openSettings() {
-      this.openProfileModal();
+    goToTodaysCheckin() {
+      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
     },
   },
 });

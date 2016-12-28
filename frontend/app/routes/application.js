@@ -7,33 +7,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     routeToLogin() {
       this.router.transitionTo('login');
     },
-
-    openModal: function(modalName, model, controller) {
-      this.send('closeModal');
-
-      if(Ember.isEmpty(controller)) {
-        try {
-          controller = this.controllerFor(modalName);
-        } catch(err) {
-          controller = this.controllerFor('application');
-        }
-      }
-
-      this.render(modalName, {
-        outlet: 'modal',
-        into: 'application',
-        controller: controller,
-        model: model
-      });
-    },
-
-    closeModal: function() {
-      this.disconnectOutlet({
-        outlet: 'modal',
-        parentView: 'application'
-      });
-    }
-
   }
 
 });
