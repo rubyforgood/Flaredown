@@ -659,7 +659,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 CREATE TABLE weathers (
     id integer NOT NULL,
-    date character varying,
+    date date,
     postal_code character varying,
     icon character varying,
     temperature_min double precision,
@@ -1176,6 +1176,13 @@ CREATE UNIQUE INDEX index_users_on_invitation_token ON users USING btree (invita
 --
 
 CREATE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_weathers_on_date_and_postal_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_weathers_on_date_and_postal_code ON weathers USING btree (date, postal_code);
 
 
 --
