@@ -21,9 +21,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Wed, 21 Dec 2016 13:39:41 GMT
+      - Thu, 29 Dec 2016 14:07:12 GMT
       Expires:
-      - Thu, 22 Dec 2016 13:39:41 GMT
+      - Fri, 30 Dec 2016 14:07:12 GMT
+      Cache-Control:
+      - public, max-age=86400
       Access-Control-Allow-Origin:
       - "*"
       Server:
@@ -34,10 +36,6 @@ http_interactions:
       - 1; mode=block
       X-Frame-Options:
       - SAMEORIGIN
-      Cache-Control:
-      - public, max-age=86400
-      Age:
-      - '1305'
     body:
       encoding: ASCII-8BIT
       string: |
@@ -106,10 +104,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Wed, 21 Dec 2016 14:01:26 GMT
+  recorded_at: Thu, 29 Dec 2016 14:07:12 GMT
 - request:
     method: get
-    uri: https://api.darksky.net/forecast/MY_MEGA_FORECAST_IO_KEY/44.9691279,-93.2878982,1452031200?exclude=minutely,hourly,alerts,flags
+    uri: https://api.darksky.net/forecast/MY_MEGA_FORECAST_IO_KEY/44.9691279,-93.2878982,1452060000?exclude=minutely,hourly,alerts,flags
     body:
       encoding: US-ASCII
       string: ''
@@ -128,29 +126,29 @@ http_interactions:
       Server:
       - nginx/1.10.0 (Ubuntu)
       Date:
-      - Wed, 21 Dec 2016 14:01:27 GMT
+      - Thu, 29 Dec 2016 14:07:13 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Content-Length:
-      - '969'
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       X-Forecast-Api-Calls:
-      - '5'
+      - '15'
       Cache-Control:
       - max-age=3600
       Expires:
-      - Wed, 21 Dec 2016 15:01:27 +0000
+      - Thu, 29 Dec 2016 15:07:13 +0000
       X-Content-Type-Options:
       - nosniff
       Etag:
-      - W/"3c9-o/C4mbTTDBTLG+sST41Ywg"
+      - W/"435-WYi+0UzlvuGp8wh7ywfvrQ"
       X-Response-Time:
-      - 31.981ms
+      - 160.250ms
     body:
-      encoding: UTF-8
-      string: '{"latitude":44.9691279,"longitude":-93.2878982,"timezone":"America/Chicago","offset":-6,"currently":{"time":1452031200,"summary":"Clear","icon":"clear-day","precipIntensity":0,"precipProbability":0,"temperature":29.78,"apparentTemperature":19.65,"dewPoint":19.34,"humidity":0.65,"windSpeed":12.79,"windBearing":162,"visibility":9.85,"cloudCover":0,"pressure":1020.03},"daily":{"data":[{"time":1451973600,"summary":"Clear
-        throughout the day.","icon":"clear-day","sunriseTime":1452001945,"sunsetTime":1452033994,"moonPhase":0.86,"precipIntensity":0,"precipIntensityMax":0,"precipProbability":0,"temperatureMin":20.57,"temperatureMinTime":1451977200,"temperatureMax":31.48,"temperatureMaxTime":1452027600,"apparentTemperatureMin":7.43,"apparentTemperatureMinTime":1451977200,"apparentTemperatureMax":21.8,"apparentTemperatureMaxTime":1452027600,"dewPoint":18.13,"humidity":0.74,"windSpeed":12.48,"windBearing":175,"visibility":9.81,"cloudCover":0.18,"pressure":1023.32}]}}'
+      encoding: ASCII-8BIT
+      string: '{"latitude":44.9691279,"longitude":-93.2878982,"timezone":"America/Chicago","offset":-6,"currently":{"time":1452060000,"summary":"Overcast","icon":"cloudy","precipIntensity":0,"precipProbability":0,"temperature":27.25,"apparentTemperature":20.06,"dewPoint":21.22,"humidity":0.78,"windSpeed":6.63,"windBearing":159,"visibility":9.68,"cloudCover":1,"pressure":1019.65},"daily":{"data":[{"time":1452060000,"summary":"Partly
+        cloudy until afternoon.","icon":"partly-cloudy-day","sunriseTime":1452088336,"sunsetTime":1452120455,"moonPhase":0.89,"precipIntensity":0.0006,"precipIntensityMax":0.0028,"precipIntensityMaxTime":1452135600,"precipProbability":0.08,"precipType":"snow","precipAccumulation":0.103,"temperatureMin":24.4,"temperatureMinTime":1452081600,"temperatureMax":32.84,"temperatureMaxTime":1452114000,"apparentTemperatureMin":17.75,"apparentTemperatureMinTime":1452081600,"apparentTemperatureMax":26.68,"apparentTemperatureMaxTime":1452114000,"dewPoint":24.46,"humidity":0.82,"windSpeed":6.48,"windBearing":149,"visibility":7.43,"cloudCover":0.29,"pressure":1018.34}]}}'
     http_version: 
-  recorded_at: Wed, 21 Dec 2016 14:01:27 GMT
+  recorded_at: Thu, 29 Dec 2016 14:07:14 GMT
 recorded_with: VCR 3.0.3
