@@ -11,8 +11,4 @@ export default Model.extend({
   pressure:         attr('number'),
   temperatureMax:   attr('number'),
   temperatureMin:   attr('number'),
-
-  pressureInches: computed('pressure', function() {
-    return Math.round((29.92 * this.get('pressure')) / 10.1325) / 100;
-  }),
 });

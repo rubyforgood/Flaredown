@@ -56,7 +56,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
       { index: index++, field: 'humidity', unit: '%', name: 'Avg daily humidity' }
     );
     series.weathers_mesures.pushObject(
-      { index: index++, field: 'pressureInches', unit: 'in', name: 'Avg daily atmospheric pressure' }
+      { index: index++, field: 'pressure', unit: 'mb', name: 'Avg daily atmospheric pressure' }
     );
 
     return series;

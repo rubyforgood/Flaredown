@@ -21,23 +21,17 @@ class WeatherRetriever
       Rails.logger.info("\nThe forecast for #{date} and #{postal_code} is:\n#{forecast.to_yaml}\n")
     end
 
+    the_day = forecast.daily.data.first
+
     Weather.create(
-      underscore_keys(permitted(forecast.daily.data.first)).merge(
-        date: Date.strptime(forecast.daily.data.first.time.to_s, '%s'),
-        postal_code: postal_code
-      )
+      date: Date.strptime(the_day.time.to_s, '%s'),
+      humidity: (the_day.humidity * 100).round,
+      icon: the_day.icon,
+      postal_code: postal_code,
+      precip_intensity: the_day.precipIntensity,
+      pressure: the_day.pressure.round,
+      temperature_max: the_day.temperatureMax.round,
+      temperature_min: the_day.temperatureMin.round
     )
-  end
-
-  class << self
-    private
-
-    def underscore_keys(hash)
-      hash.map { |k, v| [k.underscore, v] }.to_h
-    end
-
-    def permitted(hash)
-      hash.slice(:icon, :temperatureMin, :temperatureMax, :precipIntensity, :pressure, :humidity)
-    end
   end
 end
