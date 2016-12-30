@@ -11,10 +11,4 @@ export default Ember.Component.extend(CheckinByDate, {
   checkinNavClass: Ember.computed('isCheckinPath', function() {
     return `bottom-link ${this.get('isCheckinPath') ? 'active' : ''}`;
   }),
-
-  actions: {
-    goToTodaysCheckin() {
-      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
-    },
-  },
 });
