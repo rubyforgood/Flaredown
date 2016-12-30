@@ -1,10 +1,11 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
 let { Model, attr } = DS;
 let { get, computed } = Ember;
 
-export default Model.extend({
+export default Model.extend(FieldsByUnits, {
   humidity:         attr('number'),
   icon:             attr('string'),
   precipIntensity:  attr('number'),
@@ -26,5 +27,17 @@ export default Model.extend({
 
   fahrenheitToCelsius(temp) {
     return Math.round((temp - 32) * 100 / 180);
+  },
+
+  pressureByUnits(unit) {
+    return get(this, this.pressureFieldByUnits(unit));
+  },
+
+  temperatureMinByUnits(unit) {
+    return get(this, unit === 'c' ? 'temperatureMinCelsius' : 'temperatureMin');
+  },
+
+  temperatureMaxByUnits(unit) {
+    return get(this, unit === 'c' ? 'temperatureMaxCelsius' : 'temperatureMax');
   },
 });

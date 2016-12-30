@@ -1,12 +1,15 @@
 import Ember from 'ember';
 import Resizable from './chart/resizable';
 import Draggable from './chart/draggable';
+import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
-export default Ember.Component.extend(Resizable, Draggable, {
+export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   classNames: ['health-chart'],
 
   checkins: [],
   trackables: [],
+
+  pressureUnits: Ember.computed.alias('session.currentUser.profile.pressureUnits'),
 
   startAt: Ember.computed('SVGWidth', function() {
     if( this.get('SVGWidth') <= 500) {
@@ -26,7 +29,7 @@ export default Ember.Component.extend(Resizable, Draggable, {
     return moment(this.get('endAt')).add(15, 'days');
   }),
 
-  series: Ember.computed('trackables', function() {
+  series: Ember.computed('trackables', 'pressureUnits', function() {
     var index = 0;
 
     var series = {
@@ -56,7 +59,12 @@ export default Ember.Component.extend(Resizable, Draggable, {
       { index: index++, field: 'humidity', unit: '%', name: 'Avg daily humidity' }
     );
     series.weathers_mesures.pushObject(
-      { index: index++, field: 'pressure', unit: 'mb', name: 'Avg daily atmospheric pressure' }
+      {
+        field: this.pressureFieldByUnits(this.get('pressureUnits')),
+        index: index++,
+        name: 'Avg daily atmospheric pressure',
+        unit: this.get('pressureUnits'),
+      }
     );
 
     return series;

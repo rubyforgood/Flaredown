@@ -26,15 +26,15 @@ export default Component.extend({
   weather: alias('checkin.weather'),
 
   shownTemperatureMin: computed('weather.temperatureMin', 'temperatureUnits', function() {
-    return get(this, `weather.${get(this, 'temperatureUnits') === 'c' ? 'temperatureMinCelsius' : 'temperatureMin'}`);
+    return get(this, 'weather').temperatureMinByUnits(get(this, 'temperatureUnits'));
   }),
 
   shownTemperatureMax: computed('weather.temperatureMax', 'temperatureUnits', function() {
-    return get(this, `weather.${get(this, 'temperatureUnits') === 'c' ? 'temperatureMaxCelsius' : 'temperatureMax'}`);
+    return get(this, 'weather').temperatureMaxByUnits(get(this, 'temperatureUnits'));
   }),
 
   shownPressure: computed('weather.pressure', 'pressureUnits', function() {
-    return get(this, `weather.${get(this, 'pressureUnits') === 'in' ? 'pressureInches' : 'pressure'}`);
+    return get(this, 'weather').pressureByUnits(get(this, 'pressureUnits'));
   }),
 
   iconType: computed('weather.icon', function() {
@@ -92,7 +92,7 @@ export default Component.extend({
     get(this, 'session.currentUser.profile').then(profile => {
       set(profile, field, map[get(this, field)]);
 
-      return profile.save()
+      return profile.save();
     });
   },
 });
