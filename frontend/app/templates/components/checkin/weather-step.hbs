@@ -25,13 +25,13 @@
   <h5 class="vert-offset-top-1">{{iconText}}</h5>
 
   <div class="measurements vert-offset-top-1">
-    <div class="measurement">
-      <h3>{{weather.temperatureMin}}&deg;f</h3>
+    <div class="measurement clickable" {{action "toggleTemperatureUnits"}} >
+      <h3>{{shownTemperatureMin}}&deg;{{temperatureUnits}}</h3>
       <label>Low</label>
     </div>
 
-    <div class="measurement">
-      <h3>{{weather.temperatureMax}}&deg;f</h3>
+    <div class="measurement clickable" {{action "toggleTemperatureUnits"}}>
+      <h3>{{shownTemperatureMax}}&deg;{{temperatureUnits}}</h3>
       <label>High</label>
     </div>
 
@@ -42,8 +42,8 @@
   </div>
 
   <div class="measurements vert-offset-top-1">
-    <div class="measurement">
-      <h3>{{weather.pressure}}mb</h3>
+    <div class="measurement clickable" {{action "togglePressureUnits"}}>
+      <h3>{{shownPressure}}{{pressureUnits}}</h3>
       <label>Pressure</label>
     </div>
 

@@ -214,7 +214,9 @@ CREATE TABLE profiles (
     screen_name character varying,
     most_recent_conditions_positions hstore,
     most_recent_symptoms_positions hstore,
-    most_recent_treatments_positions hstore
+    most_recent_treatments_positions hstore,
+    pressure_units integer DEFAULT 0,
+    temperature_units integer DEFAULT 0
 );
 
 
@@ -1311,4 +1313,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161206135858');
 INSERT INTO schema_migrations (version) VALUES ('20161214131805');
 
 INSERT INTO schema_migrations (version) VALUES ('20161216123757');
+
+INSERT INTO schema_migrations (version) VALUES ('20161230090023');
 

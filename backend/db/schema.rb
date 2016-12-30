@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216123757) do
+ActiveRecord::Schema.define(version: 20161230090023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20161216123757) do
     t.date     "birth_date"
     t.string   "sex_id"
     t.string   "onboarding_step_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "ethnicity_ids_string"
     t.string   "day_habit_id"
     t.string   "education_level_id"
@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 20161216123757) do
     t.hstore   "most_recent_conditions_positions"
     t.hstore   "most_recent_symptoms_positions"
     t.hstore   "most_recent_treatments_positions"
+    t.integer  "pressure_units",                   default: 0
+    t.integer  "temperature_units",                default: 0
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
