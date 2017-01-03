@@ -25,6 +25,10 @@ export default Component.extend({
   temperatureUnits: alias('session.currentUser.profile.temperatureUnits'),
   weather: alias('checkin.weather'),
 
+  formattedPrecipitation: computed('weather.precipIntensity', function() {
+    return get(this, 'weather.precipIntensity').toString().split('.')[1];
+  }),
+
   shownTemperatureMin: computed('weather.temperatureMin', 'temperatureUnits', function() {
     return get(this, 'weather').temperatureMinByUnits(get(this, 'temperatureUnits'));
   }),
