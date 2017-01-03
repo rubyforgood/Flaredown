@@ -14,7 +14,7 @@ export default Model.extend(FieldsByUnits, {
   temperatureMin:   attr('number'),
 
   pressureInches: computed('pressure', function() {
-    return Math.round((29.92 * get(this, 'pressure')) / 1013.25);
+    return Math.round((29.92 * get(this, 'pressure')) / 10.1325) / 100;
   }),
 
   temperatureMaxCelsius: computed('temperatureMax', function() {
