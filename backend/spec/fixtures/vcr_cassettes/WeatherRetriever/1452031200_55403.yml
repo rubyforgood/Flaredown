@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Thu, 29 Dec 2016 14:07:12 GMT
+      - Tue, 03 Jan 2017 13:51:38 GMT
       Expires:
-      - Fri, 30 Dec 2016 14:07:12 GMT
+      - Wed, 04 Jan 2017 13:51:38 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -104,10 +104,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Thu, 29 Dec 2016 14:07:12 GMT
+  recorded_at: Tue, 03 Jan 2017 13:51:38 GMT
 - request:
     method: get
-    uri: https://api.darksky.net/forecast/MY_MEGA_FORECAST_IO_KEY/44.9691279,-93.2878982,1452060000?exclude=minutely,hourly,alerts,flags
+    uri: https://api.darksky.net/forecast/MY_MEGA_FORECAST_IO_KEY/44.9691279,-93.2878982,1452060000?exclude=currently,minutely,hourly,alerts,flags
     body:
       encoding: US-ASCII
       string: ''
@@ -126,29 +126,29 @@ http_interactions:
       Server:
       - nginx/1.10.0 (Ubuntu)
       Date:
-      - Thu, 29 Dec 2016 14:07:13 GMT
+      - Tue, 03 Jan 2017 13:51:39 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '798'
       Connection:
       - keep-alive
       X-Forecast-Api-Calls:
-      - '15'
+      - '18'
       Cache-Control:
       - max-age=3600
       Expires:
-      - Thu, 29 Dec 2016 15:07:13 +0000
+      - Tue, 03 Jan 2017 14:51:39 +0000
       X-Content-Type-Options:
       - nosniff
       Etag:
-      - W/"435-WYi+0UzlvuGp8wh7ywfvrQ"
+      - W/"31e-YKJq4jC842Ya8f3b0QGmIA"
       X-Response-Time:
-      - 160.250ms
+      - 42.867ms
     body:
-      encoding: ASCII-8BIT
-      string: '{"latitude":44.9691279,"longitude":-93.2878982,"timezone":"America/Chicago","offset":-6,"currently":{"time":1452060000,"summary":"Overcast","icon":"cloudy","precipIntensity":0,"precipProbability":0,"temperature":27.25,"apparentTemperature":20.06,"dewPoint":21.22,"humidity":0.78,"windSpeed":6.63,"windBearing":159,"visibility":9.68,"cloudCover":1,"pressure":1019.65},"daily":{"data":[{"time":1452060000,"summary":"Partly
+      encoding: UTF-8
+      string: '{"latitude":44.9691279,"longitude":-93.2878982,"timezone":"America/Chicago","offset":-6,"daily":{"data":[{"time":1452060000,"summary":"Partly
         cloudy until afternoon.","icon":"partly-cloudy-day","sunriseTime":1452088336,"sunsetTime":1452120455,"moonPhase":0.89,"precipIntensity":0.0006,"precipIntensityMax":0.0028,"precipIntensityMaxTime":1452135600,"precipProbability":0.08,"precipType":"snow","precipAccumulation":0.103,"temperatureMin":24.4,"temperatureMinTime":1452081600,"temperatureMax":32.84,"temperatureMaxTime":1452114000,"apparentTemperatureMin":17.75,"apparentTemperatureMinTime":1452081600,"apparentTemperatureMax":26.68,"apparentTemperatureMaxTime":1452114000,"dewPoint":24.46,"humidity":0.82,"windSpeed":6.48,"windBearing":149,"visibility":7.43,"cloudCover":0.29,"pressure":1018.34}]}}'
     http_version: 
-  recorded_at: Thu, 29 Dec 2016 14:07:14 GMT
+  recorded_at: Tue, 03 Jan 2017 13:51:39 GMT
 recorded_with: VCR 3.0.3
