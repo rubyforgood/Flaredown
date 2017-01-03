@@ -12,7 +12,7 @@ class WeatherRetriever
       position.latitude,
       position.longitude,
       time: Time.zone.parse(date.to_s).to_i,
-      params: { exclude: 'minutely,hourly,alerts,flags' }
+      params: { exclude: 'currently,minutely,hourly,alerts,flags' }
     )
 
     Time.zone = tz
