@@ -4,6 +4,7 @@ class CreateWeathers < ActiveRecord::Migration
       t.date :date
       t.string :postal_code
       t.string :icon
+      t.string :summary
       t.float :temperature_min
       t.float :temperature_max
       t.float :precip_intensity

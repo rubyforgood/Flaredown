@@ -664,6 +664,7 @@ CREATE TABLE weathers (
     date date,
     postal_code character varying,
     icon character varying,
+    summary character varying,
     temperature_min double precision,
     temperature_max double precision,
     precip_intensity double precision,

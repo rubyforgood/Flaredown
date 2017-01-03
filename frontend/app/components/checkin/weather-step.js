@@ -47,12 +47,6 @@ export default Component.extend({
     return get(this, 'weatherTypes').includes(icon) ? icon : 'default';
   }),
 
-  iconText: computed('weather.icon', function() {
-    let text = get(this, 'weather.icon').replace(/-/g, ' ');
-
-    return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
-  }),
-
   willRender() {
     this._super(...arguments);
 

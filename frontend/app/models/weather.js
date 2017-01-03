@@ -10,6 +10,7 @@ export default Model.extend(FieldsByUnits, {
   icon:             attr('string'),
   precipIntensity:  attr('number'),
   pressure:         attr('number'),
+  summary:          attr('string'),
   temperatureMax:   attr('number'),
   temperatureMin:   attr('number'),
 

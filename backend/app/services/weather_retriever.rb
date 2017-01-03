@@ -30,6 +30,7 @@ class WeatherRetriever
       postal_code: postal_code,
       precip_intensity: the_day.precipIntensity,
       pressure: the_day.pressure.round,
+      summary: the_day.summary,
       temperature_max: the_day.temperatureMax.round,
       temperature_min: the_day.temperatureMin.round
     )

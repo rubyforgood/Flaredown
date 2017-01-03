@@ -22,7 +22,7 @@
 {{#if hasWeather}}
   <img class="vert-offset-top-1" src="/assets/weather/{{iconType}}.png">
 
-  <h5 class="vert-offset-top-1">{{iconText}}</h5>
+  <h5 class="vert-offset-top-1">{{weather.summary}}</h5>
 
   <div class="measurements vert-offset-top-1">
     <div class="measurement clickable" {{action "toggleTemperatureUnits"}} >
