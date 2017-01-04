@@ -32,6 +32,11 @@ Rails.application.routes.draw do
       resources :conditions, only: [:index, :show, :create]
 
       #
+      # Data Export Schedules
+      #
+      resources :data_export_schedules, only: :create
+
+      #
       # Day Habits
       #
       resources :day_habits, only: [:index, :show]
