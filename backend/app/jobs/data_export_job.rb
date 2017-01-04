@@ -1,5 +1,3 @@
-require 'CSV'
-
 class DataExportJob < ActiveJob::Base
   SUBFIELD_SEPARATOR = '; '.freeze
 
