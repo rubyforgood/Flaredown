@@ -10,6 +10,8 @@
 #
 
 class Symptom < ActiveRecord::Base
+  has_many :symptom_translations, class_name: 'Symptom::Translation'
+
   #
   # Localized attributes
   #
