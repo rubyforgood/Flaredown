@@ -36,7 +36,5 @@ module Flaredown
     # and follow the adapter's specific installation
     # and deployment instructions.
     config.active_job.queue_adapter = :sidekiq
-    config.active_job.queue_name_prefix = ENV['RACK_ENV']
-    config.active_job.queue_name_delimiter = '.'
   end
 end
