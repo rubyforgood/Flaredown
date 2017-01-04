@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206135858) do
+ActiveRecord::Schema.define(version: 20161230090023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20161206135858) do
     t.date     "birth_date"
     t.string   "sex_id"
     t.string   "onboarding_step_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "ethnicity_ids_string"
     t.string   "day_habit_id"
     t.string   "education_level_id"
@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 20161206135858) do
     t.hstore   "most_recent_conditions_positions"
     t.hstore   "most_recent_symptoms_positions"
     t.hstore   "most_recent_treatments_positions"
+    t.integer  "pressure_units",                   default: 0
+    t.integer  "temperature_units",                default: 0
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -217,6 +219,21 @@ ActiveRecord::Schema.define(version: 20161206135858) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
+
+  create_table "weathers", force: :cascade do |t|
+    t.date     "date"
+    t.string   "postal_code"
+    t.string   "icon"
+    t.float    "temperature_min"
+    t.float    "temperature_max"
+    t.float    "precip_intensity"
+    t.float    "pressure"
+    t.float    "humidity"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "weathers", ["date", "postal_code"], name: "index_weathers_on_date_and_postal_code", unique: true, using: :btree
 
   add_foreign_key "profiles", "users"
   add_foreign_key "trackable_usages", "users"

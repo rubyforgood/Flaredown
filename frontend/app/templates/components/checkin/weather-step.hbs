@@ -1,0 +1,55 @@
+<h2>Weather</h2>
+
+{{#if inputVisible}}
+  <div class="grey">
+    {{#if hasWeather}}
+      Set location:
+    {{else}}
+      To enable weather tracking,
+      <br>
+      enter your location below
+    {{/if}}
+  </div>
+
+  {{input placeholder="Postal code" value=newPostalCode}}
+
+  <a class="save-status" {{action "updatePostalCode"}}>Submit</a>
+  <br>
+{{else}}
+  <div class="grey" {{action "showInput"}}>{{checkin.postalCode}}</div>
+{{/if}}
+
+{{#if hasWeather}}
+  <img class="vert-offset-top-1" src="/assets/weather/{{iconType}}.png">
+
+  <h5 class="vert-offset-top-1">{{weather.summary}}</h5>
+
+  <div class="measurements vert-offset-top-1">
+    <div class="measurement clickable" {{action "toggleTemperatureUnits"}} >
+      <h3>{{shownTemperatureMin}}&deg;{{temperatureUnits}}</h3>
+      <label>Low</label>
+    </div>
+
+    <div class="measurement clickable" {{action "toggleTemperatureUnits"}}>
+      <h3>{{shownTemperatureMax}}&deg;{{temperatureUnits}}</h3>
+      <label>High</label>
+    </div>
+
+    <div class="measurement">
+      <h3>.{{formattedPrecipitation}}</h3>
+      <label>Precip.</label>
+    </div>
+  </div>
+
+  <div class="measurements vert-offset-top-1">
+    <div class="measurement clickable" {{action "togglePressureUnits"}}>
+      <h3>{{shownPressure}}{{pressureUnits}}</h3>
+      <label>Pressure</label>
+    </div>
+
+    <div class="measurement">
+      <h3>{{weather.humidity}}%</h3>
+      <label>Humidity</label>
+    </div>
+  </div>
+{{/if}}

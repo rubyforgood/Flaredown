@@ -6,12 +6,15 @@ export default DS.Model.extend({
   note: DS.attr('string'),
   tagIds: DS.attr(),
   foodIds: DS.attr(),
+  postalCode: DS.attr('string'),
 
   conditions: DS.hasMany('checkinCondition'),
   symptoms: DS.hasMany('checkinSymptom'),
   treatments: DS.hasMany('checkinTreatment'),
   tags: DS.hasMany('tag'),
   foods: DS.hasMany('food'),
+
+  weather: DS.belongsTo('weather', { async: false }),
 
   formattedDate: Ember.computed('date', function() {
     return moment(this.get('date')).format("YYYY-MM-DD");

@@ -39,6 +39,21 @@
                               index=treatment.index}}
         {{/each}}
 
+        {{#each series.weathers_mesures as |weathers_mesure|}}
+          {{chart/g-weather
+            checkins=checkins
+            field=weathers_mesure.field
+            height=serieHeight
+            index=weathers_mesure.index
+            name=weathers_mesure.name
+            padding=seriePadding
+            startAt=startAt
+            timeline=timeline
+            unit=weathers_mesure.unit
+            width=seriesWidth
+          }}
+        {{/each}}
+
         {{chart/g-timeline  startAt=startAt
                             endAt=endAt
                             timeline=timeline

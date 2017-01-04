@@ -8,6 +8,8 @@ export default DS.Model.extend({
                                  // and HTML5 date input likes yyyy-dd-mm format as returned by APIs
   dayWalkingHours: DS.attr('number'),
   ethnicityIds: DS.attr(),
+  pressureUnits: DS.attr('string'),
+  temperatureUnits: DS.attr('string'),
 
   // Associations
   country: DS.belongsTo('country'),

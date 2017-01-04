@@ -14,7 +14,23 @@ module.exports = function(defaults) {
       includePaths: [
         'bower_components/spinkit/scss'
       ]
-    }
+    },
+
+    fingerprint: {
+      exclude: [
+        'weather/clear-day',
+        'weather/clear-night',
+        'weather/cloudy',
+        'weather/default',
+        'weather/fog',
+        'weather/partly-cloudy-day',
+        'weather/partly-cloudy-night',
+        'weather/rain',
+        'weather/sleet',
+        'weather/snow',
+        'weather/wind',
+      ],
+    },
   });
 
   // pace

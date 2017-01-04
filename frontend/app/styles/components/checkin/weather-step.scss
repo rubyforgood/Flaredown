@@ -1,0 +1,11 @@
+.measurements {
+  display: flex;
+}
+
+.measurement {
+  flex-grow: 1;
+
+  &.clickable {
+    text-decoration: underline;
+  }
+}

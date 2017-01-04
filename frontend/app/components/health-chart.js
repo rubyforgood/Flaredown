@@ -1,12 +1,15 @@
 import Ember from 'ember';
 import Resizable from './chart/resizable';
 import Draggable from './chart/draggable';
+import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
-export default Ember.Component.extend(Resizable, Draggable, {
+export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   classNames: ['health-chart'],
 
   checkins: [],
   trackables: [],
+
+  pressureUnits: Ember.computed.alias('session.currentUser.profile.pressureUnits'),
 
   startAt: Ember.computed('SVGWidth', function() {
     if( this.get('SVGWidth') <= 500) {
@@ -26,13 +29,14 @@ export default Ember.Component.extend(Resizable, Draggable, {
     return moment(this.get('endAt')).add(15, 'days');
   }),
 
-  series: Ember.computed('trackables', function() {
+  series: Ember.computed('trackables', 'pressureUnits', function() {
     var index = 0;
 
     var series = {
       conditions: [],
       symptoms:   [],
       treatments: [],
+      weathers_mesures: [],
     };
 
     this.get('trackables').forEach( (item) => {
@@ -51,12 +55,26 @@ export default Ember.Component.extend(Resizable, Draggable, {
       item.index = index++;
     });
 
+    series.weathers_mesures.pushObject(
+      { index: index++, field: 'humidity', unit: '%', name: 'Avg daily humidity' }
+    );
+    series.weathers_mesures.pushObject(
+      {
+        field: this.pressureFieldByUnits(this.get('pressureUnits')),
+        index: index++,
+        name: 'Avg daily atmospheric pressure',
+        unit: this.get('pressureUnits'),
+      }
+    );
+
     return series;
   }),
 
   serieHeight: 75,
   seriePadding: 10,
-  seriesLength: Ember.computed.alias('trackables.length'),
+  seriesLength: Ember.computed('series.weathers_mesures.length', 'trackables.length', function() {
+    return this.get('trackables.length') + this.get('series.weathers_mesures.length');
+  }),
 
   seriesWidth: Ember.computed('SVGWidth', function() {
     return this.get('SVGWidth') * 3;

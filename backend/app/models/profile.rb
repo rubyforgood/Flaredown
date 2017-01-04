@@ -22,6 +22,9 @@
 #
 
 class Profile < ActiveRecord::Base
+  enum pressure_units: %i(mb in)
+  enum temperature_units: %i(f c)
+
   #
   # Associations
   #

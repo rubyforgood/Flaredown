@@ -214,7 +214,9 @@ CREATE TABLE profiles (
     screen_name character varying,
     most_recent_conditions_positions hstore,
     most_recent_symptoms_positions hstore,
-    most_recent_treatments_positions hstore
+    most_recent_treatments_positions hstore,
+    pressure_units integer DEFAULT 0,
+    temperature_units integer DEFAULT 0
 );
 
 
@@ -654,6 +656,45 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: weathers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE weathers (
+    id integer NOT NULL,
+    date date,
+    postal_code character varying,
+    icon character varying,
+    summary character varying,
+    temperature_min double precision,
+    temperature_max double precision,
+    precip_intensity double precision,
+    pressure double precision,
+    humidity double precision,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: weathers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE weathers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: weathers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE weathers_id_seq OWNED BY weathers.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -770,6 +811,13 @@ ALTER TABLE ONLY user_treatments ALTER COLUMN id SET DEFAULT nextval('user_treat
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY weathers ALTER COLUMN id SET DEFAULT nextval('weathers_id_seq'::regclass);
 
 
 --
@@ -906,6 +954,14 @@ ALTER TABLE ONLY user_treatments
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: weathers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY weathers
+    ADD CONSTRAINT weathers_pkey PRIMARY KEY (id);
 
 
 --
@@ -1126,6 +1182,13 @@ CREATE INDEX index_users_on_reset_password_token ON users USING btree (reset_pas
 
 
 --
+-- Name: index_weathers_on_date_and_postal_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_weathers_on_date_and_postal_code ON weathers USING btree (date, postal_code);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1249,4 +1312,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160711182546');
 INSERT INTO schema_migrations (version) VALUES ('20161206135858');
 
 INSERT INTO schema_migrations (version) VALUES ('20161214131805');
+
+INSERT INTO schema_migrations (version) VALUES ('20161216123757');
+
+INSERT INTO schema_migrations (version) VALUES ('20161230090023');
 

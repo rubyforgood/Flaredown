@@ -6,7 +6,7 @@ class Checkin::Updater
     id = params.require(:id)
     @checkin = Checkin.find(id)
     @permitted_params = params.require(:checkin).permit(
-      :note, tag_ids: [], food_ids: [],
+      :note, :postal_code, :weather_id, tag_ids: [], food_ids: [],
       conditions_attributes: [:id, :value, :condition_id, :color_id, :position, :_destroy],
       symptoms_attributes: [:id, :value, :symptom_id, :color_id, :position, :_destroy],
       treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :position, :_destroy]
