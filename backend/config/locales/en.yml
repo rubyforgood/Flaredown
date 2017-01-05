@@ -92,4 +92,4 @@ en:
 
   user_data_mailer:
     trackings_csv:
-      subject:  "Your trackings"
+      subject:  "Your Flaredown data is here"
