@@ -4,6 +4,8 @@
 
 {{partial "application/footer"}}
 
-{{bottom-nav}}
+{{#if session.isAuthenticated}}
+	{{bottom-nav}}
+{{/if}}
 
 {{outlet "modal"}}
