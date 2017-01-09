@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   delegate :locale, to: :profile
 
   def checkins
-    Checkin.where(user_id: id)
+    Checkin.where(encrypted_user_id: SymmetricEncryption.encrypt(id))
   end
 
   def checkin_ids

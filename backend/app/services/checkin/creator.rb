@@ -9,7 +9,7 @@ class Checkin::Creator
   # FIXME
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
   def create!
-    prev_checkin = Checkin.where(user_id: user.id).order_by(date: :desc).first
+    prev_checkin = Checkin.where(encrypted_user_id: SymmetricEncryption.encrypt(user.id)).order_by(date: :desc).first
     checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [], food_ids: [])
 
     if prev_checkin && prev_checkin.postal_code.present?

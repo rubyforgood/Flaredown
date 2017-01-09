@@ -41,7 +41,7 @@ class CollectionRetriever
     checkin_relations = Checkin.collection.aggregate(
       [
         # Step 1: filter by user
-        { "$match" => { user_id: @current_user.id } },
+        { "$match" => { encrypted_user_id: SymmetricEncryption.encrypt(@current_user.id) } },
         # Step 2: have one entry per object id
         { "$unwind" => @ids_field },
         # Step 3: sort by checkin date, descending
