@@ -13,23 +13,6 @@ $sliding-panel-color-hover: #fff;
 $sliding-panel-background-focus: darken($sliding-panel-background, 5%);
 
 .navigation-bar {
-
-  .navigation-menu-button {
-    display: block;
-    float: right;
-    margin: 0;
-    padding-top: 0.5em;
-    background-color: transparent;
-
-    @include media ($medium-screen) {
-      display: none;
-    }
-
-    img {
-      max-height: 1.2em;
-    }
-  }
-
   .navigation-wrapper {
     @include clearfix;
     @include outer-container;
@@ -57,12 +40,6 @@ $sliding-panel-background-focus: darken($sliding-panel-background, 5%);
     }
   }
 
-  .nav-right {
-    position: absolute !important;
-    right: 5px;
-    top: 5px;
-  }
-
   ul.navigation-menu {
     clear: both;
     display: none;
@@ -75,10 +52,6 @@ $sliding-panel-background-focus: darken($sliding-panel-background, 5%);
       display: block;
       margin: 0;
       padding: 0;
-    }
-
-    &.show {
-      display: block;
     }
   }
 
@@ -103,130 +76,4 @@ $sliding-panel-background-focus: darken($sliding-panel-background, 5%);
       padding-right: 1em;
     }
   }
-
-
-  .hover-menu {
-    overflow: visible;
-    padding-right: 0;
-
-    @include media($large-screen) {
-      position: relative;
-    }
-
-    .hover-menu-item {
-      left: 0;
-      position: relative;
-
-      &::after {
-        content: "›";
-        padding-left: 0.5em;
-      }
-    }
-
-    .submenu {
-      @include card;
-      display: none;
-      margin: 0;
-      padding-left: 0;
-      padding:0;
-
-      @include media($large-screen) {
-        left: 0;
-        position: absolute;
-      }
-    }
-
-    .submenu li {
-      display: block;
-      padding-right: 0;
-    }
-
-    .submenu li a {
-      display: inline-block;
-      padding: .25em .5em;
-      text-align: right;
-      width: 100%;
-      border-bottom: 1px solid $background;
-
-      @include media($large-screen) {
-        text-align: left;
-        width: $submenu-width;
-      }
-    }
-
-    .submenu .submenu {
-      @include media($large-screen) {
-        left: $submenu-width;
-        top: 0;
-      }
-    }
-
-    &:focus > .submenu,
-    &:hover > .submenu {
-      display: block;
-    }
-  }
-
-
-
-
-  .sliding-panel-content {
-
-    @include position(fixed, 0px auto 0px 0px);
-    @include size(220px 100%);
-    @include transform(translateX(-220px));
-    @include transition(all 0.25s linear);
-    background: $sliding-panel-background;
-    z-index: 999999;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-
-    ul {
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      list-style: none;
-    }
-
-    li a {
-      border-bottom: $sliding-panel-border;
-      color: $sliding-panel-color;
-      display: block;
-      font-weight: bold;
-      padding: 1em;
-      text-decoration: none;
-
-      &:focus {
-        background-color: $sliding-panel-background-focus;
-      }
-
-      &:hover {
-        background-color: $sliding-panel-background-hover;
-        color: $sliding-panel-color-hover;
-      }
-    }
-
-    &.is-visible {
-      @include transform(translateX(0));
-    }
-  }
-
-  .sliding-panel-fade-screen {
-    @include position(fixed, 0px 0px 0px 0px);
-    @include transition;
-    background: black;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 999998;
-
-    &.is-visible {
-      opacity: 0.4;
-      visibility: visible;
-    }
-  }
-
 }
-
-

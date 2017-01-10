@@ -35,6 +35,12 @@ export default Ember.Mixin.create({
     newCheckin.save().then(savedCheckin => {
       this.router.transitionTo('checkin', savedCheckin.get('id'), step ? step : 'start');
     });
-  }
+  },
+
+  actions: {
+    goToTodaysCheckin() {
+      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
+    },
+  },
 
 });

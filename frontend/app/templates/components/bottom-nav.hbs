@@ -1,0 +1,23 @@
+{{#link-to 'settings' class='bottom-link'}}
+  {{inline-svg 'account' class='icon'}}
+
+  <label>SETTINGS</label>
+{{/link-to}}
+
+{{!-- <div class="bottom-link">
+  {{inline-svg 'explore' class='icon'}}
+
+  <label>EXPLORE</label>
+</div> --}}
+
+{{#link-to 'chart' class='bottom-link'}}
+  {{inline-svg 'history' class='icon'}}
+
+  <label>HISTORY</label>
+{{/link-to}}
+
+<a href="/" {{action "goToTodaysCheckin"}} class="{{checkinNavClass}}">
+  {{inline-svg 'checkin' class='icon'}}
+
+  <label>CHECKIN</label>
+</a>

@@ -1,44 +1,16 @@
 <div class="navigation-wrapper">
   {{#link-to "index" class="logo"}}<img src="/assets/logo.svg">{{/link-to}}
-  <button id="js-mobile-menu" type="button" class="navigation-menu-button sliding-panel-button">
-    <img src="/assets/menu-icon.svg">
-  </button>
+
   <nav role="navigation">
-    <ul id="js-navigation-menu" class="navigation-menu show">
+    <ul class="navigation-menu">
       <li class="nav-link"><a href="#" {{action "goToTodaysCheckin"}}>Checkin</a></li>
-      <li class="nav-link">{{#link-to "chart"}}Chart{{/link-to}}</li>
+      <li class="nav-link">{{#link-to "chart"}}History{{/link-to}}</li>
+      <li class="nav-link">{{#link-to "settings"}}Settings{{/link-to}}</li>
       {{#if session.discourseEnabled}}
         <li class="nav-link">
           <a href="{{session.discourseUrl}}">Discussion</a>
         </li>
       {{/if}}
-      <li class="nav-link nav-right hover-menu">
-        <a href="#" class="fs-private">{{session.currentUser.email}}</a>
-        <ul class="submenu">
-          <li class="nav-link">
-            <a {{action 'openEditProfileModal'}}>Profile</a>
-          </li>
-          <li class="nav-link">
-            <a {{action 'openChangePasswordModal'}}>Change Password</a>
-          </li>
-          <li class="nav-link">
-            <a {{action 'invalidateSession'}}>Logout</a>
-          </li>
-        </ul>
-      </li>
     </ul>
   </nav>
-  <nav class="sliding-panel-content">
-    <ul>
-      <li><a {{action "goToTodaysCheckin"}}>Checkin</a></li>
-      <li><a {{action "goToChart"}}>Chart</a></li>
-      {{#if session.discourseEnabled}}
-        <li><a {{action "goToDiscourse"}}>Discussion</a></li>
-      {{/if}}
-      <li><a {{action "openEditProfileModal"}}>Profile</a></li>
-      <li><a {{action "openChangePasswordModal"}}>Change Password</a></li>
-      <li><a {{action "invalidateSession"}}>Logout</a></li>
-    </ul>
-  </nav>
-  <div class="js-menu-screen sliding-panel-fade-screen"></div>
 </div>

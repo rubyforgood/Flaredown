@@ -31,6 +31,20 @@ module.exports = function(defaults) {
         'weather/wind',
       ],
     },
+
+    svg: {
+      paths: [
+        'public/assets/nav_icons',
+      ],
+
+      optimize: {
+        plugins: [
+          { removeDoctype: false },
+          { removeTitle: true },
+          { removeDesc: true },
+        ],
+      },
+    },
   });
 
   // pace
