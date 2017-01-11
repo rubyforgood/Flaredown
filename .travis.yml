@@ -45,5 +45,5 @@ before_script:
 script:
   - bundle exec rspec
   - bundle exec rubocop
-  # - cd ../frontend
-  # - npm run test
+  - cd ../frontend
+  - npm run test
