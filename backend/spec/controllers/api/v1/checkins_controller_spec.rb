@@ -33,7 +33,7 @@ RSpec.describe Api::V1::CheckinsController do
   end
 
   describe 'update' do
-    let(:checkin) { create(:checkin, user_id: user.id, date: Date.today) }
+    let(:checkin) { create(:checkin, user_id: user.id, date: Time.zone.today) }
     let(:attributes) { { id: checkin.id, checkin: { note: 'Blah' } } }
     it 'returns updated checkin' do
       put :update, attributes

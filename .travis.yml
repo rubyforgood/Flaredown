@@ -9,7 +9,7 @@ cache:
   directories:
     - frontend/bower_components
     - frontend/node_modules
-    - vendor/bundle
+    - backend/vendor/bundle
 
 rvm:
   - 2.3.1
@@ -43,8 +43,7 @@ before_script:
   - 'bundle exec rake db:structure:load'
 
 script:
-  - bundle exec rspec ./spec/services/collection_retriever_spec.rb ./spec/services/weather_retriever_spec.rb
-  # - bundle exec rspec
-  # - rubocop
+  - bundle exec rspec
+  - bundle exec rubocop
   # - cd ../frontend
   # - npm run test

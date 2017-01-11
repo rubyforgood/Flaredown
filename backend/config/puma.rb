@@ -21,7 +21,6 @@ threads threads_count, threads_count
 # phased restart feature. (off by default)
 preload_app!
 
-
 # === Cluster mode ===
 
 # How many worker processes to run.

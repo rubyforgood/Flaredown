@@ -2,7 +2,8 @@ require 'openssl'
 
 class DiscourseClient
   def initialize(user, params = {})
-    @user, @params = user, params
+    @user = user
+    @params = params
   end
 
   def generate_url

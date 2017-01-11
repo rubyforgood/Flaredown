@@ -7,7 +7,12 @@ class TrackableCreator
   end
 
   def create!
-    same_trackable = @trackable.class.with_translations(I18n.locale).where('name ILIKE :name', name: @trackable.name).first
+    same_trackable = @trackable
+      .class
+      .with_translations(I18n.locale)
+      .where('name ILIKE :name', name: @trackable.name)
+      .first
+
     @trackable = same_trackable if same_trackable.present?
     unless @trackable.global? || user_trackable_exists?
       user_trackable_class.create!(

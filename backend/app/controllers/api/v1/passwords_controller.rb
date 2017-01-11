@@ -2,20 +2,17 @@ class Api::V1::PasswordsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def show
-    if user_signed_in?
-      user = current_user
-    else
-      user = User.with_reset_password_token(params[:id])
-    end
+    user = user_signed_in? ? current_user : User.with_reset_password_token(params[:id])
+
     render json: user, token: params[:id], serializer: PasswordSerializer
   end
 
   def create
     user = User.find_by!(email: email_param)
 
-    if user && user.send_reset_password_instructions
-      render json: user, serializer: PasswordSerializer
-    end
+    return unless user.send_reset_password_instructions
+
+    render json: user, serializer: PasswordSerializer
   end
 
   def update

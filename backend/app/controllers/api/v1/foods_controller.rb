@@ -4,11 +4,12 @@ class Api::V1::FoodsController < ApplicationController
   def index
     @foods = @foods.includes(:translations)
 
-    foods = if ids.present?
-      @foods.where(id: ids)
-    elsif scope.present?
-      CollectionRetriever.new(Food, scope, current_user).retrieve
-    end
+    foods =
+      if ids.present?
+        @foods.where(id: ids)
+      elsif scope.present?
+        CollectionRetriever.new(Food, scope, current_user).retrieve
+      end
 
     render json: foods
   end

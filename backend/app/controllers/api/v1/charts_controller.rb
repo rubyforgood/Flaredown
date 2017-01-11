@@ -2,11 +2,13 @@ class Api::V1::ChartsController < ApplicationController
 
   def show
     chart = Chart.new(chart_params)
-    if chart.invalid?
-      fail ActiveRecord::RecordInvalid.new(chart)
-    else
-      render json: chart
-    end
+
+    # FIXME
+    # rubocop:disable Style/SignalException
+    fail(ActiveRecord::RecordInvalid, chart) if chart.invalid?
+    # rubocop:enable Style/SignalException
+
+    render json: chart
   end
 
   def chart_params

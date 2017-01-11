@@ -14,7 +14,12 @@ class Api::V1::EducationLevelsController < ApplicationController
 
   def education_level_id
     id = params.require(:id)
-    fail ActionController::BadRequest.new('id param is not a valid education_level id') unless EducationLevel.all_ids.include?(id)
+    # FIXME
+    # rubocop:disable Style/SignalException
+    unless EducationLevel.all_ids.include?(id)
+      fail(ActionController::BadRequest, 'id param is not a valid education_level id')
+    end
+    # rubocop:enable Style/SignalException
     id
   end
 end

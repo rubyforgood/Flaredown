@@ -37,7 +37,6 @@ class Checkin
   #
   scope :by_date, ->(startkey, endkey) { where(:date.gte => startkey, :date.lte => endkey) }
 
-
   def user
     @user ||= User.find(user_id)
   end

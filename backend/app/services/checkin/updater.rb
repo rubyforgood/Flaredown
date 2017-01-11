@@ -5,17 +5,23 @@ class Checkin::Updater
     @current_user = current_user
     id = params.require(:id)
     @checkin = Checkin.find(id)
-    @permitted_params = params.require(:checkin).permit(
-      :note, :postal_code, :weather_id, tag_ids: [], food_ids: [],
-      conditions_attributes: [:id, :value, :condition_id, :color_id, :position, :_destroy],
-      symptoms_attributes: [:id, :value, :symptom_id, :color_id, :position, :_destroy],
-      treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :position, :_destroy]
-    ).tap do |p|
-      set_most_recent_doses(p[:treatments_attributes])
-      update_trackables_positions(p)
-      p[:tag_ids] = [] if p[:tag_ids].nil?
-      p[:food_ids] = [] if p[:food_ids].nil?
-    end
+    @permitted_params =
+      params
+        .require(:checkin)
+        .permit(
+          :note, :postal_code, :weather_id,
+          tag_ids: [],
+          food_ids: [],
+          conditions_attributes: [:id, :value, :condition_id, :color_id, :position, :_destroy],
+          symptoms_attributes: [:id, :value, :symptom_id, :color_id, :position, :_destroy],
+          treatments_attributes: [:id, :value, :treatment_id, :is_taken, :color_id, :position, :_destroy]
+        )
+        .tap do |p|
+          set_most_recent_doses(p[:treatments_attributes])
+          update_trackables_positions(p)
+          p[:tag_ids] = [] if p[:tag_ids].nil?
+          p[:food_ids] = [] if p[:food_ids].nil?
+        end
   end
 
   def update!
@@ -42,20 +48,18 @@ class Checkin::Updater
     removed_trackables = removed_trackables_attrs(trackables_attrs)
     removed_trackables.each do |removed_trackable|
       trackables_attrs.each do |trackable|
-        if trackable[:position].present? &&
-            removed_trackable[:position].present? &&
-            trackable[:position] > removed_trackable[:position]
-          trackable[:position] -= 1
-        end
+        next if trackable[:position].blank? ||
+            removed_trackable[:position].blank? ||
+            trackable[:position] <= removed_trackable[:position]
+
+        trackable[:position] -= 1
       end
     end
   end
 
   def set_added_trackables_positions(trackable_class_name, params)
     trackables_attrs = trackables_attrs(trackable_class_name, params)
-    trackable_max = trackables_attrs
-      .reject { |t| t[:position].blank? }
-      .max_by { |t| t[:position] }
+    trackable_max = trackables_attrs.reject { |t| t[:position].blank? }.max_by { |t| t[:position] }
     max_position =  trackable_max.present? ? trackable_max[:position] : 0
     added_trackables = added_trackables_attrs(trackables_attrs)
     added_trackables.each do |added_trackable|
@@ -68,7 +72,7 @@ class Checkin::Updater
 
   def save_most_recent_trackables_positions
     %w(condition symptom treatment).each do |trackable_type|
-      trackable_class = "#{trackable_type.capitalize}".constantize
+      trackable_class = trackable_type.capitalize.constantize
       trackables_attributes = permitted_params["#{trackable_type.pluralize}_attributes".to_sym]
       next if trackables_attributes.blank?
       trackables_attributes.each do |trackable_attrs|
@@ -81,16 +85,17 @@ class Checkin::Updater
   end
 
   def set_most_recent_doses(treatments_attrs)
+    return if treatments_attrs.blank?
+
     added_trackables_attrs(treatments_attrs).each do |t|
       t[:value] = current_user.profile.most_recent_dose_for(t[:treatment_id])
-    end if treatments_attrs.present?
+    end
   end
 
   def save_most_recent_doses
     treatments_attributes = permitted_params[:treatments_attributes]
     return if treatments_attributes.blank?
-    treatments_with_doses = treatments_attributes
-      .reject { |t| (t[:value].blank? || t[:is_taken].eql?('false')) }
+    treatments_with_doses = treatments_attributes.reject { |t| (t[:value].blank? || t[:is_taken].eql?('false')) }
     return if treatments_with_doses.empty?
     treatments_with_doses.each do |t|
       current_user.profile.set_most_recent_dose(
@@ -121,12 +126,13 @@ class Checkin::Updater
         user: current_user,
         trackable: trackable_class.find(t[trackable_id_key])
       )
-      if trackable_usage.present?
-        if trackable_usage.count.eql?(1)
-          trackable_usage.destroy
-        else
-          trackable_usage.decrement! :count
-        end
+
+      next if trackable_usage.blank?
+
+      if trackable_usage.count.eql?(1)
+        trackable_usage.destroy
+      else
+        trackable_usage.decrement! :count
       end
     end
   end
@@ -138,11 +144,10 @@ class Checkin::Updater
   def trackables_attrs(trackable_class_name, params)
     attrs_key = "#{trackable_class_name.downcase.pluralize}_attributes".to_sym
     trackables_attrs = params[attrs_key]
-    if trackables_attrs.blank?
-      return []
-    else
-      return trackables_attrs
-    end
+
+    return [] if trackables_attrs.blank?
+
+    trackables_attrs
   end
 
   # For trackables that have been added to checkin, look for TrackableUsage records

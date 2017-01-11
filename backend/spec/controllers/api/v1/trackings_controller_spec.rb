@@ -11,7 +11,7 @@ RSpec.describe Api::V1::TrackingsController do
   describe 'index' do
     context 'at current time' do
       let(:trackable_type) { current_tracking.trackable_type }
-      let(:at) { Time.now }
+      let(:at) { Time.zone.now }
       it 'returns current trackings only' do
         get :index, at: at, trackable_type: trackable_type
         returned_ids = response_body[:trackings].map { |t| t[:id] }
@@ -56,19 +56,19 @@ RSpec.describe Api::V1::TrackingsController do
       expect(response_body[:tracking][:trackable_id]).to eq symptom.id
       expect(response_body[:tracking][:trackable_type]).to eq symptom.class.name
       start_at = Date.parse(response_body[:tracking][:start_at])
-      expect(start_at.strftime('%F')).to eq Date.today.strftime('%F')
+      expect(start_at.strftime('%F')).to eq Time.zone.today.strftime('%F')
     end
   end
 
   describe 'destroy' do
     context "when destroying a current user's tracking" do
       context 'when tracking started in the past' do
-        before { current_tracking.update_attributes!(start_at: Date.today - 2.days) }
+        before { current_tracking.update_attributes!(start_at: Time.zone.today - 2.days) }
         it 'sets end_date on that tracking' do
           delete :destroy, id: current_tracking.id
           end_at = current_tracking.reload.end_at
           expect(end_at).to be_present
-          expect(end_at.strftime('%F')).to eq Time.now.strftime('%F')
+          expect(end_at.strftime('%F')).to eq Time.zone.now.strftime('%F')
         end
       end
       context 'when tracking started today' do

@@ -6,6 +6,8 @@ class Checkin::Creator
     @date = date
   end
 
+  # FIXME
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
   def create!
     prev_checkin = Checkin.where(user_id: user.id).order_by(date: :desc).first
     checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [], food_ids: [])
@@ -52,6 +54,7 @@ class Checkin::Creator
     create_or_update_trackable_usages(checkin)
     checkin
   end
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
 
   private
 
@@ -59,7 +62,7 @@ class Checkin::Creator
     %w(Condition Symptom Treatment).each do |trackable_class_name|
       trackable_class = trackable_class_name.constantize
       trackable_id_method = "#{trackable_class_name.downcase}_id"
-      checkin_trackables_method = "#{trackable_class_name.downcase.pluralize}"
+      checkin_trackables_method = trackable_class_name.downcase.pluralize
       checkin.send(checkin_trackables_method).each do |checkin_trackable|
         trackable_id = checkin_trackable.send(trackable_id_method)
         TrackableUsage.create_or_update_by(

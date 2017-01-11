@@ -7,7 +7,10 @@ class Api::V1::CountriesController < ApplicationController
 
   def show
     country = Country.find_country_by_alpha2(alpha2)
+    # FIXME
+    # rubocop:disable Style/SignalException
     fail ActiveRecord::RecordNotFound if country.nil?
+    # rubocop:enable Style/SignalException
     render json: country
   end
 
@@ -16,7 +19,10 @@ class Api::V1::CountriesController < ApplicationController
   def alpha2
     id = params.require(:id)
     match_data = /^[[:alpha:]]{2}$/.match(id)
-    fail ActionController::BadRequest.new('id param must be a 2 alphabetic characters string') if match_data.nil?
+    # FIXME
+    # rubocop:disable Style/SignalException
+    fail(ActionController::BadRequest, 'id param must be a 2 alphabetic characters string') if match_data.nil?
+    # rubocop:enable Style/SignalException
     match_data[0]
   end
 end

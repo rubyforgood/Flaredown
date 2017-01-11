@@ -30,11 +30,11 @@ FactoryGirl.define do
     end
 
     trait :active do
-      start_at { Date.today }
+      start_at { Time.zone.today }
     end
 
     trait :inactive do
-      start_at { Date.today - 7.days }
+      start_at { Time.zone.today - 7.days }
       end_at { Date.yesterday }
     end
   end

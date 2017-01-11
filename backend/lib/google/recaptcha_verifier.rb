@@ -6,8 +6,8 @@ module Google
       @url = 'https://www.google.com/recaptcha/api/siteverify'
     end
 
-    def self.exec(response, remoteip=nil)
-      self.new.invoke_service(response, remoteip)
+    def self.exec(response, remoteip = nil)
+      new.invoke_service(response, remoteip)
     end
 
     def invoke_service(response, remoteip)
@@ -17,12 +17,13 @@ module Google
         remoteip: remoteip
       }
       response = connection.post @url, params
-      if response.status.eql?(200)
-        response_json = JSON.parse(response.body)
-        return response_json['success']
-      else
-        fail StandardError.new("#{self.class}##{__method__} Got HTTP #{response.status}")
-      end
+
+      return JSON.parse(response.body)['success'] if response.status.eql?(200)
+
+      # FIXME
+      # rubocop:disable Style/SignalException
+      fail StandardError, "#{self.class}##{__method__} Got HTTP #{response.status}"
+      # rubocop:enable Style/SignalException
     end
 
     def connection

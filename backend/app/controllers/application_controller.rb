@@ -23,7 +23,10 @@ class ApplicationController < ActionController::API
   def set_locale
     I18n.locale = user_signed_in? ? current_user.locale : I18n.default_locale
   rescue I18n::InvalidLocale
+    # FIXME
+    # rubocop:disable Metrics/LineLength
     Rails.logger.warn("'#{current_user.profile.locale}' locale for user '#{current_user.email}' not available or invalid, using default")
+    # rubocop:enable Metrics/LineLength
     I18n.locale = I18n.default_locale
   end
 
@@ -35,9 +38,11 @@ class ApplicationController < ActionController::API
   end
 
   def authorization
-    @authorization ||= begin
-      /^Token token="(?<token>.*)", email="(?<email>.*)"$/.match(request.headers['Authorization']) || {}
-    end
+    @authorization ||=
+      begin
+        /^Token token="(?<token>.*)", email="(?<email>.*)"$/.match(request.headers['Authorization']) || {}
+      end
+
     { authentication_token: @authorization[:token], email: @authorization[:email] }
   end
 

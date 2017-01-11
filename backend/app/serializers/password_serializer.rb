@@ -5,7 +5,7 @@ class PasswordSerializer < ApplicationSerializer
     if reset_password_token.present?
       reset_password_token
     else
-      Digest::SHA256.base64digest(DateTime.now.to_s)
+      Digest::SHA256.base64digest(DateTime.current.to_s)
     end
   end
 

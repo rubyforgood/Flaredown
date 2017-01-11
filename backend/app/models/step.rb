@@ -50,7 +50,7 @@ class Step
       health_factors
       summary
     )
-  }
+  }.freeze
 
   class << self
     def all
@@ -85,7 +85,7 @@ class Step
         steps.each_with_index do |step, i|
           current_key = "#{group}-#{step}"
           earlier =
-            if i == 0
+            if i.zero?
               nil
             else
               earlier_key = "#{group}-#{steps[i - 1]}"
