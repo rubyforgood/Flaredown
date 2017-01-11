@@ -9,8 +9,8 @@ class Checkin
   field :note,        type: String
   field :postal_code, type: String
   field :tag_ids,     type: Array
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
   field :weather_id,  type: Integer
+  field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
   #
   # Relations
