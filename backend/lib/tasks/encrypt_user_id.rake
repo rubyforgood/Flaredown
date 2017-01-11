@@ -4,7 +4,10 @@ namespace :app do
     puts "Loading foods:\n"
 
     Checkin.where(:user_id.exists => true).order_by(date: :desc).each_with_index do |c, i|
-      c.update(user_id: c[:user_id])
+      c.user_id = c[:user_id]
+
+      c.unset(:user_id)
+      c.save
 
       puts i if i%100 == 0
     end
