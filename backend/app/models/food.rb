@@ -4,6 +4,8 @@ class Food < ActiveRecord::Base
     it: :italian
   }
 
+  has_many :food_translations, class_name: 'Food::Translation'
+
   translates :long_desc, :shrt_desc, :comname, :sciname
 
   class << self
