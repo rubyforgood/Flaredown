@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Checkin::Updater do
   let(:user) { create(:user) }
-  let(:checkin) { create(:checkin, user_id: user.id, date: Date.today) }
+  let(:checkin) { create(:checkin, user_id: user.id, date: Time.zone.today) }
 
   subject { Checkin::Updater.new(user, params).update! }
 
   context 'with permitted params' do
-    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { note: 'Blah' } ) }
+    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { note: 'Blah' }) }
     it 'returns updated checkin' do
       expect(subject.id).to eq checkin.id
       expect(subject.note).to eq params[:checkin][:note]
@@ -15,7 +15,7 @@ RSpec.describe Checkin::Updater do
   end
 
   context 'with non-permitted params' do
-    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { date: Date.yesterday } ) }
+    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { date: Date.yesterday }) }
     it 'returns checkin with no changes' do
       expect(subject.id).to eq checkin.id
       expect(subject.date).not_to eq params[:checkin][:date]
@@ -24,7 +24,14 @@ RSpec.describe Checkin::Updater do
 
   context "when recent dose exists for treatment in user's profile" do
     let(:treatment) { create(:treatment) }
-    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { treatments_attributes: [{ treatment_id: treatment.id }] } ) }
+
+    let(:params) do
+      ActionController::Parameters.new(
+        id: checkin.id.to_s,
+        checkin: { treatments_attributes: [{ treatment_id: treatment.id }] }
+      )
+    end
+
     before do
       user.profile.set_most_recent_dose(treatment.id, '20 mg')
       user.profile.save!
@@ -66,7 +73,7 @@ RSpec.describe Checkin::Updater do
         before { usage.increment! :count }
         it "removes trackable and decrements count on usage record" do
           expect(subject.conditions.map(&:id)).not_to include checkin_condition.id
-          expect(usage.count).to eq previous_count+1
+          expect(usage.count).to eq(previous_count + 1)
         end
       end
     end
@@ -94,13 +101,12 @@ RSpec.describe Checkin::Updater do
         let!(:previous_count) { usage.count }
         it "adds trackable and increments count on usage record" do
           expect(subject.conditions.map(&:condition_id)).to include condition.id
-          expect(usage.reload.count).to eq previous_count+1
+          expect(usage.reload.count).to eq(previous_count + 1)
         end
       end
     end
 
   end
-
 
   context "trackables positions" do
 
@@ -173,7 +179,7 @@ RSpec.describe Checkin::Updater do
       before do
         # swap first and last trackable's positions
         attrs = params[:checkin][:conditions_attributes]
-        attrs[0][:position] = attrs[trackables_attrs.length-1][:position]
+        attrs[0][:position] = attrs[trackables_attrs.length - 1][:position]
       end
       context "on today's checkin" do
         it "updates trackables positions in checkin and saves them in profile" do
@@ -187,7 +193,7 @@ RSpec.describe Checkin::Updater do
         end
       end
       context "on a past checkin" do
-        before { checkin.update_attributes!(date: Date.today - 1.day) }
+        before { checkin.update_attributes!(date: Time.zone.today - 1.day) }
         it "updates trackables positions in checkin but doesn't save them in profile" do
           params[:checkin][:conditions_attributes].each do |condition_attr|
             checkin_condition = subject.conditions.find(condition_attr[:id])

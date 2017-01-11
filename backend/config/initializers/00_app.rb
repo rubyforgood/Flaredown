@@ -23,7 +23,7 @@ module Flaredown
     end
 
     def discourse_enabled?
-      !!(Rails.env.production? || ENV.fetch('DISCOURSE_ENABLED') { false })
+      Rails.env.production? || ENV.fetch('DISCOURSE_ENABLED') { false }
     end
 
     def discourse_url

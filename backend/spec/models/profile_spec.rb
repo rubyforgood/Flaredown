@@ -46,13 +46,13 @@ RSpec.describe Profile do
   end
   describe 'ethnicities' do
     context 'get' do
-      before { subject.ethnicity_ids_string='latino,white' }
+      before { subject.ethnicity_ids_string = 'latino,white' }
       it 'transforms to array' do
-        expect(subject.ethnicity_ids).to eq ['latino','white']
+        expect(subject.ethnicity_ids).to eq %w(latino white)
       end
     end
     context 'set' do
-      before { subject.ethnicity_ids=['latino','white'] }
+      before { subject.ethnicity_ids = %w(latino white) }
       it 'transforms to string' do
         expect(subject.ethnicity_ids_string).to eq 'latino,white'
       end

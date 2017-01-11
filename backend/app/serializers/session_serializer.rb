@@ -5,7 +5,6 @@ class SessionSerializer < ApplicationSerializer
              :token,
              :settings
 
-
   def id
     1
   end

@@ -4,11 +4,10 @@ class Search::ForDose < ::Search
 
   validate :query_must_include_treatment_id
   def query_must_include_treatment_id
-    if query[:treatment_id].nil?
-      errors.add(:query, "must include treatment_id")
-    end
-  end
+    return if query[:treatment_id]
 
+    errors.add(:query, "must include treatment_id")
+  end
 
   protected
 
@@ -17,7 +16,6 @@ class Search::ForDose < ::Search
     q = q.order_by('checkin.date' => 'desc').distinct(:value)
     q.slice(0..10).map { |value| ::Dose.new(name: value) }
   end
-
 
   private
 

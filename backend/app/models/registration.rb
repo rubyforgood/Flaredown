@@ -15,22 +15,24 @@ class Registration
   end
 
   def save!
-    if valid?
-      begin
-        @user = User.create!(@user_params)
-        @user.profile.update_attributes!(screen_name: screen_name) if screen_name.present?
-      rescue ActiveRecord::RecordInvalid => e
-        self.errors = e.record.errors
-        raise ActiveRecord::RecordInvalid.new(self)
-      end
-      self
-    else
-      fail ActiveRecord::RecordInvalid.new(self)
+    # FIXME
+    # rubocop:disable Style/SignalException
+    fail ActiveRecord::RecordInvalid, self unless valid?
+    # rubocop:enable Style/SignalException
+
+    begin
+      @user = User.create!(@user_params)
+      @user.profile.update_attributes!(screen_name: screen_name) if screen_name.present?
+    rescue ActiveRecord::RecordInvalid => e
+      self.errors = e.record.errors
+      raise ActiveRecord::RecordInvalid, self
     end
+
+    self
   end
 
   def self.create!(params)
-    self.new(params).save!
+    new(params).save!
   end
 
   # Use AR's i18n scope so that we can raise RecordInvalid exceptions

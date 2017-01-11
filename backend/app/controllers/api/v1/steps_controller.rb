@@ -8,7 +8,10 @@ class Api::V1::StepsController < ApplicationController
 
   def show
     step = Step.find(step_id)
+    # FIXME
+    # rubocop:disable Style/SignalException
     fail ActiveRecord::RecordNotFound if step.nil?
+    # rubocop:enable Style/SignalException
     render json: step
   end
 
@@ -19,10 +22,6 @@ class Api::V1::StepsController < ApplicationController
   end
 
   def group
-    @group ||= begin
-                 params[:group].to_sym
-               rescue
-                 nil
-               end
+    @group ||= params[:group]&.to_sym
   end
 end

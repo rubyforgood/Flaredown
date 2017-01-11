@@ -14,7 +14,10 @@ class Api::V1::SexesController < ApplicationController
 
   def sex_id
     id = params.require(:id)
-    fail ActionController::BadRequest.new('id param is not a valid sex id') unless Sex.all_ids.include?(id)
+    # FIXME
+    # rubocop:disable Style/SignalException
+    fail(ActionController::BadRequest, 'id param is not a valid sex id') unless Sex.all_ids.include?(id)
+    # rubocop:enable Style/SignalException
     id
   end
 end

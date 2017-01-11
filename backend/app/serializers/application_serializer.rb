@@ -3,7 +3,7 @@ class ApplicationSerializer < ActiveModel::Serializer
 
   attributes :id, :created_at, :updated_at
 
-  alias_method :current_user, :scope
+  alias current_user scope
 
   def id
     object.try :id

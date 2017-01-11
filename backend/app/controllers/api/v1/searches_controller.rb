@@ -2,12 +2,15 @@ class Api::V1::SearchesController < ApplicationController
   SEARCH_MAPPER = {
     'dose' => Search::ForDose,
     'food' => Search::ForFood
-  }
+  }.freeze
 
   def show
     search = (SEARCH_MAPPER[resource_param] || Search).new(search_params)
 
-    fail ActiveRecord::RecordInvalid.new(search) if search.invalid?
+    # FIXME
+    # rubocop:disable Style/SignalException
+    fail(ActiveRecord::RecordInvalid, search) if search.invalid?
+    # rubocop:enable Style/SignalException
 
     render json: search, serializer: SearchSerializer
   end

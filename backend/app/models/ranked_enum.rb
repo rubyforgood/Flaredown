@@ -18,10 +18,9 @@ class RankedEnum
     end
 
     def all
-      cache_key = "#{self.name.pluralize.underscore}"
-      Rails.cache.fetch(cache_key) do
+      Rails.cache.fetch(name.pluralize.underscore) do
         result = []
-        all_ids.each_with_index { |id, i| result << self.new(id, i + 1) }
+        all_ids.each_with_index { |id, i| result << new(id, i + 1) }
         result
       end
     end

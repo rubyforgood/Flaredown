@@ -8,7 +8,7 @@ RSpec.describe Checkin::Creator do
   let!(:symptom) { symptom_tracking.trackable }
   let!(:treatment_tracking) { create(:tracking, :active, :for_treatment, user: user) }
   let!(:treatment) { treatment_tracking.trackable }
-  let!(:date) { Date.today }
+  let!(:date) { Time.zone.today }
 
   subject { Checkin::Creator.new(user.id, date).create! }
 
@@ -66,7 +66,7 @@ RSpec.describe Checkin::Creator do
       before { create(:tracking, :active, :for_condition, user: user) }
       it "sets positions with auto-increment counter starting by 1" do
         positions = subject.conditions.map(&:position)
-        expect(positions.to_set).to eq [0,1].to_set
+        expect(positions.to_set).to eq [0, 1].to_set
       end
     end
 
@@ -100,13 +100,13 @@ RSpec.describe Checkin::Creator do
       it "increments count on usage records" do
         # For Condition
         expect(subject.conditions).to be_present
-        expect(condition_usage.reload.count).to eq condition_usage_count+1
+        expect(condition_usage.reload.count).to eq(condition_usage_count + 1)
         # For Symptom
         expect(subject.symptoms).to be_present
-        expect(symptom_usage.reload.count).to eq symptom_usage_count+1
+        expect(symptom_usage.reload.count).to eq(symptom_usage_count + 1)
         # For Treatment
         expect(subject.treatments).to be_present
-        expect(treatment_usage.reload.count).to eq treatment_usage_count+1
+        expect(treatment_usage.reload.count).to eq(treatment_usage_count + 1)
       end
     end
 

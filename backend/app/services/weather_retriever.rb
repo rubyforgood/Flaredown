@@ -17,10 +17,6 @@ class WeatherRetriever
 
     Time.zone = tz
 
-    if Rails.application.secrets.debug
-      Rails.logger.info("\nThe forecast for #{date} and #{postal_code} is:\n#{forecast.to_yaml}\n")
-    end
-
     the_day = forecast.daily.data.first
 
     Weather.create(

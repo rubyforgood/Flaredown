@@ -3,11 +3,8 @@ class Api::V1::SymptomsController < ApplicationController
 
   def index
     @symptoms = @symptoms.includes(:translations)
-    if ids.present?
-      @symptoms = @symptoms.where(id: ids)
-    else
-      @symptoms = @symptoms.order(:name).limit(50)
-    end
+    @symptoms = ids.present? ? @symptoms.where(id: ids) : @symptoms.order(:name).limit(50)
+
     render json: @symptoms
   end
 
@@ -26,9 +23,6 @@ class Api::V1::SymptomsController < ApplicationController
   end
 
   def ids
-    @ids ||=
-      if params[:ids].is_a?(Array)
-        params[:ids]
-      end
+    @ids ||= params[:ids] if params[:ids].is_a?(Array)
   end
 end

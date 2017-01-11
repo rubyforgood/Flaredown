@@ -14,8 +14,14 @@ class Invitation
   end
 
   def self.find(id)
+    # FIXME
+    # rubocop:disable Rails/DynamicFindBy
     user = User.find_by_invitation_token(id, true)
+    # rubocop:enable Rails/DynamicFindBy
+    # FIXME
+    # rubocop:disable Style/SignalException
     fail ActiveRecord::RecordNotFound if user.nil?
+    # rubocop:enable Style/SignalException
     new(id, user)
   end
 end

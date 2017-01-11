@@ -14,28 +14,28 @@ class DataExportJob < ActiveJob::Base
     csv_data = CSV.generate do |csv|
       csv << headers
 
-      checkins.each do |checkin|
-        row = [checkin.date]
-
-        symptoms_map = trackables_map(checkin.symptoms, 'symptom')
-        conditions_map = trackables_map(checkin.conditions, 'condition')
-        treatments_map = trackables_map(checkin.treatments, 'treatment')
-
-        condition_names.keys.each { |id| row << conditions_map[id] }
-        symptom_names.keys.each { |id| row << symptoms_map[id] }
-        treatment_names.keys.each { |id| row << treatments_map[id] }
-
-        row << tag_names.slice(*checkin.tag_ids).values.join(SUBFIELD_SEPARATOR)
-        row << food_names.slice(*checkin.food_ids).values.join(SUBFIELD_SEPARATOR)
-
-        csv << row
-      end
+      checkins.each { |checkin| csv << checkin_row(checkin) }
     end
 
     UserDataMailer.trackings_csv(user.email, csv_data).deliver_later
   end
 
   private
+
+  def checkin_row(checkin)
+    row = [checkin.date]
+
+    symptoms_map = trackables_map(checkin.symptoms, 'symptom')
+    conditions_map = trackables_map(checkin.conditions, 'condition')
+    treatments_map = trackables_map(checkin.treatments, 'treatment')
+
+    condition_names.keys.each { |id| row << conditions_map[id] }
+    symptom_names.keys.each { |id| row << symptoms_map[id] }
+    treatment_names.keys.each { |id| row << treatments_map[id] }
+
+    row << tag_names.slice(*checkin.tag_ids).values.join(SUBFIELD_SEPARATOR)
+    row << food_names.slice(*checkin.food_ids).values.join(SUBFIELD_SEPARATOR)
+  end
 
   def set_attributes(locale, checkins)
     checkin_ids = checkins.pluck(:id)
@@ -86,7 +86,7 @@ class DataExportJob < ActiveJob::Base
       .concat(condition_names.values)
       .concat(symptom_names.values)
       .concat(treatment_names.values)
-      .concat(['Tags', 'Foods'])
+      .concat(%w(Tags Foods))
   end
 
   def trackables_map(trackables, type)

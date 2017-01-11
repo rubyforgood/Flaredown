@@ -34,6 +34,8 @@ namespace :oneoff do
   task fix_trackable_colors: :environment do
     fix_trackable_colors
   end
+  # FIXME
+  # rubocop:disable Metrics/AbcSize
   def fix_trackable_colors
     colors = (0..32).to_a
     User.all.each do |user|
@@ -84,6 +86,7 @@ namespace :oneoff do
       Rails.logger.info("[#{__method__}] Colors: #{colors_hash}")
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   task generate_screen_names: :environment do
     generate_screen_names

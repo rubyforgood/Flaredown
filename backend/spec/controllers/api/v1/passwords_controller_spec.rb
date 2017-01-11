@@ -12,9 +12,6 @@ RSpec.describe Api::V1::PasswordsController do
         end
       end
       context 'when provide token' do
-        before do
-
-        end
         it 'returns password ' do
           put :update, id: 1, token: '123'
           expect(response.status).to eq 422
@@ -27,7 +24,15 @@ RSpec.describe Api::V1::PasswordsController do
 
       context 'when provide right params' do
         it 'update password' do
-          put :update, id: user.id, password: { current_password: 'ValidPassword123', password: 'password123', password_confirmation: 'password123' }
+          put(
+            :update,
+            id: user.id,
+            password: {
+              current_password: 'ValidPassword123',
+              password: 'password123',
+              password_confirmation: 'password123'
+            }
+          )
           expect(response_body[:password][:email]).to eq user.email
         end
       end
@@ -41,7 +46,16 @@ RSpec.describe Api::V1::PasswordsController do
 
       context 'when current password is wrong' do
         it 'returns 422  (Unprocessable Entity)' do
-          put :update, id: user.id, password: { current_password: 'InvalidPassword123', password: 'password123', password_confirmation: 'password123' }
+          put(
+            :update,
+            id: user.id,
+            password: {
+              current_password: 'InvalidPassword123',
+              password: 'password123',
+              password_confirmation: 'password123'
+            }
+          )
+
           expect(response.status).to eq 422
         end
       end
