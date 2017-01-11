@@ -12,7 +12,7 @@ describe UserDataMailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to match('See your data')
+      expect(mail.body.encoded).to match('- The Flaredown Team')
     end
 
     it 'has attachment' do
