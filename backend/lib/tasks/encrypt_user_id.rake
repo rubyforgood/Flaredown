@@ -1,5 +1,5 @@
-namespace :flaredown do
-  desc 'Encrypt user_id'
+namespace :app do
+  desc 'flaredown | encrypt user_id'
   task encrypt_user_id: :environment do
     puts "Loading foods:\n"
 
