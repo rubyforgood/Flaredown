@@ -1,0 +1,30 @@
+#
+# Symmetric Encryption for Ruby
+#
+---
+# For the development and test environments the test symmetric encryption keys
+# can be placed directly in the source code.
+# And therefore no RSA private key is required
+development:   &development_defaults
+  key:         1234567890ABCDEF1234567890ABCDEF
+  iv:          1234567890ABCDEF
+  cipher_name: aes-128-cbc
+  encoding:    :base64strict
+
+test:
+  <<: *development_defaults
+
+production:
+  private_rsa_key: <%= ENV['SYMMETRIC_ENCRYPTION_PRIVATE_RSA'] %>
+
+  # List Symmetric Key files in the order of current / latest first
+  ciphers:
+    -
+      # Filename containing Symmetric Encryption Key encrypted using the
+      # RSA public key derived from the private key above
+      encrypted_key:     <%= ENV['SYMMETRIC_ENCRYPTION_KEY_1'] %>
+      iv:                <%= ENV['SYMMETRIC_ENCRYPTION_KEY_1_IV'] %>
+      cipher_name:       aes-256-cbc
+      encoding:          :base64strict
+      version:           1
+      always_add_header: true
