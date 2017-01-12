@@ -3,6 +3,8 @@ AllCops:
   Include:
     - '**/Rakefile'
     - '**/config.ru'
+    # TODO fix rake tasks
+    # - '**/*.rake'
   Exclude:
     - 'tmp/**/*'
     - 'vendor/**/*'
