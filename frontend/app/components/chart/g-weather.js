@@ -27,6 +27,22 @@ export default Ember.Component.extend(Colorable, Graphable, {
     );
   }),
 
+  dataYValues: Ember.computed('data', function() {
+    const min = this.get('roundValuesYMin');
+    const max = this.get('roundValuesYMax');
+    const step = (max - min) / 4;
+
+    let result = [];
+
+    for (let i = min; i < max; i += step) {
+      result.pushObject(Math.floor(i));
+    }
+
+    result.pushObject(max);
+
+    return result.uniq();
+  }),
+
   xAxisElementId: Ember.computed('name', function() {
     return this.get('name').replace(/\W/g, '-');
   }),
@@ -43,15 +59,23 @@ export default Ember.Component.extend(Colorable, Graphable, {
   dataValuesYMax: Ember.computed.max('dataValuesY'),
   dataValuesYMin: Ember.computed.min('dataValuesY'),
 
+  roundValuesYMax: Ember.computed('dataValuesYMax', function() {
+    return Math.ceil(this.get('dataValuesYMax'));
+  }),
+
+  roundValuesYMin: Ember.computed('dataValuesYMin', function() {
+    return Math.floor(this.get('dataValuesYMin'));
+  }),
+
   yScale: Ember.computed('data', function() {
-    let offset = (this.get('dataValuesYMax') - this.get('dataValuesYMin') + 1) / 4;
+    let offset = (this.get('roundValuesYMax') - this.get('roundValuesYMin') + 1) / 4;
 
     return(
       d3
         .scale
         .linear()
         .range([this.get('height'), 0])
-        .domain([this.get('dataValuesYMin') - offset, this.get('dataValuesYMax') + offset])
+        .domain([this.get('roundValuesYMin') - offset, this.get('roundValuesYMax') + offset])
     );
   }),
 

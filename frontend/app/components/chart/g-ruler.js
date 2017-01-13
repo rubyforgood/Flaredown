@@ -3,6 +3,7 @@ import Ember from 'ember';
 let { Component, computed } = Ember;
 
 export default Component.extend({
+  unit: '',
   tagName: 'g',
   labelSize: 12,
   linesOffset: 0,
@@ -22,7 +23,11 @@ export default Component.extend({
       .map(item => {
         const lineY = this.get('yScale')(item);
 
-        return { lineY, label: item, labelY: lineY + this.get('labelSize') / 2 - 2};
+        return {
+          lineY,
+          label: `${item}${this.get('unit')}`,
+          labelY: lineY + this.get('labelSize') / 2 - 2,
+        };
       });
   }),
 });
