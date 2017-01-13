@@ -77,7 +77,7 @@ export default Ember.Mixin.create({
   },
 
   getY(d) {
-    return this.get('yScale')(d.y);
+    return this.get('yScale')(d.y) - 4; // minus radius
   },
 
   actions: {

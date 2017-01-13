@@ -71,7 +71,7 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   }),
 
   serieHeight: 75,
-  seriePadding: 10,
+  seriePadding: 20,
   seriesLength: Ember.computed('series.weathers_mesures.length', 'trackables.length', function() {
     return this.get('trackables.length') + this.get('series.weathers_mesures.length');
   }),
@@ -99,9 +99,9 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
 
   SVGHeight: Ember.computed('timelineLength', 'totalSeriesHeight', function() {
     if(Ember.isPresent(this.get('totalSeriesHeight'))) {
-      return this.get('totalSeriesHeight') + this.get('timelineHeight');
+      return this.get('totalSeriesHeight') + this.get('timelineHeight') + this.get('seriePadding');
     } else {
-      return this.get('timelineHeight');
+      return this.get('timelineHeight') + this.get('seriePadding');
     }
   }),
 

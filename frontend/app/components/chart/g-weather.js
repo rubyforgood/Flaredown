@@ -10,17 +10,20 @@ export default Ember.Component.extend(Colorable, Graphable, {
       this
         .get('data')
         .filter(item => Ember.$.isNumeric(item.y))
-        .map(item => (
-          {
-            x: this.get('xScale')(item.x),
-            y: this.get('yScale')(item.y),
+        .map(item => {
+          const x = this.get('xScale')(item.x);
+          const y = this.get('yScale')(item.y) - 4; // minus radius
+
+          return {
+            x,
+            y,
             tip: {
               label: `${item.y}${this.get('unit')}`,
-              x: this.get('xScale')(item.x) - 15,
-              y: this.get('yScale')(item.y) - 10
+              x: x - 15,
+              y: y - 10
             }
-          }
-        ))
+          };
+        })
     );
   }),
 

@@ -1,6 +1,6 @@
 {{#if chartLoaded }}
   <svg width='100%' height={{SVGHeight}}>
-    <g class="health-chart-viewport">
+    <g class="health-chart-viewport" transform="translate(0, {{seriePadding}})">
 
         {{#each series.conditions as |condition|}}
           {{chart/g-trackable padding=seriePadding

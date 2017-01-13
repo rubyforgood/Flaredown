@@ -3,6 +3,8 @@ import Graphable from 'flaredown/components/chart/graphable';
 
 export default Ember.Component.extend(Graphable, {
   type: 'line',
+  dataYValues: [0, 1, 2, 3, 4],
+
   isLineSerie: Ember.computed.equal('type', 'line'),
   isSymbolSerie: Ember.computed.equal('type', 'symbol'),
 
@@ -26,13 +28,16 @@ export default Ember.Component.extend(Graphable, {
     return this.get('data').filter( (item) => {
       return Ember.$.isNumeric(item.y);
     }).map( (item) => {
+      let x = this.get('xScale')(item.x);
+      let y = this.get('yScale')(item.y) - 4; // minus radius
+
       return {
-        x: this.get('xScale')(item.x),
-        y: this.get('yScale')(item.y),
+        x,
+        y,
         tip: {
           label: item.label,
-          x: this.get('xScale')(item.x) - 15,
-          y: this.get('yScale')(item.y) - 10
+          x: x - 15,
+          y: y - 10
         }
       };
     });

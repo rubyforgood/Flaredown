@@ -13,6 +13,26 @@
       cursor: -webkit-grabbing;
   }
 
+  .g-background {
+    x: 1%;
+    rx: 5;
+    ry: 5;
+    fill: white;
+    width: 98%;
+  }
+
+  .ruler-label {
+    fill: $background;
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  .ruler-line {
+    stroke-width: 1;
+    stroke-dasharray: 3, 3;
+    stroke: $background;
+  }
+
   .tool-tip {
     font-weight: bold;
     font-size: 12px;

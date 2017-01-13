@@ -1,4 +1,10 @@
+<text class="title {{model.fillClass}}" transform="translate(5, -5)">{{model.name}}</text>
+
+<rect class="g-background" height="{{height}}"></rect>
+
 {{#if isLineSerie}}
+  {{chart/g-ruler yScale=yScale dataYValues=dataYValues width=width}}
+
   <path class="line {{model.strokeClass}}" d="{{lineFunction}}" transform="{{nestedTransform}}"></path>
 
   <g id="points-{{xAxisElementId}}" transform="{{nestedTransform}}">
@@ -40,8 +46,6 @@
       />
     {{/each}}
   </g>
+
+  <g id="x-axis-{{xAxisElementId}}" class="axis x {{model.strokeClass}}" transform="{{xAxisTransform}}"></g>
 {{/if}}
-
-<g id="x-axis-{{xAxisElementId}}" class="axis x {{model.strokeClass}}" transform="{{xAxisTransform}}"></g>
-
-<text class="title {{model.fillClass}}" transform="translate(5,12)">{{model.name}}</text>

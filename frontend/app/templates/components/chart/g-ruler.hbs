@@ -1,0 +1,16 @@
+<g class="ruler-labels">
+  {{#each rulers as |ruler|}}
+    <text class="ruler-label" transform="translate(10, {{ruler.labelY}})">{{ruler.label}}</text>
+  {{/each}}
+</g>
+
+<g transform="translate({{linesOffset}})">
+  {{#each rulers as |ruler|}}
+    <line
+      x1="5"
+      x2="{{width}}"
+      class="ruler-line"
+      transform="translate(0, {{ruler.lineY}})"
+    />
+  {{/each}}
+</g>
