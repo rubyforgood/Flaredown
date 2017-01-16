@@ -1,75 +1,53 @@
 import Ember from 'ember';
 import Graphable from 'flaredown/components/chart/graphable';
 
-export default Ember.Component.extend(Graphable, {
-  init() {
-    this._super(...arguments);
+const { Component, computed, get, isPresent, set } = Ember;
 
-    Ember.run.scheduleOnce('afterRender', () => {
-      this.drawAxis();
-    });
-  },
+export default Component.extend(Graphable, {
+  markerRadius: 7,
 
-  xAxis: Ember.computed('xScale', function() {
+  halfHeight: computed('height', function() {
+    return get(this, 'yScale')(0);
+  }),
+
+  markers: computed('data', function() {
     return(
-      d3
-        .svg
-        .axis()
-        .scale(this.get('xScale'))
-        .orient('bottom')
-        .ticks(0)
+      get(this, 'data')
+        .filter(item => item.y === true)
+        .map(item => ({
+          x: get(this, 'xScale')(item.x),
+          y: get(this, 'yScale')(0) - Math.ceil(get(this, 'markerRadius') / 2),
+          tip: {
+            label: item.label,
+            x: get(this, 'xScale')(item.x) - 15,
+            y: get(this, 'yScale')(item.y) - get(this, 'markerRadius') / 3,
+          }
+        }))
     );
   }),
 
-  xAxisTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )},${this.get('height')})`;
+  xAxisElementId: computed('model', function() {
+    return `${get(this, 'model.constructor.modelName')}-${get(this, 'model.id')}`;
   }),
 
-  drawAxis: Ember.observer('xAxis', function() {
-    if (Ember.isPresent(this.get('data'))) {
-      d3.select(`g#x-axis-${this.get('xAxisElementId')}`).call(this.get('xAxis'));
-    }
+  yScale: computed('data', function() {
+    return d3.scale.linear().range([get(this, 'height') , 0]).domain([-1, 1]);
   }),
 
-  markers: Ember.computed('data', function() {
-    return this.get('data').filter( (item) => {
-      return item.y === true;
-    }).map( (item) => {
-      return {
-        x: this.get('xScale')(item.x) - 20 ,
-        y: this.get('yScale')(2.5),
-        tip: {
-          label: item.label,
-          x: this.get('xScale')(item.x) - 15,
-          y: this.get('yScale')(item.y) - 15
-        }
-      };
-    });
-  }),
-
-  xAxisElementId: Ember.computed('model', function() {
-    return `${this.get('model.constructor.modelName')}-${this.get('model.id')}`;
-  }),
-
-  yScale: Ember.computed('data', function() {
-    return d3.scale.linear().range([this.get('height') , 0]).domain([-1, 5]);
-  }),
-
-  data: Ember.computed('checkins', function() {
-    var trackable = this.get('model');
-    var type = trackable.get('constructor.modelName');
+  data: computed('checkins', function() {
+    var type = get(this, 'model.constructor.modelName');
     var key = type.pluralize();
-    var timeline = this.get('timeline') || [];
+    var timeline = get(this, 'timeline') || [];
 
     return timeline.map(day => {
-      var checkin = this.get('checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
+      var checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
       var coordinate = { x: day, y: null };
 
-      if(Ember.isPresent(checkin)) {
-        var item = checkin.get(key).findBy(`${type}.id`, trackable.get('id'));
+      if(isPresent(checkin)) {
+        var item = get(checkin, key).findBy(`${type}.id`, get(this, 'model.id'));
 
-        if(Ember.isPresent(item) && item.get('isTaken') ) {
-          coordinate.label = item.get('value');
+        if(isPresent(item) && get(item, 'isTaken') ) {
+          coordinate.label = get(item, 'value');
           coordinate.y = true;
         }
       }
@@ -80,13 +58,13 @@ export default Ember.Component.extend(Graphable, {
 
   actions: {
     openMarkerTooltip(marker) {
-      this.set('openMarkerTooltip', true);
-      this.set('currentMarker', marker);
+      set(this, 'openMarkerTooltip', true);
+      set(this, 'currentMarker', marker);
     },
 
     closeMarkerTooltip() {
-      this.set('openMarkerTooltip', false);
-      this.set('currentMarker', null);
+      set(this, 'openMarkerTooltip', false);
+      set(this, 'currentMarker', null);
     }
   },
 });
