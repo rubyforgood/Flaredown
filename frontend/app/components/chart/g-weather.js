@@ -2,51 +2,52 @@ import Ember from 'ember';
 import Colorable from 'flaredown/mixins/colorable';
 import Graphable from 'flaredown/components/chart/graphable';
 
-export default Ember.Component.extend(Colorable, Graphable, {
+const { $, Component, computed, get, isPresent } = Ember;
+
+export default Component.extend(Colorable, Graphable, {
   colorId: '14',
   rangeDevider: 4,
 
-  dataValuesYMin: Ember.computed.min('dataValuesY'),
-  dataValuesYMax: Ember.computed.max('dataValuesY'),
+  dataValuesYMin: computed.min('dataValuesY'),
+  dataValuesYMax: computed.max('dataValuesY'),
 
-  roundValuesYMin: Ember.computed('dataValuesYMin', function() {
-    return Math.floor(this.get('dataValuesYMin'));
+  roundValuesYMin: computed('dataValuesYMin', function() {
+    return Math.floor(get(this, 'dataValuesYMin'));
   }),
 
-  roundValuesYMax: Ember.computed('dataValuesYMax', function() {
-    return Math.ceil(this.get('dataValuesYMax'));
+  roundValuesYMax: computed('dataValuesYMax', function() {
+    return Math.ceil(get(this, 'dataValuesYMax'));
   }),
 
-  isDecimalStep: Ember.computed('roundValuesYMin', 'roundValuesYMax', function() {
-    return this.get('roundValuesYMax') - this.get('roundValuesYMin') < this.get('rangeDevider');
+  isDecimalStep: computed('roundValuesYMin', 'roundValuesYMax', function() {
+    return get(this, 'roundValuesYMax') - get(this, 'roundValuesYMin') < get(this, 'rangeDevider');
   }),
 
-  chosenYMin: Ember.computed('isDecimalStep', function() {
-    return this.get('isDecimalStep') ? this.get('dataValuesYMin') : this.get('roundValuesYMin');
+  chosenYMin: computed('isDecimalStep', function() {
+    return get(this, get(this, 'isDecimalStep') ? 'dataValuesYMin' : 'roundValuesYMin');
   }),
 
-  chosenYMax: Ember.computed('isDecimalStep', function() {
-    return this.get('isDecimalStep') ? this.get('dataValuesYMax') : this.get('roundValuesYMax');
+  chosenYMax: computed('isDecimalStep', function() {
+    return get(this, get(this, 'isDecimalStep') ? 'dataValuesYMax' : 'roundValuesYMax');
   }),
 
-  rulerStep: Ember.computed('roundValuesYMin', 'roundValuesYMax', function() {
-    return (this.get('chosenYMax') - this.get('chosenYMin')) / this.get('rangeDevider');
+  rulerStep: computed('roundValuesYMin', 'roundValuesYMax', function() {
+    return (get(this, 'chosenYMax') - get(this, 'chosenYMin')) / get(this, 'rangeDevider');
   }),
 
-  points: Ember.computed('data', function() {
+  points: computed('data', function() {
     return(
-      this
-        .get('data')
-        .filter(item => Ember.$.isNumeric(item.y))
+      get(this, 'data')
+        .filter(item => $.isNumeric(item.y))
         .map(item => {
-          const x = this.get('xScale')(item.x);
-          const y = this.get('yScale')(item.y) - 4; // minus radius
+          const x = get(this, 'xScale')(item.x);
+          const y = get(this, 'yScale')(item.y) - 4; // minus radius
 
           return {
             x,
             y,
             tip: {
-              label: `${item.y}${this.get('unit')}`,
+              label: `${item.y}${get(this, 'unit')}`,
               x: x - 15,
               y: y - 10
             }
@@ -55,59 +56,58 @@ export default Ember.Component.extend(Colorable, Graphable, {
     );
   }),
 
-  dataYValues: Ember.computed('data', function() {
+  dataYValues: computed('data', function() {
     let result = [];
 
-    const finalizeNumber =this.get('isDecimalStep') ?
+    const finalizeNumber = get(this, 'isDecimalStep') ?
       number => Math.round(number * 100) / 100
     :
       number => Math.floor(number);
 
-    for (let i = this.get('chosenYMin'); i < this.get('chosenYMax'); i += this.get('rulerStep')) {
+    for (let i = get(this, 'chosenYMin'); i < get(this, 'chosenYMax'); i += get(this, 'rulerStep')) {
       result.pushObject(finalizeNumber(i));
     }
 
-    result.pushObject(this.get('chosenYMax'));
+    result.pushObject(get(this, 'chosenYMax'));
 
     return result.uniq();
   }),
 
-  xAxisElementId: Ember.computed('name', function() {
-    return this.get('name').replace(/\W/g, '-');
+  xAxisElementId: computed('name', function() {
+    return get(this, 'name').replace(/\W/g, '-');
   }),
 
-  dataValuesY: Ember.computed('data', function() {
+  dataValuesY: computed('data', function() {
     return (
-      this
-        .get('data')
+      get(this, 'data')
         .map(item => item.y)
         .compact()
     );
   }),
 
-  yScale: Ember.computed('data', function() {
+  yScale: computed('data', function() {
     return(
       d3
         .scale
         .linear()
-        .range([this.get('height'), 0])
+        .range([get(this, 'height'), 0])
         .domain([
-          this.get('chosenYMin') - this.get('rulerStep'),
-          this.get('chosenYMax') + this.get('rulerStep')
+          get(this, 'chosenYMin') - get(this, 'rulerStep'),
+          get(this, 'chosenYMax') + get(this, 'rulerStep')
         ])
     );
   }),
 
-  data: Ember.computed('checkins', function() {
-    return (this.get('timeline') || []).map(day => {
-      let checkin = this.get('checkins').findBy('formattedDate', moment(day).format('YYYY-MM-DD'));
+  data: computed('checkins', function() {
+    return (get(this, 'timeline') || []).map(day => {
+      let checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format('YYYY-MM-DD'));
       let coordinate = { x: day, y: null };
 
-      if (Ember.isPresent(checkin)) {
-        let item = checkin.get('weather');
+      if (isPresent(checkin)) {
+        let item = get(checkin, 'weather');
 
-        if (Ember.isPresent(item)) {
-          coordinate.y = item.get(this.get('field'));
+        if (isPresent(item)) {
+          coordinate.y = get(item, get(this, 'field'));
         }
       }
 
