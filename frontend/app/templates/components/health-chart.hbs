@@ -11,7 +11,7 @@
                               startAt=startAt
                               endAt=endAt
                               model=condition.model
-                              index=condition.index}}
+                              chartOffset=condition.chartOffset}}
         {{/each}}
 
         {{#each series.symptoms as |symptom|}}
@@ -23,20 +23,20 @@
                               startAt=startAt
                               endAt=endAt
                               model=symptom.model
-                              index=symptom.index}}
+                              chartOffset=symptom.chartOffset}}
         {{/each}}
 
         {{#each series.treatments as |treatment|}}
           {{chart/g-flat
             padding=seriePadding
-            height=serieHeight
+            height=flatHeight
             width=seriesWidth
             checkins=checkins
             timeline=timeline
             startAt=startAt
             endAt=endAt
             model=treatment.model
-            index=treatment.index
+            chartOffset=treatment.chartOffset
           }}
         {{/each}}
 
@@ -45,7 +45,7 @@
             checkins=checkins
             field=weathers_mesure.field
             height=serieHeight
-            index=weathers_mesure.index
+            chartOffset=weathers_mesure.chartOffset
             name=weathers_mesure.name
             padding=seriePadding
             startAt=startAt

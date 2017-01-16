@@ -5,8 +5,8 @@ export default Ember.Mixin.create({
   classNames: 'chart',
   attributeBindings: ['transform'],
 
-  transform: Ember.computed('height', 'padding', 'index', function() {
-    return `translate(0,${(this.get('height') + this.get('padding')) * this.get('index')})`;
+  transform: Ember.computed('height', 'padding', 'chartOffset', function() {
+    return `translate(0,${this.get('chartOffset')})`;
   }),
 
   nestedTransform: Ember.computed('height', 'startAt', 'data', function() {
