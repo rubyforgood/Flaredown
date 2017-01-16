@@ -27,16 +27,17 @@
         {{/each}}
 
         {{#each series.treatments as |treatment|}}
-          {{chart/g-trackable padding=seriePadding
-                              height=serieHeight
-                              width=seriesWidth
-                              checkins=checkins
-                              timeline=timeline
-                              startAt=startAt
-                              endAt=endAt
-                              type="symbol"
-                              model=treatment.model
-                              index=treatment.index}}
+          {{chart/g-flat
+            padding=seriePadding
+            height=serieHeight
+            width=seriesWidth
+            checkins=checkins
+            timeline=timeline
+            startAt=startAt
+            endAt=endAt
+            model=treatment.model
+            index=treatment.index
+          }}
         {{/each}}
 
         {{#each series.weathers_mesures as |weathers_mesure|}}

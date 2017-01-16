@@ -6,10 +6,15 @@ import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   classNames: ['health-chart'],
 
+  endAt: moment(),
   checkins: [],
   trackables: [],
+  serieHeight: 75,
+  seriePadding: 20,
+  timelineHeight: 25,
 
   pressureUnits: Ember.computed.alias('session.currentUser.profile.pressureUnits'),
+  timelineLength: Ember.computed.alias('timeline.length'),
 
   startAt: Ember.computed('SVGWidth', function() {
     if( this.get('SVGWidth') <= 500) {
@@ -22,8 +27,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   startAtWithCache: Ember.computed('startAt', function() {
     return moment(this.get('startAt')).subtract(15, 'days');
   }),
-
-  endAt: moment(),
 
   endAtWithCache: Ember.computed('endAt', function() {
     return moment(this.get('endAt')).add(15, 'days');
@@ -70,8 +73,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
     return series;
   }),
 
-  serieHeight: 75,
-  seriePadding: 20,
   seriesLength: Ember.computed('series.weathers_mesures.length', 'trackables.length', function() {
     return this.get('trackables.length') + this.get('series.weathers_mesures.length');
   }),
@@ -83,9 +84,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   totalSeriesHeight: Ember.computed('seriesLength', 'serieHeight', 'seriePadding', function() {
     return this.get('seriesLength') * this.get('serieHeight') + this.get('seriesLength') * this.get('seriePadding');
   }),
-
-  timelineHeight: 25,
-  timelineLength: Ember.computed.alias('timeline.length'),
 
   timeline: Ember.computed('checkins', 'startAtWithCache', 'endAtWithCache', function() {
     var timeline = Ember.A();
@@ -152,7 +150,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
         this.set('endAt',  nextEndAt );
       }
     }
-
   },
 
   actions: {
@@ -168,9 +165,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
     closeInfoWindow() {
       this.set('xPosition', null);
       this.set('openInfoWindow', false);
-    }
-
-  }
-
-
+    },
+  },
 });

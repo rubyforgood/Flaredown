@@ -73,10 +73,6 @@ export default Component.extend(Colorable, Graphable, {
     return result.uniq();
   }),
 
-  xAxisElementId: computed('name', function() {
-    return get(this, 'name').replace(/\W/g, '-');
-  }),
-
   dataValuesY: computed('data', function() {
     return (
       get(this, 'data')
