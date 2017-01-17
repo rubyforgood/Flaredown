@@ -58,8 +58,8 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
       item.chartOffset = chartOffset += serieHeight + seriePadding;
     });
 
-    series.treatments.forEach(item => {
-      item.chartOffset = chartOffset += serieHeight + seriePadding;
+    series.treatments.forEach((item, index)  => {
+      item.chartOffset = chartOffset += (index === 0 ? serieHeight : flatHeight) + seriePadding;
     });
 
     series.weathers_mesures.pushObject({
