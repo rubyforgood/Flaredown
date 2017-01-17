@@ -5,7 +5,7 @@ import Graphable from 'flaredown/components/chart/graphable';
 const { $, Component, computed, get, isPresent } = Ember;
 
 export default Component.extend(Colorable, Graphable, {
-  colorId: '14',
+  colorId: '35',
   rangeDevider: 4,
 
   dataValuesYMin: computed.min('dataValuesY'),
