@@ -6,7 +6,7 @@
 * MongoDB 3.0.10
 * Redis 3.2.6
 * Ruby 2.3.1 (see [RVM](https://rvm.io/) also)
-* Node 9.6.1
+* Node 6.9.1
 
 ## Installation
 
