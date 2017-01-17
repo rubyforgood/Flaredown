@@ -89,9 +89,7 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
 
   totalSeriesHeight: Ember.computed('series.weathersMesures.[]', function() {
     return(
-      this.get('series.weathersMesures.lastObject.chartOffset')
-      + this.get('serieHeight')
-      + this.get('seriePadding')
+      this.get('series.weathersMesures.lastObject.chartOffset') + this.get('serieHeight') + this.get('seriePadding')
     );
   }),
 
