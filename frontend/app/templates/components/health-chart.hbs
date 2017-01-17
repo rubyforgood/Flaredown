@@ -40,17 +40,17 @@
           }}
         {{/each}}
 
-        {{#each series.weathers_mesures as |weathers_mesure|}}
+        {{#each series.weathersMesures as |weathersMesure|}}
           {{chart/g-weather
             checkins=checkins
-            field=weathers_mesure.field
+            field=weathersMesure.field
             height=serieHeight
-            chartOffset=weathers_mesure.chartOffset
-            name=weathers_mesure.name
+            chartOffset=weathersMesure.chartOffset
+            name=weathersMesure.name
             padding=seriePadding
             startAt=startAt
             timeline=timeline
-            unit=weathers_mesure.unit
+            unit=weathersMesure.unit
             width=seriesWidth
           }}
         {{/each}}

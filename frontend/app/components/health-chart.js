@@ -43,7 +43,7 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
       conditions: [],
       symptoms:   [],
       treatments: [],
-      weathers_mesures: [],
+      weathersMesures: [],
     };
 
     this.get('trackables').forEach(item => {
@@ -62,14 +62,14 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
       item.chartOffset = chartOffset += (index === 0 ? serieHeight : flatHeight) + seriePadding;
     });
 
-    series.weathers_mesures.pushObject({
+    series.weathersMesures.pushObject({
       name: 'Avg daily humidity',
       unit: '%',
       field: 'humidity',
       chartOffset: chartOffset += flatHeight + seriePadding,
     });
 
-    series.weathers_mesures.pushObject({
+    series.weathersMesures.pushObject({
       name: 'Avg daily atmospheric pressure',
       unit: this.get('pressureUnits'),
       field: this.pressureFieldByUnits(this.get('pressureUnits')),
@@ -79,17 +79,17 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
     return series;
   }),
 
-  seriesLength: Ember.computed('series.weathers_mesures.length', 'trackables.length', function() {
-    return this.get('trackables.length') + this.get('series.weathers_mesures.length');
+  seriesLength: Ember.computed('series.weathersMesures.length', 'trackables.length', function() {
+    return this.get('trackables.length') + this.get('series.weathersMesures.length');
   }),
 
   seriesWidth: Ember.computed('SVGWidth', function() {
     return this.get('SVGWidth') * 3;
   }),
 
-  totalSeriesHeight: Ember.computed('series.weathers_mesures.[]', function() {
+  totalSeriesHeight: Ember.computed('series.weathersMesures.[]', function() {
     return(
-      this.get('series.weathers_mesures.lastObject.chartOffset')
+      this.get('series.weathersMesures.lastObject.chartOffset')
       + this.get('serieHeight')
       + this.get('seriePadding')
     );
