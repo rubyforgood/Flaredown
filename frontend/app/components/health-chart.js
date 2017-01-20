@@ -3,14 +3,20 @@ import Resizable from './chart/resizable';
 import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
 const {
+  Component,
   computed,
   get,
   getProperties,
+  observer,
   set,
-  computed: { alias }
+  computed: { alias },
+  run: {
+    debounce,
+    scheduleOnce,
+  },
 } = Ember;
 
-export default Ember.Component.extend(Resizable, FieldsByUnits, {
+export default Component.extend(Resizable, FieldsByUnits, {
   classNames: ['health-chart'],
 
   checkins: [],
@@ -23,6 +29,10 @@ export default Ember.Component.extend(Resizable, FieldsByUnits, {
 
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
+
+  updateTrackables: observer('centeredDate', function() {
+    debounce(this, this.fetchDataChart, 1000);
+  }),
 
   daysRadius: computed('SVGWidth', function() {
     return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
@@ -142,8 +152,8 @@ export default Ember.Component.extend(Resizable, FieldsByUnits, {
   didInsertElement() {
     this._super(...arguments);
 
-    Ember.run.scheduleOnce('afterRender', this, () => {
-      this.fetchDataChart().then( () => {
+    scheduleOnce('afterRender', this, () => {
+      this.fetchDataChart().then(() => {
         set(this, 'chartLoaded', true);
       });
     });
