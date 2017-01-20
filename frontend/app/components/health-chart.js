@@ -1,41 +1,63 @@
 import Ember from 'ember';
 import Resizable from './chart/resizable';
-import Draggable from './chart/draggable';
 import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
-const { getProperties } = Ember;
+const {
+  computed,
+  get,
+  getProperties,
+  set,
+  computed: { alias }
+} = Ember;
 
-export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
+export default Ember.Component.extend(Resizable, FieldsByUnits, {
   classNames: ['health-chart'],
 
-  endAt: moment(),
   checkins: [],
   trackables: [],
   flatHeight: 30,
   serieHeight: 75,
   seriePadding: 20,
+  pixelsPerDate: 32,
   timelineHeight: 25,
 
-  pressureUnits: Ember.computed.alias('session.currentUser.profile.pressureUnits'),
-  timelineLength: Ember.computed.alias('timeline.length'),
+  pressureUnits: alias('session.currentUser.profile.pressureUnits'),
+  timelineLength: alias('timeline.length'),
 
-  startAt: Ember.computed('SVGWidth', function() {
-    if( this.get('SVGWidth') <= 500) {
-      return moment().subtract(5, 'days');
+  daysRadius: computed('SVGWidth', function() {
+    return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
+  }),
+
+  endAt: computed('daysRadius', 'centeredDate', function() {
+    const centeredDate = get(this, 'centeredDate');
+
+    if (centeredDate) {
+      return moment(centeredDate).add(get(this, 'daysRadius'), 'days');
     } else {
-      return moment().subtract(15, 'days');
+      return moment();
     }
   }),
 
-  startAtWithCache: Ember.computed('startAt', function() {
-    return moment(this.get('startAt')).subtract(15, 'days');
+  startAt: computed('daysRadius', 'centeredDate', function() {
+    const daysRadius = get(this, 'daysRadius');
+    const centeredDate = get(this, 'centeredDate');
+
+    if (centeredDate) {
+      return moment(centeredDate).subtract(daysRadius, 'days');
+    } else {
+      return moment().subtract(daysRadius * 2, 'days');
+    }
   }),
 
-  endAtWithCache: Ember.computed('endAt', function() {
-    return moment(this.get('endAt')).add(15, 'days');
+  startAtWithCache: computed('startAt', function() {
+    return moment(get(this, 'startAt')).subtract(get(this, 'daysRadius'), 'days');
   }),
 
-  series: Ember.computed('trackables', 'pressureUnits', function() {
+  endAtWithCache: computed('endAt', function() {
+    return moment(get(this, 'endAt')).add(get(this, 'daysRadius'), 'days');
+  }),
+
+  series: computed('trackables', 'pressureUnits', function() {
     const { flatHeight, serieHeight, seriePadding } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding');
 
     let chartOffset = 0 - serieHeight - seriePadding;
@@ -46,8 +68,8 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
       weathersMesures: [],
     };
 
-    this.get('trackables').forEach(item => {
-      series[item.get('constructor.modelName').pluralize()].pushObject({ chartOffset: 0, model: item });
+    get(this, 'trackables').forEach(item => {
+      series[get(item, 'constructor.modelName').pluralize()].pushObject({ chartOffset: 0, model: item });
     });
 
     series.conditions.forEach(item => {
@@ -71,108 +93,100 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
 
     series.weathersMesures.pushObject({
       name: 'Avg daily atmospheric pressure',
-      unit: this.get('pressureUnits'),
-      field: this.pressureFieldByUnits(this.get('pressureUnits')),
+      unit: get(this, 'pressureUnits'),
+      field: this.pressureFieldByUnits(get(this, 'pressureUnits')),
       chartOffset: chartOffset += serieHeight + seriePadding,
     });
 
     return series;
   }),
 
-  seriesLength: Ember.computed('series.weathersMesures.length', 'trackables.length', function() {
-    return this.get('trackables.length') + this.get('series.weathersMesures.length');
+  seriesLength: computed('series.weathersMesures.length', 'trackables.length', function() {
+    return get(this, 'trackables.length') + get(this, 'series.weathersMesures.length');
   }),
 
-  seriesWidth: Ember.computed('SVGWidth', function() {
-    return this.get('SVGWidth') * 3;
+  seriesWidth: computed('SVGWidth', function() {
+    return get(this, 'SVGWidth') * 2;
   }),
 
-  totalSeriesHeight: Ember.computed('series.weathersMesures.[]', function() {
+  totalSeriesHeight: computed('series.weathersMesures.[]', function() {
     return(
-      this.get('series.weathersMesures.lastObject.chartOffset') + this.get('serieHeight') + this.get('seriePadding')
+      get(this, 'series.weathersMesures.lastObject.chartOffset') + get(this, 'serieHeight') + get(this, 'seriePadding')
     );
   }),
 
-  timeline: Ember.computed('checkins', 'startAtWithCache', 'endAtWithCache', function() {
-    var timeline = Ember.A();
-    moment.range(this.get('startAtWithCache'), this.get('endAtWithCache') ).by('days', function(moment) {
-      timeline.push(
-        d3.time.format('%Y-%m-%d').parse(moment.format("YYYY-MM-DD"))
+  timeline: computed('checkins', 'startAt', 'endAt', function() {
+    let timeline = Ember.A();
+
+    moment.range(get(this, 'startAtWithCache'), get(this, 'endAtWithCache')).by('days', function(day) {
+      timeline.pushObject(
+        d3.time.format('%Y-%m-%d').parse(day.format("YYYY-MM-DD"))
       );
     });
+
     return timeline;
   }),
 
-  SVGHeight: Ember.computed('timelineLength', 'totalSeriesHeight', function() {
-    if(Ember.isPresent(this.get('totalSeriesHeight'))) {
-      return this.get('totalSeriesHeight') + this.get('timelineHeight') + this.get('seriePadding');
+  SVGHeight: computed('timelineLength', 'totalSeriesHeight', function() {
+    if(Ember.isPresent(get(this, 'totalSeriesHeight'))) {
+      return get(this, 'totalSeriesHeight') + get(this, 'timelineHeight') + get(this, 'seriePadding');
     } else {
-      return this.get('timelineHeight') + this.get('seriePadding');
+      return get(this, 'timelineHeight') + get(this, 'seriePadding');
     }
   }),
 
-  SVGWidth: Ember.computed('checkins',function() {
+  SVGWidth: computed('checkins',function() {
     return this.$().width();
   }),
 
   didInsertElement() {
     this._super(...arguments);
+
     Ember.run.scheduleOnce('afterRender', this, () => {
       this.fetchDataChart().then( () => {
-        this.set('chartLoaded', true);
+        set(this, 'chartLoaded', true);
       });
     });
   },
 
   fetchDataChart() {
-    var startAt = this.get('startAtWithCache').format("YYYY-MM-DD");
-    var endAt = this.get('endAtWithCache').format("YYYY-MM-DD");
+    var startAt = get(this, 'startAtWithCache').format("YYYY-MM-DD");
+    var endAt = get(this, 'endAtWithCache').format("YYYY-MM-DD");
 
-    return this.store.queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt }).then( chart => {
-      this.set('checkins', chart.get('checkins').sortBy('date:asc') );
-      this.set('trackables', chart.get('trackables').sortBy('type'));
-    });
+    return this
+      .store
+      .queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt })
+      .then(chart => {
+        set(this, 'checkins', get(chart, 'checkins').sortBy('date:asc'));
+        set(this, 'trackables', get(chart, 'trackables').sortBy('type'));
+      });
   },
 
   onResizeEnd() {
     this.fetchDataChart();
   },
 
-  onDragged(){
-    this.fetchDataChart();
-  },
-
-  onDragging(direction){
-    var nextStartAt, nextEndAt;
-
-    if(Ember.isEqual('right', direction)) {
-      this.set('startAt',  moment(this.get('startAt')).subtract(1, 'days'));
-      this.set('endAt',  moment(this.get('endAt')).subtract(1, 'days'));
-
-    } else if( Ember.isEqual('left', direction) ) {
-      nextStartAt = moment(this.get('startAt')).add(1, 'days');
-      nextEndAt = moment(this.get('endAt')).add(1, 'days');
-
-      if( nextEndAt < moment().add(3, 'days') ) {
-        this.set('startAt', nextStartAt );
-        this.set('endAt',  nextEndAt );
-      }
-    }
-  },
-
   actions: {
+    navigate(days) {
+      let centeredDate = get(this, 'centeredDate');
+
+      centeredDate = centeredDate ? moment(centeredDate) : get(this, 'endAt').subtract(get(this, 'daysRadius'), 'days');
+
+      set(this, 'centeredDate', centeredDate.add(days, 'days'));
+    },
+
     setCurrentDate(date) {
-      this.get('onDateClicked')(date);
+      get(this, 'onDateClicked')(date);
     },
 
     openInfoWindow(date, xPosition) {
-      this.set('xPosition', xPosition);
-      this.set('openInfoWindow', true);
+      set(this, 'xPosition', xPosition);
+      set(this, 'openInfoWindow', true);
     },
 
     closeInfoWindow() {
-      this.set('xPosition', null);
-      this.set('openInfoWindow', false);
+      set(this, 'xPosition', null);
+      set(this, 'openInfoWindow', false);
     },
   },
 });

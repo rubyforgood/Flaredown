@@ -73,6 +73,13 @@
     {{/if}}
   </svg>
   <img class="trans-pixel" src="/assets/trans-pixel.png">
+
+  {{chart-navigation
+    date=centeredDate
+    endAt=endAt
+    startAt=startAt
+    onNavigate=(action 'navigate')
+  }}
 {{else}}
   <div class="container health-spinner">
     <div class="sk-three-bounce">
