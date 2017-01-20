@@ -1,0 +1,31 @@
+<text class="title {{model.fillClass}}" transform="translate(5, -5)">{{model.name}}</text>
+
+<rect class="g-background" height="{{height}}"></rect>
+
+<line
+  x1="0"
+  x2="{{width}}"
+  class="ruler-line {{model.strokeClass}}"
+  transform="translate(0, {{halfHeight}})"
+/>
+
+<g transform="{{nestedTransform}}">
+  <defs>
+    <g id="marker-{{xAxisElementId}}" >
+      <circle cx="0" cy="0" r="{{markerRadius}}"/>
+    </g>
+  </defs>
+
+  {{#if openMarkerTooltip}}
+    <text x="{{currentMarker.tip.x}}" y="{{currentMarker.tip.y}}" class="tool-tip {{model.fillClass}}">
+      {{currentMarker.tip.label}}
+    </text>
+  {{/if}}
+
+  {{#each markers as |marker|}}
+    <use xlink:href="#marker-{{xAxisElementId}}" x="{{marker.x}}" y="{{marker.y}}" class="marker {{model.fillClass}}"
+      {{action "openMarkerTooltip" marker on="mouseEnter"}}
+      {{action "closeMarkerTooltip" marker on="mouseLeave"}}
+    />
+  {{/each}}
+</g>

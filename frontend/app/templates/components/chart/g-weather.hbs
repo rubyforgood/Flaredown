@@ -1,6 +1,12 @@
+<text class="title {{fillClass}}" transform="translate(5,-5)">{{name}}</text>
+
+<rect class="g-background" height="{{height}}"></rect>
+
+{{chart/g-ruler yScale=yScale dataYValues=dataYValues width=width unit=unit}}
+
 <path class="line {{strokeClass}}" d="{{lineFunction}}" transform="{{nestedTransform}}"></path>
 
-<g id="points-{{xAxisElementId}}" transform="{{nestedTransform}}">
+<g transform="{{nestedTransform}}">
   {{#if openPointTooltip}}
     <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{fillClass}}" >
       {{currentPoint.tip.label}}
@@ -14,7 +20,3 @@
     />
   {{/each}}
 </g>
-
-<g id="x-axis-{{xAxisElementId}}" class="axis x {{strokeClass}}" transform="{{xAxisTransform}}"></g>
-
-<text class="title {{fillClass}}" transform="translate(5,12)">{{name}}</text>

@@ -2,44 +2,25 @@ import Ember from 'ember';
 import Graphable from 'flaredown/components/chart/graphable';
 
 export default Ember.Component.extend(Graphable, {
-  type: 'line',
-  isLineSerie: Ember.computed.equal('type', 'line'),
-  isSymbolSerie: Ember.computed.equal('type', 'symbol'),
-
-  markers: Ember.computed('data', function() {
-    return this.get('data').filter( (item) => {
-      return item.y === true;
-    }).map( (item) => {
-      return {
-        x: this.get('xScale')(item.x) - 20 ,
-        y: this.get('yScale')(2.5),
-        tip: {
-          label: item.label,
-          x: this.get('xScale')(item.x) - 15,
-          y: this.get('yScale')(item.y) - 15
-        }
-      };
-    });
-  }),
+  dataYValues: [0, 1, 2, 3, 4],
 
   points: Ember.computed('data', function() {
     return this.get('data').filter( (item) => {
       return Ember.$.isNumeric(item.y);
     }).map( (item) => {
+      let x = this.get('xScale')(item.x);
+      let y = this.get('yScale')(item.y) - 4; // minus radius
+
       return {
-        x: this.get('xScale')(item.x),
-        y: this.get('yScale')(item.y),
+        x,
+        y,
         tip: {
           label: item.label,
-          x: this.get('xScale')(item.x) - 15,
-          y: this.get('yScale')(item.y) - 10
+          x: x - 15,
+          y: y - 10
         }
       };
     });
-  }),
-
-  xAxisElementId: Ember.computed('model', function() {
-    return `${this.get('model.constructor.modelName')}-${this.get('model.id')}`;
   }),
 
   yScale: Ember.computed('data', function() {
@@ -59,30 +40,13 @@ export default Ember.Component.extend(Graphable, {
       if(Ember.isPresent(checkin)) {
         var item = checkin.get(key).findBy(`${type}.id`, trackable.get('id'));
 
-        if(Ember.isPresent(item) && (Ember.isPresent(item.get('value')) || item.get('isTaken')) ) {
+        if (Ember.isPresent(item) && Ember.$.isNumeric(item.get('value'))) {
           coordinate.label = item.get('value');
-
-          if(Ember.$.isNumeric(item.get('value')) ) {
-            coordinate.y = item.get('value');
-          } else if (Ember.isEqual(item.get('isTaken'), true)) {
-            coordinate.y = true;
-          }
+          coordinate.y = item.get('value');
         }
       }
 
       return coordinate;
     }).sortBy('x');
   }),
-
-  actions: {
-    openMarkerTooltip(marker) {
-      this.set('openMarkerTooltip', true);
-      this.set('currentMarker', marker);
-    },
-
-    closeMarkerTooltip() {
-      this.set('openMarkerTooltip', false);
-      this.set('currentMarker', null);
-    }
-  },
 });

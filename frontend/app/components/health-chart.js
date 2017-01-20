@@ -3,13 +3,21 @@ import Resizable from './chart/resizable';
 import Draggable from './chart/draggable';
 import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
+const { getProperties } = Ember;
+
 export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
   classNames: ['health-chart'],
 
+  endAt: moment(),
   checkins: [],
   trackables: [],
+  flatHeight: 30,
+  serieHeight: 75,
+  seriePadding: 20,
+  timelineHeight: 25,
 
   pressureUnits: Ember.computed.alias('session.currentUser.profile.pressureUnits'),
+  timelineLength: Ember.computed.alias('timeline.length'),
 
   startAt: Ember.computed('SVGWidth', function() {
     if( this.get('SVGWidth') <= 500) {
@@ -23,69 +31,67 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
     return moment(this.get('startAt')).subtract(15, 'days');
   }),
 
-  endAt: moment(),
-
   endAtWithCache: Ember.computed('endAt', function() {
     return moment(this.get('endAt')).add(15, 'days');
   }),
 
   series: Ember.computed('trackables', 'pressureUnits', function() {
-    var index = 0;
+    const { flatHeight, serieHeight, seriePadding } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding');
 
-    var series = {
+    let chartOffset = 0 - serieHeight - seriePadding;
+    let series = {
       conditions: [],
       symptoms:   [],
       treatments: [],
-      weathers_mesures: [],
+      weathersMesures: [],
     };
 
-    this.get('trackables').forEach( (item) => {
-      var modelName = item.get('constructor.modelName').pluralize();
-      series[modelName].pushObject({ model: item, index: 0 });
+    this.get('trackables').forEach(item => {
+      series[item.get('constructor.modelName').pluralize()].pushObject({ chartOffset: 0, model: item });
     });
 
-    series.conditions.forEach( (item) => {
-      item.index = index++;
-    });
-    series.symptoms.forEach( (item) => {
-      item.index = index++;
+    series.conditions.forEach(item => {
+      item.chartOffset = chartOffset += serieHeight + seriePadding;
     });
 
-    series.treatments.forEach( (item) => {
-      item.index = index++;
+    series.symptoms.forEach(item => {
+      item.chartOffset = chartOffset += serieHeight + seriePadding;
     });
 
-    series.weathers_mesures.pushObject(
-      { index: index++, field: 'humidity', unit: '%', name: 'Avg daily humidity' }
-    );
-    series.weathers_mesures.pushObject(
-      {
-        field: this.pressureFieldByUnits(this.get('pressureUnits')),
-        index: index++,
-        name: 'Avg daily atmospheric pressure',
-        unit: this.get('pressureUnits'),
-      }
-    );
+    series.treatments.forEach((item, index)  => {
+      item.chartOffset = chartOffset += (index === 0 ? serieHeight : flatHeight) + seriePadding;
+    });
+
+    series.weathersMesures.pushObject({
+      name: 'Avg daily humidity',
+      unit: '%',
+      field: 'humidity',
+      chartOffset: chartOffset += flatHeight + seriePadding,
+    });
+
+    series.weathersMesures.pushObject({
+      name: 'Avg daily atmospheric pressure',
+      unit: this.get('pressureUnits'),
+      field: this.pressureFieldByUnits(this.get('pressureUnits')),
+      chartOffset: chartOffset += serieHeight + seriePadding,
+    });
 
     return series;
   }),
 
-  serieHeight: 75,
-  seriePadding: 10,
-  seriesLength: Ember.computed('series.weathers_mesures.length', 'trackables.length', function() {
-    return this.get('trackables.length') + this.get('series.weathers_mesures.length');
+  seriesLength: Ember.computed('series.weathersMesures.length', 'trackables.length', function() {
+    return this.get('trackables.length') + this.get('series.weathersMesures.length');
   }),
 
   seriesWidth: Ember.computed('SVGWidth', function() {
     return this.get('SVGWidth') * 3;
   }),
 
-  totalSeriesHeight: Ember.computed('seriesLength', 'serieHeight', 'seriePadding', function() {
-    return this.get('seriesLength') * this.get('serieHeight') + this.get('seriesLength') * this.get('seriePadding');
+  totalSeriesHeight: Ember.computed('series.weathersMesures.[]', function() {
+    return(
+      this.get('series.weathersMesures.lastObject.chartOffset') + this.get('serieHeight') + this.get('seriePadding')
+    );
   }),
-
-  timelineHeight: 25,
-  timelineLength: Ember.computed.alias('timeline.length'),
 
   timeline: Ember.computed('checkins', 'startAtWithCache', 'endAtWithCache', function() {
     var timeline = Ember.A();
@@ -99,9 +105,9 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
 
   SVGHeight: Ember.computed('timelineLength', 'totalSeriesHeight', function() {
     if(Ember.isPresent(this.get('totalSeriesHeight'))) {
-      return this.get('totalSeriesHeight') + this.get('timelineHeight');
+      return this.get('totalSeriesHeight') + this.get('timelineHeight') + this.get('seriePadding');
     } else {
-      return this.get('timelineHeight');
+      return this.get('timelineHeight') + this.get('seriePadding');
     }
   }),
 
@@ -152,7 +158,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
         this.set('endAt',  nextEndAt );
       }
     }
-
   },
 
   actions: {
@@ -168,9 +173,6 @@ export default Ember.Component.extend(Resizable, Draggable, FieldsByUnits, {
     closeInfoWindow() {
       this.set('xPosition', null);
       this.set('openInfoWindow', false);
-    }
-
-  }
-
-
+    },
+  },
 });

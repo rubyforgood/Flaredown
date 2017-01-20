@@ -1,6 +1,6 @@
 {{#if chartLoaded }}
   <svg width='100%' height={{SVGHeight}}>
-    <g class="health-chart-viewport">
+    <g class="health-chart-viewport" transform="translate(0, {{seriePadding}})">
 
         {{#each series.conditions as |condition|}}
           {{chart/g-trackable padding=seriePadding
@@ -11,7 +11,7 @@
                               startAt=startAt
                               endAt=endAt
                               model=condition.model
-                              index=condition.index}}
+                              chartOffset=condition.chartOffset}}
         {{/each}}
 
         {{#each series.symptoms as |symptom|}}
@@ -23,33 +23,34 @@
                               startAt=startAt
                               endAt=endAt
                               model=symptom.model
-                              index=symptom.index}}
+                              chartOffset=symptom.chartOffset}}
         {{/each}}
 
         {{#each series.treatments as |treatment|}}
-          {{chart/g-trackable padding=seriePadding
-                              height=serieHeight
-                              width=seriesWidth
-                              checkins=checkins
-                              timeline=timeline
-                              startAt=startAt
-                              endAt=endAt
-                              type="symbol"
-                              model=treatment.model
-                              index=treatment.index}}
+          {{chart/g-flat
+            padding=seriePadding
+            height=flatHeight
+            width=seriesWidth
+            checkins=checkins
+            timeline=timeline
+            startAt=startAt
+            endAt=endAt
+            model=treatment.model
+            chartOffset=treatment.chartOffset
+          }}
         {{/each}}
 
-        {{#each series.weathers_mesures as |weathers_mesure|}}
+        {{#each series.weathersMesures as |weathersMesure|}}
           {{chart/g-weather
             checkins=checkins
-            field=weathers_mesure.field
+            field=weathersMesure.field
             height=serieHeight
-            index=weathers_mesure.index
-            name=weathers_mesure.name
+            chartOffset=weathersMesure.chartOffset
+            name=weathersMesure.name
             padding=seriePadding
             startAt=startAt
             timeline=timeline
-            unit=weathers_mesure.unit
+            unit=weathersMesure.unit
             width=seriesWidth
           }}
         {{/each}}
