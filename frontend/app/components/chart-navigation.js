@@ -5,6 +5,7 @@ const {
   Component,
   computed,
   get,
+  getOwner,
 } = Ember;
 
 export default Component.extend({
@@ -25,6 +26,10 @@ export default Component.extend({
   }),
 
   actions: {
+    openFilter() {
+      getOwner(this).lookup('route:application').send('openModal', 'modals/charts-filter');
+    },
+
     openPicker() {
       $('.calendar-opener .picker__input').first().pickadate('picker').open();
     },
