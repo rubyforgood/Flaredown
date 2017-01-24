@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
   def create
     # FIXME
     # rubocop:disable Style/SignalException
-    fail 'missing params' if params[:user].nil?
+    fail 'missing information' if params[:user].nil?
     fail 'invalid email or password' if user.nil?
     # rubocop:enable Style/SignalException
 
