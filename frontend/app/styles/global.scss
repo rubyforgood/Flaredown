@@ -70,6 +70,7 @@ footer {
 }
 
 input[type="submit"] {
+  -webkit-appearance: none;
   background-color: $primary;
   &:hover {
     background-color: darken($primary,10%);
