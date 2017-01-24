@@ -10,21 +10,21 @@ class Api::V1::TrackingsController < ApplicationController
   end
 
   def create
-    tracking = Tracking.new(create_params.merge(start_at: Date.today, user: current_user))
+    tracking = Tracking.new(create_params.merge(start_at: Time.zone.today, user: current_user))
     authorize! :create, tracking
     tracking.save!
     render json: tracking
   end
 
   def destroy
-    TrackingDestroyer.new(current_user, @tracking, Date.today).destroy
+    TrackingDestroyer.new(current_user, @tracking, Time.zone.today).destroy
     head :no_content
   end
 
   private
 
   def at
-    DateTime.parse(params.require(:at))
+    Time.zone.parse(params.require(:at))
   end
 
   def trackable_type

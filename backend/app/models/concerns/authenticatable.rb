@@ -13,10 +13,9 @@ module Authenticatable
            :invitable,
            :omniauthable
 
-
     #
     # Validates
     #
-    validates_confirmation_of :password
+    validates :password, confirmation: true
   end
 end

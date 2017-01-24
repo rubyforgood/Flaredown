@@ -3,11 +3,8 @@ class Api::V1::TreatmentsController < ApplicationController
 
   def index
     @treatments = @treatments.includes(:translations)
-    if ids.present?
-      @treatments = @treatments.where(id: ids)
-    else
-      @treatments = @treatments.order(:name).limit(50)
-    end
+    @treatments = ids.present? ? @treatments.where(id: ids) : @treatments.order(:name).limit(50)
+
     render json: @treatments
   end
 
@@ -26,9 +23,6 @@ class Api::V1::TreatmentsController < ApplicationController
   end
 
   def ids
-    @ids ||=
-      if params[:ids].is_a?(Array)
-        params[:ids]
-      end
+    @ids ||= params[:ids] if params[:ids].is_a?(Array)
   end
 end

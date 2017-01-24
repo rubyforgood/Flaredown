@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/BlockLength
+
 Rails.application.routes.draw do
   root 'application#root'
 
@@ -30,6 +32,11 @@ Rails.application.routes.draw do
       # Conditions
       #
       resources :conditions, only: [:index, :show, :create]
+
+      #
+      # Data Export Schedules
+      #
+      resources :data_export_schedules, only: :create
 
       #
       # Day Habits

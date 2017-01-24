@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'ca92d5fa25e7593c7cf72566cd0cdea4ddd2a6ef63b776972f8e76ec4f6b32dcf56f0085d9fd91e5b74822f0b286c82500fa98806f9a43a1530c6b9f2227664b'
+  # config.pepper = 'ca92d5fa25e7593c7cf72566cd0cdea4ddd2a6ef63b776972f8e76eb286c82500fa98806f9a43a1530c6b9f2227664b'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -270,7 +270,8 @@ Devise.setup do |config|
   # config.invite_for = 2.weeks
 end
 
-OmniAuth.config.on_failure = proc do |env|
-  env['devise.mapping'] = Devise.mappings[:user]
-  Api::V1::OmniauthCallbacksController.action(:failure).call(env)
-end
+OmniAuth.config.on_failure =
+  proc do |env|
+    env['devise.mapping'] = Devise.mappings[:user]
+    Api::V1::OmniauthCallbacksController.action(:failure).call(env)
+  end

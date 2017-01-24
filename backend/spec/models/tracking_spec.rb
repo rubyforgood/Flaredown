@@ -30,9 +30,11 @@ RSpec.describe Tracking, type: :model do
       before { disable_foreign_key_checks('trackings') }
       after { enable_foreign_key_checks('trackings') }
       it do
-        is_expected.to validate_uniqueness_of(:user_id).
-          scoped_to([:trackable_id, :trackable_type, :start_at]).
-          with_message('is already tracking this trackable')
+        is_expected.to(
+          validate_uniqueness_of(:user_id)
+            .scoped_to([:trackable_id, :trackable_type, :start_at])
+            .with_message('is already tracking this trackable')
+        )
       end
     end
   end

@@ -1,24 +1,41 @@
 # Flaredown
 Flaredown makes it easy for people to track symptoms over time, and learn how to control them. Our goal is to analyze the aggregate data from users of this tool to understand the probably effects of treatments and environmental stressors on chronic illness.
 
+## Environment
+
+* PostgreSQL 9.4
+* MongoDB 3.0.10
+* Redis 3.2.6
+* Ruby 2.3.1 (see [RVM](https://rvm.io/) also)
+* Node 6.9.1
+
+
 ## Installation
 
 ### Backend
 
-    cd backend
-    bundle install --without production
-    cp env-example .env
-    bundle exec rake app:setup
+```bash
+cd backend
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+bundle install --without production -j5 --retry 10
+cp env-example .env # You may adjust it however you like
+                    # RVM is going to autoload this on every 'cd' to the dirrectory
+bundle exec rake app:setup
+```
 
 ### Frontend
 
-    cd frontend
-    npm install
-    bower install
+```bash
+cd frontend
+npm install
+bower install
+```
 
 ## Running / Development
 
-    rake run
+```bash
+rake run
+```
 
 Visit your app at [http://localhost:4300](http://localhost:4300)
 

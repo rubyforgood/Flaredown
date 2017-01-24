@@ -39,6 +39,6 @@ class Ability
     trackable_id_attr = "#{trackable_class_name.underscore}_id".to_sym
     counts = user_trackable_class.group(trackable_id_attr).count
     min_popularity = Flaredown.config.trackables_min_popularity
-    counts.select { |id, count| count >= min_popularity }.keys
+    counts.select { |_id, count| count >= min_popularity }.keys
   end
 end

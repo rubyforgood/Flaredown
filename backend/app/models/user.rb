@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   delegate :locale, to: :profile
 
   def checkins
-    Checkin.where(user_id: id)
+    Checkin.where(encrypted_user_id: SymmetricEncryption.encrypt(id))
   end
 
   def checkin_ids
@@ -75,16 +75,17 @@ class User < ActiveRecord::Base
   end
 
   def external_id
-    "#{self.id}-#{Digest::SHA1.hexdigest(self.authentication_token).strip}"
+    "#{id}-#{Digest::SHA1.hexdigest(authentication_token).strip}"
   end
 
   private
 
   def generate_authentication_token
-    self.authentication_token = loop do
-      random_token = SecureRandom.hex
-      break random_token unless User.exists?(authentication_token: random_token)
-    end
+    self.authentication_token =
+      loop do
+        random_token = SecureRandom.hex
+        break random_token unless User.exists?(authentication_token: random_token)
+      end
   end
 
   def init_profile

@@ -1,11 +1,24 @@
----
-:verbose: false
-:concurrency: 2
+default: &default
+  :verbose: false
+  :concurrency: 2
 
-# Set timeout to 8 on Heroku, longer if you manage your own systems.
-:timeout: 30
+  # Set timeout to 8 on Heroku, longer if you manage your own systems.
+  :timeout: 30
 
-:pidfile: tmp/sidekiq.pid
-:queues:
-  - <%= ENV['RACK_ENV'] %>.default
-  - <%= ENV['RACK_ENV'] %>.mailers
+  :pidfile: tmp/sidekiq.pid
+  :queues:
+    - default
+    - mailers
+
+development:
+  <<: *default
+  :verbose: true
+
+test:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

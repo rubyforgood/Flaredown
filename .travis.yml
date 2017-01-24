@@ -1,0 +1,49 @@
+language: ruby
+
+env:
+  global:
+    - PHANTOMJS_VERSION=2.1.1
+    - FIX_TRAVIS="fix those specs"
+
+cache:
+  directories:
+    - frontend/bower_components
+    - frontend/node_modules
+    - backend/vendor/bundle
+
+rvm:
+  - 2.3.1
+
+addons:
+  postgresql: '9.4'
+
+services:
+  - redis-server
+  - mongodb
+
+before_install:
+  - 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
+
+install:
+  - 'gem update bundler'
+  - 'cd frontend'
+  - 'nvm i 6.9.4'
+  - 'npm i'
+  - 'bower install'
+  - 'cd ../backend'
+  - 'bundle install --without production --jobs 3 --retry 3 --deployment'
+  - 'export PATH=$PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH'
+  - 'if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi'
+  - 'if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then wget https://github.com/Medium/phantomjs/releases/download/v$PHANTOMJS_VERSION/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi'
+  - 'if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi'
+
+before_script:
+  - 'export $(grep -v "#" env-example | xargs) PG_DATABASE_USERNAME=travis'
+  - 'bundle exec rake db:create'
+  - 'bundle exec rake db:structure:load'
+
+script:
+  - bundle exec rspec
+  - bundle exec rubocop
+  - cd ../frontend
+  - npm run test

@@ -21,7 +21,7 @@ namespace :usda do
           f.long_desc = strip(parsed_food[2])
           f.shrt_desc = strip(parsed_food[3])
         end
-      rescue Exception => e
+      rescue StandardError => e
         puts food
 
         raise e

@@ -9,8 +9,8 @@ class Checkin
   field :note,        type: String
   field :postal_code, type: String
   field :tag_ids,     type: Array
-  field :user_id,     type: Integer
   field :weather_id,  type: Integer
+  field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
   #
   # Relations
@@ -23,20 +23,19 @@ class Checkin
   #
   # Indexes
   #
-  index(user_id: 1)
-  index(date: 1, user_id: 1)
+  index(encrypted_user_id: 1)
+  index(date: 1, encrypted_user_id: 1)
 
   #
   # Validations
   #
-  validates :user_id, presence: true
-  validates :date, presence: true, uniqueness: { scope: :user_id }
+  validates :encrypted_user_id, presence: true
+  validates :date, presence: true, uniqueness: { scope: :encrypted_user_id }
 
   #
   # Scopes
   #
   scope :by_date, ->(startkey, endkey) { where(:date.gte => startkey, :date.lte => endkey) }
-
 
   def user
     @user ||= User.find(user_id)

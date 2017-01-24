@@ -10,11 +10,11 @@ module ExceptionLogger
       end
     end
 
-    rescue_from 'ActiveRecord::RecordNotFound', 'Mongoid::Errors::DocumentNotFound' do |exception|
+    rescue_from 'ActiveRecord::RecordNotFound', 'Mongoid::Errors::DocumentNotFound' do
       render json: { errors: ['Resource Not Found'] }, status: 404
     end
 
-    rescue_from 'ActionController::UnknownFormat' do |exception|
+    rescue_from 'ActionController::UnknownFormat' do
       render json: { errors: ['Format not supported'] }, status: 406
     end
 

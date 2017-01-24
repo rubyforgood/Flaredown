@@ -78,50 +78,53 @@ class Profile < ActiveRecord::Base
 
   def age
     return if birth_date.nil?
-    age = Date.today.year - birth_date.year
-    Date.today < birth_date + age.years ? age-1 : age
+
+    today = Time.zone.today
+    age = today.year - birth_date.year
+
+    today < birth_date + age.years ? age - 1 : age
   end
 
   def ethnicity_ids
-    ethnicity_ids_string.split(',') rescue []
+    ethnicity_ids_string&.split(',') || []
   end
+
   def ethnicity_ids=(ids)
     self.ethnicity_ids_string = ids.join(',')
   end
 
   def set_most_recent_dose(treatment_id, dose)
-    self.most_recent_doses[treatment_id.to_s] = dose
+    most_recent_doses[treatment_id.to_s] = dose
   end
 
   def most_recent_dose_for(treatment_id)
-    self.most_recent_doses[treatment_id.to_s]
+    most_recent_doses[treatment_id.to_s]
   end
 
   def set_most_recent_trackable_position(trackable, position)
     trackable_type = trackable.class.name.underscore
-    self.send("set_most_recent_#{trackable_type}_position", trackable, position)
+    send("set_most_recent_#{trackable_type}_position", trackable, position)
   end
 
   def most_recent_trackable_position_for(trackable)
     trackable_type = trackable.class.name.underscore
-    self.send("most_recent_#{trackable_type}_position_for", trackable)
+    send("most_recent_#{trackable_type}_position_for", trackable)
   end
 
   %w(condition symptom treatment).each do |trackable_type|
 
     define_method "set_most_recent_#{trackable_type}_position" do |trackable, position|
-      self.send(
+      send(
         "most_recent_#{trackable_type.pluralize}_positions"
       )[trackable.id.to_s] = position.to_s
     end
 
     define_method "most_recent_#{trackable_type}_position_for" do |trackable|
-      trackables_positions = self.send("most_recent_#{trackable_type.pluralize}_positions")
-      if trackables_positions.blank?
-        return nil
-      else
-        return trackables_positions[trackable.id.to_s].to_i
-      end
+      trackables_positions = send("most_recent_#{trackable_type.pluralize}_positions")
+
+      return nil if trackables_positions.blank?
+
+      trackables_positions[trackable.id.to_s].to_i
     end
 
   end

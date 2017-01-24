@@ -56,6 +56,8 @@ gem 'forecast_io'
 gem 'geocoder'
 gem 'nearest_time_zone'
 
+gem 'symmetric-encryption'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -65,6 +67,9 @@ group :development, :test do
   # Generate Fake data
   gem 'ffaker', '~> 2.0.0'
   gem 'rspec-rails', '~> 3.3.0'
+  gem 'pry-rails', '~>0.3'
+  gem 'pry-byebug', '~>3.3'
+  gem 'pry-doc', '~>0.8'
 end
 
 group :development do
@@ -74,12 +79,8 @@ group :development do
   gem 'binding_of_caller', '~>0.7'
   gem 'foreman'
   gem 'letter_opener', '~>1.4'
-  gem 'parser', '2.3.0.pre.6'
-  gem 'pry-rails', '~>0.3'
-  gem 'pry-byebug', '~>3.3'
-  gem 'pry-doc', '~>0.8'
   gem 'quiet_assets', '~>1.1'
-  gem 'rubocop', '~> 0.35.0', require: false
+  gem 'rubocop', require: false
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
