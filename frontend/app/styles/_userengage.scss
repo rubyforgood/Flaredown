@@ -3,7 +3,7 @@
     bottom: 70px;
   }
 
-  .ca__chat-launcher .ca__chat-launcher-body {
+  .ca__chat-launcher-body {
     bottom: 130px;
   }
 
@@ -12,8 +12,28 @@
       bottom: 20px;
     }
 
-    .ca__chat-launcher .ca__chat-launcher-body {
+    .ca__chat-launcher-body {
       bottom: 80px;
+    }
+  }
+}
+
+.charts-path {
+  .ca__chat-expand-button {
+    bottom: 115px;
+  }
+
+  .ca__chat-launcher-body {
+    bottom: 175px;
+  }
+
+  @include media ($medium-screen) {
+    .ca__chat-expand-button {
+      bottom: 60px;
+    }
+
+    .ca__chat-launcher-body {
+      bottom: 120px;
     }
   }
 }

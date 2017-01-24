@@ -1,0 +1,19 @@
+<a {{action 'navigateLeft'}}>
+  {{inline-svg 'arrow-left' class='arrow-icon'}}
+</a>
+
+<a class="calendar-opener" {{action 'openPicker' bubbles=false}}>
+  {{inline-svg 'calendar-icon' class='calendar-icon'}}
+  &nbsp;
+  {{startAtLabel}} - {{endAtLabel}}
+
+  {{pick-a-date
+    date=(readonly date)
+    options=(readonly pickadateOptions)
+    on-selected=(action (mut date))
+  }}
+</a>
+
+<a {{action 'navigateRight'}}>
+  {{inline-svg 'arrow-right' class='arrow-icon'}}
+</a>
