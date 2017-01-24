@@ -6,12 +6,15 @@ const {
   computed,
   get,
   getOwner,
+  computed: { alias },
 } = Ember;
 
 export default Component.extend({
   date: new Date(),
   dateFormat: 'MMM D',
   classNames: ['chart-navigation'],
+
+  visibleChartsCount: alias('chartsVisibilityService.visibleChartsCount'),
 
   pickadateOptions: {
     container: 'body > .ember-view',
@@ -27,7 +30,9 @@ export default Component.extend({
 
   actions: {
     openFilter() {
-      getOwner(this).lookup('route:application').send('openModal', 'modals/charts-filter');
+      getOwner(this)
+        .lookup('route:application')
+        .send('openModal', 'modals/charts-filter');
     },
 
     openPicker() {

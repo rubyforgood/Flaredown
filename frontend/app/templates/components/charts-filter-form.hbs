@@ -1,1 +1,19 @@
-ololo
+{{#power-select
+  options=categories
+  placeholder="Select a category"
+  selected=selectedCategory
+  onchange=(action (mut selectedCategory))
+  renderInPlace=true
+  searchEnabled=false
+  class="fs-private"
+as |category| }}
+  {{category}}
+{{/power-select}}
+
+{{#each charts as |chart|}}
+  <div>
+    {{label-switch checked=(mut chart.visible) bgColorClass="colorable-bg-35"}}
+
+    <span>{{chart.label}}</span>
+  </div>
+{{/each}}

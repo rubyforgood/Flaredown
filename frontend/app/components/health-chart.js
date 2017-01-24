@@ -29,6 +29,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
+  chartsVisibility: alias('chartsVisibilityService.payload'),
 
   updateTrackables: observer('centeredDate', function() {
     debounce(this, this.fetchDataChart, 1000);
