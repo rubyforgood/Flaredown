@@ -4,6 +4,7 @@ const {
   get,
   set,
   computed,
+  observer,
   Component,
   computed: { alias },
 } = Ember;
@@ -14,8 +15,12 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    set(this, 'selectedCategory', get(this, 'categories.firstObject'));
+    get(this, 'chartsVisibilityService').refresh();
   },
+
+  initSelectedCategory: observer('categories.firstObject', function() {
+    set(this, 'selectedCategory', get(this, 'categories.firstObject'));
+  }),
 
   categories: computed('chartsVisibility', function() {
     const chartsVisibility = get(this, 'chartsVisibility');

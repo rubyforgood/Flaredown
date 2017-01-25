@@ -5,38 +5,48 @@ const {
   set,
   inject,
   Service,
-  computed,
+  observer,
 } = Ember;
 
 export default Service.extend({
   store: inject.service(),
   payload: {},
+  visibilityFilter: {},
+  visibleChartsCount: 0,
 
-  visibleChartsCount: computed(
+  observeVisibilityChanges: observer(
     'payload.symptoms.@each.visible',
     'payload.conditions.@each.visible',
     'payload.treatments.@each.visible',
     'payload.weathersMesures.@each.visible',
     function() {
-      const chartsVisibility = get(this, 'payload');
+      const payload = get(this, 'payload');
 
       let count = 0;
+      let filter = {};
 
       Object
-        .keys(chartsVisibility)
+        .keys(payload)
         .forEach(category => {
-          let categoryCharts = chartsVisibility[category];
+          let categoryCharts = payload[category];
+
+          filter[category] = {};
 
           Object
             .keys(categoryCharts)
             .forEach(chart => {
               if (categoryCharts[chart].visible) {
                 count += 1;
+
+                filter[category][categoryCharts[chart].label] = true;
               }
             });
         });
 
-      return count;
+      set(this, 'visibilityFilter', filter);
+      set(this, 'visibleChartsCount', count);
+
+      this.updateStorage();
     }
   ),
 
@@ -47,6 +57,8 @@ export default Service.extend({
 
     if (payload) {
       set(this, 'payload', payload);
+
+      this.observeVisibilityChanges();
     } else {
       this.refresh();
     }
@@ -82,11 +94,11 @@ export default Service.extend({
 
         allowedCharts[category].forEach(chart => {
           let savedCategory = savedChartsVisibility[category];
-          let chartWasPresent = savedCategory && savedCategory[chart];
+          let chartWasPresent = savedCategory && savedCategory.findBy('label', chart);
 
           result[category].pushObject({
             label: chart,
-            visible: !chartWasPresent || savedCategory[chart].visible,
+            visible: !chartWasPresent || chartWasPresent.visible,
           });
         });
       });
