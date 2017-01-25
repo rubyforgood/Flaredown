@@ -18,8 +18,8 @@ export default Component.extend({
     get(this, 'chartsVisibilityService').refresh();
   },
 
-  initSelectedCategory: observer('categories.firstObject', function() {
-    set(this, 'selectedCategory', get(this, 'categories.firstObject'));
+  initSelectedCategory: observer('categoriesStruct.firstObject', function() {
+    set(this, 'selectedCategory', get(this, 'categoriesStruct.firstObject'));
   }),
 
   categories: computed('chartsVisibility', function() {
@@ -28,7 +28,20 @@ export default Component.extend({
     return Object.keys(chartsVisibility).filter(chart => chartsVisibility[chart].length);
   }),
 
+  categoriesStruct: computed('categories', function() {
+    let result = [];
+
+    get(this, 'categories').forEach(category => {
+      result.pushObject({
+        value: category,
+        label: category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+      });
+    });
+
+    return result;
+  }),
+
   charts: computed('selectedCategory', function() {
-    return get(this, `chartsVisibility.${get(this, 'selectedCategory')}`);
+    return get(this, `chartsVisibility.${get(this, 'selectedCategory.value')}`);
   }),
 });

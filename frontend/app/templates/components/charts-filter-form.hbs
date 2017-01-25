@@ -1,5 +1,5 @@
 {{#power-select
-  options=categories
+  options=categoriesStruct
   placeholder="Select a category"
   selected=selectedCategory
   onchange=(action (mut selectedCategory))
@@ -7,7 +7,7 @@
   searchEnabled=false
   class="fs-private"
 as |category| }}
-  {{category}}
+  {{category.label}}
 {{/power-select}}
 
 {{#each charts as |chart|}}
