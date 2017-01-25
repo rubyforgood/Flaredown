@@ -11,7 +11,7 @@ as |category| }}
 {{/power-select}}
 
 {{#each charts as |chart|}}
-  <div>
+  <div class="chart-switch">
     {{label-switch checked=(mut chart.visible) bgColorClass="colorable-bg-35"}}
 
     <span>{{chart.label}}</span>

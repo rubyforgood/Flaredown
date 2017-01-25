@@ -7,9 +7,9 @@ const {
 } = Ember;
 
 export default Component.extend({
-  classNames: ['modal'],
-
+  modal: true,
   action: 'closeModal',
+  classNameBindings: ['modal', 'customClass'],
 
   onDidInsertElement: on('didInsertElement', function() {
     $('body').addClass('modal-open');
