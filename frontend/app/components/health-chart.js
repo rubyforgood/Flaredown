@@ -9,7 +9,10 @@ const {
   getProperties,
   observer,
   set,
-  computed: { alias },
+  computed: {
+    alias,
+    bool,
+  },
   run: {
     debounce,
     scheduleOnce,
@@ -38,9 +41,14 @@ export default Component.extend(Resizable, FieldsByUnits, {
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
   visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
+  isWeatherPresent: bool('checkinWithWeather'),
 
   updateTrackables: observer('centeredDate', function() {
     debounce(this, this.fetchDataChart, 1000);
+  }),
+
+  checkinWithWeather: computed('checkins', function() {
+    return get(this, 'checkins').find(checkin => get(checkin, 'weather'));
   }),
 
   daysRadius: computed('SVGWidth', function() {
@@ -131,7 +139,8 @@ export default Component.extend(Resizable, FieldsByUnits, {
         serieHeight,
         seriePadding,
         visibilityFilter,
-      } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding', 'visibilityFilter');
+        isWeatherPresent,
+      } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding', 'visibilityFilter', 'isWeatherPresent');
 
       let lastChartHeight = serieHeight;
       let chartOffset = 0 - lastChartHeight - seriePadding;
@@ -168,7 +177,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
       const weatherCategory = visibilityFilter.weathersMesures;
 
-      if (weatherCategory && weatherCategory['Avg daily humidity']) {
+      if (isWeatherPresent && weatherCategory && weatherCategory['Avg daily humidity']) {
         series.weathersMesures.pushObject({
           name: 'Avg daily humidity',
           unit: '%',
@@ -179,7 +188,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
         lastChartHeight = serieHeight;
       }
 
-      if (weatherCategory && weatherCategory['Avg daily atmospheric pressure']) {
+      if (isWeatherPresent && weatherCategory && weatherCategory['Avg daily atmospheric pressure']) {
         series.weathersMesures.pushObject({
           name: 'Avg daily atmospheric pressure',
           unit: get(this, 'pressureUnits'),

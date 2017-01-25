@@ -74,11 +74,12 @@ export default Component.extend(Colorable, Graphable, {
   }),
 
   dataValuesY: computed('data', function() {
-    return (
-      get(this, 'data')
-        .map(item => item.y)
-        .compact()
-    );
+    const values = get(this, 'data')
+      .filter(item => item.y || item.y === 0)
+      .map(item => item.y)
+      .compact();
+
+    return values.length ? values : [0, 100];
   }),
 
   yScale: computed('data', function() {
