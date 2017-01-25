@@ -103,10 +103,17 @@ export default Service.extend({
         });
       });
 
-    result.weathersMesures = [
-      { label: 'Avg daily humidity', visible: true },
-      { label: 'Avg daily atmospheric pressure', visible: true },
-    ];
+    result.weathersMesures = [];
+
+    ['Avg daily humidity', 'Avg daily atmospheric pressure'].forEach(chart => {
+      let savedCategory = savedChartsVisibility.weathersMesures;
+      let chartWasPresent = savedCategory && savedCategory.findBy('label', chart);
+
+      result.weathersMesures.pushObject({
+        label: chart,
+        visible: !chartWasPresent || chartWasPresent.visible,
+      });
+    });
 
     return result;
   },
