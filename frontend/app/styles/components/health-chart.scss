@@ -14,11 +14,11 @@
   }
 
   .g-background {
-    x: 1%;
+    x: 5px;
     rx: 5;
     ry: 5;
     fill: white;
-    width: 98%;
+    width: calc(100% - 10px);
   }
 
   .ruler-label {
