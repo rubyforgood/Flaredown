@@ -3,19 +3,21 @@ import Resizable from './chart/resizable';
 import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 
 const {
-  Component,
-  computed,
   get,
-  getProperties,
-  observer,
   set,
-  computed: {
-    alias,
-    bool,
-  },
+  RSVP,
+  computed,
+  observer,
+  Component,
+  getProperties,
+  setProperties,
   run: {
     debounce,
     scheduleOnce,
+  },
+  computed: {
+    alias,
+    bool,
   },
 } = Ember;
 
@@ -216,16 +218,36 @@ export default Component.extend(Resizable, FieldsByUnits, {
   },
 
   fetchDataChart() {
-    var startAt = get(this, 'startAtWithCache').format("YYYY-MM-DD");
-    var endAt = get(this, 'endAtWithCache').format("YYYY-MM-DD");
+    const endAt = get(this, 'endAt');
+    const startAt = get(this, 'startAt');
+    const endAtWithCache = get(this, 'endAtWithCache').format("YYYY-MM-DD");
+    const startAtWithCache = get(this, 'startAtWithCache').format("YYYY-MM-DD");
 
-    return this
-      .store
-      .queryRecord('chart', { id: 'health', start_at: startAt, end_at: endAt })
-      .then(chart => {
-        set(this, 'checkins', get(chart, 'checkins').sortBy('date:asc'));
-        set(this, 'trackables', get(chart, 'trackables').sortBy('type'));
+    const sorter = (a, b) => moment(get(a, 'date')).diff(get(b, 'date'), 'days');
+    const checkins = this.store.peekAll('checkin').toArray().sort(sorter);
+
+    if (
+      checkins.length &&
+      endAt.isSameOrBefore(checkins.get('lastObject.date'), 'day') &&
+      startAt.isSameOrAfter(checkins.get('firstObject.date'), 'day')
+    ) {
+      const symptoms = this.store.peekAll('symptom').toArray();
+      const conditions = this.store.peekAll('condition').toArray();
+      const treatments = this.store.peekAll('treatment').toArray();
+      const trackables = [...conditions, ...symptoms, ...treatments];
+
+      return new RSVP.Promise((resolve) => {
+        resolve(setProperties(this, {checkins, trackables}));
       });
+    } else {
+      return this
+        .store
+        .queryRecord('chart', { id: 'health', start_at: startAtWithCache, end_at: endAtWithCache })
+        .then(chart => {
+          set(this, 'checkins', get(chart, 'checkins').sortBy('date:asc'));
+          set(this, 'trackables', get(chart, 'trackables').sortBy('type'));
+        });
+    }
   },
 
   onResizeEnd() {
