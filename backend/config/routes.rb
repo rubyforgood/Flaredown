@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       #
+      # Chart list
+      #
+      resource :chart_lists, only: [:show]
+
+      #
       # Charts
       #
       resource :charts, only: [:show]

@@ -14,6 +14,12 @@
   }}
 </a>
 
+<a {{action 'openFilter' bubbles=false}}>
+  {{inline-svg 'eye' class='eye-icon'}}
+  &nbsp;
+  {{visibleChartsCount}} visible
+</a>
+
 <a {{action 'navigateRight'}}>
   {{inline-svg 'arrow-right' class='arrow-icon'}}
 </a>

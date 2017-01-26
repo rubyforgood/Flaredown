@@ -9,7 +9,10 @@ const {
   getProperties,
   observer,
   set,
-  computed: { alias },
+  computed: {
+    alias,
+    bool,
+  },
   run: {
     debounce,
     scheduleOnce,
@@ -26,12 +29,26 @@ export default Component.extend(Resizable, FieldsByUnits, {
   seriePadding: 20,
   pixelsPerDate: 32,
   timelineHeight: 25,
+  lastChartOffset: 0,
+  lastChartHeight: 0,
+  series: {
+    conditions: [],
+    symptoms: [],
+    treatments: [],
+    weathersMesures: [],
+  },
 
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
+  visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
+  isWeatherPresent: bool('checkinWithWeather'),
 
   updateTrackables: observer('centeredDate', function() {
     debounce(this, this.fetchDataChart, 1000);
+  }),
+
+  checkinWithWeather: computed('checkins', function() {
+    return get(this, 'checkins').find(checkin => get(checkin, 'weather'));
   }),
 
   daysRadius: computed('SVGWidth', function() {
@@ -67,50 +84,6 @@ export default Component.extend(Resizable, FieldsByUnits, {
     return moment(get(this, 'endAt')).add(get(this, 'daysRadius'), 'days');
   }),
 
-  series: computed('trackables', 'pressureUnits', function() {
-    const { flatHeight, serieHeight, seriePadding } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding');
-
-    let chartOffset = 0 - serieHeight - seriePadding;
-    let series = {
-      conditions: [],
-      symptoms:   [],
-      treatments: [],
-      weathersMesures: [],
-    };
-
-    get(this, 'trackables').forEach(item => {
-      series[get(item, 'constructor.modelName').pluralize()].pushObject({ chartOffset: 0, model: item });
-    });
-
-    series.conditions.forEach(item => {
-      item.chartOffset = chartOffset += serieHeight + seriePadding;
-    });
-
-    series.symptoms.forEach(item => {
-      item.chartOffset = chartOffset += serieHeight + seriePadding;
-    });
-
-    series.treatments.forEach((item, index)  => {
-      item.chartOffset = chartOffset += (index === 0 ? serieHeight : flatHeight) + seriePadding;
-    });
-
-    series.weathersMesures.pushObject({
-      name: 'Avg daily humidity',
-      unit: '%',
-      field: 'humidity',
-      chartOffset: chartOffset += flatHeight + seriePadding,
-    });
-
-    series.weathersMesures.pushObject({
-      name: 'Avg daily atmospheric pressure',
-      unit: get(this, 'pressureUnits'),
-      field: this.pressureFieldByUnits(get(this, 'pressureUnits')),
-      chartOffset: chartOffset += serieHeight + seriePadding,
-    });
-
-    return series;
-  }),
-
   seriesLength: computed('series.weathersMesures.length', 'trackables.length', function() {
     return get(this, 'trackables.length') + get(this, 'series.weathersMesures.length');
   }),
@@ -119,10 +92,14 @@ export default Component.extend(Resizable, FieldsByUnits, {
     return get(this, 'SVGWidth') * 2;
   }),
 
-  totalSeriesHeight: computed('series.weathersMesures.[]', function() {
-    return(
-      get(this, 'series.weathersMesures.lastObject.chartOffset') + get(this, 'serieHeight') + get(this, 'seriePadding')
-    );
+  totalSeriesHeight: computed('lastChartOffset', 'lastChartHeight', function() {
+    const {
+      lastChartOffset,
+      lastChartHeight,
+      seriePadding,
+    } = getProperties(this, 'lastChartOffset', 'lastChartHeight', 'seriePadding');
+
+    return lastChartOffset + lastChartHeight + seriePadding;
   }),
 
   timeline: computed('checkins', 'startAt', 'endAt', function() {
@@ -148,6 +125,85 @@ export default Component.extend(Resizable, FieldsByUnits, {
   SVGWidth: computed('checkins',function() {
     return this.$().width();
   }),
+
+  observeFilterAndTrackables: observer(
+    'trackables',
+    'pressureUnits',
+    'chartsVisibilityService.payload.symptoms.@each.visible',
+    'chartsVisibilityService.payload.conditions.@each.visible',
+    'chartsVisibilityService.payload.treatments.@each.visible',
+    'chartsVisibilityService.payload.weathersMesures.@each.visible',
+    function() {
+      const {
+        flatHeight,
+        serieHeight,
+        seriePadding,
+        visibilityFilter,
+        isWeatherPresent,
+      } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding', 'visibilityFilter', 'isWeatherPresent');
+
+      let lastChartHeight = serieHeight;
+      let chartOffset = 0 - lastChartHeight - seriePadding;
+      let series = {
+        conditions: [],
+        symptoms:   [],
+        treatments: [],
+        weathersMesures: [],
+      };
+
+      get(this, 'trackables').forEach(item => {
+        let name = get(item, 'name');
+        let category = get(item, 'constructor.modelName').pluralize();
+        let visibleCategory = visibilityFilter[category];
+
+        if (visibleCategory && visibleCategory[name]) {
+          series[category].pushObject({ chartOffset: 0, model: item });
+        }
+      });
+
+      series.conditions.forEach(item => {
+        item.chartOffset = chartOffset += lastChartHeight + seriePadding;
+      });
+
+      series.symptoms.forEach(item => {
+        item.chartOffset = chartOffset += lastChartHeight + seriePadding;
+      });
+
+      series.treatments.forEach((item, index)  => {
+        lastChartHeight = flatHeight;
+
+        item.chartOffset = chartOffset += (index === 0 ? serieHeight : flatHeight) + seriePadding;
+      });
+
+      const weatherCategory = visibilityFilter.weathersMesures;
+
+      if (isWeatherPresent && weatherCategory && weatherCategory['Avg daily humidity']) {
+        series.weathersMesures.pushObject({
+          name: 'Avg daily humidity',
+          unit: '%',
+          field: 'humidity',
+          chartOffset: chartOffset += lastChartHeight + seriePadding,
+        });
+
+        lastChartHeight = serieHeight;
+      }
+
+      if (isWeatherPresent && weatherCategory && weatherCategory['Avg daily atmospheric pressure']) {
+        series.weathersMesures.pushObject({
+          name: 'Avg daily atmospheric pressure',
+          unit: get(this, 'pressureUnits'),
+          field: this.pressureFieldByUnits(get(this, 'pressureUnits')),
+          chartOffset: chartOffset += lastChartHeight + seriePadding,
+        });
+
+        lastChartHeight = serieHeight;
+      }
+
+      set(this, 'series', series);
+      set(this, 'lastChartOffset', chartOffset);
+      set(this, 'lastChartHeight', lastChartHeight);
+    }
+  ),
 
   didInsertElement() {
     this._super(...arguments);

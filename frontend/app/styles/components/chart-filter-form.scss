@@ -1,0 +1,19 @@
+.charts-filter {
+  .modal-inner {
+    min-height: 30vh;
+  }
+
+  .ember-basic-dropdown {
+    margin-bottom: 1em;
+  }
+
+  .chart-switch {
+    display: flex;
+    align-items: center;
+    margin-bottom: .7em;
+
+    span {
+      padding-left: .7em;
+    }
+  }
+}
