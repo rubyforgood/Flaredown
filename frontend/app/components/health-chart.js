@@ -15,6 +15,9 @@ const {
     debounce,
     scheduleOnce,
   },
+  inject: {
+    service,
+  },
   computed: {
     alias,
     bool,
@@ -22,6 +25,8 @@ const {
 } = Ember;
 
 export default Component.extend(Resizable, FieldsByUnits, {
+  chartSelectedDates: service(),
+
   classNames: ['health-chart'],
 
   checkins: [],
@@ -40,6 +45,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
     weathersMesures: [],
   },
 
+  centeredDate: alias('chartSelectedDates.centeredDate'),
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
   visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
