@@ -218,36 +218,50 @@ export default Component.extend(Resizable, FieldsByUnits, {
   },
 
   fetchDataChart() {
-    const endAt = get(this, 'endAt');
-    const startAt = get(this, 'startAt');
-    const endAtWithCache = get(this, 'endAtWithCache').format("YYYY-MM-DD");
-    const startAtWithCache = get(this, 'startAtWithCache').format("YYYY-MM-DD");
+    const { endAt, startAt } = getProperties(this, 'endAt', 'startAt');
 
-    const sorter = (a, b) => moment(get(a, 'date')).diff(get(b, 'date'), 'days');
-    const checkins = this.store.peekAll('checkin').toArray().sort(sorter);
+    const checkins = this.peekSortedCheckins();
 
     if (
       checkins.length &&
       endAt.isSameOrBefore(checkins.get('lastObject.date'), 'day') &&
       startAt.isSameOrAfter(checkins.get('firstObject.date'), 'day')
     ) {
-      const symptoms = this.store.peekAll('symptom').toArray();
-      const conditions = this.store.peekAll('condition').toArray();
-      const treatments = this.store.peekAll('treatment').toArray();
-      const trackables = [...conditions, ...symptoms, ...treatments];
-
       return new RSVP.Promise((resolve) => {
-        resolve(setProperties(this, {checkins, trackables}));
+        resolve(this.setChartsData());
       });
     } else {
+      const { endAtWithCache, startAtWithCache } = getProperties(this, 'endAtWithCache', 'startAtWithCache');
+
       return this
         .store
-        .queryRecord('chart', { id: 'health', start_at: startAtWithCache, end_at: endAtWithCache })
-        .then(chart => {
-          set(this, 'checkins', get(chart, 'checkins').sortBy('date:asc'));
-          set(this, 'trackables', get(chart, 'trackables').sortBy('type'));
-        });
+        .queryRecord('chart', {
+          id: 'health',
+          end_at: endAtWithCache.format("YYYY-MM-DD"),
+          start_at: startAtWithCache.format("YYYY-MM-DD"),
+        })
+        .then(() => this.setChartsData());
     }
+  },
+
+  setChartsData() {
+    const checkins = this.peekSortedCheckins();
+    const symptoms = this.store.peekAll('symptom').toArray();
+    const conditions = this.store.peekAll('condition').toArray();
+    const treatments = this.store.peekAll('treatment').toArray();
+    const trackables = [...conditions, ...symptoms, ...treatments];
+
+    return setProperties(this, {checkins, trackables});
+  },
+
+  peekSortedCheckins() {
+    return this
+      .store
+      .peekAll('checkin')
+      .toArray()
+      .sort(
+        (a, b) => moment(get(a, 'date')).diff(get(b, 'date'), 'days')
+      );
   },
 
   onResizeEnd() {
