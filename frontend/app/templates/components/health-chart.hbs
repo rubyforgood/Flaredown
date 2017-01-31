@@ -1,71 +1,107 @@
 {{#if chartLoaded }}
   <svg width='100%' height={{SVGHeight}}>
     <g class="health-chart-viewport" transform="translate(0, {{seriePadding}})">
-
-        {{#each series.conditions as |condition|}}
-          {{chart/g-trackable padding=seriePadding
-                              height=serieHeight
-                              width=seriesWidth
-                              checkins=checkins
-                              timeline=timeline
-                              startAt=startAt
-                              endAt=endAt
-                              model=condition.model
-                              chartOffset=condition.chartOffset}}
+      {{#each-in series as |category charts|}}
+        {{#each charts as |chart|}}
+          {{#if chart.blank}}
+            {{#if (equals category 'conditions')}}
+              {{chart/g-blank-trackable
+                model=chart.model
+                width=seriesWidth
+                height=serieHeight
+                padding=seriePadding
+                startAt=startAt
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{else if (equals category 'symptoms')}}
+              {{chart/g-blank-trackable
+                model=chart.model
+                width=seriesWidth
+                height=serieHeight
+                padding=seriePadding
+                startAt=startAt
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{else if (equals category 'treatments')}}
+              {{chart/g-blank-flat
+                model=chart.model
+                width=seriesWidth
+                height=flatHeight
+                padding=seriePadding
+                startAt=startAt
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{/if}}
+          {{else}}
+            {{#if (equals category 'conditions')}}
+              {{chart/g-trackable
+                endAt=endAt
+                model=chart.model
+                width=seriesWidth
+                height=serieHeight
+                padding=seriePadding
+                startAt=startAt
+                checkins=checkins
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{else if (equals category 'symptoms')}}
+              {{chart/g-trackable
+                endAt=endAt
+                model=chart.model
+                width=seriesWidth
+                height=serieHeight
+                padding=seriePadding
+                startAt=startAt
+                checkins=checkins
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{else if (equals category 'treatments')}}
+              {{chart/g-flat
+                endAt=endAt
+                model=chart.model
+                width=seriesWidth
+                height=flatHeight
+                padding=seriePadding
+                startAt=startAt
+                checkins=checkins
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{else if (equals category 'weathersMesures')}}
+              {{chart/g-weather
+                name=chart.name
+                unit=chart.unit
+                field=chart.field
+                width=seriesWidth
+                height=serieHeight
+                padding=seriePadding
+                startAt=startAt
+                checkins=checkins
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{/if}}
+          {{/if}}
         {{/each}}
+      {{/each-in}}
 
-        {{#each series.symptoms as |symptom|}}
-          {{chart/g-trackable padding=seriePadding
-                              height=serieHeight
-                              width=seriesWidth
-                              checkins=checkins
-                              timeline=timeline
-                              startAt=startAt
-                              endAt=endAt
-                              model=symptom.model
-                              chartOffset=symptom.chartOffset}}
-        {{/each}}
-
-        {{#each series.treatments as |treatment|}}
-          {{chart/g-flat
-            padding=seriePadding
-            height=flatHeight
-            width=seriesWidth
-            checkins=checkins
-            timeline=timeline
-            startAt=startAt
-            endAt=endAt
-            model=treatment.model
-            chartOffset=treatment.chartOffset
-          }}
-        {{/each}}
-
-        {{#each series.weathersMesures as |weathersMesure|}}
-          {{chart/g-weather
-            checkins=checkins
-            field=weathersMesure.field
-            height=serieHeight
-            chartOffset=weathersMesure.chartOffset
-            name=weathersMesure.name
-            padding=seriePadding
-            startAt=startAt
-            timeline=timeline
-            unit=weathersMesure.unit
-            width=seriesWidth
-          }}
-        {{/each}}
-
-        {{chart/g-timeline  startAt=startAt
-                            endAt=endAt
-                            timeline=timeline
-                            timelineLength=timelineLength
-                            width=seriesWidth
-                            totalSeriesHeight=totalSeriesHeight
-                            SVGWidth=SVGWidth
-                            onDateClicked=(action "setCurrentDate")
-                            onMouseHover=(action "openInfoWindow")
-                            onMouseLeave=(action "closeInfoWindow")}}
-
+      {{chart/g-timeline
+        endAt=endAt
+        width=seriesWidth
+        startAt=startAt
+        SVGWidth=SVGWidth
+        timeline=timeline
+        onMouseHover=(action "openInfoWindow")
+        onMouseLeave=(action "closeInfoWindow")
+        onDateClicked=(action "setCurrentDate")
+        timelineLength=timelineLength
+        totalSeriesHeight=totalSeriesHeight
+      }}
     </g>
 
     {{#if openInfoWindow }}
