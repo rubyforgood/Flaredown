@@ -340,6 +340,7 @@ DEPENDENCIES
   rails_12factor
   rspec-rails (~> 3.3.0)
   rubocop
+  ruby-progressbar
   seedbank
   shoulda-matchers
   sidekiq (~> 4.0)

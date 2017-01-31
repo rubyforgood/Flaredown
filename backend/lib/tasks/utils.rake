@@ -1,10 +1,17 @@
 require 'csv'
+require 'ruby-progressbar'
 
 namespace :utils do
   task csv_export: :environment do
     headers = %w(
       user_id age sex country checkin_date
       trackable_id trackable_type trackable_name trackable_value
+    )
+
+    progress_bar = ProgressBar.create(
+      title: 'Checkins',
+      total: Checkin.count,
+      format: '%t: |%B| %a / %E'
     )
 
     CSV.open('export.csv', 'wb') do |csv|
@@ -16,6 +23,8 @@ namespace :utils do
         country = user.profile.country_id
 
         user.checkins.each do |checkin|
+          progress_bar.increment
+
           user_id = SymmetricEncryption.encrypt(user.id)
           checkin_date = checkin.date.strftime('%Y-%m-%d')
 
@@ -72,5 +81,9 @@ namespace :utils do
         end
       end
     end
+
+    progress_bar.finish
+
+    puts 'All done.'
   end
 end
