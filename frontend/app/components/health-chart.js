@@ -43,9 +43,17 @@ export default Component.extend(Resizable, FieldsByUnits, {
   timelineLength: alias('timeline.length'),
   visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
 
-  updateTrackables: observer('centeredDate', function() {
-    debounce(this, this.fetchDataChart, 1000);
-  }),
+  updateTrackables: observer(
+    'centeredDate',
+    'chartLoaded',
+    'chartsVisibilityService.payload.symptoms.@each.visible',
+    'chartsVisibilityService.payload.conditions.@each.visible',
+    'chartsVisibilityService.payload.treatments.@each.visible',
+    'chartsVisibilityService.payload.weathersMesures.@each.visible',
+    function() {
+      debounce(this, this.fetchDataChart, 1000);
+    }
+  ),
 
   daysRadius: computed('SVGWidth', function() {
     return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
