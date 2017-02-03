@@ -1,1 +1,10 @@
-{{health-chart onDateClicked=(action "routeToCheckin")}}
+<div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
+  <button {{action "showChart"}} class={{if journalIsVisible "" "active"}}>Charts</button>
+  <button {{action "showJournal"}} class={{if journalIsVisible "active" ""}}>Journal</button>
+</div>
+
+{{#if journalIsVisible}}
+
+{{else}}
+  {{health-chart onDateClicked=(action "routeToCheckin")}}
+{{/if}}
