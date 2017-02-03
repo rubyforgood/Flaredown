@@ -7,8 +7,6 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   model: Ember.computed.alias('parentView.model'),
 
-  embeddedInSummary: false,
-
   tracking: Ember.inject.service(),
   setupTracking() {
     this.get('tracking').setup({
