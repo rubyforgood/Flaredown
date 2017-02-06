@@ -20,7 +20,6 @@ const {
   },
   computed: {
     alias,
-    bool,
   },
 } = Ember;
 
@@ -38,26 +37,23 @@ export default Component.extend(Resizable, FieldsByUnits, {
   timelineHeight: 25,
   lastChartOffset: 0,
   lastChartHeight: 0,
-  series: {
-    conditions: [],
-    symptoms: [],
-    treatments: [],
-    weathersMesures: [],
-  },
 
   centeredDate: alias('chartSelectedDates.centeredDate'),
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
   visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
-  isWeatherPresent: bool('checkinWithWeather'),
 
-  updateTrackables: observer('centeredDate', function() {
-    debounce(this, this.fetchDataChart, 1000);
-  }),
-
-  checkinWithWeather: computed('checkins', function() {
-    return get(this, 'checkins').find(checkin => get(checkin, 'weather'));
-  }),
+  updateTrackables: observer(
+    'centeredDate',
+    'chartLoaded',
+    'chartsVisibilityService.payload.symptoms.@each.visible',
+    'chartsVisibilityService.payload.conditions.@each.visible',
+    'chartsVisibilityService.payload.treatments.@each.visible',
+    'chartsVisibilityService.payload.weathersMesures.@each.visible',
+    function() {
+      debounce(this, this.fetchDataChart, 1000);
+    }
+  ),
 
   daysRadius: computed('SVGWidth', function() {
     return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
@@ -147,27 +143,14 @@ export default Component.extend(Resizable, FieldsByUnits, {
         serieHeight,
         seriePadding,
         visibilityFilter,
-        isWeatherPresent,
-      } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding', 'visibilityFilter', 'isWeatherPresent');
+      } = getProperties(this, 'flatHeight', 'serieHeight', 'seriePadding', 'visibilityFilter');
 
       let lastChartHeight = serieHeight;
       let chartOffset = 0 - lastChartHeight - seriePadding;
-      let series = {
-        conditions: [],
-        symptoms:   [],
-        treatments: [],
-        weathersMesures: [],
-      };
-
-      get(this, 'trackables').forEach(item => {
-        let name = get(item, 'name');
-        let category = get(item, 'constructor.modelName').pluralize();
-        let visibleCategory = visibilityFilter[category];
-
-        if (visibleCategory && visibleCategory[name]) {
-          series[category].pushObject({ chartOffset: 0, model: item });
-        }
-      });
+      let series = this.seriesWithBlanks(
+        this.unpositionedSeries(visibilityFilter),
+        visibilityFilter
+      );
 
       series.conditions.forEach(item => {
         item.chartOffset = chartOffset += lastChartHeight + seriePadding;
@@ -185,7 +168,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
       const weatherCategory = visibilityFilter.weathersMesures;
 
-      if (isWeatherPresent && weatherCategory && weatherCategory['Avg daily humidity']) {
+      if (weatherCategory && weatherCategory['Avg daily humidity']) {
         series.weathersMesures.pushObject({
           name: 'Avg daily humidity',
           unit: '%',
@@ -196,7 +179,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
         lastChartHeight = serieHeight;
       }
 
-      if (isWeatherPresent && weatherCategory && weatherCategory['Avg daily atmospheric pressure']) {
+      if (weatherCategory && weatherCategory['Avg daily atmospheric pressure']) {
         series.weathersMesures.pushObject({
           name: 'Avg daily atmospheric pressure',
           unit: get(this, 'pressureUnits'),
@@ -212,6 +195,58 @@ export default Component.extend(Resizable, FieldsByUnits, {
       set(this, 'lastChartHeight', lastChartHeight);
     }
   ),
+
+  unpositionedSeries(visibilityFilter) {
+    let series = {
+      conditions: [],
+      symptoms:   [],
+      treatments: [],
+      weathersMesures: [],
+    };
+
+    get(this, 'trackables').forEach(item => {
+      let name = get(item, 'name');
+      let category = get(item, 'constructor.modelName').pluralize();
+      let visibleCategory = visibilityFilter[category];
+
+      if (visibleCategory && visibleCategory[name]) {
+        series[category].pushObject({ chartOffset: 0, model: item });
+      }
+    });
+
+    return series;
+  },
+
+  seriesWithBlanks(series, visibilityFilter) {
+    let result = {
+      conditions: [],
+      symptoms:   [],
+      treatments: [],
+      weathersMesures: [],
+    };
+
+    Object.keys(visibilityFilter).forEach(categoryName => {
+      const category = get(visibilityFilter, categoryName);
+
+      Object.keys(category).forEach(chartName => {
+        if (category[chartName]) {
+          const chartFromSeries = series[categoryName].length && series[categoryName].findBy('model.name', chartName);
+
+          result[categoryName].pushObject(chartFromSeries || {
+            blank: true,
+            chartOffset: 0,
+            model: Ember.Object.create({
+              name: chartName,
+              fillClass: 'colorable-fill-35',
+              strokeClass: 'colorable-stroke-35',
+            }),
+          });
+        }
+      });
+    });
+
+    return result;
+  },
 
   didInsertElement() {
     this._super(...arguments);

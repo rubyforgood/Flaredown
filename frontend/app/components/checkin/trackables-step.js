@@ -154,19 +154,27 @@ export default Ember.Component.extend(TrackablesFromType, {
   },
 
   saveCheckin() {
-    this.get('checkin').set('hasDirtyAttributes', true);
+    this.set('checkin.hasDirtyAttributes', true);
+
     Ember.run.next(this, function() {
-      Ember.RSVP.all([
-        this.untrackRemovedTracked(),
-        this.trackAddedTracked()
-      ]).then(() => {
-        this.get('checkin').save().then(() => {
-          Ember.Logger.info('Checkin successfully saved');
-          this.onCheckinSaved();
-        }, (error) => {
-          this.get('checkin').handleSaveError(error);
-        });
-      });
+      Ember
+        .RSVP
+        .all([
+          this.untrackRemovedTracked(),
+          this.trackAddedTracked()
+        ])
+        .then(() => this.get('checkin').save())
+        .then(
+          () => {
+            Ember.Logger.info('Checkin successfully saved');
+
+            return this.onCheckinSaved();
+          },
+          (error) => {
+            this.get('checkin').handleSaveError(error);
+          }
+        )
+        .then(() => this.get('chartsVisibilityService').refresh());
     });
   },
 
