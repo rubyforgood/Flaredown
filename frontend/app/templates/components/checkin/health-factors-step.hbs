@@ -17,11 +17,9 @@
   relationName='tags'
 }}
 
-{{#unless embeddedInSummary}}
-  {{step-controls
-    step=model.currentStep
-    forwardLabel='Review'
-    onBackward=(action "goBack")
-    onForward=(action "completeStep")
-  }}
-{{/unless}}
+{{step-controls
+  step=model.currentStep
+  forwardLabel='Review'
+  onBackward=(action "goBack")
+  onForward=(action "completeStep")
+}}

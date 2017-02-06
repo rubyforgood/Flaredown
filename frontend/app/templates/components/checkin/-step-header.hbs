@@ -1,9 +1,7 @@
-{{#if embeddedInSummary}}
-  <h2>{{step.shortTitle}}</h2>
-{{else}}
-  {{save-status record=checkin}}
-  <h2>{{step.title}}</h2>
-  {{#if step.hint}}
-    <div class="tip">{{{step.hint}}}</div>
-  {{/if}}
+{{save-status record=checkin}}
+
+<h2>{{step.title}}</h2>
+
+{{#if step.hint}}
+  <div class="tip">{{{step.hint}}}</div>
 {{/if}}

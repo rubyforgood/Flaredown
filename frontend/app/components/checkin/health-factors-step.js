@@ -1,8 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  embeddedInSummary: false,
-
   model: Ember.computed.alias('parentView.model'),
   checkin: Ember.computed.alias('model.checkin'),
 
