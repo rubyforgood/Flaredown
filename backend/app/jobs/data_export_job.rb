@@ -7,7 +7,7 @@ class DataExportJob < ActiveJob::Base
 
   def perform(user_id)
     user = User.find(user_id)
-    checkins = Checkin.includes(:conditions, :symptoms, :treatments).where(user_id: user_id).order_by(date: :asc)
+    checkins = user.checkins.includes(:conditions, :symptoms, :treatments).order_by(date: :asc)
 
     set_attributes(user.locale, checkins)
 
