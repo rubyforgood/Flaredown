@@ -1,25 +1,5 @@
 .civ-chat-window {
   .ca__chat-expand-button {
-    bottom: 70px;
-  }
-
-  .ca__chat-launcher-body {
-    bottom: 130px;
-  }
-
-  @include media ($medium-screen) {
-    .ca__chat-expand-button {
-      bottom: 20px;
-    }
-
-    .ca__chat-launcher-body {
-      bottom: 80px;
-    }
-  }
-}
-
-.charts-path {
-  .ca__chat-expand-button {
     bottom: 115px;
   }
 
