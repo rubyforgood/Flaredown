@@ -1,3 +1,7 @@
 {{#each checkins as |checkin|}}
   {{journal-entry checkin=checkin}}
 {{/each}}
+
+{{#if loadingCheckins}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}

@@ -4,6 +4,7 @@ const {
   get,
   set,
   Component,
+  setProperties,
   run: {
     scheduleOnce,
   },
@@ -11,6 +12,7 @@ const {
 
 export default Component.extend({
   checkins: [],
+  loadingCheckins: true,
 
   didInsertElement() {
     this._super(...arguments);
@@ -19,7 +21,10 @@ export default Component.extend({
   },
 
   fetchCheckins() {
-    return set(this, 'checkins', this.peekReverseSortedCheckins());
+    return setProperties(this, {
+      checkins: this.peekReverseSortedCheckins(),
+      loadingCheckins: false,
+    });
   },
 
   peekReverseSortedCheckins() {
