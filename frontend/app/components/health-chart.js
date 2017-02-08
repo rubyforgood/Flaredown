@@ -253,7 +253,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
     scheduleOnce('afterRender', this, () => {
       this.fetchDataChart().then(() => {
-        set(this, 'chartLoaded', true);
+        this.isDestroyed || set(this, 'chartLoaded', true);
       });
     });
   },
@@ -292,7 +292,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
     const treatments = this.store.peekAll('treatment').toArray();
     const trackables = [...conditions, ...symptoms, ...treatments];
 
-    return setProperties(this, {checkins, trackables});
+    return this.isDestroyed || setProperties(this, {checkins, trackables});
   },
 
   peekSortedCheckins() {

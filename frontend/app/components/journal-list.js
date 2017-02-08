@@ -23,7 +23,13 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    scheduleOnce('afterRender', this, () => this.loadCheckins());
+    scheduleOnce('afterRender', this, () => {
+      if (get(this, 'store').peekAll('checkin').toArray().length) {
+        this.loadCheckins();
+      } else {
+        this.fetchMore().then(() => this.loadCheckins());
+      }
+    });
   },
 
   fetchMore() {
