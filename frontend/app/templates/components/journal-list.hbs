@@ -2,6 +2,8 @@
   {{journal-entry checkin=checkin}}
 {{/each}}
 
+{{ember-ic-you triggerDistance=80}}
+
 {{#if loadingCheckins}}
   {{partial "application/three-bounce-spinner"}}
 {{/if}}
