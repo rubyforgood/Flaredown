@@ -253,7 +253,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
     scheduleOnce('afterRender', this, () => {
       this.fetchDataChart().then(() => {
-        this.isDestroyed || set(this, 'chartLoaded', true);
+        return this.isDestroyed || set(this, 'chartLoaded', true);
       });
     });
   },
