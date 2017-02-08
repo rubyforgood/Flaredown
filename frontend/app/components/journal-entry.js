@@ -18,10 +18,6 @@ export default Component.extend({
     return moment(get(this, 'checkin.date')).format("MMM D");
   }),
 
-  note: computed('checkin.note', function() {
-    return get(this, 'checkin.note') || "No note was taken.";
-  }),
-
   style: computed('symptomAverage', function() {
     return htmlSafe(`width: ${get(this, 'symptomAverage') * 100 / 5}%`);
   }),
