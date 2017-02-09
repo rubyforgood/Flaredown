@@ -5,6 +5,7 @@ const {
   set,
   computed,
   Component,
+  isPresent,
   getProperties,
   setProperties,
   run: {
@@ -50,10 +51,19 @@ export default Component.extend({
   },
 
   loadCheckins() {
-    setProperties(this, {
-      checkins: this.peekReverseSortedCheckins(),
-      loadingCheckins: false,
-    });
+    const checkins = this.peekReverseSortedCheckins();
+
+    if (isPresent(checkins)) {
+      setProperties(this, {
+        checkins: this.peekReverseSortedCheckins(),
+        loadingCheckins: false,
+      });
+    } else {
+      setProperties(this, {
+        loadingCheckins: false,
+        noCheckinsPresent: true,
+      });
+    }
   },
 
   peekReverseSortedCheckins() {
@@ -61,6 +71,9 @@ export default Component.extend({
       .store
       .peekAll('checkin')
       .toArray()
+      .filter(
+        c => isPresent(get(c, 'note'))
+      )
       .sort(
         (b, a) => moment(get(a, 'date')).diff(get(b, 'date'), 'days')
       );

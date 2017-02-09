@@ -2,6 +2,10 @@
   {{journal-entry checkin=checkin}}
 {{/each}}
 
+{{#if noCheckinsPresent}}
+  <div class="centered vert-offset-top-2">No journal entries yet</div>
+{{/if}}
+
 {{ember-ic-you triggerDistance=80}}
 
 {{#if loadingCheckins}}
