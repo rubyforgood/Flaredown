@@ -6,7 +6,6 @@ const {
   computed,
   Component,
   isPresent,
-  getProperties,
   setProperties,
   run: {
     scheduleOnce,
@@ -17,15 +16,15 @@ export default Component.extend({
   checkins: [],
   loadingCheckins: true,
 
-  endAt: computed('checkins.lastObject.date', function() {
-    return moment(get(this, 'checkins.lastObject.date'));
+  page: computed('checkins.[]', function() {
+    return Math.floor(get(this, 'checkins.length') / 10) + 1;
   }),
 
   didInsertElement() {
     this._super(...arguments);
 
     scheduleOnce('afterRender', this, () => {
-      if (get(this, 'store').peekAll('checkin').toArray().length) {
+      if (this.peekReverseSortedCheckins().length >= 10) {
         this.loadCheckins();
       } else {
         this.fetchMore().then(() => this.loadCheckins());
@@ -34,20 +33,7 @@ export default Component.extend({
   },
 
   fetchMore() {
-    const format = "YYYY-MM-DD";
-    let { endAt, startAt } = getProperties(this, 'endAt', 'startAt');
-
-    startAt = moment(startAt || endAt).subtract(10, 'days');
-
-    set(this, 'startAt', startAt);
-
-    return this
-      .store
-      .queryRecord('chart', {
-        id: 'health',
-        end_at: endAt.format(format),
-        start_at: startAt.format(format),
-      });
+    return this.store.query('checkin', { page: get(this, 'page') });
   },
 
   loadCheckins() {
@@ -55,7 +41,7 @@ export default Component.extend({
 
     if (isPresent(checkins)) {
       setProperties(this, {
-        checkins: this.peekReverseSortedCheckins(),
+        checkins,
         loadingCheckins: false,
       });
     } else {
@@ -80,10 +66,12 @@ export default Component.extend({
   },
 
   actions: {
-    crossedTheLine() {
-      set(this, 'loadingCheckins', true);
+    crossedTheLine(above) {
+      if (above) {
+        set(this, 'loadingCheckins', true);
 
-      this.fetchMore().then(() => this.loadCheckins());
+        this.fetchMore().then(() => this.loadCheckins());
+      }
     },
   },
 });
