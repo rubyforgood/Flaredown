@@ -116,17 +116,19 @@
     {{/if}}
   </svg>
 
-  {{#power-select
-    options=hiddenCharts
-    placeholder="Add a chart"
-    onchange=(action (mut chartToShow))
-    searchField="label"
-    renderInPlace=true
-    searchEnabled=true
-    class="fs-private"
-  as |chart| }}
-    {{chart.label}}
-  {{/power-select}}
+  <div class="chart-enabler">
+    {{#power-select
+      options=hiddenCharts
+      placeholder="Add a chart"
+      onchange=(action (mut chartToShow))
+      searchField="label"
+      renderInPlace=true
+      searchEnabled=true
+      class="fs-private"
+    as |chart| }}
+      {{chart.label}}
+    {{/power-select}}
+  </div>
 
   {{chart-navigation
     date=centeredDate
