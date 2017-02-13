@@ -1,10 +1,19 @@
 import Ember from 'ember';
 import Graphable from 'flaredown/components/chart/graphable';
 
-const { Component, computed, get, isPresent, set } = Ember;
+const {
+  get,
+  set,
+  computed,
+  Component,
+  isPresent,
+  computed: { alias },
+} = Ember;
 
 export default Component.extend(Graphable, {
   markerRadius: 7,
+
+  name: alias('model.name'),
 
   halfHeight: computed('height', function() {
     return get(this, 'yScale')(0);

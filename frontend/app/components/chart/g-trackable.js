@@ -7,10 +7,13 @@ const {
   computed,
   Component,
   isPresent,
+  computed: { alias },
 } = Ember;
 
 export default Component.extend(Graphable, {
   dataYValues: [0, 1, 2, 3, 4],
+
+  name: alias('model.name'),
 
   points: computed('data', function() {
     return get(this, 'data').filter( (item) => {

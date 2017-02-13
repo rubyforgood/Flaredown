@@ -6,6 +6,7 @@ const {
   Mixin,
   isEmpty,
   computed,
+  getProperties,
 } = Ember;
 
 export default Mixin.create({
@@ -68,6 +69,10 @@ export default Mixin.create({
     closePointTooltip() {
       set(this, 'openPointTooltip', false);
       set(this, 'currentPoint', null);
+    },
+
+    hideChart() {
+      get(this, 'chartsVisibilityService').hide(getProperties(this, 'name', 'category'));
     },
   }
 });

@@ -64,6 +64,19 @@ export default Service.extend({
     }
   },
 
+  hide(options) {
+    let payloadCategoryName = `payload.${options.category}`
+    let category = get(this, payloadCategoryName) || [];
+
+    category.forEach(chart => {
+      if (chart.label === options.name) {
+        set(chart, 'visible', false);
+      }
+    });
+
+    set(this, payloadCategoryName, category);
+  },
+
   getFromStorage() {
     return localStorage.chartsVisibility && JSON.parse(localStorage.chartsVisibility);
   },
