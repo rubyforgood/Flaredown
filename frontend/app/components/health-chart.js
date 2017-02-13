@@ -62,6 +62,14 @@ export default Component.extend(Resizable, FieldsByUnits, {
     chartsVisibilityService.setVisibility(true, chartToShow.category, chartToShow.label);
   }),
 
+  isChartEnablerDisabled: computed('hiddenCharts.length', function() {
+    return get(this, 'hiddenCharts.length') === 0;
+  }),
+
+  chartEnablerPlaceholder: computed('isChartEnablerDisabled', function() {
+    return get(this, 'isChartEnablerDisabled') ? "No charts to add" : "Add a chart";
+  }),
+
   daysRadius: computed('SVGWidth', function() {
     return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
   }),

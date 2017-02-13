@@ -6,6 +6,7 @@ const {
   inject,
   Service,
   observer,
+  isPresent,
 } = Ember;
 
 export default Service.extend({
@@ -41,7 +42,7 @@ export default Service.extend({
                 count += 1;
 
                 filter[category][categoryCharts[chart].label] = true;
-              } else {
+              } else if(isPresent(categoryCharts[chart].label)) {
                 hiddenCharts.pushObject({
                   category,
                   label: categoryCharts[chart].label,

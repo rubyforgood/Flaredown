@@ -118,8 +118,9 @@
 
   <div class="chart-enabler">
     {{#power-select
+      disabled=isChartEnablerDisabled
       options=hiddenCharts
-      placeholder="Add a chart"
+      placeholder=chartEnablerPlaceholder
       onchange=(action (mut chartToShow))
       searchField="label"
       renderInPlace=true
