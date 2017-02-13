@@ -1,0 +1,14 @@
+.progress-container {
+  width: 100%;
+  height: 1.5em;
+  position: relative;
+  font-size: 6px;
+  background-color: $progress-gray;
+}
+
+.progressbar {
+  height: 100%;
+  position: absolute;
+  line-height: inherit;
+  background-color: $progress-blue;
+}

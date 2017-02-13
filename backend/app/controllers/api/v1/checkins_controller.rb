@@ -1,8 +1,13 @@
 class Api::V1::CheckinsController < ApplicationController
 
   def index
-    date = Date.parse(params.require(:date))
-    render json: current_user.checkins.where(date: date)
+    date = params[:date]
+
+    if date.blank? && params.require(:page)
+      render json: current_user.checkins.where(:note.nin => [nil, '']).order_by(date: :desc).page(params[:page]).per(10)
+    else
+      render json: current_user.checkins.where(date: Date.parse(date))
+    end
   end
 
   def show
