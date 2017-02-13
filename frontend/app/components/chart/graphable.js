@@ -72,7 +72,13 @@ export default Mixin.create({
     },
 
     hideChart() {
-      get(this, 'chartsVisibilityService').hide(getProperties(this, 'name', 'category'));
+      const {
+        name,
+        category,
+        chartsVisibilityService,
+      } = getProperties(this, 'name', 'category', 'chartsVisibilityService');
+
+      chartsVisibilityService.setVisibility(false, category, name);
     },
   }
 });

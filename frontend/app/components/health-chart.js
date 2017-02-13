@@ -39,6 +39,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
   lastChartHeight: 0,
 
   centeredDate: alias('chartSelectedDates.centeredDate'),
+  hiddenCharts: alias('chartsVisibilityService.hiddenCharts'),
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   timelineLength: alias('timeline.length'),
   visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
@@ -54,6 +55,12 @@ export default Component.extend(Resizable, FieldsByUnits, {
       debounce(this, this.fetchDataChart, 1000);
     }
   ),
+
+  showChart: observer('chartToShow', function() {
+    const { chartToShow, chartsVisibilityService } = getProperties(this, 'chartToShow', 'chartsVisibilityService');
+
+    chartsVisibilityService.setVisibility(true, chartToShow.category, chartToShow.label);
+  }),
 
   daysRadius: computed('SVGWidth', function() {
     return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));

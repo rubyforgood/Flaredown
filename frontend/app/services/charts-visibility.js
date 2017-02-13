@@ -11,6 +11,7 @@ const {
 export default Service.extend({
   store: inject.service(),
   payload: {},
+  hiddenCharts: [],
   visibilityFilter: {},
   visibleChartsCount: 0,
 
@@ -24,6 +25,7 @@ export default Service.extend({
 
       let count = 0;
       let filter = {};
+      let hiddenCharts = [];
 
       Object
         .keys(payload)
@@ -39,10 +41,16 @@ export default Service.extend({
                 count += 1;
 
                 filter[category][categoryCharts[chart].label] = true;
+              } else {
+                hiddenCharts.pushObject({
+                  category,
+                  label: categoryCharts[chart].label,
+                });
               }
             });
         });
 
+      set(this, 'hiddenCharts', hiddenCharts.sortBy('label'));
       set(this, 'visibilityFilter', filter);
       set(this, 'visibleChartsCount', count);
 
@@ -64,13 +72,13 @@ export default Service.extend({
     }
   },
 
-  hide(options) {
-    let payloadCategoryName = `payload.${options.category}`
+  setVisibility(value, categoryName, label) {
+    let payloadCategoryName = `payload.${categoryName}`
     let category = get(this, payloadCategoryName) || [];
 
     category.forEach(chart => {
-      if (chart.label === options.name) {
-        set(chart, 'visible', false);
+      if (chart.label === label) {
+        set(chart, 'visible', value);
       }
     });
 
