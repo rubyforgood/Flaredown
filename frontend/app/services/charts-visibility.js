@@ -73,7 +73,7 @@ export default Service.extend({
   },
 
   setVisibility(value, categoryName, label) {
-    let payloadCategoryName = `payload.${categoryName}`
+    let payloadCategoryName = `payload.${categoryName}`;
     let category = get(this, payloadCategoryName) || [];
 
     category.forEach(chart => {
