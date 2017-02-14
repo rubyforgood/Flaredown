@@ -1,33 +1,48 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
-  checkin: Ember.computed.alias('parentView.checkin'),
+const {
+  get,
+  set,
+  computed,
+  Component,
+  Logger: { debug },
+  computed: { alias },
+} = Ember;
 
-  relatedObjects: Ember.computed('checkin', function() {
-    return this.get('checkin.' + this.get('relationName'));
+export default Component.extend({
+  checkin: alias('parentView.checkin'),
+
+  relatedObjects: computed('checkin', function() {
+    return get(this, 'checkin.' + get(this, 'relationName'));
   }),
 
   actions: {
     add(obj) {
-      this.get('checkin').addObj(obj, this.get('idsKey'), this.get('relationName'));
+      get(this, 'checkin').addObj(obj, get(this, 'idsKey'), get(this, 'relationName'));
       this.saveCheckin();
     },
 
     remove(obj) {
-      this.get('checkin').removeObj(obj, this.get('idsKey'), this.get('relationName'));
+      get(this, 'checkin').removeObj(obj, get(this, 'idsKey'), get(this, 'relationName'));
       this.saveCheckin();
     },
   },
 
   saveCheckin() {
-    if (this.get('checkin.hasDirtyAttributes')) {
+    if (get(this, 'checkin.hasDirtyAttributes')) {
       Ember.run.next(this, function() {
-        this.get('checkin').save().then(() => {
-          Ember.Logger.debug('Checkin successfully saved');
-          this.get('checkin').set('hasDirtyAttributes', false);
-        }, (error) => {
-          this.get('checkin').handleSaveError(error);
-        });
+        get(this, 'checkin')
+          .save()
+          .then(
+            () => {
+              debug('Checkin successfully saved');
+
+              set(this, 'checkin.hasDirtyAttributes', false);
+            },
+            (error) => {
+              get(this, 'checkin').handleSaveError(error);
+            }
+          );
       });
     }
   },
