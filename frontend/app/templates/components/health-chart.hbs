@@ -37,6 +37,17 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
+            {{else if (equals category 'tags')}}
+              {{chart/g-blank-flat
+                model=chart.model
+                width=seriesWidth
+                height=flatHeight
+                padding=seriePadding
+                startAt=startAt
+                category=category
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
             {{/if}}
           {{else}}
             {{#if (equals category 'conditions')}}
@@ -66,6 +77,19 @@
                 chartOffset=chart.chartOffset
               }}
             {{else if (equals category 'treatments')}}
+              {{chart/g-flat
+                endAt=endAt
+                model=chart.model
+                width=seriesWidth
+                height=flatHeight
+                padding=seriePadding
+                startAt=startAt
+                category=category
+                checkins=checkins
+                timeline=timeline
+                chartOffset=chart.chartOffset
+              }}
+            {{else if (equals category 'tags')}}
               {{chart/g-flat
                 endAt=endAt
                 model=chart.model

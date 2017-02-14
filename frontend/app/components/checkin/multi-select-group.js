@@ -42,7 +42,8 @@ export default Component.extend({
             (error) => {
               get(this, 'checkin').handleSaveError(error);
             }
-          );
+          )
+          .then(() => get(this, 'chartsVisibilityService').refresh());
       });
     }
   },

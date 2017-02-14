@@ -53,9 +53,12 @@ export default Component.extend(Graphable, {
       var coordinate = { x: day, y: null };
 
       if(isPresent(checkin)) {
-        var item = get(checkin, key).findBy(`${type}.id`, get(this, 'model.id'));
+        let item = key === 'tags' ?
+          get(checkin, key).findBy('name', get(this, 'model.name'))
+        :
+          get(checkin, key).findBy(`${type}.id`, get(this, 'model.id'));
 
-        if(isPresent(item) && get(item, 'isTaken') ) {
+        if (isPresent(item) && (get(item, 'isTaken') || key === 'tags')) {
           coordinate.label = get(item, 'value');
           coordinate.y = true;
         }

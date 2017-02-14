@@ -17,6 +17,7 @@ export default Service.extend({
   visibleChartsCount: 0,
 
   observeVisibilityChanges: observer(
+    'payload.tags.@each.visible',
     'payload.symptoms.@each.visible',
     'payload.conditions.@each.visible',
     'payload.treatments.@each.visible',

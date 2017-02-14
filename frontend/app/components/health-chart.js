@@ -47,6 +47,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
   updateTrackables: observer(
     'centeredDate',
     'chartLoaded',
+    'chartsVisibilityService.payload.tags.@each.visible',
     'chartsVisibilityService.payload.symptoms.@each.visible',
     'chartsVisibilityService.payload.conditions.@each.visible',
     'chartsVisibilityService.payload.treatments.@each.visible',
@@ -148,6 +149,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
   observeFilterAndTrackables: observer(
     'trackables',
     'pressureUnits',
+    'chartsVisibilityService.payload.tags.@each.visible',
     'chartsVisibilityService.payload.symptoms.@each.visible',
     'chartsVisibilityService.payload.conditions.@each.visible',
     'chartsVisibilityService.payload.treatments.@each.visible',
@@ -175,11 +177,19 @@ export default Component.extend(Resizable, FieldsByUnits, {
         item.chartOffset = chartOffset += lastChartHeight + seriePadding;
       });
 
-      series.treatments.forEach((item, index)  => {
-        lastChartHeight = flatHeight;
-
+      series.treatments.forEach((item, index) => {
         item.chartOffset = chartOffset += (index === 0 ? serieHeight : flatHeight) + seriePadding;
       });
+
+      series.tags.forEach((item, index) => {
+        let previousHeight = series.treatments.length === 0 && index === 0 ? serieHeight : flatHeight;
+
+        item.chartOffset = chartOffset += previousHeight + seriePadding;
+      });
+
+      if (series.treatments.length || series.tags.length) {
+        lastChartHeight = flatHeight;
+      }
 
       const weatherCategory = visibilityFilter.weathersMesures;
 
@@ -216,6 +226,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
       conditions: [],
       symptoms:   [],
       treatments: [],
+      tags: [],
       weathersMesures: [],
     };
 
@@ -237,6 +248,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
       conditions: [],
       symptoms:   [],
       treatments: [],
+      tags: [],
       weathersMesures: [],
     };
 
@@ -301,11 +313,12 @@ export default Component.extend(Resizable, FieldsByUnits, {
   },
 
   setChartsData() {
+    const tags = this.store.peekAll('tag').toArray();
     const checkins = this.peekSortedCheckins();
     const symptoms = this.store.peekAll('symptom').toArray();
     const conditions = this.store.peekAll('condition').toArray();
     const treatments = this.store.peekAll('treatment').toArray();
-    const trackables = [...conditions, ...symptoms, ...treatments];
+    const trackables = [...conditions, ...symptoms, ...treatments, ...tags];
 
     return this.isDestroyed || setProperties(this, {checkins, trackables});
   },
