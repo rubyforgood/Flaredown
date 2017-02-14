@@ -6,11 +6,13 @@ const {
   inject,
   Service,
   observer,
+  isPresent,
 } = Ember;
 
 export default Service.extend({
   store: inject.service(),
   payload: {},
+  hiddenCharts: [],
   visibilityFilter: {},
   visibleChartsCount: 0,
 
@@ -24,6 +26,7 @@ export default Service.extend({
 
       let count = 0;
       let filter = {};
+      let hiddenCharts = [];
 
       Object
         .keys(payload)
@@ -39,10 +42,16 @@ export default Service.extend({
                 count += 1;
 
                 filter[category][categoryCharts[chart].label] = true;
+              } else if(isPresent(categoryCharts[chart].label)) {
+                hiddenCharts.pushObject({
+                  category,
+                  label: categoryCharts[chart].label,
+                });
               }
             });
         });
 
+      set(this, 'hiddenCharts', hiddenCharts.sortBy('label'));
       set(this, 'visibilityFilter', filter);
       set(this, 'visibleChartsCount', count);
 
@@ -62,6 +71,19 @@ export default Service.extend({
     } else {
       this.refresh();
     }
+  },
+
+  setVisibility(value, categoryName, label) {
+    let payloadCategoryName = `payload.${categoryName}`;
+    let category = get(this, payloadCategoryName) || [];
+
+    category.forEach(chart => {
+      if (chart.label === label) {
+        set(chart, 'visible', value);
+      }
+    });
+
+    set(this, payloadCategoryName, category);
   },
 
   getFromStorage() {

@@ -11,6 +11,7 @@
                 height=serieHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
@@ -21,6 +22,7 @@
                 height=serieHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
@@ -31,6 +33,7 @@
                 height=flatHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
@@ -44,6 +47,7 @@
                 height=serieHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 checkins=checkins
                 timeline=timeline
                 chartOffset=chart.chartOffset
@@ -56,6 +60,7 @@
                 height=serieHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 checkins=checkins
                 timeline=timeline
                 chartOffset=chart.chartOffset
@@ -68,6 +73,7 @@
                 height=flatHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 checkins=checkins
                 timeline=timeline
                 chartOffset=chart.chartOffset
@@ -81,6 +87,7 @@
                 height=serieHeight
                 padding=seriePadding
                 startAt=startAt
+                category=category
                 checkins=checkins
                 timeline=timeline
                 chartOffset=chart.chartOffset
@@ -108,7 +115,21 @@
       <line x1="{{xPosition}}" y1="0" x2="{{xPosition}}" y2="{{totalSeriesHeight}}" class="vertical-line" />
     {{/if}}
   </svg>
-  <img class="trans-pixel" src="/assets/trans-pixel.png">
+
+  <div class="chart-enabler">
+    {{#power-select
+      disabled=isChartEnablerDisabled
+      options=hiddenCharts
+      placeholder=chartEnablerPlaceholder
+      onchange=(action (mut chartToShow))
+      searchField="label"
+      renderInPlace=true
+      searchEnabled=true
+      class="fs-private"
+    as |chart| }}
+      {{chart.label}}
+    {{/power-select}}
+  </div>
 
   {{chart-navigation
     date=centeredDate

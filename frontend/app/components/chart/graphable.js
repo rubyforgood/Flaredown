@@ -1,37 +1,46 @@
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const {
+  get,
+  set,
+  Mixin,
+  isEmpty,
+  computed,
+  getProperties,
+} = Ember;
+
+export default Mixin.create({
   tagName: 'g',
   classNames: 'chart',
   attributeBindings: ['transform'],
 
-  transform: Ember.computed('height', 'padding', 'chartOffset', function() {
-    return `translate(0,${this.get('chartOffset')})`;
+  transform: computed('height', 'padding', 'chartOffset', function() {
+    return `translate(0,${get(this, 'chartOffset')})`;
   }),
 
-  nestedTransform: Ember.computed('height', 'startAt', 'data', function() {
-    return `translate(${ - this.get('xScale')( this.get('startAt') )}, 5)`;
+  nestedTransform: computed('height', 'startAt', 'data', function() {
+    return `translate(${ - get(this, 'xScale')( get(this, 'startAt') )}, 5)`;
   }),
 
-  xDomain: Ember.computed('data', function() {
-    return d3.extent(this.get('data'), d => d.x);
+  xDomain: computed('data', function() {
+    return d3.extent(get(this, 'data'), d => d.x);
   }),
 
-  xScale: Ember.computed('data', function() {
+  xScale: computed('data', function() {
     return(
       d3
         .time
         .scale()
-        .range([0, this.get('width')])
-        .domain(this.get('xDomain'))
+        .range([0, get(this, 'width')])
+        .domain(get(this, 'xDomain'))
     );
   }),
 
-  lineData: Ember.computed('data', function() {
-    return this.get('data').reject(item => Ember.isEmpty(item.y));
+  lineData: computed('data', function() {
+    return get(this, 'data').reject(item => isEmpty(item.y));
   }),
 
-  lineFunction: Ember.computed('lineData', function() {
+  lineFunction: computed('lineData', function() {
     return(
       d3
         .svg
@@ -39,27 +48,37 @@ export default Ember.Mixin.create({
         .x(this.getX.bind(this))
         .y(this.getY.bind(this))
         .interpolate('linear')
-        (this.get('lineData'))
+        (get(this, 'lineData'))
     );
   }),
 
   getX(d) {
-    return this.get('xScale')(d.x);
+    return get(this, 'xScale')(d.x);
   },
 
   getY(d) {
-    return this.get('yScale')(d.y) - 4; // minus radius
+    return get(this, 'yScale')(d.y) - 4; // minus radius
   },
 
   actions: {
     openPointTooltip(point) {
-      this.set('openPointTooltip', true);
-      this.set('currentPoint', point);
+      set(this, 'openPointTooltip', true);
+      set(this, 'currentPoint', point);
     },
 
     closePointTooltip() {
-      this.set('openPointTooltip', false);
-      this.set('currentPoint', null);
+      set(this, 'openPointTooltip', false);
+      set(this, 'currentPoint', null);
+    },
+
+    hideChart() {
+      const {
+        name,
+        category,
+        chartsVisibilityService,
+      } = getProperties(this, 'name', 'category', 'chartsVisibilityService');
+
+      chartsVisibilityService.setVisibility(false, category, name);
     },
   }
 });

@@ -1,9 +1,16 @@
 import Ember from 'ember';
 import Graphable from 'flaredown/components/chart/graphable';
 
-const { Component, computed, get } = Ember;
+const {
+  get,
+  computed,
+  Component,
+  computed: { alias },
+} = Ember;
 
 export default Component.extend(Graphable, {
+  name: alias('model.name'),
+
   halfHeight: computed('height', function() {
     return get(this, 'yScale')(0);
   }),

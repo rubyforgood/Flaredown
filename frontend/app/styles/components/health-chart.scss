@@ -4,7 +4,6 @@
       cursor: grab;
       cursor: -moz-grab;
       cursor: -webkit-grab;
-
   }
 
   &.dragging:active {
@@ -39,7 +38,6 @@
   }
 
   svg {
-
     circle.point {
       fill: $background;
     }
@@ -99,8 +97,17 @@
         };
       }
     }
-
-
   }
-
 }
+
+.chart-enabler {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.hide-control {
+  fill: $dark-shadow;
+  font-size: .8em;
+  transform: translate(calc(100vw - 35px), -5px);
+}
+
