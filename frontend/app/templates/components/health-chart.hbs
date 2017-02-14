@@ -4,7 +4,7 @@
       {{#each-in series as |category charts|}}
         {{#each charts as |chart|}}
           {{#if chart.blank}}
-            {{#if (equals category 'conditions')}}
+            {{#if (includes category 'conditions' 'symptoms')}}
               {{chart/g-blank-trackable
                 model=chart.model
                 width=seriesWidth
@@ -15,29 +15,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (equals category 'symptoms')}}
-              {{chart/g-blank-trackable
-                model=chart.model
-                width=seriesWidth
-                height=serieHeight
-                padding=seriePadding
-                startAt=startAt
-                category=category
-                timeline=timeline
-                chartOffset=chart.chartOffset
-              }}
-            {{else if (equals category 'treatments')}}
-              {{chart/g-blank-flat
-                model=chart.model
-                width=seriesWidth
-                height=flatHeight
-                padding=seriePadding
-                startAt=startAt
-                category=category
-                timeline=timeline
-                chartOffset=chart.chartOffset
-              }}
-            {{else if (equals category 'tags')}}
+            {{else if (includes category 'treatments' 'tags')}}
               {{chart/g-blank-flat
                 model=chart.model
                 width=seriesWidth
@@ -50,7 +28,7 @@
               }}
             {{/if}}
           {{else}}
-            {{#if (equals category 'conditions')}}
+            {{#if (includes category 'conditions' 'symptoms')}}
               {{chart/g-trackable
                 endAt=endAt
                 model=chart.model
@@ -63,20 +41,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (equals category 'symptoms')}}
-              {{chart/g-trackable
-                endAt=endAt
-                model=chart.model
-                width=seriesWidth
-                height=serieHeight
-                padding=seriePadding
-                startAt=startAt
-                category=category
-                checkins=checkins
-                timeline=timeline
-                chartOffset=chart.chartOffset
-              }}
-            {{else if (equals category 'treatments')}}
+            {{else if (includes category 'treatments' 'tags')}}
               {{chart/g-flat
                 endAt=endAt
                 model=chart.model
@@ -89,20 +54,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (equals category 'tags')}}
-              {{chart/g-flat
-                endAt=endAt
-                model=chart.model
-                width=seriesWidth
-                height=flatHeight
-                padding=seriePadding
-                startAt=startAt
-                category=category
-                checkins=checkins
-                timeline=timeline
-                chartOffset=chart.chartOffset
-              }}
-            {{else if (equals category 'weathersMesures')}}
+            {{else if (includes category 'weathersMesures')}}
               {{chart/g-weather
                 name=chart.name
                 unit=chart.unit
