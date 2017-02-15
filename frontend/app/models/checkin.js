@@ -11,7 +11,7 @@ export default DS.Model.extend({
   conditions: DS.hasMany('checkinCondition'),
   symptoms: DS.hasMany('checkinSymptom'),
   treatments: DS.hasMany('checkinTreatment'),
-  tags: DS.hasMany('tag'),
+  tags: DS.hasMany('tag', { async: false }),
   foods: DS.hasMany('food'),
 
   weather: DS.belongsTo('weather', { async: false }),

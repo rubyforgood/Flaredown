@@ -44,4 +44,8 @@ class Checkin
   def weather
     @weather ||= Weather.find_by(id: weather_id)
   end
+
+  def tags
+    @tags ||= Tag.where(id: tag_ids)
+  end
 end
