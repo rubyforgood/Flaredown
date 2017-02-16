@@ -15,7 +15,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (includes category 'treatments' 'tags')}}
+            {{else if (includes category 'treatments' 'tags' 'foods')}}
               {{chart/g-blank-flat
                 model=chart.model
                 width=seriesWidth
@@ -41,7 +41,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (includes category 'treatments' 'tags')}}
+            {{else if (includes category 'treatments' 'tags' 'foods')}}
               {{chart/g-flat
                 endAt=endAt
                 model=chart.model

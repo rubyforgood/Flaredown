@@ -48,6 +48,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
     'centeredDate',
     'chartLoaded',
     'chartsVisibilityService.payload.tags.@each.visible',
+    'chartsVisibilityService.payload.foods.@each.visible',
     'chartsVisibilityService.payload.symptoms.@each.visible',
     'chartsVisibilityService.payload.conditions.@each.visible',
     'chartsVisibilityService.payload.treatments.@each.visible',
@@ -150,6 +151,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
     'trackables',
     'pressureUnits',
     'chartsVisibilityService.payload.tags.@each.visible',
+    'chartsVisibilityService.payload.foods.@each.visible',
     'chartsVisibilityService.payload.symptoms.@each.visible',
     'chartsVisibilityService.payload.conditions.@each.visible',
     'chartsVisibilityService.payload.treatments.@each.visible',
@@ -187,7 +189,16 @@ export default Component.extend(Resizable, FieldsByUnits, {
         item.chartOffset = chartOffset += previousHeight + seriePadding;
       });
 
-      if (series.treatments.length || series.tags.length) {
+      series.foods.forEach((item, index) => {
+        let previousHeight = series.tags.length === 0 && series.treatments.length === 0 && index === 0 ?
+          serieHeight
+        :
+          flatHeight;
+
+        item.chartOffset = chartOffset += previousHeight + seriePadding;
+      });
+
+      if (series.treatments.length || series.tags.length || series.foods.length) {
         lastChartHeight = flatHeight;
       }
 
@@ -227,6 +238,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
       symptoms:   [],
       treatments: [],
       tags: [],
+      foods: [],
       weathersMesures: [],
     };
 
@@ -249,6 +261,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
       symptoms:   [],
       treatments: [],
       tags: [],
+      foods: [],
       weathersMesures: [],
     };
 
@@ -314,11 +327,12 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
   setChartsData() {
     const tags = this.store.peekAll('tag').toArray();
+    const foods = this.store.peekAll('food').toArray();
     const checkins = this.peekSortedCheckins();
     const symptoms = this.store.peekAll('symptom').toArray();
     const conditions = this.store.peekAll('condition').toArray();
     const treatments = this.store.peekAll('treatment').toArray();
-    const trackables = [...conditions, ...symptoms, ...treatments, ...tags];
+    const trackables = [...conditions, ...symptoms, ...treatments, ...tags, ...foods];
 
     return this.isDestroyed || setProperties(this, {checkins, trackables});
   },
