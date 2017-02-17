@@ -48,4 +48,8 @@ class Checkin
   def tags
     @tags ||= Tag.where(id: tag_ids)
   end
+
+  def foods
+    @foods ||= Food.where(id: food_ids)
+  end
 end

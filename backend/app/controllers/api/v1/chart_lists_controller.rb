@@ -1,6 +1,7 @@
 class Api::V1::ChartListsController < ApplicationController
   def show
     tag_ids = current_user.checkins.distinct(:tag_ids)
+    food_ids = current_user.checkins.distinct(:food_ids)
     checkin_ids = current_user.checkins.distinct(:id)
     symptom_ids = Checkin::Symptom.where(:checkin_id.in => checkin_ids).distinct(:symptom_id)
     treatment_ids = Checkin::Treatment.where(:checkin_id.in => checkin_ids).distinct(:treatment_id)
@@ -13,7 +14,8 @@ class Api::V1::ChartListsController < ApplicationController
           conditions: Condition::Translation.where(condition_id: condition_ids, locale: I18n.locale).pluck(:name),
           symptoms: Symptom::Translation.where(symptom_id: symptom_ids, locale: I18n.locale).pluck(:name),
           treatments: Treatment::Translation.where(treatment_id: treatment_ids, locale: I18n.locale).pluck(:name),
-          tags: Tag::Translation.where(tag_id: tag_ids).pluck(:name)
+          tags: Tag::Translation.where(tag_id: tag_ids, locale: I18n.locale).pluck(:name),
+          foods: Food::Translation.where(food_id: food_ids, locale: I18n.locale).pluck(:long_desc)
         }
       }
     }

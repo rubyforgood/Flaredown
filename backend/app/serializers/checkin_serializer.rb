@@ -7,4 +7,5 @@ class CheckinSerializer < ApplicationSerializer
 
   has_one :weather, embed_in_root: true
   has_many :tags, embed_in_root: true
+  has_many :foods, embed_in_root: true
 end

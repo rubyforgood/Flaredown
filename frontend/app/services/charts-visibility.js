@@ -18,6 +18,7 @@ export default Service.extend({
 
   observeVisibilityChanges: observer(
     'payload.tags.@each.visible',
+    'payload.foods.@each.visible',
     'payload.symptoms.@each.visible',
     'payload.conditions.@each.visible',
     'payload.treatments.@each.visible',

@@ -12,7 +12,7 @@ export default DS.Model.extend({
   symptoms: DS.hasMany('checkinSymptom'),
   treatments: DS.hasMany('checkinTreatment'),
   tags: DS.hasMany('tag', { async: false }),
-  foods: DS.hasMany('food'),
+  foods: DS.hasMany('food', { async: false }),
 
   weather: DS.belongsTo('weather', { async: false }),
 
