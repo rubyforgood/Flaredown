@@ -84,6 +84,7 @@ class Step
         steps = seed[1]
         steps.each_with_index do |step, i|
           current_key = "#{group}-#{step}"
+
           earlier =
             if i.zero?
               nil
@@ -91,11 +92,14 @@ class Step
               earlier_key = "#{group}-#{steps[i - 1]}"
               @all_hash[earlier_key][:current]
             end
+
           current = Step.new(current_key, i + 1)
+
           @all_hash[current_key] = {
             current: current,
             earlier: earlier
           }
+
           @all_hash[key_for(earlier)][:later] = current if earlier.present?
         end
       end

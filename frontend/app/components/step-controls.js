@@ -1,12 +1,18 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const {
+  Component,
+  computed: { bool },
+} = Ember;
 
+export default Component.extend({
   classNames: ['step-controls'],
 
+  showBack: true,
   backLabel: 'Back',
   forwardLabel: 'Continue',
-  showBack: true,
+
+  stepHasPrev: bool('step.prevId'),
 
   actions: {
     forward() {
@@ -14,11 +20,11 @@ export default Ember.Component.extend({
         this.get('onForward')();
       }
     },
+
     backward() {
       if (!this.get('disabled')) {
         this.get('onBackward')();
       }
-    }
-  }
-
+    },
+  },
 });

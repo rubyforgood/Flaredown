@@ -7,6 +7,10 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   model: Ember.computed.alias('parentView.model'),
 
+  step: Ember.computed('trackableType', function() {
+    return this.get(`stepsService.steps.checkin-${this.get('trackableType').pluralize()}`);
+  }),
+
   tracking: Ember.inject.service(),
   setupTracking() {
     this.get('tracking').setup({
@@ -26,9 +30,7 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('step',
-      this.store.findRecord('step', `checkin-${this.get('trackableType').pluralize()}`)
-    );
+
     this.setupTracking();
   },
 

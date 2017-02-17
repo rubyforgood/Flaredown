@@ -1,22 +1,22 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const {
+  get,
+  Component,
+  computed: { alias }
+} = Ember;
 
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this.set('step', this.store.findRecord('step', 'checkin-start'));
-  },
-
-  model: Ember.computed.alias('parentView.model'),
+export default Component.extend({
+  step: alias('stepsService.steps.checkin-start'),
+  model: alias('parentView.model'),
 
   actions: {
     completeStep() {
-      this.get('onStepCompleted')();
+      get(this, 'onStepCompleted')();
     },
 
     goBack() {
-      this.get('onGoBack')();
+      get(this, 'onGoBack')();
     }
   }
-
 });
