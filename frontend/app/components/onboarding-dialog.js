@@ -13,7 +13,6 @@ export default Ember.Component.extend(StepControl, {
   isOnboarding: true,
   routeAfterCompleted: 'index',
 
-  step: alias('model.currentStep'),
   stepName: alias('step.stepName'),
 
   isPersonal: equal('stepName', 'personal'),

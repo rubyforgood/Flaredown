@@ -12,7 +12,6 @@ export default Ember.Component.extend(StepControl, {
   classNames: ['checkin-summary'],
   routeAfterCompleted: 'chart',
 
-  step: alias('model.currentStep'),
   checkin: alias('model.checkin'),
   stepName: alias('step.stepName'),
 

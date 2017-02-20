@@ -4,12 +4,17 @@ const {
   get,
   set,
   Mixin,
+  computed,
 } = Ember;
 
 export default Mixin.create({
+  step: computed('model.stepId', 'stepsService.currentTrackables.[]', function() {
+    return get(this, `stepsService.steps.${get(this, 'model.stepId')}`);
+  }),
+
   actions: {
     moveToNextStep() {
-      const step = get(this, `stepsService.steps.${get(this, 'step.id')}`);
+      const step = get(this, 'step');
 
       if (!get(step, 'nextId')) {
         this.router.transitionTo(this.routeAfterCompleted);

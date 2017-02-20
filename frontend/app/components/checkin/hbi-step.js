@@ -6,7 +6,6 @@ const {
 } = Ember;
 
 export default Component.extend({
-  step: alias('model.currentStep'),
   model: alias('parentView.model'),
 
   actions: {

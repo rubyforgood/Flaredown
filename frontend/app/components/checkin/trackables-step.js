@@ -14,10 +14,6 @@ export default Component.extend(TrackablesFromType, {
 
   model: Ember.computed.alias('parentView.model'),
 
-  step: Ember.computed('trackableType', function() {
-    return this.get(`stepsService.steps.checkin-${this.get('trackableType').pluralize()}`);
-  }),
-
   tracking: Ember.inject.service(),
   setupTracking() {
     this.get('tracking').setup({

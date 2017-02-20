@@ -7,7 +7,6 @@ const {
 } = Ember;
 
 export default Component.extend({
-  step: alias('stepsService.steps.checkin-start'),
   model: alias('parentView.model'),
 
   actions: {
