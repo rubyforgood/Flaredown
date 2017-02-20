@@ -114,11 +114,6 @@ Rails.application.routes.draw do
       resources :sexes, only: [:index, :show]
 
       #
-      # Steps
-      #
-      resources :steps, only: [:index, :show]
-
-      #
       # Symptoms
       #
       resources :symptoms, only: [:index, :show, :create]
