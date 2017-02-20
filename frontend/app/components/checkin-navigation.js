@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 const {
   $,
+  get,
+  computed,
   Component,
   run: { scheduleOnce },
   computed: { alias },
@@ -11,6 +13,21 @@ export default Component.extend({
   classNames: ['checkin-navigation'],
 
   checkinId: alias('checkin.id'),
+
+  steps: computed('stepsService.currentTrackables.[]', function() {
+    let result = [];
+    const steps = get(this, 'stepsService.steps');
+
+    Object.keys(steps).forEach(key => {
+      let step = steps[key];
+
+      if (step.priority && step.prefix === 'checkin') {
+        result.pushObject(step);
+      }
+    });
+
+    return result.sortBy('priority');
+  }),
 
   didRender() {
     scheduleOnce('afterRender', this, () => {

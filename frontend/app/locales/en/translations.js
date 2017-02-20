@@ -11,6 +11,10 @@ export default {
         title: "What conditions will you track?",
         hint: "A condition is an umbrella problem that may include many symptoms. For example, Crohn’s Disease or fibromyalgia.",
       },
+      harvey_bradshaw: {
+        title: "Harvey-Bradshaw Index",
+        shortTitle: "Harvey-Bradshaw",
+      },
       symptoms: {
         title: "What symptoms will you track?",
         hint: "Symptoms are the specific physical or mental problems that you want to treat. For example, chest pain or fatigue.",
@@ -26,12 +30,16 @@ export default {
 
     checkin: {
       start: {
-        title: "You haven't checked in yet today",
         hint: "Tap <b>next</b> to get started!",
+        title: "You haven't checked in yet today",
       },
       conditions: {
         title: "How active were your conditions today?",
         shortTitle: "Conditions",
+      },
+      harvey_bradshaw: {
+        title: "Harvey-Bradshaw Index",
+        shortTitle: "Harvey-Bradshaw",
       },
       symptoms: {
         title: "How active were your symptoms today?",
@@ -47,6 +55,7 @@ export default {
       },
       summary: {
         title: 'Summary for',
+        shortTitle: "Summary",
       },
     },
   },
