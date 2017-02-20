@@ -9,7 +9,7 @@ const {
 export default Mixin.create({
   actions: {
     moveToNextStep() {
-      const step = get(this, 'step');
+      const step = get(this, `stepsService.steps.${get(this, 'step.id')}`);
 
       if (!get(step, 'nextId')) {
         this.router.transitionTo(this.routeAfterCompleted);

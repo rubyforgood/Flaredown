@@ -2,7 +2,14 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
-export default Ember.Component.extend(TrackablesFromType, {
+const {
+  get,
+  set,
+  RSVP,
+  Component,
+} = Ember;
+
+export default Component.extend(TrackablesFromType, {
   classNames: ['trackables-step'],
 
   model: Ember.computed.alias('parentView.model'),
@@ -164,6 +171,13 @@ export default Ember.Component.extend(TrackablesFromType, {
           this.trackAddedTracked()
         ])
         .then(() => this.get('checkin').save())
+        .then(checkin => get(checkin, 'conditions'))
+        .then(conditions => RSVP.all(conditions.map(c => get(c, 'condition'))))
+        .then(conditions => set(
+          this,
+          'stepsService.currentTrackables',
+          conditions.map(condition => get(condition, 'name'))
+        ))
         .then(
           () => {
             Ember.Logger.info('Checkin successfully saved');

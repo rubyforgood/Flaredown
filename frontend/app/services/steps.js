@@ -45,7 +45,7 @@ export default Service.extend({
 
     const currentTrackables = get(this, 'currentTrackables');
 
-    if (true) { //DEBUG
+    if (!currentTrackables.includes("Crohn's disease")) {
       result['harvey_bradshaw'] = true;
     }
 

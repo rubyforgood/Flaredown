@@ -3,6 +3,7 @@ import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin'
 
 const {
   get,
+  set,
   RSVP,
   Route,
 } = Ember;
@@ -18,5 +19,15 @@ export default Route.extend(AuthenticatedRouteMixin, {
       currentStep,
       checkin: this.store.find('checkin', checkinId),
     });
-  }
+  },
+
+  afterModel(model) {
+    get(model.checkin, 'conditions')
+      .then(conditions => RSVP.all(conditions.map(c => get(c, 'condition'))))
+      .then(conditions => set(
+        this,
+        'stepsService.currentTrackables',
+        conditions.map(condition => get(condition, 'name'))
+      ));
+  },
 });
