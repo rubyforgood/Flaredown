@@ -21,6 +21,12 @@
                                 onStepCompleted=(action 'moveToNextStep')
                                 onGoBack=(action 'moveToPrevStep') }}
 
+    {{else if isHarveyBradshawIndex}}
+      {{checkin/hbi-step
+        onGoBack=(action 'moveToPrevStep')
+        onStepCompleted=(action 'moveToNextStep')
+      }}
+
     {{else if isSymptoms}}
       {{checkin/trackables-step trackeds=checkin.symptoms
                                 trackableType='symptom'

@@ -1,0 +1,8 @@
+{{partial "components/checkin/step-header"}}
+
+{{step-controls
+  step=step
+  onForward=(action "completeStep")
+  onBackward=(action "goBack")
+  forwardLabel="Next"
+}}
