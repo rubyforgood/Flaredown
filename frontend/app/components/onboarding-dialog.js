@@ -1,23 +1,25 @@
 import Ember from 'ember';
 import StepControl from 'flaredown/mixins/step-control';
 
+const {
+  computed: {
+    alias,
+    equal,
+  },
+} = Ember;
+
 export default Ember.Component.extend(StepControl, {
-
   classNames: ['flaredown-white-box'],
+  isOnboarding: true,
+  routeAfterCompleted: 'index',
 
-  step: Ember.computed.alias('model.currentStep'),
+  step: alias('model.currentStep'),
+  stepName: alias('step.stepName'),
 
-  isPersonal: Ember.computed.equal('step.key', 'personal'),
-  isDemographic: Ember.computed.equal('step.key', 'demographic'),
-  isConditions: Ember.computed.equal('step.key', 'conditions'),
-  isSymptoms: Ember.computed.equal('step.key', 'symptoms'),
-  isTreatments: Ember.computed.equal('step.key', 'treatments'),
-  isCompleted: Ember.computed.equal('step.key', 'completed'),
-
-  // Needed by StepControlMixin
-  stepKey: 'model.currentStep',
-  saveToModel: 'model.profile',
-  saveToKey: 'onboardingStep',
-  routeAfterCompleted: 'index'
-
+  isPersonal: equal('stepName', 'personal'),
+  isSymptoms: equal('stepName', 'symptoms'),
+  isCompleted: equal('stepName', 'completed'),
+  isConditions: equal('stepName', 'conditions'),
+  isTreatments: equal('stepName', 'treatments'),
+  isDemographic: equal('stepName', 'demographic'),
 });

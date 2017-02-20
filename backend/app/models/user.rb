@@ -90,6 +90,7 @@ class User < ActiveRecord::Base
 
   def init_profile
     create_profile!(
+      onboarding_step_id: 'onboarding-personal',
       most_recent_doses: {},
       most_recent_conditions_positions: {},
       most_recent_symptoms_positions: {},

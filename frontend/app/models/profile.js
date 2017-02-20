@@ -1,6 +1,13 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+const {
+  set,
+  get,
+  computed,
+  computed: { not },
+} = Ember;
+
 export default DS.Model.extend({
   // Attributes
   screenName: DS.attr('string'),
@@ -9,18 +16,32 @@ export default DS.Model.extend({
   dayWalkingHours: DS.attr('number'),
   ethnicityIds: DS.attr(),
   pressureUnits: DS.attr('string'),
+  onboardingStepId: DS.attr('string'),
   temperatureUnits: DS.attr('string'),
 
   // Associations
   country: DS.belongsTo('country'),
   sex: DS.belongsTo('sex'),
-  onboardingStep: DS.belongsTo('step'),
   educationLevel: DS.belongsTo('educationLevel'),
   dayHabit: DS.belongsTo('dayHabit'),
   ethnicities: DS.hasMany('ethnicities'),
 
+  onboardingStep: computed('onboardingStepId', {
+    get() {
+      let stepId = get(this, 'onboardingStepId') || 'onboarding-personal';
+
+      return get(this, `stepsService.steps.${stepId}`);
+    },
+
+    set(_, step) {
+      set(this, 'onboardingStepId', step.id);
+
+      return step.id;
+    },
+  }),
+
   // Properties
-  isOnboarded: Ember.computed.alias('onboardingStep.isLast'),
+  isOnboarded: not('onboardingStep.nextId'),
 
   // Functions
   syncEthnicityIds: Ember.observer('ethnicities', function() {

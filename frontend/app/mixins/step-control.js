@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const {
   get,
+  set,
   Mixin,
 } = Ember;
 
@@ -15,14 +16,14 @@ export default Mixin.create({
       } else {
         const nextStep = get(this, `stepsService.steps.${step.nextId}`);
 
-        if (Ember.isPresent(this.saveToModel)) {
-          var saveTo = this.get(this.saveToModel);
-          var savedStep = saveTo.get(this.saveToKey);
-          if (Ember.isEqual(nextStep.get('prev.id'), savedStep.get('id'))) {
-            saveTo.set(this.saveToKey, nextStep);
-            saveTo.save().then( () => {
-              this.transitionTo(nextStep);
-            });
+        if (get(this, 'isOnboarding')) {
+          let profile = get(this, 'model.profile');
+          const savedStepId = get(profile, 'onboardingStepId');
+
+          if (nextStep.prevId === savedStepId) {
+            set(profile, 'onboardingStep', nextStep);
+
+            profile.save().then(() => this.transitionTo(nextStep));
           } else {
             this.transitionTo(nextStep);
           }

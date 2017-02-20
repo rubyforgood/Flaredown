@@ -2,8 +2,12 @@ import Ember from 'ember';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
-export default Ember.Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
+const {
+  get,
+  Route,
+} = Ember;
 
+export default Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
   /*
     REQUIREMENTS:
     If the user hasn't completed the onboarding process
@@ -16,29 +20,28 @@ export default Ember.Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
   */
   beforeModel(transition) {
     transition.abort();
-    if (this.get('session.isAuthenticated')) {
-      this.get('session.currentUser').then(currentUser => {
-        currentUser.get('profile').then(profile => {
-          profile.get('onboardingStep').then(step => {
-            if (profile.get('isOnboarded')) {
-              var date = moment(new Date()).format('YYYY-MM-DD');
-              this.checkinByDate(date).then(
-                () => {
-                  this.routeToCheckin(date);
-                },
-                () => {
-                  this.routeToNewCheckin(date);
-                }
-              );
-            } else {
-              this.transitionTo("onboarding", step.get('key'));
-            }
-          });
+
+    if (get(this, 'session.isAuthenticated')) {
+      get(this, 'session.currentUser').then(currentUser => {
+        get(currentUser, 'profile').then(profile => {
+          if (get(profile, 'isOnboarded')) {
+            const date = moment(new Date()).format('YYYY-MM-DD');
+
+            this.checkinByDate(date).then(
+              () => {
+                this.routeToCheckin(date);
+              },
+              () => {
+                this.routeToNewCheckin(date);
+              }
+            );
+          } else {
+            this.transitionTo('onboarding', get(profile, 'onboardingStep.stepName'));
+          }
         });
       });
     } else {
       return this._super(...arguments);
     }
-  }
-
+  },
 });
