@@ -15,6 +15,7 @@ class Checkin
   #
   # Relations
   #
+  has_one :harvey_bradshaw_index
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
   has_many :symptoms, class_name: 'Checkin::Symptom'

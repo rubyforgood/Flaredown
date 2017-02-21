@@ -15,6 +15,10 @@ class Ability
     can :read, Food
     can :create, Food
 
+    can [:read, :create], HarveyBradshawIndex do |hbi|
+      hbi.checkin.encrypted_user_id == SymmetricEncryption.encrypt(user.id)
+    end
+
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false
