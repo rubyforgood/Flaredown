@@ -128,4 +128,18 @@ export default Model.extend({
 
     return result;
   }),
+
+  scoreString: computed('score', function() {
+    const score = get(this, 'score');
+
+    if (score < 5) {
+      return 'Remission';
+    } else if (score < 8) {
+      return 'Mild disease';
+    } else if (score < 17) {
+      return 'Moderate disease';
+    }
+
+    return 'Severe disease';
+  }),
 });

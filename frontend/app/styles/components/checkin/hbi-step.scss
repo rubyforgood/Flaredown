@@ -17,4 +17,17 @@
   .submit {
     width: 100%;
   }
+
+  .score {
+    h3 {
+      margin-top: 1em;
+    }
+
+    .title {
+      color: $medium-gray;
+    }
+
+    padding: 1em 0;
+    background-color: lighten($light-gray, 8%);
+  }
 }
