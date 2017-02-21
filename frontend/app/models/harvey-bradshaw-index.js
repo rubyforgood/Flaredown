@@ -84,10 +84,10 @@ export default Model.extend({
   }),
 
   notReady: computed(...numericKeys, function() {
-    const numeric = getProperties(...numericKeys);
+    const numeric = getProperties(this, ...numericKeys);
 
     return numericKeys.any(key => {
-      let value = get(this, key);
+      let value = numeric[key];
 
       return typeof value !== 'number';
     });

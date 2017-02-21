@@ -1,6 +1,7 @@
 class Ability
   include CanCan::Ability
 
+  # rubocop:disable Metrics/AbcSize
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
@@ -35,6 +36,7 @@ class Ability
 
     can :read, Weather if user.persisted?
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
