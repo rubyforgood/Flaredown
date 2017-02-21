@@ -15,19 +15,27 @@ const {
   getProperties,
 } = Ember;
 
-const propKeys = [
+const numericKeys = [
   'stools',
+  'wellBeing',
+  'abdominalMass',
+  'abdominalPain',
+];
+
+const booleanKeys = [
   'abscess',
   'uveitis',
-  'wellBeing',
   'arthralgia',
   'newFistula',
   'analFissure',
-  'abdominalMass',
-  'abdominalPain',
   'aphthousUlcers',
   'erythemaNodosum',
   'pyodermaGangrenosum',
+];
+
+const propKeys = [
+  ...booleanKeys,
+  ...numericKeys,
 ];
 
 export default Model.extend({
@@ -73,6 +81,16 @@ export default Model.extend({
     const value = get(this, 'stoolsString');
 
     set(this, 'stools', typeof value === 'string' && /\d+/.test(value) ? parseInt(value) : 0);
+  }),
+
+  notReady: computed(...numericKeys, function() {
+    const numeric = getProperties(...numericKeys);
+
+    return numericKeys.any(key => {
+      let value = get(this, key);
+
+      return typeof value !== 'number';
+    });
   }),
 
   selectedWellBeing: computed('wellBeing', function() {
