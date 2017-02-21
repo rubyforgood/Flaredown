@@ -11,10 +11,6 @@ export default {
         title: "What conditions will you track?",
         hint: "A condition is an umbrella problem that may include many symptoms. For example, Crohn’s Disease or fibromyalgia.",
       },
-      harvey_bradshaw: {
-        title: "Harvey-Bradshaw Index",
-        shortTitle: "Harvey-Bradshaw",
-      },
       symptoms: {
         title: "What symptoms will you track?",
         hint: "Symptoms are the specific physical or mental problems that you want to treat. For example, chest pain or fatigue.",
@@ -38,6 +34,7 @@ export default {
         shortTitle: "Conditions",
       },
       harvey_bradshaw: {
+        hint: "This medically-validated survey will generate a score indicating how active your Crohn’s Disease is. Complete it regularly so we can show you how treatments and triggers impact your illness!",
         title: "Harvey-Bradshaw Index",
         shortTitle: "Harvey-Bradshaw",
       },

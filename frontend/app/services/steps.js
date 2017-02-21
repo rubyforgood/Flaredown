@@ -13,10 +13,10 @@ export default Service.extend({
   checkinSeed: [
     'start',
     'conditions',
-    'harvey_bradshaw',
     'symptoms',
     'treatments',
     'health_factors',
+    'harvey_bradshaw',
     'summary',
   ],
 
@@ -24,7 +24,6 @@ export default Service.extend({
     'personal',
     'demographic',
     'conditions',
-    'harvey_bradshaw',
     'symptoms',
     'treatments',
     'completed',

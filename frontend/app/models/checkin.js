@@ -15,6 +15,7 @@ export default DS.Model.extend({
   foods: DS.hasMany('food', { async: false }),
 
   weather: DS.belongsTo('weather', { async: false }),
+  harveyBradshawIndex: DS.belongsTo('harveyBradshawIndex'),
 
   formattedDate: Ember.computed('date', function() {
     return moment(this.get('date')).format("YYYY-MM-DD");
