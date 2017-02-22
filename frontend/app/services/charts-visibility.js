@@ -22,7 +22,7 @@ export default Service.extend({
     'payload.symptoms.@each.visible',
     'payload.conditions.@each.visible',
     'payload.treatments.@each.visible',
-    'payload.weathersMesures.@each.visible',
+    'payload.weathersMeasures.@each.visible',
     function() {
       const payload = get(this, 'payload');
 
@@ -126,18 +126,6 @@ export default Service.extend({
           });
         });
       });
-
-    result.weathersMesures = [];
-
-    ['Avg daily humidity', 'Avg daily atmospheric pressure'].forEach(chart => {
-      let savedCategory = savedChartsVisibility.weathersMesures;
-      let chartWasPresent = savedCategory && savedCategory.findBy('label', chart);
-
-      result.weathersMesures.pushObject({
-        label: chart,
-        visible: !chartWasPresent || chartWasPresent.visible,
-      });
-    });
 
     return result;
   },
