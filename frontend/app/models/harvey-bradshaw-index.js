@@ -22,23 +22,8 @@ const numericKeys = [
   'abdominalPain',
 ];
 
-const booleanKeys = [
-  'abscess',
-  'uveitis',
-  'arthralgia',
-  'newFistula',
-  'analFissure',
-  'aphthousUlcers',
-  'erythemaNodosum',
-  'pyodermaGangrenosum',
-];
-
-const propKeys = [
-  ...booleanKeys,
-  ...numericKeys,
-];
-
 export default Model.extend({
+  score: attr('number'),
   stools: attr('number'),
   wellBeing: attr('number'),
   abdominalMass: attr('number'),
@@ -109,23 +94,5 @@ export default Model.extend({
     const { abdominalPain, abdominalPainOptions } = getProperties(this, 'abdominalPain', 'abdominalPainOptions');
 
     return abdominalPainOptions[abdominalPain];
-  }),
-
-  score: computed(...propKeys, function() {
-    const props = getProperties(this, ...propKeys);
-
-    let result = 0;
-
-    propKeys.forEach(key => {
-      let value = props[key];
-
-      if (Number.isInteger(value)) {
-        result += value;
-      } else if (value) {
-        result++;
-      }
-    });
-
-    return result;
   }),
 });
