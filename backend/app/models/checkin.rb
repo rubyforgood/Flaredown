@@ -1,6 +1,8 @@
 class Checkin
   include Mongoid::Document
 
+  HBI_PERIODICITY = 7
+
   #
   # Fields
   #
@@ -52,5 +54,19 @@ class Checkin
 
   def foods
     @foods ||= Food.where(id: food_ids)
+  end
+
+  def available_for_hbi?
+    return true if harvey_bradshaw_index
+    return false unless date.today?
+    return true unless latest_hbi
+
+    HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
+  end
+
+  private
+
+  def latest_hbi
+    @_latest_hbi ||= HarveyBradshawIndex.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
   end
 end

@@ -167,13 +167,6 @@ export default Component.extend(TrackablesFromType, {
           this.trackAddedTracked()
         ])
         .then(() => this.get('checkin').save())
-        .then(checkin => get(checkin, 'conditions'))
-        .then(conditions => RSVP.all(conditions.map(c => get(c, 'condition'))))
-        .then(conditions => set(
-          this,
-          'stepsService.currentTrackables',
-          conditions.map(condition => get(condition, 'name'))
-        ))
         .then(
           () => {
             Ember.Logger.info('Checkin successfully saved');

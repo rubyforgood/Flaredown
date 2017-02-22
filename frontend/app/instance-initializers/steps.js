@@ -10,8 +10,6 @@ export default {
     application.inject('component:onboarding-dialog', 'stepsService', 'service:steps');
     application.inject('component:checkin-navigation', 'stepsService', 'service:steps');
 
-    application.inject('component:checkin/trackables-step', 'stepsService', 'service:steps');
-
     application.inject('model:profile', 'stepsService', 'service:steps');
   },
 };

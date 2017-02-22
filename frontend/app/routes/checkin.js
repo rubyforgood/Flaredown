@@ -20,12 +20,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   afterModel(model) {
-    get(model.checkin, 'conditions')
-      .then(conditions => RSVP.all(conditions.map(c => get(c, 'condition'))))
-      .then(conditions => set(
-        this,
-        'stepsService.currentTrackables',
-        conditions.map(condition => get(condition, 'name'))
-      ));
+    set(this, 'stepsService.checkin', model.checkin);
   },
 });

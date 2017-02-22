@@ -14,7 +14,7 @@ export default Component.extend({
 
   checkinId: alias('checkin.id'),
 
-  steps: computed('stepsService.currentTrackables.[]', function() {
+  steps: computed('stepsService.steps', function() {
     let result = [];
     const steps = get(this, 'stepsService.steps');
 

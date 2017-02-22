@@ -1,5 +1,5 @@
 class CheckinSerializer < ApplicationSerializer
-  attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code
+  attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code, :available_for_hbi?
 
   has_many :conditions, embed: :objects, serializer: CheckinConditionSerializer
   has_many :symptoms, embed: :objects, serializer: CheckinSymptomSerializer

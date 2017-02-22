@@ -8,8 +8,6 @@ const {
 } = Ember;
 
 export default Service.extend({
-  currentTrackables: [],
-
   checkinSeed: [
     'start',
     'conditions',
@@ -29,7 +27,7 @@ export default Service.extend({
     'completed',
   ],
 
-  steps: computed('currentTrackables.[]', function() {
+  steps: computed('exclusions.harvey_bradshaw', function() {
     const { checkinSeed, onboardingSeed } = getProperties(this, 'checkinSeed', 'onboardingSeed');
 
     return Object.assign(
@@ -39,16 +37,8 @@ export default Service.extend({
     );
   }),
 
-  exclusions: computed('currentTrackables.[]', function() {
-    let result = {};
-
-    const currentTrackables = get(this, 'currentTrackables');
-
-    if (!currentTrackables.includes("Crohn's disease")) {
-      result['harvey_bradshaw'] = true;
-    }
-
-    return result;
+  exclusions: computed('checkin.shouldShowHbiStep', function() {
+    return get(this, 'checkin.shouldShowHbiStep') ? {} : { harvey_bradshaw: true };
   }),
 
   generateSteps(prefix, stepNames) {

@@ -8,7 +8,7 @@ const {
 } = Ember;
 
 export default Mixin.create({
-  step: computed('model.stepId', 'stepsService.currentTrackables.[]', function() {
+  step: computed('model.stepId', 'stepsService.steps', function() {
     return get(this, `stepsService.steps.${get(this, 'model.stepId')}`);
   }),
 

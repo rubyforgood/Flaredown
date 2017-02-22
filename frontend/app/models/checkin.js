@@ -12,8 +12,10 @@ const {
   A,
   get,
   set,
+  RSVP,
   isBlank,
   computed,
+  observer,
   isPresent,
   getProperties,
   Logger: { error },
@@ -26,6 +28,7 @@ export default Model.extend({
   tagIds: attr(),
   foodIds: attr(),
   postalCode: attr('string'),
+  availableForHbi: attr('boolean'),
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),
@@ -117,5 +120,19 @@ export default Model.extend({
     result.pushObjects(get(this, 'treatments').mapBy('colorId'));
 
     return result;
+  }),
+
+  conditionsObserver: observer('conditions', 'conditions.[]', function() {
+    if (!get(this, 'availableForHbi')) {
+      return;
+    }
+
+    get(this, 'conditions')
+      .then(conditions => RSVP.all(conditions.map(c => get(c, 'condition'))))
+      .then(conditions => set(
+        this,
+        'shouldShowHbiStep',
+        conditions.any(condition => get(condition, 'name') === "Crohn's disease")
+      ));
   }),
 });
