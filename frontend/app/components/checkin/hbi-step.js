@@ -17,15 +17,16 @@ export default Component.extend({
 
     const checkin = get(this, 'checkin');
 
-    get(checkin, 'harveyBradshawIndex')
-      .then(
-        hbi => set(this, 'hbi', hbi || get(this, 'store').createRecord('harveyBradshawIndex', { checkin }))
-      );
+    const hbi = get(checkin, 'harveyBradshawIndex');
+
+    set(this, 'hbi', hbi || get(this, 'store').createRecord('harveyBradshawIndex', { checkin }));
   },
 
   actions: {
     save() {
-      get(this, 'hbi').save();
+      get(this, 'hbi')
+        .save()
+        .then(() => this.get('chartsVisibilityService').refresh());
     },
 
     goBack() {

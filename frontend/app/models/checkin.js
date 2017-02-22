@@ -37,7 +37,7 @@ export default Model.extend({
   treatments: hasMany('checkinTreatment'),
 
   weather: belongsTo('weather', { async: false }),
-  harveyBradshawIndex: belongsTo('harveyBradshawIndex'),
+  harveyBradshawIndex: belongsTo('harveyBradshawIndex', { async: false }),
 
   tagsChanged: false,
 

@@ -23,6 +23,7 @@ export default Service.extend({
     'payload.conditions.@each.visible',
     'payload.treatments.@each.visible',
     'payload.weathersMeasures.@each.visible',
+    'payload.harveyBradshawIndices.@each.visible',
     function() {
       const payload = get(this, 'payload');
 

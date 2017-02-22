@@ -16,7 +16,8 @@ class Api::V1::ChartListsController < ApplicationController
           symptoms: Symptom::Translation.where(symptom_id: symptom_ids, locale: I18n.locale).pluck(:name),
           conditions: Condition::Translation.where(condition_id: condition_ids, locale: I18n.locale).pluck(:name),
           treatments: Treatment::Translation.where(treatment_id: treatment_ids, locale: I18n.locale).pluck(:name),
-          weathersMeasures: ['Avg daily humidity', 'Avg daily atmospheric pressure']
+          weathersMeasures: ['Avg daily humidity', 'Avg daily atmospheric pressure'],
+          harveyBradshawIndices: ['Harvey Bradshaw Index']
         }
       }
     }

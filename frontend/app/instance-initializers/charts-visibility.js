@@ -4,6 +4,7 @@ export default {
   initialize: function initialize(application) {
     application.inject('component:health-chart', 'chartsVisibilityService', 'service:charts-visibility');
     application.inject('component:chart-navigation', 'chartsVisibilityService', 'service:charts-visibility');
+    application.inject('component:checkin/hbi-step', 'chartsVisibilityService', 'service:charts-visibility');
     application.inject('component:checkin/trackables-step', 'chartsVisibilityService', 'service:charts-visibility');
     application.inject('component:checkin/multi-select-group', 'chartsVisibilityService', 'service:charts-visibility');
     application.inject('component:chart/g-flat', 'chartsVisibilityService', 'service:charts-visibility');

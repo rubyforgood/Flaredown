@@ -9,5 +9,5 @@ class CheckinSerializer < ApplicationSerializer
   has_many :tags, embed_in_root: true
   has_many :foods, embed_in_root: true
 
-  has_one :harvey_bradshaw_index
+  has_one :harvey_bradshaw_index, embed_in_root: true
 end

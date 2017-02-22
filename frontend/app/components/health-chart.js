@@ -53,6 +53,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
     'chartsVisibilityService.payload.conditions.@each.visible',
     'chartsVisibilityService.payload.treatments.@each.visible',
     'chartsVisibilityService.payload.weathersMeasures.@each.visible',
+    'chartsVisibilityService.payload.harveyBradshawIndices.@each.visible',
     function() {
       debounce(this, this.fetchDataChart, 1000);
     }
@@ -156,6 +157,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
     'chartsVisibilityService.payload.conditions.@each.visible',
     'chartsVisibilityService.payload.treatments.@each.visible',
     'chartsVisibilityService.payload.weathersMeasures.@each.visible',
+    'chartsVisibilityService.payload.harveyBradshawIndices.@each.visible',
     function() {
       const {
         flatHeight,
@@ -202,6 +204,18 @@ export default Component.extend(Resizable, FieldsByUnits, {
         lastChartHeight = flatHeight;
       }
 
+      const hbiCategory = visibilityFilter.harveyBradshawIndices;
+
+      if (hbiCategory && hbiCategory['Harvey Bradshaw Index']) {
+        series.harveyBradshawIndices.pushObject({
+          name: 'Harvey Bradshaw Index',
+          field: 'score',
+          chartOffset: chartOffset += lastChartHeight + seriePadding,
+        });
+
+        lastChartHeight = serieHeight;
+      }
+
       const weatherCategory = visibilityFilter.weathersMeasures;
 
       if (weatherCategory && weatherCategory['Avg daily humidity']) {
@@ -239,6 +253,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
       treatments: [],
       tags: [],
       foods: [],
+      harveyBradshawIndices: [],
       weathersMeasures: [],
     };
 
@@ -262,6 +277,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
       treatments: [],
       tags: [],
       foods: [],
+      harveyBradshawIndices: [],
       weathersMeasures: [],
     };
 
@@ -332,7 +348,8 @@ export default Component.extend(Resizable, FieldsByUnits, {
     const symptoms = this.store.peekAll('symptom').toArray();
     const conditions = this.store.peekAll('condition').toArray();
     const treatments = this.store.peekAll('treatment').toArray();
-    const trackables = [...conditions, ...symptoms, ...treatments, ...tags, ...foods];
+    const harveyBradshawIndices = this.store.peekAll('harveyBradshawIndex').toArray();
+    const trackables = [...conditions, ...symptoms, ...treatments, ...tags, ...foods, ...harveyBradshawIndices];
 
     return this.isDestroyed || setProperties(this, {checkins, trackables});
   },
