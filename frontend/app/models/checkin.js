@@ -1,96 +1,121 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 
-export default DS.Model.extend({
-  date: DS.attr('string'),  // please keep this as string as we don't need timezone info
-  note: DS.attr('string'),
-  tagIds: DS.attr(),
-  foodIds: DS.attr(),
-  postalCode: DS.attr('string'),
+const {
+  attr,
+  Model,
+  hasMany,
+  belongsTo,
+} = DS;
 
-  conditions: DS.hasMany('checkinCondition'),
-  symptoms: DS.hasMany('checkinSymptom'),
-  treatments: DS.hasMany('checkinTreatment'),
-  tags: DS.hasMany('tag', { async: false }),
-  foods: DS.hasMany('food', { async: false }),
+const {
+  A,
+  get,
+  set,
+  isBlank,
+  computed,
+  isPresent,
+  getProperties,
+  Logger: { error },
+  computed: { and },
+} = Ember;
 
-  weather: DS.belongsTo('weather', { async: false }),
-  harveyBradshawIndex: DS.belongsTo('harveyBradshawIndex'),
+export default Model.extend({
+  date: attr('string'),  // please keep this as string as we don't need timezone info
+  note: attr('string'),
+  tagIds: attr(),
+  foodIds: attr(),
+  postalCode: attr('string'),
 
-  formattedDate: Ember.computed('date', function() {
-    return moment(this.get('date')).format("YYYY-MM-DD");
-  }),
+  tags: hasMany('tag', { async: false }),
+  foods: hasMany('food', { async: false }),
+  symptoms: hasMany('checkinSymptom'),
+  conditions: hasMany('checkinCondition'),
+  treatments: hasMany('checkinTreatment'),
+
+  weather: belongsTo('weather', { async: false }),
+  harveyBradshawIndex: belongsTo('harveyBradshawIndex'),
 
   tagsChanged: false,
 
   addObj: function(obj, idsKey, relationKey) {
-    const objId = parseInt(obj.get('id'));
+    const objId = parseInt(get(obj, 'id'));
 
-    if (!this.get(idsKey).includes(objId)) {
-      this.get(relationKey).pushObject(obj);
-      this.get(idsKey).pushObject(objId);
-      this.set('hasDirtyAttributes', true);
+    if (!get(this, idsKey).includes(objId)) {
+      get(this, relationKey).pushObject(obj);
+      get(this, idsKey).pushObject(objId);
+      set(this, 'hasDirtyAttributes', true);
     }
   },
+
   removeObj: function(obj, idsKey, relationKey) {
-    this.get(relationKey).removeObject(obj);
-    this.get(idsKey).removeObject(parseInt(obj.get('id')));
-    this.set('hasDirtyAttributes', true);
+    get(this, relationKey).removeObject(obj);
+    get(this, idsKey).removeObject(parseInt(get(obj, 'id')));
+    set(this, 'hasDirtyAttributes', true);
   },
 
   deleteTrackablesPreparedForDestroy() {
-    ['conditions', 'symptoms', 'treatments'].forEach( trackables => {
-      this.get(`${trackables}`).toArray().forEach( trackable => {
-        if (trackable.get('isPreparedForDestroy')) {
-          this.get(trackables).removeObject(trackable);
+    const { conditions, symptoms, treatments } = getProperties(this, 'conditions', 'symptoms', 'treatments');
+
+    [conditions, symptoms, treatments].forEach(trackables => {
+      trackables.toArray().forEach(trackable => {
+        if (get(trackable, 'isPreparedForDestroy')) {
+          trackables.removeObject(trackable);
+
           trackable.deleteRecord();
         }
       });
     });
   },
 
-  handleSaveError(error) {
-    this.get('errors')._add(
+  handleSaveError(obj) {
+    get(this, 'errors')._add(
       'saveFailure',
       ['Checkin save failed!<br>Please check your connection and then refresh the page.']
     );
-    Ember.Logger.error(error);
+
+    error(obj);
   },
 
-  isBlank: Ember.computed.and('conditionsBlank', 'symptomsBlank', 'treatmentsBlank', 'tagsBlank', 'noteBlank'),
+  isBlank: and('conditionsBlank', 'symptomsBlank', 'treatmentsBlank', 'tagsBlank', 'noteBlank'),
 
-  conditionsBlank: Ember.computed('conditions', 'conditions.[]', function() {
-    return this.get('conditions').toArray().filter(function(condition) {
-      return Ember.isPresent(condition.get('value'));
+  formattedDate: computed('date', function() {
+    return moment(get(this, 'date')).format("YYYY-MM-DD");
+  }),
+
+  conditionsBlank: computed('conditions', 'conditions.[]', function() {
+    return get(this, 'conditions').toArray().filter(function(condition) {
+      return isPresent(get(condition, 'value'));
     }).length === 0;
   }),
 
-  symptomsBlank: Ember.computed('symptoms', 'symptoms.[]', function() {
-    return this.get('symptoms').toArray().filter(function(symptom) {
-      return Ember.isPresent(symptom.get('value'));
+  symptomsBlank: computed('symptoms', 'symptoms.[]', function() {
+    return get(this, 'symptoms').toArray().filter(function(symptom) {
+      return isPresent(get(symptom, 'value'));
     }).length === 0;
   }),
 
-  treatmentsBlank: Ember.computed('treatments', 'treatments.[]', function() {
-    return this.get('treatments').toArray().filter(function(treatment) {
-      return treatment.get('isTaken');
+  treatmentsBlank: computed('treatments', 'treatments.[]', function() {
+    return get(this, 'treatments').toArray().filter(function(treatment) {
+      return get(treatment, 'isTaken');
     }).length === 0;
   }),
 
-  tagsBlank: Ember.computed('tags', 'tags.[]', function() {
-    return this.get('tags').toArray().length === 0;
+  tagsBlank: computed('tags', 'tags.[]', function() {
+    return get(this, 'tags').toArray().length === 0;
   }),
 
-  noteBlank: Ember.computed('note', function() {
-    return Ember.isBlank(this.get('note'));
+  noteBlank: computed('note', function() {
+    return isBlank(get(this, 'note'));
   }),
 
-  allColorIds: Ember.computed('conditions', 'symptoms', 'treatments', function() {
-    let result = Ember.A();
-    result.pushObjects(this.get('conditions').mapBy('colorId'));
-    result.pushObjects(this.get('symptoms').mapBy('colorId'));
-    result.pushObjects(this.get('treatments').mapBy('colorId'));
+  allColorIds: computed('conditions', 'symptoms', 'treatments', function() {
+    let result = A();
+
+    result.pushObjects(get(this, 'conditions').mapBy('colorId'));
+    result.pushObjects(get(this, 'symptoms').mapBy('colorId'));
+    result.pushObjects(get(this, 'treatments').mapBy('colorId'));
+
     return result;
-  })
-
+  }),
 });
