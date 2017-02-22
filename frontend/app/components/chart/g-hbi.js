@@ -9,7 +9,6 @@ const { $, Component, computed, get, isPresent } = Ember;
 export default Component.extend(Colorable, Graphable, {
   colorId: '35',
   rangeDevider: 4,
-  isDecimalStep: false,
 
   dataValuesYMin: computed.min('dataValuesY'),
   dataValuesYMax: computed.max('dataValuesY'),
@@ -22,20 +21,10 @@ export default Component.extend(Colorable, Graphable, {
     return Math.ceil(get(this, 'dataValuesYMax'));
   }),
 
-  // isDecimalStep: computed('roundValuesYMin', 'roundValuesYMax', function() {
-  //   return get(this, 'roundValuesYMax') - get(this, 'roundValuesYMin') < get(this, 'rangeDevider');
-  // }),
-
-  chosenYMin: computed('isDecimalStep', function() {
-    return get(this, get(this, 'isDecimalStep') ? 'dataValuesYMin' : 'roundValuesYMin');
-  }),
-
-  chosenYMax: computed('isDecimalStep', function() {
-    return get(this, get(this, 'isDecimalStep') ? 'dataValuesYMax' : 'roundValuesYMax');
-  }),
-
   rulerStep: computed('roundValuesYMin', 'roundValuesYMax', function() {
-    return (get(this, 'chosenYMax') - get(this, 'chosenYMin')) / get(this, 'rangeDevider');
+    let result = (get(this, 'roundValuesYMax') - get(this, 'roundValuesYMin')) / get(this, 'rangeDevider');
+
+    return result || 2;
   }),
 
   points: computed('data', function() {
@@ -62,16 +51,11 @@ export default Component.extend(Colorable, Graphable, {
   dataYValues: computed('data', function() {
     let result = [];
 
-    const finalizeNumber = get(this, 'isDecimalStep') ?
-      number => Math.round(number * 100) / 100
-    :
-      number => Math.floor(number);
-
-    for (let i = get(this, 'chosenYMin'); i < get(this, 'chosenYMax'); i += get(this, 'rulerStep')) {
-      result.pushObject(finalizeNumber(i));
+    for (let i = get(this, 'roundValuesYMin'); i < get(this, 'roundValuesYMax'); i += get(this, 'rulerStep')) {
+      result.pushObject(Math.floor(i));
     }
 
-    result.pushObject(get(this, 'chosenYMax'));
+    result.pushObject(get(this, 'roundValuesYMax'));
 
     return result.uniq();
   }),
@@ -92,8 +76,8 @@ export default Component.extend(Colorable, Graphable, {
         .linear()
         .range([get(this, 'height'), 0])
         .domain([
-          get(this, 'chosenYMin') - get(this, 'rulerStep'),
-          get(this, 'chosenYMax') + get(this, 'rulerStep')
+          get(this, 'roundValuesYMin') - get(this, 'rulerStep'),
+          get(this, 'roundValuesYMax') + get(this, 'rulerStep')
         ])
     );
   }),
