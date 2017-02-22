@@ -3,9 +3,6 @@ import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 const {
-  get,
-  set,
-  RSVP,
   Component,
 } = Ember;
 
