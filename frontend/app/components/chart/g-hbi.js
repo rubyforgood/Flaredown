@@ -4,36 +4,64 @@ import Graphable from 'flaredown/components/chart/graphable';
 
 import { hbiLabel } from 'flaredown/helpers/hbi-label';
 
-const { $, Component, computed, get, isPresent } = Ember;
+const {
+  $,
+  get,
+  computed,
+  Component,
+  isPresent,
+  getProperties,
+} = Ember;
 
 export default Component.extend(Colorable, Graphable, {
   colorId: '35',
   rangeDevider: 4,
 
-  dataValuesYMin: computed.min('dataValuesY'),
+  yRulersMax: computed.max('yRulers'),
+  yRulersMin: computed.min('yRulers'),
   dataValuesYMax: computed.max('dataValuesY'),
+  dataValuesYMin: computed.min('dataValuesY'),
 
-  roundValuesYMin: computed('dataValuesYMin', function() {
-    return Math.floor(get(this, 'dataValuesYMin'));
+  rulerStep: computed('dataValuesYMin', 'dataValuesYMax', function() {
+    const {
+      rangeDevider,
+      dataValuesYMax,
+      dataValuesYMin,
+    } = getProperties(this, 'dataValuesYMax', 'dataValuesYMin', 'rangeDevider');
+
+    const result = Math.ceil((dataValuesYMax - dataValuesYMin) / rangeDevider);
+
+    return result || 1;
   }),
 
-  roundValuesYMax: computed('dataValuesYMax', function() {
-    return Math.ceil(get(this, 'dataValuesYMax'));
+  domainPadding: computed('yRulersMax', 'yRulersMin', function() {
+    const { rangeDevider, yRulersMax, yRulersMin } = getProperties(this, 'rangeDevider', 'yRulersMax', 'yRulersMin');
+
+    return (yRulersMax - yRulersMin) / rangeDevider;
   }),
 
-  rulerStep: computed('roundValuesYMin', 'roundValuesYMax', function() {
-    let result = (get(this, 'roundValuesYMax') - get(this, 'roundValuesYMin')) / get(this, 'rangeDevider');
+  domain: computed('yRulersMax', 'yRulersMin', 'domainPadding', function() {
+    const {
+      yRulersMax,
+      yRulersMin,
+      domainPadding,
+    } = getProperties(this, 'yRulersMax', 'yRulersMin', 'domainPadding');
 
-    return result || 2;
+    return [
+      yRulersMin - domainPadding,
+      yRulersMax + domainPadding,
+    ];
   }),
 
   points: computed('data', function() {
+    const { data, xScale, yScale } = getProperties(this, 'data', 'xScale', 'yScale');
+
     return(
-      get(this, 'data')
+      data
         .filter(item => $.isNumeric(item.y))
         .map(item => {
-          const x = get(this, 'xScale')(item.x);
-          const y = get(this, 'yScale')(item.y) - 4; // minus radius
+          const x = xScale(item.x);
+          const y = yScale(item.y) - 4; // minus radius
 
           return {
             x,
@@ -48,16 +76,33 @@ export default Component.extend(Colorable, Graphable, {
     );
   }),
 
-  dataYValues: computed('data', function() {
-    let result = [];
+  yRulers: computed('data', function() {
+    const {
+      rulerStep,
+      dataValuesYMax,
+      dataValuesYMin,
+    } = getProperties(this, 'dataValuesYMax', 'dataValuesYMin', 'rulerStep');
 
-    for (let i = get(this, 'roundValuesYMin'); i < get(this, 'roundValuesYMax'); i += get(this, 'rulerStep')) {
-      result.pushObject(Math.floor(i));
+    let result = [];
+    const max = dataValuesYMax + rulerStep;
+
+    for (let i = dataValuesYMin; i < max; i += rulerStep) {
+      result.pushObject(i);
     }
 
-    result.pushObject(get(this, 'roundValuesYMax'));
+    result = result.uniq();
 
-    return result.uniq();
+    if (result.length < 4) {
+      result.pushObjects([dataValuesYMax + rulerStep, dataValuesYMin - rulerStep]);
+
+      let offset = dataValuesYMin - rulerStep;
+
+      offset = offset >= 0 ? 0 : offset;
+
+      return result.uniq().map(v => v - offset);
+    } else {
+      return result;
+    }
   }),
 
   dataValuesY: computed('data', function() {
@@ -70,28 +115,33 @@ export default Component.extend(Colorable, Graphable, {
   }),
 
   yScale: computed('data', function() {
+    const { height, domain } = getProperties(this, 'height', 'domain');
+
     return(
       d3
         .scale
         .linear()
-        .range([get(this, 'height'), 0])
-        .domain([
-          get(this, 'roundValuesYMin') - get(this, 'rulerStep'),
-          get(this, 'roundValuesYMax') + get(this, 'rulerStep')
-        ])
+        .range([height, 0])
+        .domain(domain)
     );
   }),
 
   data: computed('checkins', function() {
-    return (get(this, 'timeline') || []).map(day => {
-      let checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format('YYYY-MM-DD'));
+    const {
+      field,
+      checkins,
+      timeline,
+    } = getProperties(this, 'field', 'timeline', 'checkins');
+
+    return (timeline || []).map(day => {
+      let checkin = checkins.findBy('formattedDate', moment(day).format('YYYY-MM-DD'));
       let coordinate = { x: day, y: null };
 
       if (isPresent(checkin)) {
         let item = get(checkin, 'harveyBradshawIndex');
 
         if (isPresent(item)) {
-          coordinate.y = get(item, get(this, 'field'));
+          coordinate.y = get(item, field);
         }
       }
 

@@ -11,7 +11,7 @@ const {
 } = Ember;
 
 export default Component.extend(Graphable, {
-  dataYValues: [0, 1, 2, 3, 4],
+  yRulers: [0, 1, 2, 3, 4],
 
   name: alias('model.name'),
 

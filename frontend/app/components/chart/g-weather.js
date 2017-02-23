@@ -56,7 +56,7 @@ export default Component.extend(Colorable, Graphable, {
     );
   }),
 
-  dataYValues: computed('data', function() {
+  yRulers: computed('data', function() {
     let result = [];
 
     const finalizeNumber = get(this, 'isDecimalStep') ?
