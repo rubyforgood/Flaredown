@@ -86,8 +86,6 @@ group :development do
   gem 'letter_opener', '~>1.4'
   gem 'quiet_assets', '~>1.1'
   gem 'rubocop', require: false
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 end
 
 group :test do
