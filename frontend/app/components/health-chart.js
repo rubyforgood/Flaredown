@@ -307,11 +307,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
   didInsertElement() {
     this._super(...arguments);
 
-    scheduleOnce('afterRender', this, () => {
-      this.fetchDataChart().then(() => {
-        return this.isDestroyed || set(this, 'chartLoaded', true);
-      });
-    });
+    scheduleOnce('afterRender', this, this.fetchDataChart);
   },
 
   fetchDataChart() {
@@ -324,20 +320,28 @@ export default Component.extend(Resizable, FieldsByUnits, {
       endAt.isSameOrBefore(checkins.get('lastObject.date'), 'day') &&
       startAt.isSameOrAfter(checkins.get('firstObject.date'), 'day')
     ) {
-      return new RSVP.Promise((resolve) => {
-        resolve(this.setChartsData());
-      });
+      return this.isDestroyed || (this.setChartsData() && set(this, 'chartLoaded', true));
     } else {
+      const fetchOnlyQuery = get(this, 'chartsVisibilityService.fetchOnlyQuery');
+
+      if (!Object.keys(fetchOnlyQuery).length) {
+        return;
+      }
+
       const { endAtWithCache, startAtWithCache } = getProperties(this, 'endAtWithCache', 'startAtWithCache');
+
+      const query = {
+        id: 'health',
+        end_at: endAtWithCache.format("YYYY-MM-DD"),
+        includes: fetchOnlyQuery,
+        start_at: startAtWithCache.format("YYYY-MM-DD"),
+      };
 
       return this
         .store
-        .queryRecord('chart', {
-          id: 'health',
-          end_at: endAtWithCache.format("YYYY-MM-DD"),
-          start_at: startAtWithCache.format("YYYY-MM-DD"),
-        })
-        .then(() => this.setChartsData());
+        .queryRecord('chart', query)
+        .then(() => this.setChartsData())
+        .then(() => this.isDestroyed || set(this, 'chartLoaded', true));
     }
   },
 

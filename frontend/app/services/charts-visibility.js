@@ -7,12 +7,16 @@ const {
   Service,
   observer,
   isPresent,
+  getProperties,
+  setProperties,
 } = Ember;
 
 export default Service.extend({
   store: inject.service(),
   payload: {},
+  storageKey: 'chartsVisibilityV2', // increase version on schema change
   hiddenCharts: [],
+  fetchOnlyQuery: {},
   visibilityFilter: {},
   visibleChartsCount: 0,
 
@@ -27,24 +31,31 @@ export default Service.extend({
     function() {
       const payload = get(this, 'payload');
 
-      let count = 0;
-      let filter = {};
       let hiddenCharts = [];
+      let fetchOnlyQuery = {};
+      let visibilityFilter = {};
+      let visibleChartsCount = 0;
 
       Object
         .keys(payload)
         .forEach(category => {
           let categoryCharts = payload[category];
 
-          filter[category] = {};
+          visibilityFilter[category] = {};
 
           Object
             .keys(categoryCharts)
             .forEach(chart => {
               if (categoryCharts[chart].visible) {
-                count += 1;
+                visibleChartsCount += 1;
 
-                filter[category][categoryCharts[chart].label] = true;
+                visibilityFilter[category][categoryCharts[chart].label] = true;
+
+                if (!fetchOnlyQuery[category]) {
+                  fetchOnlyQuery[category] = [];
+                }
+
+                fetchOnlyQuery[category].pushObject(categoryCharts[chart].id);
               } else if(isPresent(categoryCharts[chart].label)) {
                 hiddenCharts.pushObject({
                   category,
@@ -54,9 +65,12 @@ export default Service.extend({
             });
         });
 
-      set(this, 'hiddenCharts', hiddenCharts.sortBy('label'));
-      set(this, 'visibilityFilter', filter);
-      set(this, 'visibleChartsCount', count);
+      setProperties(this, {
+        fetchOnlyQuery,
+        visibilityFilter,
+        visibleChartsCount,
+        hiddenCharts: hiddenCharts.sortBy('label'),
+      });
 
       this.updateStorage();
     }
@@ -90,11 +104,15 @@ export default Service.extend({
   },
 
   getFromStorage() {
-    return localStorage.chartsVisibility && JSON.parse(localStorage.chartsVisibility);
+    const storageKey = get(this, 'storageKey');
+
+    return localStorage[storageKey] && JSON.parse(localStorage[storageKey]);
   },
 
   updateStorage() {
-    localStorage.chartsVisibility = JSON.stringify(get(this, 'payload'));
+    const { storageKey, payload } = getProperties(this, 'storageKey', 'payload');
+
+    localStorage[storageKey] = JSON.stringify(payload);
   },
 
   refresh() {
@@ -118,11 +136,14 @@ export default Service.extend({
         result[category] = [];
 
         allowedCharts[category].forEach(chart => {
+          const [id, label] = chart;
+
           let savedCategory = savedChartsVisibility[category];
-          let chartWasPresent = savedCategory && savedCategory.findBy('label', chart);
+          let chartWasPresent = savedCategory && savedCategory.findBy('id', id);
 
           result[category].pushObject({
-            label: chart,
+            id,
+            label,
             visible: !chartWasPresent || chartWasPresent.visible,
           });
         });
