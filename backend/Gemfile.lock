@@ -301,6 +301,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    where-or (0.1.5)
     yard (0.8.7.6)
 
 PLATFORMS
@@ -356,6 +357,7 @@ DEPENDENCIES
   tzinfo-data
   vcr
   webmock
+  where-or
 
 BUNDLED WITH
    1.13.6
