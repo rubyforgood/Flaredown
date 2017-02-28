@@ -5,7 +5,6 @@ import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 const {
   get,
   set,
-  RSVP,
   computed,
   observer,
   Component,
