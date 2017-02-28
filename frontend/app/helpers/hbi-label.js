@@ -4,14 +4,14 @@ export function hbiLabel(params/*, hash*/) {
   let score = params[0] || 0;
 
   if (score < 5) {
-      return 'Remission';
+      return "This score indicates remission in Crohn's Disease";
     } else if (score < 8) {
-      return 'Mild disease';
+      return "This score indicates mild Crohn's Disease";
     } else if (score < 17) {
-      return 'Moderate disease';
+      return "This score indicates moderate Crohn's Disease";
     }
 
-  return 'Severe disease';
+  return "This score indicates severe Crohn's Disease";
 }
 
 export default Ember.Helper.helper(hbiLabel);

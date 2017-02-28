@@ -34,7 +34,7 @@ export default {
         shortTitle: "Conditions",
       },
       harvey_bradshaw: {
-        hint: "This medically-validated survey will generate a score indicating how active your Crohn’s Disease is. Complete it regularly so we can show you how treatments and triggers impact your illness!",
+        hint: "Complete this medically-validated survey regularly so Flaredown can track your disease progression.",
         title: "Harvey-Bradshaw Index",
         shortTitle: "Harvey-Bradshaw",
       },
