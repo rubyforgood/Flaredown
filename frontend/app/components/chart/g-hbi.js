@@ -2,8 +2,6 @@ import Ember from 'ember';
 import Colorable from 'flaredown/mixins/colorable';
 import Graphable from 'flaredown/components/chart/graphable';
 
-import { hbiLabel } from 'flaredown/helpers/hbi-label';
-
 const {
   $,
   get,
@@ -67,7 +65,7 @@ export default Component.extend(Colorable, Graphable, {
             x,
             y,
             tip: {
-              label: hbiLabel([item.y]),
+              label: item.y,
               x: x - 15,
               y: y - 10
             }
