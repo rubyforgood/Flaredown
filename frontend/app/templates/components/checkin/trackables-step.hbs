@@ -31,7 +31,7 @@
                     onSelect=(action "add") }}
 
 {{step-controls
-  step=model.currentStep
+  step=step
   disabled=checkin.hasDirtyAttributes
   onForward=(action "completeStep")
   onBackward=(action "goBack")

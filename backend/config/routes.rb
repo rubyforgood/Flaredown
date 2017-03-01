@@ -74,6 +74,11 @@ Rails.application.routes.draw do
       resources :countries, only: [:index, :show]
 
       #
+      # Harvey Bradshaw Indices
+      #
+      resources :harvey_bradshaw_indices, only: [:show, :create]
+
+      #
       # Invitations
       #
       resources :invitations, only: [:show, :update]
@@ -112,11 +117,6 @@ Rails.application.routes.draw do
       # Sexes
       #
       resources :sexes, only: [:index, :show]
-
-      #
-      # Steps
-      #
-      resources :steps, only: [:index, :show]
 
       #
       # Symptoms

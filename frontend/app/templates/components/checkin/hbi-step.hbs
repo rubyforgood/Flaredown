@@ -1,0 +1,129 @@
+{{partial "components/checkin/step-header"}}
+
+{{#if (or hbi.hasDirtyAttributes hbi.isNew)}}
+  {{#form-for for=hbi onSubmit="save"}}
+    {{#form-field for="wellBeing" label="General well-being yesterday"}}
+      {{#power-select
+        class="fs-private"
+        options=hbi.wellBeingOptions
+        onchange=(action "selectOption" "wellBeing")
+        selected=hbi.selectedWellBeing
+        placeholder="Select"
+        renderInPlace=true
+      as |wellBeing| }}
+        {{wellBeing.label}}
+      {{/power-select}}
+    {{/form-field}}
+
+    {{#form-field for="abdominalPain" label="Abdominal pain yesterday"}}
+      {{#power-select
+        class="fs-private"
+        options=hbi.abdominalPainOptions
+        onchange=(action "selectOption" "abdominalPain")
+        selected=hbi.selectedAbdominalPain
+        placeholder="Select"
+        renderInPlace=true
+      as |abdominalPain| }}
+        {{abdominalPain.label}}
+      {{/power-select}}
+    {{/form-field}}
+
+    {{#form-field for="stoolsString" label="Number of liquid or soft stools yesterday"}}
+      {{input value=hbi.stoolsString placeholder="Enter number" class="fs-private" type="number"}}
+    {{/form-field}}
+
+    {{#form-field for="abdominalMass" label="Do you have an abdominal mass?"}}
+      {{#power-select
+        class="fs-private"
+        options=hbi.abdominalMassOptions
+        onchange=(action "selectOption" "abdominalMass")
+        selected=hbi.selectedAbdominalMass
+        placeholder="Select"
+        renderInPlace=true
+      as |abdominalMass| }}
+        {{abdominalMass.label}}
+      {{/power-select}}
+    {{/form-field}}
+
+    <label>Do you have any of these complications?</label>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.arthralgia)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Arthralgia</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.uveitis)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Uveitis</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.erythemaNodosum)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Erythema nodosum</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.aphthousUlcers)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Aphthous ulcers</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.pyodermaGangrenosum)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Pyoderma gangrenosum</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.analFissure)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Anal fissure</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.newFistula)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">New fistula</h5>
+    </div>
+
+    <div>
+      {{label-switch
+        checked=(mut hbi.abscess)
+        bgColorClass="colorable-bg-35"
+      }}
+      <h5 class="switch-name">Abscess</h5>
+    </div>
+
+    {{input type="submit" class="submit" value="Calculate score" disabled=hbi.notReady}}
+  {{/form-for}}
+{{else}}
+  <div class="score">
+    <p class="title">Your result:</p>
+    <h3>{{hbi.score}}</h3>
+    <p>{{hbi-label hbi.score}}</p>
+  </div>
+{{/if}}
+
+{{step-controls
+  step=step
+  onForward=(action "completeStep")
+  onBackward=(action "goBack")
+  forwardLabel="Next"
+}}

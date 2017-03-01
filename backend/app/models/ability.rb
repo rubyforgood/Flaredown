@@ -1,6 +1,7 @@
 class Ability
   include CanCan::Ability
 
+  # rubocop:disable Metrics/AbcSize
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
@@ -14,6 +15,14 @@ class Ability
 
     can :read, Food
     can :create, Food
+
+    can :read, HarveyBradshawIndex, encrypted_user_id: SymmetricEncryption.encrypt(user.id)
+
+    can :create, HarveyBradshawIndex do |hbi|
+      checkin = hbi.checkin
+
+      checkin.encrypted_user_id == SymmetricEncryption.encrypt(user.id) && checkin.available_for_hbi?
+    end
 
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')
@@ -31,6 +40,7 @@ class Ability
 
     can :read, Weather if user.persisted?
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

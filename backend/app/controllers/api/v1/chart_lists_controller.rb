@@ -11,11 +11,13 @@ class Api::V1::ChartListsController < ApplicationController
       chart_list: {
         id: 1,
         payload: {
-          conditions: Condition::Translation.where(condition_id: condition_ids, locale: I18n.locale).pluck(:name),
-          symptoms: Symptom::Translation.where(symptom_id: symptom_ids, locale: I18n.locale).pluck(:name),
-          treatments: Treatment::Translation.where(treatment_id: treatment_ids, locale: I18n.locale).pluck(:name),
           tags: Tag::Translation.where(tag_id: tag_ids, locale: I18n.locale).pluck(:name),
-          foods: Food::Translation.where(food_id: food_ids, locale: I18n.locale).pluck(:long_desc)
+          foods: Food::Translation.where(food_id: food_ids, locale: I18n.locale).pluck(:long_desc),
+          symptoms: Symptom::Translation.where(symptom_id: symptom_ids, locale: I18n.locale).pluck(:name),
+          conditions: Condition::Translation.where(condition_id: condition_ids, locale: I18n.locale).pluck(:name),
+          treatments: Treatment::Translation.where(treatment_id: treatment_ids, locale: I18n.locale).pluck(:name),
+          weathersMeasures: ['Avg daily humidity', 'Avg daily atmospheric pressure'],
+          harveyBradshawIndices: ['Harvey Bradshaw Index']
         }
       }
     }

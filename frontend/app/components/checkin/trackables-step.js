@@ -2,7 +2,11 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
-export default Ember.Component.extend(TrackablesFromType, {
+const {
+  Component,
+} = Ember;
+
+export default Component.extend(TrackablesFromType, {
   classNames: ['trackables-step'],
 
   model: Ember.computed.alias('parentView.model'),
@@ -26,9 +30,7 @@ export default Ember.Component.extend(TrackablesFromType, {
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('step',
-      this.store.findRecord('step', `checkin-${this.get('trackableType').pluralize()}`)
-    );
+
     this.setupTracking();
   },
 

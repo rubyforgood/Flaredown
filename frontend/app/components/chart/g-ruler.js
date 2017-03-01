@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
-let { Component, computed } = Ember;
+let {
+  set,
+  computed,
+  Component,
+  getProperties,
+} = Ember;
 
 export default Component.extend({
   unit: '',
@@ -14,19 +19,26 @@ export default Component.extend({
     Ember.run.scheduleOnce('afterRender', () => {
       const labelsBox = this.$().find('.ruler-labels')[0].getBBox();
 
-      this.set('linesOffset', labelsBox.x + labelsBox.width);
+      set(this, 'linesOffset', labelsBox.x + labelsBox.width);
     });
   },
 
-  rulers: computed('dataYValues', function() {
-    return (this.get('dataYValues') || [])
+  rulers: computed('yRulers', function() {
+    const {
+      unit,
+      yScale,
+      labelSize,
+      yRulers,
+    } = getProperties(this, 'unit', 'yScale', 'labelSize', 'yRulers');
+
+    return (yRulers || [])
       .map(item => {
-        const lineY = this.get('yScale')(item);
+        const lineY = yScale(item);
 
         return {
           lineY,
-          label: `${item}${this.get('unit')}`,
-          labelY: lineY + this.get('labelSize') / 2 - 2,
+          label: `${item}${unit}`,
+          labelY: lineY + labelSize / 2 - 2,
         };
       });
   }),

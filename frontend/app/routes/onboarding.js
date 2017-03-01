@@ -1,25 +1,37 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
+const {
+  get,
+  RSVP,
+  Route,
+  getProperties,
+} = Ember;
 
+export default Route.extend(AuthenticatedRouteMixin, {
   model(params) {
-    return this.get('session.currentUser').then(currentUser => {
-      var stepId = `${this.routeName}-${params.step_key}`;
-      return Ember.RSVP.hash({
-        profile: currentUser.get('profile'),
-        currentStep: this.store.find('step', stepId)
+    return get(this, 'session.currentUser').then(currentUser => {
+      const stepId = `${this.routeName}-${params.step_key}`;
+
+      return RSVP.hash({
+        stepId,
+        profile: get(currentUser, 'profile'),
       });
     });
   },
 
   afterModel(model, transition) {
-    this.get('session.currentUser.profile.onboardingStep').then(savedStep => {
-      if (model.currentStep.get('priority') > savedStep.get('priority')) {
+    get(this, 'session.currentUser.profile').then(profile => {
+      const savedStep = get(profile, 'onboardingStep');
+      const currentStep = get(this, `stepsService.steps.${model.stepId}`);
+
+      if (currentStep.priority > savedStep.priority) {
         transition.abort();
-        this.transitionTo(savedStep.get('group'), savedStep.get('key'));
+
+        const { prefix, stepName } = getProperties(savedStep, 'prefix', 'stepName');
+
+        this.transitionTo(prefix, stepName);
       }
     });
-  }
-
+  },
 });

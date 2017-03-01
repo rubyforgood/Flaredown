@@ -1,21 +1,25 @@
 import Ember from 'ember';
 import StepControl from 'flaredown/mixins/step-control';
 
+const {
+  computed: {
+    alias,
+    equal,
+  },
+} = Ember;
+
 export default Ember.Component.extend(StepControl, {
   classNames: ['checkin-summary'],
+  routeAfterCompleted: 'chart',
 
-  step: Ember.computed.alias('model.currentStep'),
-  isStart: Ember.computed.equal('step.key', 'start'),
-  isConditions: Ember.computed.equal('step.key', 'conditions'),
-  isSymptoms: Ember.computed.equal('step.key', 'symptoms'),
-  isTreatments: Ember.computed.equal('step.key', 'treatments'),
-  isHeathFactors: Ember.computed.equal('step.key', 'health_factors'),
-  isSummary: Ember.computed.equal('step.key', 'summary'),
+  checkin: alias('model.checkin'),
+  stepName: alias('step.stepName'),
 
-  checkin: Ember.computed.alias('model.checkin'),
-
-  // Needed by StepControlMixin
-  stepKey: 'model.currentStep',
-  routeAfterCompleted: 'chart'
-
+  isStart: equal('stepName', 'start'),
+  isSummary: equal('stepName', 'summary'),
+  isSymptoms: equal('stepName', 'symptoms'),
+  isConditions: equal('stepName', 'conditions'),
+  isTreatments: equal('stepName', 'treatments'),
+  isHeathFactors: equal('stepName', 'health_factors'),
+  isHarveyBradshawIndex: equal('stepName', 'harvey_bradshaw'),
 });
