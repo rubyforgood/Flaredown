@@ -19,7 +19,6 @@ class Checkin
   #
   # Relations
   #
-  # these getters are redefined below
   has_one :harvey_bradshaw_index
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
@@ -47,16 +46,8 @@ class Checkin
     @user ||= User.find(user_id)
   end
 
-  def harvey_bradshaw_index
-    cached_one_with_includes('hbi', :harveyBradshawIndices) do
-      HarveyBradshawIndex.where(checkin_id: id).first # rubocop:disable Rails/FindBy
-    end
-  end
-
   def weather
-    cached_one_with_includes('weather', :weathersMeasures) do
-      Weather.find_by(id: weather_id)
-    end
+    @weather ||= Weather.find_by(id: weather_id)
   end
 
   def tags
@@ -81,37 +72,6 @@ class Checkin
     return true unless latest_hbi
 
     HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
-  end
-
-  %w(condition symptom treatment).each do |name|
-    plural_name = name.pluralize
-
-    define_method(plural_name.to_sym) do
-      result = nil
-      ivar_name = nil
-
-      if includes
-        ivar_name = "@_#{plural_name}_included"
-
-        return instance_variable_get(ivar_name) if instance_variable_defined?(ivar_name)
-
-        result = "Checkin::#{name.titleize}"
-          .constantize
-          .where(
-            :checkin_id => id,
-            "#{name}_id" => { '$in': (includes[plural_name] || []).map(&:to_i) }
-          )
-          .to_a
-      else
-        ivar_name = "@_#{plural_name}"
-
-        return instance_variable_get(ivar_name) if instance_variable_defined?(ivar_name)
-
-        result = "Checkin::#{name.titleize}".constantize.where(checkin_id: id).to_a
-      end
-
-      instance_variable_set(ivar_name, result)
-    end
   end
 
   class Condition
@@ -161,17 +121,5 @@ class Checkin
 
   def latest_hbi
     @_latest_hbi ||= HarveyBradshawIndex.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
-  end
-
-  def cached_one_with_includes(name, key)
-    ivar_name = includes ? :"@_#{name}_included" : :"@_#{name}"
-
-    return instance_variable_get(ivar_name) if instance_variable_defined?(ivar_name)
-
-    result = yield if !includes || (includes && includes[key].present?)
-
-    instance_variable_set(ivar_name, result)
-
-    result
   end
 end
