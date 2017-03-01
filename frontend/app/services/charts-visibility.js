@@ -17,6 +17,7 @@ export default Service.extend({
   storageKey: 'chartsVisibilityV2', // increase version on schema change
   hiddenCharts: [],
   fetchOnlyQuery: {},
+  payloadVersion: 1,
   visibilityFilter: {},
   visibleChartsCount: 0,
 
@@ -100,7 +101,13 @@ export default Service.extend({
       }
     });
 
-    set(this, payloadCategoryName, category);
+    let payloadVersion = get(this, 'payloadVersion') + 1;
+
+    setProperties(this, {
+      payloadVersion,
+      payloadDirection: value,
+      [payloadCategoryName]: category,
+    });
   },
 
   getFromStorage() {
@@ -120,8 +127,9 @@ export default Service.extend({
       .queryRecord('chart-list', {})
       .then(responce => {
         let payload = this.mergeChartsVisibility(get(responce, 'payload'), this.getFromStorage() || {});
+        let payloadVersion = get(this, 'payloadVersion') + 1;
 
-        set(this, 'payload', payload);
+        setProperties(this, { payload, payloadVersion });
 
         this.updateStorage();
       });

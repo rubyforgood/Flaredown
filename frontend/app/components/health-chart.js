@@ -314,12 +314,18 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
     const checkins = this.peekSortedCheckins();
 
+    let payloadVersion = get(this, 'chartsVisibilityService.payloadVersion');
+    let payloadDirection = get(this, 'chartsVisibilityService.payloadDirection');
+    let oldPayloadVersion = get(this, 'oldPayloadVersion');
+
     if (
+      (!oldPayloadVersion || !payloadDirection || payloadVersion === oldPayloadVersion) &&
       checkins.length &&
       endAt.isSameOrBefore(checkins.get('lastObject.date'), 'day') &&
       startAt.isSameOrAfter(checkins.get('firstObject.date'), 'day')
     ) {
-      return this.isDestroyed || (this.setChartsData() && set(this, 'chartLoaded', true));
+      return this.isDestroyed ||
+        (this.setChartsData() && setProperties(this, { chartLoaded: true, oldPayloadVersion: payloadVersion }));
     } else {
       const fetchOnlyQuery = get(this, 'chartsVisibilityService.fetchOnlyQuery');
 
@@ -340,7 +346,7 @@ export default Component.extend(Resizable, FieldsByUnits, {
         .store
         .queryRecord('chart', query)
         .then(() => this.setChartsData())
-        .then(() => this.isDestroyed || set(this, 'chartLoaded', true));
+        .then(() => this.isDestroyed || setProperties(this, { chartLoaded: true, oldPayloadVersion: payloadVersion }));
     }
   },
 
