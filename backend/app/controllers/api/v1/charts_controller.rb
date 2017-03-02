@@ -12,7 +12,17 @@ class Api::V1::ChartsController < ApplicationController
   end
 
   def chart_params
-    params.permit(:id, :start_at, :end_at, :filters).tap do |whitelist|
+    includes_params = {
+      tags: [],
+      foods: [],
+      symptoms: [],
+      conditions: [],
+      treatments: [],
+      weathersMeasures: [],
+      harveyBradshawIndices: []
+    }
+
+    params.permit(:id, :start_at, :end_at, includes: includes_params).tap do |whitelist|
       whitelist[:user] = current_user
     end
   end

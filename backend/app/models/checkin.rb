@@ -3,6 +3,8 @@ class Checkin
 
   HBI_PERIODICITY = 7
 
+  attr_accessor :includes
+
   #
   # Fields
   #
@@ -49,11 +51,19 @@ class Checkin
   end
 
   def tags
-    @tags ||= Tag.where(id: tag_ids)
+    if includes
+      @_tags_included ||= Tag.where(id: includes[:tags] || [])
+    else
+      @_tags ||= Tag.where(id: tag_ids)
+    end
   end
 
   def foods
-    @foods ||= Food.where(id: food_ids)
+    if includes
+      @_foods_included ||= Food.where(id: includes[:foods] || [])
+    else
+      @_foods ||= Food.where(id: food_ids)
+    end
   end
 
   def available_for_hbi?
@@ -62,6 +72,49 @@ class Checkin
     return true unless latest_hbi
 
     HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
+  end
+
+  class Condition
+    include Mongoid::Document
+    include Checkin::Trackable
+    include Checkin::Fiveable
+
+    field :condition_id, type: Integer
+
+    validates :condition_id, uniqueness: { scope: :checkin_id }
+  end
+
+  class Symptom
+    include Mongoid::Document
+    include Checkin::Trackable
+    include Checkin::Fiveable
+
+    field :symptom_id, type: Integer
+
+    validates :symptom_id, uniqueness: { scope: :checkin_id }
+  end
+
+  class Treatment
+    include Mongoid::Document
+    include Checkin::Trackable
+
+    #
+    # Fields
+    #
+    field :treatment_id, type: Integer
+    field :value, type: String
+    field :is_taken, type: Boolean
+
+    #
+    # Indexes
+    #
+    index(treatment_id: 1)
+    index(treatment_id: 1, is_taken: 1, value: 1)
+
+    #
+    # Validations
+    #
+    validates :treatment_id, uniqueness: { scope: :checkin_id }
   end
 
   private
