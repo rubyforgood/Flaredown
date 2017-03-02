@@ -2,10 +2,12 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'flaredown',
-    environment: environment,
     rootURL: '/',
-    locationType: 'auto',
+    environment: environment,
+    modulePrefix: 'flaredown',
+    locationType: 'router-scroll',
+    historySupportMiddleware: true,
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
