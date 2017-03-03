@@ -47,6 +47,8 @@ export default Component.extend(Graphable, {
     var type = get(this, 'model.constructor.modelName');
     var key = type.pluralize();
     var timeline = get(this, 'timeline') || [];
+    const modelId = get(this, 'model.id');
+    const modelName = get(this, 'name');
 
     return timeline.map(day => {
       var checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
@@ -54,9 +56,9 @@ export default Component.extend(Graphable, {
 
       if(isPresent(checkin)) {
         let item = key === 'tags' || key === 'foods' ?
-          get(checkin, key).findBy('name', get(this, 'model.name'))
+          get(checkin, key).findBy('name', modelName)
         :
-          get(checkin, key).findBy(`${type}.id`, get(this, 'model.id'));
+          get(checkin, key).findBy(`${type}.id`, modelId);
 
         if (isPresent(item) && (get(item, 'isTaken') || key === 'tags' || key === 'foods')) {
           coordinate.label = get(item, 'value');
