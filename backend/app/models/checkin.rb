@@ -52,7 +52,7 @@ class Checkin
 
   def tags
     if includes
-      @_tags_included ||= Tag.where(id: includes[:tags] || [])
+      @_tags_included ||= Tag.where(id: tag_ids - (includes[:tags] || []))
     else
       @_tags ||= Tag.where(id: tag_ids)
     end
@@ -60,7 +60,7 @@ class Checkin
 
   def foods
     if includes
-      @_foods_included ||= Food.where(id: includes[:foods] || [])
+      @_foods_included ||= Food.where(id: food_ids - (includes[:foods] || []))
     else
       @_foods ||= Food.where(id: food_ids)
     end
