@@ -48,11 +48,17 @@ class ChartListService
   end
 
   def tags_payload
-    Tag::Translation.where(tag_id: tag_ids, locale: I18n.locale).pluck(:tag_id, :name, true)
+    Tag::Translation
+      .where(tag_id: tag_ids, locale: I18n.locale)
+      .pluck(:tag_id, :name)
+      .map { |payload| payload << last_checkin.tag_ids.include?(payload.first) }
   end
 
   def foods_payload
-    Food::Translation.where(food_id: food_ids, locale: I18n.locale).pluck(:food_id, :long_desc, true)
+    Food::Translation
+      .where(food_id: food_ids, locale: I18n.locale)
+      .pluck(:food_id, :long_desc)
+      .map { |payload| payload << last_checkin.food_ids.include?(payload.first) }
   end
 
   def weathers_payload
