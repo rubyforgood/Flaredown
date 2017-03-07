@@ -144,7 +144,7 @@ export default Service.extend({
         result[category] = [];
 
         allowedCharts[category].forEach(chart => {
-          const [id, label] = chart;
+          const [id, label, visibility] = chart;
 
           let savedCategory = savedChartsVisibility[category];
           let chartWasPresent = savedCategory && savedCategory.findBy('id', id);
@@ -152,7 +152,7 @@ export default Service.extend({
           result[category].pushObject({
             id,
             label,
-            visible: !chartWasPresent || chartWasPresent.visible,
+            visible: chartWasPresent ? chartWasPresent.visible : visibility,
           });
         });
       });

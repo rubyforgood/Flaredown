@@ -62,6 +62,10 @@ class User < ActiveRecord::Base
     Checkin.where(encrypted_user_id: SymmetricEncryption.encrypt(id))
   end
 
+  def last_checkin
+    checkins.order_by(date: :desc).first
+  end
+
   def checkin_ids
     checkins.map(&:id)
   end
