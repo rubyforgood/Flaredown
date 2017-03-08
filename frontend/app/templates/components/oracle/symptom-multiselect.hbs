@@ -1,0 +1,18 @@
+<ul>
+  {{#each objects as |object|}}
+    <li class="choosen-object" {{action "remove" object}}>
+      <div class="badge-text">{{object.name}}</div>
+    </li>
+  {{/each}}
+</ul>
+
+{{#power-select
+  class="fs-private"
+  search=(action "searchObjects")
+  options=randomTrackables
+  onchange=(action "add")
+  placeholder="Add a symptom"
+  renderInPlace=true
+as |object| }}
+  {{object.name}}
+{{/power-select}}

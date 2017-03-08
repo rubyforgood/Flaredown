@@ -1,0 +1,12 @@
+<header class="centered">
+  <img src="/assets/crystal-ball.png" class="img-logo">
+
+  <h4>Chornic Illness Oracle</h4>
+  <h4>{{link-to "by Flaredown" "application"}}</h4>
+</header>
+
+{{#if model.showForm}}
+  {{oracle-form model=model.oracleRequest}}
+{{else}}
+  {{oracle-result}}
+{{/if}}

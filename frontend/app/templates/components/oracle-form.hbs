@@ -1,0 +1,38 @@
+<div class="flaredown-white-box">
+  <h5>Just a few things we need to know to guess your conditions:</h5>
+
+  {{#form-for for=model onSubmit="askOracle"}}
+    {{input value=model.age placeholder="Age" type="number"}}
+
+    {{#power-select
+      class="fs-private"
+      options=countries
+      onchange=(action (mut model.country))
+      selected=model.country
+      placeholder="Select a country"
+      searchField="name"
+      renderInPlace=true
+      searchEnabled=true
+    as |country| }}
+      {{country.name}}
+    {{/power-select}}
+
+    {{#power-select
+      class="fs-private"
+      options=sexes
+      onchange=(action (mut model.sex))
+      selected=model.sex
+      placeholder="Sex"
+      renderInPlace=true
+      searchEnabled=false
+    as |sex| }}
+      {{sex.name}}
+    {{/power-select}}
+
+    <h5>What recurring symptoms do you experience?</h5>
+
+    {{oracle/symptom-multiselect model=model}}
+
+    {{input type="submit" class="submit" value="Guess my conditions" disabled=model.notReady}}
+  {{/form-for}}
+</div>
