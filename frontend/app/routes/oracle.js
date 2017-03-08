@@ -5,6 +5,13 @@ const {
 } = Ember;
 
 export default Route.extend({
+  queryParams: {
+    age: { replace: true },
+    sexId: { replace: true },
+    countryId: { replace: true },
+    symptomIds: { replace: true },
+  },
+
   model() {
     return {
       showForm: true,
