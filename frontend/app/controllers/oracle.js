@@ -2,14 +2,10 @@ import Ember from 'ember';
 
 const {
   get,
-  computed,
   observer,
   Controller,
   getProperties,
   setProperties,
-  computed: {
-    alias,
-  },
 } = Ember;
 
 export default Controller.extend({
