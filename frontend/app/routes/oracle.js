@@ -13,9 +13,6 @@ export default Route.extend({
   },
 
   model() {
-    return {
-      showForm: true,
-      oracleRequest: this.store.createRecord('oracleRequest', {}),
-    };
+    return this.store.createRecord('oracleRequest', {});
   }
 });

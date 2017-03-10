@@ -5,8 +5,8 @@
   <h4>{{link-to "by Flaredown" "application"}}</h4>
 </header>
 
-{{#if model.showForm}}
-  {{oracle-form model=model.oracleRequest}}
-{{else}}
+{{#if model.responce}}
   {{oracle-result}}
+{{else}}
+  {{oracle-form model=model}}
 {{/if}}

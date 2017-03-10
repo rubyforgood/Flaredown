@@ -9,6 +9,7 @@ const {
 
 const {
   get,
+  set,
   computed,
   getProperties,
   $: {
@@ -44,7 +45,7 @@ export default Model.extend({
     const params = getProperties(this, 'age', 'sex.id', 'symptoms');
 
     return {
-      age: params.age,
+      age: parseInt(params.age),
       sex: params['sex.id'],
       symptoms: params.symptoms.map(s => getProperties(s, 'name')),
     };
@@ -63,7 +64,7 @@ export default Model.extend({
   },
 
   askOracle() {
-    const data = get(this, 'payload');
+    const data = JSON.stringify(get(this, 'payload'));
 
     return ajax({
       data,
@@ -71,6 +72,7 @@ export default Model.extend({
       method: 'POST',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
-    });
+    })
+    .then(r => set(this, 'responce', r));
   }
 });

@@ -11,12 +11,12 @@ const {
 export default Controller.extend({
   queryParams: ['age', 'sexId', 'countryId', 'symptomIds'],
 
-  modelObserver: observer('model.oracleRequest.isNew', function() {
-    if (get(this, 'model.oracleRequest.isNew')) {
+  modelObserver: observer('model.responce', function() {
+    if (!get(this, 'model.responce')) {
       return;
     }
 
-    const oracleRequest = get(this, 'model.oracleRequest');
+    const oracleRequest = get(this, 'model');
 
     setProperties(this, getProperties(oracleRequest, 'age', 'sexId', 'countryId', 'symptomIds'));
   }),
