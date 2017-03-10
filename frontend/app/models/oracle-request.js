@@ -73,6 +73,6 @@ export default Model.extend({
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
     })
-    .then(r => set(this, 'responce', r));
+    .then(r => set(this, 'responce', JSON.parse(r).sortBy('confidence').reverse()));
   }
 });

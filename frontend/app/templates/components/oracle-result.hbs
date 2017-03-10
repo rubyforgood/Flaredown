@@ -1,1 +1,10 @@
-oracle-result
+<div class="flaredown-white-box">
+  <p>THIS IS NOT A DIAGNOSIS</p>
+  <p>The information below is the result of an experimental algorithm and should not be considered medical advice</p>
+
+  <h5>Results</h5>
+
+  {{#each model.responce as |result|}}
+    {{oracle/result-item item=result}}
+  {{/each}}
+</div>
