@@ -69,7 +69,7 @@ class ChartListService
     if Condition::Translation.where(name: "Crohn's disease", id: last_tracked_condition_ids).any?
       HBI_PAYLOAD
     else
-      [HBI_PAYLOAD[0][0], HBI_PAYLOAD[0][1], false]
+      [[HBI_PAYLOAD[0][0], HBI_PAYLOAD[0][1], false]]
     end
   end
 
