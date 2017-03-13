@@ -71,7 +71,9 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV['heap-analytics'] = {
+      key: process.env.HEAP_KEY,
+    }
   }
 
   return ENV;
