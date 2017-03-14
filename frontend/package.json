@@ -60,6 +60,7 @@
   },
   "ember-addon": {
     "paths": [
+      "lib/amplitude-analytics",
       "lib/full-story",
       "lib/heap-analytics"
     ]

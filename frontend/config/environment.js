@@ -73,7 +73,11 @@ module.exports = function(environment) {
   if (environment === 'production') {
     ENV['heap-analytics'] = {
       key: process.env.HEAP_KEY,
-    }
+    };
+
+    ENV['amplitude-analytics'] = {
+      key: process.env.AMPLITUDE_KEY,
+    };
   }
 
   return ENV;
