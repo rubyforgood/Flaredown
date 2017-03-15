@@ -4,6 +4,7 @@ import Ember from 'ember';
 const {
   attr,
   Model,
+  hasMany,
   belongsTo,
 } = DS;
 
@@ -22,22 +23,20 @@ const {
 
 export default Model.extend({
   age: attr('number'),
+  responce: attr(),
+  symptomIds: attr(),
 
   sex: belongsTo('sex'),
+  symptoms: hasMany('symptom', { async: false }),
 
   sexId: alias('sex.id'),
 
   apiUrl: '//34.207.197.147:5000/main',
-  symptoms: [],
 
-  notReady: computed('age', 'sexId', 'symptomIds', function() {
+  notReady: computed('age', 'sexId', 'symptomIds.[]', function() {
     const { age, sexId, symptomIds } = getProperties(this, 'age', 'sexId', 'symptomIds');
 
     return !age || !sexId || !symptomIds.length;
-  }),
-
-  symptomIds: computed('symptoms.@each.id', function() {
-    return get(this, 'symptoms').mapBy('id');
   }),
 
   payload: computed('age', 'sexId', 'symptomIds', function() {
@@ -51,15 +50,13 @@ export default Model.extend({
   }),
 
   addSymptom(symptom) {
-    const symptoms = get(this, 'symptoms');
-
-    if (!symptoms.includes(symptom)) {
-      symptoms.pushObject(symptom);
-    }
+    get(this, 'symptoms').pushObject(symptom);
+    get(this, 'symptomIds').pushObject(parseInt(get(symptom, 'id')));
   },
 
   removeSymptom(symptom) {
     get(this, 'symptoms').removeObject(symptom);
+    get(this, 'symptomIds').removeObject(parseInt(get(symptom, 'id')));
   },
 
   askOracle() {
