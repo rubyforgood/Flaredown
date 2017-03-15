@@ -27,6 +27,7 @@ export default Model.extend({
 
   sexId: alias('sex.id'),
 
+  apiUrl: '//34.207.197.147:5000/main',
   symptoms: [],
 
   notReady: computed('age', 'sexId', 'symptomIds', function() {
@@ -66,7 +67,7 @@ export default Model.extend({
 
     return ajax({
       data,
-      url: '//34.207.197.147:5000/main',
+      url: get(this, 'apiUrl'),
       method: 'POST',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
