@@ -98,6 +98,11 @@ Rails.application.routes.draw do
       end
 
       #
+      # Oracle requests
+      #
+      resources :oracle_requests, only: [:show, :create]
+
+      #
       # Passwords
       #
       resources :passwords, only: [:show, :create, :update]
