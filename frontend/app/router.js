@@ -39,7 +39,8 @@ Router.map(function() {
   this.route('unsubscribe', { path: 'unsubscribe/:notify_token' });
   this.route('notifications');
 
-  this.route('oracle');
+  this.route('oracle', function() {
+  });
 });
 
 export default Router;
