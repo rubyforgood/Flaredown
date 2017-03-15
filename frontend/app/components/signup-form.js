@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import AmplitudeAnalytics from 'flaredown/mixins/amplitude-analytics';
 
 const {
   get,
@@ -7,7 +8,7 @@ const {
   getProperties,
 } = Ember;
 
-export default Component.extend({
+export default Component.extend(AmplitudeAnalytics, {
   classNames: ['signup-form'],
 
   actions: {
@@ -24,6 +25,7 @@ export default Component.extend({
 
       model
         .save()
+        .then(() => this.amplitudeLog('User signup'))
         .then(() => get(this, 'session').authenticate('authenticator:devise', email, password))
         .catch(() => get(this, 'gRecaptcha').resetReCaptcha());
     },
