@@ -6,7 +6,7 @@
 </header>
 
 {{#if model.responce}}
-  {{oracle-result model=model}}
+  {{oracle/result-summary model=model}}
 {{else}}
-  {{oracle-form model=model}}
+  {{oracle/request-form model=model}}
 {{/if}}
