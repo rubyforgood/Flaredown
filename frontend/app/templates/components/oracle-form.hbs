@@ -6,19 +6,6 @@
 
     {{#power-select
       class="fs-private"
-      options=countries
-      onchange=(action (mut model.country))
-      selected=model.country
-      placeholder="Select a country"
-      searchField="name"
-      renderInPlace=true
-      searchEnabled=true
-    as |country| }}
-      {{country.name}}
-    {{/power-select}}
-
-    {{#power-select
-      class="fs-private"
       options=sexes
       onchange=(action (mut model.sex))
       selected=model.sex

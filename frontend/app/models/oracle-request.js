@@ -24,24 +24,22 @@ export default Model.extend({
   age: attr('number'),
 
   sex: belongsTo('sex'),
-  country: belongsTo('country'),
 
   sexId: alias('sex.id'),
-  countryId: alias('country.id'),
 
   symptoms: [],
 
-  notReady: computed('age', 'sexId', 'countryId', 'symptomIds', function() {
-    const { age, sexId, countryId, symptomIds } = getProperties(this, 'age', 'sexId', 'countryId', 'symptomIds');
+  notReady: computed('age', 'sexId', 'symptomIds', function() {
+    const { age, sexId, symptomIds } = getProperties(this, 'age', 'sexId', 'symptomIds');
 
-    return !age || !sexId || !countryId || !symptomIds.length;
+    return !age || !sexId || !symptomIds.length;
   }),
 
   symptomIds: computed('symptoms.@each.id', function() {
     return get(this, 'symptoms').mapBy('id');
   }),
 
-  payload: computed('age', 'sexId', 'countryId', 'symptomIds', function() {
+  payload: computed('age', 'sexId', 'symptomIds', function() {
     const params = getProperties(this, 'age', 'sex.id', 'symptoms');
 
     return {
