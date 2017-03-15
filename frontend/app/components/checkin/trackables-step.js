@@ -1,12 +1,14 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import AmplitudeAnalytics from 'flaredown/mixins/amplitude-analytics';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 const {
+  get,
   Component,
 } = Ember;
 
-export default Component.extend(TrackablesFromType, {
+export default Component.extend(AmplitudeAnalytics, TrackablesFromType, {
   classNames: ['trackables-step'],
 
   model: Ember.computed.alias('parentView.model'),
@@ -42,6 +44,13 @@ export default Component.extend(TrackablesFromType, {
       tracked.prepareForDestroy();
       this.set('removedTracked', tracked);
       this.saveCheckin();
+
+      this.amplitudeLog(
+        'Remove:',
+        get(tracked, 'constructor.modelName').replace('checkin-', ''),
+        '-',
+        get(tracked, 'label')
+      );
     },
 
     add(selectedTrackable) {
