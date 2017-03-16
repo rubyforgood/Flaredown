@@ -16,6 +16,15 @@ class Api::V1::OracleRequestsController < ApplicationController
   private
 
   def create_params
-    params.require(:oracle_request).permit(:age, :sex_id, responce: [], symptom_ids: [])
+    params.require(:oracle_request).permit(
+      :age,
+      :sex_id,
+      responce: [
+        :name,
+        :confidence,
+        :correction
+      ],
+      symptom_ids: []
+    )
   end
 end
