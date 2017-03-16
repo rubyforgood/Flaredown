@@ -40,6 +40,7 @@ Router.map(function() {
   this.route('notifications');
 
   this.route('oracle', function() {
+    this.route('result', { path: ':id' });
   });
 });
 
