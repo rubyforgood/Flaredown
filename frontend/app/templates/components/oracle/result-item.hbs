@@ -2,18 +2,18 @@
   {{name}} {{confidence}}
 </div>
 
-<label>
-  {{input name=elementId type="radio"}} Doctor diagnosed
-</label>
+{{#radio-button name=elementId value="doctorDiagnosed" groupValue=correction changed="correctionChanged"}}
+  Doctor diagnosed
+{{/radio-button}}
 
-<label>
-  {{input name=elementId type="radio"}} Self-diagnosed
-</label>
+{{#radio-button name=elementId value="selfDiagnosed" groupValue=correction changed="correctionChanged"}}
+  Self-diagnosed
+{{/radio-button}}
 
-<label>
-  {{input name=elementId type="radio"}} Unknown
-</label>
+{{#radio-button name=elementId value="unknown" groupValue=correction changed="correctionChanged"}}
+  Unknown
+{{/radio-button}}
 
-<label>
-  {{input name=elementId type="radio"}} I don't have this
-</label>
+{{#radio-button name=elementId value="dontHaveThis" groupValue=correction changed="correctionChanged"}}
+  I don't have this
+{{/radio-button}}

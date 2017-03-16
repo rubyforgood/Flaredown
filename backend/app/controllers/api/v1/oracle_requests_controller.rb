@@ -13,6 +13,12 @@ class Api::V1::OracleRequestsController < ApplicationController
     render json: @oracle_request
   end
 
+  def update
+    @oracle_request.update_attributes!(create_params)
+
+    render json: @oracle_request
+  end
+
   private
 
   def create_params

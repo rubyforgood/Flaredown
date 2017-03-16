@@ -100,7 +100,7 @@ Rails.application.routes.draw do
       #
       # Oracle requests
       #
-      resources :oracle_requests, only: [:show, :create]
+      resources :oracle_requests, only: [:show, :create, :update]
 
       #
       # Passwords
