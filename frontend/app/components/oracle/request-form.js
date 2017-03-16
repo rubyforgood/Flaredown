@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const {
+  get,
   Component,
   inject: {
     service,
@@ -17,7 +18,10 @@ export default Component.extend({
 
   actions: {
     askOracle(oracleRequest) {
-      oracleRequest.askOracle();
+      oracleRequest
+        .askOracle()
+        .then(() => oracleRequest.save())
+        .then(() => get(this, 'transitionToResult')(oracleRequest));
     },
   },
 });
