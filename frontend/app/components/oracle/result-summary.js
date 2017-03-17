@@ -5,9 +5,14 @@ const {
   get,
   computed,
   Component,
+  computed: {
+    bool,
+  }
 } = Ember;
 
 export default Component.extend(SearchableDropdown, {
+  isResponce: bool('model.responce.length'),
+
   randomTrackables: computed(function() {
     return this.randomSearch('condition');
   }),

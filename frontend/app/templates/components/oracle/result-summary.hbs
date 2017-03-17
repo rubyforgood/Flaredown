@@ -2,11 +2,15 @@
   <p>THIS IS NOT A DIAGNOSIS</p>
   <p>The information below is the result of an experimental algorithm and should not be considered medical advice</p>
 
-  <h5>Results</h5>
+  {{#if isResponce}}
+    <h5>Results</h5>
 
-  {{#each model.responce as |result|}}
-    {{oracle/result-item item=result model=model}}
-  {{/each}}
+    {{#each model.responce as |result|}}
+      {{oracle/result-item item=result model=model}}
+    {{/each}}
+  {{else}}
+    <p>We were unable to calculate the result</p>
+  {{/if}}
 
   <h5>Add conditions we missed</h5>
 
