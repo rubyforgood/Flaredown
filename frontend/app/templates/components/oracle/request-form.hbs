@@ -1,25 +1,31 @@
 <div class="flaredown-white-box">
-  <h5>Just a few things we need to know to guess your conditions:</h5>
+  {{#if oracleSpinnerVisible}}
+    <p>Analyzing symptoms...</p>
 
-  {{#form-for for=model onSubmit="askOracle"}}
-    {{input value=model.age placeholder="Age" type="number"}}
+    {{partial "application/three-bounce-spinner"}}
+  {{else}}
+    <h5>Just a few things we need to know to guess your conditions:</h5>
 
-    {{#power-select
-      class="fs-private"
-      options=sexes
-      onchange=(action (mut model.sex))
-      selected=model.sex
-      placeholder="Sex"
-      renderInPlace=true
-      searchEnabled=false
-    as |sex| }}
-      {{sex.name}}
-    {{/power-select}}
+    {{#form-for for=model onSubmit="askOracle"}}
+      {{input value=model.age placeholder="Age" type="number"}}
 
-    <h5>What recurring symptoms do you experience?</h5>
+      {{#power-select
+        class="fs-private"
+        options=sexes
+        onchange=(action (mut model.sex))
+        selected=model.sex
+        placeholder="Sex"
+        renderInPlace=true
+        searchEnabled=false
+      as |sex| }}
+        {{sex.name}}
+      {{/power-select}}
 
-    {{oracle/symptom-multiselect model=model}}
+      <h5>What recurring symptoms do you experience?</h5>
 
-    {{input type="submit" class="submit" value="Guess my conditions" disabled=model.notReady}}
-  {{/form-for}}
+      {{oracle/symptom-multiselect model=model}}
+
+      {{input type="submit" class="submit" value="Guess my conditions" disabled=model.notReady}}
+    {{/form-for}}
+  {{/if}}
 </div>
