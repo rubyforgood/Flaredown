@@ -14,7 +14,12 @@ export default Ember.Mixin.create(UnauthenticatedRouteMixin, {
   },
 
   teardownUserEngage() {
-    this.get('userengage').destroy();
+    const userengage = this.get('userengage');
+
+    if (userengage) {
+     userengage.destroy();
+    }
+
     this.set('session.userEngageInitialized', false);
   },
 
