@@ -5,12 +5,14 @@ const {
   computed,
   Component,
   computed: {
+    not,
     alias,
   },
 } = Ember;
 
 export default Component.extend({
   name: alias('item.name'),
+  disabled: not('model.canEdit'),
   correction: alias('item.correction'),
 
   confidence: computed('item.confidence', function() {

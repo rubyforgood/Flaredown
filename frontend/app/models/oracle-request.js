@@ -23,6 +23,8 @@ const {
 
 export default Model.extend({
   age: attr('number'),
+  token: attr('string'),
+  canEdit: attr('boolean'),
   responce: attr(),
   symptomIds: attr(),
 

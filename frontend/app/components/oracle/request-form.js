@@ -30,7 +30,9 @@ export default Component.extend({
       oracleRequest
         .askOracle()
         .then(() => oracleRequest.save())
-        .then(() => {
+        .then((result) => {
+          localStorage.oracleToken = get(result, 'token');
+
           const { minSpinner, maxSpinner } = getProperties(this, 'minSpinner', 'maxSpinner');
 
           let timeout = Math.random() * (maxSpinner - minSpinner) + minSpinner - new Date() + begin;

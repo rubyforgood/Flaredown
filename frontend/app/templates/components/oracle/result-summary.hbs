@@ -12,18 +12,20 @@
     <p>We were unable to calculate the result</p>
   {{/if}}
 
-  <h5>Add conditions we missed</h5>
+  {{#if model.canEdit}}
+    <h5>Add conditions we missed</h5>
 
-  {{#power-select
-    class="fs-private"
-    search=(action "searchObjects")
-    options=randomTrackables
-    onchange=(action "addCondition")
-    placeholder="Add a condition"
-    renderInPlace=true
-  as |object| }}
-    {{object.name}}
-  {{/power-select}}
+    {{#power-select
+      class="fs-private"
+      search=(action "searchObjects")
+      options=randomTrackables
+      onchange=(action "addCondition")
+      placeholder="Add a condition"
+      renderInPlace=true
+    as |object| }}
+      {{object.name}}
+    {{/power-select}}
+  {{/if}}
 
 </div>
 
