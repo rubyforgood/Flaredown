@@ -46,10 +46,8 @@ export default Component.extend(AmplitudeAnalytics, TrackablesFromType, {
       this.saveCheckin();
 
       this.amplitudeLog(
-        'Remove:',
-        get(tracked, 'constructor.modelName').replace('checkin-', ''),
-        '-',
-        get(tracked, 'label')
+        `Remove ${get(tracked, 'constructor.modelName').replace('checkin-', '')}`,
+        { name: get(tracked, 'label') }
       );
     },
 
