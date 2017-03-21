@@ -7,14 +7,12 @@ const {
 } = Ember;
 
 export default Mixin.create({
-  amplitudeLog(...strings) {
+  amplitudeLog(...params) {
     run(() => {
-      const eventName = strings.join(' ');
-
       if (typeof amplitude === 'undefined') {
-        debug('amplitudeLog:', eventName);
+        debug('amplitudeLog:', ...params);
       } else {
-        amplitude.getInstance().logEvent(eventName); // jshint ignore:line
+        amplitude.getInstance().logEvent(...params); // jshint ignore:line
       }
     });
   },

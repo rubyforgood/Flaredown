@@ -28,13 +28,13 @@ export default Component.extend(AmplitudeAnalytics, SearchableDropdown, {
 
       this.createAndSave(type, name).then(trackable => {
         this.get('onSelect')(trackable);
-        this.amplitudeLog('Create', type, '-', name);
+        this.amplitudeLog(`Create ${type}`, { name });
       });
     },
 
     handleChange(trackable) {
       this.get('onSelect')(trackable);
-      this.amplitudeLog('Add', get(this, 'trackableType'), '-', get(trackable, 'name'));
+      this.amplitudeLog(`Add ${get(this, 'trackableType')}`, { name: get(trackable, 'name') });
     },
 
     handleBuildSuggestion(typedText) {
