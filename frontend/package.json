@@ -62,7 +62,8 @@
     "paths": [
       "lib/amplitude-analytics",
       "lib/full-story",
-      "lib/heap-analytics"
+      "lib/heap-analytics",
+      "lib/mixpanel-analytics"
     ]
   }
 }

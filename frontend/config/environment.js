@@ -78,6 +78,10 @@ module.exports = function(environment) {
     ENV['amplitude-analytics'] = {
       key: process.env.AMPLITUDE_KEY,
     };
+
+    ENV['mixpanel-analytics'] = {
+      key: process.env.MIXPANEL_KEY,
+    };
   }
 
   return ENV;
