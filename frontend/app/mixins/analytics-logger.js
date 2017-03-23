@@ -7,12 +7,20 @@ const {
 } = Ember;
 
 export default Mixin.create({
-  amplitudeLog(...params) {
+  analyticsLog(...params) {
     run(() => {
       if (typeof amplitude === 'undefined') {
         debug('amplitudeLog:', ...params);
       } else {
         amplitude.getInstance().logEvent(...params); // jshint ignore:line
+      }
+    });
+
+    run(() => {
+      if (typeof mixpanel === 'undefined') {
+        debug('mixpanelLog:', ...params);
+      } else {
+        mixpanel.track(...params); // jshint ignore:line
       }
     });
   },

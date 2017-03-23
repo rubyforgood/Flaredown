@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import AmplitudeAnalytics from 'flaredown/mixins/amplitude-analytics';
+import AnalyticsLogger from 'flaredown/mixins/analytics-logger';
 import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 const {
@@ -7,7 +7,7 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(AmplitudeAnalytics, SearchableDropdown, {
+export default Component.extend(AnalyticsLogger, SearchableDropdown, {
   isSelectFocused: false,
 
   placeholder: Ember.computed('trackableType', 'isSelectFocused', function() {
@@ -28,13 +28,13 @@ export default Component.extend(AmplitudeAnalytics, SearchableDropdown, {
 
       this.createAndSave(type, name).then(trackable => {
         this.get('onSelect')(trackable);
-        this.amplitudeLog(`Create ${type}`, { name });
+        this.analyticsLog(`Create ${type}`, { name });
       });
     },
 
     handleChange(trackable) {
       this.get('onSelect')(trackable);
-      this.amplitudeLog(`Add ${get(this, 'trackableType')}`, { name: get(trackable, 'name') });
+      this.analyticsLog(`Add ${get(this, 'trackableType')}`, { name: get(trackable, 'name') });
     },
 
     handleBuildSuggestion(typedText) {
