@@ -89,6 +89,11 @@ Rails.application.routes.draw do
       resources :passwords, only: [:show, :create, :update]
 
       #
+      # Posts
+      #
+      resources :posts, only: [:create]
+
+      #
       # Profiles
       #
       resources :profiles, only: [:show, :update]
