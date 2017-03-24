@@ -3,22 +3,22 @@
 </header>
 
 <div class="flaredown-white-box">
-  asd
+  {{input type="text" value=model.title placeholder="Title of post..."}}
 </div>
 
-{{input type="text" value=model.title}}
-
-{{textarea value=model.body rows="6"}}
-
-<ul>
-  {{#each model.topics as |topic|}}
-    <li class="choosen-object" {{action "removeTopic" topic}}>
-      <div class="badge-text">{{topic.name}}</div>
-    </li>
-  {{/each}}
-</ul>
+<div class="flaredown-white-box">
+  {{textarea value=model.body rows="6" placeholder="Body of post..."}}
+</div>
 
 <div class="flaredown-white-box">
+  <ul>
+    {{#each model.topics as |topic|}}
+      <li class="choosen-object" {{action "removeTopic" topic}}>
+        <div class="badge-text">{{topic.name}}</div>
+      </li>
+    {{/each}}
+  </ul>
+
   {{#power-select
     class="fs-private"
     search=(action "searchObjects")
@@ -31,4 +31,4 @@
   {{/power-select}}
 </div>
 
-<button {{action "savePost"}}>Submit</button>
+<button {{action "savePost"}} class="primary-btn">Submit</button>
