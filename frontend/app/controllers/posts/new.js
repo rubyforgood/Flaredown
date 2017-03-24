@@ -5,9 +5,16 @@ const {
   get,
   computed,
   Controller,
+  getProperties,
 } = Ember;
 
 export default Controller.extend(SearchableDropdown, {
+  disabled: computed('model.body', 'model.title', 'model.topics.[]', function() {
+    const { body, title, topics } = getProperties(get(this, 'model'), 'body', 'title', 'topics');
+
+    return !(body && title && topics.length);
+  }),
+
   randomTrackables: computed(function() {
     return this.randomSearch('topic');
   }),
