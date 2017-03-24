@@ -8,6 +8,16 @@ const {
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model() {
-    return get(this, 'store').createRecord('post');
+    return get(this, 'store')
+      .createRecord(
+        'post',
+        {
+          tagIds: [],
+          foodIds: [],
+          symptomIds: [],
+          conditionIds: [],
+          treatmentIds: [],
+        }
+      );
   }
 });

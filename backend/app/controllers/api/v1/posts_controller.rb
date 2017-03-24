@@ -14,6 +14,9 @@ class Api::V1::PostsController < ApplicationController
   private
 
   def create_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(
+      :title, :body,
+      tag_ids: [], food_ids: [], symptom_ids: [], condition_ids: [], treatment_ids: []
+    )
   end
 end
