@@ -19,12 +19,16 @@ export default Controller.extend(SearchableDropdown, {
   },
 
   actions: {
-    addTopic() {
-
+    addTopic(topic) {
+      get(this, 'model').addTopic(topic);
     },
 
     savePost() {
       get(this, 'model').save();
+    },
+
+    removeTopic(topic) {
+      get(this, 'model').removeTopic(topic);
     },
   },
 });

@@ -10,6 +10,14 @@
 
 {{textarea value=model.body rows="6"}}
 
+<ul>
+  {{#each model.topics as |topic|}}
+    <li class="choosen-object" {{action "removeTopic" topic}}>
+      <div class="badge-text">{{topic.name}}</div>
+    </li>
+  {{/each}}
+</ul>
+
 <div class="flaredown-white-box">
   {{#power-select
     class="fs-private"
