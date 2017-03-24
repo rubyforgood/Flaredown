@@ -8,15 +8,17 @@ class Food < ActiveRecord::Base
 
   translates :long_desc, :shrt_desc, :comname, :sciname
 
+  alias name long_desc
+
   class << self
     def fts(query, limit)
       sql = <<-SQL.strip_heredoc
-        SELECT id, name, searchable
+        SELECT id, long_desc, searchable
         FROM (
           SELECT
             to_tsvector(:lang, ft.long_desc) AS searchable,
             foods.id AS id,
-            ft.long_desc AS name
+            ft.long_desc AS long_desc
           FROM foods
           INNER JOIN food_translations AS ft ON ft.food_id = foods.id
           WHERE ft.locale = :locale
