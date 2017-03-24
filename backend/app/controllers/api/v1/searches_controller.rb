@@ -1,7 +1,8 @@
 class Api::V1::SearchesController < ApplicationController
   SEARCH_MAPPER = {
     'dose' => Search::ForDose,
-    'food' => Search::ForFood
+    'food' => Search::ForFood,
+    'topic' => Search::ForTopic
   }.freeze
 
   def show

@@ -8,7 +8,7 @@ class Search
   #
   # Validations
   #
-  validates :resource, presence: true, inclusion: { in: %w(treatment symptom condition tag dose food) }
+  validates :resource, presence: true, inclusion: { in: %w(treatment symptom condition tag dose food topic) }
 
   def id
     Digest::SHA256.base64digest(resource)
@@ -62,8 +62,7 @@ class Search
   end
 
   def resources
-    resource_class = resource.classify.constantize
-    resource_class.accessible_by(current_ability).with_translations(I18n.locale)
+    resource.classify.constantize.accessible_by(current_ability).with_translations(I18n.locale)
   end
 
   def current_ability
