@@ -4,7 +4,7 @@ class Search::ForTopic < ::Search
   protected
 
   def find_by_query
-    (foods + tags + symptoms + conditions + treatments).sort_by(&:name)
+    (foods + tags + symptoms + conditions + treatments).sort { |a, b| a.name.underscore <=> b.name.underscore }
   end
 
   private
