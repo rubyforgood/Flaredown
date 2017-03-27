@@ -17,6 +17,7 @@ export default Model.extend({
   title: attr('string'),
   tagIds: attr(),
   foodIds: attr(),
+  userName: attr('string'),
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),
