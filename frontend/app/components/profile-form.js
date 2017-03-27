@@ -1,32 +1,53 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const {
+  on,
+  get,
+  set,
+  compare,
+  isPresent,
+  Component,
+  inject: {
+    service,
+  },
+  computed: {
+    sort,
+    alias,
+  },
+} = Ember;
 
-  selectableData: Ember.inject.service('selectable-data'),
+export default Component.extend({
+  selectableData: service('selectable-data'),
 
-  countrySorting: ['name:asc'],
-  countries: Ember.computed.sort('selectableData.countries', 'countrySorting'),
+  sexes: alias('selectableData.sexes'),
 
-  sexes: Ember.computed.alias('selectableData.sexes'),
+  countries: sort('selectableData.countries', function(itemA, itemB) {
+    const nameA = get(itemA, 'name');
+    const nameB = get(itemB, 'name');
 
-  setSelectedSexId: Ember.on('didInsertElement', function() {
-    this.get('model.sex').then(sex => {
-      if (Ember.isPresent(sex)) {
-        this.set('selectedSexId',  sex.get('id'));
+    const us = 'United States';
+    const gb = 'United Kingdom';
+
+    return nameA === us ? -1 : nameB === us ? 1 : nameA === gb ? -1 : nameB === gb ? 1 : compare(nameA, nameB);
+  }),
+
+  setSelectedSexId: on('didInsertElement', function() {
+    get(this, 'model.sex').then(sex => {
+      if (isPresent(sex)) {
+        set(this, 'selectedSexId', get(sex, 'id'));
       }
     });
   }),
 
   actions: {
     sexChanged(newId) {
-      this.get('model').set('sex', this.get('sexes').findBy('id', newId));
+      set(this, 'model.sex', get(this, 'sexes').findBy('id', newId));
     },
 
     saveProfile() {
-      this.get('model').save().then( (profile) => {
+      get(this, 'model').save().then(profile => {
         this.sendAction('onProfileSaved', profile);
       });
     }
-  }
-
+  },
 });
