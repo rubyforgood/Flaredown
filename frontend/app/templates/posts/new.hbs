@@ -1,0 +1,34 @@
+<header class="centered">
+  <h4>New post</h4>
+</header>
+
+<div class="flaredown-white-box">
+  {{input type="text" value=model.title placeholder="Title of post..."}}
+</div>
+
+<div class="flaredown-white-box">
+  {{textarea value=model.body rows="6" placeholder="Body of post..."}}
+</div>
+
+<div class="flaredown-white-box">
+  <ul>
+    {{#each model.topics as |topic|}}
+      <li class="choosen-object" {{action "removeTopic" topic}}>
+        <div class="badge-text">{{topic.name}}</div>
+      </li>
+    {{/each}}
+  </ul>
+
+  {{#power-select
+    class="fs-private"
+    search=(action "searchObjects")
+    options=randomTrackables
+    onchange=(action "addTopic")
+    placeholder="Add a condition"
+    renderInPlace=true
+  as |object| }}
+    {{object.name}}
+  {{/power-select}}
+</div>
+
+<button {{action "savePost"}} class="primary-btn" disabled={{disabled}}>Submit</button>
