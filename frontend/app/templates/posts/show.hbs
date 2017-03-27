@@ -1,1 +1,16 @@
-{{outlet}}
+<header class="centered">
+  <h4>{{model.title}}</h4>
+</header>
+
+<div class="flaredown-white-box">
+  <p>{{model.userName}}</p>
+  <p>{{model.body}}</p>
+
+  <ul>
+    {{#each model.topics as |topic|}}
+      <li class="choosen-object">
+        <div class="badge-text">{{topic.name}}</div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
