@@ -1,5 +1,6 @@
 class Post
   include Mongoid::Document
+  include Usernameable
 
   field :body,  type: String
   field :title, type: String
@@ -15,10 +16,6 @@ class Post
   validates :body, :title, :encrypted_user_id, presence: true
 
   has_many :comments
-
-  def user_name
-    Profile.find_by!(user_id: SymmetricEncryption.decrypt(encrypted_user_id)).screen_name
-  end
 
   %w(tag food symptom condition treatment).each do |relative|
     pluralized_relative = relative.pluralize

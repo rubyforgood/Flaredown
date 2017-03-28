@@ -13,6 +13,13 @@
       </li>
     {{/each}}
   </ul>
+
+  {{#each post.comments as |comment|}}
+    <hr>
+
+    <p>{{comment.userName}}</p>
+    <p>{{comment.body}}</p>
+  {{/each}}
 </div>
 
 <div class="flaredown-white-box">
