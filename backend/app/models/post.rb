@@ -15,7 +15,9 @@ class Post
 
   validates :body, :title, :encrypted_user_id, presence: true
 
-  has_many :comments
+  def comments
+    Comment.where(post_id: id).order_by(created_at: :asc)
+  end
 
   %w(tag food symptom condition treatment).each do |relative|
     pluralized_relative = relative.pluralize
