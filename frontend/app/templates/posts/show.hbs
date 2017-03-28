@@ -1,16 +1,22 @@
 <header class="centered">
-  <h4>{{model.title}}</h4>
+  <h4>{{post.title}}</h4>
 </header>
 
 <div class="flaredown-white-box">
-  <p>{{model.userName}}</p>
-  <p>{{model.body}}</p>
+  <p>{{post.userName}}</p>
+  <p>{{post.body}}</p>
 
   <ul>
-    {{#each model.topics as |topic|}}
+    {{#each post.topics as |topic|}}
       <li class="choosen-object">
         <div class="badge-text">{{topic.name}}</div>
       </li>
     {{/each}}
   </ul>
+</div>
+
+<div class="flaredown-white-box">
+  {{textarea value=newComment.body placeholder="Leave a comment..."}}
+
+  <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
 </div>
