@@ -8,6 +8,7 @@ const {
 
 export default Model.extend({
   body: attr('string'),
+  userName: attr('string'),
 
   post: belongsTo('post'),
 });
