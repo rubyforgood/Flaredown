@@ -31,7 +31,9 @@ export default Controller.extend(SearchableDropdown, {
     },
 
     savePost() {
-      get(this, 'model').save();
+      get(this, 'model')
+        .save()
+        .then(post => this.transitionToRoute('posts.show', post));
     },
 
     removeTopic(topic) {
