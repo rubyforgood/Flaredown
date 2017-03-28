@@ -21,6 +21,7 @@ export default Model.extend({
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),
+  commentsCount: attr('number'),
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),
