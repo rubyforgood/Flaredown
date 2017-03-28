@@ -96,7 +96,7 @@ Rails.application.routes.draw do
       #
       # Posts
       #
-      resources :posts, only: [:create, :show]
+      resources :posts, only: [:create, :show, :index]
 
       #
       # Profiles

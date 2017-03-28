@@ -1,0 +1,7 @@
+<header class="centered">
+  <h4>{{model.topic.name}}</h4>
+</header>
+
+{{#each model.posts as |post|}}
+  {{posts/topic-post post=post}}
+{{/each}}
