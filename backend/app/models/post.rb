@@ -15,6 +15,8 @@ class Post
 
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
+  field :comments_count, type: Fixnum, default: 0
+
   validates :body, :title, :encrypted_user_id, presence: true
 
   validate :topic_presence
