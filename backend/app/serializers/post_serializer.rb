@@ -3,6 +3,7 @@ class PostSerializer < ApplicationSerializer
 
   has_many :tags, embed_in_root: true
   has_many :foods, embed_in_root: true
+  has_many :comments, embed_in_root: true
   has_many :symptoms, embed_in_root: true
   has_many :conditions, embed_in_root: true
   has_many :treatments, embed_in_root: true

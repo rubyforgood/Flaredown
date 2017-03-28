@@ -14,6 +14,8 @@ class Post
 
   validates :body, :title, :encrypted_user_id, presence: true
 
+  has_many :comments
+
   def user_name
     Profile.find_by!(user_id: SymmetricEncryption.decrypt(encrypted_user_id)).screen_name
   end

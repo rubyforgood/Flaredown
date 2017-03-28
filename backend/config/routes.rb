@@ -39,6 +39,11 @@ Rails.application.routes.draw do
       resources :conditions, only: [:index, :show, :create]
 
       #
+      # Comments
+      #
+      resources :comments, only: [:create]
+
+      #
       # Data Export Schedules
       #
       resources :data_export_schedules, only: :create

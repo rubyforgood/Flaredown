@@ -24,6 +24,7 @@ export default Model.extend({
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),
+  comments: hasMany('comment', { async: false }),
   symptoms: hasMany('symptom', { async: false }),
   conditions: hasMany('condition', { async: false }),
   treatments: hasMany('treatment', { async: false }),
