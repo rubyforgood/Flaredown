@@ -1,6 +1,10 @@
 class Api::V1::PostsController < ApplicationController
   load_and_authorize_resource
 
+  def index
+    render json: @posts
+  end
+
   def show
     render json: @post
   end
