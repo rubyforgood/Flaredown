@@ -15,15 +15,13 @@ class Post
 
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
-  field :comments_count, type: Fixnum, default: 0
+  field :comments_count, type: Integer, default: 0
 
   validates :body, :title, :encrypted_user_id, presence: true
 
   validate :topic_presence
 
-  def comments
-    Comment.where(post_id: id).order_by(created_at: :asc)
-  end
+  has_many :comments
 
   TOPIC_TYPES.each do |relative|
     pluralized_relative = relative.pluralize

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       #
       # Comments
       #
-      resources :comments, only: [:create]
+      resources :comments, only: [:create, :show, :index]
 
       #
       # Data Export Schedules

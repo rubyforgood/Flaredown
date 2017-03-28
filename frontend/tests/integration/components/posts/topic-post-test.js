@@ -12,5 +12,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{posts/topic-post}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim(), 'comments');
 });
