@@ -2,6 +2,8 @@ class Post
   include Mongoid::Document
   include Usernameable
 
+  TOPIC_TYPES = %w(tag food symptom condition treatment).freeze
+
   field :body,  type: String
   field :title, type: String
 
@@ -15,11 +17,13 @@ class Post
 
   validates :body, :title, :encrypted_user_id, presence: true
 
+  validate :topic_presence
+
   def comments
     Comment.where(post_id: id).order_by(created_at: :asc)
   end
 
-  %w(tag food symptom condition treatment).each do |relative|
+  TOPIC_TYPES.each do |relative|
     pluralized_relative = relative.pluralize
 
     define_method(:"#{pluralized_relative}") do
@@ -33,5 +37,13 @@ class Post
 
       value
     end
+  end
+
+  private
+
+  def topic_presence
+    TOPIC_TYPES.each { |topic| return true if send(topic.pluralize).any? }
+
+    errors.add(:topics, 'should have at list one entry')
   end
 end
