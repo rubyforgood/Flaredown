@@ -139,6 +139,11 @@ Rails.application.routes.draw do
       resources :tags, only: [:index, :show, :create]
 
       #
+      #
+      #
+      resources :topic_followings, only: [:show, :update]
+
+      #
       # Trackings
       #
       resources :trackings, only: [:index, :show, :create, :destroy]

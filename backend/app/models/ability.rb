@@ -27,6 +27,8 @@ class Ability
     can :read, [Comment, Post]
     can :create, [Comment, Post], encrypted_user_id: user.encrypted_id
 
+    can [:read, :update], TopicFollowing, encrypted_user_id: user.encrypted_id
+
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false

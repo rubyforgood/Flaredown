@@ -20,6 +20,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
       page: 1,
       posts: store.query('post', { id, type }).then(q => q.toArray()),
       topic: store.findRecord(type, id),
+      topicFollowing: get(this, 'session.currentUser').then(user => get(user, 'topicFollowing')),
     });
   },
 });
