@@ -4,6 +4,10 @@ class Api::V1::PostsController < ApplicationController
   def index
     if params[:id].present? && Post::TOPIC_TYPES.include?(params[:type])
       @posts = @posts.where("#{params[:type]}_ids": params[:id].to_i)
+
+      if params[:query].present?
+        @posts = @posts.fts(params[:query])
+      end
     end
 
     render json: @posts

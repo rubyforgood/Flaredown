@@ -23,6 +23,12 @@ class Post
 
   has_many :comments
 
+  index(body: 'text', title: 'text')
+
+  def self.fts(q)
+    where('$text': { '$search': q, '$language': I18n.locale.to_s })
+  end
+
   TOPIC_TYPES.each do |relative|
     pluralized_relative = relative.pluralize
 
