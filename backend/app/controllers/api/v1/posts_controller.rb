@@ -5,9 +5,7 @@ class Api::V1::PostsController < ApplicationController
     if params[:id].present? && Post::TOPIC_TYPES.include?(params[:type])
       @posts = @posts.where("#{params[:type]}_ids": params[:id].to_i)
 
-      if params[:query].present?
-        @posts = @posts.fts(params[:query])
-      end
+      @posts = @posts.fts(params[:query]) if params[:query].present?
     end
 
     render json: @posts.order_by(created_at: :desc).page(params[:page]).per(10)
