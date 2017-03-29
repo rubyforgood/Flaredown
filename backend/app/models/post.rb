@@ -1,5 +1,6 @@
 class Post
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Usernameable
 
   TOPIC_TYPES = %w(tag food symptom condition treatment).freeze

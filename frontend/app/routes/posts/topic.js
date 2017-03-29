@@ -17,7 +17,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     return hash({
       id,
       type,
-      posts: store.query('post', { id, type }),
+      page: 1,
+      posts: store.query('post', { id, type }).then(q => q.toArray()),
       topic: store.findRecord(type, id),
     });
   },

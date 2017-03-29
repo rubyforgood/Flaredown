@@ -10,7 +10,7 @@ class Api::V1::PostsController < ApplicationController
       end
     end
 
-    render json: @posts
+    render json: @posts.order_by(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show
