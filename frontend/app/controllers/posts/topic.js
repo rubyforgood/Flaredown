@@ -30,6 +30,10 @@ export default Controller.extend({
   },
 
   actions: {
+    followTopic() {
+      console.log('followTopic'); //DEBUG
+    },
+
     crossedTheLine(above) {
       if (above) {
         const { model, query } = getProperties(this, 'model', 'query');

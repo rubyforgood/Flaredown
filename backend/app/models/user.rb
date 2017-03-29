@@ -86,6 +86,17 @@ class User < ActiveRecord::Base
     "#{id}-#{Digest::SHA1.hexdigest(authentication_token).strip}"
   end
 
+  def topic_following
+    TopicFollowing.find_or_create_by(encrypted_user_id: encrypted_id) do |tf|
+      tf.symptom_ids = symptom_ids
+      tf.condition_ids = condition_ids
+      tf.treatment_ids = treatment_ids
+
+      tf.tag_ids = checkins.distinct(:tag_ids)
+      tf.food_ids = checkins.distinct(:food_ids)
+    end
+  end
+
   private
 
   def generate_authentication_token
