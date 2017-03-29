@@ -7,11 +7,11 @@ class Post
   field :body,  type: String
   field :title, type: String
 
-  field :tag_ids,       type: Array
-  field :food_ids,      type: Array
-  field :symptom_ids,   type: Array
-  field :condition_ids, type: Array
-  field :treatment_ids, type: Array
+  field :tag_ids,       type: Array, default: []
+  field :food_ids,      type: Array, default: []
+  field :symptom_ids,   type: Array, default: []
+  field :condition_ids, type: Array, default: []
+  field :treatment_ids, type: Array, default: []
 
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
