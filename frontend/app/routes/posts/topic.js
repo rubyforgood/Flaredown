@@ -15,6 +15,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     const store = get(this, 'store');
 
     return hash({
+      id,
+      type,
       posts: store.query('post', { id, type }),
       topic: store.findRecord(type, id),
     });
