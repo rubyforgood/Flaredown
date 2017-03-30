@@ -5,16 +5,18 @@ class Post
 
   TOPIC_TYPES = %w(tag food symptom condition treatment).freeze
 
-  field :body,  type: String
-  field :title, type: String
+  store_in collection: 'postables'
+
+  field :body,              type: String
+  field :title,             type: String
+  field :_type,             type: String, default: -> { self.class.name }
+  field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
   field :tag_ids,       type: Array, default: []
   field :food_ids,      type: Array, default: []
   field :symptom_ids,   type: Array, default: []
   field :condition_ids, type: Array, default: []
   field :treatment_ids, type: Array, default: []
-
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
   field :comments_count, type: Integer, default: 0
 
