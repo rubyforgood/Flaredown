@@ -8,6 +8,7 @@ const {
 export default Model.extend({
   tagIds: attr(),
   foodIds: attr(),
+  updatedAt: attr('date'),
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),
