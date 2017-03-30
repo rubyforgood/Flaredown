@@ -1,5 +1,6 @@
 class Comment
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Usernameable
 
   field :body,              type: String
@@ -7,5 +8,5 @@ class Comment
 
   validates :body, :post, :encrypted_user_id, presence: true
 
-  belongs_to :post, index: true
+  belongs_to :post, index: true, counter_cache: true
 end

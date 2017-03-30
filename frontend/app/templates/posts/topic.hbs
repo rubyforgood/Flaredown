@@ -1,0 +1,22 @@
+<header class="centered">
+  <h4>{{model.topic.name}}</h4>
+</header>
+
+<header class="centered">
+  <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
+</header>
+
+<div class="flaredown-white-box">
+  {{input type="text" value=query placeholder="Search..."}}
+</div>
+
+{{#each model.posts as |post|}}
+  {{posts/topic-post post=post}}
+{{/each}}
+
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingTopics}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}
+

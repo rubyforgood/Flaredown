@@ -6,13 +6,7 @@
   <p>{{post.userName}}</p>
   <p>{{post.body}}</p>
 
-  <ul>
-    {{#each post.topics as |topic|}}
-      <li class="choosen-object">
-        <div class="badge-text">{{topic.name}}</div>
-      </li>
-    {{/each}}
-  </ul>
+  {{posts/post-topics post=post}}
 
   {{#each post.comments as |comment|}}
     <hr>

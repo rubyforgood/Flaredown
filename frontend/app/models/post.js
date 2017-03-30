@@ -21,10 +21,11 @@ export default Model.extend({
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),
+  commentsCount: attr('number'),
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),
-  comments: hasMany('comment', { async: false }),
+  comments: hasMany('comment', { async: true }),
   symptoms: hasMany('symptom', { async: false }),
   conditions: hasMany('condition', { async: false }),
   treatments: hasMany('treatment', { async: false }),

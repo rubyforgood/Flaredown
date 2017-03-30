@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       #
       # Comments
       #
-      resources :comments, only: [:create]
+      resources :comments, only: [:create, :show, :index]
 
       #
       # Data Export Schedules
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
       #
       # Posts
       #
-      resources :posts, only: [:create, :show]
+      resources :posts, only: [:create, :show, :index]
 
       #
       # Profiles
@@ -137,6 +137,11 @@ Rails.application.routes.draw do
       # Tags
       #
       resources :tags, only: [:index, :show, :create]
+
+      #
+      #
+      #
+      resources :topic_followings, only: [:show, :update]
 
       #
       # Trackings
