@@ -1,14 +1,10 @@
 import DS from 'ember-data';
+import Postable from 'flaredown/models/postable';
 
 const {
-  attr,
-  Model,
   belongsTo,
 } = DS;
 
-export default Model.extend({
-  body: attr('string'),
-  userName: attr('string'),
-
+export default Postable.extend({
   post: belongsTo('post'),
 });

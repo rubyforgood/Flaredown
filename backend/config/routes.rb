@@ -94,6 +94,11 @@ Rails.application.routes.draw do
       resources :passwords, only: [:show, :create, :update]
 
       #
+      # Postables
+      #
+      resources :postables, only: [:index]
+
+      #
       # Posts
       #
       resources :posts, only: [:create, :show, :index]

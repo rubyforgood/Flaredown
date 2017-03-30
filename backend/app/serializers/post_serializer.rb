@@ -1,5 +1,5 @@
 class PostSerializer < ApplicationSerializer
-  attributes :id, :body, :title, :tag_ids, :food_ids, :symptom_ids,
+  attributes :id, :body, :title, :tag_ids, :food_ids, :symptom_ids, :type,
              :condition_ids, :treatment_ids, :user_name, :comments_count
 
   has_many :tags, embed_in_root: true
@@ -9,4 +9,8 @@ class PostSerializer < ApplicationSerializer
   has_many :treatments, embed_in_root: true
 
   has_many :comments, embed: :ids
+
+  def type
+    'post'
+  end
 end

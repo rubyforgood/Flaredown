@@ -1,0 +1,10 @@
+<header class="centered">
+  {{screenName}}'s posts
+</header>
+
+{{#each model.postables as |postable|}}
+  {{#if (eq postable.type "post")}}
+    {{posts/topic-post post=postable}}
+  {{/if}}
+{{/each}}
+
