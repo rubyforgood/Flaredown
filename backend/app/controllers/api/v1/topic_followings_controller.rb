@@ -5,9 +5,9 @@ class Api::V1::TopicFollowingsController < ApplicationController
     render json: @topic_following
   end
 
-  def create
-    if @topic_following.save
-      render json: @topic_following, status: :updated
+  def update
+    if @topic_following.update_attributes(update_params)
+      render json: @topic_following, status: :ok
     else
       render json: { errors: @topic_following.errors }, status: :unprocessable_entity
     end
@@ -16,8 +16,14 @@ class Api::V1::TopicFollowingsController < ApplicationController
   private
 
   def update_params
-    params.require(:topic_following).permit(
-      tag_ids: [], food_ids: [], symptom_ids: [], condition_ids: [], treatment_ids: []
-    )
+    empty_params = {
+      'tag_ids' => [],
+      'food_ids' => [],
+      'symptom_ids' => [],
+      'condition_ids' => [],
+      'treatment_ids' => []
+    }
+
+    empty_params.merge(params.require(:topic_following).permit(empty_params))
   end
 end

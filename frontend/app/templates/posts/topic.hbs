@@ -3,7 +3,7 @@
 </header>
 
 <header class="centered">
-  <a {{action "followTopic"}}>Follow this topic</a>
+  <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
 </header>
 
 <div class="flaredown-white-box">

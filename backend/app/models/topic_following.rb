@@ -1,5 +1,6 @@
 class TopicFollowing
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :tag_ids,       type: Array, default: []
   field :food_ids,      type: Array, default: []

@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
 const {
+  get,
   set,
+  computed,
   observer,
   Controller,
   getProperties,
@@ -18,6 +20,12 @@ export default Controller.extend({
     debounce(this, this.searchPosts, 200);
   }),
 
+  isFollowed: computed('model.topicFollowing.updatedAt', function() {
+    const { id, type, topicFollowing } = getProperties(get(this, 'model'), 'id', 'type', 'topicFollowing');
+
+    return get(topicFollowing, `${type}Ids`).includes(parseInt(id));
+  }),
+
   searchPosts() {
     const page = 1;
     const { model, query } = getProperties(this, 'model', 'query');
@@ -30,8 +38,13 @@ export default Controller.extend({
   },
 
   actions: {
-    followTopic() {
-      console.log('followTopic'); //DEBUG
+    toggleTopicFollowing() {
+      const { model, isFollowed } = getProperties(this, 'model', 'isFollowed');
+      const { id, type, topicFollowing } = getProperties(model, 'id', 'type', 'topicFollowing');
+
+      get(topicFollowing, `${type}Ids`)[isFollowed ? 'removeObject' : 'addObject'](parseInt(id));
+
+      topicFollowing.save();
     },
 
     crossedTheLine(above) {
