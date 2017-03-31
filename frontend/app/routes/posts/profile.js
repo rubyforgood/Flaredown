@@ -1,22 +1,13 @@
 import Ember from 'ember';
+import PostableGetable from 'flaredown/mixins/postable-getable';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
 const {
-  get,
   Route,
-  getProperties,
 } = Ember;
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend(PostableGetable, AuthenticatedRouteMixin, {
   model() {
-    return get(this, 'store')
-      .query('postable', { page: 1 })
-      .then(postables => {
-        const fakePostable = get(postables, 'firstObject');
-
-        const { posts, comments } = getProperties(fakePostable, 'posts', 'comments');
-
-        return posts.toArray().concat(comments.toArray());
-      });
+    return this.getPostables(1);
   },
 });
