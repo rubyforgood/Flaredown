@@ -5,6 +5,8 @@ class Post
 
   TOPIC_TYPES = %w(tag food symptom condition treatment).freeze
 
+  attr_accessor :postable_id
+
   store_in collection: 'postables'
 
   field :body,              type: String

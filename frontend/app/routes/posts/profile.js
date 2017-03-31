@@ -4,18 +4,19 @@ import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin'
 const {
   get,
   Route,
-  RSVP: {
-    hash,
-  },
+  getProperties,
 } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model() {
-    const page = 1;
+    return get(this, 'store')
+      .query('postable', { page: 1 })
+      .then(postables => {
+        const fakePostable = get(postables, 'firstObject');
 
-    return hash({
-      page,
-      postables: get(this, 'store').query('postable', { page }),
-    });
+        const { posts, comments } = getProperties(fakePostable, 'posts', 'comments');
+
+        return posts.toArray().concat(comments.toArray());
+      });
   },
 });

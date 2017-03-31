@@ -1,12 +1,11 @@
 import DS from 'ember-data';
 
 const {
-  attr,
   Model,
+  hasMany,
 } = DS;
 
 export default Model.extend({
-  body: attr('string'),
-  type: attr('string'),
-  userName: attr('string'),
+  posts: hasMany('post', { async: false }),
+  comments: hasMany('comment', { async: false }),
 });

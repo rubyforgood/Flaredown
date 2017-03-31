@@ -1,6 +1,6 @@
 class PostSerializer < ApplicationSerializer
   attributes :id, :body, :title, :tag_ids, :food_ids, :symptom_ids, :type,
-             :condition_ids, :treatment_ids, :user_name, :comments_count
+             :condition_ids, :treatment_ids, :user_name, :comments_count, :postable_id
 
   has_many :tags, embed_in_root: true
   has_many :foods, embed_in_root: true
