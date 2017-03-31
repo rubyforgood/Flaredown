@@ -1,0 +1,7 @@
+<p>
+  {{#link-to 'posts.show' comment.post}}
+    Responded to <b>{{comment.post.title}}</b>
+  {{/link-to}}
+</p>
+
+<p>{{#link-to 'posts.show' comment.post}}{{comment.body}}{{/link-to}}</p>

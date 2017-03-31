@@ -2,9 +2,11 @@
   {{screenName}}'s posts
 </header>
 
-{{#each model.postables as |postable|}}
+{{#each postables as |postable|}}
   {{#if (eq postable.type "post")}}
     {{posts/topic-post post=postable}}
+  {{else}}
+    {{posts/topic-comment comment=postable}}
   {{/if}}
 {{/each}}
 

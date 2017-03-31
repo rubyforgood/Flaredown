@@ -1,9 +1,9 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import Postable from 'flaredown/models/postable';
 
 const {
   attr,
+  Model,
   hasMany,
 } = DS;
 
@@ -12,10 +12,15 @@ const {
   computed,
 } = Ember;
 
-export default Postable.extend({
+export default Model.extend({
+  body: attr('string'),
+  type: attr('string'),
   title: attr('string'),
   tagIds: attr(),
   foodIds: attr(),
+  userName: attr('string'),
+  createdAt: attr('date'),
+  postableId: attr('string'),
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),
