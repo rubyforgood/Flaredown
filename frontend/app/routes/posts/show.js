@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
 const {
   get,
@@ -7,7 +6,7 @@ const {
   Route,
 } = Ember;
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend({
   model(params) {
     return get(this, 'store').find('post', params.id);
   },
