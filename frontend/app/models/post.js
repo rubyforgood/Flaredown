@@ -14,10 +14,13 @@ const {
 
 export default Model.extend({
   body: attr('string'),
+  type: attr('string'),
   title: attr('string'),
   tagIds: attr(),
   foodIds: attr(),
   userName: attr('string'),
+  createdAt: attr('date'),
+  postableId: attr('string'),
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),

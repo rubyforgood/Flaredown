@@ -9,6 +9,8 @@ const {
 export default Model.extend({
   body: attr('string'),
   userName: attr('string'),
+  createdAt: attr('date'),
+  postableId: attr('string'),
 
   post: belongsTo('post'),
 });

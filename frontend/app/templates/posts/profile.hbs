@@ -1,0 +1,18 @@
+<header class="centered">
+  {{screenName}}'s posts
+</header>
+
+{{#each postables as |postable|}}
+  {{#if (eq postable.type "post")}}
+    {{posts/topic-post post=postable}}
+  {{else}}
+    {{posts/topic-comment comment=postable}}
+  {{/if}}
+{{/each}}
+
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingPostables}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}
+
