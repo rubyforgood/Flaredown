@@ -2,6 +2,8 @@ class Api::V1::PostsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @posts = @posts.where(_type: 'Post')
+
     if params[:id].present? && Post::TOPIC_TYPES.include?(params[:type])
       @posts = @posts.where("#{params[:type]}_ids": params[:id].to_i)
 

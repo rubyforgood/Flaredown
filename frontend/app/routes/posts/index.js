@@ -1,4 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
+const {
+  get,
+  Route,
+} = Ember;
+
+export default Route.extend({
+  model() {
+    return get(this, 'store').query('post', {}).then(q => q.toArray());
+  },
 });

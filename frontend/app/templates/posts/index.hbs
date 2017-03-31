@@ -7,3 +7,7 @@
   {{link-to "My posts" "posts.profile"}}
   {{link-to "New post" "posts.new"}}
 </div>
+
+{{#each model as |post|}}
+  {{posts/topic-post post=post}}
+{{/each}}
