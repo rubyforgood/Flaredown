@@ -11,8 +11,13 @@ class Api::V1::TrackingsController < ApplicationController
 
   def create
     tracking = Tracking.new(create_params.merge(start_at: Time.zone.today, user: current_user))
+
     authorize! :create, tracking
+
     tracking.save!
+
+    current_user.topic_following.add_topic("#{tracking.trackable_type.downcase}_ids", tracking.trackable_id)
+
     render json: tracking
   end
 
