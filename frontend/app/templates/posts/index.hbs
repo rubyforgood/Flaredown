@@ -8,6 +8,10 @@
   {{link-to "New post" "posts.new"}}
 </div>
 
+<div class="flaredown-white-box">
+  {{input type="text" value=query placeholder="Search..."}}
+</div>
+
 {{#each model as |post|}}
   {{posts/topic-post post=post}}
 {{/each}}
