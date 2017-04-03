@@ -11,4 +11,12 @@ class TopicFollowing
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
   validates :encrypted_user_id, presence: true
+
+  def add_topic(key, value)
+    return if send(key).include?(value)
+
+    send(key) << value
+
+    save
+  end
 end
