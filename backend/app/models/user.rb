@@ -90,6 +90,8 @@ class User < ActiveRecord::Base
     TopicFollowing.find_or_create_by(encrypted_user_id: encrypted_id) do |tf|
       checkin = last_checkin
 
+      next if checkin.blank?
+
       tf.symptom_ids = Checkin::Symptom.where(checkin_id: checkin.id).distinct(:symptom_id)
       tf.condition_ids = Checkin::Condition.where(checkin_id: checkin.id).distinct(:condition_id)
       tf.treatment_ids = Checkin::Treatment.where(checkin_id: checkin.id).distinct(:treatment_id)
