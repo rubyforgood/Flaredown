@@ -15,3 +15,10 @@
 {{#each model as |post|}}
   {{posts/topic-post post=post}}
 {{/each}}
+
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingPosts}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}
+
