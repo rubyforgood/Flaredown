@@ -88,12 +88,14 @@ class User < ActiveRecord::Base
 
   def topic_following
     TopicFollowing.find_or_create_by(encrypted_user_id: encrypted_id) do |tf|
-      tf.symptom_ids = symptom_ids
-      tf.condition_ids = condition_ids
-      tf.treatment_ids = treatment_ids
+      checkin = last_checkin
 
-      tf.tag_ids = checkins.distinct(:tag_ids)
-      tf.food_ids = checkins.distinct(:food_ids)
+      tf.symptom_ids = Checkin::Symptom.where(checkin_id: checkin.id).distinct(:symptom_id)
+      tf.condition_ids = Checkin::Condition.where(checkin_id: checkin.id).distinct(:condition_id)
+      tf.treatment_ids = Checkin::Treatment.where(checkin_id: checkin.id).distinct(:treatment_id)
+
+      tf.tag_ids = checkin.tag_ids || []
+      tf.food_ids = checkin.food_ids
     end
   end
 
