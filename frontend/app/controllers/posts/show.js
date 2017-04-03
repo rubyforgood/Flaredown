@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BackNavigateable from 'flaredown/mixins/back-navigateable';
 
 const {
   get,
@@ -12,7 +13,7 @@ const {
   },
 } = Ember;
 
-export default Controller.extend({
+export default Controller.extend(BackNavigateable, {
   post: alias('model'),
 
   disabled: computed('newComment.body', function() {
