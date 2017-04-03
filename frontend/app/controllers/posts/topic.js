@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BackNavigateable from 'flaredown/mixins/back-navigateable';
 
 const {
   get,
@@ -13,7 +14,7 @@ const {
   },
 } = Ember;
 
-export default Controller.extend({
+export default Controller.extend(BackNavigateable, {
   query: '',
 
   searchFieldObserver: observer('query', function() {

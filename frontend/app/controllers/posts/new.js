@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import BackNavigateable from 'flaredown/mixins/back-navigateable';
 import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 const {
@@ -8,7 +9,7 @@ const {
   getProperties,
 } = Ember;
 
-export default Controller.extend(SearchableDropdown, {
+export default Controller.extend(BackNavigateable, SearchableDropdown, {
   disabled: computed('model.body', 'model.title', 'model.topics.[]', function() {
     const { body, title, topics } = getProperties(get(this, 'model'), 'body', 'title', 'topics');
 
