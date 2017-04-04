@@ -33,6 +33,7 @@ Router.map(function() {
     this.route('show', { path: '/:id' });
     this.route('topic', { path: '/:type/:id' });
     this.route('profile');
+    this.route('followings');
   });
 });
 

@@ -1,0 +1,28 @@
+.discussion-links {
+  display: flex;
+  justify-content: space-between;
+
+  &::after {
+    display: none;
+  }
+
+  a {
+    align-self: center;
+  }
+
+  .btn-link {
+    color: white;
+    padding: .5em 1em;
+    border-radius: 5px;
+    background-color: $primary;
+
+    &:hover,
+    &:focus {
+      background-color: darken($primary, 30%);
+    }
+  }
+}
+
+.followed-topic {
+  font-size: 1.25em;
+}

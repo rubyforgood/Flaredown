@@ -1,0 +1,32 @@
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Back</a>
+</div>
+
+<header class="centered">
+  <h3>My topics</h3>
+</header>
+
+<div class="flaredown-white-box">
+  <p>
+    Your discussion page will show you posts related to the topics you follow
+  </p>
+
+  {{#power-select
+    class="fs-private"
+    search=(action "searchObjects")
+    options=randomTrackables
+    onchange=(action "addTopic")
+    placeholder="Add a condition"
+    renderInPlace=true
+  as |object| }}
+    {{object.name}}
+  {{/power-select}}
+
+  {{#each model.topics as |topic|}}
+    <div>
+      <span {{action "removeTopic" topic}}>{{closeSymbol}}</span>
+
+      {{#link-to 'posts.topic' topic.modelType topic.id class="followed-topic"}}{{topic.name}} >{{/link-to}}
+    </div>
+  {{/each}}
+</div>

@@ -1,8 +1,12 @@
-<header class="centered">
-  <h4>{{model.topic.name}}</h4>
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Back</a>
+</div>
+
+<header class="flaredown-transparent-box centered">
+  <h3>{{model.topic.name}}</h3>
 </header>
 
-<header class="centered">
+<header class="centered vert-offset-bottom-1">
   <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
 </header>
 
@@ -19,4 +23,3 @@
 {{#if loadingTopics}}
   {{partial "application/three-bounce-spinner"}}
 {{/if}}
-

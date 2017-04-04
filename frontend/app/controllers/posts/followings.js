@@ -6,15 +6,13 @@ const {
   get,
   computed,
   Controller,
-  getProperties,
+  String: {
+    htmlSafe,
+  },
 } = Ember;
 
 export default Controller.extend(BackNavigateable, SearchableDropdown, {
-  disabled: computed('model.body', 'model.title', 'model.topics.[]', function() {
-    const { body, title, topics } = getProperties(get(this, 'model'), 'body', 'title', 'topics');
-
-    return !(body && title && topics.length);
-  }),
+  closeSymbol: htmlSafe('&#10005&nbsp;&nbsp;'),
 
   randomTrackables: computed(function() {
     return this.randomSearch('topic');
@@ -26,19 +24,20 @@ export default Controller.extend(BackNavigateable, SearchableDropdown, {
       .then(function() { resolve(...arguments); }, reject);
   },
 
+  manipulateTopic(topic, action) {
+    const model = get(this, 'model');
+
+    model[action](topic);
+    model.save();
+  },
+
   actions: {
     addTopic(topic) {
-      get(this, 'model').addTopic(topic);
-    },
-
-    savePost() {
-      get(this, 'model')
-        .save()
-        .then(post => this.transitionToRoute('posts.show', post));
+      this.manipulateTopic(topic, 'addTopic');
     },
 
     removeTopic(topic) {
-      get(this, 'model').removeTopic(topic);
+      this.manipulateTopic(topic, 'removeTopic');
     },
   },
 });

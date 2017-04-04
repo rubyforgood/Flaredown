@@ -1,0 +1,24 @@
+<header class="centered">
+  <h3>Discussions</h3>
+</header>
+
+<div class="flaredown-transparent-box vert-offset-bottom-1 discussion-links">
+  {{link-to myTopicsText "posts.followings"}}
+  {{link-to "My posts" "posts.profile"}}
+  {{link-to "New post" "posts.new" class="btn-link"}}
+</div>
+
+<div class="flaredown-white-box">
+  {{input type="text" value=query placeholder="Search..."}}
+</div>
+
+{{#each model.posts as |post|}}
+  {{posts/topic-post post=post}}
+{{/each}}
+
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingPosts}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}
+

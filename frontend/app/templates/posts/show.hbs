@@ -1,9 +1,13 @@
-<header class="centered">
-  <h4>{{post.title}}</h4>
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Back</a>
+</div>
+
+<header class="flaredown-transparent-box centered">
+  <h3>{{post.title}}</h3>
 </header>
 
 <div class="flaredown-white-box">
-  <p>{{post.userName}}</p>
+  <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.body}}</p>
 
   {{posts/post-topics post=post}}
@@ -11,7 +15,7 @@
   {{#each post.comments as |comment|}}
     <hr>
 
-    <p>{{comment.userName}}</p>
+    <p class="colorable-clr-38">{{comment.userName}}</p>
     <p>{{comment.body}}</p>
   {{/each}}
 </div>

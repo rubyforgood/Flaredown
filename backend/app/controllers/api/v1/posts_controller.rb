@@ -2,11 +2,13 @@ class Api::V1::PostsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:id].present? && Post::TOPIC_TYPES.include?(params[:type])
-      @posts = @posts.where("#{params[:type]}_ids": params[:id].to_i)
-
-      @posts = @posts.fts(params[:query]) if params[:query].present?
-    end
+    @posts = @posts.where(_type: 'Post')
+    @posts = @posts.fts(params[:query]) if params[:query].present?
+    @posts = if params[:id].present? && Post::TOPIC_TYPES.include?(params[:type])
+               @posts.where("#{params[:type]}_ids": params[:id].to_i)
+             else
+               @posts.by_followings(current_user.topic_following)
+             end
 
     render json: @posts.order_by(created_at: :desc).page(params[:page]).per(10)
   end

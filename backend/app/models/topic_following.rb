@@ -1,14 +1,11 @@
 class TopicFollowing
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include Topicable
 
-  field :tag_ids,       type: Array, default: []
-  field :food_ids,      type: Array, default: []
-  field :symptom_ids,   type: Array, default: []
-  field :condition_ids, type: Array, default: []
-  field :treatment_ids, type: Array, default: []
+  def add_topic(key, value)
+    return if send(key).include?(value)
 
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
+    send(key) << value
 
-  validates :encrypted_user_id, presence: true
+    save
+  end
 end

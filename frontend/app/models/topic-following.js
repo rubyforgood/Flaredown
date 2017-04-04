@@ -1,15 +1,20 @@
 import DS from 'ember-data';
+import Ember from 'ember';
+import Topicable from 'flaredown/mixins/topicable';
 
 const {
   attr,
   Model,
 } = DS;
 
-export default Model.extend({
-  tagIds: attr(),
-  foodIds: attr(),
+const {
+  computed: {
+    alias,
+  },
+} = Ember;
+
+export default Model.extend(Topicable, {
   updatedAt: attr('date'),
-  symptomIds: attr(),
-  conditionIds: attr(),
-  treatmentIds: attr(),
+
+  topicsCount: alias('topics.length'),
 });

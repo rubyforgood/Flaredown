@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PostableGetable from 'flaredown/mixins/postable-getable';
+import BackNavigateable from 'flaredown/mixins/back-navigateable';
 
 const {
   set,
@@ -12,7 +13,7 @@ const {
   },
 } = Ember;
 
-export default Controller.extend(PostableGetable, {
+export default Controller.extend(PostableGetable, BackNavigateable, {
   page: 1,
   postablesSort: ['createdAt:desc'],
 
