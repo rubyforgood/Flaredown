@@ -1,7 +1,7 @@
-<h4>{{#link-to 'posts.show' post}}{{post.title}}{{/link-to}}</h4>
+<h5>{{#link-to 'posts.show' post class="colorable-clr-39"}}{{post.title}}{{/link-to}}</h5>
 
-<p>{{#link-to 'posts.show' post}}{{post.body}}{{/link-to}}</p>
+<p>{{#link-to 'posts.show' post class="colorable-clr-39"}}{{post.body}}{{/link-to}}</p>
 
 {{posts/post-topics post=post}}
 
-{{post.commentsCount}} comments
+<span class="colorable-clr-38">{{post.commentsCount}} comments</span>

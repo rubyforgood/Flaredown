@@ -1,7 +1,5 @@
 {{#each post.topics as |topic|}}
-  <li class="choosen-object">
-    {{#link-to 'posts.topic' topic.modelType topic.id}}
-      <div class="badge-text">{{topic.name}}</div>
-    {{/link-to}}
-  </li>
+  {{#link-to 'posts.topic' topic.modelType topic.id}}
+    <span class="badge-default vert-offset-bottom-0_5">{{topic.name}}</span>
+  {{/link-to}}
 {{/each}}

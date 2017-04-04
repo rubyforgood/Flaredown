@@ -1,7 +1,9 @@
-<a {{action "navigateBack"}}>Back</a>
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Back</a>
+</div>
 
-<header class="centered">
-  {{screenName}}'s posts
+<header class="centered vert-offset-bottom-2">
+  <h4>{{screenName}}'s posts</h4>
 </header>
 
 {{#each postables as |postable|}}
