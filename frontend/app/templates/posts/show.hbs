@@ -1,11 +1,13 @@
-<a {{action "navigateBack"}}>Back</a>
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Back</a>
+</div>
 
-<header class="centered">
+<header class="centered vert-offset-bottom-2">
   <h4>{{post.title}}</h4>
 </header>
 
 <div class="flaredown-white-box">
-  <p>{{post.userName}}</p>
+  <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.body}}</p>
 
   {{posts/post-topics post=post}}
@@ -13,7 +15,7 @@
   {{#each post.comments as |comment|}}
     <hr>
 
-    <p>{{comment.userName}}</p>
+    <p class="colorable-clr-38">{{comment.userName}}</p>
     <p>{{comment.body}}</p>
   {{/each}}
 </div>
