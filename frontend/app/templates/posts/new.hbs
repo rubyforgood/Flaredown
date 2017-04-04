@@ -1,6 +1,8 @@
-<a {{action "navigateBack"}}>Cancel</a>
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Cancel</a>
+</div>
 
-<header class="centered">
+<header class="centered vert-offset-bottom-2">
   <h4>New post</h4>
 </header>
 
@@ -12,15 +14,17 @@
   {{textarea value=model.body rows="6" placeholder="Body of post..."}}
 </div>
 
-<div class="flaredown-white-box">
-  <ul>
-    {{#each model.topics as |topic|}}
-      <li class="choosen-object" {{action "removeTopic" topic}}>
-        <div class="badge-text">{{topic.name}}</div>
-      </li>
-    {{/each}}
-  </ul>
+<div class="flaredown-transparent-box">
+  <p class="colorable-clr-37">Tag your post so people can find it</p>
 
+  {{#each model.topics as |topic|}}
+    <span class="badge-primary colorable-clr-36 vert-offset-bottom-0_5" {{action "removeTopic" topic}}>
+      {{topic.name}}
+    </span>
+  {{/each}}
+</div>
+
+<div class="flaredown-white-box">
   {{#power-select
     class="fs-private"
     search=(action "searchObjects")
