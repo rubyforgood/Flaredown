@@ -23,6 +23,12 @@
   }
 }
 
+.flaredown-transparent-box {
+  @include outer-container;
+
+  max-width: 500px;
+}
+
 .flaredown-white-box {
 	@include outer-container;
 	@include single-col;

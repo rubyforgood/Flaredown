@@ -1,0 +1,16 @@
+$badges: (
+  "default": $progress-gray,
+  "primary": $primary,
+);
+
+@each $badge-type, $color in $badges {
+  .badge-#{$badge-type} {
+    background-color: $color;
+    border-radius: $base-font-size * 5;
+    color: darken($color, 40%);
+    display: inline-block;
+    font-size: $base-font-size;
+    line-height: 1;
+    padding: 0.4em 1.2em;
+  }
+}
