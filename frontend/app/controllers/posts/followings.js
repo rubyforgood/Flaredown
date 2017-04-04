@@ -12,7 +12,7 @@ const {
 } = Ember;
 
 export default Controller.extend(BackNavigateable, SearchableDropdown, {
-  closeSymbol: htmlSafe('&#10005'),
+  closeSymbol: htmlSafe('&#10005&nbsp;&nbsp;'),
 
   randomTrackables: computed(function() {
     return this.randomSearch('topic');
