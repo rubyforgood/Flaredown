@@ -3,7 +3,7 @@
 </header>
 
 <div>
-  {{link-to "My topics" "posts.followings"}}
+  {{link-to myTopicsText "posts.followings"}}
   {{link-to "My posts" "posts.profile"}}
   {{link-to "New post" "posts.new"}}
 </div>
@@ -12,7 +12,7 @@
   {{input type="text" value=query placeholder="Search..."}}
 </div>
 
-{{#each model as |post|}}
+{{#each model.posts as |post|}}
   {{posts/topic-post post=post}}
 {{/each}}
 

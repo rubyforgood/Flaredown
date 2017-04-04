@@ -3,6 +3,7 @@ import Ember from 'ember';
 const {
   get,
   set,
+  computed,
   observer,
   Controller,
   getProperties,
@@ -16,6 +17,10 @@ export default Controller.extend({
   page: 1,
   query: '',
 
+  myTopicsText: computed('model.topicFollowing.topicsCount', function() {
+    return `My topics (${get(this, 'model.topicFollowing.topicsCount')})`;
+  }),
+
   searchFieldObserver: observer('query', function() {
     debounce(this, this.searchPosts, 200);
   }),
@@ -24,13 +29,14 @@ export default Controller.extend({
     this
       .store
       .query('post', { query: get(this, 'query') })
-      .then(posts => setProperties(this, { page: 1, model: posts.toArray() }));
+      .then(posts => setProperties(this, { page: 1, 'model.posts': posts.toArray() }));
   },
 
   actions: {
     crossedTheLine(above) {
       if (above) {
         let { page, model, query } = getProperties(this, 'page', 'model', 'query');
+        let posts = get(model, 'posts');
 
         set(this, 'loadingPosts', true);
 
@@ -42,7 +48,7 @@ export default Controller.extend({
           .then(newPosts => {
             setProperties(this, { page, loadingPosts: false });
 
-            model.pushObjects(newPosts.toArray());
+            posts.pushObjects(newPosts.toArray());
           });
       }
     },
