@@ -1,7 +1,9 @@
-<a {{action "navigateBack"}}>Back</a>
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack"}}>Back</a>
+</div>
 
 <header class="centered">
-  <h4>My topics</h4>
+  <h3>My topics</h3>
 </header>
 
 <div class="flaredown-white-box">
@@ -20,13 +22,11 @@
     {{object.name}}
   {{/power-select}}
 
-  <ul>
-    {{#each model.topics as |topic|}}
-      <li>
-        <span {{action "removeTopic" topic}}>{{closeSymbol}}</span>
+  {{#each model.topics as |topic|}}
+    <div>
+      <span {{action "removeTopic" topic}}>{{closeSymbol}}</span>
 
-        {{#link-to 'posts.topic' topic.modelType topic.id}}{{topic.name}} >{{/link-to}}
-      </li>
-    {{/each}}
-  </ul>
+      {{#link-to 'posts.topic' topic.modelType topic.id class="followed-topic"}}{{topic.name}} >{{/link-to}}
+    </div>
+  {{/each}}
 </div>
