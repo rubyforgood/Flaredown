@@ -2,4 +2,4 @@
 
 {{posts/post-topics post=post}}
 
-<span class="colorable-clr-38">{{post.commentsCount}} comments</span>
+{{#link-to 'posts.show' post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
