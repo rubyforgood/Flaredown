@@ -8,7 +8,7 @@
 
 <div class="flaredown-white-box">
   <p class="colorable-clr-38">{{post.userName}}</p>
-  <p>{{post.body}}</p>
+  <p>{{post.bodyWithBr}}</p>
 
   {{posts/post-topics post=post}}
 
@@ -16,7 +16,7 @@
     <hr>
 
     <p class="colorable-clr-38">{{comment.userName}}</p>
-    <p>{{comment.body}}</p>
+    <p>{{comment.bodyWithBr}}</p>
   {{/each}}
 </div>
 
