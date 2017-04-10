@@ -14,21 +14,18 @@ const {
 
 export default Mixin.create({
   tagIds: attr(),
-  foodIds: attr(),
   symptomIds: attr(),
   conditionIds: attr(),
   treatmentIds: attr(),
 
   tags: hasMany('tag', { async: false }),
-  foods: hasMany('food', { async: false }),
   symptoms: hasMany('symptom', { async: false }),
   conditions: hasMany('condition', { async: false }),
   treatments: hasMany('treatment', { async: false }),
 
-  topics: computed('tags', 'foods', 'symptoms', 'conditions', 'treatments', function() {
+  topics: computed('tags', 'symptoms', 'conditions', 'treatments', function() {
     return [
       ...get(this, 'tags').toArray(),
-      ...get(this, 'foods').toArray(),
       ...get(this, 'symptoms').toArray(),
       ...get(this, 'conditions').toArray(),
       ...get(this, 'treatments').toArray(),
