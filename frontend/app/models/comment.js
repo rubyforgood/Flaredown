@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import BodyFormatable from 'flaredown/mixins/body-formatable';
 
 const {
   attr,
@@ -6,7 +7,7 @@ const {
   belongsTo,
 } = DS;
 
-export default Model.extend({
+export default Model.extend(BodyFormatable, {
   body: attr('string'),
   userName: attr('string'),
   createdAt: attr('date'),
