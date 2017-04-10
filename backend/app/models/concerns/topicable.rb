@@ -4,11 +4,10 @@ module Topicable
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  TOPIC_TYPES = %w(tag food symptom condition treatment).freeze
+  TOPIC_TYPES = %w(tag symptom condition treatment).freeze
 
   included do
     field :tag_ids,       type: Array, default: []
-    field :food_ids,      type: Array, default: []
     field :symptom_ids,   type: Array, default: []
     field :condition_ids, type: Array, default: []
     field :treatment_ids, type: Array, default: []

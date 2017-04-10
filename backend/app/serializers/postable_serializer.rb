@@ -1,7 +1,7 @@
 class PostableSerializer
   FAKE_ID = 'fake'.freeze
 
-  attr_reader :postables, :tag_ids, :food_ids, :symptom_ids, :condition_ids, :treatment_ids, :postable_post_ids
+  attr_reader :postables, :tag_ids, :symptom_ids, :condition_ids, :treatment_ids, :postable_post_ids
 
   def initialize(postables)
     @postables = postables
@@ -24,7 +24,6 @@ class PostableSerializer
         comment_ids: comments.map { |o| o.id.to_s }
       }],
       tags: ActiveModel::ArraySerializer.new(Tag.where(id: tag_ids), {}),
-      foods: ActiveModel::ArraySerializer.new(Food.where(id: food_ids), {}),
       posts: ActiveModel::ArraySerializer.new(posts, {}),
       comments: ActiveModel::ArraySerializer.new(comments, {}),
       conditions: ActiveModel::ArraySerializer.new(Condition.where(id: condition_ids), {}),
@@ -37,7 +36,6 @@ class PostableSerializer
 
   def prepare_ids(posts)
     @tag_ids = []
-    @food_ids = []
     @symptom_ids = []
     @condition_ids = []
     @treatment_ids = []
@@ -47,7 +45,6 @@ class PostableSerializer
       @postable_post_ids << post.id.to_s
 
       @tag_ids.concat(post.tag_ids)
-      @food_ids.concat(post.food_ids)
       @symptom_ids.concat(post.symptom_ids)
       @condition_ids.concat(post.condition_ids)
       @treatment_ids.concat(post.treatment_ids)

@@ -12,7 +12,6 @@ export default Route.extend({
         'post',
         {
           tagIds: [],
-          foodIds: [],
           symptomIds: [],
           conditionIds: [],
           treatmentIds: [],

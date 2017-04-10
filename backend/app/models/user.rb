@@ -97,7 +97,6 @@ class User < ActiveRecord::Base
       tf.treatment_ids = Checkin::Treatment.where(checkin_id: checkin.id).distinct(:treatment_id)
 
       tf.tag_ids = checkin.tag_ids || []
-      tf.food_ids = checkin.food_ids
     end
   end
 

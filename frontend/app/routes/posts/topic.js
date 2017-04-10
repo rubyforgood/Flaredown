@@ -9,9 +9,16 @@ const {
   },
 } = Ember;
 
+const availableTypes = ['tag', 'symptom', 'condition', 'treatment'];
+
 export default Route.extend(AuthenticatedRouteMixin, {
   model(params) {
     const { id, type } = params;
+
+    if (!availableTypes.includes(type)) {
+      return this.transitionTo('posts');
+    }
+
     const store = get(this, 'store');
 
     return hash({

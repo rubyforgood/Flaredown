@@ -18,7 +18,6 @@ class Api::V1::TopicFollowingsController < ApplicationController
   def update_params
     empty_params = {
       'tag_ids' => [],
-      'food_ids' => [],
       'symptom_ids' => [],
       'condition_ids' => [],
       'treatment_ids' => []

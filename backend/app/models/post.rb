@@ -27,7 +27,6 @@ class Post
   def self.by_followings(followings)
     any_of(
       { :tag_ids.in => followings.tag_ids },
-      { :food_ids.in => followings.food_ids },
       { :symptom_ids.in => followings.symptom_ids },
       { :condition_ids.in => followings.condition_ids },
       { :treatment_ids.in => followings.treatment_ids } # rubocop:disable Style/BracesAroundHashParameters
