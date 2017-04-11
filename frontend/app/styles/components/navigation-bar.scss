@@ -13,6 +13,10 @@ $sliding-panel-color-hover: #fff;
 $sliding-panel-background-focus: darken($sliding-panel-background, 5%);
 
 .navigation-bar {
+  display: none;
+  @include media ($medium-screen) {
+    display: block;
+  }
   .navigation-wrapper {
     @include clearfix;
     @include outer-container;
@@ -42,7 +46,6 @@ $sliding-panel-background-focus: darken($sliding-panel-background, 5%);
 
   ul.navigation-menu {
     clear: both;
-    display: none;
     margin: 0 auto;
     overflow: visible;
     padding: 0;
