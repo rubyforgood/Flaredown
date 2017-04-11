@@ -98,3 +98,8 @@ input[type="submit"] {
 [data-ember-action] {
   cursor: pointer;
 }
+
+// TEMPORARY FIX
+.ca__chat-expand-button {
+  display: none;
+}
