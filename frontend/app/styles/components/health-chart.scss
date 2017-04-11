@@ -63,7 +63,7 @@
 
     .vertical-line {
       fill: none;
-      stroke: grey;
+      stroke: $grey;
       stroke-width: 1;
       shape-rendering: crispEdges;
     }
@@ -82,7 +82,7 @@
       .axis {
         path, line {
           fill: none;
-          stroke: grey;
+          stroke: $grey;
           stroke-width: 1;
           shape-rendering: crispEdges;
         }
@@ -91,7 +91,7 @@
           font-size: 10px;
         }
         .tick:hover {
-          fill: grey;
+          fill: $grey;
           stroke-width: 2;
           cursor: pointer;
         };
@@ -110,4 +110,3 @@
   font-size: .8em;
   transform: translate(calc(100vw - 35px), -5px);
 }
-
