@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import HistoryTrackable from 'flaredown/mixins/history-trackable';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
 const {
@@ -9,7 +10,7 @@ const {
   },
 } = Ember;
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
   model() {
     return hash({
       posts: get(this, 'store').query('post', {}).then(q => q.toArray()),

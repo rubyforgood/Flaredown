@@ -1,38 +1,39 @@
 import Ember from 'ember';
+import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 const {
   get,
   set,
   computed,
-  observer,
   Controller,
   getProperties,
   setProperties,
-  run: {
-    debounce,
-  },
 } = Ember;
 
-export default Controller.extend({
+export default Controller.extend(SearchableDropdown, {
   page: 1,
-  query: '',
 
   myTopicsText: computed('model.topicFollowing.topicsCount', function() {
     return `My topics (${get(this, 'model.topicFollowing.topicsCount')})`;
   }),
 
-  searchFieldObserver: observer('query', function() {
-    debounce(this, this.searchPosts, 200);
+  randomTrackables: computed(function() {
+    return this.randomSearch('topic');
   }),
 
-  searchPosts() {
+  performSearch(term, resolve, reject) {
     this
-      .store
-      .query('post', { query: get(this, 'query') })
-      .then(posts => setProperties(this, { page: 1, 'model.posts': posts.toArray() }));
+      .searchByTerm('topic', term)
+      .then(function() { resolve(...arguments); }, reject);
   },
 
   actions: {
+    goToTopic(topic) {
+      const { id, modelType } = getProperties(topic, 'id', 'modelType');
+
+      this.transitionToRoute('posts.topic', modelType, id);
+    },
+
     crossedTheLine(above) {
       if (above) {
         let { page, model, query } = getProperties(this, 'page', 'model', 'query');

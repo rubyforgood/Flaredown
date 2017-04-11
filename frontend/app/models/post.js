@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import Topicable from 'flaredown/mixins/topicable';
+import BodyFormatable from 'flaredown/mixins/body-formatable';
 
 const {
   attr,
@@ -7,7 +8,7 @@ const {
   hasMany,
 } = DS;
 
-export default Model.extend(Topicable, {
+export default Model.extend(Topicable, BodyFormatable, {
   body: attr('string'),
   type: attr('string'),
   title: attr('string'),

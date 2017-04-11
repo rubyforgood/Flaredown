@@ -9,7 +9,16 @@
 </div>
 
 <div class="flaredown-white-box">
-  {{input type="text" value=query placeholder="Search..."}}
+  {{#power-select
+    class="fs-private"
+    search=(action "searchObjects")
+    options=randomTrackables
+    onchange=(action "goToTopic")
+    placeholder="Navigate to topic..."
+    renderInPlace=true
+  as |object| }}
+    {{object.name}}
+  {{/power-select}}
 </div>
 
 {{#each model.posts as |post|}}

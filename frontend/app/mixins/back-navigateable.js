@@ -1,13 +1,23 @@
 import Ember from 'ember';
 
 const {
+  get,
   Mixin,
+  inject: {
+    service,
+  },
 } = Ember;
 
 export default Mixin.create({
+  routeHistory: service(),
+
   actions: {
     navigateBack() {
-      window.history.back();
+      const previous = get(this, 'routeHistory').popEntry();
+
+      if (previous) {
+        this.transitionToRoute(...previous);
+      }
     },
   },
 });
