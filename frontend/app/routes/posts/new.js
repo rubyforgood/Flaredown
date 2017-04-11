@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import HistoryTrackable from 'flaredown/mixins/history-trackable';
 
 const {
   get,
   Route,
 } = Ember;
 
-export default Route.extend({
+export default Route.extend(HistoryTrackable, {
   model() {
     return get(this, 'store')
       .createRecord(
@@ -17,5 +18,9 @@ export default Route.extend({
           treatmentIds: [],
         }
       );
-  }
+  },
+
+  historyEntry() {
+    return null;
+  },
 });
