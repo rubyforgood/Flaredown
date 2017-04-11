@@ -94,23 +94,6 @@ input[type="submit"] {
   color: $indianred;
 }
 
-.power-select-dropdown-trackable {
-  font-size: initial;
-  line-height: normal;
-}
-.power-select-dropdown-trackable,
-.power-select-dropdown-name-desc {
-  .title {
-    color: $base-font-color;
-    font-size: 1.1em;
-  }
-  .subtitle {
-    color: $grey;
-    font-size: 0.8em;
-    font-style: italic;
-  }
-}
-
 // https://github.com/emberjs/ember.js/issues/13171#issuecomment-200521638
 [data-ember-action] {
   cursor: pointer;
