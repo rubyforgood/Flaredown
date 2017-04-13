@@ -124,6 +124,7 @@ input[type="submit"] {
 // TEMPORARY FIX
 .ca__chat-expand-button {
   display: none;
+}
 
 .mobile-back-button {
   @include media ($large-screen) {
