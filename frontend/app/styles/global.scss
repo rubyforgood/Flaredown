@@ -141,3 +141,9 @@ input[type="submit"] {
 [data-ember-action] {
   cursor: pointer;
 }
+
+.mobile-back-button {
+  @include media ($large-screen) {
+    display: none;
+  }
+}
