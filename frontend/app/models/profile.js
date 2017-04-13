@@ -18,6 +18,7 @@ export default DS.Model.extend({
   pressureUnits: DS.attr('string'),
   onboardingStepId: DS.attr('string'),
   temperatureUnits: DS.attr('string'),
+  betaTester: DS.attr('boolean'),
 
   // Associations
   country: DS.belongsTo('country'),
