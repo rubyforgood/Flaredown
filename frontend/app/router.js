@@ -27,6 +27,14 @@ Router.map(function() {
   this.route('privacy-policy');
 
   this.route('settings');
+
+  this.route('posts', function() {
+    this.route('new');
+    this.route('show', { path: '/:id' });
+    this.route('topic', { path: '/:type/:id' });
+    this.route('profile');
+    this.route('followings');
+  });
 });
 
 export default Router;

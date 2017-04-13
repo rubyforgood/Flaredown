@@ -16,13 +16,20 @@ class Ability
     can :read, Food
     can :create, Food
 
-    can :read, HarveyBradshawIndex, encrypted_user_id: SymmetricEncryption.encrypt(user.id)
+    can :read, HarveyBradshawIndex, encrypted_user_id: user.encrypted_id
 
     can :create, HarveyBradshawIndex do |hbi|
       checkin = hbi.checkin
 
-      checkin.encrypted_user_id == SymmetricEncryption.encrypt(user.id) && checkin.available_for_hbi?
+      checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_hbi?
     end
+
+    can :read, [Comment, Post]
+    can :create, [Comment, Post], encrypted_user_id: user.encrypted_id
+
+    can [:read, :update], TopicFollowing, encrypted_user_id: user.encrypted_id
+
+    can :read, Postable, encrypted_user_id: user.encrypted_id
 
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')

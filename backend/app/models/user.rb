@@ -59,7 +59,11 @@ class User < ActiveRecord::Base
   delegate :locale, to: :profile
 
   def checkins
-    Checkin.where(encrypted_user_id: SymmetricEncryption.encrypt(id))
+    Checkin.where(encrypted_user_id: encrypted_id)
+  end
+
+  def encrypted_id
+    @_encrypted_id ||= SymmetricEncryption.encrypt(id)
   end
 
   def last_checkin
@@ -80,6 +84,20 @@ class User < ActiveRecord::Base
 
   def external_id
     "#{id}-#{Digest::SHA1.hexdigest(authentication_token).strip}"
+  end
+
+  def topic_following
+    TopicFollowing.find_or_create_by(encrypted_user_id: encrypted_id) do |tf|
+      checkin = last_checkin
+
+      next if checkin.blank?
+
+      tf.symptom_ids = Checkin::Symptom.where(checkin_id: checkin.id).distinct(:symptom_id)
+      tf.condition_ids = Checkin::Condition.where(checkin_id: checkin.id).distinct(:condition_id)
+      tf.treatment_ids = Checkin::Treatment.where(checkin_id: checkin.id).distinct(:treatment_id)
+
+      tf.tag_ids = checkin.tag_ids || []
+    end
   end
 
   private

@@ -1,0 +1,27 @@
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack" class="mobile-back-button"}}>Back</a>
+</div>
+
+<header class="flaredown-transparent-box centered">
+  <h3>{{post.title}}</h3>
+</header>
+
+<div class="flaredown-white-box">
+  <p class="colorable-clr-38">{{post.userName}}</p>
+  <p>{{post.bodyWithBr}}</p>
+
+  {{posts/post-topics post=post}}
+
+  {{#each post.comments as |comment|}}
+    <hr>
+
+    <p class="colorable-clr-38">{{comment.userName}}</p>
+    <p>{{comment.bodyWithBr}}</p>
+  {{/each}}
+</div>
+
+<div class="flaredown-white-box">
+  {{textarea value=newComment.body placeholder="Leave a comment..."}}
+
+  <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
+</div>

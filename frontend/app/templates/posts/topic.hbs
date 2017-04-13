@@ -1,0 +1,25 @@
+<div class="flaredown-transparent-box">
+  <a {{action "navigateBack" class="mobile-back-button"}}>Back</a>
+</div>
+
+<header class="flaredown-transparent-box centered">
+  <h3>{{model.topic.name}}</h3>
+</header>
+
+<header class="centered vert-offset-bottom-1">
+  <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
+</header>
+
+<div class="flaredown-white-box">
+  {{input type="text" value=query placeholder="Search..."}}
+</div>
+
+{{#each model.posts as |post|}}
+  {{posts/topic-post post=post}}
+{{/each}}
+
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingTopics}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}

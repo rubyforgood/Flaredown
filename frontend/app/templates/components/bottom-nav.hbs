@@ -1,8 +1,16 @@
 {{#link-to 'settings' class='bottom-link'}}
-  {{inline-svg 'account' class='icon'}}
+  {{inline-svg 'account_2' class='icon'}}
 
   <label>SETTINGS</label>
 {{/link-to}}
+
+{{#if session.currentUser.profile.betaTester}}
+  {{#link-to 'posts' class='bottom-link'}}
+    {{inline-svg 'discuss' class='icon'}}
+
+    <label>DISCUSS</label>
+  {{/link-to}}
+{{/if}}
 
 {{!-- <div class="bottom-link">
   {{inline-svg 'explore' class='icon'}}
@@ -11,13 +19,13 @@
 </div> --}}
 
 {{#link-to 'chart' class='bottom-link'}}
-  {{inline-svg 'history' class='icon'}}
+  {{inline-svg 'history_2' class='icon'}}
 
   <label>HISTORY</label>
 {{/link-to}}
 
 <a href="/" {{action "goToTodaysCheckin"}} class="{{checkinNavClass}}">
-  {{inline-svg 'checkin' class='icon'}}
+  {{inline-svg 'checkin_2' class='icon'}}
 
   <label>CHECKIN</label>
 </a>

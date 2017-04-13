@@ -1,0 +1,7 @@
+<h5>
+  {{#link-to 'posts.show' comment.post class="colorable-clr-39"}}
+    Responded to <b>{{comment.post.title}}</b>
+  {{/link-to}}
+</h5>
+
+<p>{{#link-to 'posts.show' comment.post class="colorable-clr-39"}}{{comment.body}}{{/link-to}}</p>

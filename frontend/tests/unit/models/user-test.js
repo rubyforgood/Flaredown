@@ -2,7 +2,7 @@ import { moduleForModel, test } from 'ember-qunit';
 
 moduleForModel('user', 'Unit | Model | user', {
   // Specify the other units that are required for this test.
-  needs: ['model:profile']
+  needs: ['model:profile', 'model:topic-following']
 });
 
 test('it exists', function(assert) {

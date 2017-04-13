@@ -39,6 +39,11 @@ Rails.application.routes.draw do
       resources :conditions, only: [:index, :show, :create]
 
       #
+      # Comments
+      #
+      resources :comments, only: [:create, :show, :index]
+
+      #
       # Data Export Schedules
       #
       resources :data_export_schedules, only: :create
@@ -89,6 +94,16 @@ Rails.application.routes.draw do
       resources :passwords, only: [:show, :create, :update]
 
       #
+      # Postables
+      #
+      resources :postables, only: [:index]
+
+      #
+      # Posts
+      #
+      resources :posts, only: [:create, :show, :index]
+
+      #
       # Profiles
       #
       resources :profiles, only: [:show, :update]
@@ -127,6 +142,11 @@ Rails.application.routes.draw do
       # Tags
       #
       resources :tags, only: [:index, :show, :create]
+
+      #
+      #
+      #
+      resources :topic_followings, only: [:show, :update]
 
       #
       # Trackings

@@ -6,5 +6,6 @@ export default DS.Model.extend({
   createdAt: DS.attr('date'),
 
   //Associations
-  profile: DS.belongsTo('profile')
+  profile: DS.belongsTo('profile'),
+  topicFollowing: DS.belongsTo('topic-following'),
 });
