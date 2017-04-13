@@ -25,4 +25,8 @@
 
 .followed-topic {
   font-size: 1.25em;
+  line-height: 1.8em;
+  .x-to-remove {
+    float: right;
+  }
 }
