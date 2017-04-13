@@ -5,7 +5,9 @@
     <ul class="navigation-menu">
       <li class="nav-link"><a href="#" {{action "goToTodaysCheckin"}}>Checkin</a></li>
       <li class="nav-link">{{#link-to "chart"}}History{{/link-to}}</li>
-      <li class="nav-link">{{#link-to "posts"}}Discuss{{/link-to}}</li>
+      {{#if session.currentUser.profile.betaTester}}
+        <li class="nav-link">{{#link-to "posts"}}Discuss{{/link-to}}</li>
+      {{/if}}
       <li class="nav-link">{{#link-to "settings"}}Settings{{/link-to}}</li>
     </ul>
   </nav>
