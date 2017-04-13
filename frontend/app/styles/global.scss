@@ -39,7 +39,7 @@
 	}
   h3 {
     text-align: center;
-    margin-top: 2em;
+    margin-top: 1em;
   }
   .tip {
   	margin: 1em auto 2em auto;
@@ -50,12 +50,8 @@
   }
 }
 
-.grey {
-  color: grey;
-}
-
 .x-to-remove {
-  color: $primary;
+  color: $grey;
   margin-left: 5px;
   &:hover {
     color: $base-font-color;
@@ -120,27 +116,14 @@ input[type="submit"] {
   color: $indianred;
 }
 
-.power-select-dropdown-trackable {
-  font-size: initial;
-  line-height: normal;
-}
-.power-select-dropdown-trackable,
-.power-select-dropdown-name-desc {
-  .title {
-    color: $base-font-color;
-    font-size: 1.1em;
-  }
-  .subtitle {
-    color: $primary;
-    font-size: 0.8em;
-    font-style: italic;
-  }
-}
-
 // https://github.com/emberjs/ember.js/issues/13171#issuecomment-200521638
 [data-ember-action] {
   cursor: pointer;
 }
+
+// TEMPORARY FIX
+.ca__chat-expand-button {
+  display: none;
 
 .mobile-back-button {
   @include media ($large-screen) {
