@@ -1,5 +1,5 @@
 <div class="flaredown-transparent-box">
-  <a {{action "navigateBack"}}>Back</a>
+  <a {{action "navigateBack"}} class="mobile-back-button">Back</a>
 </div>
 
 <header class="centered">
@@ -8,7 +8,7 @@
 
 <div class="flaredown-white-box">
   <p>
-    Your discussion page will show you posts related to the topics you follow
+    Your discussion page will show you posts related to these topics.
   </p>
 
   {{#power-select
@@ -16,17 +16,16 @@
     search=(action "searchObjects")
     options=randomTrackables
     onchange=(action "addTopic")
-    placeholder="Add a condition"
+    placeholder="Find topics..."
     renderInPlace=true
   as |object| }}
     {{object.name}}
   {{/power-select}}
 
   {{#each model.topics as |topic|}}
-    <div>
-      <span {{action "removeTopic" topic}}>{{closeSymbol}}</span>
-
-      {{#link-to 'posts.topic' topic.modelType topic.id class="followed-topic"}}{{topic.name}} >{{/link-to}}
+    <div class="followed-topic">
+      {{#link-to 'posts.topic' topic.modelType topic.id}}{{topic.name}}  &rsaquo;{{/link-to}}
+      <span {{action "removeTopic" topic}} class="x-to-remove">{{closeSymbol}}</span>
     </div>
   {{/each}}
 </div>

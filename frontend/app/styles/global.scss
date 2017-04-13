@@ -32,7 +32,7 @@
 .flaredown-white-box {
 	@include outer-container;
 	@include single-col;
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 	h2 {
 	  text-align: center;
 	  margin: 1em 0;
@@ -140,4 +140,10 @@ input[type="submit"] {
 // https://github.com/emberjs/ember.js/issues/13171#issuecomment-200521638
 [data-ember-action] {
   cursor: pointer;
+}
+
+.mobile-back-button {
+  @include media ($large-screen) {
+    display: none;
+  }
 }
