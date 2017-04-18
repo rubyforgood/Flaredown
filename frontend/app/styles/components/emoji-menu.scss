@@ -19,8 +19,10 @@
 }
 
 .emoji-menu-tabs {
+  display: flex;
+  justify-content: space-around;
+
   .emoji-menu-tab {
-    display: inline-block;
     width: 24px;
     height: 29px;
     background: url('/assets/emoji/IconsetSmiles.png') no-repeat;
@@ -58,4 +60,17 @@
   .icon-flower:hover {
     opacity: 1;
   }
+}
+
+.emoji-items-wrap {
+  max-height: 30vh;
+  min-height: 30vh;
+  overflow: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.emoji-item {
+  padding: 3px;
 }

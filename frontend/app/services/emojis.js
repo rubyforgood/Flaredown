@@ -910,7 +910,7 @@ export default Service.extend({
 
   inlineIconStyle(row, sheet, column, iconSize, spriteSheetDimentions) {
     return htmlSafe(
-      "display:inline-block;width:" + iconSize + "px;height:" + iconSize + "px;" +
+      "width:" + iconSize + "px;height:" + iconSize + "px;" +
       "background:url('/assets/emoji/emoji_spritesheet_" + sheet + ".png') -" +
       column * iconSize + "px -" + row * iconSize + "px no-repeat;background-size:" +
       spriteSheetDimentions[sheet][1] * iconSize + "px " +
