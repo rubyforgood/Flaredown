@@ -1,0 +1,27 @@
+{{#if visible}}
+  <div class="emoji-menu" {{action "toggleMenu"}}>
+    <div class="emoji-menu-content flaredown-white-box" {{action "noAction" bubbles=false}}>
+      <div class="emoji-menu-tabs">
+        <a {{action "selectGroup" "smile"}} class="emoji-menu-tab {{smileClass}}"></a>
+        <a {{action "selectGroup" "flower"}} class="emoji-menu-tab {{flowerClass}}"></a>
+        <a {{action "selectGroup" "bell"}} class="emoji-menu-tab {{bellClass}}"></a>
+        <a {{action "selectGroup" "car"}} class="emoji-menu-tab {{carClass}}"></a>
+        <a {{action "selectGroup" "grid"}} class="emoji-menu-tab {{gridClass}}"></a>
+      </div>
+
+      <hr class="devider">
+
+      <div class="emoji-items-wrap mobile_scrollable_wrap">
+        <div class="emoji-items">
+          {{#each-in selectedGroup as |title style| }}
+            <a title={{title}}>
+              <div style={{style}} {{action "selectIcon" title}}></div>
+            </a>
+          {{/each-in}}
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+<a {{action "toggleMenu"}}>{{yield}}</a>
