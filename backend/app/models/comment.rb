@@ -1,6 +1,7 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Reactable
   include Usernameable
 
   store_in collection: 'postables'

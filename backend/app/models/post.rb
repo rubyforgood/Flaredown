@@ -1,5 +1,6 @@
 class Post
   include Topicable
+  include Reactable
   include Usernameable
 
   attr_accessor :postable_id
