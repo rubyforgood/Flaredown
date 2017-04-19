@@ -18,11 +18,18 @@ export default Component.extend({
 
       const { post, store } = getProperties(this, 'post', 'store');
 
-      store.createRecord('reaction', {
-        id: emojiTitle,
-        reactable_id: get(post, 'id'),
-        reactable_type: get(post, 'modelType'),
-      }).save();
+      store
+        .createRecord('reaction', {
+          id: emojiTitle,
+          reactable_id: get(post, 'id'),
+          reactable_type: get(post, 'modelType'),
+        })
+        .save()
+        .then(reaction => {
+          if (!existentReaction) {
+            reactions.pushObject(reaction);
+          }
+        });
     },
   },
 });
