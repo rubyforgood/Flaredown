@@ -114,6 +114,11 @@ Rails.application.routes.draw do
       resource :pusher, only: [:create]
 
       #
+      # Reactions
+      #
+      resources :reactions, only: [:create, :destroy]
+
+      #
       # Registrations
       #
       resources :registrations, only: [:create]

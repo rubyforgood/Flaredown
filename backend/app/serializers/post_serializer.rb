@@ -1,5 +1,6 @@
 class PostSerializer < ApplicationSerializer
   include TopicSerializable
+  include ReactionRelatable
 
   attributes :id, :body, :title, :type, :user_name, :comments_count, :postable_id
 

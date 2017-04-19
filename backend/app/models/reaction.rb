@@ -1,6 +1,24 @@
 class Reaction
   include Mongoid::Document
 
+  ID = '_id'.freeze
+  VALUE = 'value'.freeze
+  TOTAL = 'total'.freeze
+  USER_ID = 'encrypted_user_id'.freeze
+  PARTICIPATED = 'participated'.freeze
+
+  MAP_COUNT = <<-JS.strip_heredoc.freeze
+    function() {
+      emit(
+        this.value,
+        {
+          total: 1,
+          encrypted_user_id: this.encrypted_user_id
+        }
+      );
+    }
+  JS
+
   field :value,             type: String
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
@@ -8,40 +26,57 @@ class Reaction
 
   belongs_to :reactable, polymorphic: true
 
-  def self.values_count_with_participated(encrypted_user_id)
-    map_count = <<-JS.strip_heredoc
-      function() {
-        emit(
-          this.value,
-          {
-            total: 1,
-            encrypted_user_id: this.encrypted_user_id
-          }
-        );
-      }
-    JS
+  class << self
+    def similar_to(reaction)
+      where(
+        value: reaction.value,
+        reactable_id: reaction.reactable_id,
+        reactable_type: reaction.reactable_type
+      )
+    end
 
-    reduce_count = <<-JS.strip_heredoc
-      function(key, valuesGroup){
-        var r = {
-          total: 0,
-          participated: false,
-        };
+    def values_count_with_participated(encrypted_user_id)
+      normalized_reactions(
+        encrypted_user_id,
+        map_reduce(MAP_COUNT, reduce_count(encrypted_user_id)).out(inline: true).to_a
+      )
+    end
 
-        for (var idx  = 0; idx < valuesGroup.length; idx++) {
-          var value = valuesGroup[idx];
+    private
 
-          r.total += valuesGroup[idx].total;
+    def normalized_reactions(encrypted_user_id, raw_reactions)
+      raw_reactions.map do |reaction|
+        participated = reaction[VALUE][PARTICIPATED]
 
-          if (!r.participated && value.encrypted_user_id === "#{encrypted_user_id}") {
-            r.participated = true;
-          }
+        {
+          id: reaction[ID],
+          count: reaction[VALUE][TOTAL].to_i,
+          participated: participated.nil? ? reaction[VALUE][USER_ID] == encrypted_user_id : participated
         }
+      end
+    end
 
-        return r;
-      }
-    JS
+    def reduce_count(encrypted_user_id)
+      <<-JS.strip_heredoc.freeze
+        function(key, valuesGroup){
+          var r = {
+            total: 0,
+            participated: false,
+          };
 
-    map_reduce(map_count, reduce_count).out(inline: true).to_a
+          for (var idx  = 0; idx < valuesGroup.length; idx++) {
+            var value = valuesGroup[idx];
+
+            r.total += valuesGroup[idx].total;
+
+            if (!r.participated && value.encrypted_user_id === "#{encrypted_user_id}") {
+              r.participated = true;
+            }
+          }
+
+          return r;
+        }
+      JS
+    end
   end
 end

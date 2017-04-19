@@ -1,14 +1,15 @@
 import DS from 'ember-data';
+import Typeable from 'flaredown/mixins/typeable';
+import Reactable from 'flaredown/models/reactable';
 import Topicable from 'flaredown/mixins/topicable';
 import BodyFormatable from 'flaredown/mixins/body-formatable';
 
 const {
   attr,
-  Model,
   hasMany,
 } = DS;
 
-export default Model.extend(Topicable, BodyFormatable, {
+export default Reactable.extend(Typeable, Topicable, BodyFormatable, {
   body: attr('string'),
   type: attr('string'),
   title: attr('string'),

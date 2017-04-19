@@ -10,7 +10,7 @@
   <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.bodyWithBr}}</p>
 
-  {{#emoji-menu}}Add reaction{{/emoji-menu}}
+  {{emoji-reactions post=post}}
 
   {{posts/post-topics post=post}}
 

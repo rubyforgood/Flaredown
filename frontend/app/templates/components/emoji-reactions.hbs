@@ -1,0 +1,5 @@
+{{#each post.reactions as |reaction|}}
+  {{emoji-reaction reaction=reaction}}
+{{/each}}
+
+{{#emoji-menu onSelect=(action "onEmojiSelect")}}Add reaction{{/emoji-menu}}
