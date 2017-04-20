@@ -22,7 +22,12 @@ export default Component.extend({
   }),
 
   click() {
-    let { store, reaction } = getProperties(this, 'store', 'reaction');
+    let { store, canReact, reaction } = getProperties(this, 'store', 'canReact', 'reaction');
+
+    if (!canReact) {
+      return;
+    }
+
     let {
       participated,
       reactable_id,

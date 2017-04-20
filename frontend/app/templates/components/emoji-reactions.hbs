@@ -1,5 +1,7 @@
 {{#each reactable.reactions as |reaction|}}
-  {{emoji-reaction reaction=reaction onParticipate=(action "onEmojiSelect")}}
+  {{emoji-reaction reaction=reaction onParticipate=(action "onEmojiSelect") canReact=canReact}}
 {{/each}}
 
-{{#emoji-menu onSelect=(action "onEmojiSelect")}}Add reaction{{/emoji-menu}}
+{{#if canReact}}
+  {{#emoji-menu onSelect=(action "onEmojiSelect")}}Add reaction{{/emoji-menu}}
+{{/if}}

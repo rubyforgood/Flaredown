@@ -7,6 +7,7 @@ const {
 } = Ember;
 
 export default Component.extend({
+  canReact: false,
   classNames: ['emoji-reactions'],
 
   actions: {
