@@ -11,19 +11,19 @@ export default Component.extend({
 
   actions: {
     onEmojiSelect(emojiTitle) {
-      let reactions = get(this, 'post.reactions');
+      let reactions = get(this, 'reactable.reactions');
       const existentReaction = reactions.findBy('id', emojiTitle);
 
       if (existentReaction && get(existentReaction, 'participated')) {
         return;
       }
 
-      const { post, store } = getProperties(this, 'post', 'store');
+      const { reactable, store } = getProperties(this, 'reactable', 'store');
 
       let record = existentReaction || store.createRecord('reaction', {
         id: emojiTitle,
-        reactable_id: get(post, 'id'),
-        reactable_type: get(post, 'modelType'),
+        reactable_id: get(reactable, 'id'),
+        reactable_type: get(reactable, 'modelType'),
       });
 
       record
