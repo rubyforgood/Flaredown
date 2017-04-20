@@ -7,6 +7,18 @@ class Api::V1::ReactionsController < ApplicationController
     react(__method__)
   end
 
+  def destroy
+    reaction = Reaction.where(reaction_params).first
+
+    authorize! :destroy, reaction
+
+    if reaction.destroy
+      head :no_content
+    else
+      render json: { errors: reaction.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def react(method_name)

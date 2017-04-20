@@ -4,6 +4,7 @@ const {
   get,
   computed,
   Component,
+  getProperties,
   computed: {
     alias,
   },
@@ -20,9 +21,20 @@ export default Component.extend({
     return get(this, `emojis.styledMap.${get(this, 'reaction.id')}`);
   }),
 
-  actions: {
-    toggleReaction() {
-      console.log('toggleReaction'); //DEBUG
-    },
+  click() {
+    let { store, reaction } = getProperties(this, 'store', 'reaction');
+    let {
+      participated,
+      reactable_id,
+      reactable_type,
+    } = getProperties(reaction, 'participated', 'reactable_id', 'reactable_type');
+
+    if (participated) {
+      reaction
+        .destroyRecord()
+        .then(() => store.findRecord(reactable_type.toLowerCase(), reactable_id));
+    } else {
+
+    }
   },
 });
