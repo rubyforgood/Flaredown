@@ -1,33 +1,44 @@
 class Api::V1::ReactionsController < ApplicationController
   def create
-    reaction = Reaction.find_or_initialize_by(create_params)
+    react(__method__)
+  end
 
-    authorize! :create, reaction
+  def update
+    react(__method__)
+  end
+
+  private
+
+  def react(method_name)
+    reaction = Reaction.find_or_initialize_by(reaction_params)
+
+    authorize! method_name, reaction
 
     if reaction.save
-      render(
-        json: ReactionSerializer.new(
-          Reaction.similar_to(reaction).values_count_with_participated(current_user.encrypted_id),
-          reaction.reactable_id.to_s,
-          reaction.reactable_type
-        ).serialize_one,
-        status: :created
-      )
+      render json: serialized_reaction(reaction), status: :created
     else
       render json: { errors: reaction.errors }, status: :unprocessable_entity
     end
   end
 
-  private
-
-  def create_params
+  def reaction_params
     reaction_params = params.require(:reaction)
 
     {
-      value: reaction_params[:id],
+      value: reaction_params[:id] || params[:id],
       reactable_id: reaction_params[:reactable_id],
       reactable_type: reaction_params[:reactable_type].titleize,
       encrypted_user_id: current_user.encrypted_id
     }
+  end
+
+  def serialized_reaction(reaction)
+    ReactionSerializer
+      .new(
+        Reaction.similar_to(reaction).values_count_with_participated(current_user.encrypted_id),
+        reaction.reactable_id.to_s,
+        reaction.reactable_type
+      )
+      .serialize_one
   end
 end

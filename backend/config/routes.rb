@@ -116,7 +116,7 @@ Rails.application.routes.draw do
       #
       # Reactions
       #
-      resources :reactions, only: [:create, :destroy]
+      resources :reactions, only: [:create, :update, :destroy]
 
       #
       # Registrations

@@ -32,7 +32,7 @@ class Ability
     can :read, Postable, encrypted_user_id: user.encrypted_id
 
     can :read, Reaction
-    can [:create, :destroy], Reaction, encrypted_user_id: user.encrypted_id
+    can [:create, :update, :destroy], Reaction, encrypted_user_id: user.encrypted_id
 
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')
