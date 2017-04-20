@@ -10,6 +10,7 @@ const {
 } = Ember;
 
 export default Component.extend({
+  tagName: 'a',
   classNames: ['emoji-reaction'],
   classNameBindings: ['isParticipated'],
 

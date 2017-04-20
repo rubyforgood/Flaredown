@@ -1,0 +1,25 @@
+.emoji-reactions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.emoji-reaction {
+  display: flex;
+  align-items: center;
+
+  border: 1px solid;
+  border-radius: 5px;
+
+  padding: 3px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+
+  > * {
+    margin-right: 3px;
+  }
+
+  &.is-participated {
+    background-color: lighten($primary, 30%);
+  }
+}

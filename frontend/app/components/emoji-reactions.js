@@ -7,6 +7,8 @@ const {
 } = Ember;
 
 export default Component.extend({
+  classNames: ['emoji-reactions'],
+
   actions: {
     onEmojiSelect(emojiTitle) {
       let reactions = get(this, 'post.reactions');
