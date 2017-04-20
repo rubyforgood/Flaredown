@@ -34,7 +34,7 @@ export default Component.extend({
         .destroyRecord()
         .then(() => store.findRecord(reactable_type.toLowerCase(), reactable_id));
     } else {
-
+      this.onParticipate(get(reaction, 'id'));
     }
   },
 });
