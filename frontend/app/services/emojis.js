@@ -876,17 +876,26 @@ export default Service.extend({
     [7, 34],
   ],
 
+  spriteSheetPaths: [
+    "url('/assets/emoji/emoji_spritesheet_0.png')",
+    "url('/assets/emoji/emoji_spritesheet_1.png')",
+    "url('/assets/emoji/emoji_spritesheet_2.png')",
+    "url('/assets/emoji/emoji_spritesheet_3.png')",
+    "url('/assets/emoji/emoji_spritesheet_4.png')",
+  ],
+
   styledMap: computed('emojiSet', 'iconSize', 'spriteSheetDimentions', function() {
     const {
       emojiSet,
       iconSize,
+      spriteSheetPaths,
       spriteSheetDimentions,
-    } = getProperties(this, 'emojiSet', 'iconSize', 'spriteSheetDimentions');
+    } = getProperties(this, 'emojiSet', 'iconSize', 'spriteSheetPaths', 'spriteSheetDimentions');
 
     let result = {};
 
     emojiSet.forEach(([sheet, row, column, name]) => {
-      result[name] = this.inlineIconStyle(row, sheet, column, iconSize, spriteSheetDimentions);
+      result[name] = this.inlineIconStyle(row, sheet, column, iconSize, spriteSheetPaths, spriteSheetDimentions);
     });
 
     return result;
@@ -908,10 +917,10 @@ export default Service.extend({
     return result;
   }),
 
-  inlineIconStyle(row, sheet, column, iconSize, spriteSheetDimentions) {
+  inlineIconStyle(row, sheet, column, iconSize, spriteSheetPaths, spriteSheetDimentions) {
     return htmlSafe(
       "width:" + iconSize + "px;height:" + iconSize + "px;" +
-      "background:url('/assets/emoji/emoji_spritesheet_" + sheet + ".png') -" +
+      "background:" + spriteSheetPaths[sheet] + " -" +
       column * iconSize + "px -" + row * iconSize + "px no-repeat;background-size:" +
       spriteSheetDimentions[sheet][1] * iconSize + "px " +
       spriteSheetDimentions[sheet][0] * iconSize + "px;"
