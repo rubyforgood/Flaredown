@@ -7,7 +7,8 @@ class Api::V1::PostablesController < ApplicationController
         .where(encrypted_user_id: current_user.encrypted_id)
         .order_by(created_at: :desc)
         .page(params[:page])
-        .per(20)
+        .per(20),
+      current_user
     )
   end
 end

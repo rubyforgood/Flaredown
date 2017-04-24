@@ -1,10 +1,11 @@
 class PostableSerializer
   FAKE_ID = 'fake'.freeze
 
-  attr_reader :postables, :tag_ids, :symptom_ids, :condition_ids, :treatment_ids, :postable_post_ids
+  attr_reader :postables, :tag_ids, :symptom_ids, :condition_ids, :treatment_ids, :postable_post_ids, :current_user
 
-  def initialize(postables)
+  def initialize(postables, current_user)
     @postables = postables
+    @current_user = current_user
   end
 
   def as_json(_opts = {})
@@ -24,8 +25,8 @@ class PostableSerializer
         comment_ids: comments.map { |o| o.id.to_s }
       }],
       tags: ActiveModel::ArraySerializer.new(Tag.where(id: tag_ids), {}),
-      posts: ActiveModel::ArraySerializer.new(posts, {}),
-      comments: ActiveModel::ArraySerializer.new(comments, {}),
+      posts: ActiveModel::ArraySerializer.new(posts, scope: current_user),
+      comments: ActiveModel::ArraySerializer.new(comments, scope: current_user),
       conditions: ActiveModel::ArraySerializer.new(Condition.where(id: condition_ids), {}),
       symptoms: ActiveModel::ArraySerializer.new(Symptom.where(id: symptom_ids), {}),
       treatments: ActiveModel::ArraySerializer.new(Treatment.where(id: treatment_ids), {})
