@@ -10,6 +10,8 @@
   <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.bodyWithBr}}</p>
 
+  {{emoji-reactions reactable=post}}
+
   {{posts/post-topics post=post}}
 
   {{#each post.comments as |comment|}}
@@ -17,6 +19,8 @@
 
     <p class="colorable-clr-38">{{comment.userName}}</p>
     <p>{{comment.bodyWithBr}}</p>
+
+    {{emoji-reactions reactable=comment}}
   {{/each}}
 </div>
 

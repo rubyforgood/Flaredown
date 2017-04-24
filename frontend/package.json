@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
+    "start": "ember server --port 4300 --proxy http://localhost:3000",
     "test": "ember test"
   },
   "repository": "",

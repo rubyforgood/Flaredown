@@ -1,4 +1,6 @@
 class CommentSerializer < ApplicationSerializer
+  include ReactionRelatable
+
   attributes :post_id, :body, :user_name, :postable_id, :type
 
   def type

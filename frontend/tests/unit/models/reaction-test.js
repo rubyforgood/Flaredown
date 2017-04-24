@@ -1,8 +1,8 @@
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('post', 'Unit | Model | post', {
+moduleForModel('reaction', 'Unit | Model | reaction', {
   // Specify the other units that are required for this test.
-  needs: ['model:tag', 'model:symptom', 'model:comment', 'model:condition', 'model:treatment', 'model:reaction']
+  needs: []
 });
 
 test('it exists', function(assert) {

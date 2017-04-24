@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
@@ -31,6 +31,9 @@ class Ability
 
     can :read, Postable, encrypted_user_id: user.encrypted_id
 
+    can :read, Reaction
+    can [:create, :update, :destroy], Reaction, encrypted_user_id: user.encrypted_id
+
     can :read, Symptom, global: true
     can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false
@@ -47,7 +50,7 @@ class Ability
 
     can :read, Weather if user.persisted?
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
