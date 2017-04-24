@@ -7,10 +7,13 @@ const {
   Component,
   setProperties,
   Logger: { debug },
+  inject: { service },
 } = Ember;
 
 export default Component.extend({
   visible: false,
+
+  emojis: service(),
 
   selectedGroup: computed('selected', function() {
     return get(this, `emojis.groupedStyledMap.${get(this, 'selected')}`);

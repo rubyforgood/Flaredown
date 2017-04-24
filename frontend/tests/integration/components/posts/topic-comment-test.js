@@ -12,7 +12,9 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{posts/topic-comment}}`);
 
-  assert.equal(this.$().text().trim(), 'Responded to');
+  const templateText = 'Responded to \n\n\n\n\n\n\nAdd reaction';
+
+  assert.equal(this.$().text().trim(), templateText);
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +23,5 @@ test('it renders', function(assert) {
     {{/posts/topic-comment}}
   `);
 
-  assert.equal(this.$().text().trim(), 'Responded to');
+  assert.equal(this.$().text().trim(), templateText);
 });

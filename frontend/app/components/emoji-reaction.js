@@ -5,6 +5,7 @@ const {
   computed,
   Component,
   getProperties,
+  inject: { service },
   computed: {
     alias,
   },
@@ -15,18 +16,16 @@ export default Component.extend({
   classNames: ['emoji-reaction'],
   classNameBindings: ['isParticipated'],
 
+  emojis: service(),
+
   isParticipated: alias('reaction.participated'),
 
-  style: computed('reaction.id', function() {
-    return get(this, `emojis.styledMap.${get(this, 'reaction.id')}`);
+  style: computed('reaction.value', function() {
+    return get(this, `emojis.styledMap.${get(this, 'reaction.value')}`);
   }),
 
   click() {
-    let { store, canReact, reaction } = getProperties(this, 'store', 'canReact', 'reaction');
-
-    if (!canReact) {
-      return;
-    }
+    let { store, reaction } = getProperties(this, 'store', 'reaction');
 
     let {
       participated,
@@ -39,7 +38,7 @@ export default Component.extend({
         .destroyRecord()
         .then(() => store.findRecord(reactable_type.toLowerCase(), reactable_id));
     } else {
-      this.onParticipate(get(reaction, 'id'));
+      this.onParticipate(get(reaction, 'value'));
     }
   },
 });

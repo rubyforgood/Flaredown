@@ -7,13 +7,12 @@ const {
 } = Ember;
 
 export default Component.extend({
-  canReact: false,
   classNames: ['emoji-reactions'],
 
   actions: {
     onEmojiSelect(emojiTitle) {
       let reactions = get(this, 'reactable.reactions');
-      const existentReaction = reactions.findBy('id', emojiTitle);
+      const existentReaction = reactions.findBy('value', emojiTitle);
 
       if (existentReaction && get(existentReaction, 'participated')) {
         return;
@@ -22,7 +21,7 @@ export default Component.extend({
       const { reactable, store } = getProperties(this, 'reactable', 'store');
 
       let record = existentReaction || store.createRecord('reaction', {
-        id: emojiTitle,
+        value: emojiTitle,
         reactable_id: get(reactable, 'id'),
         reactable_type: get(reactable, 'modelType'),
       });

@@ -27,6 +27,8 @@ class Api::V1::ReactionsController < ApplicationController
     authorize! method_name, reaction
 
     if reaction.save
+      reaction.id = params[:id] if params[:id].present?
+
       render json: serialized_reaction(reaction), status: :created
     else
       render json: { errors: reaction.errors }, status: :unprocessable_entity
@@ -34,12 +36,12 @@ class Api::V1::ReactionsController < ApplicationController
   end
 
   def reaction_params
-    reaction_params = params.require(:reaction)
+    reaction = params.require(:reaction)
 
     {
-      value: reaction_params[:id] || params[:id],
-      reactable_id: reaction_params[:reactable_id],
-      reactable_type: reaction_params[:reactable_type].titleize,
+      value: reaction[:value],
+      reactable_id: reaction[:reactable_id],
+      reactable_type: reaction[:reactable_type].titleize,
       encrypted_user_id: current_user.encrypted_id
     }
   end

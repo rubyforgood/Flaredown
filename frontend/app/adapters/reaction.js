@@ -10,7 +10,7 @@ const {
 
 export default ApplicationAdapter.extend({
   urlForDeleteRecord(id, modelName, snapshot) {
-    const params = param({ reaction: getProperties(snapshot.serialize(), 'reactable_id', 'reactable_type') });
+    const params = param({ reaction: getProperties(snapshot.serialize(), 'value', 'reactable_id', 'reactable_type') });
 
     return `${this._buildURL(modelName, id)}?${params}`;
   },

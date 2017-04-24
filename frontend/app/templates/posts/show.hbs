@@ -10,7 +10,7 @@
   <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.bodyWithBr}}</p>
 
-  {{emoji-reactions reactable=post canReact=true}}
+  {{emoji-reactions reactable=post}}
 
   {{posts/post-topics post=post}}
 
@@ -20,7 +20,7 @@
     <p class="colorable-clr-38">{{comment.userName}}</p>
     <p>{{comment.bodyWithBr}}</p>
 
-    {{emoji-reactions reactable=comment canReact=true}}
+    {{emoji-reactions reactable=comment}}
   {{/each}}
 </div>
 

@@ -12,6 +12,7 @@ class Reaction
       emit(
         this.value,
         {
+          _id: this._id.str,
           total: 1,
           encrypted_user_id: this.encrypted_user_id
         }
@@ -49,9 +50,10 @@ class Reaction
         participated = reaction[VALUE][PARTICIPATED]
 
         {
-          id: reaction[ID],
-          count: reaction[VALUE][TOTAL].to_i,
-          participated: participated.nil? ? reaction[VALUE][USER_ID] == encrypted_user_id : participated
+          id: reaction.dig(VALUE, ID),
+          value: reaction[ID],
+          count: reaction.dig(VALUE, TOTAL).to_i,
+          participated: participated.nil? ? reaction.dig(VALUE, USER_ID) == encrypted_user_id : participated
         }
       end
     end
@@ -68,6 +70,10 @@ class Reaction
             var value = valuesGroup[idx];
 
             r.total += valuesGroup[idx].total;
+
+            if (!r._id) {
+              r._id = value._id;
+            }
 
             if (!r.participated && value.encrypted_user_id === "#{encrypted_user_id}") {
               r.participated = true;
