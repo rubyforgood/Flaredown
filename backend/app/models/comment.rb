@@ -1,7 +1,6 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Reactable
   include Usernameable
 
   store_in collection: 'postables'
@@ -13,4 +12,7 @@ class Comment
   validates :body, :post, :encrypted_user_id, presence: true
 
   belongs_to :post, index: true, counter_cache: true
+
+  has_many :reactions,      as: :reactable,       dependent: :destroy
+  has_many :notifications,  as: :notificateable,  dependent: :destroy
 end

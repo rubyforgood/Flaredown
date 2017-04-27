@@ -47,7 +47,7 @@ class Reaction
 
     def normalized_reactions(encrypted_user_id, raw_reactions)
       raw_reactions.map do |reaction|
-        participated = reaction[VALUE][PARTICIPATED]
+        participated = reaction.dig(VALUE, PARTICIPATED)
 
         {
           id: reaction.dig(VALUE, ID),

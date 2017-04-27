@@ -27,6 +27,13 @@ class Api::V1::ReactionsController < ApplicationController
     authorize! method_name, reaction
 
     if reaction.save
+      Notification.create(
+        kind: :reaction,
+        notificateable: reaction.reactable,
+        encrypted_user_id: reaction.encrypted_user_id,
+        encrypted_notify_user_id: reaction.reactable.encrypted_user_id
+      ) unless reaction.encrypted_user_id == reaction.reactable.encrypted_user_id
+
       reaction.id = params[:id] if params[:id].present?
 
       render json: serialized_reaction(reaction), status: :created
