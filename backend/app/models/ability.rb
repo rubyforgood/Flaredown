@@ -27,6 +27,7 @@ class Ability
     can :read, [Comment, Post]
     can :create, [Comment, Post], encrypted_user_id: user.encrypted_id
 
+    can :read, Notification
     can :destroy, Notification, encrypted_notify_user_id: user.encrypted_id
 
     can :read, Postable, encrypted_user_id: user.encrypted_id

@@ -15,12 +15,18 @@ export default Component.extend(InViewportMixin, {
   classNames: ['flaredown-white-box'],
 
   ajax: service(),
+  notifications: service(),
 
   didEnterViewport() {
     const { ajax, post } = getProperties(this, 'ajax', 'post');
 
     if (get(post, 'notifications.reaction')) {
-      ajax.del(`notifications/post/${get(post, 'id')}`).then(() => set(post, 'notifications', {}));
+      const id = get(post, 'id');
+
+      ajax
+        .del(`notifications/post/${id}`)
+        .then(() => set(post, 'notifications', {}))
+        .then(() => get(this, 'notifications').unloadNotification({ notificateableId: id }));
     }
   },
 });

@@ -43,6 +43,19 @@ class Notification
   index notificateable_id: 1, notificateable_type: 1
 
   class << self
+    def aggregated_by_kind_and_subject
+      group = {}
+
+      each do |n|
+        key = [n.kind, n.notificateable_id.to_s, n.notificateable_type.downcase]
+
+        group[key] ||= []
+        group[key] << n
+      end
+
+      normalized_notifications(group)
+    end
+
     def count_by_types
       reduce_count.map { |n| [n[ID], n.dig(VALUE, TOTAL).to_i] }.to_h
     end
@@ -51,6 +64,19 @@ class Notification
 
     def reduce_count
       map_reduce(MAP_COUNT, REDUCE_COUNT).out(inline: true).to_a
+    end
+
+    def normalized_notifications(group)
+      group.map do |group, notifications|
+        {
+          id: [notifications.map(&:created_at).max.to_i].concat(group).join('_'),
+          kind: group.first,
+          count: notifications.count,
+          notificateable_id: group[1],
+          notificateable_type: group.last,
+          notificateable_parent_id: group.first === 'comment' ? notifications.first.notificateable.post_id.to_s : 0
+        }
+      end
     end
   end
 end
