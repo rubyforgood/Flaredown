@@ -27,7 +27,7 @@ class Ability
     can :read, [Comment, Post]
     can :create, [Comment, Post], encrypted_user_id: user.encrypted_id
 
-    can [:read, :update], TopicFollowing, encrypted_user_id: user.encrypted_id
+    can :destroy, Notification, encrypted_notify_user_id: user.encrypted_id
 
     can :read, Postable, encrypted_user_id: user.encrypted_id
 
@@ -38,6 +38,8 @@ class Ability
     can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false
     can :manage, Symptom, id: user.symptom_ids
+
+    can [:read, :update], TopicFollowing, encrypted_user_id: user.encrypted_id
 
     can :read, Treatment, global: true
     can :read, Treatment, id: popular_trackable_ids('Treatment')

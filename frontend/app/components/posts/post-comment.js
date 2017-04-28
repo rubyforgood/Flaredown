@@ -3,24 +3,36 @@ import InViewportMixin from 'ember-in-viewport';
 
 const {
   set,
+  observer,
   Component,
   getProperties,
+  run: {
+    schedule,
+  },
   inject: {
     service,
   },
 } = Ember;
 
 export default Component.extend(InViewportMixin, {
-  classNames: ['flaredown-white-box'],
+  visited: false,
 
   ajax: service(),
 
   didEnterViewport() {
-    const { ajax, comment } = getProperties(this, 'ajax', 'comment');
+    schedule('afterRender', this, this.setVisited);
+  },
+
+  setVisited() {
+    set(this, 'visited', true);
+  },
+
+  destroyNotifications: observer('visited', 'comment.body', function() {
+    const { ajax, comment, visited } = getProperties(this, 'ajax', 'comment', 'visited');
     const { id, hasNotifications } = getProperties(comment, 'id', 'hasNotifications');
 
-    if (hasNotifications) {
+    if (visited && hasNotifications) {
       ajax.del(`notifications/comment/${id}`).then(() => set(comment, 'notifications', {}));
     }
-  },
+  }),
 });
