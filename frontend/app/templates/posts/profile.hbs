@@ -6,6 +6,10 @@
   <h3>{{screenName}}'s posts</h3>
 </header>
 
+{{#each notifications.notifications as |notification|}}
+  {{posts/activity-notification notification=notification}}
+{{/each}}
+
 {{#each postables as |postable|}}
   {{#if (eq postable.type "post")}}
     {{posts/topic-post post=postable}}

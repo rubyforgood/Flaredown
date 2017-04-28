@@ -68,13 +68,17 @@ class Notification
 
     def normalized_notifications(group)
       group.map do |group_keys, notifications|
+        notificateable = notifications.first.notificateable
+        is_comment = notificateable._type == 'Comment'
+
         {
           id: [notifications.map(&:created_at).max.to_i].concat(group_keys).join('_'),
           kind: group_keys.first,
           count: notifications.count,
+          post_id: is_comment ? notificateable.post_id.to_s : group_keys[1],
+          post_title: (is_comment ? notificateable.post : notificateable).title,
           notificateable_id: group_keys[1],
-          notificateable_type: group_keys.last,
-          notificateable_parent_id: group_keys.first == 'comment' ? notifications.first.notificateable.post_id.to_s : 0
+          notificateable_type: group_keys.last
         }
       end
     end

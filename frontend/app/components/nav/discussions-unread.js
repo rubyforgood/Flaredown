@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
 const {
-  get,
-  computed,
   Component,
-  getProperties,
   inject: {
     service,
+  },
+  computed: {
+    alias,
   },
 } = Ember;
 
@@ -15,18 +15,5 @@ export default Component.extend({
 
   notifications: service(),
 
-  postId: computed('notifications.first', function() {
-    const {
-      notificateableId,
-      notificateableType,
-      notificateableParentId,
-    } = getProperties(
-      get(this, 'notifications.first') || {},
-      'notificateableId',
-      'notificateableType',
-      'notificateableParentId'
-    );
-
-    return notificateableType === 'comment' ? notificateableParentId : notificateableId;
-  }),
+  postId: alias('notifications.first.postId'),
 });

@@ -31,9 +31,9 @@ export default Service.extend({
   unloadNotification(options) {
     const {
       kind,
+      postId,
       notificateableId,
       notificateableType,
-      notificateableParentId,
     } = options;
 
     get(this, 'notifications')
@@ -43,13 +43,13 @@ export default Service.extend({
           'kind',
           'notificateableId',
           'notificateableType',
-          'notificateableParentId'
+          'postId'
         );
 
         return (!kind || n.kind === kind) &&
+          (!postId || n.postId === postId) &&
           (!notificateableId || n.notificateableId === notificateableId) &&
-          (!notificateableType || n.notificateableType === notificateableType) &&
-          (!notificateableParentId || n.notificateableParentId === notificateableParentId);
+          (!notificateableType || n.notificateableType === notificateableType);
       })
       .forEach(n => n.unloadRecord());
   },
