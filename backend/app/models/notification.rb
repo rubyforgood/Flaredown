@@ -3,6 +3,8 @@ class Notification
   include Mongoid::Timestamps
   include Usernameable
 
+  after_initialize :set_defaults
+
   ID = '_id'.freeze
   VALUE = 'value'.freeze
   TOTAL = 'total'.freeze
@@ -35,12 +37,18 @@ class Notification
   field :kind, type: String
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
   field :encrypted_notify_user_id, type: String, encrypted: { type: :integer }
+  field :delivered, type: Boolean, default: false
+  field :post_id, type: String
 
   validates :notificateable, :encrypted_user_id, :encrypted_notify_user_id, presence: true
 
   belongs_to :notificateable, polymorphic: true
 
   index notificateable_id: 1, notificateable_type: 1
+
+  def set_defaults
+    self.assign_attributes(post_id: notificateable._type == 'Comment' ? notificateable.post_id.to_s : notificateable.id.to_s)
+  end
 
   class << self
     def aggregated_by_kind_and_subject
@@ -58,6 +66,12 @@ class Notification
 
     def count_by_types
       reduce_count.map { |n| [n[ID], n.dig(VALUE, TOTAL).to_i] }.to_h
+    end
+
+    def groupped_by_post_and_kind(encrypted_user_id)
+      where(encrypted_user_id: encrypted_user_id)
+        .group_by(&:post_id).deep_transform_keys!(&:to_s)
+        .each_with_object({}) {|obj, hash| hash[obj[0]] = aggregate_group(obj[1].group_by(&:kind)) }
     end
 
     private
@@ -81,6 +95,10 @@ class Notification
           notificateable_type: group_keys.last
         }
       end
+    end
+
+    def aggregate_group(groupped_by_kind)
+      groupped_by_kind.each_with_object({}) {|kind, hash| hash[kind[0]] = kind[1].count }
     end
   end
 end

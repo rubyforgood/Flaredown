@@ -2,6 +2,7 @@ default: &default
   :verbose: false
   :concurrency: 2
 
+
   # Set timeout to 8 on Heroku, longer if you manage your own systems.
   :timeout: 30
 

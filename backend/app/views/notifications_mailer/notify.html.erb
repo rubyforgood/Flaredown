@@ -1,0 +1,16 @@
+<% content_for :body do %>
+  <p>
+    You have new updates:
+    <br />
+    <% @data.each do |post_id, group| %>
+      <% group.each do |key, value| %>
+        <%= "#{value} " + "#{key}".pluralize(value) %>
+      <% end %>
+      for Post:
+      <%= link_to resource_title(post_id), resource_url(post_id) %>
+      <br />
+    <% end %>
+  </p>
+<% end %>
+
+acio mailer url
