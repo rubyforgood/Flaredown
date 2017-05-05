@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413144043) do
+ActiveRecord::Schema.define(version: 20170504065043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "hstore"
+  enable_extension "pg_trgm"
 
   create_table "condition_translations", force: :cascade do |t|
     t.integer  "condition_id", null: false
@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 20170413144043) do
     t.datetime "updated_at",                            null: false
     t.integer  "trackable_usages_count", default: 0
   end
+
+  create_table "crono_jobs", force: :cascade do |t|
+    t.string   "job_id",            null: false
+    t.text     "log"
+    t.datetime "last_performed_at"
+    t.boolean  "healthy"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "crono_jobs", ["job_id"], name: "index_crono_jobs_on_job_id", unique: true, using: :btree
 
   create_table "food_translations", force: :cascade do |t|
     t.integer  "food_id",    null: false
@@ -225,6 +236,7 @@ ActiveRecord::Schema.define(version: 20170413144043) do
     t.date     "date"
     t.string   "postal_code"
     t.string   "icon"
+    t.string   "summary"
     t.float    "temperature_min"
     t.float    "temperature_max"
     t.float    "precip_intensity"
