@@ -2,7 +2,7 @@ class GroupNotifiersPerUser
   include Sidekiq::Worker
 
   def perform(encrypted_user_id)
-    active_notifications = Notification.where(delivered: false)
+    active_notifications = Notification.where(encrypted_notify_user_id: encrypted_user_id, delivered: false)
     if active_notifications.any?
       aggregate_data = active_notifications
                         .groupped_by_post_and_kind(encrypted_user_id)

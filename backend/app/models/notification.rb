@@ -69,7 +69,7 @@ class Notification
     end
 
     def groupped_by_post_and_kind(encrypted_user_id)
-      where(encrypted_user_id: encrypted_user_id)
+      where(encrypted_notify_user_id: encrypted_user_id)
         .group_by(&:post_id).deep_transform_keys!(&:to_s)
         .each_with_object({}) {|obj, hash| hash[obj[0]] = aggregate_group(obj[1].group_by(&:kind)) }
     end
