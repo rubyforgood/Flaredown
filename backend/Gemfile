@@ -32,7 +32,6 @@ gem 'colored', '~> 1.2'
 
 # Background jobs
 gem 'sidekiq', '~> 4.0'
-gem 'crono'
 
 # Structured seed data
 gem 'seedbank'

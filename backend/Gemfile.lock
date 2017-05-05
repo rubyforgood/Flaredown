@@ -71,9 +71,6 @@ GEM
       i18n_data (~> 0.7.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    crono (1.1.2)
-      activerecord (>= 4.0)
-      activesupport (>= 4.0)
     currencies (0.4.2)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
@@ -321,7 +318,6 @@ DEPENDENCIES
   cancancan (~> 1.10)
   colored (~> 1.2)
   countries
-  crono
   database_cleaner (~> 1.5.1)
   devise (~> 3.5.3)
   devise_invitable (~> 1.5.2)
