@@ -20,7 +20,7 @@ class Api::V1::CommentsController < ApplicationController
           encrypted_user_id: @comment.encrypted_user_id,
           encrypted_notify_user_id: @comment.post.encrypted_user_id
         )
-        end
+      end
 
       render json: @comment, status: :created
     else

@@ -10,11 +10,11 @@ class NotificationsMailer < ApplicationMailer
     mail(to: @email)
   end
 
-  def resource_title(object_id, klass="Post")
-    "#{klass.constantize.find(object_id).title}"
+  def resource_title(object_id, class_name = 'Post')
+    class_name.constantize.find(object_id).title.to_s
   end
 
-  def resource_url(object_id, klass="Post")
-    ["#{ENV['BASE_URL']}", "#{klass.tableize}", "#{object_id}"].join('/')
+  def resource_url(object_id, class_name = 'Post')
+    [ENV['BASE_URL'], class_name.tableize, object_id].map(&:to_s).join('/')
   end
 end

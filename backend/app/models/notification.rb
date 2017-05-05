@@ -47,7 +47,7 @@ class Notification
   index notificateable_id: 1, notificateable_type: 1
 
   def set_defaults
-    self.assign_attributes(post_id: notificateable._type == 'Comment' ? notificateable.post_id.to_s : notificateable.id.to_s)
+    assign_attributes(post_id: (notificateable._type == 'Comment' ? notificateable.post_id : notificateable.id).to_s)
   end
 
   class << self
@@ -71,7 +71,7 @@ class Notification
     def groupped_by_post_and_kind(encrypted_user_id)
       where(encrypted_notify_user_id: encrypted_user_id)
         .group_by(&:post_id).deep_transform_keys!(&:to_s)
-        .each_with_object({}) {|obj, hash| hash[obj[0]] = aggregate_group(obj[1].group_by(&:kind)) }
+        .each_with_object({}) { |obj, hash| hash[obj[0]] = aggregate_group(obj[1].group_by(&:kind)) }
     end
 
     private
@@ -98,7 +98,7 @@ class Notification
     end
 
     def aggregate_group(groupped_by_kind)
-      groupped_by_kind.each_with_object({}) {|kind, hash| hash[kind[0]] = kind[1].count }
+      groupped_by_kind.each_with_object({}) { |kind, hash| hash[kind[0]] = kind[1].count }
     end
   end
 end
