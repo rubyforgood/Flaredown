@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import AnalyticsLogger from 'flaredown/mixins/analytics-logger';
 
 const {
   get,
@@ -8,7 +7,7 @@ const {
   getProperties,
 } = Ember;
 
-export default Component.extend(AnalyticsLogger, {
+export default Component.extend({
   classNames: ['signup-form'],
 
   actions: {
@@ -25,7 +24,6 @@ export default Component.extend(AnalyticsLogger, {
 
       model
         .save()
-        .then(() => this.analyticsLog('User signup'))
         .then(() => get(this, 'session').authenticate('authenticator:devise', email, password))
         .catch(() => get(this, 'gRecaptcha').resetReCaptcha());
     },
