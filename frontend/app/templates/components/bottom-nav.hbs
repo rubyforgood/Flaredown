@@ -5,11 +5,15 @@
 {{/link-to}}
 
 {{#if session.currentUser.profile.betaTester}}
-  {{#link-to 'posts' class='bottom-link'}}
-    {{inline-svg 'discuss' class='icon'}}
+  {{#if notifications.first}}
+    {{nav/discussions-unread}}
+  {{else}}
+    {{#link-to 'posts' class='bottom-link'}}
+      {{inline-svg 'discuss' class='icon'}}
 
-    <label>DISCUSS</label>
-  {{/link-to}}
+      <label>DISCUSS</label>
+    {{/link-to}}
+  {{/if}}
 {{/if}}
 
 {{!-- <div class="bottom-link">

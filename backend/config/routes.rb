@@ -89,6 +89,15 @@ Rails.application.routes.draw do
       resources :invitations, only: [:show, :update]
 
       #
+      # Notifications
+      #
+      resources :notifications, only: [:index] do
+        collection do
+          delete ':notificateable_type/:notificateable_id', action: :destroy
+        end
+      end
+
+      #
       # Passwords
       #
       resources :passwords, only: [:show, :create, :update]

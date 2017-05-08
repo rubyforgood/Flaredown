@@ -1,4 +1,5 @@
 class PostSerializer < ApplicationSerializer
+  include Notificatable
   include TopicSerializable
   include ReactionRelatable
 

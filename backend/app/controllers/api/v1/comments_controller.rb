@@ -13,6 +13,15 @@ class Api::V1::CommentsController < ApplicationController
     @comment.encrypted_user_id = current_user.encrypted_id
 
     if @comment.save
+      unless @comment.encrypted_user_id == @comment.post.encrypted_user_id
+        Notification.create(
+          kind: :comment,
+          notificateable: @comment,
+          encrypted_user_id: @comment.encrypted_user_id,
+          encrypted_notify_user_id: @comment.post.encrypted_user_id
+        )
+      end
+
       render json: @comment, status: :created
     else
       render json: { errors: @comment.errors }, status: :unprocessable_entity

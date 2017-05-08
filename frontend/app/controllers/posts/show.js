@@ -8,17 +8,45 @@ const {
   computed,
   Controller,
   getProperties,
+  run: {
+    schedule,
+  },
+  inject: {
+    service,
+  },
   computed: {
     alias,
   },
 } = Ember;
 
 export default Controller.extend(BackNavigateable, {
+  ajax: service(),
+  notifications: service(),
+
   post: alias('model'),
 
   disabled: computed('newComment.body', function() {
     return isEmpty(get(this, 'newComment.body'));
   }),
+
+  init() {
+    this._super(...arguments);
+
+    schedule('afterRender', this, this.didEnterViewport);
+  },
+
+  didEnterViewport() {
+    const { ajax, post } = getProperties(this, 'ajax', 'post');
+
+    if (get(post, 'notifications.reaction')) {
+      const id = get(post, 'id');
+
+      ajax
+        .del(`notifications/post/${id}`)
+        .then(() => set(post, 'notifications', {}))
+        .then(() => get(this, 'notifications').unloadNotification({ notificateableId: id }));
+    }
+  },
 
   actions: {
     submitComment() {

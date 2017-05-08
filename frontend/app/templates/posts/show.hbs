@@ -15,12 +15,7 @@
   {{posts/post-topics post=post}}
 
   {{#each post.comments as |comment|}}
-    <hr>
-
-    <p class="colorable-clr-38">{{comment.userName}}</p>
-    <p>{{comment.bodyWithBr}}</p>
-
-    {{emoji-reactions reactable=comment}}
+    {{posts/post-comment comment=comment}}
   {{/each}}
 </div>
 

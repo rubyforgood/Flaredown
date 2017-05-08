@@ -11,11 +11,16 @@ const {
     sort,
     alias,
   },
+  inject: {
+    service,
+  },
 } = Ember;
 
 export default Controller.extend(PostableGetable, BackNavigateable, {
   page: 1,
   postablesSort: ['createdAt:desc'],
+
+  notifications: service(),
 
   postables: sort('model', 'postablesSort'),
   screenName: alias('session.currentUser.profile.screenName'),

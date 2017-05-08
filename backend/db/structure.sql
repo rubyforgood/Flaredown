@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.4.10
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.4.11
+-- Dumped by pg_dump version 9.6.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -124,6 +125,40 @@ CREATE SEQUENCE conditions_id_seq
 --
 
 ALTER SEQUENCE conditions_id_seq OWNED BY conditions.id;
+
+
+--
+-- Name: crono_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE crono_jobs (
+    id integer NOT NULL,
+    job_id character varying NOT NULL,
+    log text,
+    last_performed_at timestamp without time zone,
+    healthy boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: crono_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE crono_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crono_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE crono_jobs_id_seq OWNED BY crono_jobs.id;
 
 
 --
@@ -696,133 +731,140 @@ ALTER SEQUENCE weathers_id_seq OWNED BY weathers.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: condition_translations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY condition_translations ALTER COLUMN id SET DEFAULT nextval('condition_translations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: conditions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY conditions ALTER COLUMN id SET DEFAULT nextval('conditions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: crono_jobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crono_jobs ALTER COLUMN id SET DEFAULT nextval('crono_jobs_id_seq'::regclass);
+
+
+--
+-- Name: food_translations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY food_translations ALTER COLUMN id SET DEFAULT nextval('food_translations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: foods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY foods ALTER COLUMN id SET DEFAULT nextval('foods_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY profiles ALTER COLUMN id SET DEFAULT nextval('profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: symptom_translations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY symptom_translations ALTER COLUMN id SET DEFAULT nextval('symptom_translations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: symptoms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY symptoms ALTER COLUMN id SET DEFAULT nextval('symptoms_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: tag_translations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_translations ALTER COLUMN id SET DEFAULT nextval('tag_translations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: trackable_usages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackable_usages ALTER COLUMN id SET DEFAULT nextval('trackable_usages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: trackings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackings ALTER COLUMN id SET DEFAULT nextval('trackings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: treatment_translations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY treatment_translations ALTER COLUMN id SET DEFAULT nextval('treatment_translations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: treatments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY treatments ALTER COLUMN id SET DEFAULT nextval('treatments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_conditions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions ALTER COLUMN id SET DEFAULT nextval('user_conditions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_symptoms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms ALTER COLUMN id SET DEFAULT nextval('user_symptoms_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: user_treatments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments ALTER COLUMN id SET DEFAULT nextval('user_treatments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: weathers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY weathers ALTER COLUMN id SET DEFAULT nextval('weathers_id_seq'::regclass);
 
 
 --
--- Name: condition_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: condition_translations condition_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY condition_translations
@@ -830,7 +872,7 @@ ALTER TABLE ONLY condition_translations
 
 
 --
--- Name: conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: conditions conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY conditions
@@ -838,7 +880,15 @@ ALTER TABLE ONLY conditions
 
 
 --
--- Name: food_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: crono_jobs crono_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crono_jobs
+    ADD CONSTRAINT crono_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: food_translations food_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY food_translations
@@ -846,7 +896,7 @@ ALTER TABLE ONLY food_translations
 
 
 --
--- Name: foods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: foods foods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY foods
@@ -854,7 +904,7 @@ ALTER TABLE ONLY foods
 
 
 --
--- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY profiles
@@ -862,7 +912,7 @@ ALTER TABLE ONLY profiles
 
 
 --
--- Name: symptom_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: symptom_translations symptom_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY symptom_translations
@@ -870,7 +920,7 @@ ALTER TABLE ONLY symptom_translations
 
 
 --
--- Name: symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: symptoms symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY symptoms
@@ -878,7 +928,7 @@ ALTER TABLE ONLY symptoms
 
 
 --
--- Name: tag_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_translations tag_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_translations
@@ -886,7 +936,7 @@ ALTER TABLE ONLY tag_translations
 
 
 --
--- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags
@@ -894,7 +944,7 @@ ALTER TABLE ONLY tags
 
 
 --
--- Name: trackable_usages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: trackable_usages trackable_usages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackable_usages
@@ -902,7 +952,7 @@ ALTER TABLE ONLY trackable_usages
 
 
 --
--- Name: trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: trackings trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackings
@@ -910,7 +960,7 @@ ALTER TABLE ONLY trackings
 
 
 --
--- Name: treatment_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: treatment_translations treatment_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY treatment_translations
@@ -918,7 +968,7 @@ ALTER TABLE ONLY treatment_translations
 
 
 --
--- Name: treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: treatments treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY treatments
@@ -926,7 +976,7 @@ ALTER TABLE ONLY treatments
 
 
 --
--- Name: user_conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_conditions user_conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions
@@ -934,7 +984,7 @@ ALTER TABLE ONLY user_conditions
 
 
 --
--- Name: user_symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_symptoms user_symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -942,7 +992,7 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: user_treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_treatments user_treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments
@@ -950,7 +1000,7 @@ ALTER TABLE ONLY user_treatments
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -958,7 +1008,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: weathers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: weathers weathers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY weathers
@@ -991,6 +1041,13 @@ CREATE INDEX index_condition_translations_on_condition_id ON condition_translati
 --
 
 CREATE INDEX index_condition_translations_on_locale ON condition_translations USING btree (locale);
+
+
+--
+-- Name: index_crono_jobs_on_job_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_crono_jobs_on_job_id ON crono_jobs USING btree (job_id);
 
 
 --
@@ -1197,7 +1254,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: fk_rails_0ef098da93; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_treatments fk_rails_0ef098da93; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments
@@ -1205,7 +1262,7 @@ ALTER TABLE ONLY user_treatments
 
 
 --
--- Name: fk_rails_1fa14e4e8c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_conditions fk_rails_1fa14e4e8c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions
@@ -1213,7 +1270,7 @@ ALTER TABLE ONLY user_conditions
 
 
 --
--- Name: fk_rails_47c01ca983; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_conditions fk_rails_47c01ca983; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions
@@ -1221,7 +1278,7 @@ ALTER TABLE ONLY user_conditions
 
 
 --
--- Name: fk_rails_493dc44b5f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: trackings fk_rails_493dc44b5f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackings
@@ -1229,7 +1286,7 @@ ALTER TABLE ONLY trackings
 
 
 --
--- Name: fk_rails_49855db565; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_treatments fk_rails_49855db565; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments
@@ -1237,7 +1294,7 @@ ALTER TABLE ONLY user_treatments
 
 
 --
--- Name: fk_rails_53d2120ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: trackable_usages fk_rails_53d2120ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackable_usages
@@ -1245,7 +1302,7 @@ ALTER TABLE ONLY trackable_usages
 
 
 --
--- Name: fk_rails_86699b81a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_symptoms fk_rails_86699b81a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -1253,7 +1310,7 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: fk_rails_cde825af18; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: user_symptoms fk_rails_cde825af18; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -1261,7 +1318,7 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: fk_rails_e424190865; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: profiles fk_rails_e424190865; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY profiles
@@ -1319,4 +1376,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161216123757');
 INSERT INTO schema_migrations (version) VALUES ('20161230090023');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413144043');
+
+INSERT INTO schema_migrations (version) VALUES ('20170504065043');
 

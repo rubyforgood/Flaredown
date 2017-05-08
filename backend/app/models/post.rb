@@ -1,6 +1,5 @@
 class Post
   include Topicable
-  include Reactable
   include Usernameable
 
   attr_accessor :postable_id
@@ -18,6 +17,8 @@ class Post
   validate :topic_presence
 
   has_many :comments
+  has_many :reactions,      as: :reactable,       dependent: :destroy
+  has_many :notifications,  as: :notificateable,  dependent: :destroy
 
   index(body: 'text', title: 'text')
 
