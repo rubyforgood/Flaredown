@@ -1,14 +1,12 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import AnalyticsLogger from 'flaredown/mixins/analytics-logger';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 const {
-  get,
   Component,
 } = Ember;
 
-export default Component.extend(AnalyticsLogger, TrackablesFromType, {
+export default Component.extend(TrackablesFromType, {
   classNames: ['trackables-step'],
 
   model: Ember.computed.alias('parentView.model'),
@@ -44,11 +42,6 @@ export default Component.extend(AnalyticsLogger, TrackablesFromType, {
       tracked.prepareForDestroy();
       this.set('removedTracked', tracked);
       this.saveCheckin();
-
-      this.analyticsLog(
-        `Remove ${get(tracked, 'constructor.modelName').replace('checkin-', '')}`,
-        { name: get(tracked, 'label') }
-      );
     },
 
     add(selectedTrackable) {

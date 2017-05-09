@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import AnalyticsLogger from 'flaredown/mixins/analytics-logger';
 import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 const {
@@ -7,7 +6,7 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(AnalyticsLogger, SearchableDropdown, {
+export default Component.extend(SearchableDropdown, {
   isSelectFocused: false,
 
   placeholder: Ember.computed('trackableType', 'isSelectFocused', function() {
@@ -28,13 +27,11 @@ export default Component.extend(AnalyticsLogger, SearchableDropdown, {
 
       this.createAndSave(type, name).then(trackable => {
         this.get('onSelect')(trackable);
-        this.analyticsLog(`Create ${type}`, { name });
       });
     },
 
     handleChange(trackable) {
       this.get('onSelect')(trackable);
-      this.analyticsLog(`Add ${get(this, 'trackableType')}`, { name: get(trackable, 'name') });
     },
 
     handleBuildSuggestion(typedText) {
