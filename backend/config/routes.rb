@@ -118,6 +118,12 @@ Rails.application.routes.draw do
       resources :profiles, only: [:show, :update]
 
       #
+      # Activations
+      #
+      # resources :activations, only: [:edit]
+
+      get '/unsubscribe/:notify_token', to: 'unsubscribes#update', as: :unsubscribe
+      #
       # Pusher
       #
       resource :pusher, only: [:create]

@@ -31,6 +31,13 @@
     {{/each}}
   {{/form-field}}
 
+  {{#form-field for="notify" label="Notify me by email"}}
+    {{label-switch
+      checked=(mut model.notify)
+      bgColorClass="colorable-bg-35"
+    }}
+  {{/form-field}}
+
   {{#unless forOnboarding}}
     <br>
     {{input type="submit" value="Save"}}

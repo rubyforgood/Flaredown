@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   #
   # Delegates
   #
-  delegate :locale, to: :profile
+  delegate :locale, :notify, :notify_token, to: :profile
 
   def checkins
     Checkin.where(encrypted_user_id: encrypted_id)

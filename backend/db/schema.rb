@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504065043) do
+ActiveRecord::Schema.define(version: 20170509114220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20170504065043) do
     t.integer  "pressure_units",                   default: 0
     t.integer  "temperature_units",                default: 0
     t.boolean  "beta_tester",                      default: false
+    t.boolean  "notify",                           default: true
+    t.string   "notify_token"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree

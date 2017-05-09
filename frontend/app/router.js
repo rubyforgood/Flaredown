@@ -35,6 +35,8 @@ Router.map(function() {
     this.route('profile');
     this.route('followings');
   });
+
+  this.route('unsubscribe', { path: 'unsubscribe/:notify_token' });
 });
 
 export default Router;

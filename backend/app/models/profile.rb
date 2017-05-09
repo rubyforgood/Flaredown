@@ -65,6 +65,11 @@ class Profile < ActiveRecord::Base
   end
 
   #
+  # Callbacks
+  #
+  before_create :generate_notify_token
+
+  #
   # Instance Methods
   #
 
@@ -129,4 +134,13 @@ class Profile < ActiveRecord::Base
 
   end
 
+  private
+
+  def generate_notify_token
+    self.notify_token =
+      loop do
+        random_token = SecureRandom.hex
+        break random_token unless Profile.exists?(notify_token: random_token)
+      end
+  end
 end

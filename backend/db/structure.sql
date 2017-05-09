@@ -252,7 +252,9 @@ CREATE TABLE profiles (
     most_recent_treatments_positions hstore,
     pressure_units integer DEFAULT 0,
     temperature_units integer DEFAULT 0,
-    beta_tester boolean DEFAULT false
+    beta_tester boolean DEFAULT false,
+    notify boolean DEFAULT true,
+    notify_token character varying
 );
 
 
@@ -1378,4 +1380,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161230090023');
 INSERT INTO schema_migrations (version) VALUES ('20170413144043');
 
 INSERT INTO schema_migrations (version) VALUES ('20170504065043');
+
+INSERT INTO schema_migrations (version) VALUES ('20170508151200');
+
+INSERT INTO schema_migrations (version) VALUES ('20170509114220');
 
