@@ -18,7 +18,7 @@ class Api::V1::ProfilesController < ApplicationController
     params.require(:profile).permit(
       :country_id, :birth_date, :sex_id, :onboarding_step_id,
       :day_habit_id, :education_level_id, :day_walking_hours,
-      :pressure_units, :temperature_units, :screen_name,
+      :pressure_units, :temperature_units, :screen_name, :notify,
       ethnicity_ids: []
     )
   end
