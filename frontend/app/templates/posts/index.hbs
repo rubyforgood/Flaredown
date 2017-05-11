@@ -1,24 +1,13 @@
-<header class="centered">
-  <h3>Discussions</h3>
-</header>
+<div class="pull-down"></div>
+{{ navigation-links title='Discussion' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
 
 <div class="flaredown-transparent-box vert-offset-bottom-1 discussion-links">
-  {{link-to myTopicsText "posts.followings"}}
-  {{link-to "My activity" "posts.profile"}}
-  {{link-to "New post" "posts.new" class="btn-link"}}
-</div>
+  <div class="pull-left">
+    {{link-to "All" "posts" (query-params following=null) class="btn btn-filter nav-following"}}
+    {{link-to "Following" "posts" (query-params following=true) class="btn btn-filter nav-following"}}
+  </div>
 
-<div class="flaredown-white-box">
-  {{#power-select
-    class="fs-private"
-    search=(action "searchObjects")
-    options=randomTrackables
-    onchange=(action "goToTopic")
-    placeholder="Navigate to topic..."
-    renderInPlace=true
-  as |object| }}
-    {{object.name}}
-  {{/power-select}}
+  {{link-to "+ New post" "posts.new" class="btn btn-link"}}
 </div>
 
 {{#each model.posts as |post|}}

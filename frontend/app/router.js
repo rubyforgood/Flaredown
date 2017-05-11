@@ -37,6 +37,7 @@ Router.map(function() {
   });
 
   this.route('unsubscribe', { path: 'unsubscribe/:notify_token' });
+  this.route('notifications');
 });
 
 export default Router;

@@ -1,0 +1,41 @@
+<div class="flex-container left-nav">
+  <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg 'left-arrow' class='icon'}}</a>
+</div>
+
+<h5 class="centered page-title">{{title}}</h5>
+
+<div class="flex-container right-nav">
+  <a href="/" {{action "showSearchBar"}}>
+    {{inline-svg 'search' class='icon'}}
+  </a>
+  {{#link-to 'posts.profile'}}{{inline-svg 'profile' class='icon'}}{{/link-to}}
+
+  {{#if session.currentUser.profile.betaTester}}
+    {{#link-to 'notifications' class=(if notifications.count 'notification' '')}}
+      {{inline-svg 'notification' class='icon'}}
+    {{/link-to}}
+  {{/if}}
+</div>
+
+{{#if showSearch}}
+  <div class="flex-container search-resource">
+    <a href="/" {{action (action (mut selectedObject) null)}}>
+      {{inline-svg 'close' class='icon'}}
+    </a>
+
+    {{#power-select
+      class="fs-private"
+      selected=selectedObject
+      search=(action "searchObjects")
+      options=optionObjects
+      onchange=(action (mut selectedObject))
+      placeholder="Search topics..."
+      renderInPlace=true
+      allowClear=true
+      as |object| }}
+      {{object.name}}
+    {{/power-select}}
+
+    <a href="/" {{action "go" }}>GO</a>
+  </div>
+{{/if}}

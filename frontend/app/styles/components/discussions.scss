@@ -1,6 +1,7 @@
 .discussion-links {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 
   &::after {
     display: none;
@@ -13,12 +14,25 @@
   .btn-link {
     color: white;
     padding: .5em 1em;
+    border: 1px solid $primary;
     border-radius: 5px;
     background-color: $primary;
 
     &:hover,
     &:focus {
       background-color: darken($primary, 30%);
+    }
+  }
+
+  .btn-filter {
+    color: $lilaс;
+    padding: .5em 1em;
+    background-color: transparent;
+    border: 1px solid $lilaс;
+
+    &.active {
+      color: white;
+      background-color: $lilaс;
     }
   }
 }
@@ -28,5 +42,30 @@
   line-height: 1.8em;
   .x-to-remove {
     float: right;
+  }
+}
+
+.pull-left {
+  display: flex;
+  :first-child {
+    border-radius: 5px 0px 0px 5px;
+  }
+  :last-child {
+    border-radius: 0px 5px 5px 0px;
+  }
+}
+
+.btn-filter {
+  box-sizing: border-box;
+}
+
+.badge-post-topics {
+  background-color: $lightprimary;
+  color: $primary;
+}
+
+.filter-topic {
+  @media screen and (max-width: $medium-screen) {
+    display: none;
   }
 }
