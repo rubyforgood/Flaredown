@@ -17,6 +17,8 @@ export default Mixin.create({
 
       if (previous) {
         this.transitionToRoute(...previous);
+      } else {
+        this.transitionToRoute('posts');
       }
     },
   },
