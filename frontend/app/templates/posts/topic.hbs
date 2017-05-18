@@ -1,9 +1,13 @@
-<div class="flaredown-transparent-box">
-  <a {{action "navigateBack" class="mobile-back-button"}}>Back</a>
-</div>
+<div class="pull-down"></div>
+{{ navigation-links title='Topic' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
 
 <header class="flaredown-transparent-box centered">
-  <h3>{{model.topic.name}}</h3>
+  <h3 class="topic-name">{{model.topic.name}}</h3>
+  <div class="topic-type">
+    {{capitalize model.type}}
+    &middot;
+    {{pluralize model.topic.usersCount "user"}}
+ </div>
 </header>
 
 <header class="centered vert-offset-bottom-1">
