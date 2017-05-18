@@ -9,5 +9,9 @@
 
 class TagSerializer < ApplicationSerializer
   include SearchableSerializer
-  attributes :id, :name
+  attributes :id, :name, :users_count
+
+  def users_count
+    TopicFollowing.where(tag_ids: object.id).count
+  end
 end
