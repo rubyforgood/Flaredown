@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
+import NavbarSearchable from 'flaredown/mixins/navbar-searchable';
 
 const {
   get,
@@ -10,8 +11,12 @@ const {
   setProperties,
 } = Ember;
 
-export default Controller.extend(SearchableDropdown, {
+export default Controller.extend(SearchableDropdown, NavbarSearchable, {
   page: 1,
+  queryParams: ['following', 'query'],
+  following: null,
+  querySearch: '',
+  foundTopics: null,
 
   myTopicsText: computed('model.topicFollowing.topicsCount', function() {
     return `My topics (${get(this, 'model.topicFollowing.topicsCount')})`;
@@ -21,19 +26,7 @@ export default Controller.extend(SearchableDropdown, {
     return this.randomSearch('topic');
   }),
 
-  performSearch(term, resolve, reject) {
-    this
-      .searchByTerm('topic', term)
-      .then(function() { resolve(...arguments); }, reject);
-  },
-
   actions: {
-    goToTopic(topic) {
-      const { id, modelType } = getProperties(topic, 'id', 'modelType');
-
-      this.transitionToRoute('posts.topic', modelType, id);
-    },
-
     crossedTheLine(above) {
       if (above) {
         let { page, model, query } = getProperties(this, 'page', 'model', 'query');
