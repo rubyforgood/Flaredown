@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import PostableGetable from 'flaredown/mixins/postable-getable';
 import BackNavigateable from 'flaredown/mixins/back-navigateable';
+import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
+import NavbarSearchable from 'flaredown/mixins/navbar-searchable';
 
 const {
   set,
@@ -16,7 +18,7 @@ const {
   },
 } = Ember;
 
-export default Controller.extend(PostableGetable, BackNavigateable, {
+export default Controller.extend(PostableGetable, BackNavigateable, SearchableDropdown, NavbarSearchable, {
   page: 1,
   postablesSort: ['createdAt:desc'],
 

@@ -1,6 +1,6 @@
 <header class="centered flaredown-transparent-box flex-container notification-nav">
   <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg 'left-arrow' class='icon'}}</a>
-  <h3 class="notification-title">{{if screenName.content screenName.content 'User'}}'s notifications</h3>
+  <h3 class="notification-title">{{if screenName screenName 'User'}}'s notifications</h3>
 </header>
 
 {{#each notifications.notifications as |notification|}}

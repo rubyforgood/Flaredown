@@ -1,9 +1,9 @@
-<div class="flaredown-transparent-box">
-  <a {{action "navigateBack" class="mobile-back-button"}}>Back</a>
-</div>
+<div class="pull-down"></div>
+{{ navigation-links title='Profile' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
 
-<header class="centered flaredown-transparent-box">
-  <h3>{{screenName}}'s posts</h3>
+<header class="centered flaredown-transparent-box profile-header">
+  {{posts/profile-picture}}
+  {{screenName}}
 </header>
 
 {{#each notifications.notifications as |notification|}}
@@ -12,7 +12,7 @@
 
 {{#each postables as |postable|}}
   {{#if (eq postable.type "post")}}
-    {{posts/topic-post post=postable}}
+    {{posts/topic-post post=postable elipsis=null}}
   {{else}}
     {{posts/topic-comment comment=postable}}
   {{/if}}
