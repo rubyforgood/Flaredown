@@ -65,7 +65,7 @@ h5 {
 
 .pull-down {
   @media screen and (max-width: $medium-screen) {
-    padding-top: 100px;
+    padding-top: 90px;
   }
 }
 
@@ -228,3 +228,11 @@ h5 {
   margin-bottom: 0.5em;
 }
 
+// Profile page
+.profile-header {
+  margin-bottom: 1.5em;
+
+  .profile-circle {
+    margin-bottom: 0.5em;
+  }
+}

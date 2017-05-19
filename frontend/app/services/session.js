@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import SessionService from 'ember-simple-auth/services/session';
 
+const {
+  observer,
+} = Ember;
+
 export default SessionService.extend({
   /*
    * Services
@@ -32,6 +36,17 @@ export default SessionService.extend({
 
   isMobileDevice: Ember.computed(function() {
     return /iPad|iPhone|iPod|Android/.test(navigator.userAgent);
-  })
+  }),
 
+  actualUser: null,
+
+  actualUserObserver: observer('isAuthenticated', function() {
+    if (this.get('isAuthenticated')) {
+      this.get('dataStore').find('user', this.get('session.authenticated.user_id')).then((user) => {
+        this.set('actualUser', user);
+      });
+    } else {
+      this.set('actualUser', null);
+    }
+  }),
 });
