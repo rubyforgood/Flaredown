@@ -4,7 +4,6 @@ import InViewportMixin from 'ember-in-viewport';
 const {
   get,
   set,
-  computed,
   Component,
   getProperties,
   inject: {
