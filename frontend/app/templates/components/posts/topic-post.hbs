@@ -1,6 +1,6 @@
 <h4>{{#link-to 'posts.show' post class="colorable-clr-39"}}{{post.title}}{{/link-to}}</h4>
 
-<p>{{truncate-text post.body limit=limit}}</p>
+<p>{{truncate-text post.body limit=elipsis}}</p>
 
 {{posts/post-topics post=post}}
 

@@ -12,7 +12,7 @@
 
 {{#each postables as |postable|}}
   {{#if (eq postable.type "post")}}
-    {{posts/topic-post post=postable limit=null}}
+    {{posts/topic-post post=postable elipsis=null}}
   {{else}}
     {{posts/topic-comment comment=postable}}
   {{/if}}
