@@ -1,18 +1,23 @@
 <div class="pull-down"></div>
-{{ navigation-links title='Topic' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
+{{ navigation-links title='Topic' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") authenticatedUser=session.isAuthenticated }}
 
 <header class="flaredown-transparent-box centered">
   <h3 class="topic-name">{{model.topic.name}}</h3>
   <div class="topic-type">
     {{capitalize model.type}}
-    &middot;
-    {{pluralize model.topic.usersCount "user"}}
+
+    {{#if session.currentUser}}
+      &middot;
+      {{pluralize model.topic.usersCount "user"}}
+    {{/if}}
  </div>
 </header>
 
-<header class="centered vert-offset-bottom-1">
-  <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
-</header>
+{{#if session.currentUser}}
+  <header class="centered vert-offset-bottom-1">
+    <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
+  </header>
+{{/if}}
 
 <div class="flaredown-white-box">
   {{input type="text" value=query placeholder="Search..."}}
@@ -27,3 +32,8 @@
 {{#if loadingTopics}}
   {{partial "application/three-bounce-spinner"}}
 {{/if}}
+
+{{#unless session.currentUser}}
+  {{additional-info}}
+  {{join-footer}}
+{{/unless}}

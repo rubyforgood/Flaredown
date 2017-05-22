@@ -4,7 +4,7 @@
   <label>SETTINGS</label>
 {{/link-to}}
 
-{{#if session.currentUser.profile.betaTester}}
+{{#if session.currentUser}}
   {{#if notifications.first}}
     {{nav/discussions-unread}}
   {{else}}

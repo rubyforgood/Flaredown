@@ -17,6 +17,7 @@ export default Component.extend({
   classNameBindings: ['isParticipated'],
 
   emojis: service(),
+  session: service('session'),
 
   isParticipated: alias('reaction.participated'),
 
@@ -25,6 +26,9 @@ export default Component.extend({
   }),
 
   click() {
+    if(!get(this, 'session.currentUser')) {
+      return;
+    }
     let { store, reaction } = getProperties(this, 'store', 'reaction');
 
     let {

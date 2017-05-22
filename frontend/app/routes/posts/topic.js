@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import HistoryTrackable from 'flaredown/mixins/history-trackable';
-import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
 const {
   get,
+  inject: {
+    service,
+  },
   Route,
   getProperties,
   RSVP: {
@@ -13,7 +15,9 @@ const {
 
 const availableTypes = ['tag', 'symptom', 'condition', 'treatment'];
 
-export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
+export default Route.extend(HistoryTrackable, {
+  session: service('session'),
+
   model(params) {
     const { id, type } = params;
 
@@ -22,6 +26,7 @@ export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
     }
 
     const store = get(this, 'store');
+    const currentUser = get(this, 'session.currentUser');
 
     return hash({
       id,
@@ -29,7 +34,7 @@ export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
       page: 1,
       posts: store.query('post', { id, type }).then(q => q.toArray()),
       topic: store.findRecord(type, id),
-      topicFollowing: get(this, 'session.currentUser').then(user => get(user, 'topicFollowing')),
+      topicFollowing: currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [],
     });
   },
 

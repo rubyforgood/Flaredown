@@ -10,11 +10,9 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  const content = 'Add reaction';
-
   this.render(hbs`{{posts/post-comment}}`);
 
-  assert.equal(this.$().text().trim(), content);
+  assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
   this.render(hbs`
@@ -23,5 +21,5 @@ test('it renders', function(assert) {
     {{/posts/post-comment}}
   `);
 
-  assert.equal(this.$().text().trim(), content);
+  assert.equal(this.$().text().trim(), '');
 });

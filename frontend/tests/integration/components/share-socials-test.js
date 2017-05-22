@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('posts/topic-comment', 'Integration | Component | posts/topic comment', {
+moduleForComponent('share-socials', 'Integration | Component | share socials', {
   integration: true
 });
 
@@ -10,18 +10,16 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{posts/topic-comment}}`);
+  this.render(hbs`{{share-socials}}`);
 
-  const templateText = 'Responded to';
-
-  assert.equal(this.$().text().trim(), templateText);
+  assert.equal(this.$().text().trim().replace(/\s{2,}/g,', '), 'Share, Tweet');
 
   // Template block usage:
   this.render(hbs`
-    {{#posts/topic-comment}}
+    {{#share-socials}}
       template block text
-    {{/posts/topic-comment}}
+    {{/share-socials}}
   `);
 
-  assert.equal(this.$().text().trim(), templateText);
+  assert.equal(this.$().text().trim().replace(/\s{2,}/g,', '), 'Share, Tweet');
 });

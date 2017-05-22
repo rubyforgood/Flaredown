@@ -4,7 +4,7 @@
   {{/if}}
 </div>
 
-<h5 class="centered page-title">{{title}}</h5>
+<h5 class="centered page-title">{{if authenticatedUser title 'Join our awesome community!'}}</h5>
 
 <div class="flex-container right-nav">
   <a href="/" {{action "toggleSearchBar"}}>
@@ -18,7 +18,6 @@
     {{/link-to}}
   {{/if}}
 </div>
-
 
 {{#if showSearch}}
   <div class="flex-container search-resource">

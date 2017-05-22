@@ -10,9 +10,9 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  const templateText = 'Add reaction\n\n\n\n comments';
+  const templateText = 'comments, Share, Tweet';
 
   this.render(hbs`{{posts/topic-post}}`);
 
-  assert.equal(this.$().text().trim(), templateText);
+  assert.equal(this.$().text().trim().replace(/\s{2,}/g,', '), templateText);
 });
