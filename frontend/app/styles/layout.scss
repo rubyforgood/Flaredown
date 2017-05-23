@@ -65,7 +65,7 @@ h5 {
 
 .pull-down {
   @media screen and (max-width: $medium-screen) {
-    padding-top: 90px;
+    padding-top: 60px;
   }
 }
 
@@ -102,13 +102,14 @@ h5 {
 
     justify-content: space-between;
     background-color: #fff;
-    padding: 1em 2.5em;
-    margin-bottom: 1em;
+    padding: .5em .75em;
+    margin-bottom: .5em;
     box-shadow: 0 1px 0 #E1D8C8;
 
     .page-title {
       color: $grey;
       flex: 1;
+      font-size: 1.1em;
     }
   }
 }
@@ -143,19 +144,7 @@ h5 {
   align-items: baseline;
 
   a {
-    padding: 0 1em;
-  }
-  a:last-child {
-    padding: 0;
-  }
-  a:first-child {
-    padding: 0;
-  }
-
-  @media screen and (max-width: $medium-screen) {
-    a {
-      padding: 0 1.2em;
-    }
+    padding-left: .4em;
   }
 }
 
