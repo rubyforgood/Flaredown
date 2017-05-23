@@ -10,9 +10,9 @@
   <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.bodyWithBr}}</p>
 
-  {{emoji-reactions reactable=post}}
-
   {{posts/post-topics post=post}}
+
+  {{emoji-reactions reactable=post}}
 
   {{#each post.comments as |comment|}}
     {{posts/post-comment comment=comment}}
