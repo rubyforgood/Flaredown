@@ -25,7 +25,7 @@
 
 .flaredown-transparent-box {
   @include outer-container;
-
+  width: 95%;
   max-width: 500px;
 }
 
@@ -33,6 +33,7 @@
 	@include outer-container;
 	@include single-col;
 	margin-bottom: 1em;
+  width: 95%;
 	h2 {
 	  text-align: center;
 	  margin: 1em 0;

@@ -16,7 +16,7 @@ export default Component.extend(InViewportMixin, {
 
   ajax: service(),
   notifications: service(),
-  elipsis: 175,
+  elipsis: 125,
 
   didEnterViewport() {
     const { ajax, post } = getProperties(this, 'ajax', 'post');
