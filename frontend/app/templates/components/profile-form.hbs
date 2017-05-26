@@ -30,8 +30,9 @@
       {{/radio-button}}
     {{/each}}
   {{/form-field}}
-
-  {{#form-field for="notify" label="Notify me by email"}}
+  
+  <br>
+  {{#form-field for="notify" label="Email me when someone responds to my posts"}}
     {{label-switch
       checked=(mut model.notify)
       bgColorClass="colorable-bg-35"

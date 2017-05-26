@@ -8,7 +8,7 @@ class NotificationsMailer < ApplicationMailer
     @unsubscribe_link = Rails.application.secrets.base_url + "/unsubscribe/#{User.find_by(email: @email).notify_token}"
     @data = notification_hash[:data]
 
-    mail(to: @email)
+    mail(to: @email, subject: "New response to your Flaredown message")
   end
 
   def resource_title(object_id, class_name = 'Post')
