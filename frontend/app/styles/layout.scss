@@ -153,6 +153,9 @@ h5 {
   align-items: center;
   padding-top: 1em;
   width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
   input {
     width: 80%;
     margin: 0;
@@ -171,6 +174,15 @@ h5 {
       display: none;
     }
   }
+}
+
+.typeTopickable {
+  color: $grey;
+  font-size: 0.8em;
+}
+
+span.ember-power-select-clear-btn {
+  display: none;
 }
 
 
