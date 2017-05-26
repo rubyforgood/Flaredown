@@ -17,8 +17,6 @@ export default Ember.Mixin.create({
 
   actions: {
     goToTopic(topic) {
-      // TODO: check on NULL
-
       const { id, modelType } = getProperties(topic, 'id', 'modelType');
 
       this.transitionToRoute('posts.topic', modelType, id);

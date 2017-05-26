@@ -18,7 +18,6 @@ export default Component.extend({SearchableDropdown,
   tagName: 'header',
   showSearch: false,
 
-  selectedObject: null,
   optionObjects: null,
   searchObjects: null,
   go: null,
@@ -50,7 +49,7 @@ export default Component.extend({SearchableDropdown,
   },
 
   actions: {
-    showSearchBar() {
+    toggleSearchBar() {
       this.toggleProperty('showSearch');
     },
 
@@ -58,10 +57,9 @@ export default Component.extend({SearchableDropdown,
       this.sendAction('onSearch', query);
     },
 
-    go() {
-      let selectedObject = get(this, 'selectedObject');
-      if(selectedObject) {
-        this.sendAction('onGo', selectedObject);
+    goToSelectedTopic(selected) {
+      if(selected) {
+        this.sendAction('onGo', selected);
       }
     },
 
