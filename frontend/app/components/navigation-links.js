@@ -3,7 +3,9 @@ import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 const {
   get,
+  set,
   $,
+  computed,
   inject: {
     service,
   },
@@ -48,6 +50,11 @@ export default Component.extend({SearchableDropdown,
     $(window).off('scroll');
   },
 
+
+  navigateBackHistory: computed('routeHistory.history', function() {
+    return get(this, 'routeHistory.history.length') >= 2;
+  }),
+
   actions: {
     toggleSearchBar() {
       this.toggleProperty('showSearch');
@@ -69,8 +76,6 @@ export default Component.extend({SearchableDropdown,
 
       if (previous) {
         routing.transitionTo(...previous);
-      } else {
-        routing.transitionTo('posts');
       }
     }
   }
