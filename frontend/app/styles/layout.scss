@@ -108,7 +108,7 @@ h5 {
 
     .page-title {
       color: $grey;
-      flex: 1;
+      flex: 2;
       font-size: 1.1em;
     }
   }
@@ -116,7 +116,7 @@ h5 {
 
 
 .left-nav {
-  flex: 1;
+  flex: 0.5;
   @media screen and (min-width: $medium-screen) {
     // display: none;
   }
@@ -139,7 +139,7 @@ h5 {
 }
 
 .right-nav {
-  flex: 1;
+  flex: 0.5;
   justify-content: flex-end;
   align-items: baseline;
 

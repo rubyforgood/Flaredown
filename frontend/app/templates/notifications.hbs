@@ -1,7 +1,5 @@
-<header class="centered flaredown-transparent-box flex-container notification-nav">
-  <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg 'left-arrow' class='icon'}}</a>
-  <h3 class="notification-title">{{if screenName screenName 'User'}}'s notifications</h3>
-</header>
+<div class="pull-down"></div>
+{{ navigation-links title=title optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
 
 {{#each notifications.notifications as |notification|}}
   {{posts/activity-notification notification=notification}}

@@ -1,6 +1,5 @@
-<div class="flaredown-transparent-box">
-  <a {{action "navigateBack" class="mobile-back-button"}}>Back</a>
-</div>
+<div class="pull-down"></div>
+{{ navigation-links title='Post page' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
 
 <header class="flaredown-transparent-box centered">
   <h3>{{post.title}}</h3>

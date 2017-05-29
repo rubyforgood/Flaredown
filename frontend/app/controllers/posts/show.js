@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import BackNavigateable from 'flaredown/mixins/back-navigateable';
+import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
+import NavbarSearchable from 'flaredown/mixins/navbar-searchable';
 
 const {
   get,
@@ -19,7 +21,7 @@ const {
   },
 } = Ember;
 
-export default Controller.extend(BackNavigateable, {
+export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSearchable, {
   ajax: service(),
   notifications: service(),
 
