@@ -3,7 +3,6 @@ import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 
 const {
   get,
-  set,
   $,
   computed,
   inject: {
