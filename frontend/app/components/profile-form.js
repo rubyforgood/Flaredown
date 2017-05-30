@@ -48,6 +48,6 @@ export default Component.extend({
       get(this, 'model').save().then(profile => {
         this.sendAction('onProfileSaved', profile);
       });
-    }
+    },
   },
 });

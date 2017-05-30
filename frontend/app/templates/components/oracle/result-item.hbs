@@ -1,0 +1,43 @@
+<div>
+  {{name}} {{confidence}}
+</div>
+
+{{#radio-button
+  name=elementId
+  value="doctorDiagnosed"
+  changed="correctionChanged"
+  disabled=disabled
+  groupValue=correction
+}}
+  Doctor diagnosed
+{{/radio-button}}
+
+{{#radio-button
+  name=elementId
+  value="selfDiagnosed"
+  changed="correctionChanged"
+  disabled=disabled
+  groupValue=correction
+}}
+  Self-diagnosed
+{{/radio-button}}
+
+{{#radio-button
+  name=elementId
+  value="unknown"
+  changed="correctionChanged"
+  disabled=disabled
+  groupValue=correction
+}}
+  Unknown
+{{/radio-button}}
+
+{{#radio-button
+  name=elementId
+  value="dontHaveThis"
+  changed="correctionChanged"
+  disabled=disabled
+  groupValue=correction
+}}
+  I don't have this
+{{/radio-button}}

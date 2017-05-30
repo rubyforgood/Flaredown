@@ -1,0 +1,46 @@
+<div class="flaredown-white-box">
+  <p>THIS IS NOT A DIAGNOSIS</p>
+  <p>The information below is the result of an experimental algorithm and should not be considered medical advice</p>
+
+  {{#if isResponce}}
+    <h5>Results</h5>
+
+    {{#each model.responce as |result|}}
+      {{oracle/result-item item=result model=model}}
+    {{/each}}
+  {{else}}
+    <p>We were unable to calculate the result</p>
+  {{/if}}
+
+  {{#if model.canEdit}}
+    <h5>Add conditions we missed</h5>
+
+    {{#power-select
+      class="fs-private"
+      search=(action "searchObjects")
+      options=randomTrackables
+      onchange=(action "addCondition")
+      placeholder="Add a condition"
+      renderInPlace=true
+    as |object| }}
+      {{object.name}}
+    {{/power-select}}
+  {{/if}}
+
+</div>
+
+<div class="flaredown-white-box">
+  {{#fb-share-button adaptive=false}}Share{{/fb-share-button}}
+  {{#twitter-share-button adaptive=false}}Tweet{{/twitter-share-button}}
+  {{tumblr-share}}
+</div>
+
+<div class="flaredown-white-box">
+  <h5>Get a Flaredown account, you're already halfway done!</h5>
+
+  <p><i>Some screenshots here</i></p>
+
+  <p>Design your health profile, track your symptoms and treatments, and learn to control your illness.</p>
+
+  {{link-to "Create account" "signup"}}
+</div>

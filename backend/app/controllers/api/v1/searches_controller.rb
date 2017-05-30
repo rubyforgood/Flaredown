@@ -5,6 +5,8 @@ class Api::V1::SearchesController < ApplicationController
     'topic' => Search::ForTopic
   }.freeze
 
+  skip_before_action :authenticate_user!, only: :show
+
   def show
     search = (SEARCH_MAPPER[resource_param] || Search).new(search_params)
 
