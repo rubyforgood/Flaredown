@@ -60,6 +60,11 @@
   }
 }
 
+// Highlight unread notification
+.unreadNotification {
+  background: $lightprimary;
+}
+
 footer {
   text-align: center;
   margin-top: 2em;

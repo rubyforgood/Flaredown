@@ -7,6 +7,18 @@ class Api::V1::NotificationsController < ApplicationController
     render json: { notifications: notifications.aggregated_by_kind_and_subject }
   end
 
+  def update
+    notifications = Notification.where(notification_params)
+
+    authorize_collection :update, notifications
+
+    if notifications.update_all(unread: false)
+      render json: { notifications: notifications.aggregated_by_kind_and_subject }
+    else
+      render json: { errors: notifications.map(&:errors).compact }, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     notifications = Notification.where(notification_params)
 

@@ -8,6 +8,7 @@ const {
 
 export default Component.extend({
   classNames: ['flaredown-white-box'],
+  classNameBindings: ['unreadClass:unreadNotification'],
 
   people: computed('notification.count', function() {
     const count = get(this, 'notification.count');
@@ -17,5 +18,9 @@ export default Component.extend({
 
   didWhat: computed('notification.kind', function() {
     return get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
+  }),
+
+  unreadClass: computed('notification.unread', function() {
+    return get(this, 'notification.unread');
   }),
 });
