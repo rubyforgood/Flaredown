@@ -21,7 +21,7 @@ export default Route.extend(HistoryTrackable, {
   historyEntry(model) {
     let entry = this._super(...arguments);
 
-    entry.pushObject(get(model, 'id'));
+    entry.pushObject([get(model, 'id')]);
 
     return entry;
   },

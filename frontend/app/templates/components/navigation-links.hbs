@@ -1,5 +1,7 @@
 <div class="flex-container left-nav">
-  <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg 'left-arrow' class='icon'}}</a>
+  {{#if navigateBackHistory}}
+    <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg 'left-arrow' class='icon'}}</a>
+  {{/if}}
 </div>
 
 <h5 class="centered page-title">{{title}}</h5>
