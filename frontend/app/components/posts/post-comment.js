@@ -32,7 +32,7 @@ export default Component.extend(InViewportMixin, {
     const {
       ajax,
       comment,
-      visited
+      visited,
     } = getProperties(this, 'ajax', 'comment', 'visited');
 
     const { id, hasNotifications } = getProperties(comment, 'id', 'hasNotifications');

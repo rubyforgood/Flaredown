@@ -3,6 +3,9 @@ import Ember from 'ember';
 const {
   get,
   computed,
+  computed: {
+    alias,
+  },
   Component,
 } = Ember;
 
@@ -20,7 +23,5 @@ export default Component.extend({
     return get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
   }),
 
-  unreadClass: computed('notification.unread', function() {
-    return get(this, 'notification.unread');
-  }),
+  unreadClass: alias('notification.unread'),
 });

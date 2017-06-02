@@ -8,5 +8,5 @@ export default Model.extend({
   postTitle: attr('string'),
   unread: attr('boolean'),
   notificateableId: attr('string'),
-  notificateableType: attr('string')
+  notificateableType: attr('string'),
 });
