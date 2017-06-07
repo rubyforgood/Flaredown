@@ -1,19 +1,19 @@
 <div class="pull-down"></div>
-{{ navigation-links title='Topic' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") authenticatedUser=session.isAuthenticated }}
+{{ navigation-links title='Topic' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated }}
 
 <header class="flaredown-transparent-box centered">
   <h3 class="topic-name">{{model.topic.name}}</h3>
   <div class="topic-type">
     {{capitalize model.type}}
 
-    {{#if session.currentUser}}
+    {{#if session.isAuthenticated}}
       &middot;
       {{pluralize model.topic.usersCount "user"}}
     {{/if}}
  </div>
 </header>
 
-{{#if session.currentUser}}
+{{#if session.isAuthenticated}}
   <header class="centered vert-offset-bottom-1">
     <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
   </header>
@@ -24,7 +24,7 @@
 </div>
 
 {{#each model.posts as |post|}}
-  {{posts/topic-post post=post}}
+  {{posts/topic-post post=post isAuthenticatedUser=session.isAuthenticated}}
 {{/each}}
 
 {{ember-ic-you triggerDistance=40}}
@@ -33,7 +33,7 @@
   {{partial "application/three-bounce-spinner"}}
 {{/if}}
 
-{{#unless session.currentUser}}
+{{#unless session.isAuthenticated}}
   {{additional-info}}
   {{join-footer}}
 {{/unless}}

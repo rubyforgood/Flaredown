@@ -1,6 +1,6 @@
 class Api::V1::ConditionsController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!, except: [:show]
+  skip_before_action :authenticate_user!, only: [:show]
 
   def index
     @conditions = @conditions.includes(:translations)

@@ -24,7 +24,7 @@ const {
 export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSearchable, {
   ajax: service(),
   notifications: service(),
-  session: service('session'),
+  session: service(),
 
   post: alias('model'),
 

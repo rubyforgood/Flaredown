@@ -17,19 +17,19 @@ const {
 export default Component.extend(SearchableDropdown, {
   tagName: 'header',
   classNames: ['flex-container', 'nav'],
-  classNameBindings: ['authenticatedUser::unauthenticatedNav'],
+  classNameBindings: ['isAuthenticatedUser::unauthenticatedNav'],
 
   showSearch: false,
   optionObjects: null,
   searchObjects: null,
 
-  notifications: service('notifications'),
-  routeHistory:  service('routeHistory'),
-  postId: alias('notifications.first.postId'),
+  notifications: service(),
+  routeHistory:  service(),
   _routing:      service('-routing'),
+  postId: alias('notifications.first.postId'),
 
   click() {
-    if(!get(this, 'authenticatedUser')) {
+    if(!get(this, 'isAuthenticatedUser')) {
       get(this, '_routing').transitionTo('signup');
     }
   },
@@ -39,10 +39,6 @@ export default Component.extend(SearchableDropdown, {
       direction: 0,
       pos: $(window).scrollTop(),
     };
-
-    if(!get(this, 'authenticatedUser')) {
-      $('header > .unauthenticated').addClass('hideTag');
-    }
 
     $(window).on('scroll', () => {
       let currentDirection = $(window).scrollTop();

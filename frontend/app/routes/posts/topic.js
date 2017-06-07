@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import HistoryTrackable from 'flaredown/mixins/history-trackable';
+import ToggleHeaderLogo from 'flaredown/mixins/toggle-header-logo';
 
 const {
   get,
@@ -15,8 +16,8 @@ const {
 
 const availableTypes = ['tag', 'symptom', 'condition', 'treatment'];
 
-export default Route.extend(HistoryTrackable, {
-  session: service('session'),
+export default Route.extend(HistoryTrackable, ToggleHeaderLogo, {
+  session: service(),
 
   model(params) {
     const { id, type } = params;

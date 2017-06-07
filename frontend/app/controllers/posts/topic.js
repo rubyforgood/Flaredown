@@ -20,7 +20,7 @@ const {
 } = Ember;
 
 export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSearchable, {
-  session: service('session'),
+  session: service(),
   query: '',
 
   searchFieldObserver: observer('query', function() {

@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!, except: [:index]
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     @posts = @posts.where(_type: 'Post')
