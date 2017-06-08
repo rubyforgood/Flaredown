@@ -6,7 +6,7 @@
   {{screenName}}
 </header>
 
-{{#each notifications.notifications as |notification|}}
+{{#each notifications.unread as |notification|}}
   {{posts/activity-notification notification=notification}}
 {{/each}}
 

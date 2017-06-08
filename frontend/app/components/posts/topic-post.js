@@ -25,9 +25,8 @@ export default Component.extend(InViewportMixin, {
       const id = get(post, 'id');
 
       ajax
-        .del(`notifications/post/${id}`)
-        .then(() => set(post, 'notifications', {}))
-        .then(() => get(this, 'notifications').unloadNotification({ notificateableId: id }));
+        .put(`notifications/post/${id}`)
+        .then(() => set(post, 'notifications', {}));
     }
   },
 });

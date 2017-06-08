@@ -39,6 +39,7 @@ class Notification
   field :encrypted_notify_user_id, type: String, encrypted: { type: :integer }
   field :delivered, type: Boolean, default: false
   field :post_id, type: String
+  field :unread, type: Boolean, default: true
 
   validates :notificateable, :encrypted_user_id, :encrypted_notify_user_id, presence: true
 
@@ -92,7 +93,8 @@ class Notification
           post_id: is_comment ? notificateable.post_id.to_s : group_keys[1],
           post_title: (is_comment ? notificateable.post : notificateable).title,
           notificateable_id: group_keys[1],
-          notificateable_type: group_keys.last
+          notificateable_type: group_keys.last,
+          unread: notifications.map(&:unread).last
         }
       end
     end

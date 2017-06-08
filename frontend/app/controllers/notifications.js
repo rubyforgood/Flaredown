@@ -8,14 +8,9 @@ const {
   get,
   computed,
   Controller,
-  inject: {
-    service
-  }
 } = Ember;
 
 export default Controller.extend(BackNavigateable, UserNameable, SearchableDropdown, NavbarSearchable, {
-  notifications: service('notifications'),
-
   title: computed('screenName', function() {
     let screenName = get(this, 'screenName');
 
