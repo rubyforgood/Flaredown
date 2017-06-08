@@ -33,16 +33,14 @@ export default Component.extend(InViewportMixin, {
       ajax,
       comment,
       visited,
-      notifications
-    } = getProperties(this, 'ajax', 'comment', 'visited', 'notifications');
+    } = getProperties(this, 'ajax', 'comment', 'visited');
 
     const { id, hasNotifications } = getProperties(comment, 'id', 'hasNotifications');
 
     if (visited && hasNotifications) {
       ajax
-        .del(`notifications/comment/${id}`)
-        .then(() => set(comment, 'notifications', {}))
-        .then(() => notifications.unloadNotification({ notificateableId: id }));
+        .put(`notifications/comment/${id}`)
+        .then(() => set(comment, 'notifications', {}));
     }
   }),
 });

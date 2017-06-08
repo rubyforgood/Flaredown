@@ -5,7 +5,7 @@
 {{/link-to}}
 
 {{#if session.currentUser}}
-  {{#if notifications.first}}
+  {{#if notifications.unread}}
     {{nav/discussions-unread}}
   {{else}}
     {{#link-to 'posts' class='bottom-link'}}

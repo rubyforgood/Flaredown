@@ -13,7 +13,7 @@
   {{#link-to 'posts.profile'}}{{inline-svg 'profile' class='icon'}}{{/link-to}}
 
   {{#if session.currentUser.profile.betaTester}}
-    {{#link-to 'notifications' class=(if notifications.count 'notification' '')}}
+    {{#link-to 'notifications' class=(if notifications.unread 'notification' '')}}
       {{inline-svg 'notification' class='icon'}}
     {{/link-to}}
   {{/if}}

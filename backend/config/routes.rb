@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       resources :notifications, only: [:index] do
         collection do
           delete ':notificateable_type/:notificateable_id', action: :destroy
+          put ':notificateable_type/:notificateable_id', action: :update
         end
       end
 

@@ -6,6 +6,7 @@ export default Model.extend({
   count: attr('number'),
   postId: attr('string'),
   postTitle: attr('string'),
+  unread: attr('boolean'),
   notificateableId: attr('string'),
   notificateableType: attr('string'),
 });

@@ -29,6 +29,7 @@ class Ability
 
     can :read, Notification
     can :destroy, Notification, encrypted_notify_user_id: user.encrypted_id
+    can :update, Notification, encrypted_notify_user_id: user.encrypted_id
 
     can :read, Postable, encrypted_user_id: user.encrypted_id
 
