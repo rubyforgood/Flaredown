@@ -1,6 +1,6 @@
-{{ navigation-links title='Settings' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
+{{ navigation-links title='Settings' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
 
-<div class="flaredown-white-box vert-offset-top-1">
+<div class="flaredown-white-box vert-offset-top-1 vert-offset-top-3-conditional">
   <h3>Account</h3>
 
   {{profile-form model=model class="vert-offset-bottom-2"}}

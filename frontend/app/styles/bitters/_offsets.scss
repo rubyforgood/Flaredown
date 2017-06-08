@@ -6,6 +6,12 @@
   margin-top: 2em;
 }
 
+.vert-offset-top-3-conditional {
+  @media screen and (max-width: $medium-screen) {
+    margin-top: 3em;
+  }
+}
+
 .vert-offset-bottom-0_5 {
   margin-bottom: .5em;
 }

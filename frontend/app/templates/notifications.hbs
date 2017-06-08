@@ -1,5 +1,5 @@
 <div class="pull-down"></div>
-{{ navigation-links title=title optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
+{{ navigation-links title=title optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
 
 {{#each model.unread as |notification|}}
   {{posts/activity-notification notification=notification}}
