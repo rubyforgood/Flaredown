@@ -4,6 +4,8 @@
 
 {{posts/post-topics post=post}}
 
-{{emoji-reactions reactable=post}}
+{{emoji-reactions reactable=post isAuthenticatedUser=isAuthenticatedUser}}
 
 {{#link-to 'posts.show' post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
+
+{{share-socials url=post.show title=post.title text=post.body}}

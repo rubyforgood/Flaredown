@@ -2,4 +2,6 @@
   {{emoji-reaction reaction=reaction onParticipate=(action "onEmojiSelect")}}
 {{/each}}
 
-{{#emoji-menu onSelect=(action "onEmojiSelect")}}Add reaction{{/emoji-menu}}
+{{#if isAuthenticatedUser}}
+  {{#emoji-menu onSelect=(action "onEmojiSelect")}}Add reaction{{/emoji-menu}}
+{{/if}}

@@ -61,11 +61,17 @@ h5 {
   }
 }
 
-// navigation bar
+header.navigation {
+  padding-top: 1em;
+}
+
+.hideTag {
+  display: none;
+}
 
 .pull-down {
   @media screen and (max-width: $medium-screen) {
-    padding-top: 60px;
+    padding-top: 3em;
   }
 }
 
@@ -75,6 +81,31 @@ h5 {
   z-index: 1200;
   transform: translate3d(0, 0%, 0);
   transition: transform 300ms linear;
+
+  // Unauthenticated User styles
+  &.unauthenticatedNav {
+    background: $lightprimary;
+    min-height: 50px;
+    margin-bottom: 2em;
+    cursor: pointer;
+
+    h5 {
+      color: $primary;
+    }
+
+    .left-nav, .right-nav {
+      display: none;
+    }
+
+    @media screen and (min-width: $medium-screen) {
+      border: 1px solid $primary;
+      border-radius: 5px;
+    }
+
+    @media screen and (max-width: $medium-screen) {
+      border-bottom: 1px solid $primary;
+    }
+  }
 
   &.hideNavBar {
     transform: translate3d(0px, -101%, 0px);
@@ -88,7 +119,6 @@ h5 {
 
   @media screen and (min-width: $medium-screen) {
     margin: auto;
-    padding-bottom: 2em;
     max-width: 500px;
     justify-content: space-between;
   }
@@ -223,6 +253,18 @@ span.ember-power-select-clear-btn {
   text-align: center;
 }
 
+// Descussions page
+
+.shareSocials {
+  text-align: end;
+}
+
+// Post page
+.flaredown-post-page {
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 // Topic page
 .topic-name, .topic-type {
@@ -235,5 +277,22 @@ span.ember-power-select-clear-btn {
 
   .profile-circle {
     margin-bottom: 0.5em;
+  }
+}
+
+.join-footer {
+  background: $primary;
+  color: white;
+  text-align: center;
+  min-height: 50px;
+  max-width: 385px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  cursor: pointer;
+
+  span {
+    flex: 1;
+    margin: auto;
   }
 }

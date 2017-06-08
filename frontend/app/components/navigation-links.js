@@ -14,24 +14,30 @@ const {
   Component
 } = Ember;
 
-export default Component.extend({SearchableDropdown,
-  classNames: ['flex-container', 'nav'],
+export default Component.extend(SearchableDropdown, {
   tagName: 'header',
-  showSearch: false,
+  classNames: ['flex-container', 'nav'],
+  classNameBindings: ['isAuthenticatedUser::unauthenticatedNav'],
 
+  showSearch: false,
   optionObjects: null,
   searchObjects: null,
-  go: null,
 
-  notifications: service('notifications'),
-  routeHistory:  service('routeHistory'),
-  postId: alias('notifications.first.postId'),
+  notifications: service(),
+  routeHistory:  service(),
   _routing:      service('-routing'),
+  postId: alias('notifications.first.postId'),
+
+  click() {
+    if(!get(this, 'isAuthenticatedUser')) {
+      get(this, '_routing').transitionTo('signup');
+    }
+  },
 
   didInsertElement(){
     const state = {
       direction: 0,
-      pos: $(window).scrollTop()
+      pos: $(window).scrollTop(),
     };
 
     $(window).on('scroll', () => {
@@ -76,6 +82,6 @@ export default Component.extend({SearchableDropdown,
       if (previous) {
         routing.transitionTo(...previous);
       }
-    }
+    },
   }
 });

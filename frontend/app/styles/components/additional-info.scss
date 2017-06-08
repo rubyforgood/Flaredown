@@ -1,0 +1,29 @@
+.flaredown-additional-info {
+  padding: 2em 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: baseline;
+
+  .item {
+    flex: 0.5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    svg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    span {
+      display: inline-block;
+      width: 70%;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 1em;
+    }
+  }
+}

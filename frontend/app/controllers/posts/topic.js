@@ -14,9 +14,13 @@ const {
   run: {
     debounce,
   },
+  inject: {
+    service,
+  },
 } = Ember;
 
 export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSearchable, {
+  session: service(),
   query: '',
 
   searchFieldObserver: observer('query', function() {

@@ -1,5 +1,6 @@
 class Api::V1::TagsController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :authenticate_user!, only: [:show]
 
   def index
     @tags = @tags.includes(:translations)

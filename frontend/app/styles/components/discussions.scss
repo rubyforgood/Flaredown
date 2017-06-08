@@ -11,6 +11,10 @@
     align-self: center;
   }
 
+  @media screen and (min-width: 600px) {
+    padding-top: 2em;
+  }
+
   .btn-link {
     color: white;
     padding: .5em .5em;

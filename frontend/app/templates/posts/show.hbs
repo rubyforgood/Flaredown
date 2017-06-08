@@ -1,6 +1,7 @@
 <div class="pull-down"></div>
-{{ navigation-links title='Post page' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") }}
+{{ navigation-links title='Post page' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
 
+<div class="flaredown-post-page vert-offset-top-1">
 <header class="flaredown-transparent-box centered">
   <h3>{{post.title}}</h3>
 </header>
@@ -11,15 +12,18 @@
 
   {{posts/post-topics post=post}}
 
-  {{emoji-reactions reactable=post}}
+  {{emoji-reactions reactable=post isAuthenticatedUser=session.isAuthenticated}}
 
   {{#each post.comments as |comment|}}
-    {{posts/post-comment comment=comment}}
+    {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
   {{/each}}
 </div>
 
-<div class="flaredown-white-box">
-  {{textarea value=newComment.body placeholder="Leave a comment..."}}
+{{#if session.currentUser}}
+  <div class="flaredown-white-box">
+    {{textarea value=newComment.body placeholder="Leave a comment..."}}
 
-  <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
+    <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
+  </div>
+{{/if}}
 </div>

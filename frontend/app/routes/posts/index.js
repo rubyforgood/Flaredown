@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import HistoryTrackable from 'flaredown/mixins/history-trackable';
-import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
+import ToggleHeaderLogo from 'flaredown/mixins/toggle-header-logo';
 
 const {
   set,
@@ -11,7 +11,7 @@ const {
   },
 } = Ember;
 
-export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
+export default Route.extend(HistoryTrackable, ToggleHeaderLogo, {
   queryParams: {
     following: { refreshModel: true },
     query: { refreshModel: true }
@@ -19,9 +19,11 @@ export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
 
   model(params) {
     set(this, 'query', params.query);
+    const currentUser = get(this, 'session.currentUser');
+
     return hash({
       posts: get(this, 'store').query('post', params).then(q => q.toArray()),
-      topicFollowing: get(this, 'session.currentUser').then(user => get(user, 'topicFollowing')),
+      topicFollowing: currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [],
     });
   },
 });

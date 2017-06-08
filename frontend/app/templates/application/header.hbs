@@ -3,10 +3,8 @@
     {{#if session.isAuthenticated}}
       {{navigation-bar}}
     {{else}}
-      <div>
-        <img src="/assets/logo.svg" class="img-logo">
-        <h4>{{capitalize currentPath}}</h4>
-      </div>
+      {{toggle-logo currentPath=currentPath}}
     {{/if}}
   </header>
 {{/unless}}
+
