@@ -27,8 +27,9 @@ before_install:
 install:
   - 'gem update bundler'
   - 'cd frontend'
-  - 'nvm i 6.9.4'
+  - 'nvm i 6.10.3'
   - 'npm i'
+  - npm install bower
   - 'bower install'
   - 'cd ../backend'
   - 'bundle install --without production --jobs 3 --retry 3 --deployment'
