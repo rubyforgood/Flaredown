@@ -12,7 +12,7 @@
   </a>
   {{#link-to 'posts.profile'}}{{inline-svg 'profile' class='icon'}}{{/link-to}}
 
-  {{#if session.currentUser.profile.betaTester}}
+  {{#if session.currentUser}}
     {{#link-to 'notifications' class=(if notifications.unread 'notification' '')}}
       {{inline-svg 'notification' class='icon'}}
     {{/link-to}}

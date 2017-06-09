@@ -1,5 +1,6 @@
 class Api::V1::CommentsController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     render json: @comments.where(:id.in => params[:ids]).order_by(created_at: :asc)
