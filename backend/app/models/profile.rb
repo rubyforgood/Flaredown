@@ -22,6 +22,14 @@
 #
 
 class Profile < ActiveRecord::Base
+  include PgSearch
+
+  pg_search_scope :search_by_slug_name,
+                  against: [:slug_name],
+                  using: {
+                    trigram: { threshold: 0.1 }
+                  }
+
   enum pressure_units: %i(mb in)
   enum temperature_units: %i(f c)
 
@@ -68,6 +76,7 @@ class Profile < ActiveRecord::Base
   # Callbacks
   #
   before_create :generate_notify_token
+  before_save :ensure_slug_name, if: :screen_name_changed?
 
   #
   # Instance Methods
@@ -142,5 +151,10 @@ class Profile < ActiveRecord::Base
         random_token = SecureRandom.hex
         break random_token unless Profile.exists?(notify_token: random_token)
       end
+  end
+
+  def ensure_slug_name
+    slug_name = screen_name && screen_name.split(' ').map(&:capitalize).join('')
+    assign_attributes(slug_name: slug_name)
   end
 end

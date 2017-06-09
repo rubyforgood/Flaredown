@@ -40,6 +40,7 @@ class Notification
   field :delivered, type: Boolean, default: false
   field :post_id, type: String
   field :unread, type: Boolean, default: true
+  field :notifier_username, type: String
 
   validates :notificateable, :encrypted_user_id, :encrypted_notify_user_id, presence: true
 
@@ -85,7 +86,6 @@ class Notification
       group.map do |group_keys, notifications|
         notificateable = notifications.first.notificateable
         is_comment = notificateable._type == 'Comment'
-
         {
           id: [notifications.map(&:created_at).max.to_i].concat(group_keys).join('_'),
           kind: group_keys.first,
@@ -94,7 +94,8 @@ class Notification
           post_title: (is_comment ? notificateable.post : notificateable)&.title,
           notificateable_id: group_keys[1],
           notificateable_type: group_keys.last,
-          unread: notifications.map(&:unread).last
+          unread: notifications.map(&:unread).last,
+          notifier_username: notifications.first.notifier_username
         }
       end
     end

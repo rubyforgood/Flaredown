@@ -254,7 +254,8 @@ CREATE TABLE profiles (
     temperature_units integer DEFAULT 0,
     beta_tester boolean DEFAULT false,
     notify boolean DEFAULT true,
-    notify_token character varying
+    notify_token character varying,
+    slug_name character varying
 );
 
 
@@ -1384,4 +1385,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170504065043');
 INSERT INTO schema_migrations (version) VALUES ('20170508151200');
 
 INSERT INTO schema_migrations (version) VALUES ('20170509114220');
+
+INSERT INTO schema_migrations (version) VALUES ('20170612160120');
 

@@ -25,7 +25,8 @@
 
 {{#if session.isAuthenticated}}
   <div class="flaredown-white-box">
-    {{textarea value=newComment.body placeholder="Leave a comment..."}}
+
+    {{at-js-autocomplete value=newComment.body postId=post.id}}
 
     <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
   </div>

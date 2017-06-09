@@ -9,4 +9,5 @@ export default Model.extend({
   unread: attr('boolean'),
   notificateableId: attr('string'),
   notificateableType: attr('string'),
+  notifier_username: attr('string'),
 });
