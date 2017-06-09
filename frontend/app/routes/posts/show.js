@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import HistoryTrackable from 'flaredown/mixins/history-trackable';
-import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
+import ToggleHeaderLogo from 'flaredown/mixins/toggle-header-logo';
 
 const {
   get,
@@ -8,7 +8,7 @@ const {
   Route,
 } = Ember;
 
-export default Route.extend(HistoryTrackable, AuthenticatedRouteMixin, {
+export default Route.extend(HistoryTrackable, ToggleHeaderLogo, {
   model(params) {
     return get(this, 'store').find('post', params.id);
   },

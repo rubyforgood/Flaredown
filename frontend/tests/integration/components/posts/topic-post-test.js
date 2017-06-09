@@ -10,7 +10,7 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  const templateText = 'comments, Share, Tweet';
+  const templateText = 'comments';
 
   this.render(hbs`{{posts/topic-post}}`);
 

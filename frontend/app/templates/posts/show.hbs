@@ -14,16 +14,23 @@
 
   {{emoji-reactions reactable=post isAuthenticatedUser=session.isAuthenticated}}
 
+  {{share-socials url=post.show title=post.title text=post.body}}
+
   {{#each post.comments as |comment|}}
     {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
   {{/each}}
 </div>
 
-{{#if session.currentUser}}
+{{#if session.isAuthenticated}}
   <div class="flaredown-white-box">
     {{textarea value=newComment.body placeholder="Leave a comment..."}}
 
     <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
   </div>
 {{/if}}
+
+{{#unless session.isAuthenticated}}
+{{!--   {{additional-info}} --}}
+  {{join-footer}}
+{{/unless}}
 </div>
