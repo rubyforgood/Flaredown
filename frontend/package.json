@@ -67,6 +67,7 @@
     ]
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "process-nextick-args": "^1.0.7"
   }
 }
