@@ -1,4 +1,8 @@
-{{ navigation-links title='Settings' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
+{{#if session.currentUser.profile.betaTester}}
+  {{ navigation-links title='Settings' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
+{{else}}
+  <h2 class="centered">Settings</h2>
+{{/if}}
 
 <div class="flaredown-white-box vert-offset-top-1 vert-offset-top-3-conditional">
   <h3>Account</h3>
