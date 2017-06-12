@@ -14,7 +14,7 @@
   },
   "repository": "",
   "engines": {
-    "node": ">=6.*"
+    "node": "6.10.3"
   },
   "author": "",
   "license": "MIT",
@@ -67,6 +67,8 @@
     ]
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "node-sass": "^4.5.3",
+    "process-nextick-args": "^1.0.7"
   }
 }
