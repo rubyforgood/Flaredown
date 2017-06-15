@@ -26,7 +26,10 @@ export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSea
   notifications: service(),
   session: service(),
 
+  queryParams: ['anchor'],
+
   post: alias('model'),
+  anchor: null,
 
   disabled: computed('newComment.body', function() {
     return isEmpty(get(this, 'newComment.body'));

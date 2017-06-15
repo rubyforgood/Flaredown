@@ -91,7 +91,7 @@ class Notification
           kind: group_keys.first,
           count: notifications.count,
           post_id: is_comment ? notificateable.post_id.to_s : group_keys[1],
-          post_title: (is_comment ? notificateable.post : notificateable).title,
+          post_title: (is_comment ? notificateable.post : notificateable)&.title,
           notificateable_id: group_keys[1],
           notificateable_type: group_keys.last,
           unread: notifications.map(&:unread).last

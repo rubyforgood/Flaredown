@@ -9,6 +9,11 @@ const {
 } = Ember;
 
 export default Route.extend(HistoryTrackable, ToggleHeaderLogo, {
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      set(controller, 'anchor', null);
+    }
+  },
   model(params) {
     return get(this, 'store').find('post', params.id);
   },

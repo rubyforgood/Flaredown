@@ -2,6 +2,7 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 
 const {
+  get,
   set,
   observer,
   Component,
@@ -15,6 +16,12 @@ const {
 } = Ember;
 
 export default Component.extend(InViewportMixin, {
+  init() {
+    this._super(...arguments);
+
+    set(this, 'elementId', `anchor-${get(this, 'comment.id')}`);
+  },
+
   visited: false,
 
   ajax: service(),
