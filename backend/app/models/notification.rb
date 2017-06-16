@@ -86,6 +86,7 @@ class Notification
       group.map do |group_keys, notifications|
         notificateable = notifications.first.notificateable
         is_comment = notificateable._type == 'Comment'
+
         {
           id: [notifications.map(&:created_at).max.to_i].concat(group_keys).join('_'),
           kind: group_keys.first,

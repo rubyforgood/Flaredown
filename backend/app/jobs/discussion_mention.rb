@@ -5,16 +5,11 @@ class DiscussionMention
 
   def perform(encrypted_user_id, comment_id)
     comment = Comment.find(comment_id)
-
     profiles = parse_screen_name(comment.body).uniq
     return unless profiles
 
     notifier_username = Profile.find_by(user_id: SymmetricEncryption.decrypt(encrypted_user_id)).screen_name
     create_notifications(notifier_username, encrypted_user_id, profiles.map(&:user_id), comment)
-
-    profiles.map(&:user).map(&:email).map do |email|
-      DiscussionMentionMailer.notify(notifier_username, email).deliver_later
-    end
   end
 
   private
