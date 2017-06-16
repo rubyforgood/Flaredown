@@ -40,7 +40,6 @@ class Notification
   field :delivered, type: Boolean, default: false
   field :post_id, type: String
   field :unread, type: Boolean, default: true
-  field :notifier_username, type: String
 
   validates :notificateable, :encrypted_user_id, :encrypted_notify_user_id, presence: true
 
@@ -96,13 +95,18 @@ class Notification
           notificateable_id: group_keys[1],
           notificateable_type: group_keys.last,
           unread: notifications.map(&:unread).last,
-          notifier_username: notifications.first.notifier_username
+          notifier_username: notifier_username(notifications)
         }
       end
     end
 
     def aggregate_group(groupped_by_kind)
       groupped_by_kind.each_with_object({}) { |kind, hash| hash[kind[0]] = kind[1].count }
+    end
+
+    def notifier_username(notifications)
+      notifier_user_id = SymmetricEncryption.decrypt(notifications.first.encrypted_user_id)
+      Profile.find_by(user_id: notifier_user_id).screen_name
     end
   end
 end

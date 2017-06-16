@@ -1,6 +1,6 @@
 class AddSlugNameToProfiles < ActiveRecord::Migration
   def up
-    add_column :profiles, :slug_name, :string, index: true
+    add_column :profiles, :slug_name, :string
     add_index :profiles, :slug_name
 
     Profile.find_each(batch_size: 500) do |profile|

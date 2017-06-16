@@ -28,7 +28,7 @@ export default Component.extend({
 
       return (`<b>${get(this, 'notification.notifier_username')}</b> mentioned you in a comment` ).htmlSafe();
     } else {
-      let response = get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
+      const response = get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
 
       return (`<b>${get(this, 'people')}</b> ${response} to ${get(this, 'notification.postTitle')}`).htmlSafe();
     }

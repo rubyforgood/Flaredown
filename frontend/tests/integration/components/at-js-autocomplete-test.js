@@ -7,19 +7,25 @@ moduleForComponent('at-js-autocomplete', 'Integration | Component | at js autoco
 
 test('it renders', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('ajax', {
+    session: {
+      data: {
+        authenticated: {
+        },
+      },
+    },
 
-  this.render(hbs`{{at-js-autocomplete}}`);
+    request() {
+      return {
+        then() {
+        },
+      };
+    },
+  });
+
+   // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{at-js-autocomplete ajax=ajax}}`);
 
   assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#at-js-autocomplete}}
-      template block text
-    {{/at-js-autocomplete}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });

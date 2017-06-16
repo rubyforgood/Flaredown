@@ -20,18 +20,18 @@ export default TextArea.extend({
     const ajax = get(this, 'ajax');
     const postId = get(this, 'postId');
 
-    this.$().atwho({
-      at: "@",
-      insertTpl: "@${slug_name}",
-      displayTpl: '<li>${screen_name}</li>',
-      callbacks: {
-        sorter(query, data) {
-          return data;
-        },
-        remoteFilter(query, callback) {
-          ajax.request('/profiles', { data: { query: query, post_id: postId} }).then(({ profiles }) => callback(profiles));
-        }
-      }
+    ajax.request('/profiles', { data: { post_id: postId } }).then(({ profiles }) => {
+      let userList = profiles.map(function(item) {
+        return { screen_name: item.screen_name, slug_name: item.slug_name };
+      });
+
+      this.$().atwho({
+        at: "@",
+        insertTpl: "@${slug_name}",
+        displayTpl: '<li>${screen_name}</li>',
+        searchKey: "screen_name",
+        data: userList,
+      });
     });
   }
 });

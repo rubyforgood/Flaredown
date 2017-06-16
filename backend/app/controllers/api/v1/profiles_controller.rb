@@ -11,7 +11,6 @@ class Api::V1::ProfilesController < ApplicationController
       end
 
     @profiles = Profile.where(user_id: encrypted_user_ids).where.not(slug_name: nil)
-    @profiles = @profiles.search_by_slug_name(params[:query]) if params[:query].present?
     render json: @profiles.map { |profile| profile.attributes.slice("screen_name", "slug_name") }
   end
 
