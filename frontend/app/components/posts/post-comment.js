@@ -19,7 +19,11 @@ export default Component.extend(InViewportMixin, {
   init() {
     this._super(...arguments);
 
-    set(this, 'elementId', `anchor-${get(this, 'comment.id')}`);
+    const commentId = get(this, 'comment.id');
+
+    if (commentId) {
+      set(this, 'elementId', `anchor-${commentId}`);
+    }
   },
 
   visited: false,
