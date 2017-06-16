@@ -16,9 +16,11 @@
 
   {{share-socials url=post.show title=post.title text=post.body}}
 
-  {{#each post.comments as |comment|}}
-    {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
-  {{/each}}
+  {{#scroll-to-anchor anchor=anchor}}
+    {{#each post.comments as |comment|}}
+      {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
+    {{/each}}
+  {{/scroll-to-anchor}}
 </div>
 
 {{#if session.isAuthenticated}}
