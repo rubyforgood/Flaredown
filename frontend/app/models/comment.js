@@ -21,5 +21,5 @@ export default Reactable.extend(Typeable, BodyFormatable, {
 
   post: belongsTo('post'),
 
-  hasNotifications: or('notifications.comment', 'notifications.reaction'),
+  hasNotifications: or('notifications.comment', 'notifications.reaction', 'notifications.mention'),
 });

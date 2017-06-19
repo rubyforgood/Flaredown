@@ -11,6 +11,9 @@ const {
 
 export default Mixin.create({
   bodyWithBr: computed('body', function() {
-    return htmlSafe((get(this, 'body') || '').replace(/\n/g, "<br>"));
+    const phrase = "@[A-Z][A-z0-9]+\\b";
+    const changedBody = (get(this, 'body') || []).replace(new RegExp(phrase, 'g'), (item) => { return `<b>${item}</b>`; });
+
+    return htmlSafe((changedBody || '').replace(/\n/g, "<br>") );
   }),
 });

@@ -68,6 +68,7 @@ class Profile < ActiveRecord::Base
   # Callbacks
   #
   before_create :generate_notify_token
+  before_save :ensure_slug_name, if: :screen_name_changed?
 
   #
   # Instance Methods
@@ -142,5 +143,10 @@ class Profile < ActiveRecord::Base
         random_token = SecureRandom.hex
         break random_token unless Profile.exists?(notify_token: random_token)
       end
+  end
+
+  def ensure_slug_name
+    slug_name = screen_name && screen_name.split(/\s/).map(&:capitalize).join('')
+    assign_attributes(slug_name: slug_name)
   end
 end

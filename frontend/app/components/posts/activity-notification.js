@@ -23,5 +23,16 @@ export default Component.extend({
     return get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
   }),
 
+  fullResponse: computed('people', 'notification.kind', 'notification.notifier_username', function() {
+    if(get(this, 'notification.kind') === 'mention') {
+
+      return (`<b>${get(this, 'notification.notifier_username')}</b> mentioned you in a comment` ).htmlSafe();
+    } else {
+      const response = get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
+
+      return (`<b>${get(this, 'people')}</b> ${response} to ${get(this, 'notification.postTitle')}`).htmlSafe();
+    }
+  }),
+
   unreadClass: alias('notification.unread'),
 });

@@ -121,7 +121,7 @@ Rails.application.routes.draw do
       #
       # Profiles
       #
-      resources :profiles, only: [:show, :update]
+      resources :profiles, only: [:index, :show, :update]
 
       #
       # Activations

@@ -66,5 +66,8 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.css');
   app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-icons.css');
 
+  // At-js
+  app.import(app.bowerDirectory + '/At.js/dist/css/jquery.atwho.css');
+
   return app.toTree();
 };
