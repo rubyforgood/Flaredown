@@ -1,3 +1,3 @@
-{{#link-to 'posts.show' notification.postId class="colorable-clr-39"}}
+{{#link-to 'posts.show' notification.postId (query-params anchor=(concat 'anchor-' notification.notificateableId)) class="colorable-clr-39"}}
   <b>{{people}}</b> {{didWhat}} to "{{notification.postTitle}}"
 {{/link-to}}

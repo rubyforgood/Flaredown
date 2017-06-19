@@ -1,5 +1,5 @@
 <h5>
-  {{#link-to 'posts.show' comment.post.id class="colorable-clr-39"}}
+  {{#link-to 'posts.show' comment.post.id (query-params anchor=(concat 'anchor-' comment.id)) class="colorable-clr-39"}}
     Responded to <b>{{comment.post.title}}</b>
   {{/link-to}}
 </h5>
