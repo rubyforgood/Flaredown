@@ -23,6 +23,8 @@ class Api::V1::CommentsController < ApplicationController
         )
       end
 
+      DiscussionMention.perform_async(current_user.encrypted_id, @comment.id.to_s)
+
       render json: @comment, status: :created
     else
       render json: { errors: @comment.errors }, status: :unprocessable_entity

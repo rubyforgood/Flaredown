@@ -296,3 +296,17 @@ span.ember-power-select-clear-btn {
     margin: auto;
   }
 }
+
+// Tagging users
+.atwho-view {
+  color: $primary;
+
+  .cur {
+    color: $primary;
+    background: $lightprimary;
+  }
+
+  strong {
+    color: $primary;
+  }
+}

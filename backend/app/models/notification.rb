@@ -94,13 +94,19 @@ class Notification
           post_title: (is_comment ? notificateable.post : notificateable)&.title,
           notificateable_id: group_keys[1],
           notificateable_type: group_keys.last,
-          unread: notifications.map(&:unread).last
+          unread: notifications.map(&:unread).last,
+          notifier_username: notifier_username(notifications)
         }
       end
     end
 
     def aggregate_group(groupped_by_kind)
       groupped_by_kind.each_with_object({}) { |kind, hash| hash[kind[0]] = kind[1].count }
+    end
+
+    def notifier_username(notifications)
+      notifier_user_id = SymmetricEncryption.decrypt(notifications.first.encrypted_user_id)
+      Profile.find_by(user_id: notifier_user_id).screen_name
     end
   end
 end

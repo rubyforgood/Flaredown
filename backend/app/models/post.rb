@@ -16,7 +16,7 @@ class Post
 
   validate :topic_presence
 
-  has_many :comments
+  has_many :comments,                             dependent: :destroy
   has_many :reactions,      as: :reactable,       dependent: :destroy
   has_many :notifications,  as: :notificateable,  dependent: :destroy
 

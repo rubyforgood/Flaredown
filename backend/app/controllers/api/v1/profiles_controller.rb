@@ -1,5 +1,18 @@
 class Api::V1::ProfilesController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :authenticate_user!, only: [:index]
+
+  def index
+    post = Post.find(params[:post_id])
+
+    encrypted_user_ids =
+      (post.comments.distinct(:encrypted_user_id) << post.encrypted_user_id).uniq.map do |encrypted_id|
+        SymmetricEncryption.decrypt(encrypted_id)
+      end
+
+    @profiles = Profile.where(user_id: encrypted_user_ids).where.not(slug_name: nil)
+    render json: @profiles.map { |profile| profile.attributes.slice("screen_name", "slug_name") }
+  end
 
   def show
     render json: @profile
