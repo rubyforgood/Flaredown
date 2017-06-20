@@ -15,6 +15,10 @@ module.exports = function(environment) {
       }
     },
 
+    fastboot: {
+      hostWhitelist: ['flaredown-webapp.herokuapp.com', 'staging.flaredown.com', /^localhost:\d+$/]
+    },
+
     torii: {
       providers: {
         'facebook-connect': {
@@ -57,6 +61,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    var STATIC_URL = 'http://localhost:4300';
   }
 
   if (environment === 'test') {
@@ -74,7 +79,11 @@ module.exports = function(environment) {
     ENV['heap-analytics'] = {
       key: process.env.HEAP_KEY,
     };
+
+    var STATIC_URL = process.env.STATIC_URL;
   }
+
+  ENV.staticUrl = STATIC_URL;
 
   return ENV;
 };
