@@ -19,9 +19,9 @@ export default Component.extend({
     const anchor = get(this, 'anchor');
 
     if(anchor) {
-      const getAnchor = $(`#${anchor}`);
+      const $anchor = $(`#${anchor}`);
 
-      if(getAnchor) { $('body').animate({ scrollTop: getAnchor.offset().top }, 'slow'); }
+      if($anchor.length > 0) { $('body').animate({ scrollTop: $anchor.offset().top }, 'slow'); }
     }
   },
 });
