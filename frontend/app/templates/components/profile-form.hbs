@@ -33,14 +33,12 @@
 
   <br>
 
-  {{#if session.currentUser.profile.betaTester}}
-    {{#form-field for="notify" label="Email me when someone responds to my posts"}}
-      {{label-switch
-        checked=(mut model.notify)
-        bgColorClass="colorable-bg-35"
-      }}
-    {{/form-field}}
-  {{/if}}
+  {{#form-field for="notify" label="Email me when someone responds to my posts"}}
+    {{label-switch
+      checked=(mut model.notify)
+      bgColorClass="colorable-bg-35"
+    }}
+  {{/form-field}}
 
   {{#unless forOnboarding}}
     <br>
