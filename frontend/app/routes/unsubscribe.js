@@ -12,7 +12,7 @@ export default Route.extend({
   beforeModel(transition) {
     var notify_token = transition.params.unsubscribe.notify_token;
 
-    get(this, 'ajax').request(`/api/unsubscribe/${ notify_token }`, {
+    get(this, 'ajax').request(`/unsubscribe/${ notify_token }`, {
       type: 'GET'
     });
   }

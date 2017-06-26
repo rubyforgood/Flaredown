@@ -1,22 +1,15 @@
 import Ember from 'ember';
 import HistoryTrackable from 'flaredown/mixins/history-trackable';
 import ToggleHeaderLogo from 'flaredown/mixins/toggle-header-logo';
-import config from './../../config/environment';
+import AddMetaTags from 'flaredown/mixins/add-meta-tags';
 
 const {
   get,
   set,
-  computed,
   Route,
 } = Ember;
 
-export default Route.extend(HistoryTrackable, ToggleHeaderLogo, {
-  staticUrl: config.staticUrl,
-
-  currentUrl: computed('staticUrl', 'router.url', function() {
-    return `${get(this, 'staticUrl')}${get(this, 'router.url')}`;
-  }),
-
+export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
   resetController(controller, isExiting) {
     if (isExiting) {
       set(controller, 'anchor', null);
@@ -38,10 +31,6 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, {
     entry.pushObject([get(model, 'id')]);
 
     return entry;
-  },
-
-  afterModel: function(model) {
-    this.setHeadTags(model);
   },
 
   setHeadTags: function(model) {

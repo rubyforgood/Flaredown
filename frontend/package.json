@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "ember build",
-    "start": "ember server --port 4300 --proxy http://localhost:3000",
+    "start": "ember server --port 4300",
     "test": "ember test"
   },
   "repository": "",
@@ -28,6 +28,8 @@
     "ember-cli-babel": "^5.1.6",
     "ember-cli-bourbon": "1.2.0",
     "ember-cli-dependency-checker": "^1.2.0",
+    "ember-cli-deploy": "^1.0.1",
+    "ember-cli-deploy-build": "^1.1.0",
     "ember-cli-dotenv": "1.2.0",
     "ember-cli-fastboot": "^1.0.0-rc.4",
     "ember-cli-htmlbars": "^1.0.3",

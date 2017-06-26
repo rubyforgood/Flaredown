@@ -16,7 +16,7 @@ module.exports = function(environment) {
     },
 
     fastboot: {
-      hostWhitelist: ['flaredown-webapp.herokuapp.com', 'staging.flaredown.com', /^localhost:\d+$/]
+      hostWhitelist: ['flaredown-webapp.herokuapp.com', 'staging.flaredown.com', 'app.flaredown.com', 'flaredown-staging-webapp.herokuapp.com', /^localhost:\d+$/]
     },
 
     torii: {
@@ -61,6 +61,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.apiHost = 'http://localhost:3000';
     var STATIC_URL = 'http://localhost:4300';
   }
 
@@ -80,6 +81,7 @@ module.exports = function(environment) {
       key: process.env.HEAP_KEY,
     };
 
+    ENV.apiHost = process.env.API_HOST;
     var STATIC_URL = process.env.STATIC_URL;
   }
 

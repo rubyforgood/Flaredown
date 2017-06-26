@@ -10,7 +10,7 @@ export default SessionService.extend({
    * Services
    */
   dataStore: Ember.inject.service('store'),
-  userEngage: Ember.inject.service('userengage'),
+  userEngage: Ember.inject.service('custom-userengage'),
 
   userId: Ember.computed.alias('session.authenticated.user_id'),
   email: Ember.computed.alias('session.authenticated.email'),

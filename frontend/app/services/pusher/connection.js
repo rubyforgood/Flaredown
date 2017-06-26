@@ -5,7 +5,7 @@ export default Ember.Object.extend({
   setConnection: Ember.on('init', function() {
     this.set('client', new Pusher(ENV.pusher.key, {
       encrypted: true,
-      authEndpoint: '/api/pusher',
+      authEndpoint: `${ENV.apiHost}/api/pusher`,
       auth: {
         headers: {
           'Authorization': `Token token="${this.get('token')}", email="${this.get('email')}"`
