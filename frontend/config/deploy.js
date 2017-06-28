@@ -2,7 +2,11 @@
 
 module.exports = function(deployTarget) {
   var ENV = {
-    build: {}
+    build: {},
+    gzip: {
+      ignorePattern: '{fastboot/*.js,*.json}',
+      keep: true
+    }
     // include other plugin configuration that applies to all deploy targets here
   };
 
