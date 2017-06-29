@@ -16,5 +16,6 @@ export default Mixin.create({
 
   afterModel: function(model) {
     this.setHeadTags(model);
+    this._super(...arguments);
   },
 });
