@@ -46,10 +46,21 @@ export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSea
 
     if (get(post, 'notifications.reaction')) {
       const id = get(post, 'id');
+      const store = get(this, 'store');
 
       ajax
         .put(`notifications/post/${id}`)
-        .then(() => set(post, 'notifications', {}));
+        .then(({notifications}) => {
+
+          notifications.forEach((n) => {
+            const model = store.peekRecord('notification', n.id);
+
+            if(model){
+              set(model, 'unread', false);
+            }
+          });
+          set(post, 'notifications', {});
+        });
     }
   },
 

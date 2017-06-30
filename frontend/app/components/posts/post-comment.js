@@ -49,9 +49,21 @@ export default Component.extend(InViewportMixin, {
     const { id, hasNotifications } = getProperties(comment, 'id', 'hasNotifications');
 
     if (visited && hasNotifications) {
+      const store = get(this, 'store');
+
       ajax
         .put(`notifications/comment/${id}`)
-        .then(() => set(comment, 'notifications', {}));
+        .then(({notifications}) => {
+
+          notifications.forEach((n) => {
+            const model = store.peekRecord('notification', n.id);
+
+            if(model){
+              set(model, 'unread', false);
+            }
+          });
+          set(comment, 'notifications', {});
+        });
     }
   }),
 });
