@@ -106,7 +106,7 @@ class Notification
 
     def notifier_username(notifications)
       notifier_user_id = SymmetricEncryption.decrypt(notifications.first.encrypted_user_id)
-      Profile.find_by(user_id: notifier_user_id).screen_name
+      Profile.find_by(user_id: notifier_user_id)&.screen_name
     end
   end
 end

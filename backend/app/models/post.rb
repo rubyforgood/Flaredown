@@ -11,6 +11,7 @@ class Post
   field :_type, type: String, default: -> { self.class.name }
 
   field :comments_count, type: Integer, default: 0
+  field :last_commented, type: DateTime, default: -> { Time.current }
 
   validates :body, :title, presence: true
 
