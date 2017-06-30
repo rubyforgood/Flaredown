@@ -15,4 +15,6 @@ class Comment
 
   has_many :reactions,      as: :reactable,       dependent: :destroy
   has_many :notifications,  as: :notificateable,  dependent: :destroy
+
+  after_create { self.post.touch }
 end
