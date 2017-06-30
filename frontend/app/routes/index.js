@@ -19,6 +19,8 @@ export default Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
         default route should be summary screen of today's check-in
   */
   beforeModel(transition) {
+    if (typeof FastBoot !== 'undefined') { return; }
+
     transition.abort();
 
     if (get(this, 'session.isAuthenticated')) {

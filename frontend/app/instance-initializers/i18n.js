@@ -3,7 +3,7 @@ export default {
 
   initialize(application) {
     let i18n = application.lookup('service:i18n');
-    const lang = navigator.language || navigator.userLanguage;
+    const lang = typeof navigator !== 'undefined' && (navigator.language || navigator.userLanguage) || 'en';
 
     i18n.set('locale', i18n.get('locales').includes(lang) ? lang : 'en');
 

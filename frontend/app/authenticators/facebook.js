@@ -12,9 +12,11 @@ export default ToriiAuthenticator.extend({
   },
 
   authenticate() {
+    if (typeof FastBoot !== 'undefined') { return; }
+
     return new Ember.RSVP.Promise((resolve, reject) => {
       this._super('facebook-connect').then( (data) => {
-        this.get('ajax').request('/api/auth/facebook/callback', {
+        this.get('ajax').request('/auth/facebook/callback', {
           method: 'POST',
           dataType: 'json'
         }).then((response) => {

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AjaxService from 'ember-ajax/services/ajax';
+import ENV from 'flaredown/config/environment';
 
 const {
   get,
@@ -12,6 +13,7 @@ const {
 
 export default AjaxService.extend({
   namespace: 'api',
+  host: ENV.apiHost,
 
   session: service(),
 

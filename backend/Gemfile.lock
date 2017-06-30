@@ -202,6 +202,7 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.3.2)
@@ -343,6 +344,7 @@ DEPENDENCIES
   puma
   pusher
   quiet_assets (~> 1.1)
+  rack-cors
   rack-timeout
   rails (~> 4.2.7)
   rails-api

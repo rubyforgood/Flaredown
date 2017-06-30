@@ -1,5 +1,11 @@
 /*jshint node:true*/
 /* global require, module */
+
+const fs = require('fs');
+const map = require('broccoli-stew').map;
+const Funnel = require('broccoli-funnel');
+const mergeTrees = require('broccoli-merge-trees');
+
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
@@ -47,11 +53,14 @@ module.exports = function(defaults) {
     },
   });
 
-  // pace
-  app.import(app.bowerDirectory + '/pace/pace.js');
+  const assetPath = process.env.PWD + '/' + app.bowerDirectory;
 
-  // pusher
-  app.import(app.bowerDirectory + '/pusher/dist/pusher.js');
+  let vendorLib = new Funnel(assetPath, {
+    files: ['/pace/pace.js', '/pusher/dist/pusher.js', '/drag-drop-polyfill/release/drag-drop-polyfill.js'],
+    destDir: '/assets',
+  });
+
+  vendorLib = map(vendorLib, (content) => `if (typeof FastBoot === 'undefined') { ${content} \n }`);
 
   // d3
   app.import(app.bowerDirectory + '/d3/d3.min.js');
@@ -61,7 +70,6 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/moment-range/dist/moment-range.js');
 
   // HTML5 Drag and Drop Polyfill for Mobile
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.js');
   app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-scroll-behaviour.js');
   app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.css');
   app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-icons.css');
@@ -69,5 +77,5 @@ module.exports = function(defaults) {
   // At-js
   app.import(app.bowerDirectory + '/At.js/dist/css/jquery.atwho.css');
 
-  return app.toTree();
+  return app.toTree([vendorLib]);
 };
