@@ -11,7 +11,7 @@ class Post
   field :_type, type: String, default: -> { self.class.name }
 
   field :comments_count, type: Integer, default: 0
-  field :last_commented, type: DateTime
+  field :last_commented, type: DateTime, default: -> { Time.current }
 
   validates :body, :title, presence: true
 
@@ -22,8 +22,6 @@ class Post
   has_many :notifications,  as: :notificateable,  dependent: :destroy
 
   index(body: 'text', title: 'text')
-
-  before_create { self.last_commented = Time.current }
 
   def self.fts(q)
     where('$text': { '$search': q, '$language': I18n.locale.to_s })
