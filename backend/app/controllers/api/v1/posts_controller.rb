@@ -13,7 +13,7 @@ class Api::V1::PostsController < ApplicationController
                @posts
              end
 
-    render json: @posts.order(updated_at: :desc, created_at: :desc).page(params[:page]).per(10)
+    render json: @posts.order(last_commented: :desc, created_at: :desc).page(params[:page]).per(10)
   end
 
   def show

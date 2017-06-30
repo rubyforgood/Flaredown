@@ -158,4 +158,11 @@ namespace :oneoff do
     end
   end
 
+  task update_last_commented_for_posts: :environment do
+    Post.where(_type: 'Post').each do |post|
+      post.update(last_commented: post.created_at)
+    end
+  end
+
+
 end

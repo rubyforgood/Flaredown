@@ -16,5 +16,5 @@ class Comment
   has_many :reactions,      as: :reactable,       dependent: :destroy
   has_many :notifications,  as: :notificateable,  dependent: :destroy
 
-  after_create { self.post.touch }
+  after_create { post.update_attributes(last_commented: Time.current) }
 end
