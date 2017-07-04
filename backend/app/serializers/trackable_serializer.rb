@@ -2,7 +2,7 @@ module TrackableSerializer
   extend ActiveSupport::Concern
 
   included do
-    attributes :color_id, :type, :users_count, :active_link
+    attributes :color_id, :type, :users_count
   end
 
   def color_id
@@ -15,9 +15,5 @@ module TrackableSerializer
 
   def users_count
     TopicFollowing.where("#{type}_ids": object.id).count
-  end
-
-  def active_link
-    Ability.new(current_user).can?(:read, object)
   end
 end

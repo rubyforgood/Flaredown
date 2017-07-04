@@ -5,5 +5,4 @@ import Searchable from 'flaredown/mixins/searchable';
 
 export default DS.Model.extend(Typeable, Colorable, Searchable, {
   usersCount: DS.attr('number'),
-  activeLink: DS.attr('boolean'),
 });
