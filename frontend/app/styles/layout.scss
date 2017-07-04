@@ -259,6 +259,11 @@ span.ember-power-select-clear-btn {
   text-align: end;
 }
 
+.localTopic {
+  pointer-events: none;
+  cursor: default;
+}
+
 // Post page
 .flaredown-post-page {
   max-width: 500px;

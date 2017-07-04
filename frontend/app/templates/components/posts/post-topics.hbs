@@ -1,5 +1,6 @@
 {{#each post.topics as |topic|}}
-  {{#link-to 'posts.topic' topic.modelType topic.id}}
+{{log topic}}
+  {{#link-to 'posts.topic' topic.modelType topic.id class=(if topic.activeLink '' 'localTopic')}}
     <span class="badge-default vert-offset-bottom-0_5 badge-post-topics">{{topic.name}}</span>
   {{/link-to}}
 {{/each}}
