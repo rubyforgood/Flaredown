@@ -49,13 +49,10 @@ RSpec.describe Ability do
     end
 
     context 'popular symptoms' do
-      before do
-        create_list(:user_symptom, Flaredown.config.trackables_min_popularity, symptom: global_symptom)
-      end
-      let!(:popular_symptom_ids) { Ability.new(user).send('popular_trackable_ids', 'Symptom') }
+      before { create_list(:user_symptom, Flaredown.config.trackables_min_popularity, symptom: global_symptom) }
+      let(:popular_symptom_ids) { Ability.new(user).send('popular_trackable_ids', 'Symptom') }
 
       it { expect(popular_symptom_ids).to eq([global_symptom.id]) }
-      it { expect(popular_symptom_ids).not_to eq([popular_symptom.id]) }
     end
   end
 end
