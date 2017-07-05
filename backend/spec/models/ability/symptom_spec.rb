@@ -23,8 +23,8 @@ RSpec.describe Ability do
       it "allow to read popular symptoms" do
         is_expected.to be_able_to(:read, popular_symptom)
       end
-      it "don't allow to read another user's personal symptoms" do
-        is_expected.not_to be_able_to(:read, another_user_symptom)
+      it "allow to read another user's personal symptoms" do
+        is_expected.to be_able_to(:read, another_user_symptom)
       end
     end
 
@@ -46,6 +46,13 @@ RSpec.describe Ability do
       it "don't allow to create global symptoms" do
         is_expected.not_to be_able_to(:create, new_global_symptom)
       end
+    end
+
+    context 'popular symptoms' do
+      before { create_list(:user_symptom, Flaredown.config.trackables_min_popularity, symptom: global_symptom) }
+      let(:popular_symptom_ids) { Ability.new(user).send('popular_trackable_ids', 'Symptom') }
+
+      it { expect(popular_symptom_ids).to eq([global_symptom.id]) }
     end
   end
 end

@@ -27,10 +27,10 @@ RSpec.describe Api::V1::TreatmentsController do
         expect(response_body[:treatment][:id]).to eq global_treatment.id
       end
     end
-    context 'when treatment is not accessible' do
-      it 'returns 401 (Unauthorized)' do
+    context 'when local treatment is accessible' do
+      it 'returns 200 (Authorized)' do
         get :show, id: another_user_treatment.id
-        expect(response.status).to eq 401
+        expect(response.status).to eq 200
       end
     end
   end

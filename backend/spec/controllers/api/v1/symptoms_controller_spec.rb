@@ -27,10 +27,10 @@ RSpec.describe Api::V1::SymptomsController do
         expect(response_body[:symptom][:id]).to eq global_symptom.id
       end
     end
-    context 'when symptom is not accessible' do
-      it 'returns 401 (Unauthorized)' do
+    context 'when local symptom is accessible' do
+      it 'returns 200 (Authorized)' do
         get :show, id: another_user_symptom.id
-        expect(response.status).to eq 401
+        expect(response.status).to eq 200
       end
     end
   end

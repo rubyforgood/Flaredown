@@ -23,8 +23,8 @@ RSpec.describe Ability do
       it "allow to read popular conditions" do
         is_expected.to be_able_to(:read, popular_condition)
       end
-      it "don't allow to read another user's personal conditions" do
-        is_expected.not_to be_able_to(:read, another_user_condition)
+      it "allow to read another user's personal condition" do
+        is_expected.to be_able_to(:read, another_user_condition)
       end
     end
 
@@ -46,6 +46,13 @@ RSpec.describe Ability do
       it "don't allow to create global conditions" do
         is_expected.not_to be_able_to(:create, new_global_condition)
       end
+    end
+
+    context 'popular conditions' do
+      before { create_list(:user_condition, Flaredown.config.trackables_min_popularity, condition: global_condition) }
+      let(:popular_condition_ids) { Ability.new(user).send('popular_trackable_ids', 'Condition') }
+
+      it { expect(popular_condition_ids).to eq([global_condition.id]) }
     end
   end
 end
