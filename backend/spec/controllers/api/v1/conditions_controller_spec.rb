@@ -27,10 +27,10 @@ RSpec.describe Api::V1::ConditionsController do
         expect(response_body[:condition][:id]).to eq global_condition.id
       end
     end
-    context 'when condition is not accessible' do
-      it 'returns 401 (Unauthorized)' do
+    context 'when local condition is accessible' do
+      it 'returns 200 (Authorized)' do
         get :show, id: another_user_condition.id
-        expect(response.status).to eq 401
+        expect(response.status).to eq 200
       end
     end
   end
