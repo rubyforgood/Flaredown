@@ -36,6 +36,19 @@ class Post
     )
   end
 
+  def self.frequency_by(topic_following)
+    where(_type: 'Post')
+    .by_followings(topic_following)
+    .each_with_object({}) do |post, hash|
+      result_count = 0
+      %w(symptom_ids condition_ids tag_ids treatment_ids).each do |trackable|
+        result_count += (post.send(trackable) & topic_following.send(trackable)).count
+      end
+      hash[post.id] = result_count
+    end
+    .sort_by { |_k,v| v }.reverse.to_h
+  end
+
   private
 
   def topic_presence
