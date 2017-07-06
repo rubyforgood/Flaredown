@@ -13,18 +13,32 @@ RSpec.describe Ability do
     let!(:popular_symptom) { create(:symptom, :personal) }
     before { create_list(:user_symptom, Flaredown.config.trackables_min_popularity, symptom: popular_symptom) }
 
-    context 'read' do
-      it 'allow to read global symptoms' do
-        is_expected.to be_able_to(:read, global_symptom)
+    context 'index' do
+      it 'allow to index personal symptom' do
+        is_expected.to be_able_to(:index, personal_symptom)
       end
-      it 'allow to read personal symptoms' do
-        is_expected.to be_able_to(:read, personal_symptom)
+
+      it 'allow to index global symptoms' do
+        is_expected.to be_able_to(:index, global_symptom)
       end
-      it "allow to read popular symptoms" do
-        is_expected.to be_able_to(:read, popular_symptom)
+
+      it 'don\'t allow to index another user\'s personal symptom' do
+        is_expected.not_to be_able_to(:index, another_user_symptom)
       end
-      it "allow to read another user's personal symptoms" do
-        is_expected.to be_able_to(:read, another_user_symptom)
+    end
+
+    context 'show' do
+      it 'allow to show global symptoms' do
+        is_expected.to be_able_to(:show, global_symptom)
+      end
+      it 'allow to show personal symptoms' do
+        is_expected.to be_able_to(:show, personal_symptom)
+      end
+      it "allow to show popular symptoms" do
+        is_expected.to be_able_to(:show, popular_symptom)
+      end
+      it "allow to show another user's personal symptoms" do
+        is_expected.to be_able_to(:show, another_user_symptom)
       end
     end
 
