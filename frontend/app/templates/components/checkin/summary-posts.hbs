@@ -1,0 +1,9 @@
+<h3 class="centered">Your daily digest</h3>
+
+{{#if model.isPending}}
+  {{partial "application/three-bounce-spinner"}}
+{{else}}
+  {{#each model as |post|}}
+    {{posts/topic-post post=post isAuthenticatedUser= session.isAuthenticated}}
+  {{/each}}
+{{/if}}

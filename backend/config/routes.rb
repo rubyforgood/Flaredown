@@ -130,11 +130,6 @@ Rails.application.routes.draw do
 
       get '/unsubscribe/:notify_token', to: 'unsubscribes#update', as: :unsubscribe
 
-      #
-      # Summary Posts
-      #
-      get '/summary_posts', to: 'summary_posts#index'
-      #
       # Pusher
       #
       resource :pusher, only: [:create]
