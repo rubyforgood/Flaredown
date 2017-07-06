@@ -74,6 +74,8 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.apiHost = 'http://localhost:3000';
+    var STATIC_URL = 'http://localhost:4300';
   }
 
   if (environment === 'production') {

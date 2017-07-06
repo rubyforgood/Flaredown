@@ -129,7 +129,7 @@ Rails.application.routes.draw do
       # resources :activations, only: [:edit]
 
       get '/unsubscribe/:notify_token', to: 'unsubscribes#update', as: :unsubscribe
-      #
+
       # Pusher
       #
       resource :pusher, only: [:create]

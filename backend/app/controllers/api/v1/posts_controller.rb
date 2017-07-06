@@ -3,17 +3,13 @@ class Api::V1::PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @posts = @posts.where(_type: 'Post')
-    @posts = @posts.fts(params[:query]) if params[:query].present?
-    @posts = if params[:id].present? && Post::TOPIC_TYPES.include?(params[:type])
-               @posts.where("#{params[:type]}_ids": params[:id].to_i)
-             elsif params[:following].present?
-               @posts.by_followings(current_user.topic_following)
-             else
-               @posts
-             end
+    if params[:summary]
+      render json: SummaryPosts.new(current_user).show_list
+    else
+      @posts = DiscussionPosts.new(params, current_user).show_list
 
-    render json: @posts.order(last_commented: :desc, created_at: :desc).page(params[:page]).per(10)
+      render json: @posts.order(last_commented: :desc, created_at: :desc).page(params[:page]).per(10)
+    end
   end
 
   def show
