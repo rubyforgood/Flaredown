@@ -13,18 +13,32 @@ RSpec.describe Ability do
     let!(:popular_condition) { create(:condition, :personal) }
     before { create_list(:user_condition, Flaredown.config.trackables_min_popularity, condition: popular_condition) }
 
-    context 'read' do
-      it 'allow to read global conditions' do
-        is_expected.to be_able_to(:read, global_condition)
+    context 'index' do
+      it 'allow to index personal condition' do
+        is_expected.to be_able_to(:index, personal_condition)
       end
-      it 'allow to read personal conditions' do
-        is_expected.to be_able_to(:read, personal_condition)
+
+      it 'allow to index global conditions' do
+        is_expected.to be_able_to(:index, global_condition)
       end
-      it "allow to read popular conditions" do
-        is_expected.to be_able_to(:read, popular_condition)
+
+      it 'don\'t allow to index another user\'s personal condition' do
+        is_expected.not_to be_able_to(:index, another_user_condition)
       end
-      it "allow to read another user's personal condition" do
-        is_expected.to be_able_to(:read, another_user_condition)
+    end
+
+    context 'show' do
+      it 'allow to show global conditions' do
+        is_expected.to be_able_to(:show, global_condition)
+      end
+      it 'allow to show personal conditions' do
+        is_expected.to be_able_to(:show, personal_condition)
+      end
+      it "allow to show popular conditions" do
+        is_expected.to be_able_to(:show, popular_condition)
+      end
+      it "allow to show another user's personal condition" do
+        is_expected.to be_able_to(:show, another_user_condition)
       end
     end
 

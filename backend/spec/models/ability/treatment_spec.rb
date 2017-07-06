@@ -13,18 +13,32 @@ RSpec.describe Ability do
     let!(:popular_treatment) { create(:treatment, :personal) }
     before { create_list(:user_treatment, Flaredown.config.trackables_min_popularity, treatment: popular_treatment) }
 
-    context 'read' do
-      it 'allow to read global treatments' do
-        is_expected.to be_able_to(:read, global_treatment)
+    context 'index' do
+      it 'allow to index personal treatments' do
+        is_expected.to be_able_to(:index, personal_treatment)
       end
-      it 'allow to read personal treatments' do
-        is_expected.to be_able_to(:read, personal_treatment)
+
+      it 'allow to index global treatments' do
+        is_expected.to be_able_to(:index, global_treatment)
       end
-      it "allow to read popular treatments" do
-        is_expected.to be_able_to(:read, popular_treatment)
+
+      it 'don\'t allow to index another user\'s personal treatment' do
+        is_expected.not_to be_able_to(:index, another_user_treatment)
       end
-      it "allow to read another user's personal treatments" do
-        is_expected.to be_able_to(:read, another_user_treatment)
+    end
+
+    context 'show' do
+      it 'allow to show global treatments' do
+        is_expected.to be_able_to(:show, global_treatment)
+      end
+      it 'allow to show personal treatments' do
+        is_expected.to be_able_to(:show, personal_treatment)
+      end
+      it "allow to show popular treatments" do
+        is_expected.to be_able_to(:show, popular_treatment)
+      end
+      it "allow to show another user's personal treatments" do
+        is_expected.to be_able_to(:show, another_user_treatment)
       end
     end
 
