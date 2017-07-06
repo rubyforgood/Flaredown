@@ -7,8 +7,7 @@ class SummaryPosts
   def initialize(user)
     @user = user
     @topic_following = user.topic_following
-    @posts =
-      Post.where(_type: 'Post')
+    @posts = Post.where(_type: 'Post')
       .by_followings(@topic_following)
       .where(:created_at.gte => SUMMARY_HOURS)
   end
@@ -28,19 +27,14 @@ class SummaryPosts
   protected
 
   def topic_frequency
-    posts.frequency_by(topic_following)
+    posts.frequency_by(topic_following).sort_by { |_k, v| v }.reverse.to_h
   end
 
-  # def filter_posts
-  #   Post.where(:_id.in => topic_frequency.keys)
-  # end
-
   def add_last_new_posts(number, followed_ids)
-    Post
-    .where(_type: 'Post')
-    .not_in(:_id => followed_ids)
-    .order(created_at: :desc)
-    .to_a
-    .first(number)
+    Post.where(_type: 'Post')
+      .not_in(:_id => followed_ids) # rubocop:disable Style/HashSyntax
+      .order(created_at: :desc)
+      .to_a
+      .first(number)
   end
 end
