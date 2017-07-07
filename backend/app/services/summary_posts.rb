@@ -2,7 +2,7 @@ class SummaryPosts
   attr_accessor :user, :topic_following, :posts
 
   SUMMARY_HOURS = 24.hours.ago.strftime("%Y-%m-%d")
-  SUMMARY_POSTS = 5
+  SUMMARY_POSTS = 3
 
   def initialize(user)
     @user = user

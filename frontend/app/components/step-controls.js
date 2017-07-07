@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 const {
+  get,
+  inject: {
+    service,
+  },
   Component,
   computed: { bool },
 } = Ember;
@@ -11,6 +15,8 @@ export default Component.extend({
   showBack: true,
   backLabel: 'Back',
   forwardLabel: 'Continue',
+
+  _routing:      service('-routing'),
 
   stepHasPrev: bool('step.prevId'),
 
@@ -25,6 +31,10 @@ export default Component.extend({
       if (!this.get('disabled')) {
         this.get('onBackward')();
       }
+    },
+
+    discussion() {
+      get(this, '_routing').transitionTo('posts');
     },
   },
 });

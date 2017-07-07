@@ -16,5 +16,21 @@
         background-color: darken($primary, 30%);
       }
     }
+
+    button.summary-btn {
+      display: inline-flex;
+      span {
+        padding-left: 5%;
+        line-height: initial;
+      }
+    }
+
+    button.discussion-btn {
+      background-color: $lilaс;
+      &:hover,
+      &:focus {
+        background-color: darken($lilaс, 30%);
+      }
+    }
   }
 }
