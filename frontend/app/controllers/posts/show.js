@@ -44,7 +44,7 @@ export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSea
   didEnterViewport() {
     const { ajax, post } = getProperties(this, 'ajax', 'post');
 
-    if (get(post, 'notifications.reaction')) {
+    if (post && get(post, 'notifications.reaction')) {
       const id = get(post, 'id');
       const store = get(this, 'store');
 
