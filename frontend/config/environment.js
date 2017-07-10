@@ -85,6 +85,12 @@ module.exports = function(environment) {
 
     ENV.apiHost = process.env.API_HOST;
     var STATIC_URL = process.env.STATIC_URL;
+
+    ENV.airbrake = {
+      host: process.env.AIRBRAKE_HOST,
+      projectId: process.env.AIRBRAKE_PROJECT_ID,
+      projectKey: process.env.AIRBRAKE_PROJECT_KEY,
+    }
   }
 
   ENV.staticUrl = STATIC_URL;
