@@ -12,7 +12,7 @@ class Ability
     can :read, Condition, id: popular_trackable_ids('Condition')
     can :index, Condition, global: true
     cannot :index, Condition, global: false
-    can :index, Condition, global: false, id: user.condition_ids
+    can :index, Condition, global: false, id: user.topic_following.condition_ids
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
 
@@ -43,7 +43,7 @@ class Ability
     can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :index, Symptom, global: true
     cannot :index, Symptom, global: false
-    can :index, Symptom, global: false, id: user.symptom_ids
+    can :index, Symptom, global: false, id: user.topic_following.symptom_ids
     can :create, Symptom, global: false
     can :manage, Symptom, id: user.symptom_ids
 
@@ -53,7 +53,7 @@ class Ability
     can :read, Treatment, id: popular_trackable_ids('Treatment')
     can :index, Treatment, global: true
     cannot :index, Treatment, global: false
-    can :index, Treatment, global: false, id: user.treatment_ids
+    can :index, Treatment, global: false, id: user.topic_following.treatment_ids
     can :create, Treatment, global: false
     can :manage, Treatment, id: user.treatment_ids
 

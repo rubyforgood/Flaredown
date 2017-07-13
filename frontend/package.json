@@ -24,6 +24,7 @@
     "ember-ajax": "^2.0.1",
     "ember-at-js": "git+https://github.com/litslink/ember-at-js.git",
     "ember-cli": "^2.13.2",
+    "ember-cli-airbrake": "git+https://github.com/litslink/ember-cli-airbrake.git",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-bourbon": "1.2.0",
