@@ -9,10 +9,10 @@ class Ability
     can :manage, Profile, user_id: user.id
 
     can :show, Condition
-    can :read, Condition, id: popular_trackable_ids('Condition')
     can :index, Condition, global: true
     cannot :index, Condition, global: false
-    can :index, Condition, global: false, id: user.topic_following.condition_ids
+    can :index, Condition, global: false, id: user.trackings.where(trackable_type: "Condition").pluck(:trackable_id)
+    can :read, Condition, global: false, id: popular_trackable_ids('Condition')
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
 
@@ -40,20 +40,20 @@ class Ability
     can [:create, :update, :destroy], Reaction, encrypted_user_id: user.encrypted_id
 
     can :show, Symptom
-    can :read, Symptom, id: popular_trackable_ids('Symptom')
     can :index, Symptom, global: true
     cannot :index, Symptom, global: false
-    can :index, Symptom, global: false, id: user.topic_following.symptom_ids
+    can :index, Symptom, global: false, id: user.trackings.where(trackable_type: "Symptom").pluck(:trackable_id)
+    can :read, Symptom, global: false, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false
     can :manage, Symptom, id: user.symptom_ids
 
     can [:read, :update], TopicFollowing, encrypted_user_id: user.encrypted_id
 
     can :show, Treatment
-    can :read, Treatment, id: popular_trackable_ids('Treatment')
     can :index, Treatment, global: true
     cannot :index, Treatment, global: false
-    can :index, Treatment, global: false, id: user.topic_following.treatment_ids
+    can :index, Treatment, global: false, id: user.trackings.where(trackable_type: "Treatment").pluck(:trackable_id)
+    can :read, Symptom, global: false, id: popular_trackable_ids('Treatment')
     can :create, Treatment, global: false
     can :manage, Treatment, id: user.treatment_ids
 
@@ -70,13 +70,7 @@ class Ability
   def popular_trackable_ids(trackable_class_name)
     user_trackable_class = "User#{trackable_class_name}".constantize
     trackable_id_attr = "#{trackable_class_name.underscore}_id".to_sym
-    association_global_ids = trackable_class_name.to_s.constantize.where(global: true).ids
-
-    counts =
-      user_trackable_class
-        .group(trackable_id_attr)
-        .having(trackable_id_attr => association_global_ids)
-        .count
+    counts = user_trackable_class.group(trackable_id_attr).count
 
     min_popularity = Flaredown.config.trackables_min_popularity
     counts.select { |_id, count| count >= min_popularity }.keys
