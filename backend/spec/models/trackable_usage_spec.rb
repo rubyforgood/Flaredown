@@ -32,9 +32,9 @@ RSpec.describe TrackableUsage, type: :model do
     before(:all) do
       @condition = create(:condition, :personal)
       create_list(:trackable_usage,
-         Flaredown.config.trackables_min_popularity - 1,
-         trackable_type: @condition.class.to_s,
-         trackable_id: @condition.id)
+                  Flaredown.config.trackables_min_popularity - 1,
+                  trackable_type: @condition.class.to_s,
+                  trackable_id: @condition.id)
     end
 
     subject { TrackableUsage.last }
