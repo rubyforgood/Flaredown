@@ -26,6 +26,12 @@ class TrackableUsage < ActiveRecord::Base
   validates :count, numericality: { greater_than: 0 }
 
   #
+  # Callbacks
+  #
+
+  after_commit :switch_trackable_visibility
+
+  #
   # Class Methods
   #
 
@@ -43,4 +49,15 @@ class TrackableUsage < ActiveRecord::Base
 
   end
 
+  protected
+
+  def switch_trackable_visibility
+    trackable = self.trackable.reload
+
+    if trackable.trackable_usages_count >= Flaredown.config.trackables_min_popularity
+      trackable.update_attributes(global: true)
+    else
+      trackable.update_attributes(global: false) if trackable.global?
+    end
+  end
 end
