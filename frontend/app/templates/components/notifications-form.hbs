@@ -7,6 +7,14 @@
     }}
   {{/form-field}}
 
+  {{#form-field for="notify_top_posts" label="Email me about weekly top posts"}}
+    {{label-switch
+      checked=(mut model.notifyTopPosts)
+      bgColorClass="colorable-bg-35"
+    }}
+  {{/form-field}}
+
+
   {{#if showReminder}}
     {{add-reminder model=model title="Should we remind you to check in?"}}
   {{/if}}

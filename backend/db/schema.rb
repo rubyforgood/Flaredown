@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20170822122800) do
     t.datetime "checkin_reminder_at"
     t.string   "time_zone_name"
     t.string   "reminder_job_id"
+    t.boolean  "notify_top_posts",                 default: true
   end
 
   add_index "profiles", ["slug_name"], name: "index_profiles_on_slug_name", using: :btree
