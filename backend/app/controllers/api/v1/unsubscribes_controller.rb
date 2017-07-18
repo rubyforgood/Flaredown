@@ -26,5 +26,4 @@ class Api::V1::UnsubscribesController < ApplicationController
       :notify
     end
   end
-
 end

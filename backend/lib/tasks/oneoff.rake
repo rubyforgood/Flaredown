@@ -193,4 +193,18 @@ namespace :oneoff do
 
     CheckinReminderMailer.remind(email: email).deliver_now
   end
+
+  task :send_optional_email, [:email] => :environment do |t, args|
+    email = args[:email]
+    return unless email
+
+    CheckinReminderMailer.remind(email: email).deliver_now
+  end
+
+  task :send_notification_email, [:email] => :environment do |t, args|
+    email = args[:email]
+    return unless email
+
+    NotificationsMailer.notify(email: email, data: {}).deliver_now
+  end
 end

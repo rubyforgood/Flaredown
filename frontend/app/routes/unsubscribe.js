@@ -16,9 +16,10 @@ export default Route.extend({
     const queryParams = Object.keys(remindQueryParam).map((key) => {
         return `${ key }=${ remindQueryParam[key] }`;
       }).join('&');
-
-    get(this, 'ajax').request(`/unsubscribe/${ notifyToken }?${ queryParams }`, {
-      type: 'GET'
+    debugger;
+    get(this, 'ajax').request(`/unsubscribe/${ notify_token }`, {
+      type: 'GET',
+      data: transition.queryParams,
     });
   }
 });

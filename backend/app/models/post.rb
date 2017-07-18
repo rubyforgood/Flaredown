@@ -12,6 +12,7 @@ class Post
 
   field :comments_count, type: Integer, default: 0
   field :last_commented, type: DateTime, default: -> { Time.current }
+  field :reactions_count, type: Integer, default: 0
 
   validates :body, :title, presence: true
 
