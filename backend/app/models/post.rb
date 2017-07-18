@@ -13,6 +13,7 @@ class Post
   field :comments_count, type: Integer, default: 0
   field :last_commented, type: DateTime, default: -> { Time.current }
   field :reactions_count, type: Integer, default: 0
+  field :total_count, type: Integer, default: 0
 
   validates :body, :title, presence: true
 
@@ -23,6 +24,10 @@ class Post
   has_many :notifications,  as: :notificateable,  dependent: :destroy
 
   index(body: 'text', title: 'text')
+
+  def update_counters
+    set total_count: comments_count + reactions_count
+  end
 
   def self.fts(q)
     where('$text': { '$search': q, '$language': I18n.locale.to_s })

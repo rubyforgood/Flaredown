@@ -1,4 +1,6 @@
 class Api::V1::CommentsController < ApplicationController
+  include PostCounter
+
   load_and_authorize_resource
   skip_before_action :authenticate_user!, only: [:index]
 
@@ -14,6 +16,8 @@ class Api::V1::CommentsController < ApplicationController
     @comment.encrypted_user_id = current_user.encrypted_id
 
     if @comment.save
+      update_post_counters(parent_id: create_params[:post_id], parent_type: "Post")
+
       unless @comment.encrypted_user_id == @comment.post.encrypted_user_id
         Notification.create(
           kind: :comment,
