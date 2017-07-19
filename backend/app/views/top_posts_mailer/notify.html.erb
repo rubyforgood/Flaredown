@@ -1,3 +1,7 @@
 <% content_for :body do %>
+  <h3>Top Post for you this week</h3>
+
+  <%= @top_posts&.count %>
+
   <p>You can <%= link_to 'unsubscribe', @unsubscribe_link %> from weekly top posts notifications</p>
 <% end %>
