@@ -33,6 +33,11 @@ class DiscussionPosts < AdditionalPosts
 
   def refined_top_list
     posts = full_top_post_list.limit(TOP_POSTS_COUNT)
-    Array(posts).count == TOP_POSTS_COUNT ? posts : posts + add_last_new_posts(TOP_POSTS_COUNT - Array(posts).count, posts.map(&:_id))
+
+    if Array(posts).count == TOP_POSTS_COUNT
+      posts
+    else
+      posts + add_last_new_posts(TOP_POSTS_COUNT - Array(posts).count, posts.map(&:_id))
+    end
   end
 end
