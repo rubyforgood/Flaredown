@@ -2,7 +2,7 @@ class SwitchTrackableVisibility < ApplicationJob
   queue_as :default
 
   def perform(trackable_usage_id)
-    trackable_usage = TrackableUsage.find(trackable_usage_id)
+    trackable_usage = TrackableUsage.find_by(id: trackable_usage_id)
     return unless trackable_usage
 
     trackable = trackable_usage.trackable.reload

@@ -2,12 +2,17 @@ import Ember from 'ember';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
 const {
+  get,
   set,
   RSVP,
   Route,
 } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  beforeModel() {
+    get(this, 'store').unloadAll('condition');
+  },
+
   model(params) {
     var checkinId = params.checkin_id;
     var stepId = `${this.routeName}-${params.step_key}`;
