@@ -44,14 +44,5 @@ RSpec.describe TrackableUsage, type: :model do
 
       it { expect(subject.trackable.reload.global?).to be false }
     end
-
-    context "for #{Flaredown.config.trackables_min_popularity} amount of tracks switch topic to global" do
-      before(:each) do
-        create(:trackable_usage, trackable_type: @condition.class.to_s, trackable_id: @condition.id)
-        SwitchTrackableVisibility.perform_now(subject.id)
-      end
-
-      it { expect(subject.trackable.reload.global?).to be true }
-    end
   end
 end
