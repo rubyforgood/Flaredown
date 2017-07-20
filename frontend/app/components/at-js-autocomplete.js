@@ -25,13 +25,15 @@ export default TextArea.extend({
         return { screen_name: item.screen_name, slug_name: item.slug_name };
       });
 
-      this.$().atwho({
-        at: "@",
-        insertTpl: "@${slug_name}",
-        displayTpl: '<li>${screen_name}</li>',
-        searchKey: "screen_name",
-        data: userList,
-      });
+      if(!get(this, 'isDestroyed')) {
+        this.$().atwho({
+          at: "@",
+          insertTpl: "@${slug_name}",
+          displayTpl: '<li>${screen_name}</li>',
+          searchKey: "screen_name",
+          data: userList,
+        });
+      }
     });
   }
 });
