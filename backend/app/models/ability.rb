@@ -11,7 +11,7 @@ class Ability
     can :show, Condition
     can :index, Condition, global: true
     cannot :index, Condition, global: false
-    can :index, Condition, global: false, id: user.trackings.where(trackable_type: "Condition").pluck(:trackable_id)
+    can :index, Condition, global: false, id: user.trackings.where(trackable_type: 'Condition').pluck(:trackable_id)
     can :read, Condition, global: false, id: popular_trackable_ids('Condition')
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
@@ -42,7 +42,7 @@ class Ability
     can :show, Symptom
     can :index, Symptom, global: true
     cannot :index, Symptom, global: false
-    can :index, Symptom, global: false, id: user.trackings.where(trackable_type: "Symptom").pluck(:trackable_id)
+    can :index, Symptom, global: false, id: user.trackings.where(trackable_type: 'Symptom').pluck(:trackable_id)
     can :read, Symptom, global: false, id: popular_trackable_ids('Symptom')
     can :create, Symptom, global: false
     can :manage, Symptom, id: user.symptom_ids
@@ -52,7 +52,7 @@ class Ability
     can :show, Treatment
     can :index, Treatment, global: true
     cannot :index, Treatment, global: false
-    can :index, Treatment, global: false, id: user.trackings.where(trackable_type: "Treatment").pluck(:trackable_id)
+    can :index, Treatment, global: false, id: user.trackings.where(trackable_type: 'Treatment').pluck(:trackable_id)
     can :read, Symptom, global: false, id: popular_trackable_ids('Treatment')
     can :create, Treatment, global: false
     can :manage, Treatment, id: user.treatment_ids

@@ -29,8 +29,7 @@ class TrackableUsage < ActiveRecord::Base
   # Callbacks
   #
 
-  after_commit :switch_trackable_visibility
-
+  after_commit -> (obj) { SwitchTrackableVisibility.perform_later(obj.id) }
   #
   # Class Methods
   #
@@ -49,15 +48,4 @@ class TrackableUsage < ActiveRecord::Base
 
   end
 
-  protected
-
-  def switch_trackable_visibility
-    trackable = self.trackable.reload
-
-    if trackable.trackable_usages_count >= Flaredown.config.trackables_min_popularity
-      trackable.update_attributes(global: true)
-    else
-      trackable.update_attributes(global: false) if trackable.global? # rubocop:disable Style/IfInsideElse
-    end
-  end
 end
