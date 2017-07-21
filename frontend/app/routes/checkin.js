@@ -10,7 +10,11 @@ const {
 
 export default Route.extend(AuthenticatedRouteMixin, {
   beforeModel() {
-    get(this, 'store').unloadAll('condition');
+    const store = get(this, 'store');
+
+    if(store.peekAll('condition').length > 0){
+      store.unloadAll('condition');
+    }
   },
 
   model(params) {
