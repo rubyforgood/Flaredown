@@ -28,7 +28,7 @@ class TrackableUsage < ActiveRecord::Base
   #
   # Callbacks
   #
-  after_commit -> (obj) { SwitchTrackableVisibility.perform_later(obj.id) }
+  after_commit ->(obj) { SwitchTrackableVisibility.perform_later(obj.id) }
   #
   # Class Methods
   #
