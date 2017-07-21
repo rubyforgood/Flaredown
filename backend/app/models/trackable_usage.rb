@@ -26,6 +26,10 @@ class TrackableUsage < ActiveRecord::Base
   validates :count, numericality: { greater_than: 0 }
 
   #
+  # Callbacks
+  #
+  after_commit ->(obj) { SwitchTrackableVisibility.perform_later(obj.id) }
+  #
   # Class Methods
   #
 

@@ -14,6 +14,6 @@ module TrackableSerializer
   end
 
   def users_count
-    TopicFollowing.where("#{type}_ids": object.id).count
+    object.trackable_usages_count
   end
 end
