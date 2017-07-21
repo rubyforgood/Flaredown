@@ -1,1 +1,1 @@
-web: DIST=$DIST PORT=$PORT node fastboot-server.js
+web: sh boot.sh
