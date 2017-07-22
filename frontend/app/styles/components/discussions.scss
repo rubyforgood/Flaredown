@@ -73,3 +73,9 @@
     display: none;
   }
 }
+
+.new-comment {
+  textarea:focus {
+    height: 125px;
+  }
+}

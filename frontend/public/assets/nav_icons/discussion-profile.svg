@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>discussion-profile</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="discussion-profile" fill-rule="nonzero" fill="#BDBDBD">
+            <g id="Ellipse-2" transform="translate(1.000000, 7.000000)">
+                <g id="path0_stroke-link">
+                    <path d="M13,7 L13,8 C13.5523,8 14,7.55228 14,7 L13,7 Z M1,7 L0,7 C0,7.55228 0.447715,8 1,8 L1,7 Z M2,7 C2,4.23858 4.23858,2 7,2 L7,0 C3.13401,0 0,3.13401 0,7 L2,7 Z M7,2 C9.76142,2 12,4.23858 12,7 L14,7 C14,3.13401 10.86599,0 7,0 L7,2 Z M1,8 L13,8 L13,6 L1,6 L1,8 Z" id="path0_stroke"></path>
+                </g>
+            </g>
+            <g id="Ellipse-2" transform="translate(4.000000, 0.000000)">
+                <g id="path1_stroke-link">
+                    <path d="M6,4 C6,5.10457 5.10457,6 4,6 L4,8 C6.20914,8 8,6.20914 8,4 L6,4 Z M4,6 C2.89543,6 2,5.10457 2,4 L0,4 C0,6.20914 1.790861,8 4,8 L4,6 Z M2,4 C2,2.89543 2.89543,2 4,2 L4,0 C1.790861,0 0,1.790861 0,4 L2,4 Z M4,2 C5.10457,2 6,2.89543 6,4 L8,4 C8,1.790861 6.20914,0 4,0 L4,2 Z" id="path1_stroke"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
