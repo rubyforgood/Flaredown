@@ -4,6 +4,10 @@ class Api::V1::WeathersController < ApplicationController
 
     authorize! :read, weather
 
-    render json: weather
+    if weather.present?
+      render json: weather
+    else
+      render json: { weathers: [] }
+    end
   end
 end
