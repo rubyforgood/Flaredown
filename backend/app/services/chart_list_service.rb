@@ -62,7 +62,7 @@ class ChartListService
   end
 
   def weathers_payload
-    last_checkin.weather_id ? WEATHERS_PAYLOAD : WEATHERS_PAYLOAD.map { |p| [p[0], p[1], false] }
+    last_checkin&.weather_id ? WEATHERS_PAYLOAD : WEATHERS_PAYLOAD.map { |p| [p[0], p[1], false] }
   end
 
   def hbi_payload

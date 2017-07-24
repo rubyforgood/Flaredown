@@ -62,6 +62,7 @@ class Ability
     can :manage, Tag
 
     can :read, Weather if user.persisted?
+    can :read, NilClass if user.persisted?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
