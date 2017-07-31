@@ -6,4 +6,6 @@
 
 {{emoji-reactions reactable=post isAuthenticatedUser=isAuthenticatedUser}}
 
-{{#link-to 'posts.show' post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
+{{#if (gt commentsCount 0)}}
+  {{#link-to 'posts.show' post class="colorable-clr-38"}}{{commentsCount}} comments{{/link-to}}
+{{/if}}
