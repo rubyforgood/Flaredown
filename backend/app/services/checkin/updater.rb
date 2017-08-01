@@ -189,7 +189,7 @@ class Checkin::Updater
     user_trackable_usage = TrackableUsage.where(user: current_user, trackable_type: trackable_class.to_s)
     ids_for_remove = user_trackable_usage.pluck(:trackable_id) - permitted_params[trackable_key]
 
-    return if ids_for_update.empty?
+    return if ids_for_remove.empty?
 
     user_trackable_usage.where(trackable_id: ids_for_remove).each do |trackable_usage|
       next if trackable_usage.blank?
