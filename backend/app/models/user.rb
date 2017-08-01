@@ -43,6 +43,9 @@ class User < ActiveRecord::Base
   has_many :user_treatments, dependent: :destroy
   has_many :treatments, through: :user_treatments
 
+  has_many :user_tags, dependent: :destroy
+  has_many :tags, through: :user_tags
+
   has_many :trackings, dependent: :destroy
 
   has_many :trackable_usages, dependent: :destroy

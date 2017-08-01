@@ -205,7 +205,8 @@ CREATE TABLE foods (
     id integer NOT NULL,
     ndb_no character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    global boolean DEFAULT true
 );
 
 
@@ -392,7 +393,9 @@ ALTER SEQUENCE tag_translations_id_seq OWNED BY tag_translations.id;
 CREATE TABLE tags (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    global boolean DEFAULT true,
+    trackable_usages_count integer DEFAULT 0
 );
 
 
@@ -615,7 +618,39 @@ ALTER SEQUENCE user_symptoms_id_seq OWNED BY user_symptoms.id;
 
 
 --
--- Name: user_treatments; Type: TABLE; Schema: public; Owner: -
+-- Name: user_tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_tags (
+    id integer NOT NULL,
+    user_id integer,
+    tag_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_tags_id_seq OWNED BY user_tags.id;
+
+
+--
+-- Name: user_treatments; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_treatments (
@@ -995,7 +1030,15 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: user_treatments user_treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+--
+
+ALTER TABLE ONLY user_tags
+    ADD CONSTRAINT user_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments
@@ -1305,7 +1348,15 @@ ALTER TABLE ONLY trackable_usages
 
 
 --
--- Name: user_symptoms fk_rails_86699b81a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_7156651ad8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_tags
+    ADD CONSTRAINT fk_rails_7156651ad8 FOREIGN KEY (tag_id) REFERENCES tags(id);
+
+
+--
+-- Name: fk_rails_86699b81a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -1326,6 +1377,14 @@ ALTER TABLE ONLY user_symptoms
 
 ALTER TABLE ONLY profiles
     ADD CONSTRAINT fk_rails_e424190865 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_ea0382482a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_tags
+    ADD CONSTRAINT fk_rails_ea0382482a FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1387,4 +1446,12 @@ INSERT INTO schema_migrations (version) VALUES ('20170508151200');
 INSERT INTO schema_migrations (version) VALUES ('20170509114220');
 
 INSERT INTO schema_migrations (version) VALUES ('20170612160120');
+
+INSERT INTO schema_migrations (version) VALUES ('20170717153650');
+
+INSERT INTO schema_migrations (version) VALUES ('20170731083613');
+
+INSERT INTO schema_migrations (version) VALUES ('20170731123835');
+
+INSERT INTO schema_migrations (version) VALUES ('20170731125044');
 

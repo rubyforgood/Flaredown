@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612160120) do
+ActiveRecord::Schema.define(version: 20170731125044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,8 +63,9 @@ ActiveRecord::Schema.define(version: 20170612160120) do
 
   create_table "foods", force: :cascade do |t|
     t.string   "ndb_no"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "global",     default: true
   end
 
   add_index "foods", ["ndb_no"], name: "index_foods_on_ndb_no", using: :btree
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170612160120) do
     t.boolean  "notify",                           default: true
     t.string   "notify_token"
     t.string   "slug_name"
+    t.boolean  "notify_top_posts",                 default: true
   end
 
   add_index "profiles", ["slug_name"], name: "index_profiles_on_slug_name", using: :btree
@@ -127,8 +129,10 @@ ActiveRecord::Schema.define(version: 20170612160120) do
   add_index "tag_translations", ["tag_id"], name: "index_tag_translations_on_tag_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "global",                 default: true
+    t.integer  "trackable_usages_count", default: 0
   end
 
   create_table "trackable_usages", force: :cascade do |t|
@@ -198,6 +202,16 @@ ActiveRecord::Schema.define(version: 20170612160120) do
   add_index "user_symptoms", ["symptom_id"], name: "index_user_symptoms_on_symptom_id", using: :btree
   add_index "user_symptoms", ["user_id"], name: "index_user_symptoms_on_user_id", using: :btree
 
+  create_table "user_tags", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_tags", ["tag_id"], name: "index_user_tags_on_tag_id", using: :btree
+  add_index "user_tags", ["user_id"], name: "index_user_tags_on_user_id", using: :btree
+
   create_table "user_treatments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "treatment_id"
@@ -259,6 +273,8 @@ ActiveRecord::Schema.define(version: 20170612160120) do
   add_foreign_key "user_conditions", "users"
   add_foreign_key "user_symptoms", "symptoms"
   add_foreign_key "user_symptoms", "users"
+  add_foreign_key "user_tags", "tags"
+  add_foreign_key "user_tags", "users"
   add_foreign_key "user_treatments", "treatments"
   add_foreign_key "user_treatments", "users"
 end

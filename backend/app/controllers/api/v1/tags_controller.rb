@@ -17,8 +17,7 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.create!(create_params)
-    render json: @tag
+    render json: TrackableCreator.new(@tag, current_user).create!
   end
 
   private

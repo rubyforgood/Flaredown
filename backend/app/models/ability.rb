@@ -59,7 +59,12 @@ class Ability
 
     can :manage, Tracking, user_id: user.id
 
-    can :manage, Tag
+    can :show, Tag
+    can :index, Tag, global: true
+    cannot :index, Tag, global: false
+    can :index, Tag, global: false, id: user.tag_ids
+    can :create, Tag, global: false
+    can :manage, Tag, id: user.tag_ids
 
     can :read, Weather if user.persisted?
     can :read, NilClass if user.persisted?
