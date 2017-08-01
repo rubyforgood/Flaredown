@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
 
+  has_many :user_foods, dependent: :destroy
+  has_many :foods, through: :user_foods
+
   has_many :trackings, dependent: :destroy
 
   has_many :trackable_usages, dependent: :destroy

@@ -4,6 +4,6 @@ class Search::ForFood < ::Search
   protected
 
   def find_by_query
-    Food.fts(query[:name], MAX_ROWS)
+    Food.fts(query[:name], MAX_ROWS, user.id)
   end
 end

@@ -111,8 +111,7 @@ class Checkin::Updater
       update_added_trackables_usages(trackable_class_name)
     end
 
-    %w(Tag).each do |health_class_name|
-      # update_health_factors_on_destroy(health_class_name)
+    %w(Tag Food).each do |health_class_name|
       update_health_factors_trackable_usages(health_class_name)
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731125044) do
+ActiveRecord::Schema.define(version: 20170801124153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,9 +63,10 @@ ActiveRecord::Schema.define(version: 20170731125044) do
 
   create_table "foods", force: :cascade do |t|
     t.string   "ndb_no"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "global",     default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "global",                 default: true
+    t.integer  "trackable_usages_count", default: 0
   end
 
   add_index "foods", ["ndb_no"], name: "index_foods_on_ndb_no", using: :btree
@@ -192,6 +193,16 @@ ActiveRecord::Schema.define(version: 20170731125044) do
   add_index "user_conditions", ["condition_id"], name: "index_user_conditions_on_condition_id", using: :btree
   add_index "user_conditions", ["user_id"], name: "index_user_conditions_on_user_id", using: :btree
 
+  create_table "user_foods", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "food_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_foods", ["food_id"], name: "index_user_foods_on_food_id", using: :btree
+  add_index "user_foods", ["user_id"], name: "index_user_foods_on_user_id", using: :btree
+
   create_table "user_symptoms", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "symptom_id"
@@ -271,6 +282,8 @@ ActiveRecord::Schema.define(version: 20170731125044) do
   add_foreign_key "trackings", "users"
   add_foreign_key "user_conditions", "conditions"
   add_foreign_key "user_conditions", "users"
+  add_foreign_key "user_foods", "foods"
+  add_foreign_key "user_foods", "users"
   add_foreign_key "user_symptoms", "symptoms"
   add_foreign_key "user_symptoms", "users"
   add_foreign_key "user_tags", "tags"

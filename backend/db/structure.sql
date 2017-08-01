@@ -206,7 +206,8 @@ CREATE TABLE foods (
     ndb_no character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    global boolean DEFAULT true
+    global boolean DEFAULT true,
+    trackable_usages_count integer DEFAULT 0
 );
 
 
@@ -583,6 +584,38 @@ CREATE SEQUENCE user_conditions_id_seq
 --
 
 ALTER SEQUENCE user_conditions_id_seq OWNED BY user_conditions.id;
+
+
+--
+-- Name: user_foods; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_foods (
+    id integer NOT NULL,
+    user_id integer,
+    food_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_foods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_foods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_foods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_foods_id_seq OWNED BY user_foods.id;
 
 
 --
@@ -1022,6 +1055,14 @@ ALTER TABLE ONLY user_conditions
 
 
 --
+-- Name: user_foods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+--
+
+ALTER TABLE ONLY user_foods
+    ADD CONSTRAINT user_foods_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: user_symptoms user_symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1364,6 +1405,22 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
+-- Name: fk_rails_8aa2688684; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_foods
+    ADD CONSTRAINT fk_rails_8aa2688684 FOREIGN KEY (food_id) REFERENCES foods(id);
+
+
+--
+-- Name: fk_rails_af9e05e5ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_foods
+    ADD CONSTRAINT fk_rails_af9e05e5ff FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: user_symptoms fk_rails_cde825af18; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1454,4 +1511,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170731083613');
 INSERT INTO schema_migrations (version) VALUES ('20170731123835');
 
 INSERT INTO schema_migrations (version) VALUES ('20170731125044');
+
+INSERT INTO schema_migrations (version) VALUES ('20170801124153');
 

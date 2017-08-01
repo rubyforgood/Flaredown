@@ -16,8 +16,12 @@ class Ability
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
 
-    can :read, Food
-    can :create, Food
+    can :show, Food
+    can :index, Food, global: true
+    cannot :index, Food, global: false
+    can :index, Food, global: false, id: user.food_ids
+    can :create, Food, global: false
+    can :manage, Food, id: user.food_ids
 
     can :read, HarveyBradshawIndex, encrypted_user_id: user.encrypted_id
 
