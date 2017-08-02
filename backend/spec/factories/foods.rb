@@ -6,5 +6,9 @@ FactoryGirl.define do
     long_desc { FFaker::Lorem.sentence }
     sciname   { FFaker::Lorem.sentence }
     shrt_desc { FFaker::Lorem.sentence }
+
+    trait :personal do
+      global false
+    end
   end
 end
