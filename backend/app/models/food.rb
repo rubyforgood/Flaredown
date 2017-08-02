@@ -11,7 +11,7 @@ class Food < ActiveRecord::Base
   alias name long_desc
 
   class << self
-    def fts(query, limit, user_id=nil)
+    def fts(query, limit, user_id) # rubocop:disable Metrics/MethodLength
       sql = <<-SQL.strip_heredoc
         SELECT id, long_desc, searchable, global
         FROM (
