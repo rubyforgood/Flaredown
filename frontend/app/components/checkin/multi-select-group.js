@@ -26,6 +26,10 @@ export default Component.extend({
       get(this, 'checkin').removeObj(obj, get(this, 'idsKey'), get(this, 'relationName'));
       this.saveCheckin();
     },
+
+    onBeforeAdd(name) {
+      this.sendAction('onBeforeAdd', name);
+    },
   },
 
   saveCheckin() {
