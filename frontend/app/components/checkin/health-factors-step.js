@@ -11,6 +11,15 @@ export default Component.extend({
   model: alias('parentView.model'),
   checkin: alias('model.checkin'),
 
+  findFactors(factorClassName, name) {
+    const factors = this.get('store').peekAll(factorClassName);
+    const existingFactor = factors.findBy('name', name);
+
+    if (existingFactor) {
+      this.get('store').unloadRecord(existingFactor);
+    }
+  },
+
   actions: {
     completeStep() {
       this.get('onStepCompleted')();
@@ -21,21 +30,11 @@ export default Component.extend({
     },
 
     onBeforeAddTag(name) {
-      const tags = this.get('store').peekAll('tag');
-      const existingTag = tags.findBy('name', name);
-
-      if (existingTag) {
-        this.get('store').unloadRecord(existingTag);
-      }
+      this.findFactors('tag', name);
     },
 
     onBeforeAddFood(name) {
-      const foods = this.get('store').peekAll('food');
-      const existingFood = foods.findBy('name', name);
-
-      if (existingFood) {
-        this.get('store').unloadRecord(existingFood);
-      }
+      this.findFactors('food', name);
     },
   },
 });
