@@ -11,8 +11,25 @@ class Food < ActiveRecord::Base
   alias name long_desc
 
   class << self
-    def fts(query, limit, user_id) # rubocop:disable Metrics/MethodLength
-      sql = <<-SQL.strip_heredoc
+    def fts(query, limit, user_id)
+      find_by_sql(
+        [
+          fts_sql,
+          {
+            user_id: user_id,
+            lang: LANG_MAP[I18n.locale] || :simple,
+            query: query.strip.split(/(\s*,\s*)|\s+/).map { |s| "#{s}:*" }.join('&'),
+            limit: limit,
+            locale: I18n.locale
+          }
+        ]
+      )
+    end
+
+    private
+
+    def fts_sql
+      <<-SQL.strip_heredoc
         SELECT id, long_desc, searchable, global
         FROM (
           SELECT
@@ -32,19 +49,6 @@ class Food < ActiveRecord::Base
         ORDER BY ts_rank_cd(f.searchable, to_tsquery(:lang, :query), 1) DESC
         LIMIT :limit
       SQL
-
-      find_by_sql(
-        [
-          sql,
-          {
-            user_id: user_id,
-            lang: LANG_MAP[I18n.locale] || :simple,
-            query: query.strip.split(/(\s*,\s*)|\s+/).map { |s| "#{s}:*" }.join('&'),
-            limit: limit,
-            locale: I18n.locale
-          }
-        ]
-      )
     end
   end
 end

@@ -17,10 +17,7 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def create
-    @tag = TrackableCreator.new(@tag, current_user).create!
-    current_user.topic_following.add_topic('tag_ids', @tag.id) if @tag
-
-    render json: @tag
+    render json: TrackableCreator.new(@tag, current_user).create!
   end
 
   private
