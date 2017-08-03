@@ -180,24 +180,5 @@ class Checkin::Updater
     trackable_class.where(id: permitted_params[trackable_key]).each do |health_factor|
       TrackableUsage.create_or_update_by(user: current_user, trackable: health_factor)
     end
-
-    update_health_factors_on_destroy(trackable_class, trackable_key)
-  end
-
-  def update_health_factors_on_destroy(trackable_class, trackable_key)
-    user_trackable_usage = TrackableUsage.where(user: current_user, trackable_type: trackable_class.to_s)
-    ids_for_remove = user_trackable_usage.pluck(:trackable_id) - permitted_params[trackable_key]
-
-    return if ids_for_remove.empty?
-
-    user_trackable_usage.where(trackable_id: ids_for_remove).each do |trackable_usage|
-      next if trackable_usage.blank?
-
-      if trackable_usage.count == 1
-        trackable_usage.destroy
-      else
-        trackable_usage.decrement! :count
-      end
-    end
   end
 end
