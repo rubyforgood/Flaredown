@@ -42,7 +42,7 @@ before_script:
   - 'export $(grep -v "#" env-example | xargs) PG_DATABASE_USERNAME=travis'
   - 'bundle exec rake db:drop'
   - 'bundle exec rake db:create'
-  - 'bundle exec rake db:structure:load'
+  - 'bundle exec rake db:schema:load'
 
 script:
   - bundle exec rspec
