@@ -7,4 +7,32 @@ RSpec.describe Food do
     it { is_expected.to respond_to(:comname) }
     it { is_expected.to respond_to(:sciname) }
   end
+
+  describe "class methods" do
+    let!(:global_food) { create(:food, long_desc: 'TestFood') }
+    let!(:same_food_1) { create(:food, long_desc: "TestFood #{FFaker::Lorem.word}") }
+    let!(:same_food_2) { create(:food, long_desc: "TestFood #{FFaker::Lorem.word}") }
+
+    let!(:personal_food) { create(:food, :personal, long_desc: 'TestFood') }
+    let!(:user_food) { create(:user_food, food: personal_food) }
+
+    let(:another_user) { create(:user) }
+    let(:query) {{ name: 'TestFood' }}
+
+    MAX_ROWS = 2
+
+    describe 'fts' do
+      it "return same global foods" do
+        result = Food.send(:fts, query[:name], MAX_ROWS, another_user.id)
+
+        expect(result).to eq [global_food, same_food_1]
+        expect(result.count).to eq MAX_ROWS
+        expect(result.count).to_not eq Food.where(global: true).count
+      end
+
+      it "retrun local and global foods for author" do
+        expect(Food.send(:fts, query[:name], MAX_ROWS, user_food.user_id)).to eq [global_food, personal_food]
+      end
+    end
+  end
 end
