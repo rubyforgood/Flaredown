@@ -72,9 +72,14 @@ footer {
   color: $dark-shadow;
   a {
     color: $dark-shadow;
-    & + a {
-      margin-left: 25px;
-    }
+    margin: 0 .5em;
+  }
+  .footer-help-btn {
+    display: inline-block;
+    padding: .5em 1em;
+    border: 2px solid $dark-shadow;
+    border-radius: 2px;
+    margin-bottom: 1em;
   }
 }
 

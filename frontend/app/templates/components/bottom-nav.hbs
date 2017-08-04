@@ -1,20 +1,14 @@
 {{#link-to 'settings' class='bottom-link'}}
-  {{inline-svg 'account_2' class='icon'}}
+  {{inline-svg 'settings-icon' class='icon'}}
 
   <label>SETTINGS</label>
 {{/link-to}}
 
-{{#if session.currentUser}}
-  {{#if notifications.unread}}
-    {{nav/discussions-unread}}
-  {{else}}
-    {{#link-to 'posts' class='bottom-link'}}
-      {{inline-svg 'discuss' class='icon'}}
+{{#link-to 'posts' class='bottom-link'}}
+  {{inline-svg 'discuss' class='icon'}}
 
-      <label>DISCUSS</label>
-    {{/link-to}}
-  {{/if}}
-{{/if}}
+  <label>CHAT</label>
+{{/link-to}}
 
 {{!-- <div class="bottom-link">
   {{inline-svg 'explore' class='icon'}}

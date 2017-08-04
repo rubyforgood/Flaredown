@@ -1,6 +1,6 @@
 <div class="pull-down"></div>
 
-{{ navigation-links title='Discussion' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated }}
+{{ navigation-links title='Chat' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated }}
 
 {{#if session.isAuthenticated}}
   <div class="flaredown-transparent-box vert-offset-bottom-1 discussion-links">
@@ -22,4 +22,3 @@
 {{#if loadingPosts}}
   {{partial "application/three-bounce-spinner"}}
 {{/if}}
-

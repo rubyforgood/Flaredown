@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>discussion-search</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="discussion-search" fill-rule="nonzero" fill="#BDBDBD">
+            <g id="path0_stroke-link" transform="translate(3.902232, 12.511981) rotate(135.000000) translate(-3.902232, -12.511981) translate(0.402231, 11.511981)">
+                <path d="M1.00000031,0 C0.447715139,0 0,0.447720139 0,1.00000031 C0,1.55228548 0.447715139,2.00000062 1.00000031,2.00000062 L1.00000031,0 Z M5.59966173,2.00000062 C6.1519519,2.00000062 6.59966204,1.55228548 6.59966204,1.00000031 C6.59966204,0.447720139 6.1519519,0 5.59966173,0 L5.59966173,2.00000062 Z M1.00000031,2.00000062 L5.59966173,2.00000062 L5.59966173,0 L1.00000031,0 L1.00000031,2.00000062 Z" id="path0_stroke"></path>
+            </g>
+            <g id="path1_stroke-link" transform="translate(3.000000, 0.000000)">
+                <path d="M10,6 C10,8.20914 8.20914,10 6,10 L6,12 C9.31371,12 12,9.31371 12,6 L10,6 Z M6,10 C3.79086,10 2,8.20914 2,6 L0,6 C0,9.31371 2.68629,12 6,12 L6,10 Z M2,6 C2,3.79086 3.79086,2 6,2 L6,0 C2.68629,0 0,2.68629 0,6 L2,6 Z M6,2 C8.20914,2 10,3.79086 10,6 L12,6 C12,2.68629 9.31371,0 6,0 L6,2 Z" id="path1_stroke"></path>
+            </g>
+        </g>
+    </g>
+</svg>

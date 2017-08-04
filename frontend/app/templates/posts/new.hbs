@@ -7,15 +7,15 @@
 </header>
 
 <div class="flaredown-white-box">
-  {{input type="text" value=model.title placeholder="Title of post..."}}
+  {{input type="text" value=model.title placeholder="Post title"}}
 </div>
 
 <div class="flaredown-white-box">
-  {{textarea value=model.body rows="6" placeholder="Body of post..."}}
+  {{textarea value=model.body rows="6" placeholder="Write your awesome post here..."}}
 </div>
 
 <div class="flaredown-transparent-box">
-  <p class="colorable-clr-37">Tag your post so people can find it</p>
+  <p class="colorable-clr-37">Add topics like conditions, symptoms, or treatments so people can find your post:</p>
 
   {{#each model.topics as |topic|}}
     <span class="badge-primary colorable-clr-36 vert-offset-bottom-0_5" {{action "removeTopic" topic}}>
@@ -30,7 +30,7 @@
     search=(action "searchObjects")
     options=randomTrackables
     onchange=(action "addTopic")
-    placeholder="Add a condition"
+    placeholder="Choose topics..."
     renderInPlace=true
   as |object| }}
     {{object.name}}
