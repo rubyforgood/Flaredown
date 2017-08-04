@@ -1,4 +1,4 @@
-{{#form-for onSubmit="authenticateWithDevise"}}
+{{#form-for onSubmit=(action "authenticateWithDevise")}}
   <div class="form-field">
     <label for="identification">Email</label>
     {{input value=identification placeholder='Enter Email' class='form-control fs-private' type='email'}}

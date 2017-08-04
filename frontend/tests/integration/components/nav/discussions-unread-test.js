@@ -10,11 +10,11 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  const re = /DISCUSS/;
+  const re = /CHAT/;
 
   this.render(hbs`{{nav/discussions-unread}}`);
 
-  assert.deepEqual(re.exec(this.$().text().trim()), ['DISCUSS']);
+  assert.deepEqual(re.exec(this.$().text().trim()), ['CHAT']);
 
   // Template block usage:
   this.render(hbs`
@@ -23,5 +23,5 @@ test('it renders', function(assert) {
     {{/nav/discussions-unread}}
   `);
 
-  assert.deepEqual(re.exec(this.$().text().trim()), ['DISCUSS']);
+  assert.deepEqual(re.exec(this.$().text().trim()), ['CHAT']);
 });

@@ -8,13 +8,13 @@
 
 <div class="flex-container right-nav">
   <a href="/" {{action "toggleSearchBar"}}>
-    {{inline-svg 'search' class='icon'}}
+    {{inline-svg 'discussion-search' class='icon'}}
   </a>
-  {{#link-to 'posts.profile'}}{{inline-svg 'profile' class='icon'}}{{/link-to}}
+  {{#link-to 'posts.profile'}}{{inline-svg 'discussion-profile' class='icon'}}{{/link-to}}
 
   {{#if session.currentUser}}
     {{#link-to 'notifications' class=(if notifications.unread 'notification' '')}}
-      {{inline-svg 'notification' class='icon'}}
+      {{inline-svg 'discussion-notification' class='icon'}}
     {{/link-to}}
   {{/if}}
 </div>

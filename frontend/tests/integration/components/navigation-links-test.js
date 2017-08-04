@@ -12,5 +12,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{navigation-links}}`);
 
-  assert.equal(this.$().text().trim().replace(/\s{2,}/g,', '), 'Join our awesome community!, Created using Figma');
+  assert.equal(this.$().text().trim().replace(/\s{2,}/g,', '), 'Join our awesome community!');
 });

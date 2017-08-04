@@ -28,6 +28,7 @@
       font-size: .8rem;
       line-height: .8rem;
       margin: .25rem 0 0 0;
+      letter-spacing: .5px;
     }
 
     .icon {
@@ -39,7 +40,7 @@
         color: $primary;
       }
 
-      .icon path {
+      .icon * {
         fill: $primary;
       }
     }
