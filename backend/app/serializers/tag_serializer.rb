@@ -12,6 +12,6 @@ class TagSerializer < ApplicationSerializer
   attributes :id, :name, :users_count
 
   def users_count
-    TopicFollowing.where(tag_ids: object.id).count
+    object.trackable_usages_count
   end
 end

@@ -7,10 +7,11 @@ class TrackableCreator
   end
 
   def create!
+    searchable_attr = @trackable.class.name == 'Food' ? 'long_desc' : 'name'
     same_trackable = @trackable
       .class
       .with_translations(I18n.locale)
-      .where('name ILIKE :name', name: @trackable.name)
+      .where("#{searchable_attr} ILIKE :name", name: @trackable.name)
       .first
 
     @trackable = same_trackable if same_trackable.present?

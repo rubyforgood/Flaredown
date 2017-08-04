@@ -34,7 +34,7 @@ class CollectionRetriever
       ]
     )
 
-    @model.where(id: occurrences.map { |o| o['_id'] })
+    @model.where(id: occurrences.map { |o| o['_id'] }, global: true)
   end
 
   def most_recent
@@ -51,6 +51,10 @@ class CollectionRetriever
       ]
     )
 
-    @model.where(id: checkin_relations.map { |o| o[@ids_key] })
+    @model.accessible_by(current_ability).where(id: checkin_relations.map { |o| o[@ids_key] })
+  end
+
+  def current_ability
+    Ability.new(@current_user)
   end
 end

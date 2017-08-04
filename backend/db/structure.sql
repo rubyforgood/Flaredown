@@ -2,17 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.4.11
--- Dumped by pg_dump version 9.6.2
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -63,7 +58,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: condition_translations; Type: TABLE; Schema: public; Owner: -
+-- Name: condition_translations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE condition_translations (
@@ -96,7 +91,7 @@ ALTER SEQUENCE condition_translations_id_seq OWNED BY condition_translations.id;
 
 
 --
--- Name: conditions; Type: TABLE; Schema: public; Owner: -
+-- Name: conditions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE conditions (
@@ -128,7 +123,7 @@ ALTER SEQUENCE conditions_id_seq OWNED BY conditions.id;
 
 
 --
--- Name: crono_jobs; Type: TABLE; Schema: public; Owner: -
+-- Name: crono_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE crono_jobs (
@@ -162,7 +157,7 @@ ALTER SEQUENCE crono_jobs_id_seq OWNED BY crono_jobs.id;
 
 
 --
--- Name: food_translations; Type: TABLE; Schema: public; Owner: -
+-- Name: food_translations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE food_translations (
@@ -198,14 +193,16 @@ ALTER SEQUENCE food_translations_id_seq OWNED BY food_translations.id;
 
 
 --
--- Name: foods; Type: TABLE; Schema: public; Owner: -
+-- Name: foods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE foods (
     id integer NOT NULL,
     ndb_no character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    global boolean DEFAULT true,
+    trackable_usages_count integer DEFAULT 0
 );
 
 
@@ -229,7 +226,7 @@ ALTER SEQUENCE foods_id_seq OWNED BY foods.id;
 
 
 --
--- Name: profiles; Type: TABLE; Schema: public; Owner: -
+-- Name: profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE profiles (
@@ -255,7 +252,8 @@ CREATE TABLE profiles (
     beta_tester boolean DEFAULT false,
     notify boolean DEFAULT true,
     notify_token character varying,
-    slug_name character varying
+    slug_name character varying,
+    notify_top_posts boolean DEFAULT true
 );
 
 
@@ -279,7 +277,7 @@ ALTER SEQUENCE profiles_id_seq OWNED BY profiles.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE schema_migrations (
@@ -288,7 +286,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: symptom_translations; Type: TABLE; Schema: public; Owner: -
+-- Name: symptom_translations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE symptom_translations (
@@ -321,7 +319,7 @@ ALTER SEQUENCE symptom_translations_id_seq OWNED BY symptom_translations.id;
 
 
 --
--- Name: symptoms; Type: TABLE; Schema: public; Owner: -
+-- Name: symptoms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE symptoms (
@@ -353,7 +351,7 @@ ALTER SEQUENCE symptoms_id_seq OWNED BY symptoms.id;
 
 
 --
--- Name: tag_translations; Type: TABLE; Schema: public; Owner: -
+-- Name: tag_translations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE tag_translations (
@@ -386,13 +384,15 @@ ALTER SEQUENCE tag_translations_id_seq OWNED BY tag_translations.id;
 
 
 --
--- Name: tags; Type: TABLE; Schema: public; Owner: -
+-- Name: tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE tags (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    global boolean DEFAULT true,
+    trackable_usages_count integer DEFAULT 0
 );
 
 
@@ -416,7 +416,7 @@ ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
 
 
 --
--- Name: trackable_usages; Type: TABLE; Schema: public; Owner: -
+-- Name: trackable_usages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE trackable_usages (
@@ -450,7 +450,7 @@ ALTER SEQUENCE trackable_usages_id_seq OWNED BY trackable_usages.id;
 
 
 --
--- Name: trackings; Type: TABLE; Schema: public; Owner: -
+-- Name: trackings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE trackings (
@@ -486,7 +486,7 @@ ALTER SEQUENCE trackings_id_seq OWNED BY trackings.id;
 
 
 --
--- Name: treatment_translations; Type: TABLE; Schema: public; Owner: -
+-- Name: treatment_translations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE treatment_translations (
@@ -519,7 +519,7 @@ ALTER SEQUENCE treatment_translations_id_seq OWNED BY treatment_translations.id;
 
 
 --
--- Name: treatments; Type: TABLE; Schema: public; Owner: -
+-- Name: treatments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE treatments (
@@ -551,7 +551,7 @@ ALTER SEQUENCE treatments_id_seq OWNED BY treatments.id;
 
 
 --
--- Name: user_conditions; Type: TABLE; Schema: public; Owner: -
+-- Name: user_conditions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE user_conditions (
@@ -583,7 +583,39 @@ ALTER SEQUENCE user_conditions_id_seq OWNED BY user_conditions.id;
 
 
 --
--- Name: user_symptoms; Type: TABLE; Schema: public; Owner: -
+-- Name: user_foods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_foods (
+    id integer NOT NULL,
+    user_id integer,
+    food_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_foods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_foods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_foods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_foods_id_seq OWNED BY user_foods.id;
+
+
+--
+-- Name: user_symptoms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE user_symptoms (
@@ -615,7 +647,39 @@ ALTER SEQUENCE user_symptoms_id_seq OWNED BY user_symptoms.id;
 
 
 --
--- Name: user_treatments; Type: TABLE; Schema: public; Owner: -
+-- Name: user_tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_tags (
+    id integer NOT NULL,
+    user_id integer,
+    tag_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_tags_id_seq OWNED BY user_tags.id;
+
+
+--
+-- Name: user_treatments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE user_treatments (
@@ -647,7 +711,7 @@ ALTER SEQUENCE user_treatments_id_seq OWNED BY user_treatments.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE users (
@@ -695,7 +759,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: weathers; Type: TABLE; Schema: public; Owner: -
+-- Name: weathers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE weathers (
@@ -734,140 +798,154 @@ ALTER SEQUENCE weathers_id_seq OWNED BY weathers.id;
 
 
 --
--- Name: condition_translations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY condition_translations ALTER COLUMN id SET DEFAULT nextval('condition_translations_id_seq'::regclass);
 
 
 --
--- Name: conditions id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY conditions ALTER COLUMN id SET DEFAULT nextval('conditions_id_seq'::regclass);
 
 
 --
--- Name: crono_jobs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY crono_jobs ALTER COLUMN id SET DEFAULT nextval('crono_jobs_id_seq'::regclass);
 
 
 --
--- Name: food_translations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY food_translations ALTER COLUMN id SET DEFAULT nextval('food_translations_id_seq'::regclass);
 
 
 --
--- Name: foods id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY foods ALTER COLUMN id SET DEFAULT nextval('foods_id_seq'::regclass);
 
 
 --
--- Name: profiles id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY profiles ALTER COLUMN id SET DEFAULT nextval('profiles_id_seq'::regclass);
 
 
 --
--- Name: symptom_translations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY symptom_translations ALTER COLUMN id SET DEFAULT nextval('symptom_translations_id_seq'::regclass);
 
 
 --
--- Name: symptoms id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY symptoms ALTER COLUMN id SET DEFAULT nextval('symptoms_id_seq'::regclass);
 
 
 --
--- Name: tag_translations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tag_translations ALTER COLUMN id SET DEFAULT nextval('tag_translations_id_seq'::regclass);
 
 
 --
--- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
 
 
 --
--- Name: trackable_usages id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackable_usages ALTER COLUMN id SET DEFAULT nextval('trackable_usages_id_seq'::regclass);
 
 
 --
--- Name: trackings id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackings ALTER COLUMN id SET DEFAULT nextval('trackings_id_seq'::regclass);
 
 
 --
--- Name: treatment_translations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY treatment_translations ALTER COLUMN id SET DEFAULT nextval('treatment_translations_id_seq'::regclass);
 
 
 --
--- Name: treatments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY treatments ALTER COLUMN id SET DEFAULT nextval('treatments_id_seq'::regclass);
 
 
 --
--- Name: user_conditions id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions ALTER COLUMN id SET DEFAULT nextval('user_conditions_id_seq'::regclass);
 
 
 --
--- Name: user_symptoms id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_foods ALTER COLUMN id SET DEFAULT nextval('user_foods_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms ALTER COLUMN id SET DEFAULT nextval('user_symptoms_id_seq'::regclass);
 
 
 --
--- Name: user_treatments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_tags ALTER COLUMN id SET DEFAULT nextval('user_tags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments ALTER COLUMN id SET DEFAULT nextval('user_treatments_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: weathers id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY weathers ALTER COLUMN id SET DEFAULT nextval('weathers_id_seq'::regclass);
 
 
 --
--- Name: condition_translations condition_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: condition_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY condition_translations
@@ -875,7 +953,7 @@ ALTER TABLE ONLY condition_translations
 
 
 --
--- Name: conditions conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY conditions
@@ -883,7 +961,7 @@ ALTER TABLE ONLY conditions
 
 
 --
--- Name: crono_jobs crono_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: crono_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY crono_jobs
@@ -891,7 +969,7 @@ ALTER TABLE ONLY crono_jobs
 
 
 --
--- Name: food_translations food_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: food_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY food_translations
@@ -899,7 +977,7 @@ ALTER TABLE ONLY food_translations
 
 
 --
--- Name: foods foods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: foods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY foods
@@ -907,7 +985,7 @@ ALTER TABLE ONLY foods
 
 
 --
--- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY profiles
@@ -915,7 +993,7 @@ ALTER TABLE ONLY profiles
 
 
 --
--- Name: symptom_translations symptom_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: symptom_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY symptom_translations
@@ -923,7 +1001,7 @@ ALTER TABLE ONLY symptom_translations
 
 
 --
--- Name: symptoms symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY symptoms
@@ -931,7 +1009,7 @@ ALTER TABLE ONLY symptoms
 
 
 --
--- Name: tag_translations tag_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tag_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY tag_translations
@@ -939,7 +1017,7 @@ ALTER TABLE ONLY tag_translations
 
 
 --
--- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY tags
@@ -947,7 +1025,7 @@ ALTER TABLE ONLY tags
 
 
 --
--- Name: trackable_usages trackable_usages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: trackable_usages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY trackable_usages
@@ -955,7 +1033,7 @@ ALTER TABLE ONLY trackable_usages
 
 
 --
--- Name: trackings trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY trackings
@@ -963,7 +1041,7 @@ ALTER TABLE ONLY trackings
 
 
 --
--- Name: treatment_translations treatment_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: treatment_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY treatment_translations
@@ -971,7 +1049,7 @@ ALTER TABLE ONLY treatment_translations
 
 
 --
--- Name: treatments treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY treatments
@@ -979,7 +1057,7 @@ ALTER TABLE ONLY treatments
 
 
 --
--- Name: user_conditions user_conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_conditions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_conditions
@@ -987,7 +1065,15 @@ ALTER TABLE ONLY user_conditions
 
 
 --
--- Name: user_symptoms user_symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_foods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_foods
+    ADD CONSTRAINT user_foods_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_symptoms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -995,7 +1081,15 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: user_treatments user_treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_tags
+    ADD CONSTRAINT user_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_treatments
@@ -1003,7 +1097,7 @@ ALTER TABLE ONLY user_treatments
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -1011,7 +1105,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: weathers weathers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: weathers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY weathers
@@ -1019,245 +1113,266 @@ ALTER TABLE ONLY weathers
 
 
 --
--- Name: idx_fts_food_translations_en; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_fts_food_translations_en ON food_translations USING gin (to_tsvector('english'::regconfig, (long_desc)::text)) WHERE ((locale)::text = 'en'::text);
-
-
---
--- Name: idx_fts_food_translations_it; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_fts_food_translations_it ON food_translations USING gin (to_tsvector('italian'::regconfig, (long_desc)::text)) WHERE ((locale)::text = 'it'::text);
-
-
---
--- Name: index_condition_translations_on_condition_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_condition_translations_on_condition_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_condition_translations_on_condition_id ON condition_translations USING btree (condition_id);
 
 
 --
--- Name: index_condition_translations_on_locale; Type: INDEX; Schema: public; Owner: -
+-- Name: index_condition_translations_on_locale; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_condition_translations_on_locale ON condition_translations USING btree (locale);
 
 
 --
--- Name: index_crono_jobs_on_job_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_crono_jobs_on_job_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_crono_jobs_on_job_id ON crono_jobs USING btree (job_id);
 
 
 --
--- Name: index_food_translations_on_food_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_food_translations_on_food_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_food_translations_on_food_id ON food_translations USING btree (food_id);
 
 
 --
--- Name: index_food_translations_on_locale; Type: INDEX; Schema: public; Owner: -
+-- Name: index_food_translations_on_locale; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_food_translations_on_locale ON food_translations USING btree (locale);
 
 
 --
--- Name: index_foods_on_ndb_no; Type: INDEX; Schema: public; Owner: -
+-- Name: index_foods_on_ndb_no; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_foods_on_ndb_no ON foods USING btree (ndb_no);
 
 
 --
--- Name: index_profiles_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_profiles_on_slug_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_profiles_on_slug_name ON profiles USING btree (slug_name);
+
+
+--
+-- Name: index_profiles_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_profiles_on_user_id ON profiles USING btree (user_id);
 
 
 --
--- Name: index_symptom_translations_on_locale; Type: INDEX; Schema: public; Owner: -
+-- Name: index_symptom_translations_on_locale; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_symptom_translations_on_locale ON symptom_translations USING btree (locale);
 
 
 --
--- Name: index_symptom_translations_on_symptom_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_symptom_translations_on_symptom_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_symptom_translations_on_symptom_id ON symptom_translations USING btree (symptom_id);
 
 
 --
--- Name: index_tag_translations_on_locale; Type: INDEX; Schema: public; Owner: -
+-- Name: index_tag_translations_on_locale; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_tag_translations_on_locale ON tag_translations USING btree (locale);
 
 
 --
--- Name: index_tag_translations_on_tag_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_tag_translations_on_tag_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_tag_translations_on_tag_id ON tag_translations USING btree (tag_id);
 
 
 --
--- Name: index_trackable_usages_on_trackable_type_and_trackable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackable_usages_on_trackable_type_and_trackable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_trackable_usages_on_trackable_type_and_trackable_id ON trackable_usages USING btree (trackable_type, trackable_id);
 
 
 --
--- Name: index_trackable_usages_on_unique_columns; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackable_usages_on_unique_columns; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_trackable_usages_on_unique_columns ON trackable_usages USING btree (user_id, trackable_type, trackable_id);
 
 
 --
--- Name: index_trackable_usages_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackable_usages_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_trackable_usages_on_user_id ON trackable_usages USING btree (user_id);
 
 
 --
--- Name: index_trackings_on_trackable_type; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackings_on_trackable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_trackings_on_trackable_type ON trackings USING btree (trackable_type);
 
 
 --
--- Name: index_trackings_on_trackable_type_and_trackable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackings_on_trackable_type_and_trackable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_trackings_on_trackable_type_and_trackable_id ON trackings USING btree (trackable_type, trackable_id);
 
 
 --
--- Name: index_trackings_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackings_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_trackings_on_user_id ON trackings USING btree (user_id);
 
 
 --
--- Name: index_trackings_unique_trackable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_trackings_unique_trackable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_trackings_unique_trackable ON trackings USING btree (user_id, trackable_id, trackable_type, start_at);
 
 
 --
--- Name: index_treatment_translations_on_locale; Type: INDEX; Schema: public; Owner: -
+-- Name: index_treatment_translations_on_locale; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_treatment_translations_on_locale ON treatment_translations USING btree (locale);
 
 
 --
--- Name: index_treatment_translations_on_treatment_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_treatment_translations_on_treatment_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_treatment_translations_on_treatment_id ON treatment_translations USING btree (treatment_id);
 
 
 --
--- Name: index_user_conditions_on_condition_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_conditions_on_condition_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_user_conditions_on_condition_id ON user_conditions USING btree (condition_id);
 
 
 --
--- Name: index_user_conditions_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_conditions_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_user_conditions_on_user_id ON user_conditions USING btree (user_id);
 
 
 --
--- Name: index_user_symptoms_on_symptom_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_foods_on_food_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_foods_on_food_id ON user_foods USING btree (food_id);
+
+
+--
+-- Name: index_user_foods_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_foods_on_user_id ON user_foods USING btree (user_id);
+
+
+--
+-- Name: index_user_symptoms_on_symptom_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_user_symptoms_on_symptom_id ON user_symptoms USING btree (symptom_id);
 
 
 --
--- Name: index_user_symptoms_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_symptoms_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_user_symptoms_on_user_id ON user_symptoms USING btree (user_id);
 
 
 --
--- Name: index_user_treatments_on_treatment_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_tags_on_tag_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_tags_on_tag_id ON user_tags USING btree (tag_id);
+
+
+--
+-- Name: index_user_tags_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_tags_on_user_id ON user_tags USING btree (user_id);
+
+
+--
+-- Name: index_user_treatments_on_treatment_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_user_treatments_on_treatment_id ON user_treatments USING btree (treatment_id);
 
 
 --
--- Name: index_user_treatments_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_treatments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_user_treatments_on_user_id ON user_treatments USING btree (user_id);
 
 
 --
--- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_users_on_authentication_token ON users USING btree (authentication_token);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_invitation_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_invitation_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_users_on_invitation_token ON users USING btree (invitation_token);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: index_weathers_on_date_and_postal_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_weathers_on_date_and_postal_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_weathers_on_date_and_postal_code ON weathers USING btree (date, postal_code);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
--- Name: user_treatments fk_rails_0ef098da93; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0ef098da93; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments
@@ -1265,7 +1380,7 @@ ALTER TABLE ONLY user_treatments
 
 
 --
--- Name: user_conditions fk_rails_1fa14e4e8c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_1fa14e4e8c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions
@@ -1273,7 +1388,7 @@ ALTER TABLE ONLY user_conditions
 
 
 --
--- Name: user_conditions fk_rails_47c01ca983; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_47c01ca983; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_conditions
@@ -1281,7 +1396,7 @@ ALTER TABLE ONLY user_conditions
 
 
 --
--- Name: trackings fk_rails_493dc44b5f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_493dc44b5f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackings
@@ -1289,7 +1404,7 @@ ALTER TABLE ONLY trackings
 
 
 --
--- Name: user_treatments fk_rails_49855db565; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_49855db565; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_treatments
@@ -1297,7 +1412,7 @@ ALTER TABLE ONLY user_treatments
 
 
 --
--- Name: trackable_usages fk_rails_53d2120ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_53d2120ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY trackable_usages
@@ -1305,7 +1420,15 @@ ALTER TABLE ONLY trackable_usages
 
 
 --
--- Name: user_symptoms fk_rails_86699b81a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_7156651ad8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_tags
+    ADD CONSTRAINT fk_rails_7156651ad8 FOREIGN KEY (tag_id) REFERENCES tags(id);
+
+
+--
+-- Name: fk_rails_86699b81a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -1313,7 +1436,23 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: user_symptoms fk_rails_cde825af18; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_8aa2688684; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_foods
+    ADD CONSTRAINT fk_rails_8aa2688684 FOREIGN KEY (food_id) REFERENCES foods(id);
+
+
+--
+-- Name: fk_rails_af9e05e5ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_foods
+    ADD CONSTRAINT fk_rails_af9e05e5ff FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_cde825af18; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_symptoms
@@ -1321,11 +1460,19 @@ ALTER TABLE ONLY user_symptoms
 
 
 --
--- Name: profiles fk_rails_e424190865; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e424190865; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY profiles
     ADD CONSTRAINT fk_rails_e424190865 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_ea0382482a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_tags
+    ADD CONSTRAINT fk_rails_ea0382482a FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1387,4 +1534,14 @@ INSERT INTO schema_migrations (version) VALUES ('20170508151200');
 INSERT INTO schema_migrations (version) VALUES ('20170509114220');
 
 INSERT INTO schema_migrations (version) VALUES ('20170612160120');
+
+INSERT INTO schema_migrations (version) VALUES ('20170717153650');
+
+INSERT INTO schema_migrations (version) VALUES ('20170731083613');
+
+INSERT INTO schema_migrations (version) VALUES ('20170731123835');
+
+INSERT INTO schema_migrations (version) VALUES ('20170731125044');
+
+INSERT INTO schema_migrations (version) VALUES ('20170801124153');
 

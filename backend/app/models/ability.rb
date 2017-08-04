@@ -16,8 +16,12 @@ class Ability
     can :create, Condition, global: false
     can :manage, Condition, id: user.condition_ids
 
-    can :read, Food
-    can :create, Food
+    can :show, Food
+    can :index, Food, global: true
+    cannot :index, Food, global: false
+    can :index, Food, global: false, id: user.food_ids
+    can :create, Food, global: false
+    can :manage, Food, id: user.food_ids
 
     can :read, HarveyBradshawIndex, encrypted_user_id: user.encrypted_id
 
@@ -59,7 +63,12 @@ class Ability
 
     can :manage, Tracking, user_id: user.id
 
-    can :manage, Tag
+    can :show, Tag
+    can :index, Tag, global: true
+    cannot :index, Tag, global: false
+    can :index, Tag, global: false, id: user.tag_ids
+    can :create, Tag, global: false
+    can :manage, Tag, id: user.tag_ids
 
     can :read, Weather if user.persisted?
     can :read, NilClass if user.persisted?

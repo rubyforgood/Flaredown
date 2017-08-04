@@ -19,9 +19,7 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def create
-    @food.save
-
-    render json: @food
+    render json: TrackableCreator.new(@food, current_user).create!
   end
 
   private

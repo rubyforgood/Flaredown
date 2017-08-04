@@ -39,6 +39,7 @@ RSpec.describe Api::V1::TagsController do
       post :create, tag: tag_attributes
       created_tag = response_body[:tag]
       expect(created_tag[:name]).to eq tag_attributes[:name]
+      expect(Tag.find(created_tag[:id]).global).to be false
     end
   end
 end

@@ -6,6 +6,7 @@
   idsKey='foodIds'
   modelName='food'
   relationName='foods'
+  onBeforeAdd=(action 'onBeforeAddFood')
 }}
 
 <h3 class="vert-offset-top-2">Tags</h3>
@@ -15,6 +16,7 @@
   modelName='tag'
   badgeStyle=true
   relationName='tags'
+  onBeforeAdd=(action 'onBeforeAddTag')
 }}
 
 {{step-controls

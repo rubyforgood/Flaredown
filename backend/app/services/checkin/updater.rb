@@ -110,6 +110,10 @@ class Checkin::Updater
       update_removed_trackables_usages(trackable_class_name)
       update_added_trackables_usages(trackable_class_name)
     end
+
+    %w(Tag Food).each do |health_class_name|
+      update_health_factors_trackable_usages(health_class_name)
+    end
   end
 
   # For trackables that have been removed from checkin, look for TrackableUsage records
@@ -169,4 +173,12 @@ class Checkin::Updater
     trackables_attrs.select { |attrs| attrs[:id].blank? }
   end
 
+  def update_health_factors_trackable_usages(trackable_class_name)
+    trackable_class = trackable_class_name.constantize
+    trackable_key = "#{trackable_class_name.downcase}_ids"
+
+    trackable_class.where(id: permitted_params[trackable_key]).each do |health_factor|
+      TrackableUsage.create_or_update_by(user: current_user, trackable: health_factor)
+    end
+  end
 end
