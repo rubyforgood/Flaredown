@@ -4,11 +4,18 @@
   <label>SETTINGS</label>
 {{/link-to}}
 
-{{#link-to 'posts' class='bottom-link'}}
-  {{inline-svg 'discuss' class='icon'}}
+{{#if session.currentUser}}
+  {{#if notifications.unread}}
+    {{nav/discussions-unread}}
+  {{else}}
+    {{#link-to 'posts' class='bottom-link'}}
+     {{inline-svg 'discuss' class='icon'}}
 
-  <label>CHAT</label>
-{{/link-to}}
+     <label>CHAT</label>
+   {{/link-to}}
+  {{/if}}
+{{/if}}
+
 
 {{!-- <div class="bottom-link">
   {{inline-svg 'explore' class='icon'}}
