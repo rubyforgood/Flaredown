@@ -4,6 +4,9 @@ import InViewportMixin from 'ember-in-viewport';
 const {
   get,
   set,
+  computed: {
+    alias,
+  },
   Component,
   getProperties,
   inject: {
@@ -17,6 +20,7 @@ export default Component.extend(InViewportMixin, {
   ajax: service(),
   notifications: service(),
   elipsis: 125,
+  commentsCount: alias('post.commentsCount'),
 
   didEnterViewport() {
     const { ajax, post } = getProperties(this, 'ajax', 'post');
