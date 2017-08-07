@@ -13,6 +13,14 @@ export default Component.extend({
   classNames: ['flaredown-white-box'],
   classNameBindings: ['unreadClass:unreadNotification'],
 
+  notificationAnchor: computed('notification.kind', function() {
+    if( get(this, 'notification.kind') == 'reaction') {
+      return 'post'
+    } else {
+      return `anchor-${get(this, 'notification.notificateableId')}`
+    }
+  }),
+
   people: computed('notification.count', function() {
     const count = get(this, 'notification.count');
 

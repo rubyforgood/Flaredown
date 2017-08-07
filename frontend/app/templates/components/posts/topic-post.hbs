@@ -1,11 +1,15 @@
-<h4>{{#link-to 'posts.show' post class="colorable-clr-39"}}{{post.title}}{{/link-to}}</h4>
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  <h4>{{#link-to 'posts.show' post class="colorable-clr-39"}}{{post.title}}{{/link-to}}</h4>
 
-<p>{{truncate-text post.body limit=elipsis}}</p>
+  <p>{{truncate-text post.body limit=elipsis}}</p>
 
-{{posts/post-topics post=post}}
+  {{posts/post-topics post=post}}
 
-{{emoji-reactions reactable=post isAuthenticatedUser=isAuthenticatedUser}}
+  {{emoji-reactions reactable=post isAuthenticatedUser=isAuthenticatedUser}}
 
-{{#if post.commentsCount}}
-  {{#link-to 'posts.show' post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
+  {{#if post.commentsCount}}
+    {{#link-to 'posts.show' post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
+  {{/if}}
 {{/if}}

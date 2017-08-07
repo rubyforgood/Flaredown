@@ -12,7 +12,7 @@ const {
 } = Ember;
 
 export default Component.extend(InViewportMixin, {
-  classNames: ['flaredown-white-box'],
+  classNames: ['flaredown-white-box post'],
 
   ajax: service(),
   notifications: service(),
@@ -23,10 +23,20 @@ export default Component.extend(InViewportMixin, {
 
     if (get(post, 'notifications.reaction')) {
       const id = get(post, 'id');
+      const store = get(this, 'store');
 
       ajax
         .put(`notifications/post/${id}`)
-        .then(() => set(post, 'notifications', {}));
+        .then(({ notifications }) => {
+          notifications.forEach((n) => {
+            const model = store.peekRecord('notification', n.id);
+
+            if(model){
+              set(model, 'unread', false);
+            }
+          });
+          set(post, 'notifications', {});
+        });
     }
   },
 });

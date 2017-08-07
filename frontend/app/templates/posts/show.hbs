@@ -6,7 +6,7 @@
   <h3>{{post.title}}</h3>
 </header>
 
-<div class="flaredown-white-box">
+{{#posts/topic-post post=post}}
   <p class="colorable-clr-38">{{post.userName}}</p>
   <p>{{post.bodyWithBr}}</p>
 
@@ -21,7 +21,7 @@
       {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
     {{/each}}
   {{/scroll-to-anchor}}
-</div>
+{{/posts/topic-post}}
 
 {{#if session.isAuthenticated}}
   <div class="flaredown-white-box new-comment">
