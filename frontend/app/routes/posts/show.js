@@ -2,14 +2,26 @@ import Ember from 'ember';
 import HistoryTrackable from 'flaredown/mixins/history-trackable';
 import ToggleHeaderLogo from 'flaredown/mixins/toggle-header-logo';
 import AddMetaTags from 'flaredown/mixins/add-meta-tags';
+import UpdateNotifications from 'flaredown/mixins/update-notifications';
 
 const {
   get,
   set,
+  run: {
+    schedule,
+  },
   Route,
 } = Ember;
 
-export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
+export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, UpdateNotifications, {
+  updateNotifications: true,
+
+  afterModel() {
+    const currentModel = this.modelFor(this.routeName);
+
+    schedule('afterRender', this, this.updatePostNotifications, currentModel);
+  },
+
   resetController(controller, isExiting) {
     if (isExiting) {
       set(controller, 'anchor', null);

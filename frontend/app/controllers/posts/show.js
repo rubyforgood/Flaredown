@@ -10,9 +10,6 @@ const {
   computed,
   Controller,
   getProperties,
-  run: {
-    schedule,
-  },
   inject: {
     service,
   },
@@ -34,35 +31,6 @@ export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSea
   disabled: computed('newComment.body', function() {
     return isEmpty(get(this, 'newComment.body'));
   }),
-
-  init() {
-    this._super(...arguments);
-
-    schedule('afterRender', this, this.didEnterViewport);
-  },
-
-  didEnterViewport() {
-    const { ajax, post } = getProperties(this, 'ajax', 'post');
-
-    if (post && get(post, 'notifications.reaction')) {
-      const id = get(post, 'id');
-      const store = get(this, 'store');
-
-      ajax
-        .put(`notifications/post/${id}`)
-        .then(({notifications}) => {
-
-          notifications.forEach((n) => {
-            const model = store.peekRecord('notification', n.id);
-
-            if(model){
-              set(model, 'unread', false);
-            }
-          });
-          set(post, 'notifications', {});
-        });
-    }
-  },
 
   actions: {
     submitComment() {

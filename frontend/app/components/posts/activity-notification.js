@@ -14,10 +14,10 @@ export default Component.extend({
   classNameBindings: ['unreadClass:unreadNotification'],
 
   notificationAnchor: computed('notification.kind', function() {
-    if( get(this, 'notification.kind') == 'reaction') {
-      return 'post'
+    if( get(this, 'notification.kind') === 'reaction' && get(this, 'notification.notificateableType') === 'post') {
+      return 'emoji-reactions';
     } else {
-      return `anchor-${get(this, 'notification.notificateableId')}`
+      return `anchor-${get(this, 'notification.notificateableId')}`;
     }
   }),
 

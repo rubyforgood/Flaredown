@@ -1,17 +1,19 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
+import UpdateNotifications from 'flaredown/mixins/update-notifications';
 
 const {
   get,
-  set,
   Component,
-  getProperties,
+  run: {
+    schedule,
+  },
   inject: {
     service,
   },
 } = Ember;
 
-export default Component.extend(InViewportMixin, {
+export default Component.extend(InViewportMixin, UpdateNotifications, {
   classNames: ['flaredown-white-box post'],
 
   ajax: service(),
@@ -19,24 +21,6 @@ export default Component.extend(InViewportMixin, {
   elipsis: 125,
 
   didEnterViewport() {
-    const { ajax, post } = getProperties(this, 'ajax', 'post');
-
-    if (get(post, 'notifications.reaction')) {
-      const id = get(post, 'id');
-      const store = get(this, 'store');
-
-      ajax
-        .put(`notifications/post/${id}`)
-        .then(({ notifications }) => {
-          notifications.forEach((n) => {
-            const model = store.peekRecord('notification', n.id);
-
-            if(model){
-              set(model, 'unread', false);
-            }
-          });
-          set(post, 'notifications', {});
-        });
-    }
+    schedule('afterRender', this, this.updatePostNotifications, get(this, 'post'));
   },
 });
