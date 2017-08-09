@@ -12,6 +12,8 @@ export default Mixin.create({
   routeHistory: service(),
 
   afterModel(model, transition) {
+    this._super(...arguments);
+
     get(this, 'routeHistory').pushEntry(this.historyEntry(model, transition));
   },
 

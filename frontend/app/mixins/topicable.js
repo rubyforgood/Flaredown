@@ -18,10 +18,10 @@ export default Mixin.create({
   conditionIds: attr(),
   treatmentIds: attr(),
 
-  tags: hasMany('tag', { async: false }),
-  symptoms: hasMany('symptom', { async: false }),
-  conditions: hasMany('condition', { async: false }),
-  treatments: hasMany('treatment', { async: false }),
+  tags: hasMany('tag', { async: true }),
+  symptoms: hasMany('symptom', { async: true }),
+  conditions: hasMany('condition', { async: true }),
+  treatments: hasMany('treatment', { async: true }),
 
   topics: computed('tags', 'symptoms', 'conditions', 'treatments', function() {
     return [

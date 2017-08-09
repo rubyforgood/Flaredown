@@ -9,12 +9,18 @@ const {
   set,
   run: {
     schedule,
+  computed,
+  inject: {
+    service,
   },
   Route,
 } = Ember;
 
 export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, UpdateNotifications, {
+  fastboot: service(),
+
   updateNotifications: true,
+  modelName: 'post',
 
   afterModel() {
     const currentModel = this.modelFor(this.routeName);
@@ -28,7 +34,32 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
     }
   },
   model(params) {
-    return get(this, 'store').find('post', params.id);
+    let shoebox = get(this, 'fastboot.shoebox');
+    let shoeboxStore = shoebox.retrieve('posts-show');
+
+    if (get(this, 'fastboot.isFastBoot')) {
+      return get(this, 'store').findRecord('post', params.id).then(post => {
+        if (!shoeboxStore) {
+          shoeboxStore = {};
+        }
+
+        shoeboxStore[post.id] = post.toJSON({'includeId': true});
+        shoebox.put('posts-show', shoeboxStore);
+        return post;
+      });
+    } else {
+      return this.getEmberModel('post', shoeboxStore[params.id]);
+    }
+  },
+
+  getEmberModel(modelName, payload){
+    if (payload) {
+      const store = get(this, 'store');
+      const data = {[modelName]: payload };
+
+      store.pushPayload(modelName, data);
+      return store.peekRecord(modelName, payload.id);
+    }
   },
 
   setupController(controller, model) {
@@ -53,14 +84,14 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
         tagId: 'title',
         attrs: {
           property: 'og:title',
-          content: model.get('title'),
+          content: get(model, 'title'),
         },
       },
       { type: 'meta',
         tagId: 'description',
         attrs: {
           property: 'og:description',
-          content: model.get('body'),
+          content: get(model, 'body'),
         },
       },
       { type: 'meta',
@@ -84,7 +115,7 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
         tagId: 'googleDesc',
         attrs: {
           name: 'description',
-          content: model.get('body'),
+          content: get(model, 'body'),
         },
       },
     ];
