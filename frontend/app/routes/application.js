@@ -11,9 +11,22 @@ const {
 
 export default Route.extend(ApplicationRouteMixin, {
   notifications: service(),
+  fastboot: service(),
 
   beforeModel() {
+    if (!get(this, 'fastboot.isFastBoot')) {
+      const shoebox = get(this, 'fastboot.shoebox');
+      const shoeboxStore = shoebox.retrieve('CommonStore');
+      const store = get(this, 'store');
+
+      shoeboxStore.payloads.forEach(payload => {
+        store.pushPayload(payload);
+      });
+    }
+
     get(this, 'notifications').loadNotifications();
+
+    return this._super(...arguments);
   },
 
   sessionAuthenticated() {

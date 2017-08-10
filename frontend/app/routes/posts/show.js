@@ -33,32 +33,14 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
       set(controller, 'anchor', null);
     }
   },
+
   model(params) {
-    let shoebox = get(this, 'fastboot.shoebox');
-    let shoeboxStore = shoebox.retrieve('posts-show');
+    const store = get(this, 'store');
 
     if (get(this, 'fastboot.isFastBoot')) {
-      return get(this, 'store').findRecord('post', params.id).then(post => {
-        if (!shoeboxStore) {
-          shoeboxStore = {};
-        }
-
-        shoeboxStore[post.id] = post.toJSON({'includeId': true});
-        shoebox.put('posts-show', shoeboxStore);
-        return post;
-      });
+      return store.findRecord('post', params.id);
     } else {
-      return this.getEmberModel('post', shoeboxStore[params.id]);
-    }
-  },
-
-  getEmberModel(modelName, payload){
-    if (payload) {
-      const store = get(this, 'store');
-      const data = {[modelName]: payload };
-
-      store.pushPayload(modelName, data);
-      return store.peekRecord(modelName, payload.id);
+      return store.peekRecord('post', params.id);
     }
   },
 

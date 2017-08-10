@@ -25,7 +25,7 @@ export default SessionService.extend({
 
   currentUser: Ember.computed('isAuthenticated', function() {
     if (this.get('isAuthenticated')) {
-      return this.get('dataStore').find('user', this.get('session.authenticated.user_id'));
+      return this.fetchUser();
     } else {
       return null;
     }
@@ -42,11 +42,22 @@ export default SessionService.extend({
 
   actualUserObserver: observer('isAuthenticated', function() {
     if (this.get('isAuthenticated')) {
-      this.get('dataStore').find('user', this.get('session.authenticated.user_id')).then((user) => {
+      this.fetchUser().then((user) => {
         this.set('actualUser', user);
       });
     } else {
       this.set('actualUser', null);
     }
   }),
+
+  fetchUser() {
+    let fetchUserPromise = this.get('fetchUserPromise');
+
+    if(!fetchUserPromise) {
+      fetchUserPromise = this.get('dataStore').find('user', this.get('session.authenticated.user_id'));
+      this.set('fetchUserPromise', fetchUserPromise);
+    }
+
+    return fetchUserPromise;
+  },
 });
