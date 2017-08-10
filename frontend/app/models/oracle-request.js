@@ -13,9 +13,7 @@ const {
   set,
   computed,
   getProperties,
-  $: {
-    ajax,
-  },
+  $,
   computed: {
     alias,
   },
@@ -62,15 +60,18 @@ export default Model.extend({
   },
 
   askOracle() {
-    const data = JSON.stringify(get(this, 'payload'));
+    if (typeof FastBoot === 'undefined') {
 
-    return ajax({
-      data,
-      url: get(this, 'apiUrl'),
-      method: 'POST',
-      dataType: 'json',
-      contentType: 'application/json; charset=UTF-8',
-    })
-    .then(r => set(this, 'responce', r.sortBy('confidence').reverse()));
+      const data = JSON.stringify(get(this, 'payload'));
+
+      return $.ajax({
+        data,
+        url: get(this, 'apiUrl'),
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+      })
+      .then(r => set(this, 'responce', r.sortBy('confidence').reverse()));
+    }
   }
 });
