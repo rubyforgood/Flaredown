@@ -19,9 +19,11 @@ export default Route.extend(ApplicationRouteMixin, {
       const shoeboxStore = shoebox.retrieve('CommonStore');
       const store = get(this, 'store');
 
-      shoeboxStore.payloads.forEach(payload => {
-        store.pushPayload(payload);
-      });
+      if(shoeboxStore) {
+        shoeboxStore.payloads.forEach(payload => {
+          store.pushPayload(payload);
+        });
+      }
     }
 
     get(this, 'notifications').loadNotifications();

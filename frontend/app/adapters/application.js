@@ -19,7 +19,7 @@ export default ActiveModelAdapter.extend(DataAdapterMixin, {
 
   fastboot: service(),
 
-  handleResponse(status, headers, payload, requestData) {
+  handleResponse(status, headers, payload) {
     const shoebox = get(this, 'fastboot.shoebox');
     let shoeboxStore = shoebox.retrieve('CommonStore');
 
@@ -27,6 +27,7 @@ export default ActiveModelAdapter.extend(DataAdapterMixin, {
       if (!shoeboxStore) {
         shoeboxStore = { payloads: [] };
       }
+
       shoeboxStore.payloads.push(payload);
 
       shoebox.put('CommonStore', shoeboxStore);

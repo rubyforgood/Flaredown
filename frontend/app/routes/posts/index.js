@@ -6,6 +6,9 @@ import AddMetaTags from 'flaredown/mixins/add-meta-tags';
 const {
   set,
   get,
+  inject: {
+    service,
+  },
   Route,
   RSVP: {
     hash,
@@ -13,6 +16,7 @@ const {
 } = Ember;
 
 export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
+  fastboot: service(),
   queryParams: {
     following: { refreshModel: true },
     query: { refreshModel: true }
@@ -20,12 +24,24 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
 
   model(params) {
     set(this, 'query', params.query);
-    const currentUser = get(this, 'session.currentUser');
 
-    return hash({
-      posts: get(this, 'store').query('post', params).then(q => q.toArray()),
-      topicFollowing: currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [],
-    });
+    const currentUser = get(this, 'session.currentUser');
+    const store = get(this, 'store');
+    const topicFollowing = currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [];
+
+    if (get(this, 'fastboot.isFastBoot') || get(this, 'routeInited')) {
+      return hash({
+        posts: store.query('post', params).then(q => q.toArray()),
+        topicFollowing: topicFollowing
+      });
+    } else {
+      set(this, 'routeInited', true);
+
+      return hash({
+        posts: store.peekAll('post').toArray(),
+        topicFollowing: topicFollowing
+      });
+    }
   },
 
   setHeadTags: function() {
