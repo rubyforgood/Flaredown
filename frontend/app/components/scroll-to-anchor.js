@@ -19,9 +19,11 @@ export default Component.extend({
     const anchor = get(this, 'anchor');
 
     if(anchor) {
-      const $anchor = $(`#${anchor}`);
+      const $anchorId = $(`#${anchor}`);
+      const $anchorClass = $(`.${anchor}`);
 
-      if($anchor.length > 0) { $('body').animate({ scrollTop: $anchor.offset().top }, 'slow'); }
+      if($anchorId.length > 0) { $('body').animate({ scrollTop: $anchorId.offset().top }, 'slow'); }
+      if($anchorClass.length > 0) { $('body').animate({ scrollTop: $anchorClass.offset().top }, 'slow'); }
     }
   },
 });
