@@ -20,9 +20,10 @@ const availableTypes = ['tag', 'symptom', 'condition', 'treatment'];
 
 export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
   session: service(),
+  fastboot: service(),
 
   model(params) {
-    const { id, type } = params;
+    const { type } = params;
 
     if (!availableTypes.includes(type)) {
       return this.transitionTo('posts');
@@ -30,6 +31,19 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
 
     const store = get(this, 'store');
     const currentUser = get(this, 'session.currentUser');
+    const topicFollowing = currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [];
+
+    if (get(this, 'fastboot.isFastBoot') || get(this, 'fastboot.hasPeeked')){
+      return this.makeRequest(store, params, topicFollowing);
+    } else {
+      set(this, 'fastboot.hasPeeked', true);
+
+      return this.peekData(store, params, topicFollowing);
+    }
+  },
+
+  makeRequest(store, params, topicFollowing) {
+    const { id, type } = params;
 
     return hash({
       id,
@@ -37,7 +51,23 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
       page: 1,
       posts: store.query('post', { id, type }).then(q => q.toArray()),
       topic: store.findRecord(type, id),
-      topicFollowing: currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [],
+      topicFollowing: topicFollowing
+    });
+  },
+
+  peekData(store, params, topicFollowing) {
+    const { id, type } = params;
+
+    const posts = store.peekAll('post').toArray();
+    const topic = store.peekRecord(type, id);
+
+    return hash({
+      id,
+      type,
+      page: 1,
+      posts: posts,
+      topic: topic,
+      topicFollowing: topicFollowing
     });
   },
 
