@@ -17,6 +17,7 @@ const {
 
 export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
   fastboot: service(),
+
   queryParams: {
     following: { refreshModel: true },
     query: { refreshModel: true }
@@ -29,19 +30,29 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
     const store = get(this, 'store');
     const topicFollowing = currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [];
 
-    if (get(this, 'fastboot.isFastBoot') || get(this, 'routeInited')) {
-      return hash({
-        posts: store.query('post', params).then(q => q.toArray()),
-        topicFollowing: topicFollowing
-      });
+    if (get(this, 'fastboot.isFastBoot') || get(this, 'fastboot.hasPeeked')){
+      return this.makeRequest(store, params, topicFollowing);
     } else {
-      set(this, 'routeInited', true);
+      set(this, 'fastboot.hasPeeked', true);
 
-      return hash({
-        posts: store.peekAll('post').toArray(),
-        topicFollowing: topicFollowing
-      });
+      return this.peekData(store, params, topicFollowing);
     }
+  },
+
+  makeRequest(store, params, topicFollowing) {
+    return hash({
+      posts: store.query('post', params).then(q => q.toArray()),
+      topicFollowing: topicFollowing
+    });
+  },
+
+  peekData(store, params, topicFollowing) {
+    const data = store.peekAll('post').toArray();
+
+    return hash({
+      posts: data.length &&  data || store.query('post', params).then(q => q.toArray()),
+      topicFollowing: topicFollowing
+    });
   },
 
   setHeadTags: function() {
