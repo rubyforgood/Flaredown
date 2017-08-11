@@ -9,6 +9,7 @@ const {
   set,
   run: {
     schedule,
+  },
   computed,
   inject: {
     service,
@@ -21,12 +22,6 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
 
   updateNotifications: true,
   modelName: 'post',
-
-  afterModel() {
-    const currentModel = this.modelFor(this.routeName);
-
-    schedule('afterRender', this, this.updatePostNotifications, currentModel);
-  },
 
   resetController(controller, isExiting) {
     if (isExiting) {
@@ -42,6 +37,12 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
     } else {
       return store.peekRecord('post', params.id);
     }
+  },
+
+  afterModel() {
+    const currentModel = this.modelFor(this.routeName);
+
+    schedule('afterRender', this, this.updatePostNotifications, currentModel);
   },
 
   setupController(controller, model) {
