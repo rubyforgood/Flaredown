@@ -12,6 +12,7 @@ const {
 export default Mixin.create({
   ajax: service(),
   notifications: service(),
+  store: service(),
 
   updatePostNotifications(post) {
     const ajax = get(this, 'ajax');
