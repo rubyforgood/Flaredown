@@ -5,6 +5,7 @@ import SearchableDropdown from 'flaredown/mixins/searchable-dropdown';
 import NavbarSearchable from 'flaredown/mixins/navbar-searchable';
 
 const {
+  get,
   set,
   Controller,
   getProperties,
@@ -36,7 +37,7 @@ export default Controller.extend(PostableGetable, BackNavigateable, SearchableDr
 
         page += 1;
 
-        this.getPostables(page).then(postables => {
+        this.getPostables(page, get(this, 'loadingPostables')).then((postables) => {
           model.pushObjects(postables);
 
           setProperties(this, { page, loadingPostables: false });

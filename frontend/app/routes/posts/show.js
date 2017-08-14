@@ -10,7 +10,6 @@ const {
   run: {
     schedule,
   },
-  computed,
   inject: {
     service,
   },
