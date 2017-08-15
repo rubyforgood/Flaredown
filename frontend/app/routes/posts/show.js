@@ -42,6 +42,8 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, Upd
     const currentModel = this.modelFor(this.routeName);
 
     schedule('afterRender', this, this.updatePostNotifications, currentModel);
+
+    set(this, 'fastboot.appHasLoaded', true);
   },
 
   setupController(controller, model) {

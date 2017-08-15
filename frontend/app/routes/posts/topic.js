@@ -42,6 +42,13 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
     }
   },
 
+
+  afterModel() {
+    set(this, 'fastboot.appHasLoaded', true);
+
+    this._super(...arguments);
+  },
+
   makeRequest(store, params, topicFollowing) {
     const { id, type } = params;
 

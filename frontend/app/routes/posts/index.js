@@ -30,13 +30,17 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
     const store = get(this, 'store');
     const topicFollowing = currentUser ? currentUser.then(user => get(user, 'topicFollowing')) : [];
 
-    if (get(this, 'fastboot.isFastBoot') || get(this, 'fastboot.hasPeeked')){
+    if (get(this, 'fastboot.isFastBoot') || get(this, 'fastboot.appHasLoaded')){
       return this.makeRequest(store, params, topicFollowing);
     } else {
-      set(this, 'fastboot.hasPeeked', true);
-
       return this.peekData(store, params, topicFollowing);
     }
+  },
+
+  afterModel() {
+    set(this, 'fastboot.appHasLoaded', true);
+
+    return this._super(...arguments);
   },
 
   makeRequest(store, params, topicFollowing) {
@@ -50,7 +54,7 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
     const data = store.peekAll('post').toArray();
 
     return hash({
-      posts: data.length > 1 ? data : store.query('post', params).then(q => q.toArray()),
+      posts: data,
       topicFollowing: topicFollowing
     });
   },
