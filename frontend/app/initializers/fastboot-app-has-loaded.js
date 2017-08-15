@@ -14,6 +14,8 @@ export function initialize() {
     fastboot: service('fastboot'),
 
     afterModel(_model, transition) {
+      this._super(...arguments);
+
       if(!get(this, 'fastboot.appHasLoaded')) {
         set(this, 'fastboot.appHasLoaded', get(this, 'routeName') === get(transition, 'targetName'));
       }

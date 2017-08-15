@@ -29,5 +29,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   afterModel(model) {
     set(this, 'stepsService.checkin', model.checkin);
+
+    this._super(...arguments);
   },
 });
