@@ -17,22 +17,14 @@ export default Mixin.create({
   getPostables(page, crossedTheLine) {
     const store = get(this, 'store');
 
-    if (get(this, 'fastboot.isFastBoot') || crossedTheLine || get(this, 'fastboot.hasPeeked')) {
-      return store.query('postable', { page }).then((postables) => {
-        const fakePostable = get(postables, 'firstObject');
-        const { posts, comments } = getProperties(fakePostable, 'posts', 'comments');
+    const makeRequest = get(this, 'fastboot.isFastBoot') || crossedTheLine || get(this, 'fastboot.hasPeeked');
+    const promise = makeRequest ? store.query('postable', { page }) : RSVP.resolve(store.peekAll('postable'));
 
-        return posts.toArray().concat(comments.toArray());
-      });
-    } else {
-      set(this, 'fastboot.hasPeeked', true);
+    return promise.then((postables) => {
+      const fakePostable = get(postables, 'firstObject');
+      const { posts, comments } = getProperties(fakePostable, 'posts', 'comments');
 
-      return RSVP.resolve(store.peekAll('postable')).then((postables) => {
-        const fakePostable = get(postables, 'firstObject');
-          const { posts, comments } = getProperties(fakePostable, 'posts', 'comments');
-
-          return posts.toArray().concat(comments.toArray());
-      });
-    }
+      return posts.toArray().concat(comments.toArray());
+    });
   },
 });
