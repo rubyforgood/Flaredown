@@ -18,7 +18,7 @@ export function initialize() {
         set(this, 'fastboot.appHasLoaded', get(this, 'routeName') === get(transition, 'targetName'));
       }
     }
-  })
+  });
 }
 
 export default { initialize };

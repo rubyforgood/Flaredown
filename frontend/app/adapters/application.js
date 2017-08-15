@@ -31,7 +31,7 @@ export default ActiveModelAdapter.extend(DataAdapterMixin, {
       shoeboxStore.payloads.push(payload);
 
       shoebox.put('CommonStore', shoeboxStore);
-    };
+    }
 
     return this._super(...arguments);
   }
