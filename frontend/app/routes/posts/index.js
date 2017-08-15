@@ -37,12 +37,6 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
     }
   },
 
-  afterModel() {
-    set(this, 'fastboot.appHasLoaded', true);
-
-    return this._super(...arguments);
-  },
-
   makeRequest(store, params, topicFollowing) {
     return hash({
       posts: store.query('post', params).then(q => q.toArray()),
