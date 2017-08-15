@@ -80,7 +80,7 @@ class ChartListService
     last_tracked_ids_method = :"last_tracked_#{type}_ids"
 
     define_method(last_tracked_ids_method) do
-      model.where(checkin_id: last_checkin.id).distinct(id_field)
+      model.where(checkin_id: last_checkin&.id).distinct(id_field)
     end
 
     define_method(:"#{type.pluralize}_payload") do

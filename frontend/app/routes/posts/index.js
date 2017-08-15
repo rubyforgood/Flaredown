@@ -50,7 +50,7 @@ export default Route.extend(HistoryTrackable, ToggleHeaderLogo, AddMetaTags, {
     const data = store.peekAll('post').toArray();
 
     return hash({
-      posts: data.length &&  data || store.query('post', params).then(q => q.toArray()),
+      posts: data.length > 1 ? data : store.query('post', params).then(q => q.toArray()),
       topicFollowing: topicFollowing
     });
   },

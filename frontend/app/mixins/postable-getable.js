@@ -29,8 +29,8 @@ export default Mixin.create({
   },
 
   peekData(store, page) {
-    const postables = store.peekAll('postable');
+    const postables = store.peekAll('postable').toArray();
 
-    return postables.toArray().length > 0 ? postables : store.query('postable', { page });
+    return postables.length > 0 ? postables : store.query('postable', { page });
   }
 });
