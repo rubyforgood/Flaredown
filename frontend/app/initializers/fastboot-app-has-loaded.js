@@ -3,21 +3,20 @@ import Ember from 'ember';
 const {
   get,
   set,
-  inject: {
-    service
-  },
   Route,
 } = Ember;
 
-export function initialize() {
-  Route.reopen({
-    fastboot: service('fastboot'),
+export function initialize(application) {
+  application.inject('route', 'fastboot', 'service:fastboot');
 
+  Route.reopen({
     afterModel(_model, transition) {
       this._super(...arguments);
 
-      if(!get(this, 'fastboot.appHasLoaded')) {
-        set(this, 'fastboot.appHasLoaded', get(this, 'routeName') === get(transition, 'targetName'));
+      const fastboot = get(this, 'fastboot');
+
+      if(fastboot && !get(fastboot, 'appHasLoaded')) {
+        set(fastboot, 'appHasLoaded', get(this, 'routeName') === get(transition, 'targetName'));
       }
     }
   });
