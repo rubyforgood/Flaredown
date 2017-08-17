@@ -4,6 +4,7 @@ class Api::V1::PasswordsController < ApplicationController
   def show
     user = user_signed_in? ? current_user : User.with_reset_password_token(params[:id])
 
+    raise ActiveRecord::RecordNotFound unless user
     render json: user, token: params[:id], serializer: PasswordSerializer
   end
 

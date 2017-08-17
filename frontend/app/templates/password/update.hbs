@@ -1,1 +1,5 @@
-{{update-password-form model=model onPasswordUpdated="routeToLogin"}}
+{{#if model}}
+  {{update-password-form model=model onPasswordUpdated="routeToLogin"}}
+{{else}}
+  <div class='invalid_token'>Invalid url. {{link-to 'Back to login' 'login'}}</div>
+{{/if}}
