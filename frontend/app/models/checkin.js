@@ -29,6 +29,7 @@ export default Model.extend({
   foodIds: attr(),
   postalCode: attr('string'),
   availableForHbi: attr('boolean'),
+  locationName: attr('string'),
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),

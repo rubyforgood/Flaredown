@@ -25,6 +25,9 @@ class Checkin::Updater
   end
 
   def update!
+    # location_name = Geocoder.search(permitted_params[:postal_code]).first&.formatted_address
+
+    # checkin.update_attributes!(permitted_params.merge({ location_name: location_name }))
     checkin.update_attributes!(permitted_params)
     if checkin.date.today?
       save_most_recent_doses

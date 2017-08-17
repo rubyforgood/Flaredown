@@ -1,5 +1,5 @@
 class CheckinSerializer < ApplicationSerializer
-  attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code, :available_for_hbi?
+  attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code, :available_for_hbi?, :location_name
 
   has_many :conditions, embed: :objects, serializer: CheckinConditionSerializer
   has_many :symptoms, embed: :objects, serializer: CheckinSymptomSerializer
@@ -17,6 +17,10 @@ class CheckinSerializer < ApplicationSerializer
 
   def weather
     object.weather if show_single_relation?(:weathersMeasures)
+  end
+
+  def location_name
+    Geocoder.search(object.postal_code).first&.formatted_address
   end
 
   %w(condition symptom treatment).each do |name|

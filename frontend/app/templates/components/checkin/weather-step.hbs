@@ -16,7 +16,7 @@
   <a class="save-status" {{action "updatePostalCode"}}>Submit</a>
   <br>
 {{else}}
-  <div class="grey" {{action "showInput"}}>{{checkin.postalCode}}</div>
+  <div class="grey" {{action "showInput"}}>{{checkin.locationName}}</div>
 {{/if}}
 
 {{#if hasWeather}}
