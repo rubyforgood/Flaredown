@@ -15,10 +15,10 @@ class Position < ActiveRecord::Base
   protected
 
   def geocoder_position_present
-    errors.add(:postal_code, "No coordinates found for postal_code #{self.postal_code}}") if geocoder_position.blank?
+    errors.add(:postal_code, "No coordinates found for postal_code #{postal_code}}") if geocoder_position.blank?
   end
 
   def geocoder_position
-    @geocoder_position ||= Geocoder.search(self.postal_code).first
+    @geocoder_position ||= Geocoder.search(postal_code).first
   end
 end
