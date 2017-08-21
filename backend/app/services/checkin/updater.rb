@@ -25,15 +25,20 @@ class Checkin::Updater
   end
 
   def update!
-    # location_name = Geocoder.search(permitted_params[:postal_code]).first&.formatted_address
-
-    # checkin.update_attributes!(permitted_params.merge({ location_name: location_name }))
     checkin.update_attributes!(permitted_params)
     if checkin.date.today?
       save_most_recent_doses
       save_most_recent_trackables_positions
     end
     update_trackable_usages
+
+    position = Position.find_or_create_by(postal_code: permitted_params[:postal_code])
+
+    if position.persisted?
+      checkin.position_id = position.id
+      checkin.save!
+    end
+
     checkin
   end
 

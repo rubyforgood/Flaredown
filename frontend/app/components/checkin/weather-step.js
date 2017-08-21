@@ -18,6 +18,7 @@ export default Component.extend({
   ],
 
   inputVisible: false,
+  validPostalCode: true,
 
   checkin: alias('parentView.model.checkin'),
   hasWeather: notEmpty('weather'),
@@ -67,6 +68,11 @@ export default Component.extend({
           let checkin = get(this, 'checkin');
 
           setProperties(checkin, { postalCode: newPostalCode, weather: record });
+
+
+          if(!record) {
+            set(this, 'validPostalCode', false);
+          }
 
           return checkin.save();
         })

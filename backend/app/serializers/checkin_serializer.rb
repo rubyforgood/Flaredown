@@ -20,7 +20,11 @@ class CheckinSerializer < ApplicationSerializer
   end
 
   def location_name
-    Geocoder.search(object.postal_code).first&.formatted_address
+    object.position&.location_name
+  end
+
+  def postal_code
+    object.position&.postal_code
   end
 
   %w(condition symptom treatment).each do |name|

@@ -4,10 +4,14 @@
   <div class="grey">
     {{#if hasWeather}}
       Set location:
-    {{else}}
+    {{else if validPostalCode }}
       To enable weather tracking,
       <br>
       enter your location below
+    {{else}}
+      We couldn't find that location
+      <br>
+      Try entering a postal code or an address.
     {{/if}}
   </div>
 

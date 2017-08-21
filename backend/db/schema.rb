@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801124153) do
+ActiveRecord::Schema.define(version: 20170818085110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
   enable_extension "pg_trgm"
+  enable_extension "hstore"
 
   create_table "condition_translations", force: :cascade do |t|
     t.integer  "condition_id", null: false
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(version: 20170801124153) do
 
   add_index "foods", ["ndb_no"], name: "index_foods_on_ndb_no", using: :btree
 
+  create_table "positions", force: :cascade do |t|
+    t.string  "postal_code",                            null: false
+    t.string  "location_name",                          null: false
+    t.decimal "latitude",      precision: 10, scale: 7
+    t.decimal "longitude",     precision: 10, scale: 7
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "country_id"
@@ -94,7 +101,6 @@ ActiveRecord::Schema.define(version: 20170801124153) do
     t.boolean  "notify",                           default: true
     t.string   "notify_token"
     t.string   "slug_name"
-    t.boolean  "notify_top_posts",                 default: true
   end
 
   add_index "profiles", ["slug_name"], name: "index_profiles_on_slug_name", using: :btree
@@ -273,6 +279,7 @@ ActiveRecord::Schema.define(version: 20170801124153) do
     t.float    "humidity"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "position_id"
   end
 
   add_index "weathers", ["date", "postal_code"], name: "index_weathers_on_date_and_postal_code", unique: true, using: :btree
@@ -290,4 +297,5 @@ ActiveRecord::Schema.define(version: 20170801124153) do
   add_foreign_key "user_tags", "users"
   add_foreign_key "user_treatments", "treatments"
   add_foreign_key "user_treatments", "users"
+  add_foreign_key "weathers", "positions"
 end

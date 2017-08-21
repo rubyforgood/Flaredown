@@ -12,9 +12,9 @@ class Checkin::Creator
     prev_checkin = user.last_checkin
     checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [], food_ids: [])
 
-    if prev_checkin && prev_checkin.postal_code.present?
-      checkin.postal_code = prev_checkin.postal_code
-      checkin.weather_id = WeatherRetriever.get(date, checkin.postal_code)&.id
+    if prev_checkin && prev_checkin.position.present?
+      checkin.position_id = prev_checkin.position_id
+      checkin.weather_id = WeatherRetriever.get(date, checkin.position.postal_code)&.id
     end
 
     active_trackings = user.trackings.includes(:trackable).active_at(date)
