@@ -17,7 +17,9 @@ export default Component.extend({
     'wind',
   ],
 
+  newPostalCode: '',
   inputVisible: false,
+  validPostalCode: true,
 
   checkin: alias('parentView.model.checkin'),
   hasWeather: notEmpty('weather'),
@@ -60,17 +62,26 @@ export default Component.extend({
       const date = get(this, 'checkin.date');
       const newPostalCode = get(this, 'newPostalCode');
 
-      this
-        .store
-        .queryRecord('weather', { date: date, postal_code: newPostalCode })
-        .then(record => {
-          let checkin = get(this, 'checkin');
+      if(get(newPostalCode, 'length') === 0) {
+        set(this, 'validPostalCode', false);
+      } else {
+        this
+          .store
+          .queryRecord('weather', { date: date, postal_code: newPostalCode })
+          .then(record => {
+            let checkin = get(this, 'checkin');
 
-          setProperties(checkin, { postalCode: newPostalCode, weather: record });
+            setProperties(checkin, { postalCode: newPostalCode, weather: record });
 
-          return checkin.save();
-        })
-        .then(() => set(this, 'inputVisible', false));
+
+            if(!record) {
+              set(this, 'validPostalCode', false);
+            }
+
+            return checkin.save();
+          })
+          .then(() => set(this, 'inputVisible', false));
+      }
     },
 
     showInput() {

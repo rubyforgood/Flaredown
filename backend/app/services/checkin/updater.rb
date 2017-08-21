@@ -25,12 +25,21 @@ class Checkin::Updater
   end
 
   def update!
-    checkin.update_attributes!(permitted_params)
+    checkin.update_attributes!(permitted_params.except(:postal_code))
+
     if checkin.date.today?
       save_most_recent_doses
       save_most_recent_trackables_positions
     end
     update_trackable_usages
+
+    position = Position.find_or_create_by(postal_code: permitted_params[:postal_code])
+
+    if position.persisted?
+      checkin.position_id = position.id
+      checkin.save!
+    end
+
     checkin
   end
 

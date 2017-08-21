@@ -226,6 +226,38 @@ ALTER SEQUENCE foods_id_seq OWNED BY foods.id;
 
 
 --
+-- Name: positions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE positions (
+    id integer NOT NULL,
+    postal_code character varying NOT NULL,
+    location_name character varying NOT NULL,
+    latitude numeric(10,7),
+    longitude numeric(10,7)
+);
+
+
+--
+-- Name: positions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE positions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE positions_id_seq OWNED BY positions.id;
+
+
+--
 -- Name: profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -252,8 +284,7 @@ CREATE TABLE profiles (
     beta_tester boolean DEFAULT false,
     notify boolean DEFAULT true,
     notify_token character varying,
-    slug_name character varying,
-    notify_top_posts boolean DEFAULT true
+    slug_name character varying
 );
 
 
@@ -774,7 +805,8 @@ CREATE TABLE weathers (
     pressure double precision,
     humidity double precision,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    position_id integer
 );
 
 
@@ -830,6 +862,13 @@ ALTER TABLE ONLY food_translations ALTER COLUMN id SET DEFAULT nextval('food_tra
 --
 
 ALTER TABLE ONLY foods ALTER COLUMN id SET DEFAULT nextval('foods_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY positions ALTER COLUMN id SET DEFAULT nextval('positions_id_seq'::regclass);
 
 
 --
@@ -985,6 +1024,14 @@ ALTER TABLE ONLY foods
 
 
 --
+-- Name: positions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY positions
+    ADD CONSTRAINT positions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1110,6 +1157,20 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY weathers
     ADD CONSTRAINT weathers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_fts_food_translations_en; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_fts_food_translations_en ON food_translations USING gin (to_tsvector('english'::regconfig, (long_desc)::text)) WHERE ((locale)::text = 'en'::text);
+
+
+--
+-- Name: idx_fts_food_translations_it; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_fts_food_translations_it ON food_translations USING gin (to_tsvector('italian'::regconfig, (long_desc)::text)) WHERE ((locale)::text = 'it'::text);
 
 
 --
@@ -1452,6 +1513,14 @@ ALTER TABLE ONLY user_foods
 
 
 --
+-- Name: fk_rails_be80d9361d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY weathers
+    ADD CONSTRAINT fk_rails_be80d9361d FOREIGN KEY (position_id) REFERENCES positions(id);
+
+
+--
 -- Name: fk_rails_cde825af18; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1535,8 +1604,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170509114220');
 
 INSERT INTO schema_migrations (version) VALUES ('20170612160120');
 
-INSERT INTO schema_migrations (version) VALUES ('20170717153650');
-
 INSERT INTO schema_migrations (version) VALUES ('20170731083613');
 
 INSERT INTO schema_migrations (version) VALUES ('20170731123835');
@@ -1544,4 +1611,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170731123835');
 INSERT INTO schema_migrations (version) VALUES ('20170731125044');
 
 INSERT INTO schema_migrations (version) VALUES ('20170801124153');
+
+INSERT INTO schema_migrations (version) VALUES ('20170817154145');
+
+INSERT INTO schema_migrations (version) VALUES ('20170818085110');
 

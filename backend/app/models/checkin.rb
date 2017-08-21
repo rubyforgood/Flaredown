@@ -15,6 +15,7 @@ class Checkin
   field :tag_ids,     type: Array
   field :weather_id,  type: Integer
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :position_id, type: Integer
 
   #
   # Relations
@@ -48,6 +49,10 @@ class Checkin
 
   def weather
     @weather ||= Weather.find_by(id: weather_id)
+  end
+
+  def position
+    @position ||= Position.find_by(id: position_id)
   end
 
   def tags

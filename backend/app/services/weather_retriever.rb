@@ -1,15 +1,14 @@
 class WeatherRetriever
   class << self
     def get(date, postal_code)
-      weather = Weather.find_by(date: date, postal_code: postal_code)
+      position = Position.find_or_create_by(postal_code: postal_code)
+
+      weather = Weather.find_by(date: date, position_id: position&.id)
 
       return weather if weather.present?
 
-      positions = Geocoder.search(postal_code)
-      position = positions.first
-
       if position&.latitude.blank? || position&.longitude.blank?
-        Rails.logger.warn "No coordinates found for postal_code #{postal_code}: #{positions.inspect}"
+        Rails.logger.warn "No coordinates found for postal_code #{postal_code}: #{position.inspect}"
 
         return
       end
@@ -23,7 +22,7 @@ class WeatherRetriever
         return
       end
 
-      create_weather(the_day, postal_code)
+      create_weather(the_day, position.id)
     end
 
     private
@@ -44,12 +43,12 @@ class WeatherRetriever
       forecast
     end
 
-    def create_weather(the_day, postal_code)
+    def create_weather(the_day, position_id)
       Weather.create(
         date: Date.strptime(the_day.time.to_s, '%s'),
         humidity: (the_day.humidity * 100).round,
         icon: the_day.icon,
-        postal_code: postal_code,
+        position_id: position_id,
         precip_intensity: the_day.precipIntensity,
         pressure: the_day.pressure.round,
         summary: the_day.summary,

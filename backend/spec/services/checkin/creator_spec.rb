@@ -113,13 +113,14 @@ RSpec.describe Checkin::Creator do
     context 'when postal code is set on previous checkin' do
       let(:weather) { create :weather }
       let(:postal_code) { '55403' }
+      let(:position) { Position.create(postal_code: postal_code) }
 
-      let!(:previous_checkin) { create :checkin, user_id: user.id, postal_code: postal_code }
+      let!(:previous_checkin) { create :checkin, user_id: user.id, position_id: position.id }
 
       before { expect(WeatherRetriever).to receive(:get).and_return(weather) }
 
       it 'should ask for weather' do
-        expect(subject.postal_code).to eq(postal_code)
+        expect(subject.position.postal_code).to eq(postal_code)
         expect(subject.weather_id).to eq(weather.id)
       end
     end
