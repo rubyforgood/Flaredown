@@ -164,5 +164,28 @@ namespace :oneoff do
     end
   end
 
+  task add_position_reference_to_checkins_and_weathers: :environment do
+    add_position_reference_to_checkins
+    add_position_reference_to_weathers
+  end
 
+  def add_position_reference_to_checkins
+    Checkin.all.each do |checkin|
+      postal_code = checkin.postal_code
+      next if postal_code.nil? || postal_code.blank?
+
+      position = Position.find_or_create_by(postal_code: postal_code)
+      checkin.update_attributes(position_id: position.id) if position.persisted?
+    end
+  end
+
+  def add_position_reference_to_weathers
+    Weather.find_each(batch_size: 500) do |weather|
+      postal_code = weather.postal_code
+      next if postal_code.nil? || postal_code.blank?
+
+      position = Position.find_or_create_by(postal_code: postal_code)
+      weather.update_attributes(position_id: position.id) if position.persisted?
+    end
+  end
 end
