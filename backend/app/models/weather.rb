@@ -1,4 +1,4 @@
 class Weather < ActiveRecord::Base
-  validates :date, uniqueness: { scope: :position_id }, if: Proc.new { position_id.present? }
+  validates_uniqueness_of :date, scope: :position_id
   belongs_to :position
 end

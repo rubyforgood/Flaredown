@@ -17,7 +17,8 @@ describe WeatherRetriever, :vcr do
   end
 
   context 'the weather is already cached' do
-    let!(:weather) { create :weather, date: date, postal_code: postal_code }
+    let(:position) { Position.create(postal_code: postal_code) }
+    let!(:weather) { create :weather, date: date, position_id: position.id }
 
     before { expect(Weather).not_to receive(:create) }
     before { expect(Geocoder).not_to receive(:search) }
