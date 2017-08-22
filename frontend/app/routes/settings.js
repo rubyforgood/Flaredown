@@ -2,16 +2,10 @@ import Ember from 'ember';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 
 const {
-  get,
-  inject: {
-    service
-  },
   Route,
 } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
-  airbrake: service(),
-
   model() {
     return this.get('session.currentUser').then(user => user.get('profile'));
   },
