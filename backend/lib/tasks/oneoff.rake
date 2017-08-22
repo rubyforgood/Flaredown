@@ -174,8 +174,7 @@ namespace :oneoff do
       postal_code = checkin.postal_code
       next if postal_code.nil? || postal_code.blank?
 
-      position = Position.find_or_create_by(postal_code: postal_code)
-      checkin.update_attributes(position_id: position.id) if position.persisted?
+      PositionReferenceJob.perform_async('Checkin', checkin.id.to_s, postal_code)
     end
   end
 
@@ -184,8 +183,7 @@ namespace :oneoff do
       postal_code = weather.postal_code
       next if postal_code.nil? || postal_code.blank?
 
-      position = Position.find_or_create_by(postal_code: postal_code)
-      weather.update_attributes(position_id: position.id) if position.persisted?
+      PositionReferenceJob.perform_async('Weather', weather.id, postal_code)
     end
   end
 end
