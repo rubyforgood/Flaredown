@@ -24,6 +24,7 @@ export default Service.extend({
     'conditions',
     'symptoms',
     'treatments',
+    'reminder',
     'completed',
   ],
 

@@ -24,5 +24,5 @@
 class ProfileSerializer < ApplicationSerializer
   attributes :id, :screen_name, :birth_date, :country_id, :sex_id, :onboarding_step_id,
              :ethnicity_ids, :day_habit_id, :education_level_id, :day_walking_hours,
-             :pressure_units, :temperature_units, :beta_tester, :notify_token, :notify
+             :pressure_units, :temperature_units, :beta_tester, :notify_token, :notify, :checkin_reminder
 end
