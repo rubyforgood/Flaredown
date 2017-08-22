@@ -10,6 +10,8 @@ const {
 
 export default Route.extend(AuthenticatedRouteMixin, {
   beforeModel() {
+    this._super(...arguments);
+
     const store = get(this, 'store');
 
     if(store.peekAll('condition').length > 0){

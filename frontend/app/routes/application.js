@@ -11,6 +11,8 @@ const {
 
 export default Route.extend(ApplicationRouteMixin, {
   notifications: service(),
+  airbrake: service(),
+  session: service(),
 
   beforeModel() {
     get(this, 'notifications').loadNotifications();
@@ -19,7 +21,14 @@ export default Route.extend(ApplicationRouteMixin, {
   sessionAuthenticated() {
     this._super(...arguments);
 
+    get(this, 'airbrake').setSession({ data: get(this, 'session.data.authenticated') });
     get(this, 'notifications').loadNotifications();
+  },
+
+  sessionInvalidated() {
+    this._super(...arguments);
+
+    get(this, 'airbrake').setSession({ message: 'Unauthorized user' });
   },
 
   actions: {
