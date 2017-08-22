@@ -19,7 +19,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   actions: {
     invalidateSession() {
       this.get('session').invalidate();
-      get(this, 'airbrake').setSession({ message: 'Unauthorized user' });
     },
   },
 });
