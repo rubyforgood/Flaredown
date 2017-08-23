@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const {
+  get,
   computed: {
     alias,
   },
@@ -8,13 +9,17 @@ const {
 } = Ember;
 
 export default Component.extend({
-  actions: {
-    completeStep() {
-      this.get('onStepCompleted')();
-    },
+  profile: alias('model.profile'),
 
+  actions: {
     goBack() {
       this.get('onGoBack')();
-    }
+    },
+
+    completeStep() {
+      get(this, 'profile').save().then( () => {
+        this.get('onStepCompleted')();
+      });
+    },
   }
 });

@@ -15,16 +15,10 @@ const {
 export default Component.extend({
   i18n: service(),
 
+  profile: alias('model'),
+
   classNames: ['checkinReminder'],
 
   reminderOff: t("step.onboarding.reminder.reminderOff"),
   reminderOn:  t("step.onboarding.reminder.reminderOn"),
-
-  checkinReminder: alias('model.profile.checkinReminder'),
-
-  actions: {
-    reminderChanged(boolParam) {
-      set(this, 'checkinReminder', boolParam);
-    },
-  }
 });

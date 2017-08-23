@@ -1,14 +1,15 @@
-{{#radio-button
-    value=false
-    groupValue=checkinReminder
-    changed=(action "reminderChanged")}}
-    {{reminderOff}}
-{{/radio-button}}
+{{#form-for for=profile}}
+ {{#radio-button
+      value=false
+      groupValue=profile.checkinReminder
+      changed=( action (mut profile.checkinReminder))}}
+      {{reminderOff}}
+  {{/radio-button}}
 
-{{#radio-button
-    value=true
-    groupValue=checkinReminder
-    changed=(action "reminderChanged")}}
-
-    {{reminderOn}}
-{{/radio-button}}
+  {{#radio-button
+      value=true
+      groupValue=profile.checkinReminder
+      changed=( action (mut profile.checkinReminder))}}
+      {{reminderOn}}
+  {{/radio-button}}
+{{/form-for}}
