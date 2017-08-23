@@ -20,7 +20,7 @@ export default DS.Model.extend({
   temperatureUnits: DS.attr('string'),
   betaTester: DS.attr('boolean'),
   notify: DS.attr('boolean'),
-  checkin_reminder: DS.attr('boolean'),
+  checkinReminder: DS.attr('boolean'),
 
   // Associations
   country: DS.belongsTo('country'),

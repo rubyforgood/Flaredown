@@ -1,0 +1,14 @@
+{{#radio-button
+    value=false
+    groupValue=checkinReminder
+    changed=(action "reminderChanged")}}
+    {{reminderOff}}
+{{/radio-button}}
+
+{{#radio-button
+    value=true
+    groupValue=checkinReminder
+    changed=(action "reminderChanged")}}
+
+    {{reminderOn}}
+{{/radio-button}}

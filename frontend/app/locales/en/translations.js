@@ -22,6 +22,8 @@ export default {
       reminder: {
         title: "Should we remind you to check in?",
         hint: "You can change this later in settings.",
+        reminderOff: "Don't remind me",
+        reminderOn: "Send me an email reminder",
       },
       completed: {
         title: "Set up complete! You're ready for your first checkin.",

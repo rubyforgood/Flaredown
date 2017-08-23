@@ -142,3 +142,11 @@ input[type="submit"] {
     display: none;
   }
 }
+
+.checkinReminder {
+  color: $grey;
+
+  .checked {
+    color: $label-color;
+  }
+}
