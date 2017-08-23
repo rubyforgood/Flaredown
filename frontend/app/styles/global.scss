@@ -144,7 +144,14 @@ input[type="submit"] {
 }
 
 .checkinReminder {
+  margin-top: 5%;
   color: $grey;
+
+  .reminderTitle {
+    color: $label-color;
+    font-weight: 600;
+    padding-bottom: 5px;
+  }
 
   .checked {
     color: $label-color;

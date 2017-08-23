@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { translationMacro as t } from "ember-i18n";
 
 const {
   on,
@@ -17,9 +18,13 @@ const {
 } = Ember;
 
 export default Component.extend({
+  i18n: service(),
+
   selectableData: service('selectable-data'),
 
   sexes: alias('selectableData.sexes'),
+
+  showReminder: false,
 
   countries: sort('selectableData.countries', function(itemA, itemB) {
     const nameA = get(itemA, 'name');

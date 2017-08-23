@@ -40,6 +40,10 @@
     }}
   {{/form-field}}
 
+  {{#if showReminder}}
+    {{add-reminder model=model title=(t "step.onboarding.reminder.title")}}
+  {{/if}}
+
   {{#unless forOnboarding}}
     <br>
     {{input type="submit" value="Save"}}

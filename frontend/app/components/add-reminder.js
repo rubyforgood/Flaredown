@@ -24,6 +24,7 @@ export default Component.extend({
 
   reminderOff: t("step.onboarding.reminder.reminderOff"),
   reminderOn:  t("step.onboarding.reminder.reminderOn"),
+  title: null,
 
   actions: {
     changeReminder(boolParam) {
