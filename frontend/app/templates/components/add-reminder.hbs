@@ -1,15 +1,21 @@
 {{#form-for for=profile}}
- {{#radio-button
+
+  {{#radio-button
       value=false
       groupValue=profile.checkinReminder
-      changed=( action (mut profile.checkinReminder))}}
+      changed="changeReminder"}}
       {{reminderOff}}
   {{/radio-button}}
 
   {{#radio-button
       value=true
       groupValue=profile.checkinReminder
-      changed=( action (mut profile.checkinReminder))}}
+      changed="changeReminder"}}
       {{reminderOn}}
   {{/radio-button}}
+
+  {{#form-field for="checkinReminderHours" classNameBindings="checkinReminderEnabled:checkinReminderHours:hideTag"}}
+    {{input type="time" value=profile.dayWalkingHours class="fs-private"}}
+  {{/form-field}}
+
 {{/form-for}}
