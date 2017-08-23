@@ -15,7 +15,7 @@
   {{/radio-button}}
 
   {{#form-field for="checkinReminderHours" classNameBindings="checkinReminderEnabled:checkinReminderHours:hideTag"}}
-    {{input type="time" value=profile.dayWalkingHours class="fs-private"}}
+    {{time-field on-change=(action "timeChanged") value=profile.checkinReminderAt hour12=true}}
   {{/form-field}}
 
 {{/form-for}}

@@ -21,6 +21,7 @@ export default DS.Model.extend({
   betaTester: DS.attr('boolean'),
   notify: DS.attr('boolean'),
   checkinReminder: DS.attr('boolean'),
+  checkinReminderAt: DS.attr('raw'),
 
   // Associations
   country: DS.belongsTo('country'),

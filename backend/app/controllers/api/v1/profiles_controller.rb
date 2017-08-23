@@ -19,7 +19,7 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def update
-    @profile.update_attributes!(update_params)
+    @profile.update_attributes!(update_params.merge(transform_hash_time))
     current_user.profile.reload
     set_locale
     render json: @profile
@@ -34,5 +34,9 @@ class Api::V1::ProfilesController < ApplicationController
       :pressure_units, :temperature_units, :screen_name, :notify,
       :checkin_reminder, ethnicity_ids: []
     )
+  end
+
+  def transform_hash_time
+    { checkin_reminder_at: params.require(:profile)[:checkin_reminder_at].values.join(':').to_time(:utc) }
   end
 end

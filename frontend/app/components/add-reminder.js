@@ -26,8 +26,12 @@ export default Component.extend({
   reminderOn:  t("step.onboarding.reminder.reminderOn"),
 
   actions: {
-    changeReminder(bool_param) {
-      set(this, 'profile.checkinReminder', bool_param);
+    changeReminder(boolParam) {
+      set(this, 'profile.checkinReminder', boolParam);
+    },
+
+    timeChanged(param) {
+      set(this, 'profile.checkinReminderAt', param);
     }
   },
 });
