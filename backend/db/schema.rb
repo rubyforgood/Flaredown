@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823125433) do
+ActiveRecord::Schema.define(version: 20170829104242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,10 +72,11 @@ ActiveRecord::Schema.define(version: 20170823125433) do
   add_index "foods", ["ndb_no"], name: "index_foods_on_ndb_no", using: :btree
 
   create_table "positions", force: :cascade do |t|
-    t.string  "postal_code",                            null: false
-    t.string  "location_name",                          null: false
-    t.decimal "latitude",      precision: 10, scale: 7
-    t.decimal "longitude",     precision: 10, scale: 7
+    t.string  "postal_code",                             null: false
+    t.string  "location_name",                           null: false
+    t.decimal "latitude",       precision: 10, scale: 7
+    t.decimal "longitude",      precision: 10, scale: 7
+    t.string  "time_zone_name"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 20170823125433) do
     t.string   "slug_name"
     t.boolean  "checkin_reminder",                 default: false
     t.datetime "checkin_reminder_at"
+    t.integer  "position_id"
   end
 
   add_index "profiles", ["slug_name"], name: "index_profiles_on_slug_name", using: :btree
@@ -286,6 +288,7 @@ ActiveRecord::Schema.define(version: 20170823125433) do
 
   add_index "weathers", ["date", "postal_code"], name: "index_weathers_on_date_and_postal_code", unique: true, using: :btree
 
+  add_foreign_key "profiles", "positions"
   add_foreign_key "profiles", "users"
   add_foreign_key "trackable_usages", "users"
   add_foreign_key "trackings", "users"

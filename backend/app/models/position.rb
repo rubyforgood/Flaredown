@@ -3,11 +3,12 @@ class Position < ActiveRecord::Base
   validate :geocoder_position_present
 
   before_create :set_location_name
+  after_create ->(obj) { p "11111111"; SetTimeZoneNameJob.perform_later(obj.id) }
 
   def set_location_name
     state = geocoder_position.state || geocoder_position.province
 
-    self.location_name = [geocoder_position.city, state, geocoder_position.country].join(', ')
+    self.location_name = [geocoder_position.city, state, geocoder_position.country].compact.join(', ')
     self.latitude = geocoder_position.latitude
     self.longitude = geocoder_position.longitude
   end

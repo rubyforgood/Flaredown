@@ -234,7 +234,8 @@ CREATE TABLE positions (
     postal_code character varying NOT NULL,
     location_name character varying NOT NULL,
     latitude numeric(10,7),
-    longitude numeric(10,7)
+    longitude numeric(10,7),
+    time_zone_name character varying
 );
 
 
@@ -286,7 +287,8 @@ CREATE TABLE profiles (
     notify_token character varying,
     slug_name character varying,
     checkin_reminder boolean DEFAULT false,
-    checkin_reminder_at timestamp without time zone
+    checkin_reminder_at timestamp without time zone,
+    position_id integer
 );
 
 
@@ -1443,6 +1445,14 @@ ALTER TABLE ONLY user_treatments
 
 
 --
+-- Name: fk_rails_11c2116238; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY profiles
+    ADD CONSTRAINT fk_rails_11c2116238 FOREIGN KEY (position_id) REFERENCES positions(id);
+
+
+--
 -- Name: fk_rails_1fa14e4e8c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1621,4 +1631,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170818085110');
 INSERT INTO schema_migrations (version) VALUES ('20170822122800');
 
 INSERT INTO schema_migrations (version) VALUES ('20170823125433');
+
+INSERT INTO schema_migrations (version) VALUES ('20170829104242');
 
