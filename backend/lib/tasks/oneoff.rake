@@ -186,4 +186,10 @@ namespace :oneoff do
       PositionReferenceJob.perform_async('Weather', weather.id, postal_code)
     end
   end
+
+  task add_time_zone_name_to_positions: :environment do
+    Position.find_each(batch_size: 500) do |position|
+      SetTimeZoneNameJob.perform_later(position.id)
+    end
+  end
 end
