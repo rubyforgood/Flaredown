@@ -29,8 +29,19 @@ class ProfileSerializer < ApplicationSerializer
 
   def checkin_reminder_at
     checkin_reminder_at = object.checkin_reminder_at
-    time = checkin_reminder_at.blank? ? [20, 0] : checkin_reminder_at.strftime('%H:%M').split(':')
+    time = checkin_reminder_at.blank? ? [20, 0] : checkin_reminder_in_time_zone(checkin_reminder_at)
 
     { hours: time[0], minutes: time[1] }
+  end
+
+  def checkin_reminder_in_time_zone(checkin_reminder_at)
+    reminder_time =
+      if(object.position && object.time_zone_name.present?)
+        checkin_reminder_at.in_time_zone(object.time_zone_name)
+      else
+        checkin_reminder_at
+      end
+
+      reminder_time.strftime('%H:%M').split(':')
   end
 end

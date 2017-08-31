@@ -31,7 +31,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   belongs_to :position
 
-  delegate :time_zone_name, to: :position
+  delegate :time_zone_name, to: :position, allow_nil: true
 
   #
   # Validations

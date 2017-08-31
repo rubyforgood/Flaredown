@@ -37,6 +37,15 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def transform_hash_time
-    { checkin_reminder_at: params.require(:profile)[:checkin_reminder_at].values.join(':').to_time(:utc) }
+    user_time = params.require(:profile)[:checkin_reminder_at].values.join(':')
+
+    checkin_reminder_at =
+      if(@profile.position && @profile.time_zone_name.present?)
+        user_time.in_time_zone(@profile.time_zone_name).utc
+      else
+        user_time.to_time(:utc)
+      end
+
+    { checkin_reminder_at: checkin_reminder_at }
   end
 end
