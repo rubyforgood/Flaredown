@@ -1,4 +1,4 @@
-class RemindMailerJob
+class SendRemindMailerJob
   include Sidekiq::Worker
 
   def perform(email)

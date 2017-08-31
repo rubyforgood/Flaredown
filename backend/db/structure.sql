@@ -288,7 +288,8 @@ CREATE TABLE profiles (
     slug_name character varying,
     checkin_reminder boolean DEFAULT false,
     checkin_reminder_at timestamp without time zone,
-    position_id integer
+    position_id integer,
+    reminder_job_id character varying
 );
 
 
@@ -1633,4 +1634,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170822122800');
 INSERT INTO schema_migrations (version) VALUES ('20170823125433');
 
 INSERT INTO schema_migrations (version) VALUES ('20170829104242');
+
+INSERT INTO schema_migrations (version) VALUES ('20170831111247');
 

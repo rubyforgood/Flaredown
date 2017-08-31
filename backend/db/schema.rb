@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829104242) do
+ActiveRecord::Schema.define(version: 20170831111247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20170829104242) do
     t.boolean  "checkin_reminder",                 default: false
     t.datetime "checkin_reminder_at"
     t.integer  "position_id"
+    t.string   "reminder_job_id"
   end
 
   add_index "profiles", ["slug_name"], name: "index_profiles_on_slug_name", using: :btree
