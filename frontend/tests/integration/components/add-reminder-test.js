@@ -6,13 +6,14 @@ moduleForComponent('add-reminder', 'Integration | Component | add reminder', {
 });
 
 test('it renders', function(assert) {
-
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{add-reminder}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  let response = this.$().text().trim().replace(/\s{2,}/g,' ').match(/Don't remind me/)[0];
+
+  assert.equal(response, "Don't remind me");
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +22,5 @@ test('it renders', function(assert) {
     {{/add-reminder}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(response, "Don't remind me");
 });

@@ -4,7 +4,6 @@ import { translationMacro as t } from "ember-i18n";
 /* global moment */
 
 const {
-  get,
   set,
   computed,
   computed: {
@@ -30,7 +29,7 @@ export default Component.extend({
   title: null,
 
   timezones: computed(function() {
-    return typeof moment !== 'undefined' && moment.tz.names();
+    return typeof moment !== 'undefined' && moment.tz && moment.tz.names();
   }),
 
   actions: {

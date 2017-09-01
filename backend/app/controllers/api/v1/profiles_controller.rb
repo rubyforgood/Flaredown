@@ -1,4 +1,6 @@
 class Api::V1::ProfilesController < ApplicationController
+  require 'sidekiq/api'
+
   load_and_authorize_resource
   skip_before_action :authenticate_user!, only: [:index]
 
@@ -24,10 +26,11 @@ class Api::V1::ProfilesController < ApplicationController
     @profile.save!
 
     if time_changed
+      delete_old_job(@profile.reminder_job_id)
+
       job_id = CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)
       @profile.update_column(:reminder_job_id, job_id)
     end
-
 
     current_user.profile.reload
     set_locale
@@ -46,18 +49,23 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def transform_hash_time
-    user_time = params.require(:profile)[:checkin_reminder_at].values.join(':')
+    checkin_reminder_at = params.require(:profile)[:checkin_reminder_at]
+    user_time = checkin_reminder_at && checkin_reminder_at.values.join(':')
 
-    { checkin_reminder_at: user_time.to_time(:utc) }
+    { checkin_reminder_at: user_time.try(:to_time, :utc) }
   end
 
   def get_reminder_time
     current_time_zone = Time.zone.name
     Time.zone = @profile.time_zone_name
 
-    diff_minutes = (@profile.checkin_reminder_at - Time.current).divmod(1.days)[1].divmod(1.minutes)[0] # Select minutes
+    diff_minutes = (@profile.checkin_reminder_at - Time.current).divmod(1.day)[1].divmod(1.minute)[0] # Select minutes
 
     Time.zone = current_time_zone
     diff_minutes
+  end
+
+  def delete_old_job(enqueued_job_id)
+    Sidekiq::ScheduledSet.new.find_job(enqueued_job_id)&.delete
   end
 end
