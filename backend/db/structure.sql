@@ -288,7 +288,7 @@ CREATE TABLE profiles (
     slug_name character varying,
     checkin_reminder boolean DEFAULT false,
     checkin_reminder_at timestamp without time zone,
-    position_id integer,
+    time_zone_name character varying,
     reminder_job_id character varying
 );
 
@@ -1443,14 +1443,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 ALTER TABLE ONLY user_treatments
     ADD CONSTRAINT fk_rails_0ef098da93 FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_11c2116238; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY profiles
-    ADD CONSTRAINT fk_rails_11c2116238 FOREIGN KEY (position_id) REFERENCES positions(id);
 
 
 --

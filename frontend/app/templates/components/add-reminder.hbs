@@ -16,8 +16,19 @@
       {{reminderOn}}
   {{/radio-button}}
 
-  {{#form-field for="checkinReminderHours" classNameBindings="checkinReminderEnabled:checkinReminderHours:hideTag"}}
-    {{time-field on-change=(action "timeChanged") value=profile.checkinReminderAt hour12=true}}
+  {{#form-field for="checkinReminderHours" classNameBindings="checkinReminderEnabled:checkinReminders:hideTag"}}
+      {{time-field on-change=(action "timeChanged") value=profile.checkinReminderAt hour12=true class="checkinReminderTime"}}
+
+      {{#power-select options=timezones
+                      placeholder="Select a timezone"
+                      selected=model.timeZoneName
+                      onchange=(action (mut model.timeZoneName))
+                      renderInPlace=true
+                      searchEnabled=false
+                      as |timezone| }}
+        {{timezone}}
+      {{/power-select}}
   {{/form-field}}
+
 
 {{/form-for}}

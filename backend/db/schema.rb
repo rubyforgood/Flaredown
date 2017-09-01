@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20170831111247) do
     t.string   "slug_name"
     t.boolean  "checkin_reminder",                 default: false
     t.datetime "checkin_reminder_at"
-    t.integer  "position_id"
+    t.string   "time_zone_name"
     t.string   "reminder_job_id"
   end
 
@@ -289,7 +289,6 @@ ActiveRecord::Schema.define(version: 20170831111247) do
 
   add_index "weathers", ["date", "postal_code"], name: "index_weathers_on_date_and_postal_code", unique: true, using: :btree
 
-  add_foreign_key "profiles", "positions"
   add_foreign_key "profiles", "users"
   add_foreign_key "trackable_usages", "users"
   add_foreign_key "trackings", "users"

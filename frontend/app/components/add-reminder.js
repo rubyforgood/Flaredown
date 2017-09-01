@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import { translationMacro as t } from "ember-i18n";
 
+/* global moment */
+
 const {
   get,
   set,
+  computed,
   computed: {
     alias,
   },
@@ -25,6 +28,10 @@ export default Component.extend({
   reminderOff: t("step.onboarding.reminder.reminderOff"),
   reminderOn:  t("step.onboarding.reminder.reminderOn"),
   title: null,
+
+  timezones: computed(function() {
+    return typeof moment !== 'undefined' && moment.tz.names();
+  }),
 
   actions: {
     changeReminder(boolParam) {

@@ -20,12 +20,14 @@ class Api::V1::ProfilesController < ApplicationController
 
   def update
     @profile.assign_attributes(update_params.merge(transform_hash_time))
+    time_changed = @profile.checkin_reminder_at_changed? || @profile.time_zone_name_changed?
+    @profile.save!
 
-    if @profile.checkin_reminder_at_changed? && @profile.valid?
-      CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)
+    if time_changed
+      job_id = CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)
+      @profile.update_column(:reminder_job_id, job_id)
     end
 
-    @profile.save!
 
     current_user.profile.reload
     set_locale
@@ -39,21 +41,14 @@ class Api::V1::ProfilesController < ApplicationController
       :country_id, :birth_date, :sex_id, :onboarding_step_id,
       :day_habit_id, :education_level_id, :day_walking_hours,
       :pressure_units, :temperature_units, :screen_name, :notify,
-      :checkin_reminder, ethnicity_ids: []
+      :checkin_reminder, :time_zone_name, ethnicity_ids: []
     )
   end
 
   def transform_hash_time
     user_time = params.require(:profile)[:checkin_reminder_at].values.join(':')
 
-    checkin_reminder_at =
-      if(@profile.position && @profile.time_zone_name.present?)
-        user_time.in_time_zone(@profile.time_zone_name).utc
-      else
-        user_time.to_time(:utc)
-      end
-
-    { checkin_reminder_at: checkin_reminder_at }
+    { checkin_reminder_at: user_time.to_time(:utc) }
   end
 
   def get_reminder_time

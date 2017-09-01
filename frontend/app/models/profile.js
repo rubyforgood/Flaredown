@@ -22,6 +22,7 @@ export default DS.Model.extend({
   notify: DS.attr('boolean'),
   checkinReminder: DS.attr('boolean'),
   checkinReminderAt: DS.attr('raw'),
+  timeZoneName: DS.attr('string'),
 
   // Associations
   country: DS.belongsTo('country'),
