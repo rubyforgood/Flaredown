@@ -19,7 +19,14 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def update
-    @profile.update_attributes!(update_params.merge(transform_hash_time))
+    @profile.assign_attributes(update_params.merge(transform_hash_time))
+
+    if @profile.checkin_reminder_at_changed? && @profile.valid?
+      CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)
+    end
+
+    @profile.save!
+
     current_user.profile.reload
     set_locale
     render json: @profile
@@ -47,5 +54,15 @@ class Api::V1::ProfilesController < ApplicationController
       end
 
     { checkin_reminder_at: checkin_reminder_at }
+  end
+
+  def get_reminder_time
+    current_time_zone = Time.zone.name
+    Time.zone = @profile.time_zone_name
+
+    diff_minutes = (@profile.checkin_reminder_at - Time.current).divmod(1.days)[1].divmod(1.minutes)[0] # Select minutes
+
+    Time.zone = current_time_zone
+    diff_minutes
   end
 end

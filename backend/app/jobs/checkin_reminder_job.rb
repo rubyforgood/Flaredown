@@ -1,12 +1,16 @@
 class CheckinReminderJob
+  require 'sidekiq/api'
   include Sidekiq::Worker
 
-  # run every hour
-  def perform
-    Profile.where(checkin_reminder: true).where.not(position_id: nil).batch_size(500).each do |profile|
-      return unless profile.time_zone_name.present?
+  def perform(profile_id, checkin_reminder_at)
+    profile = Profile.find_by(id: profile_id)
 
-      TimeZoneDispatcher.perform_async(profile.id, profile.reminder_job_id)
-    end
+    return unless profile
+    return unless profile.checkin_reminder
+    return unless profile.checkin_reminder_at == checkin_reminder_at
+    return unless self.jid == profile.reminder_job_id
+
+    CheckinReminderMailer.remind(email: email).deliver_later
+
+    profile.update_column(:reminder_job_id, self.class.perform_in(24.hours, profile_id, checkin_reminder_at))
   end
-end
