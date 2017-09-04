@@ -1,7 +1,14 @@
 <% content_for :body do %>
   <h3>Top Post for you this week</h3>
 
-  <%= @top_posts&.count %>
+  <% if @top_posts.any? %>
+    <% @top_posts.each do |post| %>
+      <h2><%= post.title %></h2>
+      <p><%= post.body %></p>
+    <% end %>
+  <% else %>
+    There is no top posts for now
+  <% end%>
 
   <p>You can <%= link_to 'unsubscribe', @unsubscribe_link %> from weekly top posts notifications</p>
 <% end %>
