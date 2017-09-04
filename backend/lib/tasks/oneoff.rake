@@ -192,4 +192,11 @@ namespace :oneoff do
       SetTimeZoneNameJob.perform_later(position.id)
     end
   end
+
+  task :send_optional_email, [:email] => :environment do |t, args|
+    email = args[:email]
+    return unless email
+
+    CheckinReminderMailer.remind(email: email).deliver_now
+  end
 end
