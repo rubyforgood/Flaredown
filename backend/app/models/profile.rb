@@ -72,6 +72,11 @@ class Profile < ActiveRecord::Base
   before_create :generate_notify_token
   before_save :ensure_slug_name, if: :screen_name_changed?
 
+  TIMEZONE_PARAMS = {
+    time: [20, 0],
+    time_zone_name: 'America/New York'
+  }.freeze
+
   #
   # Instance Methods
   #

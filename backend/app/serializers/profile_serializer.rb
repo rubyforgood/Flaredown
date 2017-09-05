@@ -28,9 +28,19 @@ class ProfileSerializer < ApplicationSerializer
              :checkin_reminder_at, :time_zone_name
 
   def checkin_reminder_at
-    checkin_reminder_at = object.checkin_reminder_at
-    time = checkin_reminder_at.blank? ? [20, 0] : checkin_reminder_at.strftime('%H:%M').split(':')
+    { hours: serialized_time[0], minutes: serialized_time[1] }
+  end
 
-    { hours: time[0], minutes: time[1] }
+  def time_zone_name
+    time_zone_name = object.time_zone_name
+
+    return Profile::TIMEZONE_PARAMS[:time_zone_name] if time_zone_name.nil? || time_zone_name&.empty?
+    time_zone_name
+  end
+
+  def serialized_time
+    reminder_at = object.checkin_reminder_at
+
+    reminder_at.blank? ? Profile::TIMEZONE_PARAMS[:time] : reminder_at.strftime('%H:%M').split(':')
   end
 end
