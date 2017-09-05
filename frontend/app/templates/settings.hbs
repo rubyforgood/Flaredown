@@ -3,11 +3,17 @@
 <div class="flaredown-white-box vert-offset-top-1 vert-offset-top-3-conditional">
   <h3>Account</h3>
 
-  {{profile-form model=model class="vert-offset-bottom-2" showReminder=true}}
+  {{profile-form model=model class="vert-offset-bottom-2"}}
 
   {{data-export-initiator}}
   <br>
   <a {{action 'invalidateSession'}}>Logout</a>
+</div>
+
+<div class="flaredown-white-box">
+  <h3>Notifications</h3>
+
+  {{notifications-form model=model class="vert-offset-bottom-2" showReminder=true}}
 </div>
 
 <div class="flaredown-white-box">

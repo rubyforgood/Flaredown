@@ -21,8 +21,6 @@ export default Component.extend({
 
   sexes: alias('selectableData.sexes'),
 
-  showReminder: false,
-
   countries: sort('selectableData.countries', function(itemA, itemB) {
     const nameA = get(itemA, 'name');
     const nameB = get(itemB, 'name');
@@ -47,8 +45,12 @@ export default Component.extend({
     },
 
     saveProfile() {
+      set(this, 'isLoading', true);
+
       get(this, 'model').save().then(profile => {
         this.sendAction('onProfileSaved', profile);
+      }).finally(() => {
+        set(this, 'isLoading', false);
       });
     },
   },
