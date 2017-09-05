@@ -56,3 +56,7 @@ en:
   user_data_mailer:
     trackings_csv:
       subject:  "Your Flaredown data is here"
+
+  checkin_reminder_mailer:
+    subject: "Remind to checkin on Flaredown"
+    body: 'Reminder for checkin'
