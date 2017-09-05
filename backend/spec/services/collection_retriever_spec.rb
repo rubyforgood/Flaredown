@@ -47,7 +47,7 @@ describe CollectionRetriever do
           expect(retrieved_objects.count).to eq 10
         end
 
-        it 'makes occurrences counts available after retrieve', pending: ENV['FIX_TRAVIS'] do
+        it 'makes occurrences counts available after retrieve' do
           subject.retrieve
           max_occurrence = subject.occurrences.to_a.first['count']
           min_occurrence = subject.occurrences.to_a.last['count']
