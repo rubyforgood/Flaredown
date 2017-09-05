@@ -5,7 +5,6 @@ RSpec.describe CheckinReminderMailer, type: :mailer do
     let(:user_email) { create(:user).email }
     let(:mail) { CheckinReminderMailer.remind(email: user_email) }
 
-
     it 'renders the headers' do
       expect(mail.subject).to eq(I18n.t('checkin_reminder_mailer.subject'))
       expect(mail.to).to eq([user_email])

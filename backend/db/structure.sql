@@ -234,8 +234,7 @@ CREATE TABLE positions (
     postal_code character varying NOT NULL,
     location_name character varying NOT NULL,
     latitude numeric(10,7),
-    longitude numeric(10,7),
-    time_zone_name character varying
+    longitude numeric(10,7)
 );
 
 
@@ -1622,10 +1621,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170817154145');
 INSERT INTO schema_migrations (version) VALUES ('20170818085110');
 
 INSERT INTO schema_migrations (version) VALUES ('20170822122800');
-
-INSERT INTO schema_migrations (version) VALUES ('20170823125433');
-
-INSERT INTO schema_migrations (version) VALUES ('20170829104242');
-
-INSERT INTO schema_migrations (version) VALUES ('20170831111247');
 

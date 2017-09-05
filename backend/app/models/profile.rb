@@ -74,7 +74,7 @@ class Profile < ActiveRecord::Base
 
   TIMEZONE_PARAMS = {
     time: [20, 0],
-    time_zone_name: 'America/New York'
+    time_zone_name: 'America/New_York'
   }.freeze
 
   #

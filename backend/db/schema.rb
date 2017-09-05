@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831111247) do
+ActiveRecord::Schema.define(version: 20170822122800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,11 +72,10 @@ ActiveRecord::Schema.define(version: 20170831111247) do
   add_index "foods", ["ndb_no"], name: "index_foods_on_ndb_no", using: :btree
 
   create_table "positions", force: :cascade do |t|
-    t.string  "postal_code",                             null: false
-    t.string  "location_name",                           null: false
-    t.decimal "latitude",       precision: 10, scale: 7
-    t.decimal "longitude",      precision: 10, scale: 7
-    t.string  "time_zone_name"
+    t.string  "postal_code",                            null: false
+    t.string  "location_name",                          null: false
+    t.decimal "latitude",      precision: 10, scale: 7
+    t.decimal "longitude",     precision: 10, scale: 7
   end
 
   create_table "profiles", force: :cascade do |t|
