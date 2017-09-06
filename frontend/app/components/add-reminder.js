@@ -24,8 +24,8 @@ export default Component.extend({
 
   checkinReminderEnabled: alias('profile.checkinReminder'),
 
-  reminderOff: t("step.onboarding.reminder.reminderOff"),
-  reminderOn:  t("step.onboarding.reminder.reminderOn"),
+  reminderOff: "Don't remind me",
+  reminderOn:  "Send me an email reminder",
   title: null,
 
   timezones: computed(function() {
