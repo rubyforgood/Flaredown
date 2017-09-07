@@ -58,5 +58,6 @@ en:
       subject:  "Your Flaredown data is here"
 
   checkin_reminder_mailer:
-    subject: "Remind to checkin on Flaredown"
-    body: 'Reminder for checkin'
+    subject: "Time to check in to Flaredown"
+    body: "<p> Open your Flaredown app or <a href=%{base_url}>click here</a> to check in.</p>"
+
