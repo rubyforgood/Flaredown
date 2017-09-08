@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('route:posts/profile', 'Unit | Route | posts/profile', {
   // Specify the other units that are required for this test.
-  needs: ['service:router-scroll']
+  needs: ['service:router-scroll', 'service:route-history', 'service:session', 'service:ajax', 'service:notifications', 'service:custom-userengage', 'service:logo-visiability']
 });
 
 test('it exists', function(assert) {

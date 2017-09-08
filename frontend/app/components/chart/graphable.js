@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+/* no-unexpected-multiline: "error" */
+
 const {
   get,
   set,
@@ -40,6 +42,7 @@ export default Mixin.create({
     return get(this, 'data').reject(item => isEmpty(item.y));
   }),
 
+  /*eslint-disable no-unexpected-multiline*/
   lineFunction: computed('lineData', function() {
     return(
       d3
@@ -51,6 +54,7 @@ export default Mixin.create({
         (get(this, 'lineData'))
     );
   }),
+  /*eslint-enable no-unexpected-multiline*/
 
   getX(d) {
     return get(this, 'xScale')(d.x);

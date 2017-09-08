@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import { translationMacro as t } from "ember-i18n";
 
-/* global moment */
-
 const {
   set,
   computed,
@@ -24,8 +22,8 @@ export default Component.extend({
 
   checkinReminderEnabled: alias('profile.checkinReminder'),
 
-  reminderOff: "Don't remind me",
-  reminderOn:  "Send me an email reminder",
+  reminderOff: t("step.onboarding.reminder.reminderOff"),
+  reminderOn:  t("step.onboarding.reminder.reminderOn"),
   title: null,
 
   timezones: computed(function() {
