@@ -56,13 +56,11 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def get_reminder_time
-    current_time_zone = Time.zone.name
-    Time.zone = @profile.time_zone_name
+    time_zone_name = @profile.time_zone_name
+    checkin_at_timezone = @profile.checkin_reminder_at.strftime('%H:%M').to_time.in_time_zone(time_zone_name)
 
-    diff_minutes = (@profile.checkin_reminder_at - Time.current).divmod(1.day)[1].divmod(1.minute)[0] # Select minutes
-
-    Time.zone = current_time_zone
-    diff_minutes
+    # Select minutes
+    (checkin_at_timezone - Time.current.in_time_zone(time_zone_name)).divmod(1.day)[1].divmod(1.minute)[0]
   end
 
   def delete_old_job(enqueued_job_id)

@@ -28,7 +28,15 @@ export default Component.extend({
   title: null,
 
   timezones: computed(function() {
-    return typeof moment !== 'undefined' && moment.tz && moment.tz.names();
+    let originNames = typeof moment !== 'undefined' && moment.tz && moment.tz.names();
+
+    if(originNames) {
+      return originNames.map((timezone) => {
+        return timezone.split('_').join(' ');
+      })
+    } else {
+      return [];
+    }
   }),
 
   options: computed(function() {

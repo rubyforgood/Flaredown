@@ -7,7 +7,7 @@ class CheckinReminderJob
 
     return unless profile
     return unless profile.checkin_reminder
-    return if profile.checkin_reminder_at.strftime("%H%M") != checkin_reminder_at.to_time(:utc).strftime("%H%M")
+    return if profile.checkin_reminder_at.strftime("%H%M") != checkin_reminder_at.to_time.utc.strftime("%H%M")
     return if jid != profile.reminder_job_id
 
     CheckinReminderMailer.remind(email: profile.email).deliver_later
