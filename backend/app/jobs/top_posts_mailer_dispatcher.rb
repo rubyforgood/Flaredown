@@ -5,8 +5,7 @@ class TopPostsMailerDispatcher
   MAX_DIFF = 5.minutes
 
   def perform
-    # return unless Time.current.tuesday? # Send on tuesdays
-    return unless Time.current.wednesday? || Time.current.thursday? # Send on tuesdays
+    return unless Time.current.tuesday? # Send on tuesdays
 
     Profile.where(notify_top_posts: true, time_zone_name: find_time_zone_names).find_each(batch_size: 500) do |profile|
       GroupTopPostsJob.perform_async(profile.notify_token)
