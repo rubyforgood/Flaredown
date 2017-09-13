@@ -19,6 +19,12 @@ export default {
         title: "What treatments will you track?",
         hint: "Treatments can be anything you use to improve your symptoms. For example: prednisone or a dairy-free diet.<br>List all treatments you are currently using, each day we will ask which you took, and let you enter dosages.",
       },
+      reminder: {
+        title: "Should we remind you to check in?",
+        hint: "You can change this later in settings.",
+        reminderOff: "Don't remind me",
+        reminderOn: "Send me an email reminder",
+      },
       completed: {
         title: "Set up complete! You're ready for your first checkin.",
       },

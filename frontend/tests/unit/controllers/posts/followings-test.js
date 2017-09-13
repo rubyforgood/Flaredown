@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('controller:posts/followings', 'Unit | Controller | posts/followings', {
   // Specify the other units that are required for this test.
-  needs: ['service:router-scroll']
+  needs: ['service:router-scroll', 'service:route-history', 'service:session']
 });
 
 // Replace this with your real tests.

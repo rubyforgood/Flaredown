@@ -186,4 +186,11 @@ namespace :oneoff do
       PositionReferenceJob.perform_async('Weather', weather.id, postal_code)
     end
   end
+
+  task :send_optional_email, [:email] => :environment do |t, args|
+    email = args[:email]
+    return unless email
+
+    CheckinReminderMailer.remind(email: email).deliver_now
+  end
 end

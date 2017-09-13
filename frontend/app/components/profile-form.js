@@ -45,8 +45,12 @@ export default Component.extend({
     },
 
     saveProfile() {
+      set(this, 'isLoading', true);
+
       get(this, 'model').save().then(profile => {
         this.sendAction('onProfileSaved', profile);
+      }).finally(() => {
+        set(this, 'isLoading', false);
       });
     },
   },

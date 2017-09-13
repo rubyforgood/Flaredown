@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('service:notifications', 'Unit | Service | notifications', {
   // Specify the other units that are required for this test.
-  // needs: ['service:foo']
+  needs: ['service:session']
 });
 
 // Replace this with your real tests.

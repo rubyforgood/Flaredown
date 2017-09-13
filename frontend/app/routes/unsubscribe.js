@@ -10,9 +10,14 @@ export default Route.extend({
   ajax: service('ajax'),
 
   beforeModel(transition) {
-    var notify_token = transition.params.unsubscribe.notify_token;
+    const notifyToken = transition.params.unsubscribe.notify_token;
+    let remindQueryParam = transition.queryParams;
 
-    get(this, 'ajax').request(`/unsubscribe/${ notify_token }`, {
+    const queryParams = Object.keys(remindQueryParam).map((key) => {
+        return `${ key }=${ remindQueryParam[key] }`;
+      }).join('&');
+
+    get(this, 'ajax').request(`/unsubscribe/${ notifyToken }?${ queryParams }`, {
       type: 'GET'
     });
   }

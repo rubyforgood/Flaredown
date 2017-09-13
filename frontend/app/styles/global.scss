@@ -142,3 +142,44 @@ input[type="submit"] {
     display: none;
   }
 }
+
+.checkinReminder {
+  margin-top: 5%;
+  color: $grey;
+
+  .reminderTitle {
+    color: $label-color;
+    font-weight: 600;
+    padding-bottom: 5px;
+  }
+
+  .checked {
+    color: $label-color;
+  }
+
+  .checkinReminders {
+    display: flex;
+    padding-left: 28px;
+
+    .checkinReminderTime {
+      width: 95px;
+      margin-right: 1em;
+      margin-bottom: 0;
+    }
+
+    .ember-basic-dropdown {
+      flex: 1;
+    }
+
+    .ember-basic-dropdown-trigger {
+      margin-bottom: 0;
+    }
+  }
+
+  .checkinReminders .picker__box {
+    width: 75%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

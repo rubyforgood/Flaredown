@@ -56,7 +56,9 @@ module.exports = function(defaults) {
   const assetPath = process.env.PWD + '/' + app.bowerDirectory;
 
   let vendorLib = new Funnel(assetPath, {
-    files: ['/pace/pace.js', '/pusher/dist/pusher.js', '/drag-drop-polyfill/release/drag-drop-polyfill.js'],
+    files: [
+    '/pace/pace.js', '/pusher/dist/pusher.js', '/drag-drop-polyfill/release/drag-drop-polyfill.js', '/moment-timezone/builds/moment-timezone-with-data.js'
+    ],
     destDir: '/assets',
   });
 

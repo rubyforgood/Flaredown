@@ -7,7 +7,7 @@ const {
 
 moduleFor('controller:posts/show', 'Unit | Controller | posts/show', {
   // Specify the other units that are required for this test.
-  needs: ['service:router-scroll']
+  needs: ['service:router-scroll', 'service:route-history', 'service:session', 'service:ajax', 'service:notifications']
 });
 
 // Replace this with your real tests.

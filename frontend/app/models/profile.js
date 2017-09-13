@@ -20,6 +20,9 @@ export default DS.Model.extend({
   temperatureUnits: DS.attr('string'),
   betaTester: DS.attr('boolean'),
   notify: DS.attr('boolean'),
+  checkinReminder: DS.attr('boolean'),
+  checkinReminderAt: DS.attr('raw'),
+  timeZoneName: DS.attr('time_zone_name'),
 
   // Associations
   country: DS.belongsTo('country'),

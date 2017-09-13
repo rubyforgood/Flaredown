@@ -3,7 +3,9 @@ class Api::V1::UnsubscribesController < ApplicationController
 
   def update
     profile = Profile.find_by(notify_token: activation_params[:notify_token])
-    profile&.update_attributes(notify: false)
+    updated_data = activation_params[:stop_remind].present? ? { checkin_reminder: false } : { notify: false }
+
+    profile&.update_attributes(updated_data)
 
     head :ok
   end
@@ -11,6 +13,6 @@ class Api::V1::UnsubscribesController < ApplicationController
   private
 
   def activation_params
-    params.permit(:notify_token)
+    params.permit(:notify_token, :stop_remind)
   end
 end

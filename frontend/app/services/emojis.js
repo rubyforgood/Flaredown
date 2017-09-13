@@ -906,6 +906,7 @@ export default Service.extend({
 
     let result = {};
 
+    /*eslint-disable no-unused-vars*/
     emojiSet.forEach(([sheet, row, column, name]) => {
       if (!result[groups[sheet]]) {
         result[groups[sheet]] = {};
@@ -913,6 +914,7 @@ export default Service.extend({
 
       result[groups[sheet]][name] = styledMap[name];
     });
+    /*eslint-enable no-unused-vars*/
 
     return result;
   }),

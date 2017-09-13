@@ -1,4 +1,6 @@
 class Api::V1::ProfilesController < ApplicationController
+  require 'sidekiq/api'
+
   load_and_authorize_resource
   skip_before_action :authenticate_user!, only: [:index]
 
@@ -19,7 +21,17 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def update
-    @profile.update_attributes!(update_params)
+    @profile.assign_attributes(update_params.merge(transform_hash_time))
+    time_changed = @profile.checkin_reminder_at_changed? || @profile.time_zone_name_changed?
+    @profile.save!
+
+    if time_changed
+      delete_old_job(@profile.reminder_job_id)
+
+      job_id = CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)
+      @profile.update_column(:reminder_job_id, job_id)
+    end
+
     current_user.profile.reload
     set_locale
     render json: @profile
@@ -32,7 +44,26 @@ class Api::V1::ProfilesController < ApplicationController
       :country_id, :birth_date, :sex_id, :onboarding_step_id,
       :day_habit_id, :education_level_id, :day_walking_hours,
       :pressure_units, :temperature_units, :screen_name, :notify,
-      ethnicity_ids: []
+      :checkin_reminder, :time_zone_name, ethnicity_ids: []
     )
+  end
+
+  def transform_hash_time
+    checkin_reminder_at = params.require(:profile)[:checkin_reminder_at]
+    user_time = checkin_reminder_at && checkin_reminder_at.values.join(':')
+
+    { checkin_reminder_at: user_time.try(:to_time, :utc) }
+  end
+
+  def get_reminder_time
+    time_zone_name = @profile.time_zone_name
+    checkin_at_timezone = @profile.checkin_reminder_at.strftime('%H:%M').in_time_zone(time_zone_name)
+
+    # Select minutes
+    (checkin_at_timezone - Time.current.in_time_zone(time_zone_name)).divmod(1.day)[1].divmod(1.minute)[0]
+  end
+
+  def delete_old_job(enqueued_job_id)
+    Sidekiq::ScheduledSet.new.find_job(enqueued_job_id)&.delete
   end
 end
