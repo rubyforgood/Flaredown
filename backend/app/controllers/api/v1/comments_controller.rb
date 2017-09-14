@@ -14,6 +14,8 @@ class Api::V1::CommentsController < ApplicationController
     @comment.encrypted_user_id = current_user.encrypted_id
 
     if @comment.save
+      UpdatePostCountersJob.perform_async(parent_id: create_params[:post_id], parent_type: "Post")
+
       unless @comment.encrypted_user_id == @comment.post.encrypted_user_id
         Notification.create(
           kind: :comment,

@@ -285,6 +285,7 @@ CREATE TABLE profiles (
     notify boolean DEFAULT true,
     notify_token character varying,
     slug_name character varying,
+    notify_top_posts boolean DEFAULT true,
     checkin_reminder boolean DEFAULT false,
     checkin_reminder_at timestamp without time zone,
     time_zone_name character varying,
@@ -1607,6 +1608,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170508151200');
 INSERT INTO schema_migrations (version) VALUES ('20170509114220');
 
 INSERT INTO schema_migrations (version) VALUES ('20170612160120');
+
+INSERT INTO schema_migrations (version) VALUES ('20170717153650');
 
 INSERT INTO schema_migrations (version) VALUES ('20170731083613');
 

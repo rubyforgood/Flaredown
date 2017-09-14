@@ -44,7 +44,7 @@ class Api::V1::ProfilesController < ApplicationController
       :country_id, :birth_date, :sex_id, :onboarding_step_id,
       :day_habit_id, :education_level_id, :day_walking_hours,
       :pressure_units, :temperature_units, :screen_name, :notify,
-      :checkin_reminder, :time_zone_name, ethnicity_ids: []
+      :checkin_reminder, :time_zone_name, :notify_top_posts, ethnicity_ids: []
     )
   end
 

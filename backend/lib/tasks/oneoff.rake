@@ -193,4 +193,19 @@ namespace :oneoff do
 
     CheckinReminderMailer.remind(email: email).deliver_now
   end
+
+  task :send_top_post_email, [:email] => :environment do |t, args|
+    notify_token = User.find_by(email: args[:email])&.profile&.notify_token
+    return unless notify_token
+
+    GroupTopPostsJob.perform_async(notify_token)
+  end
+
+ # Send email with posts, comments, reactions count
+  task :send_notification_email, [:email] => :environment do |t, args|
+    email = args[:email]
+    return unless email
+
+    NotificationsMailer.notify(email: email, data: {}).deliver_now
+  end
 end
