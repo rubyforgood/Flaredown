@@ -1,3 +1,6 @@
 <% content_for :body do %>
+  <div class="opt_img">
+    <%= image_tag attachments['optional_email_img.png'].url %>
+  </div>
   <p> Open your Flaredown app or <%= link_to 'click here', @click_here_link %> to check in.</p>
 <% end %>
