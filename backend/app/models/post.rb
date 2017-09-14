@@ -12,8 +12,7 @@ class Post
 
   field :comments_count, type: Integer, default: 0
   field :last_commented, type: DateTime, default: -> { Time.current }
-  field :reactions_count, type: Integer, default: 0
-  field :total_count, type: Integer, default: 0
+  field :comment_reaction_count, type: Integer, default: 0
 
   validates :body, :title, presence: true
 
@@ -26,7 +25,7 @@ class Post
   index(body: 'text', title: 'text')
 
   def update_counters
-    set total_count: comments_count + reactions_count
+    set comment_reaction_count: comments_count + reactions.count
   end
 
   def self.fts(q)

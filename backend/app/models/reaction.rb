@@ -25,7 +25,7 @@ class Reaction
 
   validates :value, :reactable, :encrypted_user_id, presence: true
 
-  belongs_to :reactable, polymorphic: true, counter_cache: :reactions_count
+  belongs_to :reactable, polymorphic: true
 
   class << self
     def similar_to(reaction)

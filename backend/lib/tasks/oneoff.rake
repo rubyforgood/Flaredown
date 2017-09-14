@@ -164,10 +164,6 @@ namespace :oneoff do
     end
   end
 
-  task update_reactions_count_for_posts: :environment do
-    Post.where(_type: 'Post').each { |post| Post.reset_counters(post.id, :reactions) }
-  end
-
   task add_position_reference_to_checkins_and_weathers: :environment do
     add_position_reference_to_checkins
     add_position_reference_to_weathers

@@ -28,7 +28,7 @@ class DiscussionPosts < AdditionalPosts
       .where(_type: 'Post')
       .by_followings(user.topic_following)
       .where(:created_at.gte => TOP_POSTS_DAYS.days.ago)
-      .order(total_count: :desc)
+      .order(comment_reaction_count: :desc)
   end
 
   def refined_top_list
