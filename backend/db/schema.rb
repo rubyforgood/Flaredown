@@ -101,11 +101,11 @@ ActiveRecord::Schema.define(version: 20170822122800) do
     t.boolean  "notify",                           default: true
     t.string   "notify_token"
     t.string   "slug_name"
+    t.boolean  "notify_top_posts",                 default: true
     t.boolean  "checkin_reminder",                 default: false
     t.datetime "checkin_reminder_at"
     t.string   "time_zone_name"
     t.string   "reminder_job_id"
-    t.boolean  "notify_top_posts",                 default: true
   end
 
   add_index "profiles", ["slug_name"], name: "index_profiles_on_slug_name", using: :btree
