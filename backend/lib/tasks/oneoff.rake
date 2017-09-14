@@ -164,6 +164,10 @@ namespace :oneoff do
     end
   end
 
+  task update_reactions_count_for_posts: :environment do
+    Post.where(_type: 'Post').each { |post| Post.reset_counters(post.id, :reactions) }
+  end
+
   task add_position_reference_to_checkins_and_weathers: :environment do
     add_position_reference_to_checkins
     add_position_reference_to_weathers
@@ -194,6 +198,14 @@ namespace :oneoff do
     CheckinReminderMailer.remind(email: email).deliver_now
   end
 
+  task :send_top_post_email, [:email] => :environment do |t, args|
+    notify_token = User.find_by(email: args[:email])&.profile&.notify_token
+    return unless notify_token
+
+    GroupTopPostsJob.perform_async(notify_token: notify_token)
+  end
+
+ # Send email with posts, comments, reactions count
   task :send_notification_email, [:email] => :environment do |t, args|
     email = args[:email]
     return unless email
