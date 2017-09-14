@@ -11,9 +11,13 @@ test('it renders', function(assert) {
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{notifications-form}}`);
-  let result = "Email me when someone responds to my posts";
+  let notifyPostsText = "Email me when someone responds to my posts";
+  let notifyWeeklyPostsText = "Email me about weekly top posts";
 
-  assert.equal(this.$().text().trim(), result);
+  let result = this.$().text().trim();
+
+  assert.equal(result.match(notifyPostsText)[0], notifyPostsText);
+  assert.equal(result.match(notifyWeeklyPostsText)[0], notifyWeeklyPostsText);
 
   // Template block usage:
   this.render(hbs`
