@@ -31,6 +31,13 @@ class Ability
       checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_hbi?
     end
 
+    can :read, PromotionRate, encrypted_user_id: user.encrypted_id
+    can :create, PromotionRate do |rate|
+      checkin = rate.checkin
+
+      checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_pr?
+    end
+
     can :read, [Comment, Post]
     can :create, [Comment, Post], encrypted_user_id: user.encrypted_id
 

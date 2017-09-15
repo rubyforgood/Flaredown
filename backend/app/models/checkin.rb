@@ -2,6 +2,7 @@ class Checkin
   include Mongoid::Document
 
   HBI_PERIODICITY = 7
+  PR_PERIODICITY = 7
 
   attr_accessor :includes
 
@@ -21,6 +22,7 @@ class Checkin
   # Relations
   #
   has_one :harvey_bradshaw_index
+  has_one :promotion_rate
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
   has_many :symptoms, class_name: 'Checkin::Symptom'
@@ -71,12 +73,20 @@ class Checkin
     end
   end
 
-  def available_for_hbi?
-    return true if harvey_bradshaw_index
-    return false unless date.today?
-    return true unless latest_hbi
+  %w(harvey_bradshaw_index promotion_rate).each do |relation_name|
+    abbreviation = relation_name.to_s.split('_').map(&:first).join()
 
-    HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
+    define_method("available_for_#{abbreviation}?") do
+      return true if send(relation_name)
+      return false unless date.today?
+      return true unless send("latest_#{get_key(relation_name)}") # lates_hbi | lates_pr
+
+      Checkin.const_get("#{get_key(relation_name).upcase}_PERIODICITY") - ((send("latest_#{get_key(relation_name)}").date...date)).count < 1
+    end
+  end
+
+  def get_key(relation_name)
+    relation_name.to_s.split('_').map(&:first).join()
   end
 
   class Condition
@@ -126,5 +136,9 @@ class Checkin
 
   def latest_hbi
     @_latest_hbi ||= HarveyBradshawIndex.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
+  end
+
+  def latest_pr
+    @_lates_pr ||= PromotionRate.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
   end
 end
