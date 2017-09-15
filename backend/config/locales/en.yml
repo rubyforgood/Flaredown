@@ -61,3 +61,6 @@ en:
     subject: "It's time to check in to Flaredown"
     body:
       text: 'Open your Flaredown app to check in or..'
+      bottom: 'You opted to receive daily check-in reminders in Flaredown.'
+      link:
+        unsubscribe: 'Click here to turn this reminder off.'

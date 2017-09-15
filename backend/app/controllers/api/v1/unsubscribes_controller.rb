@@ -3,9 +3,7 @@ class Api::V1::UnsubscribesController < ApplicationController
 
   def update
     @profile = Profile.find_by(notify_token: activation_params[:notify_token])
-    attribute_key = activation_params[:notify_top_posts].present? ? :notify_top_posts : :notify
-
-    @profile&.update_column(attribute_key, false)
+    @profile&.update_column(attribute_dispatcher_key, false)
 
     render json: @profile
   end
@@ -15,4 +13,15 @@ class Api::V1::UnsubscribesController < ApplicationController
   def activation_params
     params.permit(:notify_token, :notify_top_posts, :stop_remind)
   end
+
+  def attribute_dispatcher_key
+    if activation_params[:stop_remind]
+      :checkin_reminder
+    elsif activation_params[:notify_top_posts]
+      :notify_top_posts
+    else
+      :notify
+    end
+  end
+
 end
