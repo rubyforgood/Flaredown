@@ -15,6 +15,7 @@ export default Service.extend({
     'treatments',
     'health_factors',
     'harvey_bradshaw',
+    'promotion_rate',
     'summary',
   ],
 
@@ -28,7 +29,7 @@ export default Service.extend({
     'completed',
   ],
 
-  steps: computed('exclusions.harvey_bradshaw', function() {
+  steps: computed('exclusions.harvey_bradshaw', 'exclusions.promotion_rate', function() {
     const { checkinSeed, onboardingSeed } = getProperties(this, 'checkinSeed', 'onboardingSeed');
 
     return Object.assign(
@@ -38,8 +39,13 @@ export default Service.extend({
     );
   }),
 
-  exclusions: computed('checkin.shouldShowHbiStep', function() {
-    return get(this, 'checkin.shouldShowHbiStep') ? {} : { harvey_bradshaw: true };
+  exclusions: computed('checkin.shouldShowHbiStep', 'checkin.availableForPr', function() {
+    let schedulePage = {};
+
+    get(this, 'checkin.shouldShowHbiStep') ? {} : schedulePage.harvey_bradshaw = true;
+    get(this, 'checkin.availableForPr')    ? {} : schedulePage.promotion_rate  = true;
+
+    return schedulePage;
   }),
 
   generateSteps(prefix, stepNames) {

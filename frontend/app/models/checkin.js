@@ -29,6 +29,7 @@ export default Model.extend({
   foodIds: attr(),
   postalCode: attr('string'),
   availableForHbi: attr('boolean'),
+  availableForPr: attr('boolean'),
   locationName: attr('string'),
 
   tags: hasMany('tag', { async: false }),
@@ -39,6 +40,7 @@ export default Model.extend({
 
   weather: belongsTo('weather', { async: false }),
   harveyBradshawIndex: belongsTo('harveyBradshawIndex', { async: false }),
+  promotionRate: belongsTo('promotionRate', { async: false }),
 
   tagsChanged: false,
 

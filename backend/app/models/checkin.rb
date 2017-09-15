@@ -79,14 +79,10 @@ class Checkin
     define_method("available_for_#{abbreviation}?") do
       return true if send(relation_name)
       return false unless date.today?
-      return true unless send("latest_#{get_key(relation_name)}") # lates_hbi | lates_pr
+      return true unless send("latest_#{abbreviation}") # lates_hbi | lates_pr
 
-      Checkin.const_get("#{get_key(relation_name).upcase}_PERIODICITY") - ((send("latest_#{get_key(relation_name)}").date...date)).count < 1
+      Checkin.const_get("#{abbreviation.upcase}_PERIODICITY") - ((send("latest_#{abbreviation}").date...date)).count < 1
     end
-  end
-
-  def get_key(relation_name)
-    relation_name.to_s.split('_').map(&:first).join()
   end
 
   class Condition
