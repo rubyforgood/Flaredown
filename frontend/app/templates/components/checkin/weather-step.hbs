@@ -15,12 +15,12 @@
     {{/if}}
   </div>
 
-  {{input placeholder="Postal code" value=newPostalCode}}
+  {{input placeholder="Address or postal code" value=newPostalCode}}
 
   <a class="save-status" {{action "updatePostalCode"}}>Submit</a>
   <br>
 {{else}}
-  <div class="grey" {{action "showInput"}}>{{checkin.locationName}}</div>
+  <div class="grey clickable" {{action "showInput"}}>{{checkin.locationName}}</div>
 {{/if}}
 
 {{#if hasWeather}}
