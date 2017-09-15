@@ -7,8 +7,10 @@ class CheckinReminderMailer < ApplicationMailer
     return unless notify_token
 
     @click_here_link = Rails.application.secrets.base_url
+    @unsubscribe_link =
+      Rails.application.secrets.base_url + "/unsubscribe/#{User.find_by(email: @email).notify_token}?stop_remind"
     attachments.inline['optional_email_img.png'] = File.read('public/images/optional_email_img.png')
 
-    mail(to: @email, subject: "Time to check in to Flaredown")
+    mail(to: @email, subject: I18n.t('checkin_reminder_mailer.subject'))
   end
 end
