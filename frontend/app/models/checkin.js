@@ -31,6 +31,7 @@ export default Model.extend({
   availableForHbi: attr('boolean'),
   availableForPr: attr('boolean'),
   locationName: attr('string'),
+  promotionSkippedAt: attr('string'),
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),

@@ -13,6 +13,7 @@ export default Component.extend({
   classNames: ['step-controls'],
 
   showBack: true,
+  linkForward: false,
   backLabel: 'Back',
   forwardLabel: 'Continue',
 

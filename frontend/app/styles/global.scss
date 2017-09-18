@@ -194,13 +194,23 @@ input[type="submit"] {
     display: flex;
     justify-content: space-between;
     width: 89%;
+
+    li.active {
+      background-color: $primary;
+    }
   }
   .container {
     display: flex;
     justify-content: space-around;
 
-    button {
+    button.pr-btn {
       background-color: $primary
     }
   }
+
+  .forward.container.step-forward > button {
+    background-color: transparent;
+    color: $primary;
+  }
 }
+

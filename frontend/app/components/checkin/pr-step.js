@@ -42,14 +42,23 @@ export default Component.extend({
   }),
 
   actions: {
-    sendRate(value) {
-      const pr = get(this, 'pr');
+    sendFeedback() {
+      let pr = get(this, 'pr');
 
-      set(pr, 'score', value);
+      set(pr, 'score', get(this, 'selectedRate'));
       pr.save();
     },
 
-    sendFeedback() {
-    }
+    skipStep() {
+      let checkin = get(this, 'checkin');
+      set(checkin, 'promotionSkippedAt', get(checkin, 'date'));
+      checkin.save();
+
+      get(this, 'onStepCompleted')();
+    },
+
+    goBack() {
+      get(this, 'onGoBack')();
+    },
   }
 });

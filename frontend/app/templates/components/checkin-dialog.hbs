@@ -34,6 +34,13 @@
         onStepCompleted=(action 'moveToNextStep')
       }}
 
+    {{else if isPromotionRate}}
+      {{checkin/pr-step
+        step=step
+        onGoBack=(action 'moveToPrevStep')
+        onStepCompleted=(action 'moveToNextStep')
+      }}
+
     {{else if isSymptoms}}
       {{checkin/trackables-step
         step=step

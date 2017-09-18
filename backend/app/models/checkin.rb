@@ -3,7 +3,7 @@ class Checkin
 
   HBI_PERIODICITY = 7
   PR_PERIODICITY = 7
-  PR_START_FROM = 7
+  PR_START_FROM = 2 #7 days
 
   attr_accessor :includes
 
@@ -18,6 +18,7 @@ class Checkin
   field :weather_id,  type: Integer
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
   field :position_id, type: Integer
+  field :promotion_skipped_at, type: Date
 
   #
   # Relations
@@ -86,10 +87,10 @@ class Checkin
     return true if promotion_rate
     return false unless date.today?
 
-    if latest_pr.blank?
+    if latest_skipped_pr.blank?
       return start_pr?
     else
-      HBI_PERIODICITY - ((latest_pr.date)...date).count < 1
+      HBI_PERIODICITY - ((latest_skipped_pr.promotion_skipped_at)...date).count < 1
     end
   end
 
@@ -142,8 +143,8 @@ class Checkin
     @_latest_hbi ||= HarveyBradshawIndex.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
   end
 
-  def latest_pr
-    @_lates_pr ||= PromotionRate.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
+  def latest_skipped_pr
+    @_lates_skipped_pr ||= Checkin.where(encrypted_user_id: encrypted_user_id).order_by(promotion_skipped_at: :desc).first
   end
 
   def start_pr?
