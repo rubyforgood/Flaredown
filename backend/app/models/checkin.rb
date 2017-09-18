@@ -3,6 +3,7 @@ class Checkin
 
   HBI_PERIODICITY = 7
   PR_PERIODICITY = 7
+  PR_START_FROM = 7
 
   attr_accessor :includes
 
@@ -73,15 +74,22 @@ class Checkin
     end
   end
 
-  %w(harvey_bradshaw_index promotion_rate).each do |relation_name|
-    abbreviation = relation_name.to_s.split('_').map(&:first).join()
+  def available_for_hbi?
+    return true if harvey_bradshaw_index
+    return false unless date.today?
+    return true unless latest_hbi
 
-    define_method("available_for_#{abbreviation}?") do
-      return true if send(relation_name)
-      return false unless date.today?
-      return true unless send("latest_#{abbreviation}") # lates_hbi | lates_pr
+    HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
+  end
 
-      Checkin.const_get("#{abbreviation.upcase}_PERIODICITY") - ((send("latest_#{abbreviation}").date...date)).count < 1
+  def available_for_pr?
+    return true if promotion_rate
+    return false unless date.today?
+
+    if latest_pr.blank?
+      return start_pr?
+    else
+      HBI_PERIODICITY - ((latest_pr.date)...date).count < 1
     end
   end
 
@@ -136,5 +144,9 @@ class Checkin
 
   def latest_pr
     @_lates_pr ||= PromotionRate.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
+  end
+
+  def start_pr?
+    user.created_at <= PR_START_FROM.day.ago
   end
 end
