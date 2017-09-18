@@ -46,7 +46,9 @@ export default {
       },
       promotion_rate: {
         hint: "Rate Flaredown",
-        title: "How likely is it that you would recommend Flaredown to a friend?",
+        title: "Rate Flaredown",
+        body: "How likely is it that you would recommend Flaredown to a friend?",
+        feedBackLabel: 'Send feedback',
         shortTitle: "Promotion-Rate",
       },
       symptoms: {

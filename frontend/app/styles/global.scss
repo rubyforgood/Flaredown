@@ -183,3 +183,24 @@ input[type="submit"] {
     margin-right: auto;
   }
 }
+
+.checkinPrStep {
+  h4 {
+    text-align: center;
+  }
+  .prRate {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 89%;
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      background-color: $primary
+    }
+  }
+}
