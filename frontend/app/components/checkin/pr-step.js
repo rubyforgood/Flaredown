@@ -26,8 +26,11 @@ export default Component.extend({
 
     const checkin = get(this, 'checkin');
     const pr = get(this, 'checkin.promotionRate');
+    const store = get(this, 'store');
 
-    set(this, 'pr', pr || get(this, 'store').createRecord('promotionRate', { checkin }));
+    if(store) {
+      set(this, 'pr', pr || store.createRecord('promotionRate', { checkin }));
+    }
   },
 
   feedBackLabel: t("step.checkin.promotion_rate.feedBackLabel"),

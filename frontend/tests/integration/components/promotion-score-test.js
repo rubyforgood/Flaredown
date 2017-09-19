@@ -12,7 +12,9 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{promotion-score}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  let result = 'How can we do it better';
+
+  assert.equal(this.$().text().trim().match(result)[0], result);
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +23,5 @@ test('it renders', function(assert) {
     {{/promotion-score}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim().match(result)[0], result);
 });

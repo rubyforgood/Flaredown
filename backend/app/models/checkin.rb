@@ -3,7 +3,7 @@ class Checkin
 
   HBI_PERIODICITY = 7
   PR_PERIODICITY = 7
-  PR_START_FROM = 2 #7 days
+  PR_START_FROM = 2 # 7 days
 
   attr_accessor :includes
 
@@ -144,7 +144,8 @@ class Checkin
   end
 
   def latest_skipped_pr
-    @_lates_skipped_pr ||= Checkin.where(encrypted_user_id: encrypted_user_id).order_by(promotion_skipped_at: :desc).first
+    @_lates_skipped_pr ||=
+      Checkin.where(encrypted_user_id: encrypted_user_id).order_by(promotion_skipped_at: :desc).first
   end
 
   def start_pr?

@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('checkin/pr-step', 'Integration | Component | checkin/pr step', {
-  integration: true
+  integration: true,
 });
 
 test('it renders', function(assert) {
@@ -12,7 +12,9 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{checkin/pr-step}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  let result = 'How likely is it that you would recommend Flaredown to a friend';
+
+  assert.equal(this.$().text().trim().match(result)[0], result);
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +23,5 @@ test('it renders', function(assert) {
     {{/checkin/pr-step}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim().match(result)[0], result);
 });
