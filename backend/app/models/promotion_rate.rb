@@ -1,10 +1,12 @@
 class PromotionRate
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :date,  type: Date
   field :score, type: Integer
   field :feedback, type: String
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :user_created_at, type: Date
 
   belongs_to :checkin, index: true
 

@@ -48,7 +48,7 @@ export default Component.extend({
       set(pr, 'score', get(this, 'selectedRate'));
       pr.save();
 
-      this.toggleProperty('showRatePage');
+      set(this, 'showRatePage', false);
     },
 
     skipStep() {

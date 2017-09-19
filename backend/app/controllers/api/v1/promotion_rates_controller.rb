@@ -12,7 +12,7 @@ class Api::V1::PromotionRatesController < ApplicationController
   end
 
   def update
-    @promotion_rate.update_attributes(resource_params)
+    @promotion_rate.update_attributes(resource_params.merge(additional_params))
 
     render json: @promotion_rate
   end
@@ -21,5 +21,11 @@ class Api::V1::PromotionRatesController < ApplicationController
 
   def resource_params
     params.require(:promotion_rate).permit(:checkin_id, :score, :feedback)
+  end
+
+  def additional_params
+    user = @promotion_rate.checkin.user
+
+    { user_created_at: user.created_at }
   end
 end
