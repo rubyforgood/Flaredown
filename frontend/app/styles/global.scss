@@ -207,10 +207,32 @@ input[type="submit"] {
       background-color: $primary
     }
   }
-
-  .forward.container.step-forward > button {
-    background-color: transparent;
-    color: $primary;
-  }
 }
 
+.checkinReviewBody {
+  text-align: center;
+  color: $grey;
+}
+
+.checkinReviewBody {
+  .reviewSocials {
+    display: flex;
+    justify-content: center;
+  }
+
+  .reviewBtns {
+    margin-bottom: 1em;
+    button {
+      margin-bottom: 1em;
+      width: 100%;
+      font-weight: 400;
+
+      &.reviewIOS {
+        background-color: $iosBtn-color;
+      }
+      &.reviewGP {
+        background-color: $gbBtn-color;
+      }
+    }
+  }
+}

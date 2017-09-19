@@ -1,0 +1,40 @@
+<h4>{{reviewHeader}}</h4>
+
+{{#if showReviewPage}}
+  <p>{{t "step.checkin.promotion_rate.reviewText"}}</p>
+
+  <div class="reviewBtns">
+    <button class="btn-primary reviewIOS {{if disabled 'disabled'}}" {{action "forward"}}>
+      {{t "step.checkin.promotion_rate.reviewIosLabel"}}
+    </button>
+
+    <button class="btn-primary reviewGP {{if disabled 'disabled'}}" {{action "forward"}}>
+      {{t "step.checkin.promotion_rate.reviewGPLabel"}}
+    </button>
+  </div>
+
+  <p>{{t "step.checkin.promotion_rate.reviewShare"}}</p>
+
+  <div class="reviewSocials">
+    {{share-socials url=currentUrl title=title}}
+  </div>
+{{else}}
+  <div class="reviewPromotionScore">
+    {{textarea rows="6" value=(mut pr.feedback) placeholder=(t "step.checkin.promotion_rate.feedBackPlaceHolder")}}
+  </div>
+
+  <div class="container">
+    <button class="btn-primary pr-btn" {{action "sendFeedback"}} disabled={{not pr.feedback}}>
+      {{feedBackLabel}}
+    </button>
+  </div>
+{{/if}}
+
+  {{step-controls
+    step=step
+    onForward=onForward
+    linkForward=true
+    onBackward=onBackward
+    forwardLabel="Next"
+    stepHasPrev=stepHasPrev
+  }}

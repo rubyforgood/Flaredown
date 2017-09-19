@@ -11,9 +11,15 @@ class Api::V1::PromotionRatesController < ApplicationController
     render json: @promotion_rate
   end
 
+  def update
+    @promotion_rate.update_attributes(resource_params)
+
+    render json: @promotion_rate
+  end
+
   private
 
   def resource_params
-    params.require(:promotion_rate).permit(:checkin_id, :score)
+    params.require(:promotion_rate).permit(:checkin_id, :score, :feedback)
   end
 end

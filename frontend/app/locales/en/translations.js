@@ -47,9 +47,16 @@ export default {
       promotion_rate: {
         hint: "Rate Flaredown",
         title: "Rate Flaredown",
-        body: "How likely is it that you would recommend Flaredown to a friend?",
+        rateBody: "How likely is it that you would recommend Flaredown to a friend?",
         feedBackLabel: 'Send feedback',
         shortTitle: "Promotion-Rate",
+        reviewHeader: 'Glad you like it!',
+        reviewText: 'We\'re a small patient-run project, sharing really helps us out:',
+        reviewIosLabel: 'Review on iOS App Store',
+        reviewGPLabel: 'Review on Google Play Store',
+        reviewShare: 'Share',
+        feedBackHeader: 'How can we do it better?',
+        feedBackPlaceHolder: 'Missing features, bugs, etc...',
       },
       symptoms: {
         title: "How active were your symptoms today?",

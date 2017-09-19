@@ -84,7 +84,7 @@ class Checkin
   end
 
   def available_for_pr?
-    return true if promotion_rate
+    return false if user_has_already_rated?
     return false unless date.today?
 
     if latest_skipped_pr.blank?
@@ -149,5 +149,9 @@ class Checkin
 
   def start_pr?
     user.created_at <= PR_START_FROM.day.ago
+  end
+
+  def user_has_already_rated?
+    @_rated ||= PromotionRate.where(encrypted_user_id: encrypted_user_id).any?
   end
 end

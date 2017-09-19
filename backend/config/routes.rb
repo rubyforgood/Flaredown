@@ -86,7 +86,7 @@ Rails.application.routes.draw do
       #
       # Promotion Rates
       #
-      resources :promotion_rates, only: [:show, :create]
+      resources :promotion_rates, only: [:show, :create, :update]
 
       #
       # Invitations

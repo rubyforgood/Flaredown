@@ -1,3 +1,3 @@
 class PromotionRateSerializer < ApplicationSerializer
-  attributes :id, :score, :checkin_id
+  attributes :id, :score, :feedback, :checkin_id
 end

@@ -32,7 +32,7 @@ class Ability
     end
 
     can :read, PromotionRate, encrypted_user_id: user.encrypted_id
-    can :create, PromotionRate do |rate|
+    can [:create, :update], PromotionRate do |rate|
       checkin = rate.checkin
 
       checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_pr?

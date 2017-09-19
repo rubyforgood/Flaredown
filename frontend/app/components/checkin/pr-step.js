@@ -25,28 +25,30 @@ export default Component.extend({
     this._super(...arguments);
 
     const checkin = get(this, 'checkin');
-    const pr = get(checkin, 'promotionRate');
+    const pr = get(this, 'checkin.promotionRate');
 
     set(this, 'pr', pr || get(this, 'store').createRecord('promotionRate', { checkin }));
   },
 
   feedBackLabel: t("step.checkin.promotion_rate.feedBackLabel"),
-  prBody: t("step.checkin.promotion_rate.body"),
+  prBody: t("step.checkin.promotion_rate.rateBody"),
 
-  rates: [1,2,3,4,5,6,7,8,9,10],
+  prRates: [1,2,3,4,5,6,7,8,9,10],
 
-  prRates: computed('rates', function() {
-    const rates = get(this, 'rates');
+  showRatePage: computed('pr.score', function() {
+    const score = get(this, 'pr.score');
 
-    return rates;
+    return typeof score == 'undefined';
   }),
 
   actions: {
     sendFeedback() {
-      let pr = get(this, 'pr');
+      const pr = get(this, 'pr');
 
       set(pr, 'score', get(this, 'selectedRate'));
       pr.save();
+
+      this.toggleProperty('showRatePage');
     },
 
     skipStep() {

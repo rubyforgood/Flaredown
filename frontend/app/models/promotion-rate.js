@@ -1,5 +1,4 @@
 import DS from 'ember-data';
-import Ember from 'ember';
 
 const {
   attr,
@@ -9,5 +8,6 @@ const {
 
 export default Model.extend({
   score: attr('number'),
+  feedback: attr('string'),
   checkin: belongsTo('checkin'),
 });

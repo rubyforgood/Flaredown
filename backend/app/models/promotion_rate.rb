@@ -3,6 +3,7 @@ class PromotionRate
 
   field :date,  type: Date
   field :score, type: Integer
+  field :feedback, type: String
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
 
   belongs_to :checkin, index: true
