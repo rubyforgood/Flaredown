@@ -195,8 +195,30 @@ input[type="submit"] {
     justify-content: space-between;
     width: 89%;
 
+    li {
+      flex: 1;
+      border: 1px solid $grey;
+      border-left: none;
+      text-align: center;
+      color: $grey;
+      font-weight: 200;
+      font-size: 1.5em;
+
+      &:first-child {
+        border-left: 1px solid $grey;
+        border-top-left-radius: $radius;
+        border-bottom-left-radius: $radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $radius;
+        border-bottom-right-radius: $radius;
+      }
+    }
+
     li.active {
       background-color: $primary;
+      color: white;
     }
   }
   .container {
