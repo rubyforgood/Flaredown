@@ -55,7 +55,7 @@ module.exports = function(environment) {
     },
 
     review: {
-      appStore: 'https://itunes.apple.com/us/app/flaredown-symptom-tracker-for-chronic-illness/id982963596?mt=8#customer-reviews',
+      appStore: 'https://itunes.apple.com/app/id982963596?action=write-review',
       googlePlay: 'https://play.google.com/store/apps/details?id=com.flaredown.flaredownWebWrapper#details-reviews',
     }
   };

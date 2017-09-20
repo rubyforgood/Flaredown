@@ -57,7 +57,7 @@ export default Component.extend({
     },
 
     openGooglePlay() {
-      window.open(get(this, 'googlePlayUrl'));
+      window.open(get(this, 'googlePlayUrl'), 'googlePlay');
     },
   }
 });
