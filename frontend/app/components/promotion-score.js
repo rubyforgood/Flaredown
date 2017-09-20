@@ -33,14 +33,18 @@ export default Component.extend({
 
   highRateHeader: t("step.checkin.promotion_rate.reviewHeader"),
   lowRateHeader: t("step.checkin.promotion_rate.feedBackHeader"),
+  fbText: t("step.checkin.promotion_rate.shareTitleFb"),
+  twText: t("step.checkin.promotion_rate.shareTitleTw"),
 
   reviewHeader: computed('showReviewPage', function() {
     return get(this, 'showReviewPage') ? get(this, 'highRateHeader') : get(this, 'lowRateHeader');
   }),
 
-  currentUrl: computed(function() {
-    get(this, '_routing.router.currentURL');
+  shareTitles: computed(function() {
+    return { fb: get(this, 'fbText'), tw: get(this, 'twText') };
   }),
+
+  shareUrl: ' ', // to not show current url
 
   actions: {
     sendFeedback() {

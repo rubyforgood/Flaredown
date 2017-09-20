@@ -55,6 +55,8 @@ export default {
         reviewIosLabel: 'Review on iOS App Store',
         reviewGPLabel: 'Review on Google Play Store',
         reviewShare: 'Share',
+        shareTitleFb: 'I\'m using www.flaredown.com to track symptoms',
+        shareTitleTw: 'I\'m using @flaredown to track symptoms',
         feedBackHeader: 'How can we do it better?',
         feedBackPlaceHolder: 'Missing features, bugs, etc...',
       },

@@ -6,4 +6,5 @@ const {
 
 export default Component.extend({
   classNames: ['shareSocials'],
+  divideTitles: false,
 });
