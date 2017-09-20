@@ -86,12 +86,9 @@ class Checkin
   def available_for_pr?
     return false if user_has_already_rated?
     return false unless date.today?
+    return start_pr? if latest_skipped_pr_at.blank?
 
-    if latest_skipped_pr.blank?
-      return start_pr?
-    else
-      HBI_PERIODICITY - ((latest_skipped_pr.promotion_skipped_at)...date).count < 1
-    end
+    HBI_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
   end
 
   class Condition
@@ -143,9 +140,12 @@ class Checkin
     @_latest_hbi ||= HarveyBradshawIndex.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
   end
 
-  def latest_skipped_pr
+  def latest_skipped_pr_at
     @_lates_skipped_pr ||=
-      Checkin.where(encrypted_user_id: encrypted_user_id).order_by(promotion_skipped_at: :desc).first
+      Checkin
+        .where(encrypted_user_id: encrypted_user_id)
+        .order_by(promotion_skipped_at: :desc)
+        .first&.promotion_skipped_at
   end
 
   def start_pr?
