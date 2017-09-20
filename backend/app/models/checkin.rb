@@ -2,8 +2,8 @@ class Checkin
   include Mongoid::Document
 
   HBI_PERIODICITY = 7
-  PR_PERIODICITY = 7
-  PR_START_FROM = 2 # 7 days
+  PR_PERIODICITY  = 7
+  PR_START_FROM   = 7
 
   attr_accessor :includes
 
@@ -24,7 +24,7 @@ class Checkin
   # Relations
   #
   has_one :harvey_bradshaw_index
-  has_one :promotion_rate
+  has_one :promotion_rate, dependent: :destroy
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
   has_many :symptoms, class_name: 'Checkin::Symptom'
@@ -84,6 +84,7 @@ class Checkin
   end
 
   def available_for_pr?
+    return true if promotion_rate
     return false if user_has_already_rated?
     return false unless date.today?
     return start_pr? if latest_skipped_pr_at.blank?
