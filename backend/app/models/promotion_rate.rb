@@ -2,6 +2,8 @@ class PromotionRate
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  MIN_SCORE_FOR_REVIWS = 8
+
   field :date,  type: Date
   field :score, type: Integer
   field :feedback, type: String
@@ -16,6 +18,42 @@ class PromotionRate
   validates :checkin_id, uniqueness: true
 
   before_create :set_date_and_user_id
+
+  def self.group_by_score_and_date(start_str, end_str) # '17-09-2017'
+    start_day = start_str.to_date
+    end_day = end_str.to_date
+
+    PromotionRate.collection.aggregate(
+      [
+        { "$match": {
+          "date": {
+            "$gte": start_day,
+            "$lte": end_day
+          }
+        } },
+        "$group": { "_id": "$score", "count": { "$sum": 1 } }
+      ]
+    )
+  end
+
+  def self.filter_low_scores_by_date(start_str, end_str) # '17-09-2017'
+    start_day = start_str.to_date
+    end_day = end_str.to_date
+
+    PromotionRate.collection.aggregate(
+      [
+        { "$match": {
+          "score": {
+            "$lte": MIN_SCORE_FOR_REVIWS
+          },
+          "date": {
+            "$gte": start_day,
+            "$lte": end_day
+          }
+        } }
+      ]
+    )
+  end
 
   protected
 

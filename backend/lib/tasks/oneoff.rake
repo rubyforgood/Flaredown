@@ -208,4 +208,25 @@ namespace :oneoff do
 
     NotificationsMailer.notify(email: email, data: {}).deliver_now
   end
+
+  # Send email with statistic about Promotion Rate for given time
+  # end_promotion_rate_statistic['17-09-2017','22-09-2017']
+  task :send_promotion_rate_statistic, [:start_time, :end_time] => :environment do |t, args|
+    start_time = args[:start_time]
+    end_time = args[:end_time]
+
+    objects = PromotionRate.group_by_score_and_date(start_time, end_time)
+
+    PromotionRate::StatisticMailer.show(objects.to_a, start_time, end_time).deliver_later
+  end
+
+  task :send_promotion_rate_low_rate, [:start_time, :end_time] => :environment do |t, args|
+    start_time = args[:start_time]
+    end_time = args[:end_time]
+
+    objects = PromotionRate.filter_low_scores_by_date(start_time, end_time)
+    serialized_objects = objects.to_a.map {|obj| obj.inject({}) { |h, (k, v)| h[k] = v.to_s; h }}
+
+    PromotionRate::LowRateMailer.show(serialized_objects.to_a,  start_time, end_time).deliver_later
+  end
 end

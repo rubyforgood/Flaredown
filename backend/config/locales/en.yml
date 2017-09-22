@@ -64,3 +64,9 @@ en:
       bottom: 'You opted to receive daily check-in reminders in Flaredown.'
       link:
         unsubscribe: 'Click here to turn this reminder off.'
+
+  promotion_rate:
+    statistic:
+      subject: 'Statistic for Promotion Rates'
+    low_rate:
+      subject: 'Low rate Promotion feedbacks'

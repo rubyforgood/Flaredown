@@ -1,0 +1,10 @@
+<% content_for :body do %>
+  <h2> Data for current range of dates: <%= "#{@start_date} - #{@end_date}" %></h2>
+
+  <% @objects.sort_by {|item| item["_id"]}.each do |obj| %>
+    <p>Score: <%= obj["score"] %>
+      Feedback: <%= obj["feedback"] %>
+      Date: <%= obj["date"].to_date %>
+    </p>
+  <% end %>
+<% end %>
