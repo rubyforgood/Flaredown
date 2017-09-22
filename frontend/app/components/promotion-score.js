@@ -57,7 +57,12 @@ export default Component.extend({
     },
 
     openGooglePlay() {
-      window.open(get(this, 'googlePlayUrl'), 'googlePlay');
+      let url = get(this, 'googlePlayUrl');
+      if(navigator.userAgent.toLowerCase().indexOf("android") === -1) {
+        url += '#details-reviews';
+      }
+
+      window.open(url);
     },
   }
 });

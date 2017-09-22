@@ -56,7 +56,7 @@ module.exports = function(environment) {
 
     review: {
       appStore: 'https://itunes.apple.com/app/id982963596?action=write-review',
-      googlePlay: 'https://play.google.com/store/apps/details?id=com.flaredown.flaredownWebWrapper#details-reviews',
+      googlePlay: 'https://play.google.com/store/apps/details?id=com.flaredown.flaredownWebWrapper',
     }
   };
 
