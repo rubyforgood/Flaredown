@@ -87,9 +87,9 @@ class Checkin
     return true if promotion_rate
     return false if user_has_already_rated?
     return false unless date.today?
-    return start_pr? if latest_skipped_pr_at.blank?
+    return ready_for_pr? if latest_skipped_pr_at.blank?
 
-    HBI_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
+    PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
   end
 
   class Condition
@@ -149,7 +149,7 @@ class Checkin
         .first&.promotion_skipped_at
   end
 
-  def start_pr?
+  def ready_for_pr?
     user.created_at <= PR_START_FROM.day.ago
   end
 

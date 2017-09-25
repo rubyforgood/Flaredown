@@ -19,7 +19,7 @@ const {
   isPresent,
   getProperties,
   Logger: { error },
-  computed: { and },
+  computed: { and, alias },
 } = Ember;
 
 export default Model.extend({
@@ -44,6 +44,8 @@ export default Model.extend({
   promotionRate: belongsTo('promotionRate', { async: false }),
 
   tagsChanged: false,
+
+  shouldShowPrStep: alias('availableForPr'),
 
   addObj: function(obj, idsKey, relationKey) {
     const objId = parseInt(get(obj, 'id'));

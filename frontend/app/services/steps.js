@@ -39,11 +39,11 @@ export default Service.extend({
     );
   }),
 
-  exclusions: computed('checkin.shouldShowHbiStep', 'checkin.availableForPr', function() {
+  exclusions: computed('checkin.shouldShowHbiStep', 'checkin.shouldShowPrStep', function() {
     let schedulePage = {};
 
     get(this, 'checkin.shouldShowHbiStep') ? {} : schedulePage.harvey_bradshaw = true;
-    get(this, 'checkin.availableForPr')    ? {} : schedulePage.promotion_rate  = true;
+    get(this, 'checkin.shouldShowPrStep')  ? {} : schedulePage.promotion_rate  = true;
 
     return schedulePage;
   }),
