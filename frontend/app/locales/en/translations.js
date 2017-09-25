@@ -49,7 +49,7 @@ export default {
         title: "Rate Flaredown",
         rateBody: "How likely is it that you would recommend Flaredown to a friend?",
         feedBackLabel: 'Send feedback',
-        shortTitle: "Promotion-Rate",
+        shortTitle: "Feedback",
         reviewHeader: 'Glad you like it!',
         reviewText: 'We\'re a small patient-run project, sharing really helps us out:',
         reviewIosLabel: 'Review on iOS App Store',
