@@ -22,4 +22,5 @@ export default Ember.Component.extend(StepControl, {
   isTreatments: equal('stepName', 'treatments'),
   isHeathFactors: equal('stepName', 'health_factors'),
   isHarveyBradshawIndex: equal('stepName', 'harvey_bradshaw'),
+  isPromotionRate: equal('stepName', 'promotion_rate'),
 });

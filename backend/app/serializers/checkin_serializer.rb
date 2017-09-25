@@ -1,5 +1,6 @@
 class CheckinSerializer < ApplicationSerializer
-  attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code, :available_for_hbi?, :location_name
+  attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code, :available_for_hbi?, :available_for_pr?,
+             :location_name, :promotion_skipped_at
 
   has_many :conditions, embed: :objects, serializer: CheckinConditionSerializer
   has_many :symptoms, embed: :objects, serializer: CheckinSymptomSerializer
@@ -10,9 +11,14 @@ class CheckinSerializer < ApplicationSerializer
   has_many :foods, embed_in_root: true
 
   has_one :harvey_bradshaw_index, embed_in_root: true
+  has_one :promotion_rate, embed_in_root: true
 
   def harvey_bradshaw_index
     object.harvey_bradshaw_index if show_single_relation?(:harveyBradshawIndices)
+  end
+
+  def promotion_rate
+    object.promotion_rate if show_single_relation?(:promotionRate)
   end
 
   def weather

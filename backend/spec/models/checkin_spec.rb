@@ -7,6 +7,8 @@ RSpec.describe Checkin, type: :model do
     it { is_expected.to have_many(:conditions) }
     it { is_expected.to have_many(:symptoms) }
     it { is_expected.to have_many(:treatments) }
+    it { is_expected.to have_one(:harvey_bradshaw_index) }
+    it { is_expected.to have_one(:promotion_rate) }
   end
 
   describe 'Validations' do

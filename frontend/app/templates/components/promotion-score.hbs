@@ -1,0 +1,44 @@
+<h4>{{reviewHeader}}</h4>
+
+{{#if showReviewPage}}
+  <p>{{t "step.checkin.promotion_rate.reviewText"}}</p>
+
+  <div class="reviewButtons">
+    <div class="reviewIOS-btn reviewBtn">
+      <a type="button" href={{appStoreURL}} target="_blank" class="btn-primary reviewIOS">
+        {{t "step.checkin.promotion_rate.reviewIosLabel"}}
+      </a>
+    </div>
+
+    <div class="reviewGP-btn reviewBtn">
+      <a type="button" href={{googlePlayUrl}} target="_blank" class="btn-primary reviewGP">
+        {{t "step.checkin.promotion_rate.reviewGPLabel"}}
+      </a>
+    </div>
+  </div>
+
+  <p>{{t "step.checkin.promotion_rate.reviewShare"}}</p>
+
+  <div class="reviewSocials">
+    {{share-socials url=shareUrl title=shareTitles divideTitles=true}}
+  </div>
+{{else}}
+  <div class="reviewPromotionScore">
+    {{textarea rows="6" value=(mut pr.feedback) placeholder=(t "step.checkin.promotion_rate.feedBackPlaceHolder")}}
+  </div>
+
+  <div class="container">
+    <button class="btn-primary pr-btn" {{action "sendFeedback"}} disabled={{not pr.feedback}}>
+      {{feedBackLabel}}
+    </button>
+  </div>
+{{/if}}
+
+  {{step-controls
+    step=step
+    onForward=onForward
+    linkForward=true
+    onBackward=onBackward
+    forwardLabel="Next"
+    stepHasPrev=stepHasPrev
+  }}

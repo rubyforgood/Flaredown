@@ -183,3 +183,104 @@ input[type="submit"] {
     margin-right: auto;
   }
 }
+
+.checkinPrStep {
+  h4 {
+    text-align: center;
+  }
+  .prRate {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 89%;
+
+    li {
+      flex: 1;
+      border: 1px solid $grey;
+      border-left: none;
+      text-align: center;
+      color: $grey;
+      font-weight: 200;
+      font-size: 1.5em;
+
+      &:first-child {
+        border-left: 1px solid $grey;
+        border-top-left-radius: $radius;
+        border-bottom-left-radius: $radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $radius;
+        border-bottom-right-radius: $radius;
+      }
+    }
+
+    li.active {
+      background-color: $primary;
+      color: white;
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+
+    button.pr-btn {
+      background-color: $primary
+    }
+  }
+}
+
+.checkinReviewBody {
+  text-align: center;
+  color: $grey;
+}
+
+.checkinReviewBody {
+  .reviewSocials {
+    display: flex;
+    justify-content: center;
+  }
+
+  .reviewButtons {
+    .reviewBtn {
+      margin-bottom: 0.5em;
+      border-radius: $radius;
+
+      a {
+        display: inherit;
+        padding: 0.5em 0.25em;
+        color: white;
+      }
+    }
+
+    .reviewIOS-btn {
+      background-color: $iosBtn-color;
+      :active {
+        background-color: rgba(31, 77, 158, 1);
+        border-radius: $radius;
+      }
+    }
+
+    .reviewGP-btn {
+      background-color: $gbBtn-color;
+      :active {
+        background-color: rgba(29, 145, 135, 1);
+        border-radius: $radius;
+      }
+    }
+  }
+}
+
+.share-button {
+  span a {
+    color: white;
+  }
+}
+
+.fb-share-button,
+.twitter-share-button {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.6;
+}

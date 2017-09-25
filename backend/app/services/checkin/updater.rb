@@ -9,7 +9,7 @@ class Checkin::Updater
       params
         .require(:checkin)
         .permit(
-          :note, :postal_code, :weather_id,
+          :note, :postal_code, :weather_id, :promotion_skipped_at,
           tag_ids: [],
           food_ids: [],
           conditions_attributes: [:id, :value, :condition_id, :color_id, :position, :_destroy],

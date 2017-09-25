@@ -53,6 +53,11 @@ module.exports = function(environment) {
     i18n: {
       defaultLocale: 'en',
     },
+
+    review: {
+      appStore: 'https://itunes.apple.com/app/id982963596?action=write-review',
+      googlePlay: 'https://play.google.com/store/apps/details?id=com.flaredown.flaredownWebWrapper',
+    }
   };
 
   if (environment === 'development') {

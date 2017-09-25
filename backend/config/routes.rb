@@ -84,6 +84,11 @@ Rails.application.routes.draw do
       resources :harvey_bradshaw_indices, only: [:show, :create]
 
       #
+      # Promotion Rates
+      #
+      resources :promotion_rates, only: [:show, :create, :update]
+
+      #
       # Invitations
       #
       resources :invitations, only: [:show, :update]

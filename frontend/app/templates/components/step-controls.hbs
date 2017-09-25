@@ -10,12 +10,17 @@
     &nbsp;
   {{/if}}
 </div>
-<div class="forward container step-forward">
-  <button class="btn-primary summary-btn {{if disabled 'disabled'}}" {{action "forward"}}>
-    {{forwardLabel}}
 
-    {{#if (not showBack stepHasPrev)}}
-      <span>My history</span>
-    {{/if}}
-  </button>
+<div class="forward container step-forward">
+  {{#if linkForward}}
+    <a class="{{if disabled 'disabled'}}" {{action "forward"}}>{{forwardLabel}}</a>
+  {{else}}
+    <button class="btn-primary summary-btn {{if disabled 'disabled'}}" {{action "forward"}}>
+      {{forwardLabel}}
+
+      {{#if (not showBack stepHasPrev)}}
+        <span>My history</span>
+      {{/if}}
+    </button>
+  {{/if}}
 </div>

@@ -19,7 +19,7 @@ const {
   isPresent,
   getProperties,
   Logger: { error },
-  computed: { and },
+  computed: { and, alias },
 } = Ember;
 
 export default Model.extend({
@@ -29,7 +29,9 @@ export default Model.extend({
   foodIds: attr(),
   postalCode: attr('string'),
   availableForHbi: attr('boolean'),
+  availableForPr: attr('boolean'),
   locationName: attr('string'),
+  promotionSkippedAt: attr('string'),
 
   tags: hasMany('tag', { async: false }),
   foods: hasMany('food', { async: false }),
@@ -39,8 +41,11 @@ export default Model.extend({
 
   weather: belongsTo('weather', { async: false }),
   harveyBradshawIndex: belongsTo('harveyBradshawIndex', { async: false }),
+  promotionRate: belongsTo('promotionRate', { async: false }),
 
   tagsChanged: false,
+
+  shouldShowPrStep: alias('availableForPr'),
 
   addObj: function(obj, idsKey, relationKey) {
     const objId = parseInt(get(obj, 'id'));

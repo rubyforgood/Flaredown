@@ -2,6 +2,8 @@ class Checkin
   include Mongoid::Document
 
   HBI_PERIODICITY = 7
+  PR_PERIODICITY  = 7
+  PR_START_FROM   = 7
 
   attr_accessor :includes
 
@@ -16,11 +18,13 @@ class Checkin
   field :weather_id,  type: Integer
   field :encrypted_user_id, type: String, encrypted: { type: :integer }
   field :position_id, type: Integer
+  field :promotion_skipped_at, type: Date
 
   #
   # Relations
   #
   has_one :harvey_bradshaw_index
+  has_one :promotion_rate, dependent: :destroy
   has_many :treatments, class_name: 'Checkin::Treatment'
   has_many :conditions, class_name: 'Checkin::Condition'
   has_many :symptoms, class_name: 'Checkin::Symptom'
@@ -79,6 +83,15 @@ class Checkin
     HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
   end
 
+  def available_for_pr?
+    return true if promotion_rate
+    return false if user_has_already_rated?
+    return false unless date.today?
+    return ready_for_pr? if latest_skipped_pr_at.blank?
+
+    PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
+  end
+
   class Condition
     include Mongoid::Document
     include Checkin::Trackable
@@ -126,5 +139,21 @@ class Checkin
 
   def latest_hbi
     @_latest_hbi ||= HarveyBradshawIndex.where(encrypted_user_id: encrypted_user_id).order(date: :desc).first
+  end
+
+  def latest_skipped_pr_at
+    @_lates_skipped_pr ||=
+      Checkin
+        .where(encrypted_user_id: encrypted_user_id)
+        .order_by(promotion_skipped_at: :desc)
+        .first&.promotion_skipped_at
+  end
+
+  def ready_for_pr?
+    user.created_at <= PR_START_FROM.day.ago
+  end
+
+  def user_has_already_rated?
+    @_rated ||= PromotionRate.where(encrypted_user_id: encrypted_user_id).any?
   end
 end
