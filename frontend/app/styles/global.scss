@@ -242,19 +242,45 @@ input[type="submit"] {
     justify-content: center;
   }
 
-  .reviewBtns {
-    margin-bottom: 1em;
-    button {
-      margin-bottom: 1em;
-      width: 100%;
-      font-weight: 400;
+  .reviewButtons {
+    .reviewBtn {
+      margin-bottom: 0.5em;
+      border-radius: $radius;
 
-      &.reviewIOS {
-        background-color: $iosBtn-color;
+      a {
+        display: inherit;
+        padding: 0.5em 0.25em;
+        color: white;
       }
-      &.reviewGP {
-        background-color: $gbBtn-color;
+    }
+
+    .reviewIOS-btn {
+      background-color: $iosBtn-color;
+      :active {
+        background-color: rgba(31, 77, 158, 1);
+        border-radius: $radius;
+      }
+    }
+
+    .reviewGP-btn {
+      background-color: $gbBtn-color;
+      :active {
+        background-color: rgba(29, 145, 135, 1);
+        border-radius: $radius;
       }
     }
   }
+}
+
+.share-button {
+  span a {
+    color: white;
+  }
+}
+
+.fb-share-button,
+.twitter-share-button {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.6;
 }
