@@ -1,3 +1,4 @@
+
 export default {
   step: {
     onboarding: {
@@ -88,6 +89,9 @@ export default {
       },
       creation: {
         patternName: 'Pattern name',
+        selectLabel: 'Build your pattern',
+        deleteText: 'Delete pattern',
+        buttonText: 'Save pattern',
         placeholder: {
           some: 'Add symptoms,treatments and more...',
           none: 'No items to add',
