@@ -285,13 +285,29 @@ input[type="submit"] {
   line-height: 1.6;
 }
 
+.history-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .flaredown-transparent-box {
   .btn {
     width: 100%;
-    background-color: $primary;
     :active {
       background-color: rgba(29, 145, 135, 1);
     }
   }
-
 }
+
+.history-btn {
+  background-color: $primary;
+}
+
+.history-remove {
+  color: rgba(255, 0, 0, 0.72);
+}
+
+
+
+

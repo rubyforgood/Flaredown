@@ -1,0 +1,42 @@
+{{#form-for for onSubmit="createPattern"}}
+  {{#form-field for="patternName" label="Pattern name"}}
+    {{input type="text" value=name}}
+  {{/form-field}}
+
+  <div class="pattern-items">
+    <label>{{selectLabel}}</label>
+
+    <div class="selectedItems">
+      <ul>
+        {{#each objects as |object|}}
+          <li class="choosen-object" {{action "clicked" object}}>
+            <div class="regular">{{object.label}}</div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    {{#power-select
+      disabled=isChartEnablerDisabled
+      options=hiddenCharts
+      placeholder=chartEnablerPlaceholder
+      onchange=(action 'handleChange')
+      searchField="label"
+      renderInPlace=true
+      searchEnabled=true
+      class="fs-private"
+      as |chart|}}
+      {{chart.label}}
+    {{/power-select}}
+  </div>
+
+  <br>
+  <div class="history-container">
+    <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
+
+    <button class="history-btn btn" {{action "savePattern"}} disabled={{disableSaveBtn}}>
+      {{t "history.step.creation.buttonText"}}
+    </button>
+  </div>
+{{/form-for}}
+
