@@ -11,6 +11,9 @@ const {
 export default Component.extend(CheckinByDate, {
   journalIsVisible: alias('chartJournalSwitcher.journalIsVisible'),
   chartJournalSwitcher: service(),
+  i18n: service(),
+
+  createPatternStep: false,
 
   actions: {
     routeToCheckin(date) {
@@ -23,6 +26,10 @@ export default Component.extend(CheckinByDate, {
 
     showChart() {
       set(this, 'journalIsVisible', false);
+    },
+
+    toggleCreatePatternStep() {
+      set(this, 'createPatternStep', true);
     },
   },
 });

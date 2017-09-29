@@ -78,4 +78,21 @@ export default {
       },
     },
   },
+
+  history: {
+    step: {
+      initial: {
+        title: 'History',
+        text: 'Create a pattern to group your symptoms with treatments and triggers, like this:',
+        buttonText: 'Create a Pattern',
+      },
+      creation: {
+        patternName: 'Pattern name',
+        placeholder: {
+          some: 'Add symptoms,treatments and more...',
+          none: 'No items to add',
+        },
+      },
+    }
+  }
 };

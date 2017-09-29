@@ -284,3 +284,14 @@ input[type="submit"] {
   vertical-align: middle;
   line-height: 1.6;
 }
+
+.flaredown-transparent-box {
+  .btn {
+    width: 100%;
+    background-color: $primary;
+    :active {
+      background-color: rgba(29, 145, 135, 1);
+    }
+  }
+
+}
