@@ -285,6 +285,9 @@ input[type="submit"] {
   line-height: 1.6;
 }
 
+
+// History Page
+
 .history-container {
   display: flex;
   justify-content: space-between;
@@ -307,6 +310,23 @@ input[type="submit"] {
 .history-remove {
   color: rgba(255, 0, 0, 0.72);
 }
+
+.history-index-btn {
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  border: 1px solid $dark-shadow;
+  color: $dark-shadow;
+  font-weight: 500;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(225, 216, 200, 0.36);
+    outline: none;
+    color: $dark-shadow;
+  }
+}
+
 
 
 

@@ -1,6 +1,6 @@
 {{#form-for for onSubmit="createPattern"}}
   {{#form-field for="patternName" label="Pattern name"}}
-    {{input type="text" value=name}}
+    {{input type="text" value=model.name}}
   {{/form-field}}
 
   <div class="pattern-items">
@@ -8,7 +8,7 @@
 
     <div class="selectedItems">
       <ul>
-        {{#each objects as |object|}}
+        {{#each model.includes as |object|}}
           <li class="choosen-object" {{action "clicked" object}}>
             <div class="regular">{{object.label}}</div>
           </li>
@@ -32,7 +32,9 @@
 
   <br>
   <div class="history-container">
-    <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
+    {{#unless model.isNew}}
+      <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
+    {{/unless}}
 
     <button class="history-btn btn" {{action "savePattern"}} disabled={{disableSaveBtn}}>
       {{saveText}}

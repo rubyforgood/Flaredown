@@ -1,19 +1,26 @@
 <h3 class="centered page-title">{{t "history.step.initial.title"}}</h3>
 
-{{#if createPatternStep}}
-  {{pattern/create-step}}
-{{else}}
+{{#if (eq currentStep STEPS.INITIAL)}}
+  <div class="flaredown-transparent-box">
+      <p class="centered">{{t "history.step.initial.text"}}</p>
 
- <div class="flaredown-transparent-box">
-    <p class="centered">{{t "history.step.initial.text"}}</p>
-
-    {{pattern/svg-initial}}
-    <div class="history-container">
-      <button class="history-btn btn" {{action "toggleCreatePatternStep"}}>
-        {{t "history.step.initial.buttonText"}}
-      </button>
+      {{pattern/svg-initial}}
+      <div class="history-container">
+        <button class="history-btn btn" {{action "nextStep"}}>
+          {{t "history.step.initial.buttonText"}}
+        </button>
+      </div>
     </div>
-  </div>
+{{else if (eq currentStep STEPS.CREATE)}}
+  {{pattern/create-step model=selectedPattern onSaved=(action (mut currentStep) STEPS.INDEX)}}
+{{else if (eq currentStep STEPS.INDEX)}}
+  {{pattern/index-step
+    patterns=patterns
+    onEdit=(action 'edit')
+    onCreate=(action 'create')
+  }}
+{{else}}
+ Loading...
 {{/if}}
 
 

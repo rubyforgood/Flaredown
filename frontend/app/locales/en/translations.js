@@ -97,6 +97,9 @@ export default {
           none: 'No items to add',
         },
       },
+      index: {
+        newPatternText: '+ Create new pattern',
+      }
     }
   }
 };

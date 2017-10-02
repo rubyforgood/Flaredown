@@ -24,40 +24,46 @@ const {
 export default Component.extend(ChartDataRetrieve, {
   i18n: service(),
 
+  model: null,
+
   classNames: ['flaredown-white-box'],
-  objects: A([]),
   selectLabel: t("history.step.creation.selectLabel"),
   deleteText: t("history.step.creation.deleteText"),
   saveText: t("history.step.creation.buttonText"),
 
-  disableSaveBtn: not('objects.length'),
+  disableSaveBtn: not('model.includes.length'),
 
   chartEnablerPlaceholder: computed('isChartEnablerDisabled', function() {
     return get(this, 'isChartEnablerDisabled') ? 'No items to add' : 'Add symptoms, treatments and more...';
   }),
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+
+    const model = get(this, 'model');
+
+    if(model === null) {
+      set(this, 'model', get(this, 'store').createRecord('pattern'));
+    }
+  },
+
   actions: {
     handleChange(obj) {
-      let objects = get(this, 'objects');
+      const includes = get(this, 'model.includes');
 
-      if(!objects.includes(obj)) {
-        objects.pushObject(obj);
+      if(!includes.includes(obj)) {
+        includes.pushObject(obj);
       }
     },
 
     clicked(obj) {
-      get(this, 'objects').removeObject(obj);
+      get(this, 'model.includes').removeObject(obj);
     },
 
     savePattern() {
-      set(this, 'startSaving', true);
-      const query = {
-        name: get(this, 'name'),
-        includes: get(this, 'objects'),
-      };
-
-      get(this, 'store').createRecord('pattern', query).save();
-      set(this, 'startSaving', false);
+      get(this, 'model').save().then(() => {
+        this.sendAction('onSaved');
+      });
     },
 
     deletePattern() {

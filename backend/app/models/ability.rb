@@ -38,8 +38,8 @@ class Ability
       checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_pr?
     end
 
-    # can [:create], Pattern
-    can [:read, :update], Pattern, encrypted_user_id: user.encrypted_id
+    can [:create], Pattern
+    can [:read, :update, :index], Pattern, encrypted_user_id: user.encrypted_id
 
     can :read, [Comment, Post]
     can :create, [Comment, Post], encrypted_user_id: user.encrypted_id

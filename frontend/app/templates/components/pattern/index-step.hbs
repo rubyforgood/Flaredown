@@ -1,0 +1,9 @@
+{{#each patterns as |pattern|}}
+  {{pattern.name}} <span {{action 'edit' pattern}}>Edit</span>
+{{/each}}
+
+<div class="newPatternLink">
+  <button class="history-index-btn btn" {{action "newPattern"}}>
+    {{t "history.step.index.newPatternText"}}
+  </button>
+</div>
