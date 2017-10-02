@@ -58,7 +58,9 @@ export default Service.extend({
 
                 fetchOnlyQuery[category].pushObject(categoryCharts[chart].id);
               } else if(isPresent(categoryCharts[chart].label)) {
+
                 hiddenCharts.pushObject({
+                  id: categoryCharts[chart].id,
                   category,
                   label: categoryCharts[chart].label,
                 });

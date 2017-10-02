@@ -7,5 +7,7 @@ const {
 
 export default DS.Model.extend({
   name: DS.attr('string'),
-  series: DS.attr('raw'),
+  startAt: DS.attr('string'),
+  endAt: DS.attr('string'),
+  includes: DS.attr('raw'),
 });
