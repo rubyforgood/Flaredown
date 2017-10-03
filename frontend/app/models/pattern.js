@@ -11,6 +11,6 @@ export default DS.Model.extend({
   startAt: DS.attr('string'),
   endAt: DS.attr('string'),
   includes: DS.attr('raw', {
-    defaulValue() { return A([]); }
+    defaultValue() { return A([]); }
   }),
 });

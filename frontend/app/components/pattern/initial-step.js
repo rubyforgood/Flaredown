@@ -12,13 +12,4 @@ export default Component.extend({
 
   classNames: ['flaredown-transparent-box'],
   buttonLabel: t("history.step.initial.buttonText"),
-
-  actions: {
-    createPatternStep() {
-      return true;
-    },
-
-    showCreatePattern() {
-    }
-  },
 });

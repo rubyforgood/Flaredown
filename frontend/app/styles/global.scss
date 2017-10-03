@@ -290,21 +290,28 @@ input[type="submit"] {
 
 .history-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
 
-.flaredown-transparent-box {
-  .btn {
-    width: 100%;
-    :active {
-      background-color: rgba(29, 145, 135, 1);
-    }
+  &.pullLeftContent {
+    justify-content: flex-end;
+  }
+  &.justifyContent {
+    justify-content: space-between;
   }
 }
 
 .history-btn {
   background-color: $primary;
+
+  &:focus,
+  &:hover {
+    background-color: rgba(29, 145, 135, 1);
+     outline: none;
+  }
+}
+
+.large-btn {
+  width: 100%;
 }
 
 .history-remove {

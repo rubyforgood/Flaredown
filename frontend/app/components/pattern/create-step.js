@@ -67,6 +67,7 @@ export default Component.extend(ChartDataRetrieve, {
     },
 
     deletePattern() {
+      get(this, 'model').destroyRecord();
     }
   },
 });

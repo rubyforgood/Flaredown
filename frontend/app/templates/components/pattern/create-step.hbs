@@ -31,7 +31,7 @@
   </div>
 
   <br>
-  <div class="history-container">
+  <div class="history-container {{if model.isNew 'pullLeftContent' 'justifyContent'}}">
     {{#unless model.isNew}}
       <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
     {{/unless}}
