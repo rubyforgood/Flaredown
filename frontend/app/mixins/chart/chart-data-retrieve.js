@@ -23,34 +23,14 @@ const {
 export default Mixin.create({
   chartsVisibilityService: service('charts-visibility'),
 
-  hiddenCharts: alias('chartsVisibilityService.hiddenCharts'),
-  visibilityFilter: alias('chartsVisibilityService.visibilityFilter'),
-
-  updateTrackables: observer(
-    'centeredDate',
-    'chartLoaded',
-    'chartsVisibilityService.payload.tags.@each.visible',
-    'chartsVisibilityService.payload.foods.@each.visible',
-    'chartsVisibilityService.payload.symptoms.@each.visible',
-    'chartsVisibilityService.payload.conditions.@each.visible',
-    'chartsVisibilityService.payload.treatments.@each.visible',
-    'chartsVisibilityService.payload.weathersMeasures.@each.visible',
-    'chartsVisibilityService.payload.harveyBradshawIndices.@each.visible',
-    function() {
-      debounce(this, this.fetchDataChart, 1000);
-    }
-  ),
+  patternIncludes : alias('chartsVisibilityService.patternIncludes'),
 
   checkins: [],
   trackables: [],
 
-  isChartEnablerDisabled: computed('hiddenCharts.length', function() {
-    return get(this, 'hiddenCharts.length') === 0;
+  isChartEnablerDisabled: computed('patternIncludes.length', function() {
+    return get(this, 'patternIncludes.length') === 0;
   }),
-
-  // endAtWithCache: computed('endAt', function() {
-  //   return moment(get(this, 'endAt')).add(get(this, 'daysRadius'), 'days');
-  // }),
 
   setChartsData() {
     const tags = this.store.peekAll('tag').toArray();

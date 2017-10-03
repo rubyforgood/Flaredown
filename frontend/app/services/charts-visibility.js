@@ -16,6 +16,7 @@ export default Service.extend({
   payload: {},
   storageKey: 'chartsVisibilityV2', // increase version on schema change
   hiddenCharts: [],
+  patternIncludes: [],
   fetchOnlyQuery: {},
   payloadVersion: 1,
   visibilityFilter: {},
@@ -33,6 +34,7 @@ export default Service.extend({
       const payload = get(this, 'payload');
 
       let hiddenCharts = [];
+      let patternIncludes = [];
       let fetchOnlyQuery = {};
       let visibilityFilter = {};
       let visibleChartsCount = 0;
@@ -47,6 +49,13 @@ export default Service.extend({
           Object
             .keys(categoryCharts)
             .forEach(chart => {
+
+              patternIncludes.pushObject({
+                id: categoryCharts[chart].id,
+                category,
+                label: categoryCharts[chart].label,
+              });
+
               if (categoryCharts[chart].visible) {
                 visibleChartsCount += 1;
 
@@ -73,6 +82,7 @@ export default Service.extend({
         visibilityFilter,
         visibleChartsCount,
         hiddenCharts: hiddenCharts.sortBy('label'),
+        patternIncludes: patternIncludes.sortBy('label'),
       });
 
       this.updateStorage();

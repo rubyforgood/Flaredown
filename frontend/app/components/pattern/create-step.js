@@ -51,6 +51,8 @@ export default Component.extend(ChartDataRetrieve, {
     handleChange(obj) {
       const includes = get(this, 'model.includes');
 
+      get(this, 'patternIncludes').removeObject(obj);
+
       if(!includes.includes(obj)) {
         includes.pushObject(obj);
       }
@@ -58,6 +60,9 @@ export default Component.extend(ChartDataRetrieve, {
 
     clicked(obj) {
       get(this, 'model.includes').removeObject(obj);
+
+      let includes = get(this, 'patternIncludes');
+      includes.pushObject(obj);
     },
 
     savePattern() {
@@ -68,6 +73,10 @@ export default Component.extend(ChartDataRetrieve, {
 
     deletePattern() {
       get(this, 'model').destroyRecord();
+    },
+
+    cancel() {
+      this.sendAction('onCanceled');
     }
   },
 });

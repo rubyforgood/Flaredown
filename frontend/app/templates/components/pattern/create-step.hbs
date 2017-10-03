@@ -18,7 +18,7 @@
 
     {{#power-select
       disabled=isChartEnablerDisabled
-      options=hiddenCharts
+      options=patternIncludes
       placeholder=chartEnablerPlaceholder
       onchange=(action 'handleChange')
       searchField="label"
@@ -31,10 +31,12 @@
   </div>
 
   <br>
-  <div class="history-container {{if model.isNew 'pullLeftContent' 'justifyContent'}}">
-    {{#unless model.isNew}}
+  <div class="history-container">
+    {{#if model.isNew}}
+    <span class="history-cancel" {{action 'cancel'}}>Cancel</span>
+    {{else}}
       <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
-    {{/unless}}
+    {{/if}}
 
     <button class="history-btn btn" {{action "savePattern"}} disabled={{disableSaveBtn}}>
       {{saveText}}

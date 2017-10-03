@@ -288,16 +288,20 @@ input[type="submit"] {
 
 // History Page
 
+.history-box {
+  label {
+    font-weight: 500;
+    font-size: 1.5em;
+  }
+  .choosen-object {
+    font-size: 0.8em;
+  }
+}
+
 .history-container {
   display: flex;
   align-items: center;
-
-  &.pullLeftContent {
-    justify-content: flex-end;
-  }
-  &.justifyContent {
-    justify-content: space-between;
-  }
+  justify-content: space-between;
 }
 
 .history-btn {
@@ -316,6 +320,10 @@ input[type="submit"] {
 
 .history-remove {
   color: rgba(255, 0, 0, 0.72);
+}
+
+.history-cancel {
+  color: $grey;
 }
 
 .history-index-btn {
