@@ -49,9 +49,14 @@ export default Service.extend({
           Object
             .keys(categoryCharts)
             .forEach(chart => {
+              let chart_id = categoryCharts[chart].id;
+
+              if(category === 'weathersMeasures') {
+                chart_id = chart_id == 1 ? 'humidity' : 'pressure';
+              }
 
               patternIncludes.pushObject({
-                id: categoryCharts[chart].id,
+                id: chart_id,
                 category,
                 label: categoryCharts[chart].label,
               });

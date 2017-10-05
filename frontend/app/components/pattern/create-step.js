@@ -62,7 +62,10 @@ export default Component.extend(ChartDataRetrieve, {
       get(this, 'model.includes').removeObject(obj);
 
       let includes = get(this, 'patternIncludes');
-      includes.pushObject(obj);
+
+      if(obj.category !== 'weathersMeasures') {
+        includes.pushObject(obj);
+      }
     },
 
     savePattern() {
@@ -72,7 +75,9 @@ export default Component.extend(ChartDataRetrieve, {
     },
 
     deletePattern() {
-      get(this, 'model').destroyRecord();
+      get(this, 'model').destroyRecord().then(() => {
+        this.sendAction('onSaved');
+      });;
     },
 
     cancel() {

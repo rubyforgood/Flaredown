@@ -3,21 +3,23 @@
 
   {{#if (eq currentStep STEPS.INITIAL)}}
     <div class="flaredown-transparent-box">
-        <p class="centered">{{t "history.step.initial.text"}}</p>
+      <p class="centered">{{t "history.step.initial.text"}}</p>
 
-        {{pattern/svg-initial}}
-        <div class="history-container">
-          <button class="history-btn large-btn" {{action "nextStep"}}>
-            {{t "history.step.initial.buttonText"}}
-          </button>
-        </div>
+      {{pattern/svg-initial}}
+      <div class="history-container">
+        <button class="history-btn large-btn" {{action "nextStep"}}>
+          {{t "history.step.initial.buttonText"}}
+        </button>
       </div>
+    </div>
+
   {{else if (eq currentStep STEPS.CREATE)}}
     {{pattern/create-step
       model=selectedPattern
       onSaved=(action (mut currentStep) STEPS.INDEX)
       onCanceled=(action (mut currentStep) STEPS.INDEX)
     }}
+
   {{else if (eq currentStep STEPS.INDEX)}}
     {{pattern/index-step
       patterns=patterns
@@ -25,12 +27,12 @@
       onCreate=(action 'create')
     }}
   {{else}}
-   Loading...
+    {{partial "application/three-bounce-spinner"}}
   {{/if}}
 </div>
 
-
-{{!-- <div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
+{{!--
+<div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
   <button {{action "showChart"}} class={{if journalIsVisible "" "active"}}>Charts</button>
   <button {{action "showJournal"}} class={{if journalIsVisible "active" ""}}>Journal</button>
 </div>

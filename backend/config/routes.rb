@@ -199,7 +199,8 @@ Rails.application.routes.draw do
       #
       resources :weathers, only: [:index]
 
-      resources :patterns, only: [:index, :create, :show]
+      resources :patterns
+      resources :charts_pattern, only: [:index]
     end
   end
 end
