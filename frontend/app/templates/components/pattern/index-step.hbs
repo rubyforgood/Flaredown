@@ -2,9 +2,9 @@
   {{pattern.name}} <span {{action 'edit' pattern}}>Edit</span>
 
   {{#with (find-by 'pattern_id' pattern.id chartData) as |data|}}
-    {{#pattern/chart-group data=data as |chart|}}
+    {{#pattern/chart-group data=data startAt=startAt endAt=endAt as |chart|}}
       {{#each chart.data.series as |item index|}}
-        {{pattern/chart-item data=item index=index svg=chart.svg}}
+        {{pattern/chart-item data=item index=index chart=chart}}
       {{/each}}
     {{/pattern/chart-group}}
   {{/with}}

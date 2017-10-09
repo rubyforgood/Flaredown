@@ -21,6 +21,26 @@ class Api::V1::PatternsController < ApplicationController
     render json: @pattern
   end
 
+  def update
+    @pattern.update_attributes(pattern_params)
+
+    render json: @pattern
+  end
+
+  def destroy
+    pattern = Pattern.find_by(id: params[:id])
+
+    authorize! :destroy, pattern
+
+    if pattern.destroy
+      head :no_content
+    else
+      render json: { errors: pattern.errors }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
   def pattern_params
     params.require(:pattern)
       .permit(:name, :start_at, :end_at, includes: [:id, :category, :label])

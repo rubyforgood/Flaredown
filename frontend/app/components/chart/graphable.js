@@ -21,7 +21,7 @@ export default Mixin.create({
   }),
 
   nestedTransform: computed('height', 'startAt', 'data', function() {
-    return `translate(${ - get(this, 'xScale')( get(this, 'startAt') )}, 5)`;
+    return `translate(${ - parseFloat(get(this, 'xScale')( get(this, 'startAt') ) )}, 5)`;
   }),
 
   xDomain: computed('data', function() {

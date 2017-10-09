@@ -6,21 +6,19 @@ const {
   get,
   set,
   observer,
-  Component
+  Component,
+  run: { scheduleOnce }
 } = Ember;
 
 export default Component.extend({
-  svg: null,
   data: null,
+  chart: null,
   index: 1,
-  width: 300,
-  heigth: 150,
-
   isRendered: false,
 
-  renderObserve: observer('svg', 'isRendered', function() {
-    if(get(this, 'svg') && get(this, 'isRendered')) {
-      this.renderChart();
+  renderObserve: observer('chart.svg', 'chart.width', 'chart.height', 'isRendered', function() {
+    if(get(this, 'chart.svg') && get(this, 'isRendered')) {
+      scheduleOnce('afterRender', this, 'renderChart');
     }
   }),
 
@@ -34,11 +32,11 @@ export default Component.extend({
     if(data.data.length > 0) {
       switch(data.type) {
         case 'marker': {
-          this.renderMarker(data.data);
+          this.renderMarker(data.data, data.index);
           break;
         }
         default: {
-          this.renderLine(data.data);
+          this.renderLine(data.data, data.subtype);
           break;
         }
       }
@@ -48,39 +46,46 @@ export default Component.extend({
     }
   },
 
-  renderMarker(data) {
-    const svg = get(this, 'svg');
-    const index = get(this, 'index');
-    const width = get(this, 'width');
-    const x = d3.time.scale().range([0, width]);
-    const y = d3.scale.linear().range([get(this, 'heigth'), 0]);
+  renderMarker(data, index) {
+    const svg = get(this, 'chart.svg');
+    const width = get(this, 'chart.width');
+    const xScale = get(this, 'chart.xScale');
 
-    // const line = d3.svg.line()
-    //   .x((d) => {
-    //     moment(d.x).toDate().getTime();
-    //   })
-    //   .y(() => index);
+    const y = get(this, 'chart.svgLineAreaHeight') + get(this, 'chart.svgLineOffset')*(index + 1) + get(this, 'chart.svgLineHeight')*index;
 
-    x.domain(d3.extent(data, (d) => moment(d.x).toDate().getTime() ));
-    y.domain([0, d3.max(data, (d) => index)]);
+    console.log('data: ', data, 'y: ', y, 'index: ', index);
 
-    svg.append('path')
+
+    svg.select('g.lines')
+    .append('path')
       .attr('class', 'line')
-      .attr('d', `M0 ${y(index)} H ${width}`)
+      .attr('d', `M0 ${y} H ${width}`)
       .attr('stroke', 'black')
       .style('stroke-dasharray', ('3, 3'));
 
-    svg.selectAll('dot')
+    svg.select('g.dots')
+    .selectAll('dot')
       .data(data)
       .enter().append('circle')
       .attr('fill', 'red')
       .attr('r', 3.5)
-      .attr('cx', (d) => x(moment(d.x).toDate().getTime()))
-      .attr('cy', (d) => y(index));
+      .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()))
+      .attr('cy', (d) => y);
   },
 
-  renderLine(data) {
-    const svg = get(this, 'svg');
+  renderLine(data, subtype) {
+    const isStatic = subtype === 'static';
+    const xScale = get(this, 'chart.xScale');
+    const yScale = get(this,  isStatic ? 'chart.yScaleStatic' : 'chart.yScaleDynamic');
+    const svg = get(this, 'chart.svg');
+
+    const line = d3.svg.line()
+      .x((d) => xScale(moment(d.x).toDate().getTime()))
+      .y((d) => yScale(d.y));
+
+    svg.append('path')
+      .attr('class', isStatic ? 'line' : 'line dynamic')
+      .attr('d', line(data));
   }
 
 });

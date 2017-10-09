@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
+import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
 
 const {
   get,
@@ -16,13 +17,15 @@ const STEPS = {
   INDEX: 3
 };
 
-export default Component.extend(CheckinByDate, {
+export default Component.extend(CheckinByDate, DatesRetriever, {
   STEPS,
   selectedPattern: null,
   currentStep: null,
   journalIsVisible: alias('chartJournalSwitcher.journalIsVisible'),
   chartJournalSwitcher: service(),
   i18n: service(),
+  dateRange: 2,
+  serieHeight: 75,
 
   init() {
     this._super(...arguments);
@@ -36,6 +39,16 @@ export default Component.extend(CheckinByDate, {
     return DS.PromiseArray.create({
       promise: get(this, 'store').findAll('pattern')
     });
+  }),
+
+  checkins: computed(function() {
+    return this
+      .store
+      .peekAll('checkin')
+      .toArray()
+      .sort(
+        (a, b) => moment(get(a, 'date')).diff(get(b, 'date'), 'days')
+      );
   }),
 
   actions: {

@@ -39,7 +39,9 @@ class Ability
     end
 
     can [:create], Pattern
-    can [:read, :update, :index], Pattern, encrypted_user_id: user.encrypted_id
+    can [:read, :update, :index, :destroy], Pattern, encrypted_user_id: user.encrypted_id
+
+    can [:read], ChartsPattern
 
     can :read, [Comment, Post]
     can :create, [Comment, Post], encrypted_user_id: user.encrypted_id

@@ -1,15 +1,16 @@
 <svg width='100%' height={{svgChartHeigth}}></svg>
-{{linesChartHeigth}}
+
 {{yield (hash
           svg=svg
           data=data
-          xScale=xScale
-          yScale=yScale
           width=svgChartWidth
           height=svgChartHeigth
           svgLineAreaHeight=svgLineAreaHeight
           svgLineOffset=svgLineOffset
           svgLineHeight=svgLineHeight
+          xScale=xScale
+          yScaleStatic=yScaleStatic
+          yScaleDynamic=yScaleDynamic
         )
 }}
 
