@@ -1,26 +1,43 @@
 class ChartsPattern
-  include ActiveModel::Model, ActiveModel::Serialization
-
-  attr_accessor :start_at, :end_at, :user, :pattern_id
-
-  validates :pattern, :start_at, :end_at, presence: true
+  attr_accessor :start_at, :end_at, :pattern, :user
 
   TYPE_CHART = {
     line: %w(conditions symptoms),
     marker: %w(treatments tags foods),
     hbi: %w(harveyBradshawIndices),
     weather: %w(weathersMeasures)
-  }
+  }.freeze
 
   SUBTYPE = {
     static: %i(line marker),
     dynamic: %i(hbi weather)
-  }
+  }.freeze
+
+  def initialize(options)
+    @start_at, @end_at = options[:start_at], options[:end_at]
+    @pattern, @user = options[:pattern], options[:user]
+  end
+
+  def includes
+    @includes ||=
+      pattern_includes
+        .map { |hash| hash.slice(:category, :id) }
+        .group_by { |hash| hash[:category] }
+        .each_with_object({}) { |obj, memo| memo[obj[0]] = obj[1].group_by {|i| i[:id] }.keys }
+  end
+
+  def checkins
+    @checkins ||= user.checkins.by_date(start_at.to_date, end_at.to_date).map do |checkin|
+      checkin.includes = includes
+
+      checkin
+    end
+  end
 
   def chart_data
     @data ||=
       {
-        pattern_id: pattern_id,
+        pattern_id: pattern.id,
         pattern_name: pattern.name,
 
         series: pattern_includes.map do |chart|
@@ -35,27 +52,6 @@ class ChartsPattern
           }
         end
       }
-  end
-
-
-  def checkins
-    @checkins ||= user.checkins.by_date(start_at.to_date, end_at.to_date).map do |checkin|
-      checkin.includes = includes
-
-      checkin
-    end
-  end
-
-  def pattern
-    @pattern ||= Pattern.find_by(id: pattern_id)
-  end
-
-  def includes
-    @includes ||=
-      pattern_includes
-        .map { |hash| hash.slice(:category, :id) }
-        .group_by { |hash| hash[:category] }
-        .each_with_object({}) { |obj, memo| memo[obj[0]] = obj[1].group_by {|i| i[:id] }.keys }
   end
 
   def pattern_includes

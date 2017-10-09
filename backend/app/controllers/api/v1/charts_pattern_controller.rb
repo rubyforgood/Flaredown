@@ -5,14 +5,13 @@ class Api::V1::ChartsPatternController < ApplicationController
     start_at = charts_pattern_params[:start_at]
     end_at = charts_pattern_params[:end_at]
 
-    patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] })
+    @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] })
 
-    @charts_patterns = patterns.map do |pattern|
-      c = ChartsPattern.new(start_at: start_at, end_at: end_at, pattern_id: pattern.id, user: User.first)
-      c.chart_data
-    end
+    @extended_patterns = @patterns.map do |pattern|
+        pattern.extend(PatternExtender).form_chart_data(start_at: start_at, end_at: end_at, pattern: pattern, user: User.first)
+      end
 
-    render json: @charts_patterns
+    render json: @extended_patterns
   end
 
   private
