@@ -84,14 +84,14 @@ class Checkin
   end
 
   def available_for_pr?
-    return false # Remove to enable promotions
+    false # Remove to enable promotions
 
-    return true if promotion_rate
-    return false if user_has_already_rated?
-    return false unless date.today?
-    return ready_for_pr? if latest_skipped_pr_at.blank?
+    # return true if promotion_rate
+    # return false if user_has_already_rated?
+    # return false unless date.today?
+    # return ready_for_pr? if latest_skipped_pr_at.blank?
 
-    PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
+    # PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
   end
 
   class Condition
