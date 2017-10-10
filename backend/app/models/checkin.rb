@@ -84,6 +84,8 @@ class Checkin
   end
 
   def available_for_pr?
+    return false # Remove to enable promotions
+
     return true if promotion_rate
     return false if user_has_already_rated?
     return false unless date.today?
