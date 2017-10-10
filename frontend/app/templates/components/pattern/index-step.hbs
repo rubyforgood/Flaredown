@@ -1,5 +1,8 @@
 {{#each patterns as |pattern|}}
-  {{pattern.name}} <span {{action 'edit' pattern}}>Edit</span>
+  <div class='pattern-block'>
+    <span class="pattern-name">{{pattern.name}}</span>
+    <span class='pattern-edit' {{action 'edit' pattern}}>Edit</span>
+  </div>
 
   {{#with (find-by 'pattern_id' pattern.id chartData) as |data|}}
     {{#pattern/chart-group data=data startAt=startAt endAt=endAt as |chart|}}

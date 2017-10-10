@@ -50,15 +50,13 @@ export default Component.extend({
     const svg = get(this, 'chart.svg');
     const width = get(this, 'chart.width');
     const xScale = get(this, 'chart.xScale');
+    const colorId = get(this, 'data.color_id');
 
     const y = get(this, 'chart.svgLineAreaHeight') + get(this, 'chart.svgLineOffset')*(index + 1) + get(this, 'chart.svgLineHeight')*index;
 
-    console.log('data: ', data, 'y: ', y, 'index: ', index);
-
-
     svg.select('g.lines')
     .append('path')
-      .attr('class', 'line')
+      .attr('class', `line colorable-stroke-${colorId}`)
       .attr('d', `M0 ${y} H ${width}`)
       .attr('stroke', 'black')
       .style('stroke-dasharray', ('3, 3'));
@@ -67,8 +65,8 @@ export default Component.extend({
     .selectAll('dot')
       .data(data)
       .enter().append('circle')
-      .attr('fill', 'red')
-      .attr('r', 3.5)
+      .attr('class', `colorable-stroke-${colorId}`)
+      .attr('r', 6)
       .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()))
       .attr('cy', (d) => y);
   },
@@ -77,6 +75,7 @@ export default Component.extend({
     const isStatic = subtype === 'static';
     const xScale = get(this, 'chart.xScale');
     const yScale = get(this,  isStatic ? 'chart.yScaleStatic' : 'chart.yScaleDynamic');
+    const colorId = get(this, 'data.color_id');
     const svg = get(this, 'chart.svg');
 
     const line = d3.svg.line()
@@ -84,7 +83,8 @@ export default Component.extend({
       .y((d) => yScale(d.y));
 
     svg.append('path')
-      .attr('class', isStatic ? 'line' : 'line dynamic')
+      .attr('class', isStatic ? `line colorable-stroke-${colorId}` : 'line dynamic')
+      // .attr('class', `colorable-stroke-${colorId}`)
       .attr('d', line(data));
   }
 

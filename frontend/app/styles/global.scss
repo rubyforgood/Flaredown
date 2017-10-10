@@ -49,6 +49,11 @@
   	margin: 2em auto;
   	display: block;
   }
+
+  &.max-width {
+    max-width: 100%;
+    padding: 30px 0px;
+  }
 }
 
 .x-to-remove {
@@ -342,11 +347,31 @@ input[type="submit"] {
   }
 }
 
-.flaredown-white-svg {
-  border-radius: 5px;
-  background: white;
-  box-shadow: 0 4px 0 $shadow;
+
+// Pattern Index block
+
+.pattern-block {
+  display: flex;
+  justify-content: space-between;
+  margin-right: auto;
+  margin-left: auto;
   margin-bottom: 1em;
+  width: 95%;
+
+  span {
+    font-weight: 600;
+
+    &.pattern-edit {
+      color: $primary;
+    }
+  }
+}
+
+.flaredown-svg-group {
+  .line {
+    fill: none;
+    stroke-width: 2;
+  }
 }
 
 

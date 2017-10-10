@@ -48,6 +48,7 @@ class ChartsPattern
             subtype: SUBTYPE.select { |key, value| value.include? type }.keys&.first,
             label: chart[:label],
             category: category,
+            color_id: self.get_color_id(chart),
             data: self.data(chart)
           }
         end
@@ -87,5 +88,12 @@ class ChartsPattern
               .map { |checkin| { x: checkin.date, y: checkin.harvey_bradshaw_index.score } }
     end
     res
+  end
+
+  def get_color_id(chart)
+    model_name = chart[:category].singularize.camelize
+
+    Tracking.where(user_id: user.id, trackable_type: model_name, trackable_id: chart[:id])
+     .active_in_range(start_at.to_date, end_at.to_date).map(&:color_id).compact.last
   end
 end

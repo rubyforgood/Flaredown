@@ -14,7 +14,7 @@ const {
 } = Ember;
 
 export default Component.extend({
-  classNames: ['flaredown-svg-group'],
+  classNames: ['flaredown-white-box', 'max-width', 'flaredown-svg-group'],
 
   svg: null,
   data: null,
@@ -22,7 +22,7 @@ export default Component.extend({
 
   svgChartWidth: 500,
   svgLineAreaHeight: 300,
-  svgLineOffset: 10,
+  svgLineOffset: 20,
   svgLineHeight: 3,
   startAt: null,
   endAt: null,
@@ -49,6 +49,10 @@ export default Component.extend({
 
     set(this, 'svgChartWidth', width);
     set(this, 'svg', svg);
+
+    window.addEventListener("resize", () =>{
+      set(this, 'svgChartWidth', this.$().width());
+    });
   },
 
   xScaleObserver: observer('svgChartWidth', function(){
