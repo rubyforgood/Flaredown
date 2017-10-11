@@ -4,7 +4,7 @@ class Api::V1::AwsSesController < ApplicationController
 
   def notification
     message_type = request.headers['x-amz-sns-message-type']
-    sns_topic = request.headers['x-amz-sns-topic-arn']
+    # sns_topic = request.headers['x-amz-sns-topic-arn']
     raw_post = request.raw_post
 
     if message_type.include? 'Confirmation'

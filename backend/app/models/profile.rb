@@ -77,7 +77,7 @@ class Profile < ActiveRecord::Base
     time_zone_name: 'America/New_York'
   }.freeze
 
-  NOTIFICATION_ATTRS = %w(checkin_reminder notify_top_posts notify)
+  NOTIFICATION_ATTRS = %w(checkin_reminder notify_top_posts notify).freeze
 
   #
   # Instance Methods

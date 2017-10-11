@@ -7,15 +7,15 @@ class EmailRejectDispatcher
     message_raw = body['Message']
 
     recipients =
-      if type === 'Bounce'
+      if type == 'Bounce'
         emails = body.dig('mail', 'destination') || []
 
         { bounced: emails }
       elsif message_raw
-       message = JSON.parse message_raw
-       emails = message['notificationType'] === 'Complaint' ? message.dig('mail', 'destination') : []
+        message = JSON.parse message_raw
+        emails = message['notificationType'] == 'Complaint' ? message.dig('mail', 'destination') : []
 
-       { complaint: emails }
+        { complaint: emails }
       end
 
     EmailRejectJob.perform_async(recipients)
