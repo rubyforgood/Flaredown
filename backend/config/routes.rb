@@ -198,6 +198,8 @@ Rails.application.routes.draw do
       # Weathers
       #
       resources :weathers, only: [:index]
+
+      post '/aws_ses/notification', to: 'aws_ses#notification'
     end
   end
 end
