@@ -51,6 +51,9 @@ export default Component.extend({
     set(this, 'svg', svg);
 
     window.addEventListener("resize", () =>{
+      svg.select('g.dots').selectAll('circle').remove();
+      svg.select('g.lines').selectAll('path').remove();
+
       set(this, 'svgChartWidth', this.$().width());
     });
   },

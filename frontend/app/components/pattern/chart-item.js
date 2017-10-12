@@ -55,20 +55,24 @@ export default Component.extend({
     const y = get(this, 'chart.svgLineAreaHeight') + get(this, 'chart.svgLineOffset')*(index + 1) + get(this, 'chart.svgLineHeight')*index;
 
     svg.select('g.lines')
-    .append('path')
-      .attr('class', `line colorable-stroke-${colorId}`)
-      .attr('d', `M0 ${y} H ${width}`)
-      .attr('stroke', 'black')
-      .style('stroke-dasharray', ('3, 3'));
+    .selectAll('pathes') // for adding new pathes
+      .data(data)
+      .enter()
+      .append('path')
+        .attr('class', `line colorable-stroke-${colorId}`)
+        .attr('d', `M0 ${y} H ${width}`)
+        .attr('stroke', 'black')
+        .style('stroke-dasharray', ('3, 3'));
 
     svg.select('g.dots')
-    .selectAll('dot')
-      .data(data)
-      .enter().append('circle')
-      .attr('class', `colorable-stroke-${colorId}`)
-      .attr('r', 6)
-      .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()))
-      .attr('cy', (d) => y);
+    .selectAll('dots')
+    .data(data)
+      .enter()
+      .append('circle')
+        .attr('class', `colorable-stroke-${colorId}`)
+        .attr('r', 6)
+        .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()))
+        .attr('cy', (d) => y);
   },
 
   renderLine(data, subtype) {
@@ -82,10 +86,13 @@ export default Component.extend({
       .x((d) => xScale(moment(d.x).toDate().getTime()))
       .y((d) => yScale(d.y));
 
-    svg.append('path')
-      .attr('class', isStatic ? `line colorable-stroke-${colorId}` : 'line dynamic')
-      // .attr('class', `colorable-stroke-${colorId}`)
-      .attr('d', line(data));
+    svg.select('g.lines')
+    .selectAll('path')
+      .data(data)
+      .enter()
+      .append('path')
+        .attr('class', isStatic ? `line colorable-stroke-${colorId}` : 'line dynamic')
+        .attr('d', line(data));
   }
 
 });
