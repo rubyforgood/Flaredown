@@ -3,19 +3,21 @@ class EmailRejectDispatcher
 
   def perform(raw_post)
     body = JSON.parse(raw_post)
-    type = body['notificationType']
+    test_case_type = body['notificationType']
     message_raw = body['Message']
 
     recipients =
-      if type == 'Bounce'
+      if test_case_type == 'Bounce'
         emails = body.dig('mail', 'destination') || []
 
-        { bounced: emails }
+        { bounce: emails }
       elsif message_raw
         message = JSON.parse message_raw
-        emails = message['notificationType'] == 'Complaint' ? message.dig('mail', 'destination') : []
 
-        { complaint: emails }
+        emails = message.dig('mail', 'destination') || []
+        rejected_type = message['notificationType'].downcase
+
+        { rejected_type.to_sym => emails }
       end
 
     EmailRejectJob.perform_async(recipients)
