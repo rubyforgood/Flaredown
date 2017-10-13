@@ -22,18 +22,13 @@ const {
 export default Component.extend(DatesRetriever, {
   ajax: service('ajax'),
   chartsVisibilityService: service('charts-visibility'),
-
-  // pixelsPerDate: 32,
-
-  startAt: computed(function() {
-    return moment('2017-09-20');
-  }),
-
-  endAt: computed(function() {
-    return moment('2017-10-10');
-  }),
+  daysRadius: 7,
 
   patternIdsChanged: on('init', observer('patterns.@each.id', 'startAt', 'endAt', function() {
+    scheduleOnce('afterRender', this, '_loadChartData');
+  })),
+
+  _loadChartData() {
     const ids = get(this, 'patterns').mapBy('id');
 
     if(ids.length > 0) {
@@ -46,37 +41,8 @@ export default Component.extend(DatesRetriever, {
       }).then((data) => {
         set(this, 'chartData', data.charts_pattern);
       });
-
     }
-  })),
-
-  fetchCheckins() {
-    set(this, 'checkins', get(this, 'fetchedCheckins'));
   },
-
-  fetchedCheckins: computed(function() {
-    return this
-      .store
-      .findAll('checkin')
-      .toArray()
-      .sort(
-        (a, b) => moment(get(a, 'date')).diff(get(b, 'date'), 'days')
-      );
-  }),
-
-  timeline: computed('checkins', 'startAt', 'endAt', function() {
-    debugger;
-    let timeline = Ember.A();
-
-    moment.range(get(this, 'startAtWithCache'), get(this, 'endAtWithCache')).by('days', function(day) {
-      timeline.pushObject(
-        d3.time.format('%Y-%m-%d').parse(day.format("YYYY-MM-DD"))
-      );
-    });
-
-    return timeline;
-  }),
-
 
   actions: {
     newPattern() {
