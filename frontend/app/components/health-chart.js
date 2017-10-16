@@ -309,13 +309,11 @@ export default Component.extend(Resizable, FieldsByUnits, DatesRetriever, {
         start_at: startAtWithCache.format("YYYY-MM-DD"),
       };
 
-      let res = this
+      return this
         .store
         .queryRecord('chart', query)
         .then(() => this.setChartsData())
         .then(() => this.isDestroyed || setProperties(this, { chartLoaded: true, oldPayloadVersion: payloadVersion }));
-
-      return res;
     }
   },
 

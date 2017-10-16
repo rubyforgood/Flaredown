@@ -21,11 +21,13 @@ export default Component.extend({
   svgHeight: 0,
 
   svgChartWidth: 500,
-  svgLineAreaHeight: 300,
+  svgLineAreaHeight: 150,
   svgLineOffset: 20,
   svgLineHeight: 3,
   startAt: null,
   endAt: null,
+  margin: { top: 25, right: 5, bottom: 5, left: 10 },
+  marginOffset: 20,
 
   init(){
     this._super(...arguments);
@@ -40,50 +42,76 @@ export default Component.extend({
   },
 
   didInsertElement() {
-    const svg = d3.select(this.element).select('svg');
-    const width = this.$().width();
+    this._super(...arguments);
 
-    svg.append('g').attr('class', 'lines');
-    svg.append('g').attr('class', 'dots');
+    const svg = d3.select(this.element).select('svg').append('g').attr('class', 'offset');
 
+    const margin = get(this, 'margin');
 
-    set(this, 'svgChartWidth', width);
+    svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // svg references to g
+
+    const resize = () => {
+      const width = this.$().width();
+
+      set(this, 'svgWidth', width);
+      set(this, 'svgChartWidth', width - margin.left - margin.right);
+    };
     set(this, 'svg', svg);
 
-    window.addEventListener("resize", () =>{
-      svg.select('g.dots').selectAll('circle').remove();
-      svg.select('g.lines').selectAll('path').remove();
+    window.addEventListener("resize", resize);
 
-      set(this, 'svgChartWidth', this.$().width());
-    });
+    resize();
   },
 
   xScaleObserver: observer('svgChartWidth', function(){
-    get(this, 'xScale').range([0, get(this, 'svgChartWidth')]);
+    get(this, 'xScale').range([0, get(this, 'svgChartWidth') ]);
   }),
 
-  svgChartHeigth: computed('data.series', function() {
-    let height = get(this, 'svgHeight');
-    const series = get(this, 'data.series');
-    const hasLines = series.filterBy('type', 'line').filter((item) => item.data.length > 0).length > 0;
+  svgGroupObserver: observer('svg', function() {
+    const svg = get(this, 'svg');
 
-    let index = 0;
-    const markers = series.filterBy('type', 'marker').filter((item) => item.data.length > 0).map((i) => {
-      i.index = index;
-      index += 1;
+    if(!svg) {
+      return;
+    }
+
+    if(svg.selectAll('.lines-area').length <= 1) {
+      svg.append('g').attr('class', 'lines-area');
+    }
+
+    if(svg.selectAll('.dots-area').length <= 1) {
+      svg.append('g').attr('class', 'dots-area');
+    }
+  }),
+
+  svgHeight: computed('data.series.[]', function() {
+    let height = 0;
+    const series = get(this, 'data.series');
+
+    let indexLine = 0;
+    const lines = series.filterBy('type', 'line').filter((item) => item.data.length > 0).map((i) => {
+      i.index = indexLine;
+      indexLine += 1;
     });
 
-    if(hasLines) {
+    let indexMarker = 0;
+    const markers = series.filterBy('type', 'marker').filter((item) => item.data.length > 0).map((i) => {
+      i.index = indexMarker;
+      indexMarker += 1;
+    });
+
+    if(lines.length > 0) {
       height += get(this, 'svgLineAreaHeight');
     }
 
-    markers.forEach(() => {
-      height += 2 * get(this, 'svgLineOffset') + get(this, 'svgLineHeight');
-    });
+    if(markers.length > 0) {
+      markers.forEach(() => {
+        height += 2 * get(this, 'svgLineOffset') + get(this, 'svgLineHeight');
+      });
+    }
 
     get(this, 'xScale').domain([
-      get(this, 'startAt').toDate().getTime(),
-      get(this, 'endAt').toDate().getTime(),
+      get(this, 'startAt').startOf('day').toDate().getTime(),
+      get(this, 'endAt').endOf('day').toDate().getTime(),
     ]);
 
     get(this, 'yScaleStatic').domain([0, 4]);
@@ -96,5 +124,11 @@ export default Component.extend({
     ]);
 
     return height;
-  })
+  }),
+
+  svgChartHeigth: computed('svgHeight', function() {
+    const margin = get(this, 'margin');
+
+    return (get(this, 'svgHeight') - margin.top - margin.bottom);
+  }),
 });
