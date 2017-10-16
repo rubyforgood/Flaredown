@@ -5,6 +5,9 @@
 
   <div class="pattern-items">
     <label>{{selectLabel}}</label>
+    {{#if showMessage}}
+      <span>{{maxTrackablesText}}</span>
+    {{/if}}
 
     <div class="selectedItems">
       <ul>

@@ -17,6 +17,7 @@ const {
     scheduleOnce,
   },
   getProperties,
+  setProperties,
   Component,
   A,
 } = Ember;
@@ -25,11 +26,14 @@ export default Component.extend(ChartDataRetrieve, {
   i18n: service(),
 
   model: null,
+  maxTrackables: 3,
+  showMessage: false,
 
   classNames: ['flaredown-white-box'],
   selectLabel: t("history.step.creation.selectLabel"),
   deleteText: t("history.step.creation.deleteText"),
   saveText: t("history.step.creation.buttonText"),
+  maxTrackablesText: t("history.step.creation.maxTrackablesText"),
 
   disableSaveBtn: not('model.includes.length'),
 
@@ -47,8 +51,20 @@ export default Component.extend(ChartDataRetrieve, {
     }
   },
 
+  maxTrackablesObserver: observer('model.includes.length', function() {
+    let length = get(this, 'model.includes.length');
+    const maxTrackables = get(this, 'maxTrackables');
+
+    if(length >= maxTrackables) {
+      setProperties(this, { showMessage: true, disableSaveBtn: true });
+    } else {
+      setProperties(this, { showMessage: false, disableSaveBtn: false });
+    }
+  }),
+
   actions: {
     handleChange(obj) {
+      const maxTrackables = get(this, 'maxTrackables');
       const includes = get(this, 'model.includes');
 
       get(this, 'patternIncludes').removeObject(obj);
@@ -56,6 +72,12 @@ export default Component.extend(ChartDataRetrieve, {
       if(!includes.includes(obj)) {
         includes.pushObject(obj);
       }
+
+      // if(!includes.includes(obj) && includes.length <= maxTrackables) {
+      //   includes.pushObject(obj);
+      // } else {
+      //   set(this, 'showMessage', true);
+      // }
     },
 
     clicked(obj) {

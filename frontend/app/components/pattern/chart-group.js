@@ -26,7 +26,7 @@ export default Component.extend({
   svgLineHeight: 3,
   startAt: null,
   endAt: null,
-  margin: { top: 25, right: 5, bottom: 5, left: 10 },
+  margin: { top: 10, right: 5, bottom: 5, left: 10 },
   marginOffset: 20,
 
   init(){
@@ -51,10 +51,13 @@ export default Component.extend({
     svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // svg references to g
 
     const resize = () => {
-      const width = this.$().width();
+      let svgSelection = this.$();
+      if(svgSelection) {
+        const width = this.$().width();
 
-      set(this, 'svgWidth', width);
-      set(this, 'svgChartWidth', width - margin.left - margin.right);
+        set(this, 'svgWidth', width);
+        set(this, 'svgChartWidth', width - margin.left - margin.right);
+      }
     };
     set(this, 'svg', svg);
 
