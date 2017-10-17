@@ -19,6 +19,12 @@
   </button>
 </div>
 
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingPatterns}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}
+
 {{chart-navigation
   date=centeredDate
   endAt=endAt

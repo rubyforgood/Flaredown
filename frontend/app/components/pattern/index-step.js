@@ -17,12 +17,15 @@ const {
   observer,
   getProperties,
   setProperties,
+  incrementProperty,
 } = Ember;
 
 export default Component.extend(DatesRetriever, {
   ajax: service('ajax'),
   chartsVisibilityService: service('charts-visibility'),
   daysRadius: 7,
+  page: 1,
+  loadingPatterns: false,
 
   patternIdsChanged: on('init', observer('patterns.@each.id', 'startAt', 'endAt', function() {
     scheduleOnce('afterRender', this, '_loadChartData');
@@ -51,6 +54,14 @@ export default Component.extend(DatesRetriever, {
 
     edit(pattern){
       this.sendAction('onEdit', pattern);
+    },
+
+    crossedTheLine(above) {
+      set(this, 'loadingPatterns', true);
+
+      console.log('page: ', get(this, 'page'));
+
+      this.sendAction('onRequest', this.incrementProperty('page', 1));
     },
 
     navigate(days) {

@@ -62,6 +62,12 @@ export default Component.extend(CheckinByDate, DatesRetriever, {
       set(this, 'currentStep', STEPS.CREATE);
     },
 
+    requestData(page) {
+      get(this, 'store').query('pattern', { page: page }).then((record) => {
+        get(this, 'patterns').toArray().pushObject(record);
+      })
+    },
+
     routeToCheckin(date) {
       this.routeToCheckin(date);
     },

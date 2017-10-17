@@ -25,14 +25,15 @@
       patterns=patterns
       onEdit=(action 'edit')
       onCreate=(action 'create')
+      onRequest=(action 'requestData')
     }}
   {{else}}
     {{partial "application/three-bounce-spinner"}}
   {{/if}}
 </div>
 
-{{!--
-<div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
+
+{{!-- <div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
   <button {{action "showChart"}} class={{if journalIsVisible "" "active"}}>Charts</button>
   <button {{action "showJournal"}} class={{if journalIsVisible "active" ""}}>Journal</button>
 </div>
