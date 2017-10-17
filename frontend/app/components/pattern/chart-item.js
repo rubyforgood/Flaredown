@@ -18,8 +18,6 @@ export default Component.extend({
 
   renderObserver: observer('chart.svg', 'chart.width', 'chart.height', 'isRendered', 'onNavigate', function() {
     if(get(this, 'chart.svg') && get(this, 'isRendered')) {
-      // const svg = get(this, 'chart.svg');
-      // svg.selectAll('path').remove();
       scheduleOnce('afterRender', this, this.renderChart);
     }
   }),
@@ -34,7 +32,7 @@ export default Component.extend({
     const svg = get(this, 'chart.svg');
     const data = get(this, 'data');
 
-    if(data.data.length > 0) {
+    if(data.data) {
       switch(data.type) {
         case 'marker': {
           this.renderMarker(data.data, data.index);

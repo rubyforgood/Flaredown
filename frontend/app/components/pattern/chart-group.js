@@ -10,6 +10,7 @@ const {
     filter,
   },
   observer,
+  setProperties,
   Component
 } = Ember;
 
@@ -67,7 +68,9 @@ export default Component.extend({
   },
 
   xScaleObserver: observer('svgChartWidth', function(){
-    get(this, 'xScale').range([0, get(this, 'svgChartWidth') ]);
+    get(this, 'xScale').range([0, get(this, 'svgChartWidth')]);
+
+    this.renderYGrid();
   }),
 
   svgGroupObserver: observer('svg', function() {
@@ -77,12 +80,16 @@ export default Component.extend({
       return;
     }
 
+    if(svg.selectAll('.y-grid').length <= 1) {
+      svg.append('g').attr('class', 'grid-area');
+    }
+
     if(svg.selectAll('.lines-area').length <= 1) {
       svg.append('g').attr('class', 'lines-area');
     }
 
     if(svg.selectAll('.dots-area').length <= 1) {
-      svg.append('g').attr('class', 'dots-area');
+      svg.append('g').attr('class', 'dots-area').attr('transform', 'translate(0, 0)');
     }
   }),
 
@@ -91,13 +98,13 @@ export default Component.extend({
     const series = get(this, 'data.series');
 
     let indexLine = 0;
-    const lines = series.filterBy('type', 'line').filter((item) => item.data.length > 0).map((i) => {
+    const lines = series.filterBy('type', 'line').map((i) => {
       i.index = indexLine;
       indexLine += 1;
     });
 
     let indexMarker = 0;
-    const markers = series.filterBy('type', 'marker').filter((item) => item.data.length > 0).map((i) => {
+    const markers = series.filterBy('type', 'marker').map((i) => {
       i.index = indexMarker;
       indexMarker += 1;
     });
@@ -126,6 +133,16 @@ export default Component.extend({
       d3.max(dynamicSeries, (i) => d3.max(i.data, (d) => d.y))
     ]);
 
+    let yAxisStatic = d3.svg.axis()
+      .scale(get(this, 'yScaleStatic'))
+      .orient('left');
+
+    let yAxisDynamic = d3.svg.axis()
+      .scale(get(this, 'yScaleDynamic'))
+      .orient('left');
+
+    setProperties(this, { yAxisStatic: yAxisStatic, yAxisDynamic: yAxisDynamic });
+
     return height;
   }),
 
@@ -134,4 +151,22 @@ export default Component.extend({
 
     return (get(this, 'svgHeight') - margin.top - margin.bottom);
   }),
+
+  renderYGrid() {
+    const svg = get(this, 'svg');
+    const yScaleStatic = get(this, 'yScaleStatic');
+    const gridArea = svg.select('g.grid-area');
+
+    let grid = gridArea.selectAll('.yGrid').data(yScaleStatic.ticks(5));
+
+    grid.enter()
+      .append('line')
+        .attr({
+          'class': 'yGrid',
+          'x1'   : get(this, 'margin.right'),
+          'x2'   : get(this, 'svgChartWidth'),
+          'y1'   : (d) => { return yScaleStatic(d) },
+          'y2'   : (d) => { return yScaleStatic(d) },
+        });
+  }
 });

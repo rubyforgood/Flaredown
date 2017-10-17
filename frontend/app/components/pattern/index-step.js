@@ -16,7 +16,6 @@ const {
   },
   observer,
   getProperties,
-  setProperties,
   incrementProperty,
 } = Ember;
 
@@ -58,8 +57,6 @@ export default Component.extend(DatesRetriever, {
 
     crossedTheLine(above) {
       set(this, 'loadingPatterns', true);
-
-      console.log('page: ', get(this, 'page'));
 
       this.sendAction('onRequest', this.incrementProperty('page', 1));
     },

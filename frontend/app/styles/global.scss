@@ -376,6 +376,13 @@ input[type="submit"] {
     fill: none;
     stroke-width: 2;
   }
+
+  .yGrid {
+    fill: none;
+    stroke: $background;
+    stroke-width: 1px;
+    stroke-dasharray: 3,3
+  }
 }
 
 

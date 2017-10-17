@@ -12,6 +12,7 @@ export default Component.extend({
   date: new Date(),
   dateFormat: 'MMM D',
   classNames: ['chart-navigation'],
+  showEye: true,
 
   visibleChartsCount: alias('chartsVisibilityService.visibleChartsCount'),
 
