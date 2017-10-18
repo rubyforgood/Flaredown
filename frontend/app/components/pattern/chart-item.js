@@ -86,9 +86,12 @@ export default Component.extend({
 
     dots.enter()
       .append('circle')
-        .attr('class', `colorable-stroke-${colorId} dot-${index}`)
+        .attr('class', `colorable-fill-${colorId} dot-${index}`)
         .attr('r', 6)
-        .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()))
+        .attr('cx', (d) => {
+          return xScale(moment(d.x).toDate().getTime());
+          // return d.y == null ? null : xScale(moment(d.x).toDate().getTime());
+        })
         .attr('cy', (d) => y);
 
       dots.exit().remove();

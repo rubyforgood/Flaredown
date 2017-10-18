@@ -11,7 +11,8 @@ const {
   },
   observer,
   setProperties,
-  Component
+  Component,
+  A,
 } = Ember;
 
 export default Component.extend({
@@ -29,6 +30,7 @@ export default Component.extend({
   endAt: null,
   margin: { top: 10, right: 5, bottom: 5, left: 10 },
   marginOffset: 20,
+  colorIds: A(),
 
   init(){
     this._super(...arguments);
@@ -99,12 +101,20 @@ export default Component.extend({
 
     let indexLine = 0;
     const lines = series.filterBy('type', 'line').map((i) => {
+      if(!i.color_id) {
+        i.color_id = this.setColorId();
+      };
+
       i.index = indexLine;
       indexLine += 1;
     });
 
     let indexMarker = 0;
     const markers = series.filterBy('type', 'marker').map((i) => {
+      if(!i.color_id) {
+        i.color_id = this.setColorId();
+      };
+
       i.index = indexMarker;
       indexMarker += 1;
     });
@@ -168,5 +178,9 @@ export default Component.extend({
           'y1'   : (d) => { return yScaleStatic(d) },
           'y2'   : (d) => { return yScaleStatic(d) },
         });
-  }
+  },
+
+  setColorId() {
+    return get(this, 'colorIds').shiftObject();
+  },
 });

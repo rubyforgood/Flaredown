@@ -17,6 +17,7 @@ const {
   getProperties,
   setProperties,
   incrementProperty,
+  A,
 } = Ember;
 
 export default Component.extend({
@@ -24,6 +25,7 @@ export default Component.extend({
   chartsVisibilityService: service('charts-visibility'),
   page: 1,
   loadingPatterns: false,
+  colorIds: A(),
 
   startAt: moment().subtract(14, 'days'), // 7 daysRadius * 2
   endAt: moment(),
@@ -49,6 +51,7 @@ export default Component.extend({
         }
       }).then((data) => {
         set(this, 'chartData', data.charts_pattern);
+        set(this, 'colorIds', data.meta.color_ids);
       });
     }
   },
