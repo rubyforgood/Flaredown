@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
 
 const {
   get,
@@ -16,15 +15,23 @@ const {
   },
   observer,
   getProperties,
+  setProperties,
   incrementProperty,
 } = Ember;
 
-export default Component.extend(DatesRetriever, {
+export default Component.extend({
   ajax: service('ajax'),
   chartsVisibilityService: service('charts-visibility'),
-  daysRadius: 7,
   page: 1,
   loadingPatterns: false,
+
+  startAt: moment().subtract(14, 'days'), // 7 daysRadius * 2
+  endAt: moment(),
+
+  init(){
+    this._super(...arguments);
+    set(this, 'startAt2', get(this, 'startAt'));
+  },
 
   patternIdsChanged: on('init', observer('patterns.@each.id', 'startAt', 'endAt', function() {
     scheduleOnce('afterRender', this, '_loadChartData');
@@ -62,11 +69,10 @@ export default Component.extend(DatesRetriever, {
     },
 
     navigate(days) {
-      let centeredDate = get(this, 'centeredDate');
+      const startAt = moment(get(this, 'startAt')).add(days, 'days');
+      const endAt = moment(get(this, 'endAt')).add(days, 'days');
 
-      centeredDate = centeredDate ? moment(centeredDate) : get(this, 'endAt').subtract(get(this, 'daysRadius'), 'days');
-
-      set(this, 'centeredDate', centeredDate.add(days, 'days'));
+      setProperties(this, { startAt: startAt, endAt: endAt });
     },
   }
 });

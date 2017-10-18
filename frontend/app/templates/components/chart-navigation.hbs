@@ -2,19 +2,42 @@
   {{inline-svg 'arrow-left' class='arrow-icon'}}
 </a>
 
-<a class="calendar-opener" {{action 'openPicker' bubbles=false}}>
-  {{inline-svg 'calendar-icon' class='calendar-icon'}}
-  &nbsp;
-  {{startAtLabel}} - {{endAtLabel}}
+{{#if patternNavbar}}
+  <div class="calendar">
+    <a class="calendar-opener-start calendarItem" {{action 'openPicker' 'start' bubbles=false}}>
+      &nbsp;
+      {{startAtLabel}}
 
-  {{pick-a-date
-    date=(readonly date)
-    options=(readonly pickadateOptions)
-    on-selected=(action (mut date))
-  }}
-</a>
+      {{pick-a-date
+        date=(readonly startDate)
+        options=(readonly pickadateOptions)
+        on-selected=(action 'startChanged')
+      }}
+    </a>
+    <span>to</span>
+    <a class="calendar-opener-end calendarItem" {{action 'openPicker' 'end' bubbles=false}}>
+      &nbsp;
+      {{endAtLabel}}
 
-{{#if showEye }}
+      {{pick-a-date
+        date=(readonly endDate)
+        options=(readonly pickadateOptions)
+        on-selected=(action 'endChanged')
+      }}
+    </a>
+  </div>
+{{else}}
+  <a class="calendar-opener calendarItem" {{action 'openPicker' bubbles=false}}>
+    &nbsp;
+    {{startAtLabel}}
+
+    {{pick-a-date
+      date=(readonly startDate)
+      options=(readonly pickadateOptions)
+      on-selected=(action 'startChanged')
+    }}
+  </a>
+
   <span>
     {{inline-svg 'eye' class='eye-icon'}}
     &nbsp;

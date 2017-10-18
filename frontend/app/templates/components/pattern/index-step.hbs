@@ -26,9 +26,10 @@
 {{/if}}
 
 {{chart-navigation
-  date=centeredDate
   endAt=endAt
   startAt=startAt
-  showEye=false
+  patternNavbar=true
   onNavigate=(action 'navigate')
+  onChangeStartAt=(action (mut startAt))
+  onChangeEndAt=(action (mut endAt))
 }}

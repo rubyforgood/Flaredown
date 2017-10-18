@@ -385,6 +385,19 @@ input[type="submit"] {
   }
 }
 
+.chart-navigation {
+  .calendar {
+    display: flex;
+    flex-grow: 0.5;
+
+    .calendarItem {
+      border: 2px solid $primary;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
 
 
 

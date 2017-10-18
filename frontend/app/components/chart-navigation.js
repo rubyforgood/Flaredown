@@ -5,14 +5,16 @@ const {
   Component,
   computed,
   get,
+  set,
   computed: { alias },
+  observer,
 } = Ember;
 
 export default Component.extend({
   date: new Date(),
   dateFormat: 'MMM D',
   classNames: ['chart-navigation'],
-  showEye: true,
+  patternNavbar: false,
 
   visibleChartsCount: alias('chartsVisibilityService.visibleChartsCount'),
 
@@ -30,15 +32,26 @@ export default Component.extend({
 
   actions: {
     openPicker() {
-      $('.calendar-opener .picker__input').first().pickadate('picker').open();
+      const arg = arguments[0];
+      let selector = `.calendar-opener-${arg}`;
+
+      $(`${selector} .picker__input`).first().pickadate('picker').open();
     },
 
     navigateLeft() {
-      get(this, 'onNavigate')(-1);
+      this.sendAction('onNavigate', -1);
     },
 
     navigateRight() {
-      get(this, 'onNavigate')(1);
+      this.sendAction('onNavigate', 1);
+    },
+
+    startChanged(date) {
+      this.sendAction('onChangeStartAt', moment(date));
+    },
+
+    endChanged(date) {
+      this.sendAction('onChangeEndAt', moment(date));
     },
   },
 });
