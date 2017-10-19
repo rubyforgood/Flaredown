@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
 
 const {
   get,
@@ -6,15 +7,15 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend({
-  yLine: [2, 2, 3, 3, 2, 2, 1, 1],
-  yMarkerIndexes: { 'B12': [3, 4, 5, 6, 7], 'Alcohol': [2, 3] },
+export default Component.extend(DatesRetriever, {
+  yLine: [1, 1, 3, 3, 3, 1, 1, 0, 0, 0],
+  yMarkerIndexes: { 'B12': [3, 4, 5, 6], 'Alcohol': [2, 3] },
 
   dates: computed('yLine', function() {
-    const yLine = get(this, 'yLine');
+    const daysCount = (get(this, 'yLine.length'));
     let res = [];
 
-    for(let i = 0; i < yLine.length; i++) {
+    for(let i = 0; i < daysCount; i++) {
       res.push(moment().add(i+1, 'days').format('YYYY-MM-DD'));
     }
 
@@ -27,7 +28,7 @@ export default Component.extend({
 
     return dates.map((date) => {
       return { x: date, y: yLine[dates.indexOf(date)] };
-    });
+    })
   }),
 
   markerFirstData(key) {
@@ -35,12 +36,16 @@ export default Component.extend({
     const yMarkerIndexes = get(this, 'yMarkerIndexes');
 
     let yValues = yMarkerIndexes[key];
-    let res =  dates.map((date) => {
-      let yValue = yValues.includes(dates.indexOf(date)) ? 1 : null;
-      return { x: date, y: yValue }
-    })
 
-    return res;
+    let filteredDates = dates.filter((date) => {
+      if(yValues.includes(dates.indexOf(date))) {
+        return date;
+      }
+    });
+
+    return filteredDates.map((i) => {
+      return {x: i}
+    })
   },
 
   data: computed('dataLine', function() {
@@ -53,5 +58,13 @@ export default Component.extend({
         type: 'marker', subtype: 'static', label: 'Alcohol', category: 'treatments', color_id: 3, data: this.markerFirstData('Alcohol')
       }
     ]}
+  }),
+
+  startAt: computed('dates', function() {
+    return moment(get(this, 'dates.firstObject'))
+  }),
+
+  endAt: computed('dates', function() {
+    return moment(get(this, 'dates.lastObject')).subtract(1, 'days');
   }),
 });

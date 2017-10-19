@@ -97,6 +97,8 @@ export default Component.extend({
           return label;
         });
 
+      this.renderLabel(dotsAreas, label, colorId, `translate(50, ${155 + 25*index})`);
+
       dots.exit().remove();
   },
 
@@ -109,7 +111,6 @@ export default Component.extend({
     const yScale = get(this,  isStatic ? 'chart.yScaleStatic' : 'chart.yScaleDynamic');
     const colorId = get(this, 'data.color_id');
 
-    // debugger;
     const line = d3.svg.line()
       .x((d) => xScale(moment(d.x).toDate().getTime()))
       .y((d) => yScale(d.y));
@@ -127,17 +128,19 @@ export default Component.extend({
           return label;
         });
 
+    this.renderLabel(lineAreas, label, colorId, "translate(265, 80)");
+
     lines.exit().remove();
   },
 
-  renderLabel(data, subtype, index) {
-    const svg = get(this, 'chart.svg');
-
-    svg.append("text")
-      .attr("transform", "translate(" + (width+3) + "," + y(data[0].open) + ")")
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "red")
-      .text("Open");
+  renderLabel(selection, label, colorId, translate) {
+    if(get(this, 'initialSvg')) {
+      selection.append('text')
+        .attr('x', get(this, 'width'))
+        .attr("dy", ".35em")
+        .text(label)
+        .attr('transform', translate)
+        .attr('class', `colorable-fill-${colorId}`);
+    }
   },
 });
