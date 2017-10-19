@@ -26,7 +26,7 @@ export default Component.extend(ChartDataRetrieve, {
   i18n: service(),
 
   model: null,
-  maxTrackables: 3,
+  maxTrackables: 10,
   showMessage: false,
 
   classNames: ['flaredown-white-box'],

@@ -35,11 +35,11 @@ export default Component.extend({
     if(data.data) {
       switch(data.type) {
         case 'marker': {
-          this.renderMarker(data.data, data.index);
+          this.renderMarker(data.data, data.index, data.label);
           break;
         }
         default: {
-          this.renderLine(data.data, data.subtype, data.index);
+          this.renderLine(data.data, data.subtype, data.index, data.label);
           break;
         }
       }
@@ -49,7 +49,7 @@ export default Component.extend({
     }
   },
 
-  renderMarker(data, index) {
+  renderMarker(data, index, label) {
     const svg = get(this, 'chart.svg');
     const dotsAreas = svg.select('g.dots-area');
     const width = get(this, 'chart.width');
@@ -92,12 +92,15 @@ export default Component.extend({
           return xScale(moment(d.x).toDate().getTime());
           // return d.y == null ? null : xScale(moment(d.x).toDate().getTime());
         })
-        .attr('cy', (d) => y);
+        .attr('cy', (d) => y)
+        .attr('data-legend', () => {
+          return label;
+        });
 
       dots.exit().remove();
   },
 
-  renderLine(data, subtype, index) {
+  renderLine(data, subtype, index, label) {
     const svg = get(this, 'chart.svg');
     const lineAreas = svg.selectAll('g.lines-area');
 
@@ -106,6 +109,7 @@ export default Component.extend({
     const yScale = get(this,  isStatic ? 'chart.yScaleStatic' : 'chart.yScaleDynamic');
     const colorId = get(this, 'data.color_id');
 
+    // debugger;
     const line = d3.svg.line()
       .x((d) => xScale(moment(d.x).toDate().getTime()))
       .y((d) => yScale(d.y));
@@ -117,9 +121,23 @@ export default Component.extend({
 
     lines.enter()
       .append('path')
-        .attr('class', isStatic ? `line colorable-stroke-${colorId} line-path-${index}` : 'line dynamic line-path-${index}')
-        .attr('d', line(data));
+        .attr('class', isStatic ? `line colorable-stroke-${colorId} line-path-${index}` : `line dynamic colorable-stroke-${colorId} line-path-${index}`)
+        .attr('d', line(data))
+        .attr('data-legend', () => {
+          return label;
+        });
 
     lines.exit().remove();
-  }
+  },
+
+  renderLabel(data, subtype, index) {
+    const svg = get(this, 'chart.svg');
+
+    svg.append("text")
+      .attr("transform", "translate(" + (width+3) + "," + y(data[0].open) + ")")
+      .attr("dy", ".35em")
+      .attr("text-anchor", "start")
+      .style("fill", "red")
+      .text("Open");
+  },
 });

@@ -31,6 +31,7 @@ export default Component.extend({
   margin: { top: 10, right: 5, bottom: 5, left: 10 },
   marginOffset: 20,
   colorIds: A(),
+  hasLines: false,
 
   init(){
     this._super(...arguments);
@@ -72,7 +73,9 @@ export default Component.extend({
   xScaleObserver: observer('svgChartWidth', function(){
     get(this, 'xScale').range([0, get(this, 'svgChartWidth')]);
 
-    this.renderYGrid();
+    if(get(this, 'hasLines')) {
+      this.renderYGrid();
+    }
   }),
 
   svgGroupObserver: observer('svg', function() {
@@ -82,7 +85,11 @@ export default Component.extend({
       return;
     }
 
-    if(svg.selectAll('.y-grid').length <= 1) {
+    if(svg.selectAll('.legend-area').length <= 1) {
+      svg.append('g').attr('class', 'legend-area');
+    }
+
+    if(svg.selectAll('.grid-area').length <= 1) {
       svg.append('g').attr('class', 'grid-area');
     }
 
@@ -97,35 +104,28 @@ export default Component.extend({
 
   svgHeight: computed('data.series.[]', function() {
     let height = 0;
+    let filteredSeries = A();
     const series = get(this, 'data.series');
 
-    let indexLine = 0;
-    const lines = series.filterBy('type', 'line').map((i) => {
-      if(!i.color_id) {
-        i.color_id = this.setColorId();
-      };
+    const dynamicSeries = series.filterBy('subtype', 'dynamic');
+    const lines = series.filterBy('type', 'line')
+    const markers = series.filterBy('type', 'marker');
 
-      i.index = indexLine;
-      indexLine += 1;
+    filteredSeries.pushObjects([lines, dynamicSeries, markers]).map((itemArray) => {
+      return this.addChartAttributes(itemArray);
     });
 
-    let indexMarker = 0;
-    const markers = series.filterBy('type', 'marker').map((i) => {
-      if(!i.color_id) {
-        i.color_id = this.setColorId();
-      };
-
-      i.index = indexMarker;
-      indexMarker += 1;
-    });
-
-    if(lines.length > 0) {
-      height += get(this, 'svgLineAreaHeight');
+    if(lines.length > 0 || dynamicSeries.length > 0) {
+      height += get(this, 'svgLineAreaHeight') + get(this, 'svgLineOffset');
+      set(this, 'hasLines', true);
+    } else {
+      height += get(this, 'svgLineOffset');
+      set(this, 'svgLineAreaHeight', 0);
     }
 
     if(markers.length > 0) {
       markers.forEach(() => {
-        height += 2 * get(this, 'svgLineOffset') + get(this, 'svgLineHeight');
+        height += get(this, 'svgLineHeight') + get(this, 'svgLineOffset');
       });
     }
 
@@ -135,8 +135,6 @@ export default Component.extend({
     ]);
 
     get(this, 'yScaleStatic').domain([0, 4]);
-
-    const dynamicSeries = series.filterBy('subtype', 'dynamic');
 
     get(this, 'yScaleDynamic').domain([
       d3.min(dynamicSeries, (i) => d3.min(i.data, (d) => d.y)),
@@ -162,22 +160,46 @@ export default Component.extend({
     return (get(this, 'svgHeight') - margin.top - margin.bottom);
   }),
 
+  addChartAttributes(item_array) {
+    let index = 0;
+
+    item_array.map((i) => {
+      if(!i.color_id) {
+        i.color_id = this.setColorId();
+      };
+
+      i.index = index;
+      index += 1;
+    })
+  },
+
   renderYGrid() {
     const svg = get(this, 'svg');
-    const yScaleStatic = get(this, 'yScaleStatic');
+    const hasDynamicSeries = get(this, 'data.series').filterBy('subtype', 'dynamic').length > 0;
+
+    console.log('hasDynamicSeries? ', hasDynamicSeries);
+
+    const yScaleGrid =  get(this, 'yScaleStatic');
+
+    // const yScaleGrid = hasDynamicSeries ?  get(this, 'yScaleDynamic') : get(this, 'yScaleStatic');
     const gridArea = svg.select('g.grid-area');
-
-    let grid = gridArea.selectAll('.yGrid').data(yScaleStatic.ticks(5));
-
-    grid.enter()
-      .append('line')
-        .attr({
+    let attr = {
           'class': 'yGrid',
           'x1'   : get(this, 'margin.right'),
           'x2'   : get(this, 'svgChartWidth'),
-          'y1'   : (d) => { return yScaleStatic(d) },
-          'y2'   : (d) => { return yScaleStatic(d) },
-        });
+          'y1'   : (d) => { return yScaleGrid(d) },
+          'y2'   : (d) => { return yScaleGrid(d) },
+        };
+
+    let grid = gridArea.selectAll('.yGrid')
+      .data(yScaleGrid.ticks(5))
+      .attr(attr);
+
+    grid.exit().remove();
+
+    return grid.enter()
+      .append('line')
+        .attr(attr);
   },
 
   setColorId() {

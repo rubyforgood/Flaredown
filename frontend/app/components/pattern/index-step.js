@@ -36,7 +36,9 @@ export default Component.extend({
   },
 
   patternIdsChanged: on('init', observer('patterns.@each.id', 'startAt', 'endAt', function() {
-    scheduleOnce('afterRender', this, '_loadChartData');
+    if(get(this, 'startAt').isValid() && get(this, 'endAt').isValid()) {
+      scheduleOnce('afterRender', this, '_loadChartData');
+    }
   })),
 
   _loadChartData() {
