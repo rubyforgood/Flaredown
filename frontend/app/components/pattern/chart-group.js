@@ -85,19 +85,19 @@ export default Component.extend({
       return;
     }
 
-    if(svg.selectAll('.legend-area').length <= 1) {
+    if(svg.select('.legend-area').empty()) {
       svg.append('g').attr('class', 'legend-area');
     }
 
-    if(svg.selectAll('.grid-area').length <= 1) {
+    if(svg.select('.grid-area').empty()) {
       svg.append('g').attr('class', 'grid-area');
     }
 
-    if(svg.selectAll('.lines-area').length <= 1) {
+    if(svg.select('.lines-area').empty()) {
       svg.append('g').attr('class', 'lines-area');
     }
 
-    if(svg.selectAll('.dots-area').length <= 1) {
+    if(svg.select('.dots-area').empty()) {
       svg.append('g').attr('class', 'dots-area').attr('transform', 'translate(0, 0)');
     }
   }),
@@ -176,8 +176,6 @@ export default Component.extend({
   renderYGrid() {
     const svg = get(this, 'svg');
     const hasDynamicSeries = get(this, 'data.series').filterBy('subtype', 'dynamic').length > 0;
-
-    console.log('hasDynamicSeries? ', hasDynamicSeries);
 
     const yScaleGrid =  get(this, 'yScaleStatic');
 

@@ -382,7 +382,13 @@ input[type="submit"] {
     fill: none;
     stroke: $background;
     stroke-width: 1px;
-    stroke-dasharray: 3,3
+    stroke-dasharray: 3,3;
+  }
+
+  line.hover-line {
+    stroke: $grey;
+    stroke-width: 1;
+    stroke-dasharray: 10,3;
   }
 }
 
