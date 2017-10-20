@@ -87,7 +87,8 @@ class ChartsPattern
       checkins.select { |checkin| checkin.harvey_bradshaw_index }
               .map { |checkin| { x: checkin.date, y: checkin.harvey_bradshaw_index.score } }
     end
-    res
+
+    res.sort { |x,y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
   end
 
   def get_color_id(chart)

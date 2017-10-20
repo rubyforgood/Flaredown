@@ -38,11 +38,9 @@ export default Component.extend({
 
     const xScale = d3.time.scale().range([0, get(this, 'svgChartWidth')]);
     const yScaleStatic = d3.scale.linear().range([get(this, 'svgLineAreaHeight'), 0]);
-    const yScaleDynamic = d3.scale.linear().range([get(this, 'svgLineAreaHeight'), 0]);
 
     set(this, 'xScale', xScale);
     set(this, 'yScaleStatic', yScaleStatic);
-    set(this, 'yScaleDynamic', yScaleDynamic);
   },
 
   didInsertElement() {
@@ -136,21 +134,6 @@ export default Component.extend({
 
     get(this, 'yScaleStatic').domain([0, 4]);
 
-    get(this, 'yScaleDynamic').domain([
-      d3.min(dynamicSeries, (i) => d3.min(i.data, (d) => d.y)),
-      d3.max(dynamicSeries, (i) => d3.max(i.data, (d) => d.y))
-    ]);
-
-    let yAxisStatic = d3.svg.axis()
-      .scale(get(this, 'yScaleStatic'))
-      .orient('left');
-
-    let yAxisDynamic = d3.svg.axis()
-      .scale(get(this, 'yScaleDynamic'))
-      .orient('left');
-
-    setProperties(this, { yAxisStatic: yAxisStatic, yAxisDynamic: yAxisDynamic });
-
     return height;
   }),
 
@@ -172,11 +155,9 @@ export default Component.extend({
   renderYGrid() {
     const svg = get(this, 'svg');
     const hasDynamicSeries = get(this, 'data.series').filterBy('subtype', 'dynamic').length > 0;
-
     const yScaleGrid =  get(this, 'yScaleStatic');
-
-    // const yScaleGrid = hasDynamicSeries ?  get(this, 'yScaleDynamic') : get(this, 'yScaleStatic');
     const gridArea = svg.select('g.grid-area');
+
     let attr = {
           'class': 'yGrid',
           'x1'   : get(this, 'margin.right'),

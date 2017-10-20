@@ -26,6 +26,7 @@ export default Component.extend({
     this._super(...arguments);
 
     set(this, 'isRendered', true);
+    set(this, 'yScaleDynamic', d3.scale.linear().range([get(this, 'chart.svgLineAreaHeight'), 0]));
   },
 
   renderChart() {
@@ -108,7 +109,22 @@ export default Component.extend({
 
     const isStatic = subtype === 'static';
     const xScale = get(this, 'chart.xScale');
-    const yScale = get(this,  isStatic ? 'chart.yScaleStatic' : 'chart.yScaleDynamic');
+    let yScaleDynamic = get(this, 'yScaleDynamic');
+
+    if(!isStatic) {
+      if(label == 'Avg daily humidity') {
+        yScaleDynamic.domain([0, 100]);
+      } else if(label == 'Harvey Bradshaw Index') {
+        yScaleDynamic.domain([0, 25]);
+      } else {
+        yScaleDynamic.domain([
+          d3.min(data, (d) => d.y ),
+          d3.max(data, (d) => d.y )
+        ]);
+      }
+    }
+
+    const yScale = isStatic ? get(this, 'chart.yScaleStatic') : yScaleDynamic;
     const colorId = get(this, 'data.color_id');
 
     const line = d3.svg.line()
