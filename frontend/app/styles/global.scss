@@ -58,6 +58,7 @@
 
   &.flaredown-svg-group {
     padding: 0;
+    position: relative;
   }
 }
 
@@ -386,9 +387,30 @@ input[type="submit"] {
   }
 
   line.hover-line {
-    stroke: $grey;
-    stroke-width: 1;
-    stroke-dasharray: 10,3;
+    stroke: $lightgrey;
+    stroke-width: 2;
+  }
+
+  .tooltip-area {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    border: 2px solid $lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.7em;
+    min-width: 120px;
+    visibility: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    b { text-align: center; }
+
+    .tooltip-items > .item {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
