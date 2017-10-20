@@ -52,10 +52,34 @@ export default Component.extend({
           end_at: get(this, 'endAt').format('YYYY-MM-DD')
         }
       }).then((data) => {
-        set(this, 'chartData', data.charts_pattern);
+        const chartData = set(this, 'chartData', data.charts_pattern);
         set(this, 'colorIds', data.meta.color_ids);
+        this.fixPatternColors(chartData);
       });
     }
+  },
+
+  fixPatternColors(chartData) {
+    chartData.map((chart) => {
+      return this.addChartAttributes(chart.series);
+    });
+  },
+
+  addChartAttributes(series) {
+    let index = 0;
+
+    series.map((i) => {
+      if(!i.color_id) {
+        i.color_id = this.setColorId();
+      };
+
+      i.index = index;
+      index += 1;
+    })
+  },
+
+  setColorId() {
+    return get(this, 'colorIds').shiftObject();
   },
 
   actions: {

@@ -5,6 +5,12 @@
   </div>
 
   {{#with (find-by 'pattern_id' pattern.id chartData) as |data|}}
+    <div class='chart-legend'>
+      {{#each data.series as |item|}}
+        {{pattern/chart-legend-item item=item}}
+      {{/each}}
+    </div>
+
     {{#pattern/chart-group data=data startAt=startAt endAt=endAt colorIds=colorIds as |chart|}}
       {{#each chart.data.series as |item index|}}
         {{pattern/chart-item data=item index=index chart=chart}}

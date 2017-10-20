@@ -164,10 +164,6 @@ export default Component.extend({
     let index = 0;
 
     item_array.map((i) => {
-      if(!i.color_id) {
-        i.color_id = this.setColorId();
-      };
-
       i.index = index;
       index += 1;
     })
@@ -198,9 +194,5 @@ export default Component.extend({
     return grid.enter()
       .append('line')
         .attr(attr);
-  },
-
-  setColorId() {
-    return get(this, 'colorIds').shiftObject();
   },
 });

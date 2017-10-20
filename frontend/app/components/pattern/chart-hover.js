@@ -3,6 +3,7 @@ import Ember from 'ember';
 /* global d3 */
 
 const {
+  $,
   get,
   set,
   run,
@@ -22,7 +23,7 @@ export default Component.extend({
   width: null,
   height: null,
   dateFormat: 'MMM D, YYYY',
-  tooltipTopOffset: 10,
+  tooltipTopOffset: 11,
   tooltipLeftOffset: 20,
 
   initObserver: observer('svg', 'height', 'width', function() {
@@ -70,25 +71,31 @@ export default Component.extend({
       .style("fill", "none")
       .style("pointer-events", "all")
       .on("mouseover", function() {
-        line.style("display", null);
-        return tooltipArea.css('visibility', 'hidden');
+          line.style("display", 'block');
+          tooltipArea.css('visibility', 'visible');
       })
       .on("mouseout", function() {
-        line.style("display", "none");
-        return tooltipArea.css('visibility', 'hidden');
+        if (event.toElement !== tooltipArea.get(0)) {
+          line.style("display", "none");
+          tooltipArea.css('visibility', 'hidden');
+        }
       })
       .on("mousemove", () => {
-        run(this, this.mouseMove);
+        run(this, this.mouseMove, event);
       });
 
     set(this, 'hoverArea', hoverArea);
   },
 
-  mouseMove() {
+  mouseMove(e) {
+    if (e instanceof $.Event) {
+      return;
+    }
+
     const hoverArea = get(this, 'hoverArea');
     const xScale = get(this, 'xScale');
 
-    const mouseX = d3.mouse(hoverArea.node())[0];
+    const mouseX = e.offsetX; //d3.mouse(hoverArea.node())[0];
     const xValue = moment(xScale.invert(mouseX));
 
     if(xValue.hours() >= 12){
@@ -104,6 +111,7 @@ export default Component.extend({
       .attr('x2', x);
 
     this.showTooltip(xValue, x);
+    e.stopPropagation();
   },
 
   showTooltip(xValue, x) {
