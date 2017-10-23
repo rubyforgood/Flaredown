@@ -71,8 +71,8 @@ export default Component.extend({
       .style("fill", "none")
       .style("pointer-events", "all")
       .on("mouseover", function() {
-          line.style("display", 'block');
-          tooltipArea.css('visibility', 'visible');
+        line.style("display", 'block');
+        tooltipArea.css('visibility', 'visible');
       })
       .on("mouseout", function() {
         if (event.toElement !== tooltipArea.get(0)) {
@@ -82,6 +82,13 @@ export default Component.extend({
       })
       .on("mousemove", () => {
         run(this, this.mouseMove, event);
+      })
+      .on("touchmove", () => {
+        run(this, this.mouseMove, event);
+      })
+      .on("touchstart", () => {
+        line.style("display", 'block');
+        tooltipArea.css('visibility', 'visible');
       });
 
     set(this, 'hoverArea', hoverArea);
@@ -95,7 +102,7 @@ export default Component.extend({
     const hoverArea = get(this, 'hoverArea');
     const xScale = get(this, 'xScale');
 
-    const mouseX = e.offsetX; //d3.mouse(hoverArea.node())[0];
+    const mouseX = e.offsetX || e.changedTouches[0].screenX; //d3.mouse(hoverArea.node())[0];
     const xValue = moment(xScale.invert(mouseX));
 
     if(xValue.hours() >= 12){
@@ -146,6 +153,7 @@ export default Component.extend({
 
   tooltipData(xValueFormatted) {
     let filteredItems = A();
+
     get(this, 'data.series').map((item) => {
       let filteredByDate = item.data.filterBy('x', xValueFormatted);
 

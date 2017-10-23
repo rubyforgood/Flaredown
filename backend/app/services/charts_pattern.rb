@@ -73,11 +73,11 @@ class ChartsPattern
           "#{category_name}_id": id
         )
 
-      trackables.map {|tr|  { x: tr.checkin.date, y: tr.value || 0 } }
+      trackables.map {|tr|  { x: tr.checkin.date, y: tr.value || 0 } }.uniq
 
     elsif %w(foods tags).include? category
       checkins.select { |checkin| checkin.send("#{category_name}_ids").include? id }
-              .map { |checkin| { x: checkin.date } }
+              .map { |checkin| { x: checkin.date } }.uniq
 
     elsif %w(weathersMeasures).include? category
       checkins.select { |checkin| checkin.weather }
