@@ -10,7 +10,7 @@
 
       {{pick-a-date
         date=(readonly startDate)
-        options=(readonly pickadateOptions)
+        options=(readonly pickadateOptionsStart)
         on-selected=(action 'startChanged')
       }}
     </a>
@@ -21,7 +21,7 @@
 
       {{pick-a-date
         date=(readonly endDate)
-        options=(readonly pickadateOptions)
+        options=(readonly pickadateOptionsEnd)
         on-selected=(action 'endChanged')
       }}
     </a>

@@ -30,11 +30,6 @@ export default Component.extend({
   startAt: moment().subtract(14, 'days'), // 7 daysRadius * 2
   endAt: moment(),
 
-  init(){
-    this._super(...arguments);
-    set(this, 'startAt2', get(this, 'startAt'));
-  },
-
   patternIdsChanged: on('init', observer('patterns.@each.id', 'startAt', 'endAt', function() {
     if(get(this, 'startAt').isValid() && get(this, 'endAt').isValid()) {
       scheduleOnce('afterRender', this, '_loadChartData');

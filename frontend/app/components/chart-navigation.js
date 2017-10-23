@@ -8,6 +8,7 @@ const {
   set,
   computed: { alias },
   observer,
+  run: { scheduleOnce }
 } = Ember;
 
 export default Component.extend({
@@ -18,9 +19,23 @@ export default Component.extend({
 
   visibleChartsCount: alias('chartsVisibilityService.visibleChartsCount'),
 
-  pickadateOptions: {
+  pickadateOptionsStart: {
     container: 'body > .ember-view',
+    max: moment().toDate(),
   },
+
+  pickadateOptionsEnd: {
+    container: 'body > .ember-view',
+    max: moment().toDate(),
+  },
+
+  startDate: computed('startAt', function(){
+    return get(this, 'startAt').toDate();
+  }),
+
+  endDate: computed('endAt', function(){
+    return get(this, 'endAt').toDate();
+  }),
 
   endAtLabel: computed('endAt', function() {
     return get(this, 'endAt').format(get(this, 'dateFormat'));
@@ -28,6 +43,12 @@ export default Component.extend({
 
   startAtLabel: computed('startAt', function() {
     return get(this, 'startAt').format(get(this, 'dateFormat'));
+  }),
+
+  startDateLimitationObserver: observer('endAt', function() {
+    set(this, 'pickadateOptionsStart', $.extend({}, get(this, 'pickadateOptionsStart'), {
+      max: get(this, 'endAt').toDate()
+    }));
   }),
 
   actions: {
@@ -47,11 +68,15 @@ export default Component.extend({
     },
 
     startChanged(date) {
-      this.sendAction('onChangeStartAt', moment(date));
+      scheduleOnce('afterRender', this, () => {
+        this.sendAction('onChangeStartAt', moment(date));
+      });
     },
 
     endChanged(date) {
-      this.sendAction('onChangeEndAt', moment(date));
+      scheduleOnce('afterRender', this, () => {
+        this.sendAction('onChangeEndAt', moment(date));
+      });
     },
   },
 });
