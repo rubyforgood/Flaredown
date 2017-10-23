@@ -450,12 +450,26 @@ input[type="submit"] {
   .calendar {
     display: flex;
     flex-grow: 0.5;
+    justify-content: space-around;
+    align-items: center;
 
     .calendarItem {
       border: 2px solid $primary;
       margin-top: 5px;
       margin-bottom: 5px;
     }
+  }
+
+  .left-arrow {
+    flex: 1;
+  }
+
+  .calendar {
+    flex:1;
+  }
+
+  .rigth-arrow {
+    flex: 1;
   }
 }
 

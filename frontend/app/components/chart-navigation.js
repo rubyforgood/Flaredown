@@ -51,6 +51,10 @@ export default Component.extend({
     }));
   }),
 
+  rigthArrowVisibile: computed('endAt', function() {
+    return get(this, 'endAt').endOf('day') < moment();
+  }),
+
   actions: {
     openPicker() {
       const arg = arguments[0];

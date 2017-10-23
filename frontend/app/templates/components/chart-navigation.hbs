@@ -1,6 +1,8 @@
-<a {{action 'navigateLeft'}}>
-  {{inline-svg 'arrow-left' class='arrow-icon'}}
-</a>
+<div class="left-arrow">
+  <a {{action 'navigateLeft'}}>
+    {{inline-svg 'arrow-left' class='arrow-icon'}}
+  </a>
+</div>
 
 {{#if patternNavbar}}
   <div class="calendar">
@@ -26,6 +28,7 @@
       }}
     </a>
   </div>
+
 {{else}}
   <a class="calendar-opener calendarItem" {{action 'openPicker' bubbles=false}}>
     &nbsp;
@@ -45,6 +48,10 @@
   </span>
 {{/if}}
 
-<a {{action 'navigateRight'}}>
-  {{inline-svg 'arrow-right' class='arrow-icon'}}
-</a>
+<div class="rigth-arrow">
+  {{#if rigthArrowVisibile}}
+    <a {{action 'navigateRight'}}>
+      {{inline-svg 'arrow-right' class='arrow-icon'}}
+    </a>
+  {{/if}}
+</div>
