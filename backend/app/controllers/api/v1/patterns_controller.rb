@@ -4,8 +4,8 @@ class Api::V1::PatternsController < ApplicationController
   def index
     page = params[:page] || 1
     @patterns = Pattern.accessible_by(current_ability)
-                   .where(encrypted_user_id: encrypted_user_id)
-                   .page(page).per(10)
+      .where(encrypted_user_id: encrypted_user_id)
+      .page(page).per(10)
 
     render json: @patterns
   end

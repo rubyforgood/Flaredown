@@ -6,11 +6,7 @@ const {
   get,
   set,
   computed,
-  computed: {
-    filter,
-  },
   observer,
-  setProperties,
   Component,
   A,
 } = Ember;
@@ -20,7 +16,6 @@ export default Component.extend({
 
   svg: null,
   data: null,
-  svgHeight: 0,
 
   svgChartWidth: 500,
   svgLineAreaHeight: 150,
@@ -134,7 +129,7 @@ export default Component.extend({
 
     get(this, 'yScaleStatic').domain([0, 4]);
 
-    return height;
+    return height || 0;
   }),
 
   svgChartHeigth: computed('svgHeight', function() {
@@ -154,7 +149,6 @@ export default Component.extend({
 
   renderYGrid() {
     const svg = get(this, 'svg');
-    const hasDynamicSeries = get(this, 'data.series').filterBy('subtype', 'dynamic').length > 0;
     const yScaleGrid =  get(this, 'yScaleStatic');
     const gridArea = svg.select('g.grid-area');
 

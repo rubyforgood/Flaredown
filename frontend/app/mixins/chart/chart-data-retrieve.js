@@ -2,16 +2,9 @@ import Ember from 'ember';
 
 const {
   get,
-  set,
   computed,
-  observer,
   Mixin,
-  getProperties,
   setProperties,
-  run: {
-    debounce,
-    scheduleOnce,
-  },
   inject: {
     service,
   },

@@ -7,19 +7,12 @@ const {
   set,
   computed,
   computed: {
-    alias,
     not
   },
   inject: { service },
   observer,
-  run: {
-    debounce,
-    scheduleOnce,
-  },
-  getProperties,
   setProperties,
   Component,
-  A,
 } = Ember;
 
 export default Component.extend(ChartDataRetrieve, {
@@ -45,9 +38,10 @@ export default Component.extend(ChartDataRetrieve, {
     this._super(...arguments);
 
     const model = get(this, 'model');
+    const store = get(this, 'store');
 
-    if(model === null) {
-      set(this, 'model', get(this, 'store').createRecord('pattern'));
+    if(model === null && store) {
+      set(this, 'model', store.createRecord('pattern'));
     }
   },
 
@@ -69,15 +63,11 @@ export default Component.extend(ChartDataRetrieve, {
 
       get(this, 'patternIncludes').removeObject(obj);
 
-      if(!includes.includes(obj)) {
+      if(!includes.includes(obj) && includes.length <= maxTrackables) {
         includes.pushObject(obj);
+      } else {
+        set(this, 'showMessage', true);
       }
-
-      // if(!includes.includes(obj) && includes.length <= maxTrackables) {
-      //   includes.pushObject(obj);
-      // } else {
-      //   set(this, 'showMessage', true);
-      // }
     },
 
     clicked(obj) {
@@ -99,10 +89,12 @@ export default Component.extend(ChartDataRetrieve, {
     deletePattern() {
       get(this, 'model').destroyRecord().then(() => {
         this.sendAction('onSaved');
-      });;
+      });
     },
 
     cancel() {
+      get(this, 'model').deleteRecord();
+
       this.sendAction('onCanceled');
     }
   },

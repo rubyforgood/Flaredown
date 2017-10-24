@@ -4,8 +4,6 @@ const {
   get,
   set,
   on,
-  computed,
-  computed: { mapBy },
   Component,
   run: {
     scheduleOnce,
@@ -14,9 +12,7 @@ const {
     service,
   },
   observer,
-  getProperties,
   setProperties,
-  incrementProperty,
   A,
 } = Ember;
 
@@ -37,7 +33,13 @@ export default Component.extend({
   })),
 
   _loadChartData() {
-    const ids = get(this, 'patterns').mapBy('id');
+    const patterns = get(this, 'patterns');
+
+    if(!patterns) {
+      return;
+    }
+
+    const ids = patterns.mapBy('id');
 
     if(ids.length > 0) {
       get(this, 'ajax').request('/charts_pattern', {
@@ -66,7 +68,7 @@ export default Component.extend({
     series.map((i) => {
       if(!i.color_id) {
         i.color_id = this.setColorId();
-      };
+      }
 
       i.index = index;
       index += 1;
@@ -86,7 +88,7 @@ export default Component.extend({
       this.sendAction('onEdit', pattern);
     },
 
-    crossedTheLine(above) {
+    crossedTheLine() {
       set(this, 'loadingPatterns', true);
 
       this.sendAction('onRequest', this.incrementProperty('page', 1));

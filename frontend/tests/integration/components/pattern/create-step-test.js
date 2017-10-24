@@ -11,8 +11,9 @@ test('it renders', function(assert) {
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{pattern/create-step}}`);
+  let result = 'Save pattern';
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim().match(result), result);
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +22,5 @@ test('it renders', function(assert) {
     {{/pattern/create-step}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim().match(result), result);
 });

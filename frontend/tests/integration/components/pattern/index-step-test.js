@@ -7,12 +7,14 @@ moduleForComponent('pattern/index-step', 'Integration | Component | pattern/inde
 
 test('it renders', function(assert) {
 
+  const result = "Create new pattern";
+
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{pattern/index-step}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$().text().trim().match(result), result);
 
   // Template block usage:
   this.render(hbs`
@@ -21,5 +23,5 @@ test('it renders', function(assert) {
     {{/pattern/index-step}}
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim().match(result), result);
 });

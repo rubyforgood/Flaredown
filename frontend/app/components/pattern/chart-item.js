@@ -30,7 +30,6 @@ export default Component.extend({
   },
 
   renderChart() {
-    const svg = get(this, 'chart.svg');
     const data = get(this, 'data');
 
     if(data.data) {
@@ -46,7 +45,7 @@ export default Component.extend({
       }
     } else {
       // TODO: render "No Data"
-      console.log('No data!');
+      // console.log('No data!');
     }
   },
 
@@ -83,7 +82,7 @@ export default Component.extend({
       .selectAll(`.dot-${index}`)
       .data(data)
       .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()))
-      .attr('cy', (d) => y);
+      .attr('cy', () => y);
 
     dots.enter()
       .append('circle')
@@ -93,7 +92,7 @@ export default Component.extend({
           return xScale(moment(d.x).toDate().getTime());
           // return d.y == null ? null : xScale(moment(d.x).toDate().getTime());
         })
-        .attr('cy', (d) => y)
+        .attr('cy', () => y)
         .attr('data-legend', () => {
           return label;
         });

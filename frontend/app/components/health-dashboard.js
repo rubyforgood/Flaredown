@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
+import DS from 'ember-data';
 
 const {
   get,

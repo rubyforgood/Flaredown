@@ -7,12 +7,7 @@ const {
   get,
   set,
   run,
-  computed,
-  computed: {
-    filter,
-  },
   observer,
-  setProperties,
   Component,
   A,
 } = Ember;
@@ -46,7 +41,7 @@ export default Component.extend({
     hoverArea.attr('width', width);
   }),
 
-  renderContainer(svg, width){
+  renderContainer(svg){
     if(!svg.select('.hover-area').empty()){
       return;
     }
@@ -99,9 +94,7 @@ export default Component.extend({
       return;
     }
 
-    const hoverArea = get(this, 'hoverArea');
     const xScale = get(this, 'xScale');
-
     const mouseX = e.offsetX || e.changedTouches[0].screenX; //d3.mouse(hoverArea.node())[0];
     const xValue = moment(xScale.invert(mouseX));
 
@@ -122,8 +115,6 @@ export default Component.extend({
   },
 
   showTooltip(xValue, x) {
-    const svg = get(this, 'svg');
-    const width = get(this, 'width');
     const tooltipData = this.tooltipData(xValue.format('YYYY-MM-DD'));
 
     let itemList = tooltipData.map((item) => {
@@ -139,7 +130,6 @@ export default Component.extend({
 
     const tooltipArea = get(this, 'tooltipArea');
     const hoverCenter = get(this, 'width')/2;
-    const tooltipWidth = tooltipArea.width();
     let tooltipLeft = x <= hoverCenter ? (x + get(this, 'tooltipLeftOffset')) : (x - tooltipArea.width() - 10);
 
     tooltipArea

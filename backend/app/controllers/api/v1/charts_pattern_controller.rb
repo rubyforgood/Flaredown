@@ -8,9 +8,11 @@ class Api::V1::ChartsPatternController < ApplicationController
     @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] })
 
     @extended_patterns = @patterns.map do |pattern|
-      pattern.extend(PatternExtender).form_chart_data(start_at: start_at, end_at: end_at, pattern: pattern, user: current_user)
+      pattern.extend(PatternExtender).form_chart_data(start_at: start_at,
+                                                      end_at: end_at,
+                                                      pattern: pattern,
+                                                      user: current_user)
     end
-
 
     render json: @extended_patterns, meta: { color_ids: Flaredown::Colorable::IDS }
   end

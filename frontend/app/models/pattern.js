@@ -3,7 +3,6 @@ import Ember from 'ember';
 
 const {
   A,
-  computed,
 } = Ember;
 
 export default DS.Model.extend({
