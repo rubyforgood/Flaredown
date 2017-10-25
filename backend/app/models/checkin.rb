@@ -137,6 +137,14 @@ class Checkin
     validates :treatment_id, uniqueness: { scope: :checkin_id }
   end
 
+  def self.find_by_category_id(category_name, id)
+
+    where(id: { '$in' => "Checkin::#{category_name.camelize}".constantize
+      .where("#{category_name}_id": id)
+      .map(&:checkin_id)
+    })
+  end
+
   private
 
   def latest_hbi

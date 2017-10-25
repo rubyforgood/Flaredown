@@ -11,7 +11,7 @@
       {{/each}}
     </div>
 
-    {{#pattern/chart-group data=data startAt=startAt endAt=endAt colorIds=colorIds as |chart|}}
+    {{#pattern/chart-group data=data startAt=startAt endAt=endAt colorIds=colorIds backgroundMargin=backgroundMargin as |chart|}}
       {{#each chart.data.series as |item index|}}
         {{pattern/chart-item data=item index=index chart=chart}}
       {{/each}}

@@ -4,6 +4,7 @@ const {
   get,
   set,
   on,
+  computed,
   Component,
   run: {
     scheduleOnce,
@@ -22,6 +23,7 @@ export default Component.extend({
   page: 1,
   loadingPatterns: false,
   colorIds: A(),
+  backgroundMargin: { right: 10, left: 10 , top: 0 },
 
   startAt: moment().subtract(14, 'days'), // 7 daysRadius * 2
   endAt: moment(),
@@ -31,6 +33,31 @@ export default Component.extend({
       scheduleOnce('afterRender', this, '_loadChartData');
     }
   })),
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    const resize = () => {
+      const width = this.$().width();
+
+      set(this, 'indexPageWidth', width);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+  },
+
+  daysRangeOffset: computed('indexPageWidth', 'daysRange', function() {
+    const backgroundMargin = get(this, 'backgroundMargin');
+    const backgroundWidth = get(this, 'indexPageWidth') - backgroundMargin.left - backgroundMargin.right;
+    const daysRange = get(this, 'daysRange');
+
+    return Math.ceil((daysRange*backgroundMargin.left)/backgroundWidth);
+  }),
+
+  daysRange: computed('startAt', 'endAt', function() {
+    return moment.duration(get(this, 'endAt') - get(this, 'startAt')).asDays();
+  }),
 
   _loadChartData() {
     const patterns = get(this, 'patterns');
@@ -46,7 +73,8 @@ export default Component.extend({
         data: {
           pattern_ids: ids,
           start_at: get(this, 'startAt').format('YYYY-MM-DD'),
-          end_at: get(this, 'endAt').format('YYYY-MM-DD')
+          end_at: get(this, 'endAt').format('YYYY-MM-DD'),
+          offset: get(this, 'daysRangeOffset')
         }
       }).then((data) => {
         const chartData = set(this, 'chartData', data.charts_pattern);

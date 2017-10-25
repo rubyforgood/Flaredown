@@ -20,20 +20,12 @@ class ChartsPattern
     @user     = options[:user]
   end
 
-  def includes
-    @includes ||=
-      pattern_includes
-        .map { |hash| hash.slice(:category, :id) }
-        .group_by { |hash| hash[:category] }
-        .each_with_object({}) { |obj, memo| memo[obj[0]] = obj[1].group_by { |i| i[:id] }.keys }
+  def checkins
+    @checkins ||= user.checkins.order(date: :asc)
   end
 
-  def checkins
-    @checkins ||= user.checkins.by_date(start_at.to_date, end_at.to_date).map do |checkin|
-      checkin.includes = includes
-
-      checkin
-    end
+  def scoped_checkins
+    @scoped_checkins ||= checkins.by_date(start_at.to_date, end_at.to_date)
   end
 
   def chart_data
@@ -66,56 +58,114 @@ class ChartsPattern
     id = chart[:id]
 
     if %w(conditions symptoms treatments).include? category
-      static_trackables_coordinates(category, checkins, id)
+      static_trackables_coordinates(category, scoped_checkins.map(&:id), id)
     else
-      health_factors_trackables_coordinate(category, checkins, id)
+      health_factors_trackables_coordinate(category, scoped_checkins, id)
     end
   end
 
-  def static_trackables_coordinates(category, checkins, id)
-    category_name = category.singularize
+  def static_trackables_coordinates(category, checkin_ids, id)
+    trackables = find_coordinates_by_checkin(category, checkin_ids, id)
 
-    trackables = "Checkin::#{category_name.camelize}".constantize.where(
-      checkin_id: { '$in': checkins.map(&:id) },
-      "#{category_name}_id": id
-    ).map { |tr| { x: tr.checkin.date, y: tr.value || 0 } }.uniq
+    return trackables.sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i } if category == 'treatments'
 
-    trackables.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
-    category == 'treatments' ? trackables : set_averaged_values(trackables)
+    form_averaged_values(trackables, category, id)
   end
 
-  def health_factors_trackables_coordinate(category, checkins, id)
+  def find_coordinates_by_checkin(category, checkin_ids, id)
+    category_name = category.singularize
+
+    "Checkin::#{category_name.camelize}".constantize.where(
+      checkin_id: { '$in': checkin_ids },
+      "#{category_name}_id": id
+    ).map { |tr| { x: tr.checkin.date, y: tr.value || 0 } }.uniq
+  end
+
+  def health_factors_trackables_coordinate(category, selected_checkins, id)
     trackables =
       if %w(foods tags).include? category
-        checkins.select { |checkin| checkin.send("#{category.singularize}_ids").include? id }
+        selected_checkins.select { |checkin| checkin.send("#{category.singularize}_ids").include? id }
           .map { |checkin| { x: checkin.date } }.uniq
       elsif %w(weathersMeasures).include? category
-        checkins.select(&:weather).map { |checkin| { x: checkin.date, y: checkin.weather.send(id) } }
+        selected_checkins.select(&:weather).map { |checkin| { x: checkin.date, y: checkin.weather.send(id) } }
       else
-        checkins.select(&:harvey_bradshaw_index)
+        selected_checkins.select(&:harvey_bradshaw_index)
           .map { |checkin| { x: checkin.date, y: checkin.harvey_bradshaw_index.score } }
       end
 
     trackables.sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
   end
 
-  def set_averaged_values(coordinates_hash)
-    merged = [coordinates_hash[0]]
+  def form_averaged_values(coordinates_hash, category, id)
+    if coordinates_hash.empty?
+      start_coord = first_valid_coordinate(category, id)
+      end_coord = last_valid_coordinate(category, id)
+      step_coord = (end_coord[:y] - start_coord[:y]).to_f/4
+
+      coordinates_hash << { x: start_at.to_date, y: start_coord[:y] + step_coord, average: true }
+      coordinates_hash << { x: end_at.to_date,   y: end_coord[:y]   - step_coord, average: true }
+    end
+
+    unless(coordinates_hash.first[:x].to_s == start_at && coordinates_hash.first[:y].present?)
+      coordinates_hash << { x: start_at.to_date,
+        y: (coordinates_hash.first[:y] + first_valid_coordinate(category, id)[:y])/2,
+        average: true
+      }
+    end
+
+    coordinates_hash_last = coordinates_hash.last
+    unless(coordinates_hash_last[:x].to_s == end_at && coordinates_hash_last[:y].present?)
+      end_coord = last_valid_coordinate(category, id)
+      diff = end_coord[:x] - coordinates_hash_last[:x]
+
+      step_coord = (end_coord[:y] - coordinates_hash_last[:y]).to_f/diff
+
+      coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
+    end
+
+    set_average_values(coordinates_hash)
+  end
+
+  def set_average_values(coordinates_hash)
+    coordinates_hash.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+    averaged = [coordinates_hash[0]]
 
     coordinates_hash.each_cons(2) do |i, j|
       diff = (j[:x] - i[:x]).to_i
       days = diff - 1
 
       if diff <= 1
-        merged << j
+        averaged << j
       else
         average_step = (j[:y] - i[:y]).to_f/diff
-        days.times { merged << { x: merged.last[:x] + 1.day, y: merged.last[:y] + average_step, average: true } }
-        merged << j
+        days.times { averaged << { x: averaged.last[:x] + 1.day, y: averaged.last[:y] + average_step, average: true } }
+        averaged << j
       end
     end
 
-    merged
+    averaged
+  end
+
+  def first_valid_coordinate(category, id)
+    start_date = start_at.to_date
+    category_name = category.singularize
+
+    checkin = checkins.find_by_category_id(category_name, id).where(:date.lt => start_date).last
+
+    return { x: start_date, y: 0 } unless checkin
+
+    { x: checkin.date, y: checkin.send("#{category}").find_by("#{category_name}_id": id).value || 0 }
+  end
+
+  def last_valid_coordinate(category, id)
+    end_date = end_at.to_date
+    category_name = category.singularize
+
+    checkin = checkins.find_by_category_id(category_name, id).where(:date.gt => end_date).first
+
+    return { x: end_date, y: 0 } unless checkin
+
+    { x: checkin.date, y: checkin.send("#{category}").find_by("#{category_name}_id": id).value || 0 }
   end
 
   def get_color_id(chart)

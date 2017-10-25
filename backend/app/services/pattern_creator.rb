@@ -17,4 +17,10 @@ class PatternCreator
       encrypted_user_id: encrypted_user_id
     )
   end
+
+  private
+
+  def encrypted_user_id
+    SymmetricEncryption.encrypt(user.id)
+  end
 end

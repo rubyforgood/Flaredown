@@ -12,7 +12,7 @@ const {
 } = Ember;
 
 export default Component.extend({
-  classNames: ['flaredown-white-box', 'max-width', 'flaredown-svg-group'],
+  classNames: ['flaredown-svg-group'],
 
   svg: null,
   data: null,
@@ -23,8 +23,8 @@ export default Component.extend({
   svgLineHeight: 3,
   startAt: null,
   endAt: null,
-  margin: { top: 10, right: 5, bottom: 5, left: 10 },
-  marginOffset: 20,
+  margin: { top: 20, right: 0, bottom: 5, left: 0 }, //margin for charts
+  backgroundMargin: { right: 10, left: 10 , top: 0 }, // for init-svg
   colorIds: A(),
   hasLines: false,
 
@@ -41,33 +41,52 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    const svg = d3.select(this.element).select('svg').append('g').attr('class', 'offset');
+    const svgCanvas = d3.select(this.element).select('svg');
+    const svgBackgroundArea = svgCanvas.append('g').attr('class', 'background-area');
+    const svg = svgCanvas.append('g').attr('class', 'offset');
 
     const margin = get(this, 'margin');
-
     svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // svg references to g
 
     const resize = () => {
       let svgSelection = this.$();
       if(svgSelection) {
         const width = this.$().width();
+        const backgroundMargin = get(this, 'backgroundMargin');
 
         set(this, 'svgWidth', width);
-        set(this, 'svgChartWidth', width - margin.left - margin.right);
+        set(this, 'svgChartWidth', width - backgroundMargin.left - backgroundMargin.right);
       }
     };
+    set(this, 'svgBackgroundArea', svgBackgroundArea);
     set(this, 'svg', svg);
 
     window.addEventListener("resize", resize);
 
     resize();
+
+    console.log('svgWidth: ', get(this, 'svgWidth'), 'svgChartWidth: ', get(this, 'svgChartWidth'));
   },
 
-  xScaleObserver: observer('svgChartWidth', function(){
-    get(this, 'xScale').range([0, get(this, 'svgChartWidth')]);
+  xScaleObserver: observer('svgWidth', 'svgChartWidth', function(){
+    get(this, 'xScale').range([0, get(this, 'svgWidth')]);
+
+    this.renderBackground();
 
     if(get(this, 'hasLines')) {
       this.renderYGrid();
+    }
+  }),
+
+  svgBackgroundObserver: observer('svgBackgroundArea', function() {
+    const svgBackgroundArea = get(this, 'svgBackgroundArea');
+
+    if(!svgBackgroundArea) {
+      return;
+    }
+
+    if(svgBackgroundArea.select('rect').empty()) {
+      svgBackgroundArea.append('rect').attr('class', 'svg-background');
     }
   }),
 
@@ -76,10 +95,6 @@ export default Component.extend({
 
     if(!svg) {
       return;
-    }
-
-    if(svg.select('.legend-area').empty()) {
-      svg.append('g').attr('class', 'legend-area');
     }
 
     if(svg.select('.grid-area').empty()) {
@@ -103,6 +118,7 @@ export default Component.extend({
     const dynamicSeries = series.filterBy('subtype', 'dynamic');
     const lines = series.filterBy('type', 'line')
     const markers = series.filterBy('type', 'marker');
+    const margin = get(this, 'margin');
 
     filteredSeries.pushObjects([lines, dynamicSeries, markers]).map((itemArray) => {
       return this.addChartAttributes(itemArray);
@@ -129,6 +145,8 @@ export default Component.extend({
 
     get(this, 'yScaleStatic').domain([0, 4]);
 
+    height += margin.top + margin.bottom;
+
     return height || 0;
   }),
 
@@ -147,18 +165,33 @@ export default Component.extend({
     })
   },
 
+  renderBackground() {
+    console.log('background svgChartWidth: ', get(this, 'svgChartWidth'));
+    const backgroundMargin = get(this, 'backgroundMargin');
+    const svgBackgroundArea = get(this, 'svgBackgroundArea');
+
+    svgBackgroundArea.attr("transform", "translate(" + backgroundMargin.left + "," + backgroundMargin.top + ")");
+
+    svgBackgroundArea
+      .select('rect')
+      .attr('class', 'svg-background')
+      .attr('width', get(this, 'svgChartWidth'))
+      .attr('height', get(this, 'svgHeight'));
+  },
+
   renderYGrid() {
     const svg = get(this, 'svg');
     const yScaleGrid =  get(this, 'yScaleStatic');
     const gridArea = svg.select('g.grid-area');
+    const backgroundMargin = get(this, 'backgroundMargin')
 
     let attr = {
-          'class': 'yGrid',
-          'x1'   : get(this, 'margin.right'),
-          'x2'   : get(this, 'svgChartWidth'),
-          'y1'   : (d) => { return yScaleGrid(d) },
-          'y2'   : (d) => { return yScaleGrid(d) },
-        };
+      'class': 'yGrid',
+      'x1'   : backgroundMargin.left,
+      'x2'   : (get(this, 'svgWidth') - backgroundMargin.right),
+      'y1'   : (d) => { return yScaleGrid(d) },
+      'y2'   : (d) => { return yScaleGrid(d) },
+    };
 
     let grid = gridArea.selectAll('.yGrid')
       .data(yScaleGrid.ticks(5))

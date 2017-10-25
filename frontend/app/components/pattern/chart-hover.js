@@ -36,9 +36,12 @@ export default Component.extend({
 
   widthObserver: observer('width', function() {
     const width = get(this, 'width');
-    let hoverArea = get(this, 'hoverArea');
+    const backgroundMargin = get(this, 'backgroundMargin');
+    const hoverArea = get(this, 'hoverArea');
 
-    hoverArea.attr('width', width);
+    hoverArea
+    .attr("width", width)
+    .attr("transform", "translate(" + backgroundMargin.left + "," + backgroundMargin.top + ")");
   }),
 
   renderContainer(svg){

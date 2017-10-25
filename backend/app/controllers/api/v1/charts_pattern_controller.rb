@@ -2,8 +2,9 @@ class Api::V1::ChartsPatternController < ApplicationController
   skip_authorization_check only: :index
 
   def index
-    start_at = charts_pattern_params[:start_at]
-    end_at = charts_pattern_params[:end_at]
+    offset = charts_pattern_params[:offset].to_i
+    start_at = (charts_pattern_params[:start_at].to_date - offset.days).to_s
+    end_at = (charts_pattern_params[:end_at].to_date + offset.days).to_s
 
     @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] })
 
@@ -20,6 +21,6 @@ class Api::V1::ChartsPatternController < ApplicationController
   private
 
   def charts_pattern_params
-    params.permit(:start_at, :end_at, pattern_ids: [])
+    params.permit(:start_at, :end_at, :offset, pattern_ids: [])
   end
 end
