@@ -65,35 +65,57 @@ class ChartsPattern
     category = chart[:category]
     id = chart[:id]
 
-    res =
-      if %w(conditions symptoms treatments).include? category
-        static_trackables_coordinates(category, checkins, id)
-      else
-        health_factors_trackables_coordinate(category, checkins, id)
-      end
-
-    res.sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+    if %w(conditions symptoms treatments).include? category
+      static_trackables_coordinates(category, checkins, id)
+    else
+      health_factors_trackables_coordinate(category, checkins, id)
+    end
   end
 
   def static_trackables_coordinates(category, checkins, id)
     category_name = category.singularize
 
-    "Checkin::#{category_name.camelize}".constantize.where(
+    trackables = "Checkin::#{category_name.camelize}".constantize.where(
       checkin_id: { '$in': checkins.map(&:id) },
       "#{category_name}_id": id
     ).map { |tr| { x: tr.checkin.date, y: tr.value || 0 } }.uniq
+
+    trackables.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+    category == 'treatments' ? trackables : set_averaged_values(trackables)
   end
 
   def health_factors_trackables_coordinate(category, checkins, id)
-    if %w(foods tags).include? category
-      checkins.select { |checkin| checkin.send("#{category.singularize}_ids").include? id }
-        .map { |checkin| { x: checkin.date } }.uniq
-    elsif %w(weathersMeasures).include? category
-      checkins.select(&:weather).map { |checkin| { x: checkin.date, y: checkin.weather.send(id) } }
-    else
-      checkins.select(&:harvey_bradshaw_index)
-        .map { |checkin| { x: checkin.date, y: checkin.harvey_bradshaw_index.score } }
+    trackables =
+      if %w(foods tags).include? category
+        checkins.select { |checkin| checkin.send("#{category.singularize}_ids").include? id }
+          .map { |checkin| { x: checkin.date } }.uniq
+      elsif %w(weathersMeasures).include? category
+        checkins.select(&:weather).map { |checkin| { x: checkin.date, y: checkin.weather.send(id) } }
+      else
+        checkins.select(&:harvey_bradshaw_index)
+          .map { |checkin| { x: checkin.date, y: checkin.harvey_bradshaw_index.score } }
+      end
+
+    trackables.sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+  end
+
+  def set_averaged_values(coordinates_hash)
+    merged = [coordinates_hash[0]]
+
+    coordinates_hash.each_cons(2) do |i, j|
+      diff = (j[:x] - i[:x]).to_i
+      days = diff - 1
+
+      if diff <= 1
+        merged << j
+      else
+        average_step = (j[:y] - i[:y]).to_f/diff
+        days.times { merged << { x: merged.last[:x] + 1.day, y: merged.last[:y] + average_step, average: true } }
+        merged << j
+      end
     end
+
+    merged
   end
 
   def get_color_id(chart)

@@ -169,7 +169,8 @@ export default Component.extend({
       if(item.marker) {
         return item.category == 'treatments' ? `${item.y}` : '';
       } else {
-        return `${item.y}/5`;
+        let y = item.y % 1 === 0 ? item.y : item.y.toFixed(1);
+        return `${y}/5`;
       }
     } else {
       return `${item.y}`;
