@@ -4,7 +4,9 @@ class Api::V1::ChartsPatternController < ApplicationController
   def index
     offset = charts_pattern_params[:offset].to_i
     start_at = (charts_pattern_params[:start_at].to_date - offset.days).to_s
-    end_at = (charts_pattern_params[:end_at].to_date + offset.days).to_s
+
+    end_date = charts_pattern_params[:end_at].to_date
+    end_at = (Time.current.to_date == end_date ? end_date : (end_date + offset.days)).to_s
 
     @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] })
 
