@@ -29,6 +29,13 @@
     </a>
   </div>
 
+  <div class="rigth-arrow">
+    {{#if rigthArrowVisibile}}
+      <a {{action 'navigateRight'}}>
+        {{inline-svg 'arrow-right' class='arrow-icon'}}
+      </a>
+    {{/if}}
+  </div>
 {{else}}
   <a class="calendar-opener calendarItem" {{action 'openPicker' bubbles=false}}>
     &nbsp;
@@ -46,12 +53,10 @@
     &nbsp;
     {{visibleChartsCount}} visible
   </span>
-{{/if}}
 
-<div class="rigth-arrow">
-  {{#if rigthArrowVisibile}}
+  <div class="rigth-arrow">
     <a {{action 'navigateRight'}}>
       {{inline-svg 'arrow-right' class='arrow-icon'}}
     </a>
-  {{/if}}
-</div>
+  </div>
+{{/if}}

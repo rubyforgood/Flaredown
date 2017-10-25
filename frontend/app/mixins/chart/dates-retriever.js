@@ -32,36 +32,11 @@ export default Mixin.create({
     return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
   }),
 
-  getStartAt: computed('startAt', function() {
-    let startAt = get(this, 'startAt');
-
-    return startAt ? startAt : this.daysAgo(get(this, 'dateRange'));
-  }),
-
-  getEndAt: computed('endAt', function() {
-    let endAt = get(this, 'endAt');
-    return endAt ? endAt : this.daysAfter(get(this, 'dateRange'));
-  }),
-
   startAtWithCache: computed('startAt', function() {
     return moment(get(this, 'startAt')).subtract(get(this, 'daysRadius'), 'days');
   }),
 
   endAtWithCache: computed('endAt', function() {
     return moment(get(this, 'endAt')).add(get(this, 'daysRadius'), 'days');
-  }),
-
-  daysAgo(number) {
-    let date = new Date();
-    let seconds = date.setDate(date.getDate() - number);
-
-    return new Date(seconds);
-  },
-
-  daysAfter(number) {
-    let date = new Date();
-    let seconds = date.setDate(date.getDate() + number);
-
-    return new Date(seconds);
-  },
+  })
 })

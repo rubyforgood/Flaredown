@@ -56,7 +56,7 @@ export default Component.extend({
     return get(this, 'endAt').endOf('day') < moment();
   }),
 
-  DaysDuration: computed('startAt', 'endAt', function() {
+  daysDuration: computed('startAt', 'endAt', function() {
     let duration = moment.duration(get(this, 'endAt') - get(this, 'startAt')).asDays();
     let rate = Number(duration*get(this, 'rateOfDuration')).toFixed(0);
 
@@ -72,11 +72,11 @@ export default Component.extend({
     },
 
     navigateLeft() {
-      this.sendAction('onNavigate', -(get(this, 'DaysDuration')));
+      this.sendAction('onNavigate', -(get(this, 'daysDuration')));
     },
 
     navigateRight() {
-      this.sendAction('onNavigate', get(this, 'DaysDuration'));
+      this.sendAction('onNavigate', get(this, 'daysDuration'));
     },
 
     startChanged(date) {
