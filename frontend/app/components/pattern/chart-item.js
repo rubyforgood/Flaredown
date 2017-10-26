@@ -5,6 +5,7 @@ import Ember from 'ember';
 const {
   get,
   set,
+  computed,
   observer,
   Component,
   run: { scheduleOnce }
@@ -20,6 +21,10 @@ export default Component.extend({
     if(get(this, 'chart.svg') && get(this, 'isRendered')) {
       scheduleOnce('afterRender', this, this.renderChart);
     }
+  }),
+
+  isCurrentEndDate: computed('chart.endAt', function() {
+    return get(this, 'chart.endAt').startOf('day').toDate().getTime() == moment().startOf('day').toDate().getTime();
   }),
 
   didInsertElement() {
@@ -58,13 +63,15 @@ export default Component.extend({
 
     const y = get(this, 'chart.svgLineAreaHeight') + get(this, 'chart.svgLineOffset')*(index + 1) + get(this, 'chart.svgLineHeight')*index;
 
+    const lineWidth = get(this, 'isCurrentEndDate') ? get(this, 'chart.svgChartWidth') : width;
+
     const lineData = [{x: 0, y: y, x2: width, y2: y}];
     const paths = dotsAreas
       .selectAll(`.dot-path-${index}`) // for adding new pathes
       .data(lineData)
       .attr('x1', 0)
       .attr('y1', y)
-      .attr('x2', width)
+      .attr('x2', lineWidth)
       .attr('y2', y);
 
     paths.exit().remove();
@@ -73,7 +80,7 @@ export default Component.extend({
         .attr('class', `line colorable-stroke-${colorId} dot-path-${index}`)
         .attr('x1', 0)
         .attr('y1', y)
-        .attr('x2', width)
+        .attr('x2', lineWidth)
         .attr('y2', y)
         .attr('stroke', `${colorId}`)
         .style('stroke-dasharray', ('3, 3'));

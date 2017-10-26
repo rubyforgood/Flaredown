@@ -102,15 +102,15 @@ class ChartsPattern
       end_coord = last_valid_coordinate(category, id)
       step_coord = (end_coord[:y] - start_coord[:y]).to_f/4
 
-      coordinates_hash << { x: start_at.to_date, y: start_coord[:y] + step_coord, average: true }
+      coordinates_hash.unshift({ x: start_at.to_date, y: start_coord[:y] + step_coord, average: true })
       coordinates_hash << { x: end_at.to_date,   y: end_coord[:y]   - step_coord, average: true }
     end
 
     unless(coordinates_hash.first[:x].to_s == start_at && coordinates_hash.first[:y].present?)
-      coordinates_hash << { x: start_at.to_date,
+      coordinates_hash.unshift({ x: start_at.to_date,
         y: (coordinates_hash.first[:y] + first_valid_coordinate(category, id)[:y])/2,
         average: true
-      }
+      })
     end
 
     coordinates_hash_last = coordinates_hash.last

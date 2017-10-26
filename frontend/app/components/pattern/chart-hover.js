@@ -119,6 +119,9 @@ export default Component.extend({
 
   showTooltip(xValue, x) {
     const tooltipData = this.tooltipData(xValue.format('YYYY-MM-DD'));
+    if(tooltipData.empty) {
+      return;
+    }
 
     let itemList = tooltipData.map((item) => {
       let value = this.tooltipItemValue(item);

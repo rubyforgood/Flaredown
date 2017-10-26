@@ -391,6 +391,12 @@ input[type="submit"] {
     stroke-width: 2;
   }
 
+  .background-area {
+    .svg-background {
+      fill: white;
+    }
+  }
+
   .tooltip-area {
     position: absolute;
     z-index: 10;

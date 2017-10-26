@@ -31,7 +31,7 @@ export default Component.extend({
   init(){
     this._super(...arguments);
 
-    const xScale = d3.time.scale().range([0, get(this, 'svgChartWidth')]);
+    const xScale = d3.time.scale().range([0, get(this, 'svgWidth')]);
     const yScaleStatic = d3.scale.linear().range([get(this, 'svgLineAreaHeight'), 0]);
 
     set(this, 'xScale', xScale);
@@ -64,8 +64,6 @@ export default Component.extend({
     window.addEventListener("resize", resize);
 
     resize();
-
-    console.log('svgWidth: ', get(this, 'svgWidth'), 'svgChartWidth: ', get(this, 'svgChartWidth'));
   },
 
   xScaleObserver: observer('svgWidth', 'svgChartWidth', function(){
@@ -110,10 +108,15 @@ export default Component.extend({
     }
   }),
 
+  startAtOffset: computed('startAt', 'daysRangeOffset', function() {
+    return moment(get(this, 'startAt')).subtract(get(this, 'daysRangeOffset'), 'days');
+  }),
+
   svgHeight: computed('data.series.[]', function() {
     let height = 0;
     let filteredSeries = A();
     const series = get(this, 'data.series');
+    const daysRangeOffset = get(this, 'daysRangeOffset');
 
     const dynamicSeries = series.filterBy('subtype', 'dynamic');
     const lines = series.filterBy('type', 'line')
@@ -139,7 +142,7 @@ export default Component.extend({
     }
 
     get(this, 'xScale').domain([
-      get(this, 'startAt').startOf('day').toDate().getTime(),
+      get(this, 'startAtOffset').startOf('day').toDate().getTime(),
       get(this, 'endAt').endOf('day').toDate().getTime(),
     ]);
 
@@ -166,7 +169,6 @@ export default Component.extend({
   },
 
   renderBackground() {
-    console.log('background svgChartWidth: ', get(this, 'svgChartWidth'));
     const backgroundMargin = get(this, 'backgroundMargin');
     const svgBackgroundArea = get(this, 'svgBackgroundArea');
 
