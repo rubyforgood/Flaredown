@@ -13,13 +13,14 @@ const {
 } = Ember;
 
 export default Component.extend({
+  classNames: ['chart-hover-container'],
   svg: null,
   data: null,
   width: null,
   height: null,
   dateFormat: 'MMM D, YYYY',
   tooltipTopOffset: 11,
-  tooltipLeftOffset: 20,
+  tooltipLeftOffset: 15,
 
   initObserver: observer('svg', 'height', 'width', function() {
     this._super(...arguments);
@@ -55,7 +56,8 @@ export default Component.extend({
       .attr('class', 'hover-line')
       .attr('style', 'display:none;')
       .attr('y1', 0)
-      .attr('y2', svgHight);
+      .attr('y2', svgHight)
+      .attr('transform', 'translate(0, -10)');
 
     set(this, 'line', line);
 
@@ -101,6 +103,10 @@ export default Component.extend({
     const mouseX = e.offsetX || e.changedTouches[0].screenX; //d3.mouse(hoverArea.node())[0];
     const xValue = moment(xScale.invert(mouseX));
 
+    if(this.isOutOfRangeDates(xValue)) {
+      return;
+    }
+
     if(xValue.hours() >= 12){
       xValue.add(1, 'days').startOf('day');
     } else {
@@ -115,6 +121,13 @@ export default Component.extend({
 
     this.showTooltip(xValue, x);
     e.stopPropagation();
+  },
+
+  isOutOfRangeDates(date) {
+    const startAt = get(this, 'startAt').startOf('day');
+    const endAt = get(this, 'endAt');
+
+    return date < startAt || date > endAt;
   },
 
   showTooltip(xValue, x) {
@@ -136,7 +149,9 @@ export default Component.extend({
 
     const tooltipArea = get(this, 'tooltipArea');
     const hoverCenter = get(this, 'width')/2;
-    let tooltipLeft = x <= hoverCenter ? (x + get(this, 'tooltipLeftOffset')) : (x - tooltipArea.width() - 10);
+    const tooltipLeftOffset = get(this, 'tooltipLeftOffset');
+
+    let tooltipLeft = x <= hoverCenter ? (x + tooltipLeftOffset) : (x - tooltipLeftOffset - tooltipArea.width() - get(this, 'backgroundMargin.left'));
 
     tooltipArea
       .css('visibility', 'visible')

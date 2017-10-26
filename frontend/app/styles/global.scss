@@ -379,6 +379,11 @@ input[type="submit"] {
     stroke-width: 2;
   }
 
+  .dot {
+    fill: #ffab00;
+    stroke: #fff;
+  }
+
   .yGrid {
     fill: none;
     stroke: $background;
@@ -397,6 +402,10 @@ input[type="submit"] {
     }
   }
 
+  .chart-hover-container {
+    position: relative;
+  }
+
   .tooltip-area {
     position: absolute;
     z-index: 10;
@@ -404,7 +413,7 @@ input[type="submit"] {
     border: 2px solid $lightgrey;
     border-radius: 5px;
     padding: 5px;
-    font-size: 0.7em;
+    font-size: 1em;
     min-width: 120px;
     visibility: hidden;
 
@@ -416,6 +425,10 @@ input[type="submit"] {
     .tooltip-items > .item {
       display: flex;
       justify-content: space-between;
+
+      span:first-child {
+        padding-right: 5px;
+      }
     }
   }
 }
