@@ -153,6 +153,25 @@ export default Component.extend({
     this.renderLabel(lineAreas, label, colorId, "translate(265, 80)");
 
     lines.exit().remove();
+
+    const filteredData = data.filter((d) => !d.average);
+
+    const dots = lineAreas
+      .selectAll(`.dot-line-${index}`)
+      .data(filteredData)
+      .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()) )
+      .attr('cy', (d) => yScale(moment(d.y).toDate().getTime()) );
+
+    dots.enter()
+      .append('circle')
+        .attr('class', `colorable-stroke-${colorId} dot-line-${index}`)
+        .attr('r', 4)
+        .attr('stroke-width', 2)
+        .attr('fill', 'white')
+        .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()) )
+        .attr('cy', (d) => yScale(moment(d.y).toDate().getTime()) );
+
+    dots.exit().remove();
   },
 
   renderLabel(selection, label, colorId, translate) {
@@ -162,7 +181,7 @@ export default Component.extend({
         .attr("dy", ".35em")
         .text(label)
         .attr('transform', translate)
-        .attr('class', `colorable-fill-${colorId}`);
+        .attr('class', `colorable-stroke-${colorId} dot-line-${index}`);
     }
   },
 });
