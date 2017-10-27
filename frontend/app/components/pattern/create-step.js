@@ -13,10 +13,12 @@ const {
   observer,
   setProperties,
   Component,
+  A,
 } = Ember;
 
 export default Component.extend(ChartDataRetrieve, {
   i18n: service(),
+  store: service(),
 
   model: null,
   maxTrackables: 10,
@@ -33,6 +35,16 @@ export default Component.extend(ChartDataRetrieve, {
   chartEnablerPlaceholder: computed('isChartEnablerDisabled', function() {
     return get(this, 'isChartEnablerDisabled') ? 'No items to add' : 'Add symptoms, treatments and more...';
   }),
+
+  init() {
+    this._super(...arguments);
+
+    get(this, 'store')
+      .queryRecord('chart-list', {})
+      .then((res) => {
+        set(this, 'payload', get(res, 'payload'));
+    });
+  },
 
   didReceiveAttrs() {
     this._super(...arguments);
@@ -56,14 +68,57 @@ export default Component.extend(ChartDataRetrieve, {
     }
   }),
 
+  patternIncludesObserver: observer('payload', function() {
+    const patternIncludes = A([]);
+    const payload = get(this, 'payload');
+
+    Object
+      .keys(payload)
+      .forEach(category => {
+        const categoryCharts = payload[category];
+
+        categoryCharts.forEach(chart => {
+            let chart_id = chart[0];
+
+            if(category === 'weathersMeasures') {
+              chart_id = chart_id == 1 ? 'humidity' : 'pressure';
+            }
+
+            patternIncludes.pushObject({
+              id: chart_id,
+              category,
+              label: chart[1],
+            });
+          });
+      });
+
+    set(this, 'patternIncludes', patternIncludes);
+  }),
+
+  patternOptionsObserver: observer('patternIncludes', 'model.includes', function() {
+    const includes = get(this, 'model.includes');
+    const patternIncludes = get(this, 'patternIncludes');
+
+    set(this, 'options', A(patternIncludes.filter((pattern) => {
+      return includes.filter((inc) => {
+        return inc.id == pattern.id && inc.category == pattern.category;
+      }).length === 0;
+    })));
+  }),
+
   actions: {
     handleChange(obj) {
       const maxTrackables = get(this, 'maxTrackables');
       const includes = get(this, 'model.includes');
+      const options = get(this, 'options');
 
-      get(this, 'patternIncludes').removeObject(obj);
+      const exist = includes.find((i) => {
+        return get(i, 'id') == get(obj, 'id') && get(i, 'category') == get(obj, 'category');
+      });
 
-      if(!includes.includes(obj) && includes.length <= maxTrackables) {
+      options.removeObject(obj);
+
+      if(exist == null && includes.length < maxTrackables) {
         includes.pushObject(obj);
       } else {
         set(this, 'showMessage', true);
@@ -73,10 +128,14 @@ export default Component.extend(ChartDataRetrieve, {
     clicked(obj) {
       get(this, 'model.includes').removeObject(obj);
 
-      let includes = get(this, 'patternIncludes');
+      let options = get(this, 'options');
 
-      if(obj.category !== 'weathersMeasures') {
-        includes.pushObject(obj);
+      const exist = options.find((i) => {
+        return get(i, 'id') == get(obj, 'id') && get(i, 'category') == get(obj, 'category');
+      });
+
+      if(exist == null && obj.category !== 'weathersMeasures') {
+        options.pushObject(obj);
       }
     },
 
