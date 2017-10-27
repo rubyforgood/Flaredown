@@ -143,6 +143,10 @@ class Checkin
     })
   end
 
+  def self.find_by_weather
+    where(:weather_id.ne => nil)
+  end
+
   private
 
   def latest_hbi

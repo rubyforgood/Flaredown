@@ -134,7 +134,7 @@ export default Component.extend(ChartDataRetrieve, {
         return get(i, 'id') == get(obj, 'id') && get(i, 'category') == get(obj, 'category');
       });
 
-      if(exist == null && obj.category !== 'weathersMeasures') {
+      if(exist == null && obj.category == 'weathersMeasures') {
         options.pushObject(obj);
       }
     },

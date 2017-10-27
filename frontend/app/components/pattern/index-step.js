@@ -38,7 +38,11 @@ export default Component.extend({
     this._super(...arguments);
 
     const resize = () => {
-      const width = this.$().width();
+      const selection = this.$();
+      if (!selection) {
+        return;
+      }
+      const width = selection.width();
 
       set(this, 'indexPageWidth', width);
     };

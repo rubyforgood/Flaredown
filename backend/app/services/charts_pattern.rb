@@ -65,9 +65,11 @@ class ChartsPattern
   end
 
   def static_trackables_coordinates(category, checkin_ids, id)
-    trackables = find_coordinates_by_checkin(category, checkin_ids, id)
+    trackables =
+      find_coordinates_by_checkin(category, checkin_ids, id)
+      .sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
 
-    return trackables.sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i } if category == 'treatments'
+    return trackables if category == 'treatments'
 
     form_averaged_values(trackables, category, id)
   end
@@ -93,7 +95,7 @@ class ChartsPattern
           .map { |checkin| { x: checkin.date, y: checkin.harvey_bradshaw_index.score } }
       end
 
-    trackables.sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+    trackables.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
   end
 
   def form_averaged_values(coordinates_hash, category, id)
@@ -103,7 +105,7 @@ class ChartsPattern
       step_coord = (end_coord[:y] - start_coord[:y]).to_f/4
 
       coordinates_hash.unshift({ x: start_at.to_date, y: start_coord[:y] + step_coord, average: true })
-      coordinates_hash << { x: end_at.to_date,   y: end_coord[:y]   - step_coord, average: true }
+      coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
     end
 
     unless(coordinates_hash.first[:x].to_s == start_at && coordinates_hash.first[:y].present?)
@@ -150,7 +152,12 @@ class ChartsPattern
     start_date = start_at.to_date
     category_name = category.singularize
 
-    checkin = checkins.find_by_category_id(category_name, id).where(:date.lt => start_date).last
+    checkin=
+      if(category == "weathersMeasures")
+        checkins.find_by_weather.where(:date.lt => start_date).first
+      else
+        checkins.find_by_category_id(category_name, id).where(:date.lt => start_date).last
+      end
 
     return { x: start_date, y: 0 } unless checkin
 
