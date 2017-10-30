@@ -160,7 +160,7 @@ export default Component.extend({
   }),
 
   addChartAttributes(item_array) {
-    let index = 0;
+    let index = get(item_array, 'firstObject.subtype') === 'dynamic' ? 10 : 0;
 
     item_array.map((i) => {
       i.index = index;

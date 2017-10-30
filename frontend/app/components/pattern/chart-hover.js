@@ -191,7 +191,7 @@ export default Component.extend({
         return item.category == 'treatments' ? `${item.y}` : '';
       } else {
         let y = item.y % 1 === 0 ? item.y : item.y.toFixed(1);
-        return `${y}/5`;
+        return `${y}/4`;
       }
     } else {
       return `${item.y}`;
