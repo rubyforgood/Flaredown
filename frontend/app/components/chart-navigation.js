@@ -72,11 +72,11 @@ export default Component.extend({
     },
 
     navigateLeft() {
-      this.sendAction('onNavigate', -(get(this, 'daysDuration')));
+      this.sendAction('onNavigate', - 1); // - daysDuration
     },
 
     navigateRight() {
-      this.sendAction('onNavigate', get(this, 'daysDuration'));
+      this.sendAction('onNavigate', 1); // daysDuration
     },
 
     startChanged(date) {

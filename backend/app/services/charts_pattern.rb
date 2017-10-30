@@ -125,7 +125,7 @@ class ChartsPattern
       coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
     end
 
-    set_average_values(coordinates_hash)
+    coordinates_hash # set_average_values(coordinates_hash)
   end
 
   def set_average_values(coordinates_hash)
