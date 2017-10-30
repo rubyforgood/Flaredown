@@ -1,5 +1,8 @@
 class ChartsPattern
   attr_accessor :start_at, :end_at, :pattern, :user
+  attr_reader :used_color_ids
+
+  COLOR_IDS = Flaredown::Colorable::IDS
 
   TYPE_CHART = {
     line: %w(conditions symptoms),
@@ -18,6 +21,7 @@ class ChartsPattern
     @end_at   = options[:end_at]
     @pattern  = options[:pattern]
     @user     = options[:user]
+    @used_color_ids = []
   end
 
   def checkins
@@ -178,7 +182,15 @@ class ChartsPattern
   def get_color_id(chart)
     model_name = chart[:category].singularize.camelize
 
-    Tracking.where(user_id: user.id, trackable_type: model_name, trackable_id: chart[:id])
+    color_id = Tracking.where(user_id: user.id, trackable_type: model_name, trackable_id: chart[:id])
       .active_in_range(start_at.to_date, end_at.to_date).map(&:color_id).compact.last
+
+    if color_id
+      used_color_ids << color_id
+
+      return color_id
+    end
+
+    (COLOR_IDS - used_color_ids).shift
   end
 end

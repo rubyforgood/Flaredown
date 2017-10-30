@@ -97,11 +97,7 @@ export default Component.extend({
   addChartAttributes(series) {
     let index = 0;
 
-    series.map((i) => {
-      if(!i.color_id) {
-        i.color_id = this.setColorId();
-      }
-
+    series.map((i) => { // setColorId()
       i.index = index;
       index += 1;
     })
