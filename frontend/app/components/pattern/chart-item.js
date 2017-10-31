@@ -59,7 +59,7 @@ export default Component.extend({
     const dotsAreas = svg.select('g.dots-area');
     const width = get(this, 'chart.width');
     const xScale = get(this, 'chart.xScale');
-    const colorId = get(this, 'data.color_id') || 'black';
+    const colorId = get(this, 'data.color_id');
 
     const y = get(this, 'chart.svgLineAreaHeight') + get(this, 'chart.svgLineOffset')*(index + 1) + get(this, 'chart.svgLineHeight')*index;
 

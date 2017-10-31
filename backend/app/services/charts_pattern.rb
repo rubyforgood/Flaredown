@@ -182,8 +182,10 @@ class ChartsPattern
   def get_color_id(chart)
     model_name = chart[:category].singularize.camelize
 
-    color_id = Tracking.where(user_id: user.id, trackable_type: model_name, trackable_id: chart[:id])
-      .active_in_range(start_at.to_date, end_at.to_date).map(&:color_id).compact.last
+    if Tracking::TYPES.include? model_name
+      color_id = Tracking.where(user_id: user.id, trackable_type: model_name, trackable_id: chart[:id])
+        .active_in_range(start_at.to_date, end_at.to_date).map(&:color_id).compact.last
+    end
 
     if color_id
       used_color_ids << color_id
@@ -191,6 +193,9 @@ class ChartsPattern
       return color_id
     end
 
-    (COLOR_IDS - used_color_ids).shift
+    color_id = (COLOR_IDS - used_color_ids).shift
+    used_color_ids << color_id
+
+    color_id
   end
 end

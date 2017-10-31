@@ -139,11 +139,9 @@ export default Component.extend({
     let itemList = tooltipData.map((item) => {
       let value = this.tooltipItemValue(item);
 
-      return `<div class="tooltip-items"> \
-          <div class="item"> \
-            <span class="colorable-clr-${item.color_id}">${item.label}</span> \
-            <span>${value}</span>
-          </div> \
+      return `<div class="item"> \
+          <span class="colorable-clr-${item.color_id}">${item.label}</span> \
+          <span>${value}</span>
         </div>`
     }).join(' ');
 
@@ -153,10 +151,17 @@ export default Component.extend({
 
     let tooltipLeft = x <= hoverCenter ? (x + tooltipLeftOffset) : (x - tooltipLeftOffset - tooltipArea.width() - get(this, 'backgroundMargin.left'));
 
+    const tooltipHeader = `<div class="tooltip-header">
+      <b>${xValue.format(get(this, 'dateFormat'))}</b>
+      <a href="#">
+        <img src="/assets/nav_icons/arrow-right.svg">
+      </a>
+    </div>`
+
     tooltipArea
       .css('visibility', 'visible')
       .html(() => {
-        return `<b>${xValue.format(get(this, 'dateFormat'))}</b>` + itemList;
+        return `${tooltipHeader}` + `<div class="tooltip-items">${itemList}</div>`;
       })
       .css('top', get(this, 'tooltipTopOffset'))
       .css('left', tooltipLeft);

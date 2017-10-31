@@ -412,7 +412,6 @@ input[type="submit"] {
     background: white;
     border: 2px solid $lightgrey;
     border-radius: 5px;
-    padding: 5px;
     font-size: 1em;
     min-width: 120px;
     visibility: hidden;
@@ -420,7 +419,27 @@ input[type="submit"] {
     display: flex;
     flex-direction: column;
 
-    b { text-align: center; }
+    .tooltip-header {
+      display: flex;
+      padding: 0 5px;
+      background-color: $lightprimary;
+      color: $primary;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    a {
+      display: flex;
+    }
+
+    img {
+      width: 12px;
+      height: 18px;
+    }
+
+    .tooltip-items {
+      margin: 5px;
+    }
 
     .tooltip-items > .item {
       display: flex;

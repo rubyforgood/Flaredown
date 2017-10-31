@@ -23,10 +23,13 @@ class Tracking < ActiveRecord::Base
   #
   # Validations
   #
+
+  TYPES = %w(Condition Symptom Treatment)
+
   validates :user, :trackable, :start_at, presence: true
 
   validates :trackable_type, inclusion: {
-    in: %w(Condition Symptom Treatment), message: 'is not an allowed trackable type'
+    in: TYPES, message: 'is not an allowed trackable type'
   }
 
   validates :user_id, uniqueness: {
