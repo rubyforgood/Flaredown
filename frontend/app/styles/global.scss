@@ -414,6 +414,7 @@ input[type="submit"] {
     border-radius: 5px;
     font-size: 1em;
     min-width: 120px;
+    // max-width: 200px;
     visibility: hidden;
 
     display: flex;
@@ -428,6 +429,43 @@ input[type="submit"] {
       align-items: center;
     }
 
+    .tooltip-items {
+      display: flex;
+      flex-direction: column;
+
+      .line-item {
+        order: 1;
+        display: flex;
+        justify-content: space-between;
+
+        span:first-child {
+          padding-right: 5px;
+        }
+      }
+
+      .marker-items {
+        order: 2;
+        display: flex;
+        flex-wrap: wrap;
+        width: 65%;
+      }
+
+      .marker-item {
+        display: flex;
+
+        &:after {
+          content: ',';
+          width: 10px;
+        }
+
+        &:last-child {
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+
     a {
       display: flex;
     }
@@ -439,15 +477,6 @@ input[type="submit"] {
 
     .tooltip-items {
       margin: 5px;
-    }
-
-    .tooltip-items > .item {
-      display: flex;
-      justify-content: space-between;
-
-      span:first-child {
-        padding-right: 5px;
-      }
     }
   }
 }

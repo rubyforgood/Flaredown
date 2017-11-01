@@ -136,13 +136,19 @@ export default Component.extend({
       return;
     }
 
-    let itemList = tooltipData.map((item) => {
+    let lineItemList = tooltipData.filter((item) => !item.marker ).map((item) => {
       let value = this.tooltipItemValue(item);
 
-      return `<div class="item"> \
-          <span class="colorable-clr-${item.color_id}">${item.label}</span> \
-          <span>${value}</span>
-        </div>`
+      return `<div class="line-item">
+         <span class="colorable-clr-${item.color_id}">${item.label}</span>
+         <span>${value}</span>
+       </div>`
+    }).join(' ');
+
+    let markerItemList = tooltipData.filter((item) => item.marker ).map((item) => {
+      return `<div class="marker-item">
+         <span class="colorable-clr-${item.color_id}">${item.label}</span>
+       </div>`
     }).join(' ');
 
     const tooltipArea = get(this, 'tooltipArea');
@@ -161,7 +167,10 @@ export default Component.extend({
     tooltipArea
       .css('visibility', 'visible')
       .html(() => {
-        return `${tooltipHeader}` + `<div class="tooltip-items">${itemList}</div>`;
+        return `${tooltipHeader}` + `<div class="tooltip-items">
+          ${lineItemList}
+          <div class="marker-items">${markerItemList}</div>
+        </div>`;
       })
       .css('top', get(this, 'tooltipTopOffset'))
       .css('left', tooltipLeft);
@@ -193,7 +202,7 @@ export default Component.extend({
   tooltipItemValue(item) {
     if(item.static) {
       if(item.marker) {
-        return item.category == 'treatments' ? `${item.y}` : '';
+        return item.category == 'treatments' ? `${item.y}` : null;
       } else {
         let y = item.y % 1 === 0 ? item.y : item.y.toFixed(1);
         return `${y}/4`;
