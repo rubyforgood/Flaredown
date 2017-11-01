@@ -24,7 +24,7 @@ class Tracking < ActiveRecord::Base
   # Validations
   #
 
-  TYPES = %w(Condition Symptom Treatment)
+  TYPES = %w(Condition Symptom Treatment).freeze
 
   validates :user, :trackable, :start_at, presence: true
 

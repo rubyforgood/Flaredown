@@ -71,7 +71,7 @@ class ChartsPattern
   def static_trackables_coordinates(category, checkin_ids, id)
     trackables =
       find_coordinates_by_checkin(category, checkin_ids, id)
-      .sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+        .sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
 
     return trackables if category == 'treatments'
 
@@ -102,35 +102,36 @@ class ChartsPattern
     trackables.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
   end
 
+  # rubocop:disable Metrics/AbcSize
   def form_averaged_values(coordinates_hash, category, id)
     if coordinates_hash.empty?
       start_coord = first_valid_coordinate(category, id)
       end_coord = last_valid_coordinate(category, id)
-      step_coord = (end_coord[:y] - start_coord[:y]).to_f/4
+      step_coord = (end_coord[:y] - start_coord[:y]).to_f / 4
 
-      coordinates_hash.unshift({ x: start_at.to_date, y: start_coord[:y] + step_coord, average: true })
+      coordinates_hash.unshift(x: start_at.to_date, y: start_coord[:y] + step_coord, average: true)
       coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
     end
 
-    unless(coordinates_hash.first[:x].to_s == start_at && coordinates_hash.first[:y].present?)
-      coordinates_hash.unshift({ x: start_at.to_date,
-        y: (coordinates_hash.first[:y] + first_valid_coordinate(category, id)[:y])/2,
-        average: true
-      })
+    unless coordinates_hash.first[:x].to_s == start_at && coordinates_hash.first[:y].present?
+      coordinates_hash.unshift(x: start_at.to_date,
+                               y: (coordinates_hash.first[:y] + first_valid_coordinate(category, id)[:y]) / 2,
+                               average: true)
     end
 
     coordinates_hash_last = coordinates_hash.last
-    unless(coordinates_hash_last[:x].to_s == end_at && coordinates_hash_last[:y].present?)
+    unless coordinates_hash_last[:x].to_s == end_at && coordinates_hash_last[:y].present?
       end_coord = last_valid_coordinate(category, id)
       diff = end_coord[:x] - coordinates_hash_last[:x]
 
-      step_coord = (end_coord[:y] - coordinates_hash_last[:y]).to_f/diff
+      step_coord = (end_coord[:y] - coordinates_hash_last[:y]).to_f / diff
 
       coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
     end
 
     coordinates_hash # set_average_values(coordinates_hash)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def set_average_values(coordinates_hash)
     coordinates_hash.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
@@ -140,13 +141,12 @@ class ChartsPattern
       diff = (j[:x] - i[:x]).to_i
       days = diff - 1
 
-      if diff <= 1
-        averaged << j
-      else
-        average_step = (j[:y] - i[:y]).to_f/diff
+      if diff > 1
+        average_step = (j[:y] - i[:y]).to_f / diff
         days.times { averaged << { x: averaged.last[:x] + 1.day, y: averaged.last[:y] + average_step, average: true } }
-        averaged << j
       end
+
+      averaged << j
     end
 
     averaged
@@ -156,27 +156,27 @@ class ChartsPattern
     start_date = start_at.to_date
     category_name = category.singularize
 
-    checkin=
-      if(category == "weathersMeasures")
-        checkins.find_by_weather.where(:date.lt => start_date).first
+    checkin =
+      if category == "weathersMeasures"
+        checkins.where(:weather_id.ne => nil).where(:date.lt => start_date).first
       else
-        checkins.find_by_category_id(category_name, id).where(:date.lt => start_date).last
+        checkins.ids_by_category_attrs(category_name, id).where(:date.lt => start_date).last
       end
 
     return { x: start_date, y: 0 } unless checkin
 
-    { x: checkin.date, y: checkin.send("#{category}").find_by("#{category_name}_id": id).value || 0 }
+    { x: checkin.date, y: checkin.send(category.to_s).find_by("#{category_name}_id": id).value || 0 }
   end
 
   def last_valid_coordinate(category, id)
     end_date = end_at.to_date
     category_name = category.singularize
 
-    checkin = checkins.find_by_category_id(category_name, id).where(:date.gt => end_date).first
+    checkin = checkins.ids_by_category_attrs(category_name, id).where(:date.gt => end_date).first
 
     return { x: end_date, y: 0 } unless checkin
 
-    { x: checkin.date, y: checkin.send("#{category}").find_by("#{category_name}_id": id).value || 0 }
+    { x: checkin.date, y: checkin.send(category.to_s).find_by("#{category_name}_id": id).value || 0 }
   end
 
   def get_color_id(chart)

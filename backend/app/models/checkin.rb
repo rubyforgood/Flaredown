@@ -137,14 +137,9 @@ class Checkin
     validates :treatment_id, uniqueness: { scope: :checkin_id }
   end
 
-  def self.find_by_category_id(category_name, id)
+  def self.ids_by_category_attrs(category_name, id)
     where(id: { '$in' => "Checkin::#{category_name.camelize}".constantize
-      .where("#{category_name}_id": id).pluck(:checkin_id)
-    })
-  end
-
-  def self.find_by_weather
-    where(:weather_id.ne => nil)
+      .where("#{category_name}_id": id).pluck(:checkin_id) })
   end
 
   private

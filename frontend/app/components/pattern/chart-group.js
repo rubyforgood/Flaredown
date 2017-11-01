@@ -116,7 +116,6 @@ export default Component.extend({
     let height = 0;
     let filteredSeries = A();
     const series = get(this, 'data.series');
-    const daysRangeOffset = get(this, 'daysRangeOffset');
 
     const dynamicSeries = series.filterBy('subtype', 'dynamic');
     const lines = series.filterBy('type', 'line')

@@ -181,7 +181,7 @@ export default Component.extend({
         .attr("dy", ".35em")
         .text(label)
         .attr('transform', translate)
-        .attr('class', `colorable-stroke-${colorId} dot-line-${index}`);
+        .attr('class', `colorable-fill-${colorId}`);
     }
   },
 });
