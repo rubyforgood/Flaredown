@@ -20,7 +20,7 @@ export default Component.extend({
   height: null,
   dateFormat: 'MMM D, YYYY',
   tooltipTopOffset: 11,
-  tooltipLeftOffset: 15,
+  tooltipLeftOffset: 5,
 
   initObserver: observer('svg', 'height', 'width', function() {
     this._super(...arguments);
@@ -131,7 +131,8 @@ export default Component.extend({
   },
 
   showTooltip(xValue, x) {
-    const tooltipData = this.tooltipData(xValue.format('YYYY-MM-DD'));
+    const xValueFormatted = xValue.format('YYYY-MM-DD');
+    const tooltipData = this.tooltipData(xValueFormatted);
     if(tooltipData.empty) {
       return;
     }
@@ -159,7 +160,7 @@ export default Component.extend({
 
     const tooltipHeader = `<div class="tooltip-header">
       <b>${xValue.format(get(this, 'dateFormat'))}</b>
-      <a href="#">
+      <a href=/checkin?date=${xValueFormatted}>
         <img src="/assets/nav_icons/arrow-right.svg">
       </a>
     </div>`
