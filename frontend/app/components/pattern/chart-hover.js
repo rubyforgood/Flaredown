@@ -132,7 +132,7 @@ export default Component.extend({
 
   showTooltip(xValue, x) {
     const xValueFormatted = xValue.format('YYYY-MM-DD');
-    const tooltipData = this.tooltipData(xValueFormatted);
+    const tooltipData = this.tooltipData(xValueFormatted).filter((item) => !item.average);
     if(tooltipData.empty) {
       return;
     }

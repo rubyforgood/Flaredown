@@ -1,5 +1,5 @@
 class ChartsPattern
-  attr_accessor :start_at, :end_at, :pattern, :user
+  attr_accessor :start_at, :end_at, :pattern, :user, :checkins_with_wather
   attr_reader :used_color_ids
 
   COLOR_IDS = Flaredown::Colorable::IDS
@@ -22,6 +22,7 @@ class ChartsPattern
     @pattern  = options[:pattern]
     @user     = options[:user]
     @used_color_ids = []
+    @checkins_with_wather = checkins.where(:weather_id.ne => nil)
   end
 
   def checkins
@@ -71,7 +72,7 @@ class ChartsPattern
   def static_trackables_coordinates(category, checkin_ids, id)
     trackables =
       find_coordinates_by_checkin(category, checkin_ids, id)
-        .sort { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+        .sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
 
     return trackables if category == 'treatments'
 
@@ -88,11 +89,13 @@ class ChartsPattern
   end
 
   def health_factors_trackables_coordinate(category, selected_checkins, id)
+    is_weather = %w(weathersMeasures).include? category
+
     trackables =
       if %w(foods tags).include? category
         selected_checkins.select { |checkin| checkin.send("#{category.singularize}_ids").include? id }
           .map { |checkin| { x: checkin.date } }.uniq
-      elsif %w(weathersMeasures).include? category
+      elsif is_weather
         selected_checkins.select(&:weather).map { |checkin| { x: checkin.date, y: checkin.weather.send(id) } }
       else
         selected_checkins.select(&:harvey_bradshaw_index)
@@ -100,6 +103,9 @@ class ChartsPattern
       end
 
     trackables.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
+    return trackables unless is_weather
+
+    form_averaged_values(trackables, category, id)
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -122,11 +128,11 @@ class ChartsPattern
     coordinates_hash_last = coordinates_hash.last
     unless coordinates_hash_last[:x].to_s == end_at && coordinates_hash_last[:y].present?
       end_coord = last_valid_coordinate(category, id)
-      diff = end_coord[:x] - coordinates_hash_last[:x]
+      last_valid = last_valid_coordinate(category, id)
 
-      step_coord = (end_coord[:y] - coordinates_hash_last[:y]).to_f / diff
+      yValue = last_valid ? (last_valid[:y] + coordinates_hash_last[:y]) / 2 : coordinates_hash_last[:y]
 
-      coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
+      coordinates_hash << { x: end_at.to_date, y: yValue, average: true }
     end
 
     coordinates_hash
@@ -137,27 +143,36 @@ class ChartsPattern
     start_date = start_at.to_date
     category_name = category.singularize
 
-    checkin =
+    yValue =
       if category == "weathersMeasures"
-        checkins.where(:weather_id.ne => nil).where(:date.lt => start_date).first
+        checkin = checkins_with_wather.where(:date.lt => start_date).first || checkins_with_wather.first
+        checkin.weather.send(id)
       else
-        checkins.ids_by_category_attrs(category_name, id).where(:date.lt => start_date).last
+        checkin = checkins.ids_by_category_attrs(category_name, id).where(:date.lt => start_date).last
+        checkin ? checkin.send(category.to_s).find_by("#{category_name}_id": id).value : 0
       end
 
     return { x: start_date, y: 0 } unless checkin
 
-    { x: checkin.date, y: checkin.send(category.to_s).find_by("#{category_name}_id": id).value || 0 }
+    { x: checkin.date, y: yValue || 0 }
   end
 
   def last_valid_coordinate(category, id)
     end_date = end_at.to_date
     category_name = category.singularize
 
-    checkin = checkins.ids_by_category_attrs(category_name, id).where(:date.gt => end_date).first
+    yValue =
+      if category == "weathersMeasures"
+        checkin = checkins_with_wather.where(:date.gt => end_date).first || checkins_with_wather.last
+        checkin.weather.send(id)
+      else
+        checkin = checkins.ids_by_category_attrs(category_name, id).where(:date.gt => end_date).first
+        checkin ? checkin.send(category.to_s).find_by("#{category_name}_id": id).value : 0
+      end
 
-    return { x: end_date, y: 0 } unless checkin
+    return unless checkin
 
-    { x: checkin.date, y: checkin.send(category.to_s).find_by("#{category_name}_id": id).value || 0 }
+    { x: checkin.date, y: yValue || 0 }
   end
 
   def get_color_id(chart)
