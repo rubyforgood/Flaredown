@@ -129,28 +129,9 @@ class ChartsPattern
       coordinates_hash << { x: end_at.to_date, y: end_coord[:y] - step_coord, average: true }
     end
 
-    coordinates_hash # set_average_values(coordinates_hash)
+    coordinates_hash
   end
   # rubocop:enable Metrics/AbcSize
-
-  def set_average_values(coordinates_hash)
-    coordinates_hash.sort! { |x, y| x[:x].to_time.to_i <=> y[:x].to_time.to_i }
-    averaged = [coordinates_hash[0]]
-
-    coordinates_hash.each_cons(2) do |i, j|
-      diff = (j[:x] - i[:x]).to_i
-      days = diff - 1
-
-      if diff > 1
-        average_step = (j[:y] - i[:y]).to_f / diff
-        days.times { averaged << { x: averaged.last[:x] + 1.day, y: averaged.last[:y] + average_step, average: true } }
-      end
-
-      averaged << j
-    end
-
-    averaged
-  end
 
   def first_valid_coordinate(category, id)
     start_date = start_at.to_date

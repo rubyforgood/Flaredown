@@ -75,7 +75,7 @@ export default Component.extend({
         tooltipArea.css('visibility', 'visible');
       })
       .on("mouseout", function() {
-        if (event.toElement !== tooltipArea.get(0)) {
+        if ($(event.toElement).closest('.tooltip-area').length === 0) {
           line.style("display", "none");
           tooltipArea.css('visibility', 'hidden');
         }
