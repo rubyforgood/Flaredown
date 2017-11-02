@@ -77,7 +77,7 @@ export default Component.extend({
       .on("mouseout", function() {
         if ($(event.toElement).closest('.tooltip-area').length === 0) {
           line.style("display", "none");
-          tooltipArea.css('visibility', 'hidden');
+          // tooltipArea.css('visibility', 'hidden');
         }
       })
       .on("mousemove", () => {
@@ -132,7 +132,7 @@ export default Component.extend({
 
   showTooltip(xValue, x) {
     const xValueFormatted = xValue.format('YYYY-MM-DD');
-    const tooltipData = this.tooltipData(xValueFormatted).filter((item) => !item.average);
+    const tooltipData = this.tooltipData(xValueFormatted);
     if(tooltipData.empty) {
       return;
     }
@@ -145,7 +145,6 @@ export default Component.extend({
          <span>${value}</span>
        </div>`
     }).join(' ');
-
 
     let markerItemList = tooltipData.filter((item) => item.marker && item.category !== 'treatments' ).map((item) => {
       return `<div class="marker-item">
@@ -198,7 +197,7 @@ export default Component.extend({
       }
     });
 
-    return filteredItems;
+    return filteredItems.filter((item) => !item.average);
   },
 
   tooltipItemValue(item) {

@@ -27,6 +27,7 @@ export default Component.extend({
   backgroundMargin: { right: 10, left: 10 , top: 0 }, // for init-svg
   colorIds: A(),
   hasLines: false,
+  svgInitial: false,
 
   init(){
     this._super(...arguments);
@@ -67,7 +68,11 @@ export default Component.extend({
   },
 
   xScaleObserver: observer('svgWidth', 'svgChartWidth', function(){
-    get(this, 'xScale').range([0, get(this, 'svgWidth')]);
+    const svgInitial = get(this, 'svgInitial');
+    const svgWidth = get(this, 'svgWidth');
+    const width = svgInitial ? svgWidth - 2*get(this, 'backgroundMargin.left') : svgWidth;
+
+    get(this, 'xScale').range([0, width]);
 
     this.renderBackground();
 
@@ -100,11 +105,17 @@ export default Component.extend({
     }
 
     if(svg.select('.lines-area').empty()) {
-      svg.append('g').attr('class', 'lines-area');
+      const xOffset = get(this, 'svgInitial') ? get(this, 'backgroundMargin.left') : 0;
+
+      svg.append('g').attr('class', 'lines-area')
+      .attr('transform', `translate(${xOffset},0)`);
     }
 
     if(svg.select('.dots-area').empty()) {
-      svg.append('g').attr('class', 'dots-area').attr('transform', 'translate(0, 0)');
+      const xOffset = get(this, 'svgInitial') ? get(this, 'backgroundMargin.left') : 0;
+
+      svg.append('g').attr('class', 'dots-area')
+        .attr('transform', `translate(${xOffset},0)`);
     }
   }),
 

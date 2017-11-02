@@ -26,9 +26,14 @@ export default Component.extend(DatesRetriever, {
     const dates = get(this, 'dates');
     const yLine = get(this, 'yLine');
 
-    return dates.map((date) => {
+    let datesHash =  dates.map((date) => {
       return { x: date, y: yLine[dates.indexOf(date)] };
     })
+
+    get(datesHash, 'firstObject').average = true;
+    get(datesHash, 'lastObject').average = true;
+
+    return datesHash;
   }),
 
   markerFirstData(key) {

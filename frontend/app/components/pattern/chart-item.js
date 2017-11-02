@@ -16,6 +16,7 @@ export default Component.extend({
   chart: null,
   index: 1,
   isRendered: false,
+  svgInitial: false,
 
   renderObserver: observer('chart.svg', 'chart.width', 'chart.height', 'isRendered', 'onNavigate', function() {
     if(get(this, 'chart.svg') && get(this, 'isRendered')) {
@@ -57,7 +58,11 @@ export default Component.extend({
   renderMarker(data, index, label) {
     const svg = get(this, 'chart.svg');
     const dotsAreas = svg.select('g.dots-area');
-    const width = get(this, 'chart.width');
+
+    const svgInitial = get(this, 'chart.svgInitial');
+    const backgroundMarginRight = get(this, 'chart.backgroundMarginRight');
+
+    const width = svgInitial ? get(this, 'chart.width') - 2*backgroundMarginRight : get(this, 'chart.width');
     const xScale = get(this, 'chart.xScale');
     const colorId = get(this, 'data.color_id');
 

@@ -1,13 +1,15 @@
-{{pattern/chart-hover
-    svg=svg
-    data=data
-    xScale=xScale
-    width=svgChartWidth
-    height=svgChartHeigth
-    backgroundMargin=backgroundMargin
-    startAt=startAt
-    endAt=endAt
-}}
+{{#unless svgInitial}}
+  {{pattern/chart-hover
+      svg=svg
+      data=data
+      xScale=xScale
+      width=svgChartWidth
+      height=svgChartHeigth
+      backgroundMargin=backgroundMargin
+      startAt=startAt
+      endAt=endAt
+  }}
+{{/unless}}
 
 <svg width={{svgWidth}} height={{svgHeight}}></svg>
 
@@ -24,6 +26,8 @@
           xScale=xScale
           yScaleStatic=yScaleStatic
           endAt=endAt
+          svgInitial=svgInitial
+          backgroundMarginRight=backgroundMargin.right
         )
 }}
 
