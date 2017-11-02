@@ -159,8 +159,8 @@ export default Component.extend({
     let tooltipLeft = x <= hoverCenter ? (x + tooltipLeftOffset) : (x - tooltipLeftOffset - tooltipArea.width() - get(this, 'backgroundMargin.left'));
 
     const tooltipHeader = `<div class="tooltip-header">
-      <b>${xValue.format(get(this, 'dateFormat'))}</b>
       <a href=/checkin?date=${xValueFormatted}>
+        <b>${xValue.format(get(this, 'dateFormat'))}</b>
         <img src="/assets/nav_icons/arrow-right.svg">
       </a>
     </div>`
