@@ -1,45 +1,13 @@
-<div class='history-box'>
-  <h3 class="centered page-title">{{t "history.step.initial.title"}}</h3>
-
-  {{#if (eq currentStep STEPS.INITIAL)}}
-    <div class="flaredown-transparent-box">
-      <p class="centered">{{t "history.step.initial.text"}}</p>
-
-      {{pattern/svg-initial}}
-      <div class="history-container">
-        <button class="history-btn large-btn" {{action "nextStep"}}>
-          {{t "history.step.initial.buttonText"}}
-        </button>
-      </div>
-    </div>
-
-  {{else if (eq currentStep STEPS.CREATE)}}
-    {{pattern/create-step
-      model=selectedPattern
-      onSaved=(action (mut currentStep) STEPS.INDEX)
-      onCanceled=(action (mut currentStep) STEPS.INDEX)
-    }}
-
-  {{else if (eq currentStep STEPS.INDEX)}}
-    {{pattern/index-step
-      patterns=patterns
-      onEdit=(action 'edit')
-      onCreate=(action 'create')
-      onRequest=(action 'requestData')
-    }}
-  {{else}}
-    {{partial "application/three-bounce-spinner"}}
-  {{/if}}
-</div>
-
-
-{{!-- <div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
-  <button {{action "showChart"}} class={{if journalIsVisible "" "active"}}>Charts</button>
-  <button {{action "showJournal"}} class={{if journalIsVisible "active" ""}}>Journal</button>
+<div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
+  <button {{action "showChart"}}    class={{if (or journalIsVisible patternsVisible) "" "active"}}>Charts</button>
+  <button {{action "showPatterns"}} class={{ if (or journalIsVisible chartVisible) "" "active" }}>Patterns</button>
+  <button {{action "showJournal"}}  class={{if (or chartVisible patternsVisible) "" "active"}}>Journal</button>
 </div>
 
 {{#if journalIsVisible}}
   {{journal-list}}
-{{else}}
+{{else if chartVisible}}
   {{health-chart onDateClicked=(action "routeToCheckin")}}
-{{/if}} --}}
+{{else}}
+  {{chart-patterns}}
+{{/if}}
