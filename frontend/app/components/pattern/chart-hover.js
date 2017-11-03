@@ -45,6 +45,25 @@ export default Component.extend({
     .attr("transform", "translate(" + backgroundMargin.left + "," + backgroundMargin.top + ")");
   }),
 
+  didInsertElement() {
+    this._super(...arguments);
+
+    $('body').on('click touchstart', this.hideAll.bind(this));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    $('body').off('click touchstart', this.hideAll.bind(this));
+  },
+
+  hideAll(event) {
+    if($(event.target).closest('.flaredown-svg-group').length === 0){
+      get(this, 'line').style("display", "none");
+      get(this, 'tooltipArea').css('display', 'none');
+    }
+  },
+
   renderContainer(svg){
     if(!svg.select('.hover-area').empty()){
       return;
@@ -72,12 +91,12 @@ export default Component.extend({
       .style("pointer-events", "all")
       .on("mouseover", function() {
         line.style("display", 'block');
-        tooltipArea.css('visibility', 'visible');
+        tooltipArea.css('display', 'block');
       })
       .on("mouseout", function() {
         if ($(event.toElement).closest('.tooltip-area').length === 0) {
           line.style("display", "none");
-          tooltipArea.css('visibility', 'hidden');
+          tooltipArea.css("display", "none");
         }
       })
       .on("mousemove", () => {
@@ -88,7 +107,7 @@ export default Component.extend({
       })
       .on("touchstart", () => {
         line.style("display", 'block');
-        tooltipArea.css('visibility', 'visible');
+        tooltipArea.css("display", "block");
       });
 
     set(this, 'hoverArea', hoverArea);
