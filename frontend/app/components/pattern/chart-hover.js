@@ -137,7 +137,7 @@ export default Component.extend({
       return;
     }
 
-    let lineItemList = tooltipData.filter((item) => !item.marker ).map((item) => {
+    const lineItemList = tooltipData.filter((item) => !item.marker || item.category == 'treatments').map((item) => {
       let value = this.tooltipItemValue(item);
 
       return `<div class="line-item">
@@ -146,7 +146,8 @@ export default Component.extend({
        </div>`
     }).join(' ');
 
-    let markerItemList = tooltipData.filter((item) => item.marker ).map((item) => {
+
+    let markerItemList = tooltipData.filter((item) => item.marker && item.category !== 'treatments' ).map((item) => {
       return `<div class="marker-item">
          <span class="colorable-clr-${item.color_id}">${item.label}</span>
        </div>`
@@ -209,7 +210,13 @@ export default Component.extend({
         return `${y}/4`;
       }
     } else {
-      return `${item.y}`;
+      let units = "";
+
+      if(item.category == "weathersMeasures") {
+        units = item.label == "Avg daily humidity" ? '%' : 'mb';
+      }
+
+      return `${item.y}` + `${units}`;
     }
   },
 });
