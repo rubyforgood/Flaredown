@@ -4,16 +4,11 @@ import DS from 'ember-data';
 const {
   get,
   set,
-  on,
   computed,
   Component,
-  run: {
-    scheduleOnce,
-  },
   inject: {
     service,
   },
-  observer,
   setProperties,
   A,
 } = Ember;
@@ -37,21 +32,31 @@ export default Component.extend({
     }
 
     const ids = patterns.mapBy('id');
+    const chartDataPromise = get(this, 'chartDataPromise');
+    const promise = get(this, 'ajax').request('/charts_pattern', {
+      data: {
+        pattern_ids: ids,
+        start_at: get(this, 'startAt').format('YYYY-MM-DD'),
+        end_at: get(this, 'endAt').format('YYYY-MM-DD'),
+        offset: get(this, 'daysRangeOffset') || 1,
+      }
+    }).then((data) => data.charts_pattern);
 
-    return DS.PromiseArray.create({
-      promise: get(this, 'ajax').request('/charts_pattern', {
-        data: {
-          pattern_ids: ids,
-          start_at: get(this, 'startAt').format('YYYY-MM-DD'),
-          end_at: get(this, 'endAt').format('YYYY-MM-DD'),
-          offset: get(this, 'daysRangeOffset') || 1,
-        }
-      }).then((data) => data.charts_pattern)
-    })
+    set(chartDataPromise, 'promise', promise);
+
+    return chartDataPromise;
   }),
+
+  init() {
+    this._super(...arguments);
+    set(this, 'chartDataPromise', DS.PromiseArray.create({}));
+  },
 
   didInsertElement() {
     this._super(...arguments);
+
+    // needs to be loaded
+    get(this, 'chartData');
 
     const resize = () => {
       const selection = this.$();

@@ -126,7 +126,7 @@ export default Component.extend({
   svgHeight: computed('data.series.[]', function() {
     let height = 0;
     let filteredSeries = A();
-    const series = get(this, 'data.series');
+    const series = get(this, 'data.series') || [];
 
     const dynamicSeries = series.filterBy('subtype', 'dynamic');
     const lines = series.filterBy('type', 'line')
