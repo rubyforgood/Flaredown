@@ -159,9 +159,10 @@ export default Component.extend({
 
     lines.exit().remove();
 
+    const lineDotsAreas = svg.selectAll('g.lines-dots-area');
     const filteredData = data.filter((d) => !d.average);
 
-    const dots = lineAreas
+    const dots = lineDotsAreas
       .selectAll(`.dot-line-${index}`)
       .data(filteredData)
       .attr('cx', (d) => xScale(moment(d.x).toDate().getTime()) )

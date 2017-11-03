@@ -111,6 +111,13 @@ export default Component.extend({
       .attr('transform', `translate(${xOffset},0)`);
     }
 
+    if(svg.select('.lines-dots-area').empty()) {
+      const xOffset = get(this, 'svgInitial') ? get(this, 'backgroundMargin.left') : 0;
+
+      svg.append('g').attr('class', 'lines-dots-area')
+      .attr('transform', `translate(${xOffset},0)`);
+    }
+
     if(svg.select('.dots-area').empty()) {
       const xOffset = get(this, 'svgInitial') ? get(this, 'backgroundMargin.left') : 0;
 
