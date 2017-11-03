@@ -7,6 +7,7 @@ const {
   get,
   set,
   computed,
+  observer,
   Component,
   inject: { service },
 } = Ember;
@@ -21,23 +22,18 @@ export default Component.extend(CheckinByDate, DatesRetriever, {
   STEPS,
   selectedPattern: null,
   currentStep: null,
-  patternsVisible: false,
   i18n: service(),
   dateRange: 2,
   serieHeight: 75,
-
-  init() {
-    this._super(...arguments);
-
-    get(this, 'patterns').then((patterns) => {
-      set(this, 'currentStep', get(patterns, 'length') > 0 ? STEPS.INDEX : STEPS.INITIAL);
-    });
-  },
 
   patterns: computed(function() {
     return DS.PromiseArray.create({
       promise: get(this, 'store').findAll('pattern')
     });
+  }),
+
+  currentStep: computed('patterns.length', function(){
+    return get(this, 'patterns.length') > 0 ? STEPS.INDEX : STEPS.INITIAL;
   }),
 
   checkins: computed(function() {

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 const {
   get,
@@ -28,11 +29,26 @@ export default Component.extend({
   startAt: moment().subtract(14, 'days'), // 7 daysRadius * 2
   endAt: moment(),
 
-  patternIdsChanged: on('init', observer('patterns.@each.id', 'startAt', 'endAt', function() {
-    if(get(this, 'startAt').isValid() && get(this, 'endAt').isValid()) {
-      scheduleOnce('afterRender', this, '_loadChartData');
+  chartData: computed('patterns.@each.id', 'startAt', 'endAt', 'daysRangeOffset', function() {
+    const patterns = get(this, 'patterns');
+
+    if(!patterns) {
+      return;
     }
-  })),
+
+    const ids = patterns.mapBy('id');
+
+    return DS.PromiseArray.create({
+      promise: get(this, 'ajax').request('/charts_pattern', {
+        data: {
+          pattern_ids: ids,
+          start_at: get(this, 'startAt').format('YYYY-MM-DD'),
+          end_at: get(this, 'endAt').format('YYYY-MM-DD'),
+          offset: get(this, 'daysRangeOffset') || 1,
+        }
+      }).then((data) => data.charts_pattern)
+    })
+  }),
 
   didInsertElement() {
     this._super(...arguments);
@@ -51,6 +67,10 @@ export default Component.extend({
     resize();
   },
 
+  willDestroyElement(){
+    set(this, '_isDestroyed', true);
+  },
+
   daysRangeOffset: computed('indexPageWidth', 'daysRange', function() {
     const backgroundMargin = get(this, 'backgroundMargin');
     const backgroundWidth = get(this, 'indexPageWidth') - backgroundMargin.left - backgroundMargin.right;
@@ -62,31 +82,6 @@ export default Component.extend({
   daysRange: computed('startAt', 'endAt', function() {
     return moment.duration(get(this, 'endAt') - get(this, 'startAt')).asDays();
   }),
-
-  _loadChartData() {
-    const patterns = get(this, 'patterns');
-
-    if(!patterns) {
-      return;
-    }
-
-    const ids = patterns.mapBy('id');
-
-    if(ids.length > 0) {
-      get(this, 'ajax').request('/charts_pattern', {
-        data: {
-          pattern_ids: ids,
-          start_at: get(this, 'startAt').format('YYYY-MM-DD'),
-          end_at: get(this, 'endAt').format('YYYY-MM-DD'),
-          offset: get(this, 'daysRangeOffset')
-        }
-      }).then((data) => {
-        const chartData = set(this, 'chartData', data.charts_pattern);
-        set(this, 'colorIds', data.meta.color_ids);
-        this.fixPatternColors(chartData);
-      });
-    }
-  },
 
   fixPatternColors(chartData) {
     chartData.map((chart) => {

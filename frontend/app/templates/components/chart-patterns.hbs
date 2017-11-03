@@ -1,33 +1,32 @@
 <div class='history-box'>
   <h3 class="centered page-title">{{t "history.step.initial.title"}}</h3>
+    {{#if patterns.isPending}}
+      {{partial "application/three-bounce-spinner"}}
+    {{else if (eq currentStep STEPS.INITIAL)}}
+      <div class="flaredown-transparent-box">
+        <p class="centered">{{t "history.step.initial.text"}}</p>
 
-  {{#if (eq currentStep STEPS.INITIAL)}}
-    <div class="flaredown-transparent-box">
-      <p class="centered">{{t "history.step.initial.text"}}</p>
-
-      {{pattern/svg-initial}}
-      <div class="history-container">
-        <button class="history-btn large-btn" {{action "nextStep"}}>
-          {{t "history.step.initial.buttonText"}}
-        </button>
+        {{pattern/svg-initial}}
+        <div class="history-container">
+          <button class="history-btn large-btn" {{action "nextStep"}}>
+            {{t "history.step.initial.buttonText"}}
+          </button>
+        </div>
       </div>
-    </div>
 
-  {{else if (eq currentStep STEPS.CREATE)}}
-    {{pattern/create-step
-      model=selectedPattern
-      onSaved=(action (mut currentStep) STEPS.INDEX)
-      onCanceled=(action (mut currentStep) STEPS.INDEX)
-    }}
+    {{else if (eq currentStep STEPS.CREATE)}}
+      {{pattern/create-step
+        model=selectedPattern
+        onSaved=(action (mut currentStep) STEPS.INDEX)
+        onCanceled=(action (mut currentStep) STEPS.INDEX)
+      }}
 
-  {{else if (eq currentStep STEPS.INDEX)}}
-    {{pattern/index-step
-      patterns=patterns
-      onEdit=(action 'edit')
-      onCreate=(action 'create')
-      onRequest=(action 'requestData')
-    }}
-  {{else}}
-    {{partial "application/three-bounce-spinner"}}
-  {{/if}}
+    {{else if (eq currentStep STEPS.INDEX)}}
+      {{pattern/index-step
+        patterns=patterns
+        onEdit=(action 'edit')
+        onCreate=(action 'create')
+        onRequest=(action 'requestData')
+      }}
+    {{/if}}
 </div>
