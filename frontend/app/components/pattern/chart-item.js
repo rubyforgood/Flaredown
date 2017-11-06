@@ -3,6 +3,7 @@ import Ember from 'ember';
 /* global d3 */
 
 const {
+  $,
   get,
   set,
   computed,

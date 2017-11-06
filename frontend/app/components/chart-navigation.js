@@ -30,6 +30,10 @@ export default Component.extend({
     max: moment().toDate(),
   },
 
+  pickadateOptions: {
+    container: 'body > .ember-view'
+  },
+
   startDate: computed('startAt', function(){
     return get(this, 'startAt').toDate();
   }),
@@ -66,7 +70,7 @@ export default Component.extend({
   actions: {
     openPicker() {
       const arg = arguments[0];
-      let selector = `.calendar-opener-${arg}`;
+      const selector = arg ? `.calendar-opener-${arg}` : '.calendar-opener';
 
       $(`${selector} .picker__input`).first().pickadate('picker').open();
     },

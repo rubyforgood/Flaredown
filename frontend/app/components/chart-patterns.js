@@ -7,7 +7,6 @@ const {
   get,
   set,
   computed,
-  observer,
   Component,
   inject: { service },
 } = Ember;
@@ -32,9 +31,11 @@ export default Component.extend(CheckinByDate, DatesRetriever, {
     });
   }),
 
+  /*eslint-disable no-dupe-keys*/
   currentStep: computed('patterns.length', function(){
     return get(this, 'patterns.length') > 0 ? STEPS.INDEX : STEPS.INITIAL;
   }),
+  /*eslint-enable no-dupe-keys*/
 
   checkins: computed(function() {
     return this

@@ -156,16 +156,18 @@ export default Component.extend({
       return;
     }
 
-    const lineItemList = tooltipData.filter((item) => !item.marker || item.category == 'treatments').map((item) => {
-      let value = this.tooltipItemValue(item);
+    const lineItemList = tooltipData
+                          .filter((item) => (!item.marker || item.category == 'treatments') && $.isNumeric(item.y))
+                          .map((item) => {
+                            let value = this.tooltipItemValue(item);
 
-      return `<div class="line-item">
-         <span class="colorable-clr-${item.color_id}">${item.label}</span>
-         <span>${value}</span>
-       </div>`
-    }).join(' ');
+                            return `<div class="line-item">
+                               <span class="colorable-clr-${item.color_id}">${item.label}</span>
+                               <span>${value}</span>
+                             </div>`
+                          }).join(' ');
 
-    let markerItemList = tooltipData.filter((item) => item.marker && item.category !== 'treatments' ).map((item) => {
+    let markerItemList = tooltipData.filter((item) => item.marker && item.category !== 'treatments'  ).map((item) => {
       return `<div class="marker-item">
          <span class="colorable-clr-${item.color_id}">${item.label}</span>
        </div>`
@@ -201,7 +203,6 @@ export default Component.extend({
 
     get(this, 'data.series').map((item) => {
       let filteredByDate = item.data.filterBy('x', xValueFormatted);
-
       if(filteredByDate.length == 0) {
         return;
       } else {
@@ -216,9 +217,7 @@ export default Component.extend({
       }
     });
 
-    return filteredItems
-      .filter((item) => !item.average)
-      .filter((item) => $.isNumeric(item.y));
+    return filteredItems.filter((item) => !item.average);
   },
 
   tooltipItemValue(item) {

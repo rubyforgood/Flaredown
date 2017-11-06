@@ -44,7 +44,7 @@
     {{pick-a-date
       date=(readonly startDate)
       options=(readonly pickadateOptions)
-      on-selected=(action 'startChanged')
+      on-selected=(action (mut date))
     }}
   </a>
 

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
 const {
   set,
@@ -8,7 +9,7 @@ const {
   setProperties,
 } = Ember;
 
-export default Component.extend({
+export default Component.extend(CheckinByDate, {
   patternsVisible: false,
   chartVisible: true,
   journalIsVisible: alias('chartJournalSwitcher.journalIsVisible'),
