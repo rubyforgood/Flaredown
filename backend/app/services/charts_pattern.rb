@@ -85,7 +85,7 @@ class ChartsPattern
     "Checkin::#{category_name.camelize}".constantize.where(
       checkin_id: { '$in': checkin_ids },
       "#{category_name}_id": id
-    ).map { |tr| { x: tr.checkin.date, y: tr.value || 0 } }.uniq
+    ).map { |tr| { x: tr.checkin.date, y: tr.value } }.uniq
   end
 
   def health_factors_trackables_coordinate(category, selected_checkins, id)
@@ -121,16 +121,17 @@ class ChartsPattern
 
     unless coordinates_hash.first[:x].to_s == start_at && coordinates_hash.first[:y].present?
       coordinates_hash.unshift(x: start_at.to_date,
-                               y: (coordinates_hash.first[:y] + first_valid_coordinate(category, id)[:y]) / 2,
+                               y: (coordinates_hash.select { |c| c[:y].present? }.first[:y] + first_valid_coordinate(category, id)[:y].to_i).to_f / 2,
                                average: true)
     end
 
     coordinates_hash_last = coordinates_hash.last
     unless coordinates_hash_last[:x].to_s == end_at && coordinates_hash_last[:y].present?
-      end_coord = last_valid_coordinate(category, id)
       last_valid = last_valid_coordinate(category, id)
 
-      yValue = last_valid ? (last_valid[:y] + coordinates_hash_last[:y]) / 2 : coordinates_hash_last[:y]
+      return coordinates_hash unless last_valid
+
+      yValue = last_valid ? (last_valid[:y].to_i + coordinates_hash_last[:y].to_i) / 2 : coordinates_hash_last[:y].to_i
 
       coordinates_hash << { x: end_at.to_date, y: yValue, average: true }
     end
@@ -146,15 +147,15 @@ class ChartsPattern
     yValue =
       if category == "weathersMeasures"
         checkin = checkins_with_wather.where(:date.lt => start_date).first || checkins_with_wather.first
-        checkin.weather.send(id)
+        checkin.weather.send(id) if checkin
       else
         checkin = checkins.ids_by_category_attrs(category_name, id).where(:date.lt => start_date).last
-        checkin ? checkin.send(category.to_s).find_by("#{category_name}_id": id).value : 0
+        checkin.send(category.to_s).find_by("#{category_name}_id": id).value if checkin
       end
 
-    return { x: start_date, y: 0 } unless checkin
+    return { x: start_date, y: nil } unless checkin
 
-    { x: checkin.date, y: yValue || 0 }
+    { x: checkin.date, y: yValue }
   end
 
   def last_valid_coordinate(category, id)
@@ -164,15 +165,15 @@ class ChartsPattern
     yValue =
       if category == "weathersMeasures"
         checkin = checkins_with_wather.where(:date.gt => end_date).first || checkins_with_wather.last
-        checkin.weather.send(id)
+        checkin.weather.send(id) if checkin
       else
         checkin = checkins.ids_by_category_attrs(category_name, id).where(:date.gt => end_date).first
-        checkin ? checkin.send(category.to_s).find_by("#{category_name}_id": id).value : 0
+        checkin.send(category.to_s).find_by("#{category_name}_id": id).value if checkin
       end
 
     return unless checkin
 
-    { x: checkin.date, y: yValue || 0 }
+    { x: checkin.date, y: yValue }
   end
 
   def get_color_id(chart)

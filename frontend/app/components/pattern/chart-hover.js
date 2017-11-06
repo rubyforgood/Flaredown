@@ -216,7 +216,9 @@ export default Component.extend({
       }
     });
 
-    return filteredItems.filter((item) => !item.average);
+    return filteredItems
+      .filter((item) => !item.average)
+      .filter((item) => $.isNumeric(item.y));
   },
 
   tooltipItemValue(item) {

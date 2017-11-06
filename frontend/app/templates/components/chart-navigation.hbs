@@ -39,7 +39,7 @@
 {{else}}
   <a class="calendar-opener calendarItem" {{action 'openPicker' bubbles=false}}>
     &nbsp;
-    {{startAtLabel}}
+    {{startAtLabel}} - {{endAtLabel}}
 
     {{pick-a-date
       date=(readonly startDate)

@@ -37,15 +37,16 @@ export default Component.extend({
 
   renderChart() {
     const data = get(this, 'data');
+    const chartData = data.data
 
-    if(data.data) {
+    if(chartData) {
       switch(data.type) {
         case 'marker': {
-          this.renderMarker(data.data, data.index, data.label);
+          this.renderMarker(chartData, data.index, data.label);
           break;
         }
         default: {
-          this.renderLine(data.data, data.subtype, data.index, data.label);
+          this.renderLine(chartData.filter((i) => $.isNumeric(i.y)), data.subtype, data.index, data.label);
           break;
         }
       }
