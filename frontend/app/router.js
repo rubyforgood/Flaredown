@@ -12,6 +12,10 @@ Router.map(function() {
   this.route('signup');
   this.route('chart');
 
+  this.route('patterns', function() {
+    this.route('shared', { path: '/:friendly_id' });
+  });
+
   this.route('discourse-sign-in', { path: '/discourse/sign_in' });
 
   this.route('password', function() {

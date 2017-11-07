@@ -515,3 +515,63 @@ input[type="submit"] {
     }
   }
 }
+
+.chart-navigation {
+    justify-content: space-around;
+    align-items: center;
+  .calendar {
+    display: flex;
+    flex-grow: 0.5;
+
+    .calendarItem {
+      border: 2px solid $primary;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .left-arrow {
+    flex: 1;
+  }
+
+  .calendar {
+    flex:1;
+  }
+
+  .rigth-arrow {
+    flex: 1;
+  }
+}
+
+// Sharing Patterns
+.sharedPatternsDialog {
+  .sharedPatternList {
+    display: flex;
+    flex-direction: column;
+
+    .sharedPattern {
+      display: flex;
+      align-items: center;
+      flex-flow: row-reverse;
+      justify-content: flex-end;
+      padding: 5px 0;
+
+      label:last-child { margin-right: 15px; }
+    }
+
+    + .sharedPatternBtn {
+      width: 100%;
+      margin-top: 15px;
+
+      &:disabled:hover {
+        background-color: #50b1a9;
+      }
+    }
+  }
+
+  .sharedPatternUrl {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+

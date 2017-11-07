@@ -1,0 +1,22 @@
+<h3 class="centered">{{t "sharedPatterns.dialog.title"}}</h3>
+
+{{#form-for class="sharedPatternList" for=patterns onSubmit="sharedPatterns"}}
+  {{#each patterns as |pattern|}}
+    {{#form-field class="sharedPattern" for="shared" label=pattern.name}}
+      {{label-switch
+        checked=(mut pattern.checked)
+        bgColorClass="colorable-bg-35"
+      }}
+    {{/form-field}}
+ {{/each}}
+
+{{/form-for}}
+
+{{input type="submit" value=(t "sharedPatterns.dialog.buttonText") disabled=nothingChecked class="sharedPatternBtn"}}
+
+{{#unless nothingChecked}}
+  <div class="sharedPatternUrl">
+    <label>{{t "sharedPatterns.dialog.sharedUrl"}}</label>
+    {{input value=encryptedUrl}}
+  </div>
+{{/unless}}

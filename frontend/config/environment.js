@@ -7,6 +7,7 @@ module.exports = function(environment) {
     modulePrefix: 'flaredown',
     locationType: 'router-scroll',
     historySupportMiddleware: true,
+    encryptionSecret: 'flaredown-symptom-tracker',
 
     EmberENV: {
       FEATURES: {
