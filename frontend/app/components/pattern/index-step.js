@@ -17,6 +17,7 @@ const {
 export default Component.extend({
   ajax: service('ajax'),
   patternsLoading: service('patterns-loading'),
+  logoVisiability: service(),
 
   page: 1,
   loadingPatterns: alias('patternsLoading.loadingPatterns'),
@@ -70,6 +71,8 @@ export default Component.extend({
     // needs to be loaded
     get(this, 'chartData');
 
+    set(this, 'logoVisiability.showHeaderPath', false);
+
     const resize = () => {
       const selection = this.$();
       if (!selection) {
@@ -89,9 +92,10 @@ export default Component.extend({
   },
 
   authorName: computed('patterns.@each.authorName', function() {
-    const names =  get(this, 'patterns').filter((pattern) => !pattern.authorName);
+    const names = get(this, 'patterns').mapBy('authorName').compact();
+    const notEmpty = names.length > 0 ? names.filter((i) => i.length > 0).length > 0 : null;
 
-    return get(names, 'firstObject');
+    return notEmpty ? get(names, 'firstObject') : 'User';
   }),
 
   daysRangeOffset: computed('indexPageWidth', 'daysRange', function() {

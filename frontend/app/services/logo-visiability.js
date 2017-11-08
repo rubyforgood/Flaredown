@@ -6,4 +6,5 @@ const {
 
 export default Service.extend({
   showHeaderLogo: true,
+  showHeaderPAth: true,
 });
