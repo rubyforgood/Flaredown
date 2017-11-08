@@ -543,6 +543,24 @@ input[type="submit"] {
   }
 }
 
+.sharePatternLink {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  .history-index-btn {
+    width: 50%;
+    height: 50px;
+    border-radius: 5px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 // Sharing Patterns
 .sharedPatternsDialog {
   .sharedPatternList {

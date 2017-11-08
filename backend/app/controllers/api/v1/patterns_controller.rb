@@ -1,13 +1,19 @@
 class Api::V1::PatternsController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     page = params[:page] || 1
-    @patterns = Pattern.accessible_by(current_ability)
-      .where(encrypted_user_id: encrypted_user_id)
-      .page(page).per(10)
+    pattern_ids = params[:pattern_ids]
 
-    render json: @patterns
+    @patterns =
+      if pattern_ids.present?
+        Pattern.where(id: { '$in' => pattern_ids })
+      else
+        Pattern.accessible_by(current_ability).where(encrypted_user_id: encrypted_user_id)
+      end
+
+    render json: @patterns.page(page).per(10)
   end
 
   def show

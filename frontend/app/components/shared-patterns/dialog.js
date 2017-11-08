@@ -27,8 +27,9 @@ export default Component.extend({
 
     set(this, 'nothingChecked', checkedPatternIds.length == 0);
 
-    const encrypted = CryptoJS.AES.encrypt(checkedPatternIds.join(', '), get(this, 'secretPhrase'));
-    const friendlyUrl = get(this, 'staticUrl') + '/patterns/' + encodeURIComponent(encrypted);
+    const mergedParams = checkedPatternIds.join(', ') + ':' + [get(this, 'startAt'), get(this, 'endAt')].join(':');
+    const encryptedParams = CryptoJS.AES.encrypt(mergedParams, get(this, 'secretPhrase'));
+    const friendlyUrl = get(this, 'staticUrl') + '/patterns/' + encodeURIComponent(encryptedParams);
 
     set(this, 'encryptedUrl', friendlyUrl);
   }),

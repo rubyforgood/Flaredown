@@ -11,4 +11,8 @@ class Pattern
   index(encrypted_user_id: 1)
 
   validates :encrypted_user_id, presence: true
+
+  def author
+    @author ||= User.find_by(id: SymmetricEncryption.decrypt(encrypted_user_id))
+  end
 end

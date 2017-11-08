@@ -1,3 +1,12 @@
+
+{{#if authorPage}}
+  <div class="sharePatternLink">
+    {{#link-to 'patterns' (query-params start_at=startAtFormatted end_at=endAtFormatted) class="history-index-btn btn"}}
+      Share Patterns
+    {{/link-to}}
+  </div>
+{{/if}}
+
 {{#each patterns as |pattern|}}
   <div class='pattern-block'>
     <span class="pattern-name">{{pattern.name}}</span>
@@ -37,11 +46,13 @@
   {{partial "application/three-bounce-spinner"}}
 {{/if}}
 
-{{chart-navigation
-  endAt=endAt
-  startAt=startAt
-  patternNavbar=true
-  onNavigate=(action 'navigate')
-  onChangeStartAt=(action (mut startAt))
-  onChangeEndAt=(action (mut endAt))
-}}
+{{#if authorPage}}
+  {{chart-navigation
+    endAt=endAt
+    startAt=startAt
+    patternNavbar=true
+    onNavigate=(action 'navigate')
+    onChangeStartAt=(action (mut startAt))
+    onChangeEndAt=(action (mut endAt))
+  }}
+{{/if}}

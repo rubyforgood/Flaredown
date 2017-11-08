@@ -50,6 +50,14 @@ export default Component.extend({
     return chartDataPromise;
   }),
 
+  startAtFormatted: computed('startAt', function() {
+    return get(this, 'startAt').format('YYYY-MM-DD');
+  }),
+
+  endAtFormatted: computed('endAt', function() {
+    return get(this, 'endAt').format('YYYY-MM-DD');
+  }),
+
   init() {
     this._super(...arguments);
 
@@ -79,6 +87,12 @@ export default Component.extend({
   willDestroyElement(){
     set(this, '_isDestroyed', true);
   },
+
+  authorName: computed('patterns.@each.authorName', function() {
+    const names =  get(this, 'patterns').filter((pattern) => !pattern.authorName);
+
+    return get(names, 'firstObject');
+  }),
 
   daysRangeOffset: computed('indexPageWidth', 'daysRange', function() {
     const backgroundMargin = get(this, 'backgroundMargin');
@@ -131,6 +145,10 @@ export default Component.extend({
       const endAt = moment(get(this, 'endAt')).add(days, 'days');
 
       setProperties(this, { startAt: startAt, endAt: endAt });
+    },
+
+    sharePattern() {
+      this.transitionTo('patterns');
     },
   }
 });
