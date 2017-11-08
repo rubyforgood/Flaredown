@@ -110,6 +110,7 @@ export default {
       title: 'Which Patterns will you share?',
       buttonText: 'Share via Email',
       sharedUrl: 'Or copy this link to share anywhere',
+      done: 'Done',
     },
   },
 };
