@@ -8,11 +8,10 @@
         bgColorClass="colorable-bg-35"
       }}
     {{/form-field}}
- {{/each}}
+  {{/each}}
 
+  {{input type="submit" value=(t "sharedPatterns.dialog.buttonText") disabled=nothingChecked class="sharedPatternBtn"}}
 {{/form-for}}
-
-{{input type="submit" value=(t "sharedPatterns.dialog.buttonText") disabled=nothingChecked class="sharedPatternBtn"}}
 
 {{#unless nothingChecked}}
   <div class="sharedPatternUrl">

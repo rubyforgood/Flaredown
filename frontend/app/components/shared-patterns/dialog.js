@@ -4,6 +4,7 @@ import config from 'flaredown/config/environment';
 import CryptoJS from 'cryptojs';
 
 const {
+  $,
   get,
   set,
   observer,
@@ -26,9 +27,8 @@ export default Component.extend({
     const checkedPatternIds = get(this, 'patterns').filter((pattern) => pattern.checked).map((pattern) => pattern.id);
 
     set(this, 'nothingChecked', checkedPatternIds.length == 0);
+    const encryptedParams = CryptoJS.AES.encrypt(checkedPatternIds.join(', '), get(this, 'secretPhrase'));
 
-    const mergedParams = checkedPatternIds.join(', ') + ':' + [get(this, 'startAt'), get(this, 'endAt')].join(':');
-    const encryptedParams = CryptoJS.AES.encrypt(mergedParams, get(this, 'secretPhrase'));
     const friendlyUrl = get(this, 'staticUrl') + '/patterns/' + encodeURIComponent(encryptedParams);
 
     set(this, 'encryptedUrl', friendlyUrl);
@@ -36,7 +36,8 @@ export default Component.extend({
 
   actions: {
     sharedPatterns() {
-      const checkedPatterns = get(this, 'patterns').filter((pattern) => pattern.checked);
+      const encryptedUrl = get(this, 'friendlyUrl');
+
 
     },
   },

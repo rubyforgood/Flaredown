@@ -51,14 +51,6 @@ export default Component.extend({
     return chartDataPromise;
   }),
 
-  startAtFormatted: computed('startAt', function() {
-    return get(this, 'startAt').format('YYYY-MM-DD');
-  }),
-
-  endAtFormatted: computed('endAt', function() {
-    return get(this, 'endAt').format('YYYY-MM-DD');
-  }),
-
   init() {
     this._super(...arguments);
 
