@@ -4,7 +4,6 @@ import config from 'flaredown/config/environment';
 import CryptoJS from 'cryptojs';
 
 const {
-  $,
   get,
   set,
   observer,
@@ -36,9 +35,11 @@ export default Component.extend({
 
   actions: {
     sharedPatterns() {
-      const encryptedUrl = get(this, 'friendlyUrl');
+      const encryptedUrl = encodeURIComponent(get(this, 'encryptedUrl'));
+      const emailAdress = get(this, 'session.currentUser.email') || "";
+      const subject = `User ${emailAdress} shared Health patterns with you`;
 
-
+      window.location.href = `mailto:?subject=${subject}&body=${encryptedUrl}`;
     },
   },
 });
