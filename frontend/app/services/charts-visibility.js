@@ -13,7 +13,7 @@ const {
 } = Ember;
 
 export default Service.extend({
-  store: inject.service(),
+  store: service(),
   session: service(),
 
   payload: {},
