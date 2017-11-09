@@ -4,11 +4,6 @@ import CryptoJS from 'cryptojs';
 
 const {
   get,
-  set,
-  RSVP: {
-    hash,
-  },
-  setProperties,
   Route,
 } = Ember;
 

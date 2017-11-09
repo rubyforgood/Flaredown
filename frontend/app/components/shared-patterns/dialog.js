@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { translationMacro as t } from 'ember-i18n';
 import config from 'flaredown/config/environment';
 import CryptoJS from 'cryptojs';
 
@@ -36,8 +35,9 @@ export default Component.extend({
   actions: {
     sharedPatterns() {
       const encryptedUrl = encodeURIComponent(get(this, 'encryptedUrl'));
-      const emailAdress = get(this, 'session.currentUser.email') || "";
-      const subject = `User ${emailAdress} shared Health patterns with you`;
+      const currentUser = get(this, 'session.currentUser');
+      const screenName = currentUser ?  get(currentUser, 'profile.screenName') : "";
+      const subject = `User ${screenName} shared Health patterns with you`;
 
       window.location.href = `mailto:?subject=${subject}&body=${encryptedUrl}`;
     },
