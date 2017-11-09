@@ -111,6 +111,7 @@ export default {
       buttonText: 'Share via Email',
       sharedUrl: 'Or copy this link to share anywhere',
       done: 'Done',
+      loadMore: 'Load more...',
     },
   },
 };

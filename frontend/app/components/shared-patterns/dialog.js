@@ -9,6 +9,7 @@ const {
   inject: {
     service,
   },
+  setProperties,
   Component,
 } = Ember;
 
@@ -20,6 +21,8 @@ export default Component.extend({
   secretPhrase: config.encryptionSecret,
   staticUrl: config.staticUrl,
   nothingChecked: true,
+  loadingPatterns: false,
+  page: 2,
 
   isCheckedSomeObserver: observer('patterns.@each.checked', function() {
     const checkedPatternIds = get(this, 'patterns').filter((pattern) => pattern.checked).map((pattern) => pattern.id);
@@ -40,6 +43,17 @@ export default Component.extend({
       const subject = `User ${screenName} shared Health patterns with you`;
 
       window.location.href = `mailto:?subject=${subject}&body=${encryptedUrl}`;
+    },
+
+    requestData() {
+      let page = get(this, 'page');
+      set(this, 'loadingPatterns', true);
+
+      get(this, 'store').query('pattern', { page: page }).then((record) => {
+        setProperties(this, { loadingPatterns: false, page: page + 1 });
+
+        get(this, 'patterns').toArray().pushObject(record);
+      })
     },
   },
 });

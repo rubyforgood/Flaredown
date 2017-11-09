@@ -10,6 +10,14 @@
     {{/form-field}}
   {{/each}}
 
+  <div class="loadMore centered">
+    <a href="#" {{action "requestData"}} class="{{checkinNavClass}}">{{t "sharedPatterns.dialog.loadMore"}}</a>
+  </div>
+
+  {{#if loadingPatterns}}
+    {{partial "application/three-bounce-spinner"}}
+  {{/if}}
+
   {{input type="submit" value=(t "sharedPatterns.dialog.buttonText") disabled=nothingChecked class="sharedPatternBtn"}}
 {{/form-for}}
 
