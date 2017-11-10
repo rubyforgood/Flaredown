@@ -40,7 +40,7 @@ export default Component.extend({
       const encryptedUrl = encodeURIComponent(get(this, 'encryptedUrl'));
       const currentUser = get(this, 'session.currentUser');
       const screenName = currentUser ?  get(currentUser, 'profile.screenName') : "";
-      const subject = `User ${screenName} shared Health patterns with you`;
+      const subject = `${screenName} would like to share their health patterns with you`;
 
       window.location.href = `mailto:?subject=${subject}&body=${encryptedUrl}`;
     },
