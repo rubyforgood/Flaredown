@@ -7,6 +7,7 @@ const {
   get,
   set,
   computed,
+  computed: { alias },
   Component,
   inject: { service },
 } = Ember;
@@ -18,12 +19,15 @@ const STEPS = {
 };
 
 export default Component.extend(CheckinByDate, DatesRetriever, {
+  i18n: service(),
+  patternsLoading: service(),
+
   STEPS,
   selectedPattern: null,
   currentStep: null,
-  i18n: service(),
   dateRange: 2,
   serieHeight: 75,
+  loadingPatterns: alias('patternsLoading.loadingPatterns'),
 
   patterns: computed(function() {
     return DS.PromiseArray.create({
@@ -61,6 +65,7 @@ export default Component.extend(CheckinByDate, DatesRetriever, {
     requestData(page) {
       get(this, 'store').query('pattern', { page: page }).then((record) => {
         get(this, 'patterns').toArray().pushObject(record);
+        set(this, 'loadingPatterns', false);
       })
     },
 

@@ -5,6 +5,7 @@ const {
   get,
   set,
   computed,
+  computed: { alias },
   Component,
   inject: {
     service,
@@ -16,8 +17,11 @@ const {
 export default Component.extend({
   ajax: service('ajax'),
   chartsVisibilityService: service('charts-visibility'),
+  patternsLoading: service(),
+
   page: 1,
-  loadingPatterns: false,
+  loadingPatterns: alias('patternsLoading.loadingPatterns'),
+  patterns: [],
   colorIds: A(),
   backgroundMargin: { right: 10, left: 10 , top: 0 },
 
