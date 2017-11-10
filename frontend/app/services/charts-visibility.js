@@ -4,6 +4,7 @@ const {
   get,
   set,
   inject,
+  inject: { service },
   Service,
   observer,
   isPresent,
@@ -13,6 +14,8 @@ const {
 
 export default Service.extend({
   store: inject.service(),
+  session: service(),
+
   payload: {},
   storageKey: 'chartsVisibilityV2', // increase version on schema change
   hiddenCharts: [],
@@ -104,7 +107,9 @@ export default Service.extend({
 
       this.observeVisibilityChanges();
     } else {
-      this.refresh();
+      if(get(this, 'session.isAuthenticated')) {
+        this.refresh();
+      }
     }
   },
 

@@ -10,6 +10,7 @@ const {
   computed: { alias },
   Component,
   inject: { service },
+  setProperties,
 } = Ember;
 
 const STEPS = {
@@ -53,13 +54,11 @@ export default Component.extend(CheckinByDate, DatesRetriever, {
 
   actions: {
     create() {
-      set(this, 'selectedPattern', null);
-      set(this, 'currentStep', STEPS.CREATE);
+      setProperties(this, { selectedPattern: null, currentStep: STEPS.CREATE });
     },
 
     edit(pattern) {
-      set(this, 'selectedPattern', pattern);
-      set(this, 'currentStep', STEPS.CREATE);
+      setProperties(this, { selectedPattern: pattern, currentStep: STEPS.CREATE });
     },
 
     requestData(page) {

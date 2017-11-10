@@ -13,10 +13,6 @@ class Api::V1::PatternsController < ApplicationController
   def show
     pattern = Pattern.find_by(id: pattern_params[:id])
 
-    # rubocop:disable Style/SignalException
-    fail(ActiveRecord::RecordInvalid, pattern) if pattern.invalid?
-    # rubocop:enable Style/SignalException
-
     render json: pattern
   end
 

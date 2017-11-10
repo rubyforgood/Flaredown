@@ -83,15 +83,8 @@ class Checkin
     HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
   end
 
-  def available_for_pr?
-    false # Remove to enable promotions
-
-    # return true if promotion_rate
-    # return false if user_has_already_rated?
-    # return false unless date.today?
-    # return ready_for_pr? if latest_skipped_pr_at.blank?
-
-    # PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
+  def available_for_promotion?
+    false
   end
 
   class Condition
@@ -156,7 +149,7 @@ class Checkin
         .first&.promotion_skipped_at
   end
 
-  def ready_for_pr?
+  def ready_for_promotion?
     user.created_at <= PR_START_FROM.day.ago
   end
 

@@ -1,5 +1,5 @@
 class Api::V1::ChartsPatternController < ApplicationController
-  skip_authorization_check only: :index
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     offset = charts_pattern_params[:offset].to_i
@@ -8,7 +8,7 @@ class Api::V1::ChartsPatternController < ApplicationController
     end_date = charts_pattern_params[:end_at].to_date
     end_at = (Time.current.to_date == end_date ? end_date : (end_date + offset.days)).to_s
 
-    @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] })
+    @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] || [] })
 
     @extended_patterns = @patterns.map do |pattern|
       pattern.extend(PatternExtender).form_chart_data(start_at: start_at,

@@ -55,13 +55,9 @@ export default Component.extend(DatesRetriever, {
 
   data: computed('dataLine', function() {
     return { pattern_name: 'initial', series: [
-      { type: 'line', subtype: 'static', label: 'Fatigue', category: 'conditions', color_id: 1, data: get(this, 'lineData')
-      },
-      { type: 'marker', subtype: 'static', label: 'B12 supplement', category: 'treatments', color_id: 2, data: this.markerFirstData('B12')
-      },
-      {
-        type: 'marker', subtype: 'static', label: 'Alcohol', category: 'treatments', color_id: 3, data: this.markerFirstData('Alcohol')
-      }
+      { type: 'line', subtype: 'static', label: 'Fatigue', category: 'conditions', color_id: 1, data: get(this, 'lineData') },
+      { type: 'marker', subtype: 'static', label: 'B12 supplement', category: 'treatments', color_id: 2, data: this.markerFirstData('B12') },
+      { type: 'marker', subtype: 'static', label: 'Alcohol', category: 'treatments', color_id: 3, data: this.markerFirstData('Alcohol') }
     ]}
   }),
 

@@ -35,7 +35,7 @@ class Ability
     can [:create, :update], PromotionRate do |rate|
       checkin = rate.checkin
 
-      checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_pr?
+      checkin.encrypted_user_id == user.encrypted_id && checkin.available_for_promotion?
     end
 
     can [:create], Pattern

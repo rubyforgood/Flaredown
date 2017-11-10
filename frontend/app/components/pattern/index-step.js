@@ -16,8 +16,7 @@ const {
 
 export default Component.extend({
   ajax: service('ajax'),
-  chartsVisibilityService: service('charts-visibility'),
-  patternsLoading: service(),
+  patternsLoading: service('patterns-loading'),
 
   page: 1,
   loadingPatterns: alias('patternsLoading.loadingPatterns'),
@@ -53,6 +52,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
+
     set(this, 'chartDataPromise', DS.PromiseArray.create({}));
   },
 

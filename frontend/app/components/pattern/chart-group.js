@@ -8,6 +8,7 @@ const {
   computed,
   observer,
   Component,
+  setProperties,
   A,
 } = Ember;
 
@@ -35,8 +36,7 @@ export default Component.extend({
     const xScale = d3.time.scale().range([0, get(this, 'svgWidth')]);
     const yScaleStatic = d3.scale.linear().range([get(this, 'svgLineAreaHeight'), 0]);
 
-    set(this, 'xScale', xScale);
-    set(this, 'yScaleStatic', yScaleStatic);
+    setProperties(this, { xScale, yScaleStatic });
   },
 
   didInsertElement() {
@@ -59,8 +59,8 @@ export default Component.extend({
         set(this, 'svgChartWidth', width - backgroundMargin.left - backgroundMargin.right);
       }
     };
-    set(this, 'svgBackgroundArea', svgBackgroundArea);
-    set(this, 'svg', svg);
+
+    setProperties(this, { svgBackgroundArea, svg });
 
     window.addEventListener("resize", resize);
 

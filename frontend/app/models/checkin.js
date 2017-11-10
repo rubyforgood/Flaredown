@@ -29,7 +29,7 @@ export default Model.extend({
   foodIds: attr(),
   postalCode: attr('string'),
   availableForHbi: attr('boolean'),
-  availableForPr: attr('boolean'),
+  availableForPromotion: attr('boolean'),
   locationName: attr('string'),
   promotionSkippedAt: attr('string'),
 
@@ -45,7 +45,7 @@ export default Model.extend({
 
   tagsChanged: false,
 
-  shouldShowPrStep: alias('availableForPr'),
+  shouldShowPrStep: alias('availableForPromotion'),
 
   addObj: function(obj, idsKey, relationKey) {
     const objId = parseInt(get(obj, 'id'));

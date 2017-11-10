@@ -15,6 +15,10 @@ export default Component.extend({
   date: new Date(),
   dateFormat: 'MMM D',
   classNames: ['chart-navigation'],
+  classNameBindings: ['isAuthenticated::isBottom'],
+
+  isAuthenticated: alias('session.isAuthenticated'),
+
   patternNavbar: false,
   rateOfDuration: 0.2,
 
