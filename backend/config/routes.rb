@@ -198,6 +198,9 @@ Rails.application.routes.draw do
       # Weathers
       #
       resources :weathers, only: [:index]
+
+      resources :patterns
+      resources :charts_pattern, only: [:index]
     end
   end
 end

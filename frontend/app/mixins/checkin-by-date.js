@@ -25,7 +25,7 @@ export default Ember.Mixin.create({
     this.checkinByDate(date).then( checkin => {
       let defaultStep = checkin.get('isBlank') ? 'start' : 'summary';
       if (typeof FastBoot === 'undefined') {
-        this.router.transitionTo('checkin', checkin.get('id'), step ? step : defaultStep);
+        this.router.transitionTo('checkin.show', checkin.get('id'), step ? step : defaultStep);
       }
     }, () => {
       this.routeToNewCheckin(date, step);
@@ -35,7 +35,7 @@ export default Ember.Mixin.create({
   routeToNewCheckin(date, step) {
     var newCheckin = this.get('store').createRecord('checkin', {date: date});
     newCheckin.save().then(savedCheckin => {
-      this.router.transitionTo('checkin', savedCheckin.get('id'), step ? step : 'start');
+      this.router.transitionTo('checkin.show', savedCheckin.get('id'), step ? step : 'start');
     });
   },
 
@@ -44,5 +44,4 @@ export default Ember.Mixin.create({
       this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
     },
   },
-
 });

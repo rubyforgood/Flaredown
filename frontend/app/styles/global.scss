@@ -49,6 +49,17 @@
   	margin: 2em auto;
   	display: block;
   }
+
+  &.max-width {
+    max-width: 100%;
+    width: 100%;
+    padding: 30px 0px;
+  }
+
+  &.flaredown-svg-group {
+    padding: 0;
+    position: relative;
+  }
 }
 
 .x-to-remove {
@@ -283,4 +294,224 @@ input[type="submit"] {
   display: inline-block;
   vertical-align: middle;
   line-height: 1.6;
+}
+
+
+// History Page
+
+.history-box {
+  label {
+    font-weight: 500;
+    font-size: 1.5em;
+  }
+  .choosen-object {
+    font-size: 0.8em;
+  }
+}
+
+.history-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.history-btn {
+  background-color: $primary;
+
+  &:focus,
+  &:hover {
+    background-color: rgba(29, 145, 135, 1);
+     outline: none;
+  }
+}
+
+.large-btn {
+  width: 100%;
+}
+
+.history-remove {
+  color: rgba(255, 0, 0, 0.72);
+}
+
+.history-cancel {
+  color: $grey;
+}
+
+.history-index-btn {
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  border: 1px solid $dark-shadow;
+  color: $dark-shadow;
+  font-weight: 500;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(225, 216, 200, 0.36);
+    outline: none;
+    color: $dark-shadow;
+  }
+}
+
+
+// Pattern Index block
+
+.pattern-block {
+  display: flex;
+  justify-content: space-between;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 1em;
+  width: 95%;
+
+  span {
+    font-weight: 600;
+
+    &.pattern-edit {
+      color: $primary;
+    }
+  }
+}
+
+.flaredown-svg-group {
+  .line {
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .dot {
+    fill: #ffab00;
+    stroke: #fff;
+  }
+
+  .yGrid {
+    fill: none;
+    stroke: $background;
+    stroke-width: 1px;
+    stroke-dasharray: 3,3;
+  }
+
+  line.hover-line {
+    stroke: $lightgrey;
+    stroke-width: 2;
+  }
+
+  .background-area {
+    .svg-background {
+      fill: white;
+    }
+  }
+
+  .chart-hover-container {
+    position: relative;
+  }
+
+  .tooltip-area {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    border: 2px solid $lightgrey;
+    border-radius: 5px;
+    font-size: 14px;
+    min-width: 120px;
+    // max-width: 200px;
+    visibility: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    .tooltip-header {
+      display: flex;
+      padding: 0 5px;
+      background-color: $lightprimary;
+      color: $primary;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tooltip-items {
+      display: flex;
+      flex-direction: column;
+
+      .line-item {
+        order: 1;
+        display: flex;
+        justify-content: space-between;
+
+        span:first-child {
+          padding-right: 5px;
+        }
+      }
+
+      .marker-items {
+        order: 2;
+        display: flex;
+        flex-wrap: wrap;
+        width: 65%;
+      }
+
+      .marker-item {
+        display: flex;
+
+        &:after {
+          content: ',';
+          width: 10px;
+        }
+
+        &:last-child {
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
+    img {
+      width: 12px;
+      height: 18px;
+    }
+
+    .tooltip-items {
+      margin: 5px;
+    }
+  }
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+
+  .trackableItem {
+    display: flex;
+    align-items: center;
+    color: red;
+    margin-right: 10px;
+
+    &:before {
+      content: "";
+      background-color: currentColor;
+      margin-right: 5px;
+    }
+
+    &.circle:before {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    &.line:before {
+      width: 10px;
+      height: 2px;
+    }
+  }
 }

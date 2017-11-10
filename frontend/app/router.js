@@ -21,7 +21,10 @@ Router.map(function() {
 
   this.route('invitation', { path: '/invitation/:invitation_id' });
   this.route('onboarding', { path: '/onboarding/:step_key' });
-  this.route('checkin', { path: '/checkin/:checkin_id/:step_key' });
+
+  this.route('checkin', function() {
+    this.route('show', { path: '/:checkin_id/:step_key' });
+  });
 
   this.route('terms-of-service');
   this.route('privacy-policy');

@@ -1,3 +1,4 @@
+
 export default {
   step: {
     onboarding: {
@@ -78,4 +79,28 @@ export default {
       },
     },
   },
+
+  history: {
+    step: {
+      initial: {
+        title: 'History',
+        text: 'Create a pattern to group your symptoms with treatments and triggers, like this:',
+        buttonText: 'Create a Pattern',
+      },
+      creation: {
+        patternName: 'Pattern name',
+        selectLabel: 'Build your pattern',
+        deleteText: 'Delete pattern',
+        buttonText: 'Save pattern',
+        maxTrackablesText: 'Patterns hold a maximum of 10 items, to add more you\'ll need to remove some of the above',
+        placeholder: {
+          some: 'Add symptoms,treatments and more...',
+          none: 'No items to add',
+        },
+      },
+      index: {
+        newPatternText: '+ Create new pattern',
+      }
+    }
+  }
 };

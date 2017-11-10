@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Resizable from './chart/resizable';
 import FieldsByUnits from 'flaredown/mixins/fields-by-units';
+import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
 
 const {
   get,
@@ -22,7 +23,7 @@ const {
   },
 } = Ember;
 
-export default Component.extend(Resizable, FieldsByUnits, {
+export default Component.extend(Resizable, FieldsByUnits, DatesRetriever, {
   chartSelectedDates: service(),
 
   classNames: ['health-chart'],
@@ -60,7 +61,6 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
   showChart: observer('chartToShow', function() {
     const { chartToShow, chartsVisibilityService } = getProperties(this, 'chartToShow', 'chartsVisibilityService');
-
     chartsVisibilityService.setVisibility(true, chartToShow.category, chartToShow.label);
   }),
 
@@ -70,39 +70,6 @@ export default Component.extend(Resizable, FieldsByUnits, {
 
   chartEnablerPlaceholder: computed('isChartEnablerDisabled', function() {
     return get(this, 'isChartEnablerDisabled') ? "No charts to add" : "Add a chart";
-  }),
-
-  daysRadius: computed('SVGWidth', function() {
-    return Math.ceil(get(this, 'SVGWidth') / (get(this, 'pixelsPerDate') * 2));
-  }),
-
-  endAt: computed('daysRadius', 'centeredDate', function() {
-    const centeredDate = get(this, 'centeredDate');
-
-    if (centeredDate) {
-      return moment(centeredDate).add(get(this, 'daysRadius'), 'days');
-    } else {
-      return moment();
-    }
-  }),
-
-  startAt: computed('daysRadius', 'centeredDate', function() {
-    const daysRadius = get(this, 'daysRadius');
-    const centeredDate = get(this, 'centeredDate');
-
-    if (centeredDate) {
-      return moment(centeredDate).subtract(daysRadius, 'days');
-    } else {
-      return moment().subtract(daysRadius * 2, 'days');
-    }
-  }),
-
-  startAtWithCache: computed('startAt', function() {
-    return moment(get(this, 'startAt')).subtract(get(this, 'daysRadius'), 'days');
-  }),
-
-  endAtWithCache: computed('endAt', function() {
-    return moment(get(this, 'endAt')).add(get(this, 'daysRadius'), 'days');
   }),
 
   seriesLength: computed('series.weathersMeasures.length', 'trackables.length', function() {

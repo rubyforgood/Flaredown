@@ -4,6 +4,7 @@ export default {
   initialize(application) {
     application.inject('route:index', 'stepsService', 'service:steps');
     application.inject('route:checkin', 'stepsService', 'service:steps');
+    application.inject('route:checkin/show', 'stepsService', 'service:steps');
     application.inject('route:onboarding', 'stepsService', 'service:steps');
 
     application.inject('component:checkin-dialog', 'stepsService', 'service:steps');

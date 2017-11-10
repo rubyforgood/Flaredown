@@ -1,0 +1,49 @@
+{{#form-for for onSubmit="createPattern"}}
+  {{#form-field for="patternName" label="Pattern name"}}
+    {{input type="text" value=model.name}}
+  {{/form-field}}
+
+  <div class="pattern-items">
+    <label>{{selectLabel}}</label>
+    {{#if showMessage}}
+      <span>{{maxTrackablesText}}</span>
+    {{/if}}
+
+    <div class="selectedItems">
+      <ul>
+        {{#each model.includes as |object|}}
+          <li class="choosen-object" {{action "clicked" object}}>
+            <div class="regular">{{object.label}}</div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    {{#power-select
+      disabled=isChartEnablerDisabled
+      options=options
+      placeholder=chartEnablerPlaceholder
+      onchange=(action 'handleChange')
+      searchField="label"
+      renderInPlace=true
+      searchEnabled=true
+      class="fs-private"
+      as |chart|}}
+      {{chart.label}}
+    {{/power-select}}
+  </div>
+
+  <br>
+  <div class="history-container">
+    {{#if model.isNew}}
+    <span class="history-cancel" {{action 'cancel'}}>Cancel</span>
+    {{else}}
+      <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
+    {{/if}}
+
+    <button class="history-btn btn" {{action "savePattern"}} disabled={{disableSaveBtn}}>
+      {{saveText}}
+    </button>
+  </div>
+{{/form-for}}
+

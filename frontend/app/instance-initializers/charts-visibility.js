@@ -13,5 +13,6 @@ export default {
     application.inject('component:chart/g-trackable', 'chartsVisibilityService', 'service:charts-visibility');
     application.inject('component:chart/g-blank-flat', 'chartsVisibilityService', 'service:charts-visibility');
     application.inject('component:chart/g-blank-trackable', 'chartsVisibilityService', 'service:charts-visibility');
+    application.inject('component:pattern/create-step', 'chartsVisibilityService', 'service:charts-visibility');
   }
 };

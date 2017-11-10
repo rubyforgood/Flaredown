@@ -4,6 +4,7 @@ const {
   get,
   set,
   inject,
+  inject: { service },
   Service,
   observer,
   isPresent,
@@ -13,9 +14,12 @@ const {
 
 export default Service.extend({
   store: inject.service(),
+  session: service(),
+
   payload: {},
   storageKey: 'chartsVisibilityV2', // increase version on schema change
   hiddenCharts: [],
+  patternIncludes: [],
   fetchOnlyQuery: {},
   payloadVersion: 1,
   visibilityFilter: {},
@@ -33,6 +37,7 @@ export default Service.extend({
       const payload = get(this, 'payload');
 
       let hiddenCharts = [];
+      let patternIncludes = [];
       let fetchOnlyQuery = {};
       let visibilityFilter = {};
       let visibleChartsCount = 0;
@@ -47,6 +52,18 @@ export default Service.extend({
           Object
             .keys(categoryCharts)
             .forEach(chart => {
+              let chart_id = categoryCharts[chart].id;
+
+              if(category === 'weathersMeasures') {
+                chart_id = chart_id == 1 ? 'humidity' : 'pressure';
+              }
+
+              patternIncludes.pushObject({
+                id: chart_id,
+                category,
+                label: categoryCharts[chart].label,
+              });
+
               if (categoryCharts[chart].visible) {
                 visibleChartsCount += 1;
 
@@ -58,7 +75,9 @@ export default Service.extend({
 
                 fetchOnlyQuery[category].pushObject(categoryCharts[chart].id);
               } else if(isPresent(categoryCharts[chart].label)) {
+
                 hiddenCharts.pushObject({
+                  id: categoryCharts[chart].id,
                   category,
                   label: categoryCharts[chart].label,
                 });
@@ -71,6 +90,7 @@ export default Service.extend({
         visibilityFilter,
         visibleChartsCount,
         hiddenCharts: hiddenCharts.sortBy('label'),
+        patternIncludes: patternIncludes.sortBy('label'),
       });
 
       this.updateStorage();
@@ -87,7 +107,9 @@ export default Service.extend({
 
       this.observeVisibilityChanges();
     } else {
-      this.refresh();
+      if(get(this, 'session.isAuthenticated')) {
+        this.refresh();
+      }
     }
   },
 

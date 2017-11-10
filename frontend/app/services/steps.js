@@ -59,11 +59,12 @@ export default Service.extend({
         const id = `${prefix}-${stepName}`;
         const prevId = priority && result[`${prefix}-${steps[priority - 1]}`].id || null;
         const translationPrefix = `step.${prefix}.${stepName}`;
+        const prefixChanged = prefix == 'checkin' ? `${prefix}.show` : prefix;
 
         result[id] = {
           id,
           prevId,
-          prefix,
+          prefix: prefixChanged,
           stepName,
           priority,
           hint: i18n.t(`${translationPrefix}.hint`),
