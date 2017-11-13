@@ -5,7 +5,7 @@ import CryptoJS from 'cryptojs';
 const {
   get,
   set,
-  observer,
+  computed,
   inject: {
     service,
   },
@@ -20,19 +20,22 @@ export default Component.extend({
 
   secretPhrase: config.encryptionSecret,
   staticUrl: config.staticUrl,
-  nothingChecked: true,
   loadingPatterns: false,
   page: 2,
 
-  isCheckedSomeObserver: observer('patterns.@each.checked', function() {
-    const checkedPatternIds = get(this, 'patterns').filter((pattern) => pattern.checked).map((pattern) => pattern.id);
+  checkedPatterns: computed('patterns.@each.checked', function() {
+    return get(this, 'patterns').filter((pattern) => pattern.checked);
+  }),
 
-    set(this, 'nothingChecked', checkedPatternIds.length == 0);
+  nothingChecked: computed('checkedPatterns.[]', function() {
+    return get(this, 'checkedPatterns.length') === 0;
+  }),
+
+  encryptedUrl: computed('checkedPatterns.[]', function() {
+    const checkedPatternIds = get(this, 'checkedPatterns.[]').map((pattern) => pattern.id);
     const encryptedParams = CryptoJS.AES.encrypt(checkedPatternIds.join(', '), get(this, 'secretPhrase'));
 
-    const friendlyUrl = get(this, 'staticUrl') + '/patterns/' + encodeURIComponent(encryptedParams);
-
-    set(this, 'encryptedUrl', friendlyUrl);
+    return `${get(this, 'staticUrl')}/patterns/${encodeURIComponent(encryptedParams)}`;
   }),
 
   actions: {
