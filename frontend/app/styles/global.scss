@@ -414,7 +414,7 @@ input[type="submit"] {
     border-radius: 5px;
     font-size: 14px;
     min-width: 120px;
-    // max-width: 200px;
+    max-width: 200px;
     visibility: hidden;
 
     display: flex;
@@ -432,6 +432,7 @@ input[type="submit"] {
     .tooltip-items {
       display: flex;
       flex-direction: column;
+      word-wrap: break-word;
 
       .line-item {
         order: 1;
@@ -447,16 +448,11 @@ input[type="submit"] {
         order: 2;
         display: flex;
         flex-wrap: wrap;
-        width: 65%;
+        word-break: break-all;
       }
 
       .marker-item {
         display: flex;
-
-        &:after {
-          content: ',';
-          width: 10px;
-        }
 
         &:last-child {
           &:after {
