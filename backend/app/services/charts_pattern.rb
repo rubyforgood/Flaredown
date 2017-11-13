@@ -42,6 +42,7 @@ class ChartsPattern
       {
         pattern_id: pattern.id,
         pattern_name: pattern.name,
+        author_email: user.email,
 
         series: pattern_includes.map do |chart|
           category = chart[:category]

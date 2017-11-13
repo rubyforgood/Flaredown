@@ -179,12 +179,14 @@ export default Component.extend({
 
     let tooltipLeft = x <= hoverCenter ? (x + tooltipLeftOffset) : (x - tooltipLeftOffset - tooltipArea.width() - get(this, 'backgroundMargin.left'));
 
-    const headerBody = get(this, 'session.isAuthenticated') ?
-        `<a href=/checkin?date=${xValueFormatted}>
-          <b>${xValue.format(get(this, 'dateFormat'))}</b>
-          <img src="/assets/nav_icons/arrow-right.svg">
-          </a>` :
-          `<b>${xValue.format(get(this, 'dateFormat'))}</b>`;
+    const isAuthor = get(this, 'session.email') === get(this, 'data.author_email');
+
+    const headerBody = (get(this, 'session.isAuthenticated') && isAuthor) ?
+      `<a href=/checkin?date=${xValueFormatted}>
+        <b>${xValue.format(get(this, 'dateFormat'))}</b>
+        <img src="/assets/nav_icons/arrow-right.svg">
+        </a>` :
+        `<b>${xValue.format(get(this, 'dateFormat'))}</b>`;
 
     const tooltipHeader = `<div class="tooltip-header">${headerBody}</div>`
 
