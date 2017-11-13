@@ -13,4 +13,5 @@ const {
 export default Component.extend({
   logoVisiability: service(),
   showHeaderLogo: alias('logoVisiability.showHeaderLogo'),
+  showHeaderPath: alias('logoVisiability.showHeaderPath'),
 });

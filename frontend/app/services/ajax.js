@@ -24,7 +24,6 @@ export default AjaxService.extend({
 
     const { email, token } = getProperties(authenticated, 'email', 'token');
 
-
     return { Authorization: `Token token="${token}", email="${email}"` };
   }),
 });

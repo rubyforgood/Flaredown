@@ -414,7 +414,7 @@ input[type="submit"] {
     border-radius: 5px;
     font-size: 14px;
     min-width: 120px;
-    // max-width: 200px;
+    max-width: 200px;
     visibility: hidden;
 
     display: flex;
@@ -432,6 +432,7 @@ input[type="submit"] {
     .tooltip-items {
       display: flex;
       flex-direction: column;
+      word-wrap: break-word;
 
       .line-item {
         order: 1;
@@ -447,16 +448,11 @@ input[type="submit"] {
         order: 2;
         display: flex;
         flex-wrap: wrap;
-        width: 65%;
+        word-break: break-all;
       }
 
       .marker-item {
         display: flex;
-
-        &:after {
-          content: ',';
-          width: 10px;
-        }
 
         &:last-child {
           &:after {
@@ -515,3 +511,85 @@ input[type="submit"] {
     }
   }
 }
+
+.chart-navigation {
+    justify-content: space-around;
+    align-items: center;
+  .calendar {
+    display: flex;
+    flex-grow: 0.5;
+
+    .calendarItem {
+      border: 2px solid $primary;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .left-arrow {
+    flex: 1;
+  }
+
+  .calendar {
+    flex:1;
+  }
+
+  .rigth-arrow {
+    flex: 1;
+  }
+}
+
+.sharePatternLink {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  .history-index-btn {
+    width: 50%;
+    height: 50px;
+    border-radius: 5px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Sharing Patterns
+.sharedPatternsDialog {
+  .sharedPatternList {
+    display: flex;
+    flex-direction: column;
+
+    .sharedPattern {
+      display: flex;
+      align-items: center;
+      flex-flow: row-reverse;
+      justify-content: flex-end;
+      padding: 5px 0;
+
+      label:last-child { margin-right: 15px; }
+    }
+
+    .sharedPatternBtn {
+      width: 100%;
+      margin-top: 15px;
+
+      &:disabled:hover {
+        background-color: #50b1a9;
+      }
+    }
+  }
+
+  .sharedBottom {
+      margin-top: 30px;
+  }
+
+  .sharedPatternUrl {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+

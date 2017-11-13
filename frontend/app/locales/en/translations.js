@@ -100,7 +100,18 @@ export default {
       },
       index: {
         newPatternText: '+ Create new pattern',
+        sharePatternText: 'Share Patterns',
       }
     }
-  }
+  },
+
+  sharedPatterns: {
+    dialog: {
+      title: 'Which Patterns will you share?',
+      buttonText: 'Share via Email',
+      sharedUrl: 'Or copy this link to share anywhere',
+      done: 'Done',
+      loadMore: 'Load more...',
+    },
+  },
 };

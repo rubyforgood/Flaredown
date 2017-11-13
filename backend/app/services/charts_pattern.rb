@@ -21,9 +21,12 @@ class ChartsPattern
     @start_at = options[:start_at]
     @end_at   = options[:end_at]
     @pattern  = options[:pattern]
-    @user     = options[:user]
     @used_color_ids = []
     @checkins_with_weather = checkins.where(:weather_id.ne => nil)
+  end
+
+  def user
+    @user ||= pattern.author
   end
 
   def checkins
@@ -39,6 +42,7 @@ class ChartsPattern
       {
         pattern_id: pattern.id,
         pattern_name: pattern.name,
+        author_email: user.email,
 
         series: pattern_includes.map do |chart|
           category = chart[:category]

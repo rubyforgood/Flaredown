@@ -157,7 +157,7 @@ export default Component.extend({
     }
 
     const lineItemList = tooltipData
-                          .filter((item) => (!item.marker || item.category == 'treatments') && $.isNumeric(item.y))
+                          .filter((item) => (!item.marker && $.isNumeric(item.y) || item.category == 'treatments'))
                           .map((item) => {
                             let value = this.tooltipItemValue(item);
 
@@ -168,9 +168,7 @@ export default Component.extend({
                           }).join(' ');
 
     let markerItemList = tooltipData.filter((item) => item.marker && item.category !== 'treatments'  ).map((item) => {
-      return `<div class="marker-item">
-         <span class="colorable-clr-${item.color_id}">${item.label}</span>
-       </div>`
+      return `<span class="marker-item colorable-clr-${item.color_id}">${item.label},&nbsp;</span>`
     }).join(' ');
 
     const tooltipArea = get(this, 'tooltipArea');
@@ -179,12 +177,16 @@ export default Component.extend({
 
     let tooltipLeft = x <= hoverCenter ? (x + tooltipLeftOffset) : (x - tooltipLeftOffset - tooltipArea.width() - get(this, 'backgroundMargin.left'));
 
-    const tooltipHeader = `<div class="tooltip-header">
-      <a href=/checkin?date=${xValueFormatted}>
+    const isAuthor = get(this, 'session.email') === get(this, 'data.author_email');
+
+    const headerBody = (get(this, 'session.isAuthenticated') && isAuthor) ?
+      `<a href=/checkin?date=${xValueFormatted}>
         <b>${xValue.format(get(this, 'dateFormat'))}</b>
         <img src="/assets/nav_icons/arrow-right.svg">
-      </a>
-    </div>`
+        </a>` :
+        `<b>${xValue.format(get(this, 'dateFormat'))}</b>`;
+
+    const tooltipHeader = `<div class="tooltip-header">${headerBody}</div>`
 
     tooltipArea
       .css('visibility', 'visible')
@@ -223,7 +225,7 @@ export default Component.extend({
   tooltipItemValue(item) {
     if(item.static) {
       if(item.marker) {
-        return item.category == 'treatments' ? `${item.y}` : null;
+        return item.category == 'treatments' ? `${item.y || '&#8203;'}` : '';
       } else {
         let y = item.y % 1 === 0 ? item.y : item.y.toFixed(1);
         return `${y}/4`;

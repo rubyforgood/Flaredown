@@ -23,6 +23,7 @@
     {{else if (eq currentStep STEPS.INDEX)}}
       {{pattern/index-step
         patterns=patterns
+        authorPage=true
         onEdit=(action 'edit')
         onCreate=(action 'create')
         onRequest=(action 'requestData')

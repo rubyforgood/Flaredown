@@ -1,3 +1,13 @@
+{{#if authorPage}}
+  <div class="sharePatternLink">
+    {{#link-to 'patterns' class="history-index-btn btn"}}
+      Share Patterns
+    {{/link-to}}
+  </div>
+{{else}}
+  <h3 class="centered">{{authorName}}'s Health History</h3>
+{{/if}}
+
 {{#each patterns as |pattern|}}
   <div class='pattern-block'>
     <span class="pattern-name">{{pattern.name}}</span>
@@ -25,11 +35,13 @@
   {{/with}}
 {{/each}}
 
-<div class="newPatternLink">
-  <button class="history-index-btn btn" {{action "newPattern"}}>
-    {{t "history.step.index.newPatternText"}}
-  </button>
-</div>
+{{#if authorPage}}
+  <div class="newPatternLink">
+    <button class="history-index-btn btn" {{action "newPattern"}}>
+      {{t "history.step.index.newPatternText"}}
+    </button>
+  </div>
+{{/if}}
 
 {{ember-ic-you triggerDistance=40}}
 
