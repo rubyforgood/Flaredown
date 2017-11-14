@@ -202,7 +202,7 @@ namespace :oneoff do
     notify_token = User.find_by(email: args[:email])&.profile&.notify_token
     return unless notify_token
 
-    GroupTopPostsJob.perform_async(notify_token: notify_token)
+    GroupTopPostsJob.perform_async(notify_token)
   end
 
  # Send email with posts, comments, reactions count

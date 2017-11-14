@@ -11,13 +11,8 @@ export default Route.extend({
 
   beforeModel(transition) {
     const notifyToken = transition.params.unsubscribe.notify_token;
-    let remindQueryParam = transition.queryParams;
 
-    const queryParams = Object.keys(remindQueryParam).map((key) => {
-        return `${ key }=${ remindQueryParam[key] }`;
-      }).join('&');
-    debugger;
-    get(this, 'ajax').request(`/unsubscribe/${ notify_token }`, {
+    get(this, 'ajax').request(`/unsubscribe/${ notifyToken }`, {
       type: 'GET',
       data: transition.queryParams,
     });
