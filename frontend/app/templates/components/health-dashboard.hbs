@@ -1,6 +1,6 @@
 <div class="btn-group vert-offset-top-1 vert-offset-bottom-1">
-  <button {{action "showChart"}}    class={{if (or journalIsVisible patternsVisible) "" "active"}}>Charts</button>
   <button {{action "showPatterns"}} class={{ if (or journalIsVisible chartVisible) "" "active" }}>Patterns</button>
+  <button {{action "showChart"}}    class={{if (or journalIsVisible patternsVisible) "" "active"}}>Charts</button>
   <button {{action "showJournal"}}  class={{if (or chartVisible patternsVisible) "" "active"}}>Journal</button>
 </div>
 
