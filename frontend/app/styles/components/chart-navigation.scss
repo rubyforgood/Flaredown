@@ -19,7 +19,8 @@
   }
 
   a,
-  span {
+  span,
+  div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,15 +62,19 @@
   }
 
   .left-arrow {
-    flex: 0.3;
+    flex: 0.1;
   }
 
-  .calendar {
-    flex: 0.7;
+  .calendarItem {
+    flex: 0.4;
+  }
+
+  span {
+    flex: 0.4;
   }
 
   .rigth-arrow {
-    flex: 0.3;
+    flex: 0.1;
   }
 }
 
