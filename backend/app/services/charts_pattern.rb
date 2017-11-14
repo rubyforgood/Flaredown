@@ -85,7 +85,12 @@ class ChartsPattern
     "Checkin::#{category_name.camelize}".constantize.where(
       checkin_id: { '$in': checkin_ids },
       "#{category_name}_id": id
-    ).map { |tr| { x: tr.checkin.date, y: tr.value } }.uniq
+    ).map do |tr|
+      coord = { x: tr.checkin.date, y: tr.value }
+      coord[:is_taken] = tr.is_taken if category == 'treatments'
+
+      coord
+    end.uniq
   end
 
   def health_factors_trackables_coordinate(category, selected_checkins, id)

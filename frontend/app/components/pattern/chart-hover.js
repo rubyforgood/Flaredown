@@ -157,7 +157,7 @@ export default Component.extend({
     }
 
     const lineItemList = tooltipData
-                          .filter((item) => (!item.marker && $.isNumeric(item.y) || item.category == 'treatments'))
+                          .filter((item) => (!item.marker && $.isNumeric(item.y) || (item.category == 'treatments' && item.is_taken)))
                           .map((item) => {
                             let value = this.tooltipItemValue(item);
 
