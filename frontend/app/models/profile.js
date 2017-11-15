@@ -11,8 +11,7 @@ const {
 export default DS.Model.extend({
   // Attributes
   screenName: DS.attr('string'),
-  birthDate: DS.attr('string'),  // please keep this as string as we don't need time info
-                                 // and HTML5 date input likes yyyy-dd-mm format as returned by APIs
+  birthDate: DS.attr('birthdate'),
   dayWalkingHours: DS.attr('number'),
   ethnicityIds: DS.attr(),
   pressureUnits: DS.attr('string'),
