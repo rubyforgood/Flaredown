@@ -69,6 +69,7 @@ RSpec.describe Api::V1::CheckinsController do
           it 'should be available' do
             get :show, attributes
             returned_checkin = response_body[:checkin]
+            expect(returned_checkin[:available_for_promotion]).to be true
             expect(returned_checkin[:promotion_skipped_at].blank?).to be true
             expect(returned_checkin[:promotion_rate_id].blank?).to be true
           end
@@ -92,6 +93,14 @@ RSpec.describe Api::V1::CheckinsController do
                    user_id: old_user.id,
                    date: Time.zone.today,
                    promotion_skipped_at: (Time.zone.today - 1.week))
+          end
+
+          let(:attributes) { { id: checkin.id } }
+
+          it 'returns false after skipped promotion rate for 1 week' do
+            get :show, attributes
+            returned_checkin = response_body[:checkin]
+            expect(returned_checkin[:available_for_promotion]).to be true
           end
         end
 
