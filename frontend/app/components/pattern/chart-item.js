@@ -38,11 +38,15 @@ export default Component.extend({
 
   renderChart() {
     const data = get(this, 'data');
-    const chartData = data.data
+    let chartData = data.data
 
     if(chartData) {
       switch(data.type) {
         case 'marker': {
+          if (data.category == 'treatments') {
+           chartData = data.data.filter((item) => item.is_taken)
+          }
+
           this.renderMarker(chartData, data.index, data.label);
           break;
         }
