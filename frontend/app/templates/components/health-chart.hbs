@@ -1,3 +1,13 @@
+{{#if authorPage}}
+  <div class="shareHistoryBtn">
+    {{#link-to 'charts' class="history-index-btn btn"}}
+      {{t "history.step.index.shareButtonText"}}
+    {{/link-to}}
+  </div>
+{{else}}
+  <h3 class="centered">{{authorName}}'s Health History</h3>
+{{/if}}
+
 {{#if chartLoaded }}
   <svg width='100%' height={{SVGHeight}}>
     <g class="health-chart-viewport" transform="translate(0, {{seriePadding}})">

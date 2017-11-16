@@ -81,6 +81,10 @@ export default {
   },
 
   history: {
+    charts: {
+      shareButtonText: 'Share Charts',
+    },
+
     step: {
       initial: {
         title: 'History',
@@ -100,7 +104,7 @@ export default {
       },
       index: {
         newPatternText: '+ Create new pattern',
-        sharePatternText: 'Share Patterns',
+        shareButtonText: 'Share Patterns',
       }
     }
   },

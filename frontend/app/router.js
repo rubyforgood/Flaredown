@@ -12,6 +12,10 @@ Router.map(function() {
   this.route('signup');
   this.route('chart');
 
+  this.route('charts', function() {
+    this.route('shared', { path: '/:friendly_id' });
+  });
+
   this.route('patterns', function() {
     this.route('shared', { path: '/:friendly_id' });
   });

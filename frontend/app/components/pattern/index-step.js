@@ -142,9 +142,5 @@ export default Component.extend({
 
       setProperties(this, { startAt: startAt, endAt: endAt });
     },
-
-    sharePattern() {
-      this.transitionTo('patterns');
-    },
   }
 });
