@@ -582,6 +582,12 @@ input[type="submit"] {
 // Sharing Charts
 .sharedChartsBtn {
   width: 100%;
+  background-color: $primary;
+
+  &:hover,
+  &:focus {
+    background-color: darken($primary, 10%);
+  }
 }
 
 .sharedChartsUrl {
