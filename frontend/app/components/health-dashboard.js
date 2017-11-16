@@ -10,8 +10,8 @@ const {
 } = Ember;
 
 export default Component.extend(CheckinByDate, {
-  patternsVisible: true,
-  chartVisible: false,
+  patternsVisible: false,
+  chartVisible: true,
   journalIsVisible: alias('chartJournalSwitcher.journalIsVisible'),
   chartJournalSwitcher: service(),
   i18n: service(),
