@@ -1,0 +1,12 @@
+<h3 class="centered">{{t "sharedCharts.dialog.title"}}</h3>
+
+{{input type="submit" class="sharedChartsBtn" value=(t "sharedCharts.dialog.buttonText")}}
+
+  <div class="sharedChartsUrl centered">
+    <label>{{t "sharedCharts.dialog.sharedUrl"}}</label>
+    {{input value=encryptedUrl}}
+  </div>
+
+<div class="sharedBottom centered">
+  {{#link-to 'chart'}}{{t "sharedCharts.dialog.done"}}{{/link-to}}
+</div>

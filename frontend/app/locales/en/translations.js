@@ -118,4 +118,13 @@ export default {
       loadMore: 'Load more...',
     },
   },
+
+  sharedCharts: {
+    dialog: {
+      title: 'You will share all visible Charts',
+      buttonText: 'Share via Email',
+      sharedUrl: 'Or copy this link to share anywhere',
+      done: 'Done',
+    }
+  },
 };
