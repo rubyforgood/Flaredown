@@ -1,9 +1,21 @@
-<div class="yesterday">
-  <a href="#" {{action 'goToYesterday'}}>‹</a>
-</div>
-<div class="checkin-date">
-  {{monthAndDay}}
-</div>
-<div class="tomorrow">
-  <a href="#" {{action 'goToTomorrow'}}>›</a>
+<div class="checkin-days-nav">
+  <div class="yesterday">
+    <a href="#" {{action 'goToYesterday'}}>‹</a>
+  </div>
+
+  <a class="calendar-opener" {{action 'openPicker' bubbles=false}}>
+    {{inline-svg 'calendar-icon' class='calendar-icon'}}
+    &nbsp;
+    {{checkinDateLabel}}
+
+    {{pick-a-date
+      date=(readonly checkinDate)
+      options=(readonly pickadateOptions)
+      on-selected=(action 'checkinDateChanged')
+    }}
+  </a>
+
+  <div class="tomorrow">
+    <a href="#" {{action 'goToTomorrow'}}>›</a>
+  </div>
 </div>

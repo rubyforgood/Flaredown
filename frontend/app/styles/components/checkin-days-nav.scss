@@ -41,3 +41,23 @@
     }
   }
 }
+
+.checkin-head-nav {
+  margin-bottom: 15px;
+
+  .checkin-date > a > svg {
+    width: 15px;
+  }
+}
+
+.checkin-days-nav {
+  font-size: 1.2em;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+
+  a svg { width: 15px; }
+  .picker__input {
+    display: none;
+  }
+}
