@@ -41,13 +41,13 @@ export default Component.extend(CheckinByDate, {
     goToYesterday() {
       const yesterday = moment(this.get('currentDate')).subtract(1, 'days');
 
-      this.routeToCheckin(yesterday.format("YYYY-MM-DD"), this.get('step.key'));
+      this.routeToCheckin(yesterday.format("YYYY-MM-DD"), this.get('step.stepName'));
     },
     goToTomorrow() {
       if (this.get('isntToday')) {
         const tomorrow = moment(this.get('currentDate')).add(1, 'days');
 
-        this.routeToCheckin(tomorrow.format("YYYY-MM-DD"), this.get('step.key'));
+        this.routeToCheckin(tomorrow.format("YYYY-MM-DD"), this.get('step.stepName'));
       }
     },
 
@@ -58,7 +58,7 @@ export default Component.extend(CheckinByDate, {
     checkinDateChanged(date) {
       const checkinDate = moment(date);
 
-      this.routeToCheckin(checkinDate.format("YYYY-MM-DD"), get(this, 'step.key'));
+      this.routeToCheckin(checkinDate.format("YYYY-MM-DD"), get(this, 'step.stepName'));
     },
   }
 
