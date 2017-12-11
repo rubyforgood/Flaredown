@@ -35,9 +35,6 @@
         opacity: 1;
       }
     }
-    .yesterday, .tomorrow {
-      opacity: 0;
-    }
   }
 }
 
@@ -52,53 +49,46 @@
 .checkin-days-nav {
   font-size: 1.2em;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 4px 0 #E1D8C8;
+  max-width: 500px;
+  width: 95%;
 
-  a svg { width: 15px; }
   .picker__input {
     display: none;
   }
 
-  .calendar-opener {
-    display: flex;
-    align-items: center;
+  .yesterday, .tomorrow {
+    flex: 1;
+
+    &:hover {
+      transform: scale(1.4, 1);
+    }
   }
 
-  @media screen and (max-width: $medium-screen) {
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1em;
-    margin-top: 1em;
-    border-radius: 5px;
-    background: white;
-    box-shadow: 0 4px 0 #E1D8C8;
-    max-width: 500px;
-    width: 95%;
+  .yesterday {
+    border-right: 1px solid $lightgrey;
+  }
 
-    .yesterday, .tomorrow {
-      flex: 1;
-      &:hover {
-        transform: scale(1.4, 1);
-      }
-    }
+  .tomorrow {
+    border-left: 1px solid $lightgrey;
+  }
 
-    .yesterday {
-      border-right: 1px solid $lightgrey;
-    }
+  .calendar-opener {
+    display: flex;
+    flex: 2;
+    justify-content: center;
+    align-items: center;
 
-    .tomorrow {
-      border-left: 1px solid $lightgrey;
-    }
-
-    .calendar-opener {
-      flex: 2;
-      justify-content: center;
-      align-items: center;
-
-      svg {
-        margin-top: -4px;
-      }
+    svg {
+      width: 15px;
+      margin-top: -4px;
     }
   }
 }
