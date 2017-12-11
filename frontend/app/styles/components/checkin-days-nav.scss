@@ -1,43 +1,3 @@
-.checkin-days-nav {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  &.big {
-    font-size: larger;
-  }
-  .checkin-date {
-    color: $primary;
-    display: inline-block;
-    padding: 20px 0 20px 0;
-    cursor: pointer;
-  }
-  .yesterday, .tomorrow {
-    display: inline-block;
-    font-size: 2em;
-    position: relative;
-    transition: all .25s;
-    &:hover {
-      transform: scale(1.4);
-      a {
-        color: $primary;
-      }
-    }
-    a {
-      padding: 5px 20px;
-      color: $primary;
-    }
-  }
-}
-@media (min-width: $tablet) {
-  .checkin-days-nav {
-    &:hover {
-      .yesterday, .tomorrow {
-        opacity: 1;
-      }
-    }
-  }
-}
-
 .checkin-head-nav {
   margin-bottom: 15px;
 
@@ -47,6 +7,7 @@
 }
 
 .checkin-days-nav {
+  text-align: center;
   font-size: 1.2em;
   display: flex;
   justify-content: space-between;
@@ -60,15 +21,24 @@
   max-width: 500px;
   width: 95%;
 
-  .picker__input {
+  .ember-pick-a-date {
     display: none;
   }
 
   .yesterday, .tomorrow {
     flex: 1;
+    font-size: 2em;
+    position: relative;
+    transition: all .25s;
 
     &:hover {
       transform: scale(1.4, 1);
+      a { color: $primary; }
+    }
+
+    a {
+      padding: 5px 20px;
+      color: $primary;
     }
   }
 
@@ -91,6 +61,25 @@
       margin-top: -4px;
     }
   }
+
+  &.big {
+    font-size: larger;
+  }
+
+  .checkin-date {
+    color: $primary;
+    display: inline-block;
+    padding: 20px 0 20px 0;
+    cursor: pointer;
+  }
 }
 
-
+@media (min-width: $tablet) {
+  .checkin-days-nav {
+    &:hover {
+      .yesterday, .tomorrow {
+        opacity: 1;
+      }
+    }
+  }
+}
