@@ -13,6 +13,13 @@ export default Component.extend(CheckinByDate, {
   classNames: ['checkin-head-nav'],
   classNameBindings: ['big'],
 
+  checkinDate: moment(),
+
+  pickadateOptions: {
+    container: 'body > .ember-view',
+    max: moment().toDate(),
+  },
+
   currentDate: Ember.computed.alias('checkin.date'),
   monthAndDay: Ember.computed('currentDate', function() {
     return moment(this.get('currentDate')).format("MMMM Do");
