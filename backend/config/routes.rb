@@ -192,7 +192,7 @@ Rails.application.routes.draw do
       #
       # Users
       #
-      resources :users, only: [:show]
+      resources :users, only: [:index, :show]
 
       #
       # Weathers
