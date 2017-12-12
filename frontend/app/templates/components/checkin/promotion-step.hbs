@@ -1,41 +1,43 @@
-{{save-status record=checkin}}
+<div class="flaredown-white-box">
+  {{save-status record=checkin}}
 
-<h2>{{step.title}}</h2>
+  <h2>{{step.title}}</h2>
 
-{{#if showRatePage}}
-  <h4>{{prBody}}</h4>
+  {{#if showRatePage}}
+    <h4>{{prBody}}</h4>
 
-  <ul class="prRate">
-    {{#each prRates as |prRate|}}
-      <li class="{{if (eq selectedRate prRate) 'active'}}" {{action (mut selectedRate) prRate}}>
-        {{prRate}}
-      </li>
-    {{/each}}
-  </ul>
+    <ul class="prRate">
+      {{#each prRates as |prRate|}}
+        <li class="{{if (eq selectedRate prRate) 'active'}}" {{action (mut selectedRate) prRate}}>
+          {{prRate}}
+        </li>
+      {{/each}}
+    </ul>
 
-  <br>
-  <div class="container">
-    <button class="btn-primary pr-btn" {{action "sendFeedback"}} disabled={{not selectedRate}}>
-      {{feedBackLabel}}
-    </button>
-  </div>
+    <br>
+    <div class="container">
+      <button class="btn-primary pr-btn" {{action "sendFeedback"}} disabled={{not selectedRate}}>
+        {{feedBackLabel}}
+      </button>
+    </div>
 
-  {{step-controls
-    step=step
-    onForward=(action "skipStep")
-    linkForward=true
-    onBackward=(action "goBack")
-    forwardLabel="Skip"
-  }}
+    {{step-controls
+      step=step
+      onForward=(action "skipStep")
+      linkForward=true
+      onBackward=(action "goBack")
+      forwardLabel="Skip"
+    }}
 
-{{else}}
-  {{promotion-score
-    pr=pr
-    onForward=onStepCompleted
-    onBackward=onGoBack
-    forwardLabel='Next'
-    stepHasPrev=step.prevId
-    title=step.title
-    feedBackLabel=feedBackLabel
-  }}
-{{/if}}
+  {{else}}
+    {{promotion-score
+      pr=pr
+      onForward=onStepCompleted
+      onBackward=onGoBack
+      forwardLabel='Next'
+      stepHasPrev=step.prevId
+      title=step.title
+      feedBackLabel=feedBackLabel
+    }}
+  {{/if}}
+</div>
