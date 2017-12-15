@@ -189,14 +189,14 @@ namespace :oneoff do
 
   task :send_optional_email, [:email] => :environment do |t, args|
     email = args[:email]
-    return unless email
+    abort('Email should be present') unless email
 
     CheckinReminderMailer.remind(email: email).deliver_now
   end
 
   task :send_top_post_email, [:email] => :environment do |t, args|
     notify_token = User.find_by(email: args[:email])&.profile&.notify_token
-    return unless notify_token
+    abort('There is no such email') if notify_token.nil?
 
     GroupTopPostsJob.perform_async(notify_token)
   end
@@ -204,7 +204,7 @@ namespace :oneoff do
  # Send email with posts, comments, reactions count
   task :send_notification_email, [:email] => :environment do |t, args|
     email = args[:email]
-    return unless email
+    abort('Email should be present') unless email
 
     NotificationsMailer.notify(email: email, data: {}).deliver_now
   end
