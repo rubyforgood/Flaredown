@@ -18,16 +18,23 @@ export default Ember.Mixin.create(AuthenticatedRouteMixin, {
     if (Ember.isPresent(currentUser)) {
       currentUser.then( user => {
         user.get('profile').then( profile => {
-          this.get('session.userEngage').initialize({
-            state: 'simple',
-            email: user.get('email'),
-            sex: profile.get('sex.id'),
-            country_code: profile.get('country.id'),
-            birth_date: profile.get('birthDate'),
-            education_level: profile.get('educationLevel.id'),
-            onboarded: profile.get('isOnboarded')
-          });
-          this.set('session.userEngageInitialized', true);
+          try {
+            this.get('session.userEngage').initialize({
+              state: 'simple',
+              email: user.get('email'),
+              sex: profile.get('sex.id'),
+              country_code: profile.get('country.id'),
+              birth_date: profile.get('birthDate'),
+              education_level: profile.get('educationLevel.id'),
+              onboarded: profile.get('isOnboarded')
+            });
+            this.set('session.userEngageInitialized', true);
+          }
+          catch(error) {
+            if (typeof Fastboot === 'undefined') {
+              window.UE = {};
+            }
+          }
         });
       });
     }
