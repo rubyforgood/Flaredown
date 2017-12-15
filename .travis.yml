@@ -50,4 +50,5 @@ script:
   - bundle exec rubocop
   - cd ../frontend
   - echo "node env $NODE_ENV"
+  - npm version
   - npm run test
