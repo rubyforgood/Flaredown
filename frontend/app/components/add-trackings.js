@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
+const {
+  get,
+} = Ember;
+
 export default Ember.Component.extend(TrackablesFromType, {
 
   tracking: Ember.inject.service(),
@@ -27,9 +31,16 @@ export default Ember.Component.extend(TrackablesFromType, {
   },
 
   track: function(trackable) {
-    this.get('tracking').track(trackable, null, () => {
-      this.set('selectedTrackable', null);
+    const trackableType = get(this, 'trackableType').capitalize();
+    const trackableIds = this.get('store').peekAll('tracking').filterBy('trackableType', trackableType).map((tr) => {
+      return get(tr, 'trackable.id');
     });
+
+    if (!trackableIds.includes(get(trackable, 'id'))) {
+      this.get('tracking').track(trackable, null, () => {
+        this.set('selectedTrackable', null);
+      });
+    }
   }
 
 });

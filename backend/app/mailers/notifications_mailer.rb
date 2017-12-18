@@ -5,6 +5,8 @@ class NotificationsMailer < ApplicationMailer
 
   def notify(notification_hash)
     @email = notification_hash[:email]
+    return unless valid_email?(@email)
+
     @unsubscribe_link = Rails.application.secrets.base_url + "/unsubscribe/#{User.find_by(email: @email).notify_token}"
     @data = notification_hash[:data]
 
