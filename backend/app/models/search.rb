@@ -48,7 +48,7 @@ class Search
     @where_conditions ||=
       [].tap do |conditions|
         query_hash.each do |key, value|
-          sanitized_value = sanitize_sql_like(value.downcase)
+          sanitized_value = sanitize_sql_like(value.squish.downcase)
           pattern =
             if sanitized_value.length < 3
               "#{sanitized_value}%"

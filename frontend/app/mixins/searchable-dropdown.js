@@ -61,7 +61,7 @@ export default Ember.Mixin.create({
 
     shouldShowCreateOption(term, options) {
       let foundOption = options.find(function(item) {
-        return Ember.isEqual(term.toLowerCase(), item.get('name').toLowerCase());
+        return Ember.isEqual(term.trim().replace(/\s\s+/g, ' ').toLowerCase(), item.get('name').toLowerCase());
       });
       return !Ember.isPresent(foundOption);
     },
