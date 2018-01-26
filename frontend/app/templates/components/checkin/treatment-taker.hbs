@@ -7,7 +7,6 @@
 <br>
 {{#if isTaken}}
   {{#if isEditMode}}
-
     {{#power-select-with-create options=allTreatmentDoses
                                 search=(action "searchObjects")
                                 onchange=(action "handleChange")
@@ -19,6 +18,7 @@
                                 onfocus=(action "handleFocus")
                                 onblur=(action "handleBlur")
                                 renderInPlace=true
+                                disabled=disabled
                                 triggerClass=(concat "dose-trigger " model.borderClass)
                                 dropdownClass=(concat "dose-dropdown " model.borderClass)
                                 as |dose| }}

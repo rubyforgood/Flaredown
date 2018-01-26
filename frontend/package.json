@@ -57,7 +57,7 @@
     "ember-inline-svg": "0.1.7",
     "ember-load-initializers": "^1.0.0",
     "ember-power-select": "1.5.0",
-    "ember-power-select-with-create": "0.2.6",
+    "ember-power-select-with-create": "^0.5.0",
     "ember-radio-button": "1.0.7",
     "ember-resolver": "^4.0.0",
     "ember-router-scroll": "0.1.1",
