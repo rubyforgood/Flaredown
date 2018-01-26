@@ -29,11 +29,12 @@
 
   {{trackables-select trackableType=trackableType
                       selected=selectedTrackable
+                      disabled=isSaving
                       onSelect=(action "add") }}
 
   {{step-controls
     step=step
-    disabled=checkin.hasDirtyAttributes
+    disabled=isSaving
     onForward=(action "completeStep")
     onBackward=(action "goBack")
     forwardLabel="Next"

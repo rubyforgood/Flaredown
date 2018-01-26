@@ -3,15 +3,24 @@ import DS from 'ember-data';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 const {
+  get,
+  set,
+  computed,
+  computed: { alias },
+  inject: { service },
   Component,
+  isNone,
+  run: { next },
+  RSVP: { all }
 } = Ember;
 
 export default Component.extend(TrackablesFromType, {
   classNames: ['trackables-step'],
 
-  model: Ember.computed.alias('parentView.model'),
+  model: alias('parentView.model'),
 
-  tracking: Ember.inject.service(),
+  tracking: service(),
+
   setupTracking() {
     this.get('tracking').setup({
       at: new Date(this.get('checkin.date')),
@@ -19,12 +28,12 @@ export default Component.extend(TrackablesFromType, {
     });
   },
 
-  checkin: Ember.computed.alias('model.checkin'),
-  isTodaysCheckin: Ember.computed('checkin', function() {
+  checkin: alias('model.checkin'),
+  isTodaysCheckin: computed('checkin', function() {
     return moment(this.get('checkin.date')).isSame(new Date(), 'day');
   }),
 
-  sortedTrackeds: Ember.computed('trackeds', 'trackeds.[]', 'trackeds.@each.position', function() {
+  sortedTrackeds: computed('trackeds.[]', 'trackeds.@each.position', function() {
     return this.get('trackeds').toArray().sortBy('position');
   }),
 
@@ -45,7 +54,13 @@ export default Component.extend(TrackablesFromType, {
     },
 
     add(selectedTrackable) {
-      this.shouldAddTrackable(selectedTrackable);
+      const trackeds = get(this, 'trackeds');
+
+      if (get(trackeds, 'isFulfilled')) {
+        this.addTrackable(get(trackeds, 'content'), selectedTrackable);
+      } else {
+        this.addTrackable(trackeds, selectedTrackable);
+      }
     },
 
     move(draggedId, droppedId) {
@@ -109,31 +124,26 @@ export default Component.extend(TrackablesFromType, {
     }
   },
 
-  shouldAddTrackable(trackable) {
-    if (this.get('trackeds.isFulfilled')) {
-      this.addTrackable(this.get('trackeds.content'), trackable);
-    } else {
-      this.addTrackable(this.get('trackeds'), trackable);
-    }
-  },
-
   addTrackable(trackeds, trackable) {
-    let trackableType = this.get('trackableType');
-    // check if trackable is already present in this checkin
-    var foundTrackable = trackeds.findBy(`${trackableType}.id`, trackable.get('id'));
-    if (Ember.isNone(foundTrackable)) {
-      let recordAttrs = {
+    const trackableType = get(this, 'trackableType');
+    const foundTrackable = trackeds.findBy(`${trackableType}.id`, trackable.get('id'));
+
+    if (isNone(foundTrackable)) {
+      const recordAttrs = {
         colorId: this.computeNewColorId(),
-        position: trackeds.get('length')
+        position: trackeds.get('length'),
+        [trackableType]: trackable
       };
-      recordAttrs[trackableType] = trackable;
-      let recordType = `checkin_${trackableType}`.camelize();
-      let tracked = this.store.createRecord(recordType, recordAttrs);
+      const recordType = `checkin_${trackableType}`.camelize();
+      const tracked = this.store.createRecord(recordType, recordAttrs);
+
       trackeds.pushObject(tracked);
-      this.set('addedTracked', tracked);
+
+      set(this, 'addedTracked', tracked);
       this.saveCheckin();
     }
-    this.set('selectedTrackable', null);
+
+    set(this, 'selectedTrackable', null);
   },
 
   computeNewColorId() {
@@ -154,12 +164,11 @@ export default Component.extend(TrackablesFromType, {
   },
 
   saveCheckin() {
-    this.set('checkin.hasDirtyAttributes', true);
+    set(this, 'checkin.hasDirtyAttributes', true);
+    next(this, () => {
+      set(this, 'isSaving', true);
 
-    Ember.run.next(this, function() {
-      Ember
-        .RSVP
-        .all([
+      all([
           this.untrackRemovedTracked(),
           this.trackAddedTracked()
         ])
@@ -174,13 +183,17 @@ export default Component.extend(TrackablesFromType, {
             this.get('checkin').handleSaveError(error);
           }
         )
-        .then(() => this.get('chartsVisibilityService').refresh());
-    });
+        .then(() => this.get('chartsVisibilityService').refresh())
+        .finally(() => {
+          set(this, 'isSaving', false);
+        });
+      });
   },
 
   onCheckinSaved() {
+    const checkin = this.get('checkin');
+
     this.deleteAddedTracked();
-    let checkin = this.get('checkin');
     checkin.set('hasDirtyAttributes', false);
     checkin.deleteTrackablesPreparedForDestroy();
     this.set('addedTracked', null);

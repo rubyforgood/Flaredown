@@ -60,7 +60,7 @@ class ChartsPattern
   end
 
   def pattern_includes
-    @pattern_includes ||= pattern.includes
+    @pattern_includes ||= pattern.includes || []
   end
 
   def data(chart)

@@ -6,10 +6,9 @@
                             selectedItemComponent="power-select/selected-name"
                             buildSuggestion=(action "handleBuildSuggestion")
                             placeholder=placeholder
-                            onfocus=(action "handleFocus")
-                            onblur=(action "handleBlur")
                             renderInPlace=true
                             class="flat"
+                            disabled=disabled
                             as |trackable| }}
   {{power-select/dropdown-trackable trackable=trackable}}
 {{/power-select-with-create}}
