@@ -251,7 +251,7 @@ namespace :oneoff do
         end
       end
 
-      p array
+      p array.uniq
     end
   end
 end

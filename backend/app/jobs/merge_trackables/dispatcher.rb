@@ -25,7 +25,7 @@ class MergeTrackables::Dispatcher
 
       same_trackables = trackable_class
         .where(id: same_translations.where(locale: 'en').select("#{trackable_type}_id".to_sym))
-        .order(trackable_usages_count: :desc)
+        .order(trackable_usages_count: :desc, id: :asc)
 
       parent, *rest = same_trackables
       return if parent.nil? || rest.length.zero?
