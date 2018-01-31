@@ -6,11 +6,12 @@ class MergeTrackables::CheckinTrackables
     return unless klass
 
     klass.where("#{trackable_type}_id".to_sym.in => rest_ids).map do |checkin|
+      p "#{klass} id: #{checkin.id}"
       checkin.update_attributes("#{trackable_type}_id".to_sym => parent_id)
     end
 
     p "PERFORM MergeTrackables::PostTrackables"
 
-    MergeTrackables::PostTrackables.perform_async(trackable_type, parent_id, rest_ids)
+    MergeTrackables::PatternIncludes.perform_async(trackable_type, parent_id, rest_ids)
   end
 end

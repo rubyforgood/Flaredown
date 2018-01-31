@@ -16,22 +16,25 @@ class MergeTrackables::Dispatcher
 
   def find_duplicates(trackable_type, trackable_class, translation)
     begin
-      regex =  "^\\s*#{translation.split(' ').join('\\s+')}\\s*$"
+      escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
+      regex =  "^\\s*#{escaped_translation}\\s*$"
+
       same_translations = trackable_class::Translation.where("name ~* ?", regex)
 
       return if same_translations.length <= 1 # Next step if origin found only
 
       same_trackables = trackable_class
-        .where(id: same_translations.select("#{trackable_type}_id".to_sym))
+        .where(id: same_translations.where(locale: 'en').select("#{trackable_type}_id".to_sym))
         .order(trackable_usages_count: :desc)
 
       parent, *rest = same_trackables
       return if parent.nil? || rest.length.zero?
 
       p "DUPLICATES FOUND..."
-      p "#{trackable_type.capitalize}"
+      p "#{trackable_type.capitalize} ids: #{same_trackables.pluck(:id)}"
+      p "#{trackable_type.capitalize} translations: #{same_trackables.map(&:name)}"
+
       rest_ids = rest.map(&:id)
-      p same_trackables.pluck(:id)
 
       # Remove duplicates from translations
       same_translations.where(:"#{trackable_type}_id" => rest_ids).map(&:destroy)

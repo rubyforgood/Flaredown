@@ -232,4 +232,26 @@ namespace :oneoff do
 
     PromotionRate::LowRateMailer.show(email, serialized_objects.to_a,  start_time, end_time).deliver_later
   end
+
+  task :list_same_trackabels, [:trackable_type, :translation] => :environment do |t, args|
+    trackable_type = args[:trackable_type]
+    translation = args[:translation]
+
+    [].tap do |array|
+      Condition::Translation.find_each do |trackable_translation|
+        begin
+          translation = trackable_translation.name
+          escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
+          # escaped_translation = translation.split(' ').join('\\s+')
+          regex =  "^\\s*#{escaped_translation}\\s*$"
+          same_translations = Condition::Translation.where("name ~* ?", regex)
+          array << same_translations.map(&:name) if same_translations.length > 1
+        rescue ActiveRecord::StatementInvalid
+          next
+        end
+      end
+
+      p array
+    end
+  end
 end
