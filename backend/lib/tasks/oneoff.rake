@@ -237,21 +237,8 @@ namespace :oneoff do
     trackable_type = args[:trackable_type]
     translation = args[:translation]
 
-    [].tap do |array|
-      Condition::Translation.find_each do |trackable_translation|
-        begin
-          translation = trackable_translation.name
-          escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
-          # escaped_translation = translation.split(' ').join('\\s+')
-          regex =  "^\\s*#{escaped_translation}\\s*$"
-          same_translations = Condition::Translation.where("name ~* ?", regex)
-          array << same_translations.map(&:name) if same_translations.length > 1
-        rescue ActiveRecord::StatementInvalid
-          next
-        end
-      end
+    trackable_class = trackable_type.capitalize.constantize
 
-      p array.uniq
-    end
+    SameTrackabelesJob.perfoms_async(trackable_type: trackable_type, translation: translation)
   end
 end
