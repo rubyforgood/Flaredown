@@ -232,13 +232,4 @@ namespace :oneoff do
 
     PromotionRate::LowRateMailer.show(email, serialized_objects.to_a,  start_time, end_time).deliver_later
   end
-
-  task :list_same_trackabels, [:trackable_type, :translation] => :environment do |t, args|
-    trackable_type = args[:trackable_type]
-    translation = args[:translation]
-
-    trackable_class = trackable_type.capitalize.constantize
-
-    SameTrackabelesJob.perfoms_async(trackable_type: trackable_type, translation: translation)
-  end
 end
