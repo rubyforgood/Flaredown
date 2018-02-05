@@ -1,7 +1,7 @@
 class MergeTrackables::Dispatcher
   include Sidekiq::Worker
 
-  def perform(trackable_type, translation=nil)
+  def perform(trackable_type, translation = nil)
     trackable_class = trackable_type.capitalize.constantize
 
     return find_duplicates(trackable_type, trackable_class, translation) if translation.present?
@@ -17,7 +17,7 @@ class MergeTrackables::Dispatcher
   def find_duplicates(trackable_type, trackable_class, translation)
     begin
       escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
-      regex =  "^\\s*#{escaped_translation}\\s*$"
+      regex = "^\\s*#{escaped_translation}\\s*$"
 
       same_translations = trackable_class::Translation.where("name ~* ?", regex)
 

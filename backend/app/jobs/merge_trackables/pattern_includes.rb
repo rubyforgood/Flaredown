@@ -8,7 +8,10 @@ class MergeTrackables::PatternIncludes
     Pattern.where('includes.id' => { '$in' => rest_ids }).map do |item|
       item.includes
         .select { |hash| hash[:category] == trackable_type.tableize && rest_ids.include?(hash[:id]) }
-        .map { |selected_hash| selected_hash[:id] = parent_id; selected_hash[:label] = parent.name }
+        .map do |selected_hash|
+          selected_hash[:id] = parent_id
+          selected_hash[:label] = parent.name
+        end
 
       item.save
     end

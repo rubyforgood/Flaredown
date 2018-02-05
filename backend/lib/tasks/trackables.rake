@@ -3,10 +3,11 @@ namespace :trackables do
 
   TRACKABLE_TYPES = %w(condition symptom treatment).freeze
 
-  task :merge, [:trackable_type] => :environment do |t, args|
+  task :merge, [:trackable_type, :translation] => :environment do |t, args|
     trackable_type = args[:trackable_type]
+    translation = args[:translation]
 
-    abort MergeTrackables::Dispatcher.perform_async(trackable_type) if trackable_type.present?
+    abort MergeTrackables::Dispatcher.perform_async(trackable_type, translation) if trackable_type.present?
 
     TRACKABLE_TYPES.map { |trackable_type| MergeTrackables::Dispatcher.perform_async(trackable_type) }
   end

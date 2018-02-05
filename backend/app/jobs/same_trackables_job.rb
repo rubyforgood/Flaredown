@@ -17,19 +17,18 @@ class SameTrackablesJob
         end
       end
 
+      p "Same #{trackable_type.pluralize.camelize}: "
       p array.uniq
     end
   end
 
   def find_duplicates(trackable_class, translation)
-    begin
-      escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
-      regex =  "^\\s*#{escaped_translation}\\s*$"
+    escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
+    regex = "^\\s*#{escaped_translation}\\s*$"
 
-      same_translations = trackable_class::Translation.where("name ~* ?", regex)
-      same_translations.map(&:name) if same_translations.length > 1
-    rescue ActiveRecord::StatementInvalid
-      return
-    end
+    same_translations = trackable_class::Translation.where("name ~* ?", regex)
+    same_translations.map(&:name) if same_translations.length > 1
+  rescue ActiveRecord::StatementInvalid
+    return
   end
 end
