@@ -2,7 +2,13 @@ class GroupNotifiersPerUser
   include Sidekiq::Worker
 
   def perform(encrypted_user_id)
-    user = User.find(SymmetricEncryption.decrypt(encrypted_user_id))
+    begin
+      user_id = SymmetricEncryption.decrypt(encrypted_user_id)
+    rescue OpenSSL::Cipher::CipherError
+      return
+    end
+
+    user = User.find_by(id: user_id)
     return unless user&.notify
 
     active_notifications = Notification.where(encrypted_notify_user_id: encrypted_user_id, delivered: false)
