@@ -7,6 +7,8 @@ class Checkin
 
   attr_accessor :includes
 
+  FIELD_TYPE = %w(tag food)
+
   #
   # Fields
   #

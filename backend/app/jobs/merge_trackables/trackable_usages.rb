@@ -14,7 +14,9 @@ class MergeTrackables::TrackableUsages
         tr_usage.update_attributes(trackable_id: parent.id)
 
       rescue ActiveRecord::RecordNotUnique
-        parent_usage = TrackableUsage.find_by(trackable_type: tr_usage.trackable_type, user_id: tr_usage.user_id)
+        parent_usage = TrackableUsage.find_by(trackable_type: tr_usage.trackable_type,
+                                              trackable_id: parent_id,
+                                              user_id: tr_usage.user_id)
         next unless parent_usage
 
         parent_usage.count += tr_usage.count

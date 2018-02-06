@@ -1,7 +1,7 @@
 namespace :trackables do
   desc 'flaredown | merge trackables'
 
-  TRACKABLE_TYPES = %w(condition symptom treatment).freeze
+  TRACKABLE_TYPES = %w(condition symptom treatment tag).freeze
 
   task :merge, [:trackable_type, :translation] => :environment do |t, args|
     trackable_type = args[:trackable_type]
