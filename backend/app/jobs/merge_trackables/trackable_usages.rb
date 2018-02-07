@@ -13,6 +13,8 @@ class MergeTrackables::TrackableUsages
       begin
         tr_usage.update_attributes(trackable_id: parent.id)
 
+        parent.increment!(:trackable_usages_count)
+
       rescue ActiveRecord::RecordNotUnique
         parent_usage = TrackableUsage.find_by(trackable_type: tr_usage.trackable_type,
                                               trackable_id: parent_id,
@@ -24,8 +26,6 @@ class MergeTrackables::TrackableUsages
 
         tr_usage.destroy
       end
-
-      parent.increment!(:trackable_usages_count)
     end
 
     p "PERFORM MergeTrackables::Trackings"
