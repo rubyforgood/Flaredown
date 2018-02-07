@@ -232,4 +232,14 @@ namespace :oneoff do
 
     PromotionRate::LowRateMailer.show(email, serialized_objects.to_a,  start_time, end_time).deliver_later
   end
+
+  task :update_checkin_reminder, ['profile_id'] => :environment do |t, args|
+    profile_id = args[:profile_id]
+
+    abort UpdateCheckinReminders.perform_async(profile_id) if profile_id
+
+    Profile.where(checkin_reminder: true).find_each do |profile|
+      UpdateCheckinReminders.perform_async(profile_id)
+    end
+  end
 end
