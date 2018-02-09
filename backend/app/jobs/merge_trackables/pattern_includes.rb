@@ -13,6 +13,7 @@ class MergeTrackables::PatternIncludes
           selected_hash[:label] = parent.name
         end
 
+      item.includes = item.includes.uniq
       item.save
     end
 

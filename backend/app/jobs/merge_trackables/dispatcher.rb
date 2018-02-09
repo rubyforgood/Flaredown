@@ -3,23 +3,24 @@ class MergeTrackables::Dispatcher
 
   def perform(trackable_type, translation = nil)
     trackable_class = trackable_type.capitalize.constantize
+    searchable_attr = trackable_class.name == 'Food' ? 'long_desc' : 'name'
 
-    return find_duplicates(trackable_type, trackable_class, translation) if translation.present?
+    return find_duplicates(trackable_type, trackable_class, translation, searchable_attr) if translation.present?
 
     trackable_class::Translation.find_each do |trackable_translation|
-      translation = trackable_translation.name
+      translation = trackable_translation.send(searchable_attr.to_s)
       next unless translation
 
-      find_duplicates(trackable_type, trackable_class, translation)
+      find_duplicates(trackable_type, trackable_class, translation, searchable_attr)
     end
   end
 
-  def find_duplicates(trackable_type, trackable_class, translation)
+  def find_duplicates(trackable_type, trackable_class, translation, searchable_attr = 'name')
     begin
       escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
       regex = "^\\s*#{escaped_translation}\\s*$"
 
-      same_translations = trackable_class::Translation.where("name ~* ?", regex)
+      same_translations = trackable_class::Translation.where("#{searchable_attr} ~* ?", regex)
 
       return if same_translations.length <= 1 # Next step if origin found only
 
@@ -32,7 +33,8 @@ class MergeTrackables::Dispatcher
 
       p "DUPLICATES FOUND..."
       p "#{trackable_type.capitalize} ids: #{same_trackables.pluck(:id)}"
-      p "#{trackable_type.capitalize} translations: #{same_trackables.map(&:name)}"
+      p "#{trackable_type.capitalize} translations: }"
+      p same_trackables.map(&:"#{searchable_attr}")
 
       rest_ids = rest.map(&:id)
 

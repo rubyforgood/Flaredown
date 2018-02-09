@@ -16,7 +16,7 @@ export default Service.extend({
   session: service(),
 
   payload: {},
-  storageKey: 'chartsVisibilityV3', // increase version on schema change
+  storageKey: 'chartsVisibilityV4', // increase version on schema change
   hiddenCharts: [],
   patternIncludes: [],
   fetchOnlyQuery: {},

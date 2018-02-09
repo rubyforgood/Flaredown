@@ -10,20 +10,18 @@ class MergeTrackables::TrackableUsages
     return if parent.nil? && rest.length.zero?
 
     TrackableUsage.where(trackable: rest).map do |tr_usage|
-      begin
-        tr_usage.update_attributes(trackable_id: parent.id)
+      parent_usage = TrackableUsage.find_by(trackable: parent, user_id: tr_usage.user_id)
 
-      rescue ActiveRecord::RecordNotUnique
-        parent_usage = TrackableUsage.find_by(trackable_type: tr_usage.trackable_type, user_id: tr_usage.user_id)
-        next unless parent_usage
-
+      if parent_usage
         parent_usage.count += tr_usage.count
         parent_usage.save
 
         tr_usage.destroy
-      end
+      else
+        tr_usage.update_attributes(trackable_id: parent.id)
 
-      parent.increment!(:trackable_usages_count)
+        parent.increment!(:trackable_usages_count)
+      end
     end
 
     p "PERFORM MergeTrackables::Trackings"
