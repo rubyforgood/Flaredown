@@ -7,7 +7,7 @@ class UpdateCheckinReminders
     profile = Profile.find_by(id: profile_id)
 
     return unless profile
-    return unless profile.checkin_reminder
+    return unless profile.checkin_reminder && profile.checkin_reminder_at
 
     Sidekiq::ScheduledSet.new.find_job(profile.reminder_job_id)&.delete
 
