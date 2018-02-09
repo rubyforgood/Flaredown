@@ -7,7 +7,7 @@ class Checkin
 
   attr_accessor :includes
 
-  FIELD_TYPE = %w(tag food)
+  FIELD_TYPE = %w(tag food).freeze
 
   #
   # Fields

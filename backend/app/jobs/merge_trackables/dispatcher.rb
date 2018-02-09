@@ -8,7 +8,7 @@ class MergeTrackables::Dispatcher
     return find_duplicates(trackable_type, trackable_class, translation, searchable_attr) if translation.present?
 
     trackable_class::Translation.find_each do |trackable_translation|
-      translation = trackable_translation.send("#{searchable_attr}")
+      translation = trackable_translation.send(searchable_attr.to_s)
       next unless translation
 
       find_duplicates(trackable_type, trackable_class, translation, searchable_attr)
