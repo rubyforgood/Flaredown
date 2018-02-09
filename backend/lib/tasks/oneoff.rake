@@ -239,7 +239,7 @@ namespace :oneoff do
     abort UpdateCheckinReminders.perform_async(profile_id) if profile_id
 
     Profile.where(checkin_reminder: true).find_each do |profile|
-      UpdateCheckinReminders.perform_async(profile_id)
+      UpdateCheckinReminders.perform_async(profile.id)
     end
   end
 end
