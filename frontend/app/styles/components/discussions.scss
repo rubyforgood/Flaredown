@@ -75,7 +75,12 @@
 }
 
 .new-comment {
-  textarea:focus {
-    height: 125px;
+  textarea{
+    height: 54px;
+    transition: height .25s;
+
+    &:focus {
+      height: 125px;
+    }
   }
 }

@@ -28,7 +28,7 @@
 
     {{at-js-autocomplete value=newComment.body postId=post.id}}
 
-    <button {{action "submitComment"}} class="primary-btn" disabled={{disabled}}>Submit</button>
+    <button {{action "submitComment" on="mouseDown"}} class="primary-btn" disabled={{disabled}}>Submit</button>
   </div>
 {{/if}}
 
