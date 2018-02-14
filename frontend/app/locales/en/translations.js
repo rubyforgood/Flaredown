@@ -114,4 +114,11 @@ export default {
       loadMore: 'Load more...',
     },
   },
+
+  password: {
+    reset: {
+      successMsg: "Reset request received, please check your email.",
+      errorMsg: "Sorry, we can't find an account for that email address. Please make sure that you have the correct address and that it is spelled correctly."
+    }
+  }
 };
