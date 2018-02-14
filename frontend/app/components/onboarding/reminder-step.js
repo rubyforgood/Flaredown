@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const {
   get,
+  set,
   computed: {
     alias,
   },
@@ -17,7 +18,10 @@ export default Component.extend({
     },
 
     completeStep() {
-      get(this, 'profile').save().then( () => {
+      const profile = get(this, 'profile');
+      set(profile, 'onboardingReminder', true);
+
+      profile.save().then( () => {
         this.get('onStepCompleted')();
       });
     },
