@@ -1,27 +1,29 @@
-{{partial "components/checkin/step-header"}}
+<div class="flaredown-white-box">
+  {{partial "components/checkin/step-header"}}
 
-<h3>Food</h3>
+  <h3>Food</h3>
 
-{{checkin/multi-select-group
-  idsKey='foodIds'
-  modelName='food'
-  relationName='foods'
-  onBeforeAdd=(action 'onBeforeAddFood')
-}}
+  {{checkin/multi-select-group
+    idsKey='foodIds'
+    modelName='food'
+    relationName='foods'
+    onBeforeAdd=(action 'onBeforeAddFood')
+  }}
 
-<h3 class="vert-offset-top-2">Tags</h3>
+  <h3 class="vert-offset-top-2">Tags</h3>
 
-{{checkin/multi-select-group
-  idsKey='tagIds'
-  modelName='tag'
-  badgeStyle=true
-  relationName='tags'
-  onBeforeAdd=(action 'onBeforeAddTag')
-}}
+  {{checkin/multi-select-group
+    idsKey='tagIds'
+    modelName='tag'
+    badgeStyle=true
+    relationName='tags'
+    onBeforeAdd=(action 'onBeforeAddTag')
+  }}
 
-{{step-controls
-  step=step
-  forwardLabel='Next'
-  onBackward=(action "goBack")
-  onForward=(action "completeStep")
-}}
+  {{step-controls
+    step=step
+    forwardLabel='Next'
+    onBackward=(action "goBack")
+    onForward=(action "completeStep")
+  }}
+</div>

@@ -1,39 +1,42 @@
-{{partial "components/checkin/step-header"}}
+<div class="flaredown-white-box">
+  {{partial "components/checkin/step-header"}}
 
-{{#each sortedTrackeds as |tracked|}}
-  {{#unless tracked.isPreparedForDestroy}}
-    <div class="trackable-row {{trackableType}}-row">
-      {{draggable-dropzone itemId=tracked.id
-                           onDropped=(action 'move') }}
-      {{#if session.isMobileDevice}}
-        {{#if (eq clickedTrackableId tracked.id)}}
-          {{#draggable-item itemId=tracked.id class="activated"}}
+  {{#each sortedTrackeds as |tracked|}}
+    {{#unless tracked.isPreparedForDestroy}}
+      <div class="trackable-row {{trackableType}}-row">
+        {{draggable-dropzone itemId=tracked.id
+                             onDropped=(action 'move') }}
+        {{#if session.isMobileDevice}}
+          {{#if (eq clickedTrackableId tracked.id)}}
+            {{#draggable-item itemId=tracked.id class="activated"}}
+              {{partial "components/checkin/trackable-item"}}
+            {{/draggable-item}}
+          {{else}}
+            {{partial "components/checkin/trackable-item"}}
+          {{/if}}
+        {{else}}
+          {{#draggable-item itemId=tracked.id}}
             {{partial "components/checkin/trackable-item"}}
           {{/draggable-item}}
-        {{else}}
-          {{partial "components/checkin/trackable-item"}}
         {{/if}}
-      {{else}}
-        {{#draggable-item itemId=tracked.id}}
-          {{partial "components/checkin/trackable-item"}}
-        {{/draggable-item}}
-      {{/if}}
-    </div>
-  {{/unless}}
-{{/each}}
-<div class="trackable-row {{trackableType}}-row">
-  {{draggable-dropzone itemId="after-last"
-                       onDropped=(action 'move') }}
+      </div>
+    {{/unless}}
+  {{/each}}
+  <div class="trackable-row {{trackableType}}-row">
+    {{draggable-dropzone itemId="after-last"
+                         onDropped=(action 'move') }}
+  </div>
+
+  {{trackables-select trackableType=trackableType
+                      selected=selectedTrackable
+                      disabled=isSaving
+                      onSelect=(action "add") }}
+
+  {{step-controls
+    step=step
+    disabled=isSaving
+    onForward=(action "completeStep")
+    onBackward=(action "goBack")
+    forwardLabel="Next"
+  }}
 </div>
-
-{{trackables-select trackableType=trackableType
-                    selected=selectedTrackable
-                    onSelect=(action "add") }}
-
-{{step-controls
-  step=step
-  disabled=checkin.hasDirtyAttributes
-  onForward=(action "completeStep")
-  onBackward=(action "goBack")
-  forwardLabel="Next"
-}}

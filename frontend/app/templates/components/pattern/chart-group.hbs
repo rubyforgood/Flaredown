@@ -1,0 +1,33 @@
+{{#unless svgInitial}}
+  {{pattern/chart-hover
+      svg=svg
+      data=data
+      xScale=xScale
+      width=svgChartWidth
+      height=svgChartHeigth
+      backgroundMargin=backgroundMargin
+      startAt=startAt
+      endAt=endAt
+  }}
+{{/unless}}
+
+<svg width={{svgWidth}} height={{svgHeight}}></svg>
+
+{{yield (hash
+          svg=svg
+          data=data
+          width=svgWidth
+          svgChartWidth=svgChartWidth
+          height=svgChartHeigth
+          svgLineAreaHeight=svgLineAreaHeight
+          hasLines=hasLines
+          svgLineOffset=svgLineOffset
+          svgLineHeight=svgLineHeight
+          xScale=xScale
+          yScaleStatic=yScaleStatic
+          endAt=endAt
+          svgInitial=svgInitial
+          backgroundMarginRight=backgroundMargin.right
+        )
+}}
+

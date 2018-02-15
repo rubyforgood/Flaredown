@@ -7,6 +7,7 @@ const { $, Component, computed, get, isPresent } = Ember;
 export default Component.extend(Colorable, Graphable, {
   colorId: '35',
   rangeDevider: 4,
+  offset: -10,
 
   dataValuesYMin: computed.min('dataValuesY'),
   dataValuesYMax: computed.max('dataValuesY'),
@@ -87,7 +88,7 @@ export default Component.extend(Colorable, Graphable, {
       d3
         .scale
         .linear()
-        .range([get(this, 'height'), 0])
+        .range([get(this, 'height') + get(this, 'offset'), 0])
         .domain([
           get(this, 'chosenYMin') - get(this, 'rulerStep'),
           get(this, 'chosenYMax') + get(this, 'rulerStep')

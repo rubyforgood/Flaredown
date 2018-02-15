@@ -7,6 +7,8 @@
   position: fixed;
   background-color: white;
   user-select: none;
+  justify-content: space-around;
+  align-items: center;
 
   -webkit-box-shadow: 0px 0px .5rem 0px $shadow;
      -moz-box-shadow: 0px 0px .5rem 0px $shadow;
@@ -17,11 +19,13 @@
   }
 
   a,
-  span {
-    flex-grow: 1;
+  span,
+  div {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 0.2;
+    margin: 0 5px;
   }
 
   span {
@@ -40,6 +44,42 @@
   .arrow-icon {
     height: 30px;
   }
+
+  .calendar {
+    display: flex;
+    flex-grow: 0.5;
+    justify-content: center;
+
+    .calendarItem {
+      border: 2px solid $primary;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      max-height: 2.6rem;
+      max-width: 140px;
+      text-align: -webkit-center;
+      white-space: nowrap;
+    }
+  }
+
+  .left-arrow {
+    flex: 0.1;
+  }
+
+  .calendarItem {
+    flex: 0.4;
+  }
+
+  span {
+    flex: 0.4;
+  }
+
+  .rigth-arrow {
+    flex: 0.1;
+  }
+}
+
+.isBottom {
+  bottom: 0;
 }
 
 .picker__button--clear {

@@ -12,6 +12,10 @@ Router.map(function() {
   this.route('signup');
   this.route('chart');
 
+  this.route('patterns', function() {
+    this.route('shared', { path: '/:friendly_id' });
+  });
+
   this.route('discourse-sign-in', { path: '/discourse/sign_in' });
 
   this.route('password', function() {
@@ -21,7 +25,10 @@ Router.map(function() {
 
   this.route('invitation', { path: '/invitation/:invitation_id' });
   this.route('onboarding', { path: '/onboarding/:step_key' });
-  this.route('checkin', { path: '/checkin/:checkin_id/:step_key' });
+
+  this.route('checkin', function() {
+    this.route('show', { path: '/:checkin_id/:step_key' });
+  });
 
   this.route('terms-of-service');
   this.route('privacy-policy');

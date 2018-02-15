@@ -1,4 +1,7 @@
 {{#if showHeaderLogo}}
   <img src="/assets/logo.svg" class="img-logo">
-  <h4>{{capitalize currentPath}}</h4>
+
+  {{#if showHeaderPath}}
+    <h4>{{capitalize currentPath}}</h4>
+  {{/if}}
 {{/if}}

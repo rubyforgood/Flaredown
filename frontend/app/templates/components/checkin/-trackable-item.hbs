@@ -1,5 +1,6 @@
 {{#if trackableTypeIsTreatment}}
   {{checkin/treatment-taker model=tracked
+                            disabled=isSaving
                             onTitleClicked=(action 'onTrackableClicked')
                             onIsTakenChanged=(action 'saveChanges')
                             onDoseChanged=(action 'saveChanges')
@@ -7,6 +8,7 @@
 {{else}}
   {{checkin/tracked-level model=tracked
                           valueKey='value'
+                          disabled=isSaving
                           onTitleClicked=(action 'onTrackableClicked')
                           onValueChanged=(action 'saveChanges')
                           onRemove=(action 'remove') }}

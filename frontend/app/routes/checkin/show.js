@@ -21,11 +21,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   model(params) {
     var checkinId = params.checkin_id;
-    var stepId = `${this.routeName}-${params.step_key}`;
+    var stepId = `${this.routeName.split('.')[0]}-${params.step_key}`;
 
     return RSVP.hash({
       stepId,
-      checkin: this.store.find('checkin', checkinId),
+      checkin: this.store.findRecord('checkin', checkinId),
     });
   },
 

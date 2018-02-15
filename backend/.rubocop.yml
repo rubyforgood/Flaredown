@@ -62,6 +62,9 @@ Style/StringLiterals:
 Rails:
   Enabled: true
 
+Rails/Output:
+  Enabled: false
+
 Rails/HasAndBelongsToMany:
   Enabled: false
 

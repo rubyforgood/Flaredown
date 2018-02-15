@@ -18,7 +18,11 @@ export default AjaxService.extend({
   session: service(),
 
   headers: computed('session.data.authenticated.uid', function() {
-    const { email, token } = getProperties(get(this, 'session.data.authenticated'), 'email', 'token');
+    const authenticated = get(this, 'session.data.authenticated');
+
+    if(!authenticated) { return {}; }
+
+    const { email, token } = getProperties(authenticated, 'email', 'token');
 
     return { Authorization: `Token token="${token}", email="${email}"` };
   }),

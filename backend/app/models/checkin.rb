@@ -7,6 +7,8 @@ class Checkin
 
   attr_accessor :includes
 
+  FIELD_TYPE = %w(tag food).freeze
+
   #
   # Fields
   #
@@ -83,15 +85,13 @@ class Checkin
     HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
   end
 
-  def available_for_pr?
-    false # Remove to enable promotions
+  def available_for_promotion?
+    return true if promotion_rate
+    return false if user_has_already_rated?
+    return false unless date.today?
+    return ready_for_promotion? if latest_skipped_pr_at.blank?
 
-    # return true if promotion_rate
-    # return false if user_has_already_rated?
-    # return false unless date.today?
-    # return ready_for_pr? if latest_skipped_pr_at.blank?
-
-    # PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
+    PR_PERIODICITY - ((latest_skipped_pr_at)...date).count < 1
   end
 
   class Condition
@@ -137,6 +137,11 @@ class Checkin
     validates :treatment_id, uniqueness: { scope: :checkin_id }
   end
 
+  def self.ids_by_category_attrs(category_name, trackable_id)
+    where(id: { '$in' => "Checkin::#{category_name.camelize}".constantize
+      .where("#{category_name}_id": trackable_id, :value.ne => nil).pluck(:checkin_id) })
+  end
+
   private
 
   def latest_hbi
@@ -151,7 +156,7 @@ class Checkin
         .first&.promotion_skipped_at
   end
 
-  def ready_for_pr?
+  def ready_for_promotion?
     user.created_at <= PR_START_FROM.day.ago
   end
 

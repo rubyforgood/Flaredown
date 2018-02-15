@@ -2,6 +2,7 @@ language: ruby
 
 env:
   global:
+    - NODE_ENV=development
     - PHANTOMJS_VERSION=2.1.1
     - FIX_TRAVIS="fix those specs"
 
@@ -28,6 +29,7 @@ install:
   - 'gem update bundler'
   - 'cd frontend'
   - 'nvm i 6.10.3'
+  - 'nvm use 6.10.3'
   - 'npm i'
   - 'npm install -g bower'
   - 'bower install'
@@ -47,4 +49,6 @@ script:
   - bundle exec rspec
   - bundle exec rubocop
   - cd ../frontend
+  - echo "node env $NODE_ENV"
+  - npm version
   - npm run test

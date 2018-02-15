@@ -21,11 +21,13 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def update
+    initial_onboarding_reminder = params.dig(:profile, :onboarding_reminder)
+
     @profile.assign_attributes(update_params.merge(transform_hash_time))
     time_changed = @profile.checkin_reminder_at_changed? || @profile.time_zone_name_changed?
     @profile.save!
 
-    if time_changed
+    if time_changed || initial_onboarding_reminder
       delete_old_job(@profile.reminder_job_id)
 
       job_id = CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)

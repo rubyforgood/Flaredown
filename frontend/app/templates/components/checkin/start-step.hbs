@@ -1,9 +1,11 @@
-<h2>{{step.title}}</h2>
-{{#if step.hint}}
-  <div class="tip">{{{step.hint}}}</div>
-{{/if}}
+<div class="flaredown-white-box">
+  <h2>{{step.title}}</h2>
+  {{#if step.hint}}
+    <div class="tip">{{{step.hint}}}</div>
+  {{/if}}
 
-{{step-controls step=step
-                forwardLabel="Next"
-                onBackward=(action "goBack")
-                onForward=(action "completeStep") }}
+  {{step-controls step=step
+                  forwardLabel="Next"
+                  onBackward=(action "goBack")
+                  onForward=(action "completeStep") }}
+</div>

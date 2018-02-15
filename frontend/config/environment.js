@@ -7,6 +7,7 @@ module.exports = function(environment) {
     modulePrefix: 'flaredown',
     locationType: 'router-scroll',
     historySupportMiddleware: true,
+    encryptionSecret: 'flaredown-symptom-tracker',
 
     EmberENV: {
       FEATURES: {
@@ -30,10 +31,6 @@ module.exports = function(environment) {
 
     pusher: {
       'key': process.env.PUSHER_KEY
-    },
-
-    userEngage: {
-      apiKey: process.env.USERENGAGE_API_KEY
     },
 
     gReCaptcha: {

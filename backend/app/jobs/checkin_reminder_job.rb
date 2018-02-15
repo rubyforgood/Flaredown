@@ -9,6 +9,8 @@ class CheckinReminderJob
     return unless profile.checkin_reminder
     return if profile.rejected_type.present?
 
+    return unless jid == profile.reminder_job_id
+
     CheckinReminderMailer.remind(email: profile.email).deliver_later
 
     profile.update_column(:reminder_job_id, self.class.perform_in(24.hours, profile_id, checkin_reminder_at))

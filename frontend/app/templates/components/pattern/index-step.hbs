@@ -1,0 +1,59 @@
+{{#if authorPage}}
+  <div class="sharePatternLink">
+    {{#link-to 'patterns' class="history-index-btn btn"}}
+      Share Patterns
+    {{/link-to}}
+  </div>
+{{else}}
+  <h3 class="centered">{{authorName}}'s Health History</h3>
+{{/if}}
+
+{{#each patterns as |pattern|}}
+  <div class='pattern-block'>
+    <span class="pattern-name">{{pattern.name}}</span>
+    <span class='pattern-edit' {{action 'edit' pattern}}>Edit</span>
+  </div>
+
+  {{#with (find-by 'pattern_id' pattern.id chartData) as |data|}}
+    <div class='chart-legend'>
+      {{#each data.series as |item|}}
+        {{pattern/chart-legend-item item=item}}
+      {{/each}}
+    </div>
+
+    {{#pattern/chart-group data=data
+                           startAt=startAt
+                           endAt=endAt
+                           colorIds=colorIds
+                           backgroundMargin=backgroundMargin
+                           daysRangeOffset=daysRangeOffset
+                           as |chart|}}
+      {{#each chart.data.series as |item index|}}
+        {{pattern/chart-item data=item index=index chart=chart}}
+      {{/each}}
+    {{/pattern/chart-group}}
+  {{/with}}
+{{/each}}
+
+{{#if authorPage}}
+  <div class="newPatternLink">
+    <button class="history-index-btn btn" {{action "newPattern"}}>
+      {{t "history.step.index.newPatternText"}}
+    </button>
+  </div>
+{{/if}}
+
+{{ember-ic-you triggerDistance=40}}
+
+{{#if loadingPatterns}}
+  {{partial "application/three-bounce-spinner"}}
+{{/if}}
+
+{{chart-navigation
+  endAt=endAt
+  startAt=startAt
+  patternNavbar=true
+  onNavigate=(action 'navigate')
+  onChangeStartAt=(action (mut startAt))
+  onChangeEndAt=(action (mut endAt))
+}}

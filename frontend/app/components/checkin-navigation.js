@@ -21,7 +21,7 @@ export default Component.extend({
     Object.keys(steps).forEach(key => {
       let step = steps[key];
 
-      if (step.priority && step.prefix === 'checkin') {
+      if (step.priority && step.prefix === 'checkin.show') {
         result.pushObject(step);
       }
     });

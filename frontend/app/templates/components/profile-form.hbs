@@ -1,8 +1,8 @@
 {{#form-for for=model onSubmit="saveProfile"}}
 
   {{#unless forOnboarding}}
-    {{#form-field for="screenName" label="Screen Name"}}
-      {{input value=model.screenName placeholder="Your public username"}}
+    {{#form-field for="screenName" label="Username"}}
+      {{input value=model.screenName placeholder="Enter a username"}}
     {{/form-field}}
   {{/unless}}
 
@@ -19,8 +19,8 @@
     {{/power-select}}
   {{/form-field}}
 
-  {{#form-field for="birthDate" label="Birth Date"}}
-    {{input type="date" class="fs-private" value=model.birthDate}}
+  {{#form-field for="birthDate" label="Birth Date" class="birthdayForm"}}
+    {{birth-date birthDate=model.birthDate}}
   {{/form-field}}
 
   {{#form-field for="sex" label="Sex" class="fs-private"}}

@@ -1,5 +1,6 @@
 module Flaredown
   class Colorable
+    IDS = (0..32).to_a
 
     def self.color_id_for(trackable, user)
       parent = Tracking.find_by(user: user, trackable: trackable)

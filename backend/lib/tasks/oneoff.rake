@@ -189,14 +189,14 @@ namespace :oneoff do
 
   task :send_optional_email, [:email] => :environment do |t, args|
     email = args[:email]
-    return unless email
+    abort('Email should be present') unless email
 
     CheckinReminderMailer.remind(email: email).deliver_now
   end
 
   task :send_top_post_email, [:email] => :environment do |t, args|
     notify_token = User.find_by(email: args[:email])&.profile&.notify_token
-    return unless notify_token
+    abort('There is no such email') if notify_token.nil?
 
     GroupTopPostsJob.perform_async(notify_token)
   end
@@ -204,7 +204,7 @@ namespace :oneoff do
  # Send email with posts, comments, reactions count
   task :send_notification_email, [:email] => :environment do |t, args|
     email = args[:email]
-    return unless email
+    abort('Email should be present') unless email
 
     NotificationsMailer.notify(email: email, data: {}).deliver_now
   end
@@ -231,5 +231,15 @@ namespace :oneoff do
     serialized_objects = objects.to_a.map {|obj| obj.inject({}) { |h, (k, v)| h[k] = v.to_s; h }}
 
     PromotionRate::LowRateMailer.show(email, serialized_objects.to_a,  start_time, end_time).deliver_later
+  end
+
+  task :update_checkin_reminder, ['profile_id'] => :environment do |t, args|
+    profile_id = args[:profile_id]
+
+    abort UpdateCheckinReminders.perform_async(profile_id) if profile_id
+
+    Profile.where(checkin_reminder: true).find_each do |profile|
+      UpdateCheckinReminders.perform_async(profile.id)
+    end
   end
 end

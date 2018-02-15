@@ -3,8 +3,11 @@ class CheckinReminderMailer < ApplicationMailer
 
   def remind(notification_hash)
     @email = notification_hash[:email]
+    return unless valid_email?(@email)
+
     user = User.find_by(email: @email)
     notify_token = user&.notify_token
+
     return unless notify_token
     return if user&.rejected_type.present? # Rejected via AWS SES
 
