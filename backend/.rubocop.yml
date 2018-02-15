@@ -59,6 +59,9 @@ Style/MultilineOperationIndentation:
 Style/StringLiterals:
   Enabled: false
 
+Style/GuardClause:
+  Enabled: false
+
 Rails:
   Enabled: true
 

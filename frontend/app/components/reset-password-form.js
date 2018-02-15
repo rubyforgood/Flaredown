@@ -40,7 +40,7 @@ export default Component.extend({
       get(this, 'model').save().then( () => {
         set(this, 'model', this.store.createRecord('password'));
         set(this, 'resetPassMessage', get(this, 'successfulResetMsg'));
-      }, (error) => {
+      }, () => {
         set(this, 'resetPassMessage', get(this, 'errorResetMsg'));
       });
     }
