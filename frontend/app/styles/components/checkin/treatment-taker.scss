@@ -1,15 +1,24 @@
 .treatment-taker {
+  display: flex;
   padding-bottom: 5px;
+
+  .treatment-data {
+    .treatment-dose {
+      display: flex;
+      align-items: baseline;
+      margin-top: .3em;
+    }
+  }
+
   .name {
-    position: absolute;
-    display: inline;
     margin-top: 3px;
+    margin-bottom: .1em;
   }
   .untaken {
     color: $light-gray;
   }
   .indented {
-    margin-left: 58px;
+    margin: 0;
   }
   .dose {
     border-radius: 999px;
