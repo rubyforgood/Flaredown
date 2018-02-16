@@ -1,36 +1,41 @@
 {{label-switch checked=(mut isTaken)
                bgColorClass=model.bgClass}}
-<h4 class="name {{unless isTaken 'untaken'}}" {{action "titleClicked"}}>
-  &nbsp;{{treatment.name}}
-  <span class="x-to-remove" {{action 'removeTreatment'}}>×</span>
-</h4>
-<br>
-{{#if isTaken}}
-  {{#if isEditMode}}
-    {{#power-select-with-create options=allTreatmentDoses
-                                search=(action "searchObjects")
-                                onchange=(action "handleChange")
-                                oncreate=(action "createDose")
-                                showCreateWhen=(action "shouldShowCreateOption")
-                                selected=dose
-                                placeholder="e.g. 2 x 30mg"
-                                initiallyOpened=true
-                                onfocus=(action "handleFocus")
-                                onblur=(action "handleBlur")
-                                renderInPlace=true
-                                disabled=disabled
-                                triggerClass=(concat "dose-trigger " model.borderClass)
-                                dropdownClass=(concat "dose-dropdown " model.borderClass)
-                                as |dose| }}
-      {{dose.name}}
-    {{/power-select-with-create}}
 
-  {{else}}
-    <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>
-      {{if dose dose.name "No dose"}}
-    </a>
+<div class="treatment-data">
+  <h4 class="name {{unless isTaken 'untaken'}}" {{action "titleClicked"}}>
+    &nbsp;{{treatment.name}}
+    <span class="x-to-remove" {{action 'removeTreatment'}}>×</span>
+  </h4>
+
+  {{#if isTaken}}
+    <div class="treatment-dose">
+      {{#if isEditMode}}
+        {{#power-select-with-create options=allTreatmentDoses
+                                    search=(action "searchObjects")
+                                    onchange=(action "handleChange")
+                                    oncreate=(action "createDose")
+                                    showCreateWhen=(action "shouldShowCreateOption")
+                                    selected=dose
+                                    placeholder="e.g. 2 x 30mg"
+                                    initiallyOpened=true
+                                    onfocus=(action "handleFocus")
+                                    onblur=(action "handleBlur")
+                                    renderInPlace=true
+                                    disabled=disabled
+                                    triggerClass=(concat "dose-trigger " model.borderClass)
+                                    dropdownClass=(concat "dose-dropdown " model.borderClass)
+                                    as |dose| }}
+          {{dose.name}}
+        {{/power-select-with-create}}
+
+      {{else}}
+        <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>
+          {{if dose dose.name "No dose"}}
+        </a>
+      {{/if}}
+      {{#if dose}}
+        &nbsp;<span class="x-to-remove" {{action 'clearDose'}}>×</span>
+      {{/if}}
+    </div>
   {{/if}}
-  {{#if dose}}
-    &nbsp;<span class="x-to-remove" {{action 'clearDose'}}>×</span>
-  {{/if}}
-{{/if}}
+</div>
