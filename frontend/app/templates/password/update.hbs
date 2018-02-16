@@ -1,1 +1,5 @@
-{{update-password-form model=model onPasswordUpdated="routeToLogin"}}
+{{#if model}}
+  {{update-password-form model=model onPasswordUpdated="routeToLogin"}}
+{{else}}
+  {{password/expired-token}}
+{{/if}}
