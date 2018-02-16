@@ -7,6 +7,8 @@ class CheckinReminderJob
 
     return unless profile
     return unless profile.checkin_reminder
+    return if profile.rejected_type.present?
+
     return unless jid == profile.reminder_job_id
 
     CheckinReminderMailer.remind(email: profile.email).deliver_later

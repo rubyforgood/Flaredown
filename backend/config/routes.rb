@@ -201,6 +201,7 @@ Rails.application.routes.draw do
 
       resources :patterns
       resources :charts_pattern, only: [:index]
+      post '/aws_ses/notification', to: 'aws_ses#notification'
     end
   end
 end
