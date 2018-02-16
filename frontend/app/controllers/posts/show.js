@@ -16,6 +16,7 @@ const {
   computed: {
     alias,
   },
+  $,
 } = Ember;
 
 export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSearchable, {
@@ -44,6 +45,8 @@ export default Controller.extend(BackNavigateable, SearchableDropdown, NavbarSea
         .then(() => {
           set(this, 'newComment', store.createRecord('comment'));
         });
+
+      $('textarea').blur();
     },
   },
 });
