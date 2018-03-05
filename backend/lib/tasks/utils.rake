@@ -66,6 +66,14 @@ namespace :utils do
             ]
           end
 
+          harvey_bradshaw_index = checkin.harvey_bradshaw_index
+          if harvey_bradshaw_index.present?
+            csv << [
+              user_id, age, sex, country, checkin_date,
+              harvey_bradshaw_index.id, 'HBI', 'HBI', harvey_bradshaw_index.score
+            ]
+          end
+
           weather_id = checkin.weather_id
 
           next if weather_id.blank?
