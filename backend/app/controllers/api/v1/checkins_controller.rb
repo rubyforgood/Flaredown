@@ -17,6 +17,11 @@ class Api::V1::CheckinsController < ApplicationController
   def create
     date = params.require(:checkin).require(:date)
     checkin = Checkin::Creator.new(current_user.id, Date.parse(date)).create!
+
+    SendDataToSendy.perform_async(name: current_user.screen_name,
+                                  email: current_user.email,
+                                  last_checkin_at: checkin.date)
+
     render json: checkin
   end
 

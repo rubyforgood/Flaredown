@@ -114,6 +114,8 @@ GEM
       activerecord (>= 4.2.0, < 4.3)
     hashdiff (0.3.0)
     hashie (3.4.3)
+    httparty (0.16.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.7.1)
     i18n (0.7.0)
     i18n_data (0.7.0)
@@ -329,6 +331,7 @@ DEPENDENCIES
   foreman
   geocoder
   globalize (~> 5.0.0)
+  httparty
   kaminari-actionview
   kaminari-mongoid
   letter_opener (~> 1.4)

@@ -23,6 +23,8 @@ class Registration
     begin
       @user = User.create!(@user_params)
       @user.profile.update_attributes!(screen_name: screen_name) if screen_name.present?
+
+      SendDataToSendy.perform_async(name: screen_name, email: @user.email)
     rescue ActiveRecord::RecordInvalid => e
       self.errors = e.record.errors
       raise ActiveRecord::RecordInvalid, self
