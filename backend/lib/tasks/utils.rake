@@ -38,7 +38,8 @@ namespace :utils do
               next if checkin_trackable.value.nil?
 
               trackable_id = checkin_trackable.send("#{trackable_type}_id")
-              trackable_translation = trackable_translation_class.find(trackable_id)
+              trackable_translation = trackable_translation_class.find_by(id: trackable_id)
+              next if trackable_translation.blank?
 
               csv << [
                 user_id, age, sex, country, checkin_date,
