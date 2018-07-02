@@ -147,7 +147,9 @@ Rails.application.routes.draw do
       #
       # Registrations
       #
-      resources :registrations, only: [:create]
+      resources :registrations, only: [:create] do
+        put 'destroy', on: :collection
+      end
 
       #
       # Searches

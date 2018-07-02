@@ -1,0 +1,22 @@
+{{ navigation-links optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
+
+<div class="flaredown-white-box vert-offset-top-1 vert-offset-top-3-conditional">
+  <h3>Delete your account</h3>
+
+  <div>
+    <p>
+      Help us do better. Why would you like to delete your account? (optional)
+    </p>
+    {{textarea value=deleteReason rows="6"}}
+    <p>
+      Note: you may want to visit settings and download your data before you delete your account.
+    </p>
+  </div>
+
+  <br>
+
+  <div class="delete-btn" {{action 'deleteAccount'}}>
+    <h3>Delete my account</h3>
+  </div>
+
+</div>

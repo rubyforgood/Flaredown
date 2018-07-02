@@ -35,6 +35,19 @@ class Registration
     new(params).save!
   end
 
+  def self.delete!(params)
+    email = params[:email]
+    user = User.find_by(email: email)
+    return if user.blank?
+
+    ActiveRecord::Base.transaction do
+      user.profile.destroy!
+      user.destroy!
+
+      Feedback.create!(email: email, delete_reason: params[:delete_reason])
+    end
+  end
+
   # Use AR's i18n scope so that we can raise RecordInvalid exceptions
   def self.i18n_scope
     :activerecord

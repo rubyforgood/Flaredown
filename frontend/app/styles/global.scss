@@ -23,6 +23,10 @@
   }
 }
 
+.delete-btn {
+  border: 1px solid black;
+}
+
 .flaredown-transparent-box {
   @include outer-container;
   width: 95%;
