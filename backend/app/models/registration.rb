@@ -2,7 +2,7 @@ class Registration
   include ActiveModel::Validations
   include ActiveModel::Serialization
 
-  attr_accessor :user, :errors, :captcha_response, :screen_name
+  attr_accessor :user, :errors, :captcha_response, :screen_name, :birth_date
 
   validates :captcha_response, :screen_name, presence: true
   validate :captcha_response_verified
@@ -10,6 +10,7 @@ class Registration
   def initialize(params)
     @user_params = permitted(params).to_hash
     @screen_name = @user_params.delete('screen_name')
+    @birth_date = params.dig(:registration, :birth_date)
     @captcha_response = @user_params.delete('captcha_response')
     @errors = ActiveModel::Errors.new(self)
   end
@@ -22,7 +23,13 @@ class Registration
 
     begin
       @user = User.create!(@user_params)
-      @user.profile.update_attributes!(screen_name: screen_name) if screen_name.present?
+      profile = @user.profile
+
+      profile.birth_date = birth_date
+      profile.screen_name = screen_name if screen_name.present?
+
+      profile.save!
+
     rescue ActiveRecord::RecordInvalid => e
       self.errors = e.record.errors
       raise ActiveRecord::RecordInvalid, self

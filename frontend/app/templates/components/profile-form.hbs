@@ -18,10 +18,11 @@
       {{country.name}}
     {{/power-select}}
   {{/form-field}}
-
-  {{#form-field for="birthDate" label="Birth Date" class="birthdayForm"}}
-    {{birth-date birthDate=model.birthDate}}
-  {{/form-field}}
+  {{#unless forOnboarding}}
+    {{#form-field for="birthDate" label="Birth Date" class="birthdayForm"}}
+      {{birth-date birthDate=model.birthDate}}
+    {{/form-field}}
+  {{/unless}}
 
   {{#form-field for="sex" label="Sex" class="fs-private"}}
     {{#each sexes as |sex|}}
