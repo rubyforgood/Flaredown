@@ -7,7 +7,8 @@
 
   {{data-export-initiator}}
   <br>
-  {{#link-to 'delete'}}Delete my account{{/link-to}}
+
+  <div id = 'delete_acc_link'> {{#link-to 'delete'}}Delete my account{{/link-to}} </div>
   <br>
   <a {{action 'invalidateSession'}}>Logout</a>
 </div>
@@ -22,4 +23,22 @@
   <h3>Password</h3>
 
   {{update-password-form model=model}}
+</div>
+
+<div class="flaredown-white-box">
+  <h3>Email</h3>
+
+    {{#if session.isAuthenticated}}
+      {{#form-for for=session.actualUser onSubmit="save"}}
+        {{#form-field for="email" label="Email"}}
+          {{input value=session.actualUser.email placeholder='Email' class='form-control'}}
+        {{/form-field}}
+      {{/form-for}}
+    {{/if}}
+
+    {{#unless session.isAuthenticated}}
+      {{#link-to 'login'}}Back to Login{{/link-to}}
+    {{/unless}}
+
+    <button {{action 'updateEmail'}} class="btn btn-primary" disabled={{isLoading}} style="    background-color: #73C1BA;">{{if isLoading "Updating..." "Update your email"}}</button>
 </div>

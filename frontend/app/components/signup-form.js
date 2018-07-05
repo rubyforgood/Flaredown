@@ -24,8 +24,6 @@ export default Component.extend({
     const month = get(this, 'model.birthDate.month');
     const day = get(this, 'model.birthDate.day');
 
-    console.info(9999, year, month, day, get(this, 'model.acceptPrivacyTerms'))
-
     return get(this, 'isError') && (get(this, 'isShowError') || !year || !month || !day) || !get(this, 'model.acceptPrivacyTerms');
   }),
 

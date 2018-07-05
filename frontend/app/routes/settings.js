@@ -3,11 +3,12 @@ import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin'
 
 const {
   Route,
+  get
 } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model() {
-    return this.get('session.currentUser').then(user => user.get('profile'));
+    return get(this, 'session.currentUser').then(user => user.get('profile'));
   },
 
   actions: {
