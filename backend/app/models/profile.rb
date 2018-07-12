@@ -164,7 +164,9 @@ class Profile < ActiveRecord::Base
   end
 
   def age_of_birth
-    errors.add(:birth_date, "You must be #{MIN_AGE} years or older to use this app according
-      to international privacy regulations. Sorry :(") if age < MIN_AGE
+    if age < MIN_AGE
+      errors.add(:birth_date, "You must be #{MIN_AGE} years or older to use this app according
+      to international privacy regulations. Sorry :(")
+    end
   end
 end

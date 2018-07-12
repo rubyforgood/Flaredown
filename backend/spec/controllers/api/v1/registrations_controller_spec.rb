@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RegistrationsController do
+  let(:attributes) do
+    {
+      email: 'user@example.com',
+      password: 'secret123',
+      password_confirmation: 'secret123',
+      screen_name: 'user',
+      captcha_response: 'dummy-captcha-response'
+    }
+  end
+  let(:user) { create(:user, attributes.slice(:email, :password, :password_confirmation)) }
 
   describe 'create' do
-    let(:attributes) do
-      {
-        email: 'user@example.com',
-        password: 'secret123',
-        password_confirmation: 'secret123',
-        screen_name: 'user',
-        captcha_response: 'dummy-captcha-response'
-      }
-    end
-    let(:user) { create(:user, attributes.slice(:email, :password, :password_confirmation)) }
     let(:registration) do
       new_registration = Registration.new(
         ActionController::Parameters.new(registration: attributes)
@@ -31,4 +31,20 @@ RSpec.describe Api::V1::RegistrationsController do
     end
   end
 
+  let(:attributes_for_destroy) do
+    {
+      delete_reason: "Reason",
+      email: user.email
+    }
+  end
+
+  describe 'destroy' do
+    it 'removes user and it\'s profile' do
+      delete :destroy, attributes_for_destroy
+      expect(response.status).to eq 200
+      expect(Feedback.last.delete_reason).to eq attributes_for_destroy[:delete_reason]
+      expect(User.find_by(id: user.id)).to be_nil
+      expect(Profile.find_by(user_id: user.id)).to be_nil
+    end
+  end
 end
