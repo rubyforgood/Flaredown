@@ -43,7 +43,7 @@ class Api::V1::ProfilesController < ApplicationController
 
   def update_params
     params.require(:profile).permit(
-      :country_id, :sex_id, :onboarding_step_id,
+      :country_id, :sex_id, :onboarding_step_id, :birth_date,
       :day_habit_id, :education_level_id, :day_walking_hours,
       :pressure_units, :temperature_units, :screen_name, :notify,
       :checkin_reminder, :time_zone_name, :notify_top_posts, ethnicity_ids: []

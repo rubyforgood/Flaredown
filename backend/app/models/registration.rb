@@ -10,7 +10,7 @@ class Registration
   def initialize(params)
     @user_params = permitted(params).to_hash
     @screen_name = @user_params.delete('screen_name')
-    @birth_date = params.dig(:registration, :birth_date)
+    @birth_date = @user_params.delete('birth_date')
     @captcha_response = @user_params.delete('captcha_response')
     @errors = ActiveModel::Errors.new(self)
   end
@@ -64,7 +64,7 @@ class Registration
 
   def permitted(params)
     params.require(:registration).permit(
-      :email, :password, :password_confirmation, :screen_name, :captcha_response
+      :email, :password, :password_confirmation, :screen_name, :captcha_response, :birth_date
     )
   end
 

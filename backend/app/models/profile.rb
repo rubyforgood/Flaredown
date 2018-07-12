@@ -32,6 +32,8 @@ class Profile < ActiveRecord::Base
 
   delegate :email, to: :user
 
+  MIN_AGE = 16
+
   #
   # Validations
   #
@@ -57,6 +59,8 @@ class Profile < ActiveRecord::Base
   }, if: 'education_level_id.present?'
 
   validate :ethnicity_ids_are_valid, if: 'ethnicity_ids_string.present?'
+  validate :age_of_birth, if: 'birth_date.present?'
+
   def ethnicity_ids_are_valid
     ethnicity_ids.each do |id|
       unless Ethnicity.all_ids.include?(id)
@@ -157,5 +161,10 @@ class Profile < ActiveRecord::Base
   def ensure_slug_name
     slug_name = screen_name && screen_name.split(/\s/).map(&:capitalize).join('')
     assign_attributes(slug_name: slug_name)
+  end
+
+  def age_of_birth
+    errors.add(:birth_date, "You must be #{MIN_AGE} years or older to use this app according
+      to international privacy regulations. Sorry :(") if age < MIN_AGE
   end
 end
