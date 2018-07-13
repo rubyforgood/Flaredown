@@ -49,6 +49,9 @@ class Registration
 
     ActiveRecord::Base.transaction do
       user.profile.destroy!
+      user.checkins.or({ :postal_code.ne => nil }, :position_id.ne => nil)
+                    &.update_all(postal_code: nil, position_id: nil)
+
       user.destroy!
 
       Feedback.create!(email: email, delete_reason: params[:delete_reason])
