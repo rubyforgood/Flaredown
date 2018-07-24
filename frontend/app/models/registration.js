@@ -8,6 +8,10 @@ export default DS.Model.extend({
   passwordConfirmation: DS.attr('string'),
   screenName: DS.attr('string'),
   captchaResponse: DS.attr('string'),
+  acceptPrivacyTerms: DS.attr('boolean'),
+  birthDate: DS.attr('birthdate', {
+    defaultValue() { return new Date(); }
+  }),
 
   // Associations
   user: DS.belongsTo('user', { async: false })

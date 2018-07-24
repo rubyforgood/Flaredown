@@ -42,4 +42,25 @@ RSpec.describe Api::V1::UsersController do
       end
     end
   end
+
+  describe 'update' do
+    context 'with valid email' do
+      before { sign_in user }
+
+      it 'allow user ti change email' do
+        put :update, id: user.id, user: { email: 'some_email@ex.com' }
+        expect(response.status).to eq 200
+        expect(user.reload.email).to eq 'some_email@ex.com'
+      end
+    end
+
+    context 'with invalid email' do
+      before { sign_in user }
+
+      it 'returns an error' do
+        put :update, id: user.id, user: { email: another_user.email }
+        expect(response.status).to eq 422
+      end
+    end
+  end
 end

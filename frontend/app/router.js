@@ -35,6 +35,8 @@ Router.map(function() {
 
   this.route('settings');
 
+  this.route('delete');
+
   this.route('posts', function() {
     this.route('new');
     this.route('show', { path: '/:id' });

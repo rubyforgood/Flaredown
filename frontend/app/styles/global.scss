@@ -23,6 +23,15 @@
   }
 }
 
+.p-note {
+  font-size: 0.75em;
+  line-height: 1;
+}
+
+.delete-btn {
+  border: 1px solid black;
+}
+
 .flaredown-transparent-box {
   @include outer-container;
   width: 95%;

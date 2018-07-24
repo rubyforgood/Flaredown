@@ -5,4 +5,7 @@ class Api::V1::RegistrationsController < ApplicationController
     render json: Registration.create!(params)
   end
 
+  def destroy
+    render json: Registration.delete!(params)
+  end
 end

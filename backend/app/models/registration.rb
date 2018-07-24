@@ -2,7 +2,7 @@ class Registration
   include ActiveModel::Validations
   include ActiveModel::Serialization
 
-  attr_accessor :user, :errors, :captcha_response, :screen_name
+  attr_accessor :user, :errors, :captcha_response, :screen_name, :birth_date
 
   validates :captcha_response, :screen_name, presence: true
   validate :captcha_response_verified
@@ -10,6 +10,7 @@ class Registration
   def initialize(params)
     @user_params = permitted(params).to_hash
     @screen_name = @user_params.delete('screen_name')
+    @birth_date = @user_params.delete('birth_date')
     @captcha_response = @user_params.delete('captcha_response')
     @errors = ActiveModel::Errors.new(self)
   end
@@ -22,7 +23,13 @@ class Registration
 
     begin
       @user = User.create!(@user_params)
-      @user.profile.update_attributes!(screen_name: screen_name) if screen_name.present?
+      profile = @user.profile
+
+      profile.birth_date = birth_date
+      profile.screen_name = screen_name if screen_name.present?
+
+      profile.save!
+
     rescue ActiveRecord::RecordInvalid => e
       self.errors = e.record.errors
       raise ActiveRecord::RecordInvalid, self
@@ -35,6 +42,22 @@ class Registration
     new(params).save!
   end
 
+  def self.delete!(params)
+    email = params[:email]
+    user = User.find_by(email: email)
+    return if user.blank?
+
+    ActiveRecord::Base.transaction do
+      user.profile.destroy!
+      user.checkins.or({ :postal_code.ne => nil }, :position_id.ne => nil)
+                    &.update_all(postal_code: nil, position_id: nil)
+
+      user.destroy!
+
+      Feedback.create!(email: email, delete_reason: params[:delete_reason])
+    end
+  end
+
   # Use AR's i18n scope so that we can raise RecordInvalid exceptions
   def self.i18n_scope
     :activerecord
@@ -44,7 +67,7 @@ class Registration
 
   def permitted(params)
     params.require(:registration).permit(
-      :email, :password, :password_confirmation, :screen_name, :captcha_response
+      :email, :password, :password_confirmation, :screen_name, :captcha_response, :birth_date
     )
   end
 
