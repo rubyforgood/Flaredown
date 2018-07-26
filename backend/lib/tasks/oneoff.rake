@@ -242,4 +242,28 @@ namespace :oneoff do
       UpdateCheckinReminders.perform_async(profile.id)
     end
   end
+
+  # remove_users_by_email['email1 email2']
+  task :remove_users_by_email, ['email_list'] => :environment do |t, args|
+    email_string =  args['email_list']
+    abort if email_string.blank?
+
+    email_array = email_string.split(' ')
+    email_array.each do |email|
+      user = User.find_by(email: email)
+      next if user.blank?
+
+      remove_user(user, email)
+    end
+  end
+
+  def remove_user(user, email)
+    ActiveRecord::Base.transaction do
+      user.profile&.destroy!
+      user.checkins.or({ :postal_code.ne => nil }, :position_id.ne => nil)
+                    &.update_all(postal_code: nil, position_id: nil)
+
+      user.destroy!
+    end
+  end
 end
