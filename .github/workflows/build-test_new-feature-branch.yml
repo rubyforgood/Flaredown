@@ -2,7 +2,7 @@ name: build-test new feature branch
 # TODO maybe we want to have different actions for feature / develop / master branches
 on: [push]
 jobs:
-  build-test frontend:
+  build-test_frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -16,7 +16,7 @@ jobs:
       - run: npm install -g bower
       - run: bower install
 
-  build-test backend:
+  build-test_backend:
     runs-on: ubuntu-latest
     defaults:
       run:
