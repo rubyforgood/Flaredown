@@ -11,6 +11,7 @@ jobs:
           node-version: '6.10.3'
       - run: cd frontend
       - run: npm install
+      - run: npm install -g bower
       - run: bower install
 
   build-backend:
