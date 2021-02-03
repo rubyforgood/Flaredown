@@ -1,5 +1,4 @@
 name: build-test new feature branch
-# TODO maybe we want to have different actions for feature / develop / master branches
 on:
   push:
     branches:
@@ -21,7 +20,7 @@ jobs:
       - run: npm install -g bower
       - run: bower install
 
-      #
+      # TODO: run, test, build
 
   build-test_backend:
     runs-on: ubuntu-latest
@@ -30,4 +29,13 @@ jobs:
         working-directory: backend
     steps:
       - uses: actions/checkout@v2
-      - run: ls -la
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.3.1'
+      - run: echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+      - run: bundle install --without production -j5 --retry 10
+      - run: cp env-example .env
+      - run: bundle exec rake app:setup
+      - run: rake run
+
+      # TODO: test
