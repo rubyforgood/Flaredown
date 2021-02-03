@@ -32,7 +32,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.3.1'
-      - run: echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+      - run: echo “gem: –no-ri –no-rdoc” > ~/.gemrc
       - run: bundle install --without production -j5 --retry 10
       - run: cp env-example .env
       - run: bundle exec rake app:setup
