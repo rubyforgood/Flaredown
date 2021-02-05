@@ -32,7 +32,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.3.1'
-      - run: echo -e "gem\: \-\-no\-ri \-\-no\-rdoc" > ~/.gemrc
+      - run: echo -e "gem\:" > ~/.gemrc
       - run: cat ~/.gemrc
       - run: gem install puma -v '3.2.0' --source 'https://rubygems.org/'
       - run: bundle install --without production -j5
