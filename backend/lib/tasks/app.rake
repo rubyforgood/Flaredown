@@ -23,7 +23,7 @@ namespace :app do
 
   def setup
     puts 'This will create the necessary stuff. You will lose any previous data stored'
-    ask_to_continue
+    #ask_to_continue
 
     build_database
 

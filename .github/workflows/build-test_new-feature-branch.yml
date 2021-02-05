@@ -34,7 +34,7 @@ jobs:
           ruby-version: '2.3.1'
       - run: 'echo "gem: --no-ri --no-rdoc" | tee ~/.gemrc'
       - run: sudo apt-get install libssl1.0
-      - run: gem install puma -v '3.2.0' --source 'https://rubygems.org/'
+      #- run: gem install puma -v '3.2.0' --source 'https://rubygems.org/'
       - run: bundle install --without production -j5
       - run: cp env-example .env
       - run: bundle exec rake app:setup
