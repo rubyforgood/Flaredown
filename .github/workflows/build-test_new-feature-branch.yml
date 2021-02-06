@@ -23,11 +23,6 @@ jobs:
 
       postgres:
         image: postgres:9.4
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 60s
-          --health-timeout 50s
-          --health-retries 10
         ports:
           - 5432:5432
 
