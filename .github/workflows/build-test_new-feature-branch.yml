@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
     defaults:
       run:
         working-directory: backend
@@ -20,6 +23,11 @@ jobs:
 
       postgres:
         image: postgres:9.4
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - 5432:5432
 
@@ -58,9 +66,6 @@ jobs:
           cp env-example .env
           bundle exec rake app:setup
           rake run
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
 
       - name: Test The Build
         run: echo "TODO"
