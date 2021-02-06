@@ -31,7 +31,8 @@ jobs:
         #  npm install -g
         #  npm install -g bower
         #  bower install
-          echo "TODO remove comments"
+          echo "TODO"
+          echo "remove comments"
         working-directory: frontend
 
       - name: Build & Run Frontend
