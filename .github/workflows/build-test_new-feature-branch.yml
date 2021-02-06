@@ -19,15 +19,18 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.3.1'
-      - run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
+
+      - name: Configuring Ruby
+        run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
 
       - name: Install System Dependencies
         run: sudo apt-get install libssl1.0
 
       - name: Install Frontend Dependencies
-        run: npm install -g
-        run: npm install -g bower
-        run: bower install
+        run: |
+          npm install -g
+          npm install -g bower
+          bower install
         working-directory: frontend
 
       # TODO: run, test, build frontend
@@ -36,8 +39,9 @@ jobs:
         run: bundle install --without production -j5
 
       - name: Build And Run Backend
-        run: cp env-example .env
-        run: bundle exec rake app:setup
-        run: rake run
+        run: |
+          cp env-example .env
+          bundle exec rake app:setup
+          rake run
 
       # TODO: test backend
