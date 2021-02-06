@@ -8,9 +8,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    env:
-      PG_DATABASE_HOST: localhost
-      PG_DATABASE_PORT: 5432
     defaults:
       run:
         working-directory: backend
@@ -24,7 +21,7 @@ jobs:
       postgres:
         image: postgres:9.4
         env:
-          POSTGRES_PASSWORD: ''
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -37,6 +34,10 @@ jobs:
         image: redis:3.2.6
         ports:
           - 6379:6379
+
+    env:
+      PG_DATABASE_HOST: localhost
+      PG_DATABASE_PORT: 5432
 
     steps:
       - uses: actions/checkout@v2
