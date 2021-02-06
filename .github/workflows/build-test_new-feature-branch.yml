@@ -28,9 +28,10 @@ jobs:
 
       - name: Install Frontend Dependencies
         run: |
-          npm install -g
-          npm install -g bower
-          bower install
+        #  npm install -g
+        #  npm install -g bower
+        #  bower install
+          echo "TODO remove comments"
         working-directory: frontend
 
       - name: Build & Run Frontend
@@ -54,4 +55,10 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@v2
-      - run: echo "TODO automatic pull request to develop branch"
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "develop"
+          pr_title: "Pulling ${{ github.ref }} into develop"
+          pr_body: ":crown: *Automated Pull Request After Feature Branch Passed All Tests*"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
