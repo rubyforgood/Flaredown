@@ -40,7 +40,7 @@ jobs:
         working-directory: frontend
 
       - name: Install Backend Dependencies
-        run: bundle install --without production -j5
+        run: echo "TODO remove comments" #bundle install --without production -j5
 
       - name: Build & Run Backend
         run: |
