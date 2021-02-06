@@ -32,10 +32,10 @@ jobs:
 
       # TODO: run, test, build frontend
 
+      - run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
+
       - name: Install Backend Dependencies
-        run: |
-          'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
-          bundle install --without production -j5
+        run: bundle install --without production -j5
 
       - name: Build And Run Backend
         run: |
