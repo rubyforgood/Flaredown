@@ -50,18 +50,17 @@ jobs:
           bower install
         working-directory: frontend
 
-      - name: Build & Run Frontend
-        run: echo "TODO"
-        working-directory: frontend
-
       - name: Install Backend Dependencies
         run: bundle install --without production -j5
 
-      - name: Build & Run Backend
+      - name: Build & Run
         run: |
           cp env-example .env
           bundle exec rake app:setup
           rake run
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
 
       - name: Test The Build
         run: echo "TODO"
