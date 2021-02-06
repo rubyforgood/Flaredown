@@ -33,15 +33,25 @@ jobs:
           bower install
         working-directory: frontend
 
-      # TODO: run, test, build frontend
+      - name: Build & Run Frontend
+        run: echo "TODO"
+        working-directory: frontend
 
       - name: Install Backend Dependencies
         run: bundle install --without production -j5
 
-      - name: Build And Run Backend
+      - name: Build & Run Backend
         run: |
           cp env-example .env
           bundle exec rake app:setup
           rake run
 
-      # TODO: test backend
+      - name: Test Build
+        run: echo "TODO"
+
+  create-pull-request:
+    needs: build-test
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "TODO automatic pull request to develop branch"
