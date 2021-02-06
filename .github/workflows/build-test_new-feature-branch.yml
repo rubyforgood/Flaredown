@@ -6,38 +6,40 @@ on:
       - '!master'
       - '!develop'
 jobs:
-  build-test_frontend:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '6.10.3'
-      - run: npm install -g
-      - run: npm install -g bower
-      - run: bower install
-
-      # TODO: run, test, build
-
-  build-test_backend:
+  build-test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '6.10.3'
+
+      - name: Install Frontend Dependencies
+        run: |
+          npm install -g
+          npm install -g bower
+          bower install
+        working-directory: frontend
+
+      # TODO: run, test, build frontend
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.3.1'
-      - run: 'echo "gem: --no-ri --no-rdoc" | tee ~/.gemrc'
-      - run: sudo apt-get install libssl1.0
-      #- run: gem install puma -v '3.2.0' --source 'https://rubygems.org/'
-      - run: bundle install --without production -j5
-      - run: cp env-example .env
-      - run: bundle exec rake app:setup
-      - run: rake run
 
-      # TODO: test
+      - name: Install Backend Dependencies
+        run: |
+          'echo "gem: --no-ri --no-rdoc" | tee ~/.gemrc'
+          sudo apt-get install libssl1.0
+          bundle install --without production -j5
+
+      - name: Build And Run Backend
+        run: |
+          cp env-example .env
+          bundle exec rake app:setup
+          rake run
+
+      # TODO: test backend
