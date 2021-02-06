@@ -21,7 +21,9 @@ jobs:
       postgres:
         image: postgres:9.4
         env:
-          POSTGRES_PASSWORD: postgres
+          # Password is required otherwise container won't start
+          POSTGRES_PASSWORD: ""
+          POSTGRES_USER: salvatore
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -36,8 +38,8 @@ jobs:
           - 6379:6379
 
     env:
-      PG_DATABASE_HOST: localhost
-      PG_DATABASE_PORT: 5432
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
 
     steps:
       - uses: actions/checkout@v2
