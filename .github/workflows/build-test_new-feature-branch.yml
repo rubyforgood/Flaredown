@@ -28,11 +28,11 @@ jobs:
 
       - name: Install Frontend Dependencies
         run: |
+          echo "TODO"
+          echo "remove comments"
         #  npm install -g
         #  npm install -g bower
         #  bower install
-          echo "TODO"
-          echo "remove comments"
         working-directory: frontend
 
       - name: Build & Run Frontend
