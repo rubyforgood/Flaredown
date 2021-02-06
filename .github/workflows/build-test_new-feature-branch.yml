@@ -9,8 +9,8 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
+      PG_DATABASE_HOST: localhost
+      PG_DATABASE_PORT: 5432
     defaults:
       run:
         working-directory: backend
