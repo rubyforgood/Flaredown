@@ -20,7 +20,7 @@ jobs:
         with:
           ruby-version: '2.3.1'
 
-      - name: Configuring Ruby
+      - name: Configure Ruby
         run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
 
       - name: Install System Dependencies
@@ -43,8 +43,8 @@ jobs:
       - name: Build & Run Backend
         run: |
           cp env-example .env
-          bundle exec rake app:setup
-          rake run
+        #  bundle exec rake app:setup
+        #  rake run
 
       - name: Test Build
         run: echo "TODO"
