@@ -38,8 +38,10 @@ jobs:
           - 6379:6379
 
     env:
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
+      PG_DATABASE_USERNAME: salvatore
+      PG_DATABASE_PASSWORD: postgres
+      PG_DATABASE_HOST: localhost
+      PG_DATABASE_PORT: 5432
 
     steps:
       - uses: actions/checkout@v2
