@@ -41,7 +41,7 @@ jobs:
         run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
 
       - name: Install System Dependencies
-        run: sudo apt-get install libssl1.0
+        run: sudo apt-get install libssl1.0 psql
 
       - name: Install Frontend Dependencies
         run: |
