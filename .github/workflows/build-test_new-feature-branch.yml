@@ -13,20 +13,20 @@ jobs:
         working-directory: backend
 
     services:
-      mongodb:
-        image: mongodb:3.0.10
+      mongo:
+        image: mongo:3.0.10
         ports:
           - 27017:27017
 
-      postgresql:
-        image: postgresql:9.4
+      postgres:
+        image: postgres:9.4
         ports:
           - 5432:5432
 
       redis:
         image: redis:3.2.6
         ports:
-          - 6379:6379      
+          - 6379:6379
 
     steps:
       - uses: actions/checkout@v2
