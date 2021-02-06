@@ -1,4 +1,4 @@
-name: build-test new feature branch
+name: build & test new feature branch
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
       - '!master'
       - '!develop'
 jobs:
-  build-test:
+  build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,11 +28,9 @@ jobs:
 
       - name: Install Frontend Dependencies
         run: |
-          echo "TODO"
-          echo "remove comments"
-        #  npm install -g
-        #  npm install -g bower
-        #  bower install
+          npm install -g
+          npm install -g bower
+          bower install
         working-directory: frontend
 
       - name: Build & Run Frontend
@@ -40,23 +38,23 @@ jobs:
         working-directory: frontend
 
       - name: Install Backend Dependencies
-        run: echo "TODO remove comments" #bundle install --without production -j5
+        run: bundle install --without production -j5
 
       - name: Build & Run Backend
         run: |
           cp env-example .env
-        #  bundle exec rake app:setup
-        #  rake run
+          bundle exec rake app:setup
+          rake run
 
-      - name: Test Build
+      - name: Test The Build
         run: echo "TODO"
 
   create-pull-request:
-    needs: build-test
+    needs: build-and-test
     runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@v2
-      - name: pull-request
+      - name: Create Pull Request
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: "develop"
