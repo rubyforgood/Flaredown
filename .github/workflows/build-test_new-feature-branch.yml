@@ -21,7 +21,7 @@ jobs:
         ports:
           - 27017:27017
 
-      postgresql:
+      postgres:
         image: postgres:9.4
         ports:
           - 5432:5432
@@ -39,6 +39,13 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.3.1'
+
+      - name: Debugging DBs
+        run: |
+          ls -la /var/run/postgresql/
+          ls -la /tmp/
+          docker container ls --all
+
 
       - name: Configure Ruby
         run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
