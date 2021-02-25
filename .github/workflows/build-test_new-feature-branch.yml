@@ -64,6 +64,7 @@ jobs:
 
       - name: Build & Run
         run: |
+          export RUBYOPT='-W0'
           cp env-example .env
           bundle exec rake app:setup
           rake run
