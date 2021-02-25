@@ -47,6 +47,9 @@ jobs:
       POSTGRES_PORT: 5432
 
     steps:
+      - name: Install System Dependencies
+        run: sudo apt-get install libssl1.0 postgresql-client libyaml
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -67,9 +70,6 @@ jobs:
 
       - name: Configure Ruby
         run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
-
-      - name: Install System Dependencies
-        run: sudo apt-get install libssl1.0 postgresql-client
 
       - name: Install Frontend Dependencies
         run: |
