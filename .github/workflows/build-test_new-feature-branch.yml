@@ -61,10 +61,6 @@ jobs:
         env:
           ImageOS: ubuntu18
 
-      - name: Debugging DBs
-        run: docker container ls --all
-
-
       - name: Configure Ruby
         run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
 
