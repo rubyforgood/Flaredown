@@ -68,8 +68,6 @@ jobs:
           bundle exec rake app:setup
           rake run
         env:
-          PG_DATABASE_HOST: postgresql
-          PG_DATABASE_PORT: 5432
           POSTGRES_HOST: postgresql
           POSTGRES_PORT: 5432
 
