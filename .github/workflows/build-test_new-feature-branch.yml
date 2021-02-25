@@ -54,6 +54,8 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.3.1'
+        env:
+          ImageOS: ubuntu18
 
       - name: Debugging DBs
         run: |
