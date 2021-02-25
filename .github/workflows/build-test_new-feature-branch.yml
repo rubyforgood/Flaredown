@@ -62,7 +62,9 @@ jobs:
           ImageOS: ubuntu18
 
       - name: Configure Ruby
-        run: 'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
+        run: |
+          'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
+          gem install tzinfo-data
 
       - name: Install Frontend Dependencies
         run: |
