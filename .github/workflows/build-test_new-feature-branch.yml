@@ -18,7 +18,7 @@ jobs:
         ports:
           - 27017:27017
 
-      postgres:
+      postgresql:
         image: postgres:9.4
         env:
           # Password is required otherwise container won't start
@@ -42,6 +42,8 @@ jobs:
       PG_DATABASE_PASSWORD: postgres
       PG_DATABASE_HOST: localhost
       PG_DATABASE_PORT: 5432
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
 
     steps:
       - uses: actions/checkout@v2
@@ -55,6 +57,7 @@ jobs:
       - name: Debugging DBs
         run: |
           ls -la /var/run/postgresql/
+          ls -la /var/run/
           ls -la /tmp/
           docker container ls --all
 
