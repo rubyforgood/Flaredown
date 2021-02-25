@@ -16,35 +16,20 @@ jobs:
     services:
       mongo:
         image: mongo:3.0.10
-        ports:
-          - 27017:27017
 
       postgresql:
         image: postgres:9.4
         env:
           # Password is required otherwise container won't start
           POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: salvatore
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - 5432:5432
 
       redis:
         image: redis:3.2.6
-        ports:
-          - 6379:6379
-
-    env:
-      PG_DATABASE_USERNAME: salvatore
-      PG_DATABASE_PASSWORD: postgres
-      PG_DATABASE_HOST: postgresql
-      PG_DATABASE_PORT: 5432
-      POSTGRES_HOST: postgresql
-      POSTGRES_PORT: 5432
 
     steps:
       - uses: actions/checkout@v2
@@ -82,6 +67,11 @@ jobs:
           cp env-example .env
           bundle exec rake app:setup
           rake run
+        env:
+          PG_DATABASE_HOST: postgresql
+          PG_DATABASE_PORT: 5432
+          POSTGRES_HOST: postgresql
+          POSTGRES_PORT: 5432
 
       - name: Test The Build
         run: echo "TODO"
