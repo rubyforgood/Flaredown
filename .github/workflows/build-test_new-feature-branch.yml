@@ -62,11 +62,7 @@ jobs:
           ImageOS: ubuntu18
 
       - name: Debugging DBs
-        run: |
-          ls -la /var/run/postgresql/
-          ls -la /var/run/
-          ls -la /tmp/
-          docker container ls --all
+        run: docker container ls --all
 
 
       - name: Configure Ruby
