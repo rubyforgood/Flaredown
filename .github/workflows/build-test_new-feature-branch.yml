@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    container: 'ubuntu:18.04.5'
+    container: 'ubuntu:18.04'
     defaults:
       run:
         working-directory: backend
