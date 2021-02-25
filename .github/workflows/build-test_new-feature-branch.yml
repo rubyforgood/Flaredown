@@ -8,6 +8,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    container: 'ubuntu:18.04.5'
     defaults:
       run:
         working-directory: backend
@@ -40,9 +41,9 @@ jobs:
     env:
       PG_DATABASE_USERNAME: salvatore
       PG_DATABASE_PASSWORD: postgres
-      PG_DATABASE_HOST: localhost
+      PG_DATABASE_HOST: postgresql
       PG_DATABASE_PORT: 5432
-      POSTGRES_HOST: localhost
+      POSTGRES_HOST: postgresql
       POSTGRES_PORT: 5432
 
     steps:
