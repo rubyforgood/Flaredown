@@ -63,7 +63,7 @@ jobs:
 
       - name: Configure Ruby
         run: |
-          'echo "gem: --no-ri --no-rdoc" > ~/.gemrc'
+          echo "gem: --no-ri --no-rdoc" > ~/.gemrc
           gem install tzinfo-data
 
       - name: Install Frontend Dependencies
