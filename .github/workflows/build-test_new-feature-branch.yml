@@ -65,6 +65,7 @@ jobs:
         run: |
           echo "gem: --no-ri --no-rdoc" > ~/.gemrc
           gem install tzinfo-data
+          bundle update
 
       - name: Install Frontend Dependencies
         run: |
