@@ -23,7 +23,7 @@ jobs:
           # Password is required otherwise container won't start
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_DB: flaredown_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -79,11 +79,11 @@ jobs:
           POSTGRES_HOST: postgresql
           POSTGRES_PORT: 5432
           POSTGRES_USER: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_DB: flaredown_test
           POSTGRES_PASSWORD: postgres
           PG_DATABASE_PASSWORD: postgres
           PG_DATABASE_USERNAME: postgres
-          PG_DATABASE_NAME: postgres
+          PG_DATABASE_NAME: flaredown_test
           PG_DATABASE_HOST: postgresql
 
 
