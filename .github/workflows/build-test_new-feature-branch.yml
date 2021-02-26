@@ -75,6 +75,8 @@ jobs:
           MONGODB_PORT: 27017
           POSTGRES_HOST: postgresql
           POSTGRES_PORT: 5432
+          PG_DATABASE_PASSWORD: postgres
+          PG_DATABASE_HOST: postgresql
 
       - name: Test The Build
         run: echo "TODO"
