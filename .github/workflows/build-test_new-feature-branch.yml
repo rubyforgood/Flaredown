@@ -66,7 +66,9 @@ jobs:
         run: |
           export RUBYOPT='-W:no-deprecated -W:no-experimental'
           cp env-example .env
+          echo Bundle exec
           bundle exec rake app:setup
+          echo Rake run
           rake run
         env:
           POSTGRES_HOST: postgresql
