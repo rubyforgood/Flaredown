@@ -64,7 +64,7 @@ jobs:
 
       - name: Build & Run
         run: |
-          export RUBYOPT='-W:no-deprecated -W:no-experimental'
+          export RUBYOPT=-W:no-deprecated -W:no-experimental
           cp env-example .env
           echo Bundle exec
           bundle exec rake app:setup
