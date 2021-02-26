@@ -23,6 +23,7 @@ jobs:
           # Password is required otherwise container won't start
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -77,8 +78,14 @@ jobs:
           MONGODB_PORT: 27017
           POSTGRES_HOST: postgresql
           POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: postgres
           PG_DATABASE_PASSWORD: postgres
+          PG_DATABASE_USERNAME: postgres
+          PG_DATABASE_NAME: postgres
           PG_DATABASE_HOST: postgresql
+
 
       - name: Test The Build
         run: echo "TODO"

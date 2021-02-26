@@ -14,7 +14,7 @@ REDIS_DB=0
 # PGSQL
 PG_DATABASE_USERNAME=postgres
 PG_DATABASE_PASSWORD=postgres
-PG_DATABASE_NAME=
+PG_DATABASE_NAME=postgres
 PG_DATABASE_HOST=postgresql
 
 # Action Mailer config
