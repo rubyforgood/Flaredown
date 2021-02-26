@@ -21,6 +21,7 @@ jobs:
         image: postgres:9.4
         env:
           # Password is required otherwise container won't start
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
