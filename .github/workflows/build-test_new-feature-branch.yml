@@ -60,7 +60,9 @@ jobs:
         working-directory: frontend
 
       - name: Install Backend Dependencies
-        run: bundle install --without production -j5
+        run: |
+          bundle install --without production -j5
+          bundle update rspec-rails
 
       - name: Build & Run
         run: |
