@@ -49,10 +49,7 @@ jobs:
       - name: Configure Ruby
         run: |
           echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-          gem install tzinfo
-          gem install tzinfo-data
-          bundle update
-
+          
       - name: Install Frontend Dependencies
         run: |
           npm install -g
