@@ -25,7 +25,9 @@ namespace :app do
     puts 'This will create the necessary stuff. You will lose any previous data stored'
     # NOTE: asking for confirmation is actually a good idea
     # as DBs will be purged but it messes with CI atm
-    #ask_to_continue
+    p "Rails env is:"
+    p Rails.env
+    ask_to_continue unless Rails.env.test?
 
     build_database
 
@@ -61,6 +63,7 @@ namespace :app do
     begin
       print(message)
       answer = STDIN.gets.chomp
+      p "got answer: #{answer}"
     end while choices.present? && !choices.include?(answer)
     answer
   rescue Interrupt

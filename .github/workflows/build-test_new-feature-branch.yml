@@ -68,10 +68,7 @@ jobs:
       - name: Build & Run
         run: |
           cp env-example .env
-          psql --version
-          echo Bundle exec
-          bundle exec rake app:setup
-          echo Rake run
+          yes | RAILS_ENV=test bundle exec rake app:setup
           rake run
         env:
           MONGODB_HOST: mongodb
