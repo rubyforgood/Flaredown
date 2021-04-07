@@ -23,7 +23,9 @@ namespace :app do
 
   def setup
     puts 'This will create the necessary stuff. You will lose any previous data stored'
-    ask_to_continue
+    # NOTE: asking for confirmation is actually a good idea
+    # as DBs will be purged but it messes with CI atm
+    #ask_to_continue
 
     build_database
 

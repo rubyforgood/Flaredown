@@ -9,6 +9,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'rails', '~> 4.2.7'
 gem 'rails-api'
 
+gem 'rake', '< 11.0'
+
 # JSON serializer
 gem 'active_model_serializers', '0.9.3'
 
