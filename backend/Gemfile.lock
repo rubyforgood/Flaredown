@@ -193,7 +193,7 @@ GEM
       yard (~> 0.8)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (3.2.0)
+    puma (3.12.6)
     pusher (0.16.0)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
@@ -349,6 +349,7 @@ DEPENDENCIES
   rails (~> 4.2.7)
   rails-api
   rails_12factor
+  rake (< 11.0)
   rspec-rails (~> 3.3.0)
   rubocop
   ruby-progressbar
