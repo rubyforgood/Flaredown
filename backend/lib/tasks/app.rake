@@ -63,6 +63,7 @@ namespace :app do
     begin
       print(message)
       answer = STDIN.gets.chomp
+      p "got answer: #{answer}"
     end while choices.present? && !choices.include?(answer)
     answer
   rescue Interrupt
