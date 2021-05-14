@@ -1,9 +1,8 @@
 module Google
   class RecaptchaVerifier
-
     def initialize
-      @secret = ENV['RECAPTCHA_SECRET_KEY']
-      @url = 'https://www.google.com/recaptcha/api/siteverify'
+      @secret = ENV["RECAPTCHA_SECRET_KEY"]
+      @url = "https://www.google.com/recaptcha/api/siteverify"
     end
 
     def self.exec(response, remoteip = nil)
@@ -18,7 +17,7 @@ module Google
       }
       response = connection.post @url, params
 
-      return JSON.parse(response.body)['success'] if response.status.eql?(200)
+      return JSON.parse(response.body)["success"] if response.status.eql?(200)
 
       # FIXME
       # rubocop:disable Style/SignalException
@@ -27,8 +26,7 @@ module Google
     end
 
     def connection
-      Faraday.new(headers: { 'Accept' => 'application/json' })
+      Faraday.new(headers: {"Accept" => "application/json"})
     end
-
   end
 end

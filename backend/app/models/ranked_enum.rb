@@ -33,5 +33,4 @@ class RankedEnum
   def key
     self.class.name.underscore
   end
-
 end

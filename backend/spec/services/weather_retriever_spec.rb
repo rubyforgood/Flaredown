@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe WeatherRetriever, :vcr do
-  let(:date) { Date.parse '2016-01-06' }
-  let(:cassete) { "#{described_class.name}/#{date.to_time.to_i}_#{postal_code}" }
-  let(:postal_code) { '55403' }
+  let(:date) { Date.parse "2016-01-06" }
+  let(:cassete) { "#{described_class.name}/#{postal_code}" }
+  let(:postal_code) { "55403" }
 
   let(:perform) do
     VCR.use_cassette cassete do
@@ -11,12 +11,12 @@ describe WeatherRetriever, :vcr do
     end
   end
 
-  context 'no weather cached', pending: ENV['FIX_TRAVIS'] do
+  context "no weather cached" do
     it { expect(perform).to be_a(Weather) }
     it { expect { perform }.to change { Weather.count }.by(1) }
   end
 
-  context 'the weather is already cached' do
+  context "the weather is already cached" do
     let(:position) { Position.create(postal_code: postal_code) }
     let!(:weather) { create :weather, date: date, position_id: position.id }
 

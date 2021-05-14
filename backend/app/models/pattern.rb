@@ -2,7 +2,7 @@ class Pattern
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :encrypted_user_id, type: String, encrypted: {type: :integer}
   field :start_at, type: Date
   field :end_at, type: Date
   field :includes, type: Array, default: []

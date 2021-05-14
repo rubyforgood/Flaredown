@@ -6,22 +6,22 @@ class HarveyBradshawIndex
   #
   field :date, type: Date
 
-  field :score,           type: Integer
-  field :stools,          type: Integer
-  field :well_being,      type: Integer
-  field :abdominal_mass,  type: Integer
-  field :abdominal_pain,  type: Integer
+  field :score, type: Integer
+  field :stools, type: Integer
+  field :well_being, type: Integer
+  field :abdominal_mass, type: Integer
+  field :abdominal_pain, type: Integer
 
-  field :abscess,               type: Boolean
-  field :uveitis,               type: Boolean
-  field :arthralgia,            type: Boolean
-  field :new_fistula,           type: Boolean
-  field :anal_fissure,          type: Boolean
-  field :aphthous_ulcers,       type: Boolean
-  field :erythema_nodosum,      type: Boolean
-  field :pyoderma_gangrenosum,  type: Boolean
+  field :abscess, type: Boolean
+  field :uveitis, type: Boolean
+  field :arthralgia, type: Boolean
+  field :new_fistula, type: Boolean
+  field :anal_fissure, type: Boolean
+  field :aphthous_ulcers, type: Boolean
+  field :erythema_nodosum, type: Boolean
+  field :pyoderma_gangrenosum, type: Boolean
 
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :encrypted_user_id, type: String, encrypted: {type: :integer}
 
   #
   # Relations
@@ -42,7 +42,7 @@ class HarveyBradshawIndex
   #
   # Callbacks
   #
-  before_save   :calculate_score
+  before_save :calculate_score
   before_create :set_date_and_user_id
 
   private

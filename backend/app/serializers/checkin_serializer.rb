@@ -1,6 +1,6 @@
 class CheckinSerializer < ApplicationSerializer
   attributes :id, :date, :note, :tag_ids, :food_ids, :postal_code, :available_for_hbi?, :available_for_promotion?,
-             :location_name, :promotion_skipped_at
+    :location_name, :promotion_skipped_at
 
   has_many :conditions, embed: :objects, serializer: CheckinConditionSerializer
   has_many :symptoms, embed: :objects, serializer: CheckinSymptomSerializer
@@ -33,11 +33,11 @@ class CheckinSerializer < ApplicationSerializer
     object.position&.postal_code
   end
 
-  %w(condition symptom treatment).each do |name|
+  %w[condition symptom treatment].each do |name|
     plural_name = name.pluralize
 
     define_method(plural_name.to_sym) do
-      query = object.includes ? { "#{name}_id" => { '$in': (object.includes[plural_name] || []).map(&:to_i) } } : {}
+      query = object.includes ? {"#{name}_id" => {'$in': (object.includes[plural_name] || []).map(&:to_i)}} : {}
 
       object.send(plural_name).where(query)
     end

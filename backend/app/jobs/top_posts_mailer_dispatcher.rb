@@ -1,7 +1,7 @@
 class TopPostsMailerDispatcher
   include Sidekiq::Worker
 
-  TOP_POST_WEEKLY_TIME = ENV['TOP_POST_WEEKLY_TIME']
+  TOP_POST_WEEKLY_TIME = ENV["TOP_POST_WEEKLY_TIME"]
   MAX_DIFF = 5.minutes
 
   def perform

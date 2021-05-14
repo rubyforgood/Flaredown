@@ -6,5 +6,4 @@ class RegistrationSerializer < ApplicationSerializer
   def id
     object.user.id
   end
-
 end

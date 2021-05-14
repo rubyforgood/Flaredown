@@ -9,7 +9,7 @@ class CreateFoods < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         Food.create_translation_table!(
-          long_desc: { type: :string, null: false },
+          long_desc: {type: :string, null: false},
           shrt_desc: :string,
           comname: :string,
           sciname: :string

@@ -1,5 +1,6 @@
 class Chart
-  include ActiveModel::Model, ActiveModel::Serialization
+  include ActiveModel::Serialization
+  include ActiveModel::Model
 
   attr_accessor :id, :user, :start_at, :end_at, :includes
 

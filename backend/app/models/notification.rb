@@ -5,11 +5,11 @@ class Notification
 
   after_initialize :set_defaults
 
-  ID = '_id'.freeze
-  VALUE = 'value'.freeze
-  TOTAL = 'total'.freeze
+  ID = "_id".freeze
+  VALUE = "value".freeze
+  TOTAL = "total".freeze
 
-  MAP_COUNT = <<-JS.strip_heredoc.gsub(/\s+/, ' ').freeze
+  MAP_COUNT = <<-JS.strip_heredoc.gsub(/\s+/, " ").freeze
     function() {
       emit(
         this.kind,
@@ -20,7 +20,7 @@ class Notification
     }
   JS
 
-  REDUCE_COUNT = <<-JS.strip_heredoc.gsub(/\s+/, ' ').freeze
+  REDUCE_COUNT = <<-JS.strip_heredoc.gsub(/\s+/, " ").freeze
     function(key, valuesGroup){
       var r = {
         total: 0,
@@ -35,8 +35,8 @@ class Notification
   JS
 
   field :kind, type: String
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
-  field :encrypted_notify_user_id, type: String, encrypted: { type: :integer }
+  field :encrypted_user_id, type: String, encrypted: {type: :integer}
+  field :encrypted_notify_user_id, type: String, encrypted: {type: :integer}
   field :delivered, type: Boolean, default: false
   field :post_id, type: String
   field :unread, type: Boolean, default: true
@@ -48,7 +48,7 @@ class Notification
   index notificateable_id: 1, notificateable_type: 1
 
   def set_defaults
-    assign_attributes(post_id: (notificateable._type == 'Comment' ? notificateable.post_id : notificateable.id).to_s)
+    assign_attributes(post_id: (notificateable._type == "Comment" ? notificateable.post_id : notificateable.id).to_s)
   end
 
   class << self
@@ -84,10 +84,10 @@ class Notification
     def normalized_notifications(group)
       group.map do |group_keys, notifications|
         notificateable = notifications.first.notificateable
-        is_comment = notificateable._type == 'Comment'
+        is_comment = notificateable._type == "Comment"
 
         {
-          id: [notifications.map(&:created_at).max.to_i].concat(group_keys).join('_'),
+          id: [notifications.map(&:created_at).max.to_i].concat(group_keys).join("_"),
           kind: group_keys.first,
           count: notifications.count,
           post_id: is_comment ? notificateable.post_id.to_s : group_keys[1],

@@ -24,22 +24,22 @@ class Tracking < ActiveRecord::Base
   # Validations
   #
 
-  TYPES = %w(Condition Symptom Treatment).freeze
+  TYPES = %w[Condition Symptom Treatment].freeze
 
   validates :user, :trackable, :start_at, presence: true
 
   validates :trackable_type, inclusion: {
-    in: TYPES, message: 'is not an allowed trackable type'
+    in: TYPES
   }
 
   validates :user_id, uniqueness: {
-    scope: %i(trackable_id trackable_type start_at), message: 'is already tracking this trackable'
+    scope: %i[trackable_id trackable_type start_at], message: "is already tracking this trackable"
   }
 
   #
   # Scopes
   #
-  scope :active_at, ->(at) { where('start_at <= :at AND (end_at > :at OR end_at IS NULL)', at: at.strftime('%F')) }
+  scope :active_at, ->(at) { where("start_at <= :at AND (end_at > :at OR end_at IS NULL)", at: at.strftime("%F")) }
   scope :by_trackable_type, ->(trackable_type) { where(trackable_type: trackable_type) }
 
   #
@@ -49,9 +49,9 @@ class Tracking < ActiveRecord::Base
 
   def self.active_in_range(range_start, range_end)
     where(
-      '(start_at <= :range_start OR start_at <= :range_end) AND (end_at > :range_start OR end_at IS NULL)',
-      range_start: range_start.strftime('%F'),
-      range_end: range_end.strftime('%F')
+      "(start_at <= :range_start OR start_at <= :range_end) AND (end_at > :range_start OR end_at IS NULL)",
+      range_start: range_start.strftime("%F"),
+      range_end: range_end.strftime("%F")
     )
   end
 

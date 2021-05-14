@@ -1,8 +1,8 @@
 class Api::V1::SearchesController < ApplicationController
   SEARCH_MAPPER = {
-    'dose' => Search::ForDose,
-    'food' => Search::ForFood,
-    'topic' => Search::ForTopic
+    "dose" => Search::ForDose,
+    "food" => Search::ForFood,
+    "topic" => Search::ForTopic
   }.freeze
 
   skip_before_action :authenticate_user!, only: :show

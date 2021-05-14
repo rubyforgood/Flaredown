@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe SwitchTrackableVisibility do
   include ActiveJob::TestHelper
@@ -6,9 +6,9 @@ describe SwitchTrackableVisibility do
   before(:all) do
     @condition = create(:condition, :personal)
     create_list(:trackable_usage,
-                Flaredown.config.trackables_min_popularity - 1,
-                trackable_type: @condition.class.to_s,
-                trackable_id: @condition.id)
+      Flaredown.config.trackables_min_popularity - 1,
+      trackable_type: @condition.class.to_s,
+      trackable_id: @condition.id)
   end
 
   let!(:trackable_usage) { TrackableUsage.last }

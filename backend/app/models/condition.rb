@@ -10,7 +10,7 @@
 #
 
 class Condition < ActiveRecord::Base
-  has_many :condition_translations, class_name: 'Condition::Translation'
+  has_many :condition_translations, class_name: "Condition::Translation"
 
   #
   # Localized attributes

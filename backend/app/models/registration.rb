@@ -9,9 +9,9 @@ class Registration
 
   def initialize(params)
     @user_params = permitted(params).to_hash
-    @screen_name = @user_params.delete('screen_name')
-    @birth_date = @user_params.delete('birth_date')
-    @captcha_response = @user_params.delete('captcha_response')
+    @screen_name = @user_params.delete("screen_name")
+    @birth_date = @user_params.delete("birth_date")
+    @captcha_response = @user_params.delete("captcha_response")
     @errors = ActiveModel::Errors.new(self)
   end
 
@@ -29,7 +29,6 @@ class Registration
       profile.screen_name = screen_name if screen_name.present?
 
       profile.save!
-
     rescue ActiveRecord::RecordInvalid => e
       self.errors = e.record.errors
       raise ActiveRecord::RecordInvalid, self
@@ -49,7 +48,7 @@ class Registration
 
     ActiveRecord::Base.transaction do
       user.profile.destroy!
-      user.checkins.or({ :postal_code.ne => nil }, :position_id.ne => nil)
+      user.checkins.or({:postal_code.ne => nil}, :position_id.ne => nil)
                     &.update_all(postal_code: nil, position_id: nil)
 
       user.destroy!
@@ -73,7 +72,6 @@ class Registration
 
   def captcha_response_verified
     verified = Google::RecaptchaVerifier.exec(captcha_response)
-    errors.add(:captcha_response, 'verification failed or response expired') unless verified
+    errors.add(:captcha_response, "verification failed or response expired") unless verified
   end
-
 end

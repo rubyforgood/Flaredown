@@ -3,7 +3,7 @@ class MergeTrackables::Dispatcher
 
   def perform(trackable_type, translation = nil)
     trackable_class = trackable_type.capitalize.constantize
-    searchable_attr = trackable_class.name == 'Food' ? 'long_desc' : 'name'
+    searchable_attr = trackable_class.name == "Food" ? "long_desc" : "name"
 
     return find_duplicates(trackable_type, trackable_class, translation, searchable_attr) if translation.present?
 
@@ -15,9 +15,9 @@ class MergeTrackables::Dispatcher
     end
   end
 
-  def find_duplicates(trackable_type, trackable_class, translation, searchable_attr = 'name')
+  def find_duplicates(trackable_type, trackable_class, translation, searchable_attr = "name")
     begin
-      escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
+      escaped_translation = Regexp.escape(translation.squish).split(" ").join("s+")
       regex = "^\\s*#{escaped_translation}\\s*$"
 
       same_translations = trackable_class::Translation.where("#{searchable_attr} ~* ?", regex)
@@ -25,7 +25,7 @@ class MergeTrackables::Dispatcher
       return if same_translations.length <= 1 # Next step if origin found only
 
       same_trackables = trackable_class
-        .where(id: same_translations.where(locale: 'en').select("#{trackable_type}_id".to_sym))
+        .where(id: same_translations.where(locale: "en").select("#{trackable_type}_id".to_sym))
         .order(trackable_usages_count: :desc, id: :asc)
 
       parent, *rest = same_trackables
@@ -39,7 +39,7 @@ class MergeTrackables::Dispatcher
       rest_ids = rest.map(&:id)
 
       # Remove duplicates from translations
-      same_translations.where(:"#{trackable_type}_id" => rest_ids).map(&:destroy)
+      same_translations.where("#{trackable_type}_id": rest_ids).map(&:destroy)
     rescue ActiveRecord::StatementInvalid
       return
     end

@@ -1,1 +1,1 @@
-Rake::Task['usda:load'].invoke
+Rake::Task["usda:load"].invoke

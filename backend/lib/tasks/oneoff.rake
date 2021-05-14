@@ -1,5 +1,4 @@
 namespace :oneoff do
-
   task build_trackable_usages: :environment do
     build_trackable_usages
   end
@@ -8,7 +7,7 @@ namespace :oneoff do
     User.all.each do |user|
       Rails.logger.info("[#{__method__}] === #{user.email} ===")
       user.checkins.each do |checkin|
-        Rails.logger.info("[#{__method__}] --- #{checkin.date.strftime('%Y-%m-%d')} ---")
+        Rails.logger.info("[#{__method__}] --- #{checkin.date.strftime("%Y-%m-%d")} ---")
         Rails.logger.info("[#{__method__}] --- Conditions ---")
         checkin.conditions.each do |condition|
           trackable = Condition.find(condition.condition_id)
@@ -40,10 +39,10 @@ namespace :oneoff do
     colors = (0..32).to_a
     User.all.each do |user|
       Rails.logger.info("[#{__method__}] === #{user.email} ===")
-      colors_hash = Hash.new
+      colors_hash = {}
       user.checkins.each do |checkin|
-        Rails.logger.info("[#{__method__}] --- #{checkin.date.strftime('%Y-%m-%d')} ---")
-        used_colors = Array.new
+        Rails.logger.info("[#{__method__}] --- #{checkin.date.strftime("%Y-%m-%d")} ---")
+        used_colors = []
         fix_and_store_color_id = lambda do |checkin_trackable, trackable_type|
           trackable_id = checkin_trackable.send("#{trackable_type.downcase}_id")
           key = "#{trackable_type}-#{trackable_id}"
@@ -55,10 +54,10 @@ namespace :oneoff do
               checkin_trackable.color_id = Flaredown::Colorable.color_id_for(trackable, user)
             end
             if used_colors.include?(checkin_trackable.color_id)
-              if used_colors.count >= colors.count
-                checkin_trackable.color_id = used_colors.count % colors.count
+              checkin_trackable.color_id = if used_colors.count >= colors.count
+                used_colors.count % colors.count
               else
-                checkin_trackable.color_id = (colors - used_colors).sample
+                (colors - used_colors).sample
               end
             end
             checkin_trackable.save!
@@ -94,7 +93,7 @@ namespace :oneoff do
   def generate_screen_names
     Profile.all.each do |profile|
       if profile.screen_name.blank?
-        generated_screen_name = profile.user.email.split('@')[0]
+        generated_screen_name = profile.user.email.split("@")[0]
         profile.update_attributes!(screen_name: generated_screen_name)
       end
     end
@@ -108,7 +107,7 @@ namespace :oneoff do
       c.all.each do |trackable|
         key = "#{c.name.demodulize.downcase}_id"
         count = c.where(
-          checkin: trackable.checkin,
+          :checkin => trackable.checkin,
           key.to_sym => trackable.send(key)
         ).count
         trackable.destroy if count > 1
@@ -140,7 +139,7 @@ namespace :oneoff do
       most_recent_treatments_positions: {}
     )
     User.all.each do |user|
-      latest_checkin = user.checkins.sort(date: -1).first
+      latest_checkin = user.checkins.min(date: -1)
       next if latest_checkin.nil?
       latest_checkin.conditions.each_with_index do |cc, i|
         condition = Condition.find(cc.condition_id)
@@ -159,7 +158,7 @@ namespace :oneoff do
   end
 
   task update_last_commented_for_posts: :environment do
-    Post.where(_type: 'Post').each do |post|
+    Post.where(_type: "Post").each do |post|
       post.update(last_commented: post.created_at)
     end
   end
@@ -174,7 +173,7 @@ namespace :oneoff do
       postal_code = checkin.postal_code
       next if postal_code.nil? || postal_code.blank?
 
-      PositionReferenceJob.perform_async('Checkin', checkin.id.to_s, postal_code)
+      PositionReferenceJob.perform_async("Checkin", checkin.id.to_s, postal_code)
     end
   end
 
@@ -183,28 +182,28 @@ namespace :oneoff do
       postal_code = weather.postal_code
       next if postal_code.nil? || postal_code.blank?
 
-      PositionReferenceJob.perform_async('Weather', weather.id, postal_code)
+      PositionReferenceJob.perform_async("Weather", weather.id, postal_code)
     end
   end
 
   task :send_optional_email, [:email] => :environment do |t, args|
     email = args[:email]
-    abort('Email should be present') unless email
+    abort("Email should be present") unless email
 
     CheckinReminderMailer.remind(email: email).deliver_now
   end
 
   task :send_top_post_email, [:email] => :environment do |t, args|
     notify_token = User.find_by(email: args[:email])&.profile&.notify_token
-    abort('There is no such email') if notify_token.nil?
+    abort("There is no such email") if notify_token.nil?
 
     GroupTopPostsJob.perform_async(notify_token)
   end
 
- # Send email with posts, comments, reactions count
+  # Send email with posts, comments, reactions count
   task :send_notification_email, [:email] => :environment do |t, args|
     email = args[:email]
-    abort('Email should be present') unless email
+    abort("Email should be present") unless email
 
     NotificationsMailer.notify(email: email, data: {}).deliver_now
   end
@@ -228,12 +227,12 @@ namespace :oneoff do
     end_time = args[:end_time]
 
     objects = PromotionRate.filter_low_scores_by_date(start_time, end_time)
-    serialized_objects = objects.to_a.map {|obj| obj.inject({}) { |h, (k, v)| h[k] = v.to_s; h }}
+    serialized_objects = objects.to_a.map { |obj| obj.each_with_object({}) { |(k, v), h| h[k] = v.to_s; } }
 
-    PromotionRate::LowRateMailer.show(email, serialized_objects.to_a,  start_time, end_time).deliver_later
+    PromotionRate::LowRateMailer.show(email, serialized_objects.to_a, start_time, end_time).deliver_later
   end
 
-  task :update_checkin_reminder, ['profile_id'] => :environment do |t, args|
+  task :update_checkin_reminder, ["profile_id"] => :environment do |t, args|
     profile_id = args[:profile_id]
 
     abort UpdateCheckinReminders.perform_async(profile_id) if profile_id
@@ -244,11 +243,11 @@ namespace :oneoff do
   end
 
   # remove_users_by_email['email1 email2']
-  task :remove_users_by_email, ['email_list'] => :environment do |t, args|
-    email_string =  args['email_list']
+  task :remove_users_by_email, ["email_list"] => :environment do |t, args|
+    email_string = args["email_list"]
     abort if email_string.blank?
 
-    email_array = email_string.split(' ')
+    email_array = email_string.split(" ")
     email_array.each do |email|
       user = User.find_by(email: email)
       next if user.blank?
@@ -260,7 +259,7 @@ namespace :oneoff do
   def remove_user(user, email)
     ActiveRecord::Base.transaction do
       user.profile&.destroy!
-      user.checkins.or({ :postal_code.ne => nil }, :position_id.ne => nil)
+      user.checkins.or({:postal_code.ne => nil}, :position_id.ne => nil)
                     &.update_all(postal_code: nil, position_id: nil)
 
       user.destroy!

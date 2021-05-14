@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe DataExportJob do
   include ActiveJob::TestHelper
@@ -17,7 +17,7 @@ describe DataExportJob do
     csv << "#{checkin.date},#{checkin_treatment.value},#{tag.name},#{food.long_desc}\n"
   end
 
-  it 'passes valid csv to mailer' do
+  it "passes valid csv to mailer" do
     expect(UserDataMailer).to receive(:trackings_csv).with(user.email, expected_csv).and_return(mail)
     expect(mail).to receive(:deliver_later)
 

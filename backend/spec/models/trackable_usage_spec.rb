@@ -11,30 +11,29 @@
 #  updated_at     :datetime         not null
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe TrackableUsage, type: :model do
-
-  describe 'Respond to' do
+  describe "Respond to" do
     it { is_expected.to respond_to(:count) }
   end
 
-  describe 'Associations' do
+  describe "Associations" do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:trackable) }
   end
 
-  describe 'Validations' do
+  describe "Validations" do
     it { is_expected.to validate_numericality_of(:count).is_greater_than(0) }
   end
 
-  describe 'Callbacks' do
+  describe "Callbacks" do
     before(:all) do
       @condition = create(:condition, :personal)
       create_list(:trackable_usage,
-                  Flaredown.config.trackables_min_popularity - 1,
-                  trackable_type: @condition.class.to_s,
-                  trackable_id: @condition.id)
+        Flaredown.config.trackables_min_popularity - 1,
+        trackable_type: @condition.class.to_s,
+        trackable_id: @condition.id)
     end
 
     subject { TrackableUsage.last }

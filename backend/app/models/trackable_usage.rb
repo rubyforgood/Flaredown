@@ -12,7 +12,6 @@
 #
 
 class TrackableUsage < ActiveRecord::Base
-
   #
   # Associations
   #
@@ -23,7 +22,7 @@ class TrackableUsage < ActiveRecord::Base
   #
   # Validations
   #
-  validates :count, numericality: { greater_than: 0 }
+  validates :count, numericality: {greater_than: 0}
 
   #
   # Callbacks
@@ -34,7 +33,6 @@ class TrackableUsage < ActiveRecord::Base
   #
 
   class << self
-
     def create_or_update_by(user: nil, trackable: nil)
       trackable_usage = find_by(user: user, trackable: trackable)
       if trackable_usage.present?
@@ -44,7 +42,5 @@ class TrackableUsage < ActiveRecord::Base
         create!(user: user, trackable: trackable)
       end
     end
-
   end
-
 end

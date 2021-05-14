@@ -1,11 +1,11 @@
 class Reaction
   include Mongoid::Document
 
-  ID = '_id'.freeze
-  VALUE = 'value'.freeze
-  TOTAL = 'total'.freeze
-  USER_ID = 'encrypted_user_id'.freeze
-  PARTICIPATED = 'participated'.freeze
+  ID = "_id".freeze
+  VALUE = "value".freeze
+  TOTAL = "total".freeze
+  USER_ID = "encrypted_user_id".freeze
+  PARTICIPATED = "participated".freeze
 
   MAP_COUNT = <<-JS.strip_heredoc.freeze
     function() {
@@ -20,8 +20,8 @@ class Reaction
     }
   JS
 
-  field :value,             type: String
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :value, type: String
+  field :encrypted_user_id, type: String, encrypted: {type: :integer}
 
   validates :value, :reactable, :encrypted_user_id, presence: true
 

@@ -25,34 +25,34 @@
 #  updated_at             :datetime         not null
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User do
-  describe 'Associations' do
+  describe "Associations" do
     it { is_expected.to have_one(:profile) }
     it { is_expected.to have_many(:conditions).through(:user_conditions) }
     it { is_expected.to have_many(:symptoms).through(:user_symptoms) }
   end
 
-  describe 'Validations' do
+  describe "Validations" do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:password) }
   end
 
-  describe 'Callbacks' do
+  describe "Callbacks" do
     subject { create(:user) }
-    context 'before_create' do
-      it 'generates authentication token' do
+    context "before_create" do
+      it "generates authentication token" do
         expect(subject.reload.authentication_token).to be_present
       end
     end
-    context 'after_create' do
-      it 'creates profile' do
+    context "after_create" do
+      it "creates profile" do
         profile = subject.reload.profile
         expect(profile).to be_present
         expect(profile.id).to be_present
         expect(profile.user.id).to eq subject.id
-        expect(profile.onboarding_step_id).to eq 'onboarding-personal'
+        expect(profile.onboarding_step_id).to eq "onboarding-personal"
       end
     end
   end

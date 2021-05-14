@@ -10,7 +10,7 @@
 #
 
 class Treatment < ActiveRecord::Base
-  has_many :treatment_translations, class_name: 'Treatment::Translation'
+  has_many :treatment_translations, class_name: "Treatment::Translation"
 
   #
   # Localized attributes

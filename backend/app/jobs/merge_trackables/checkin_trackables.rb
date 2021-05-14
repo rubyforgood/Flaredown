@@ -14,7 +14,7 @@ class MergeTrackables::CheckinTrackables
   end
 
   def update_health_factors(trackable_type, parent_id, rest_ids)
-    Checkin.where("#{trackable_type}_ids" => { '$in' => rest_ids }).map do |checkin|
+    Checkin.where("#{trackable_type}_ids" => {"$in" => rest_ids}).map do |checkin|
       updated_ids = checkin.send("#{trackable_type}_ids") - rest_ids + [parent_id]
 
       checkin.update_attributes("#{trackable_type}_ids".to_sym => updated_ids.uniq)

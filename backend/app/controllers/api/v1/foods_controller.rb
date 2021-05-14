@@ -25,7 +25,7 @@ class Api::V1::FoodsController < ApplicationController
   private
 
   def create_params
-    { long_desc: params.require(:food).require(:name) }
+    {long_desc: params.require(:food).require(:name)}
   end
 
   def ids

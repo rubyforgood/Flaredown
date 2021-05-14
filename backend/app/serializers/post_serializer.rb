@@ -8,7 +8,7 @@ class PostSerializer < ApplicationSerializer
   has_many :comments, embed: :ids
 
   def type
-    'post'
+    "post"
   end
 
   def priority

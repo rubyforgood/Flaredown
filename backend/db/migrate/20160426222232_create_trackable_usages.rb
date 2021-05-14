@@ -7,6 +7,6 @@ class CreateTrackableUsages < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :trackable_usages, [:user_id, :trackable_type, :trackable_id], unique: true, name: 'index_trackable_usages_on_unique_columns'
+    add_index :trackable_usages, [:user_id, :trackable_type, :trackable_id], unique: true, name: "index_trackable_usages_on_unique_columns"
   end
 end

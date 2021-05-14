@@ -11,7 +11,7 @@ module Flaredown
     include Singleton
 
     def redis_url
-      ENV['REDISCLOUD_URL'].present? ? ENV['REDISCLOUD_URL'] : ENV['REDIS_URL']
+      ENV["REDISCLOUD_URL"].present? ? ENV["REDISCLOUD_URL"] : ENV["REDIS_URL"]
     end
 
     def trackables_min_popularity
@@ -23,11 +23,11 @@ module Flaredown
     end
 
     def discourse_enabled?
-      Rails.env.production? || ENV.fetch('DISCOURSE_ENABLED') { false }
+      Rails.env.production? || ENV.fetch("DISCOURSE_ENABLED") { false }
     end
 
     def discourse_url
-      ENV.fetch('DISCOURSE_URL')
+      ENV.fetch("DISCOURSE_URL")
     end
   end
 end

@@ -46,7 +46,7 @@ class Checkin::Updater
   private
 
   def update_trackables_positions(params)
-    %w(Condition Symptom Treatment).each do |trackable_class_name|
+    %w[Condition Symptom Treatment].each do |trackable_class_name|
       update_trackables_positions_on_destroy(trackable_class_name, params)
       set_added_trackables_positions(trackable_class_name, params)
     end
@@ -58,8 +58,8 @@ class Checkin::Updater
     removed_trackables.each do |removed_trackable|
       trackables_attrs.each do |trackable|
         next if trackable[:position].blank? ||
-            removed_trackable[:position].blank? ||
-            trackable[:position] <= removed_trackable[:position]
+          removed_trackable[:position].blank? ||
+          trackable[:position] <= removed_trackable[:position]
 
         trackable[:position] -= 1
       end
@@ -69,7 +69,7 @@ class Checkin::Updater
   def set_added_trackables_positions(trackable_class_name, params)
     trackables_attrs = trackables_attrs(trackable_class_name, params)
     trackable_max = trackables_attrs.reject { |t| t[:position].blank? }.max_by { |t| t[:position] }
-    max_position =  trackable_max.present? ? trackable_max[:position] : 0
+    max_position = trackable_max.present? ? trackable_max[:position] : 0
     added_trackables = added_trackables_attrs(trackables_attrs)
     added_trackables.each do |added_trackable|
       if added_trackable[:position].blank?
@@ -80,7 +80,7 @@ class Checkin::Updater
   end
 
   def save_most_recent_trackables_positions
-    %w(condition symptom treatment).each do |trackable_type|
+    %w[condition symptom treatment].each do |trackable_type|
       trackable_class = trackable_type.capitalize.constantize
       trackables_attributes = permitted_params["#{trackable_type.pluralize}_attributes".to_sym]
       next if trackables_attributes.blank?
@@ -104,7 +104,7 @@ class Checkin::Updater
   def save_most_recent_doses
     treatments_attributes = permitted_params[:treatments_attributes]
     return if treatments_attributes.blank?
-    treatments_with_doses = treatments_attributes.reject { |t| (t[:value].blank? || t[:is_taken].eql?('false')) }
+    treatments_with_doses = treatments_attributes.reject { |t| (t[:value].blank? || t[:is_taken].eql?("false")) }
     return if treatments_with_doses.empty?
     treatments_with_doses.each do |t|
       current_user.profile.set_most_recent_dose(
@@ -115,12 +115,12 @@ class Checkin::Updater
   end
 
   def update_trackable_usages
-    %w(Condition Symptom Treatment).each do |trackable_class_name|
+    %w[Condition Symptom Treatment].each do |trackable_class_name|
       update_removed_trackables_usages(trackable_class_name)
       update_added_trackables_usages(trackable_class_name)
     end
 
-    %w(Tag Food).each do |health_class_name|
+    %w[Tag Food].each do |health_class_name|
       update_health_factors_trackable_usages(health_class_name)
     end
   end
@@ -151,7 +151,7 @@ class Checkin::Updater
   end
 
   def removed_trackables_attrs(trackables_attrs)
-    trackables_attrs.select { |attrs| attrs[:_destroy].eql?('1') }
+    trackables_attrs.select { |attrs| attrs[:_destroy].eql?("1") }
   end
 
   def trackables_attrs(trackable_class_name, params)

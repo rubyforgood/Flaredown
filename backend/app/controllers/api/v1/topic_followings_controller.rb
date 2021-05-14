@@ -9,7 +9,7 @@ class Api::V1::TopicFollowingsController < ApplicationController
     if @topic_following.update_attributes(update_params)
       render json: @topic_following, status: :ok
     else
-      render json: { errors: @topic_following.errors }, status: :unprocessable_entity
+      render json: {errors: @topic_following.errors}, status: :unprocessable_entity
     end
   end
 
@@ -17,10 +17,10 @@ class Api::V1::TopicFollowingsController < ApplicationController
 
   def update_params
     empty_params = {
-      'tag_ids' => [],
-      'symptom_ids' => [],
-      'condition_ids' => [],
-      'treatment_ids' => []
+      "tag_ids" => [],
+      "symptom_ids" => [],
+      "condition_ids" => [],
+      "treatment_ids" => []
     }
 
     empty_params.merge(params.require(:topic_following).permit(empty_params))

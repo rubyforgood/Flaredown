@@ -17,6 +17,5 @@ module Flaredown
       end
       color_id
     end
-
   end
 end

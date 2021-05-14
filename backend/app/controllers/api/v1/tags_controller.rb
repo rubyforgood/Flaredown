@@ -33,5 +33,4 @@ class Api::V1::TagsController < ApplicationController
   def scope
     @scope ||= params[:scope].try(:to_sym)
   end
-
 end

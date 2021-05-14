@@ -2,7 +2,7 @@ class Api::V1::PushersController < ApplicationController
   def create
     render json: Flaredown.pusher.authenticate!(current_user, socket_id)
   rescue
-    render json: { errors: 'Bad authentication' }, status: '403'
+    render json: {errors: "Bad authentication"}, status: "403"
   end
 
   private

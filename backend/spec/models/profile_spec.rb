@@ -21,19 +21,19 @@
 #  most_recent_treatments_positions :hstore
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Profile do
-  describe 'Associations' do
+  describe "Associations" do
     it { is_expected.to belong_to(:user) }
   end
-  describe 'Validations' do
+  describe "Validations" do
     it { is_expected.to validate_inclusion_of(:country_id).in_array(Country.codes) }
     it { is_expected.to validate_inclusion_of(:sex_id).in_array(Sex.all_ids) }
   end
-  describe 'Respond to' do
+  describe "Respond to" do
     it { is_expected.to respond_to(:birth_date) }
-    context 'most recent trackables positions' do
+    context "most recent trackables positions" do
       it { is_expected.to respond_to(:set_most_recent_trackable_position).with(2).arguments }
       it { is_expected.to respond_to(:most_recent_trackable_position_for).with(1).argument }
       it { is_expected.to respond_to(:set_most_recent_condition_position).with(2).arguments }
@@ -44,17 +44,17 @@ RSpec.describe Profile do
       it { is_expected.to respond_to(:most_recent_treatment_position_for).with(1).argument }
     end
   end
-  describe 'ethnicities' do
-    context 'get' do
-      before { subject.ethnicity_ids_string = 'latino,white' }
-      it 'transforms to array' do
-        expect(subject.ethnicity_ids).to eq %w(latino white)
+  describe "ethnicities" do
+    context "get" do
+      before { subject.ethnicity_ids_string = "latino,white" }
+      it "transforms to array" do
+        expect(subject.ethnicity_ids).to eq %w[latino white]
       end
     end
-    context 'set' do
-      before { subject.ethnicity_ids = %w(latino white) }
-      it 'transforms to string' do
-        expect(subject.ethnicity_ids_string).to eq 'latino,white'
+    context "set" do
+      before { subject.ethnicity_ids = %w[latino white] }
+      it "transforms to string" do
+        expect(subject.ethnicity_ids_string).to eq "latino,white"
       end
     end
   end

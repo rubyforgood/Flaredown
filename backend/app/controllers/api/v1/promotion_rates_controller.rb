@@ -26,6 +26,6 @@ class Api::V1::PromotionRatesController < ApplicationController
   def additional_params
     user = @promotion_rate.checkin.user
 
-    { user_created_at: user.created_at }
+    {user_created_at: user.created_at}
   end
 end

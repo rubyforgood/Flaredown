@@ -18,14 +18,11 @@ class PasswordSerializer < ApplicationSerializer
   end
 
   def password
-    #
   end
 
   def password_confirmation
-    #
   end
 
   def current_password
-    #
   end
 end

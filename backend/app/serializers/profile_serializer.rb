@@ -23,12 +23,12 @@
 
 class ProfileSerializer < ApplicationSerializer
   attributes :id, :screen_name, :birth_date, :country_id, :sex_id, :onboarding_step_id,
-             :ethnicity_ids, :day_habit_id, :education_level_id, :day_walking_hours,
-             :pressure_units, :temperature_units, :beta_tester, :notify_token, :notify, :checkin_reminder,
-             :checkin_reminder_at, :time_zone_name, :notify_top_posts
+    :ethnicity_ids, :day_habit_id, :education_level_id, :day_walking_hours,
+    :pressure_units, :temperature_units, :beta_tester, :notify_token, :notify, :checkin_reminder,
+    :checkin_reminder_at, :time_zone_name, :notify_top_posts
 
   def checkin_reminder_at
-    { hours: serialized_time[0], minutes: serialized_time[1] }
+    {hours: serialized_time[0], minutes: serialized_time[1]}
   end
 
   def time_zone_name
@@ -41,6 +41,6 @@ class ProfileSerializer < ApplicationSerializer
   def serialized_time
     reminder_at = object.checkin_reminder_at
 
-    reminder_at.blank? ? Profile::TIMEZONE_PARAMS[:time] : reminder_at.strftime('%H:%M').split(':')
+    reminder_at.blank? ? Profile::TIMEZONE_PARAMS[:time] : reminder_at.strftime("%H:%M").split(":")
   end
 end

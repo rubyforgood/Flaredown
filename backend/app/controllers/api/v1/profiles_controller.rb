@@ -1,5 +1,5 @@
 class Api::V1::ProfilesController < ApplicationController
-  require 'sidekiq/api'
+  require "sidekiq/api"
 
   load_and_authorize_resource
   skip_before_action :authenticate_user!, only: [:index]
@@ -52,14 +52,14 @@ class Api::V1::ProfilesController < ApplicationController
 
   def transform_hash_time
     checkin_reminder_at = params.require(:profile)[:checkin_reminder_at]
-    user_time = checkin_reminder_at && checkin_reminder_at.values.join(':')
+    user_time = checkin_reminder_at && checkin_reminder_at.values.join(":")
 
-    { checkin_reminder_at: user_time.try(:to_time, :utc) }
+    {checkin_reminder_at: user_time.try(:to_time, :utc)}
   end
 
   def get_reminder_time
     time_zone_name = @profile.time_zone_name
-    checkin_at_timezone = @profile.checkin_reminder_at.strftime('%H:%M').in_time_zone(time_zone_name)
+    checkin_at_timezone = @profile.checkin_reminder_at.strftime("%H:%M").in_time_zone(time_zone_name)
 
     # Select minutes
     (checkin_at_timezone - Time.current.in_time_zone(time_zone_name)).divmod(1.day)[1].divmod(1.minute)[0]

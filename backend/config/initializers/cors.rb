@@ -8,7 +8,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: true, logger: -> { Rails.logger } do
   allow do
     # origins ENV['BASE_URL'], ENV['DOMAIN_NAME'], 'travis-ci.org'
-    origins '*'
-    resource '*', headers: :any, methods: %i(get post options put patch delete head)
+    origins "*"
+    resource "*", headers: :any, methods: %i[get post options put patch delete head]
   end
 end

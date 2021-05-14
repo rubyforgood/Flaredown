@@ -1,5 +1,5 @@
 DAYS = 60
-email = ENV['CHECKINS_FOR']
+email = ENV["CHECKINS_FOR"]
 if email.present?
   puts "email=#{email}"
 
@@ -14,15 +14,15 @@ if email.present?
   I18n.locale = I18n.default_locale
 
   # Create some trackables (both global and personal)
-  conditions = FactoryGirl.create_list(:user_condition, 2, user: user).map(&:condition)
-  conditions += FactoryGirl.create_list(:condition, 3)
-  symptoms = FactoryGirl.create_list(:user_symptom, 2, user: user).map(&:symptom)
-  symptoms += FactoryGirl.create_list(:symptom, 5)
-  treatments = FactoryGirl.create_list(:user_treatment, 3, user: user).map(&:treatment)
-  treatments += FactoryGirl.create_list(:treatment, 6)
+  conditions = FactoryBot.create_list(:user_condition, 2, user: user).map(&:condition)
+  conditions += FactoryBot.create_list(:condition, 3)
+  symptoms = FactoryBot.create_list(:user_symptom, 2, user: user).map(&:symptom)
+  symptoms += FactoryBot.create_list(:symptom, 5)
+  treatments = FactoryBot.create_list(:user_treatment, 3, user: user).map(&:treatment)
+  treatments += FactoryBot.create_list(:treatment, 6)
 
   # Create some tags
-  tags = FactoryGirl.create_list(:tag, 10)
+  tags = FactoryBot.create_list(:tag, 10)
 
   # Setup time frame
   end_at = Date.today
@@ -73,23 +73,22 @@ if email.present?
     end
 
     # Checkin
-    checkin = FactoryGirl.create(:checkin,
-                                 user_id: user.id, date: day, tag_ids: tags.sample(3).map(&:id)
-                                )
+    checkin = FactoryBot.create(:checkin,
+      user_id: user.id, date: day, tag_ids: tags.sample(3).map(&:id))
     active_trackings = user.trackings.reload.active_at(day)
     active_trackings.map(&:trackable).each do |trackable|
       if trackable.is_a? Condition
-        condition_checkin = FactoryGirl.create(
+        condition_checkin = FactoryBot.create(
           :checkin_condition, checkin: checkin, condition_id: trackable.id
         )
         puts "Checked-in #{trackable.name}, value: #{condition_checkin.value}"
       elsif trackable.is_a? Symptom
-        symptom_checkin = FactoryGirl.create(
+        symptom_checkin = FactoryBot.create(
           :checkin_symptom, checkin: checkin, symptom_id: trackable.id
         )
         puts "Checked-in #{trackable.name}, value: #{symptom_checkin.value}"
       elsif trackable.is_a? Treatment
-        treatment_checkin = FactoryGirl.create(
+        treatment_checkin = FactoryBot.create(
           :checkin_treatment, checkin: checkin, treatment_id: trackable.id
         )
         puts "Checked-in #{trackable.name}, value: #{treatment_checkin.value}"

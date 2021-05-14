@@ -9,12 +9,12 @@
 #  trackable_usages_count :integer          default(0)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :condition do
     sequence(:name) { |n| "Condition#{n}" }
 
     trait :personal do
-      global false
+      global { false }
     end
   end
 end

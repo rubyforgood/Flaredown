@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   def init_profile
     create_profile!(
       checkin_reminder: true,
-      onboarding_step_id: 'onboarding-personal',
+      onboarding_step_id: "onboarding-personal",
       most_recent_doses: {},
       most_recent_conditions_positions: {},
       most_recent_symptoms_positions: {},

@@ -1,5 +1,5 @@
 namespace :app do
-  desc 'flaredown | percentage of user completed HBI survey'
+  desc "flaredown | percentage of user completed HBI survey"
   task hbi_completeness: :environment do
     HBI_CONDITION = "Crohn's disease".freeze
 

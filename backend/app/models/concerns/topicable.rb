@@ -4,15 +4,15 @@ module Topicable
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  TOPIC_TYPES = %w(tag symptom condition treatment).freeze
+  TOPIC_TYPES = %w[tag symptom condition treatment].freeze
 
   included do
-    field :tag_ids,       type: Array, default: []
-    field :symptom_ids,   type: Array, default: []
+    field :tag_ids, type: Array, default: []
+    field :symptom_ids, type: Array, default: []
     field :condition_ids, type: Array, default: []
     field :treatment_ids, type: Array, default: []
 
-    field :encrypted_user_id, type: String, encrypted: { type: :integer }
+    field :encrypted_user_id, type: String, encrypted: {type: :integer}
 
     validates :encrypted_user_id, presence: true
 

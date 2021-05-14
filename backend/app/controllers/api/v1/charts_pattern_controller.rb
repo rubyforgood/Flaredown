@@ -8,7 +8,7 @@ class Api::V1::ChartsPatternController < ApplicationController
     end_date = charts_pattern_params[:end_at].to_date
     end_at = (Time.current.to_date == end_date ? end_date : (end_date + offset.days)).to_s
 
-    @patterns = Pattern.where(id: { '$in': charts_pattern_params[:pattern_ids] || [] })
+    @patterns = Pattern.where(id: {'$in': charts_pattern_params[:pattern_ids] || []})
 
     @extended_patterns = @patterns.map do |pattern|
       pattern.extend(PatternExtender).form_chart_data(start_at: start_at,
@@ -16,7 +16,7 @@ class Api::V1::ChartsPatternController < ApplicationController
                                                       pattern: pattern)
     end
 
-    render json: @extended_patterns, meta: { color_ids: Flaredown::Colorable::IDS }
+    render json: @extended_patterns, meta: {color_ids: Flaredown::Colorable::IDS}
   end
 
   private

@@ -8,7 +8,7 @@ class SummaryPosts < AdditionalPosts
     @user = user
     @topic_following = user.topic_following
     @posts = Post.accessible_by(current_ability)
-      .where(_type: 'Post')
+      .where(_type: "Post")
       .by_followings(@topic_following)
       .where(:created_at.gte => SUMMARY_HOURS)
   end
@@ -20,7 +20,7 @@ class SummaryPosts < AdditionalPosts
 
   def list
     topic_frequency.each_with_object([]) do |obj, array|
-      array << Post.where(_type: 'Post').find(obj[0])
+      array << Post.where(_type: "Post").find(obj[0])
       array.last.extend(PostExtender).frequency_topic_priority(topic_frequency[obj[0]])
     end
   end

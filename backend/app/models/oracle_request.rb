@@ -3,10 +3,10 @@ class OracleRequest
 
   field :age, type: Integer
 
-  field :token,   type: String
-  field :sex_id,  type: String
+  field :token, type: String
+  field :sex_id, type: String
 
-  field :responce,    type: Array, default: []
+  field :responce, type: Array, default: []
   field :symptom_ids, type: Array, default: []
 
   index(token: 1)

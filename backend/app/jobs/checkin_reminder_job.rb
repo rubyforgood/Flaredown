@@ -1,5 +1,5 @@
 class CheckinReminderJob
-  require 'sidekiq/api'
+  require "sidekiq/api"
   include Sidekiq::Worker
 
   def perform(profile_id, checkin_reminder_at)

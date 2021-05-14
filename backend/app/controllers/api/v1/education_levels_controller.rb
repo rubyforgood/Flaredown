@@ -17,7 +17,7 @@ class Api::V1::EducationLevelsController < ApplicationController
     # FIXME
     # rubocop:disable Style/SignalException
     unless EducationLevel.all_ids.include?(id)
-      fail(ActionController::BadRequest, 'id param is not a valid education_level id')
+      fail(ActionController::BadRequest, "id param is not a valid education_level id")
     end
     # rubocop:enable Style/SignalException
     id

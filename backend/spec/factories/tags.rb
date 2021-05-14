@@ -7,12 +7,12 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :tag do
     sequence(:name) { |n| "Tag#{n}" }
 
     trait :personal do
-      global false
+      global { false }
     end
   end
 end

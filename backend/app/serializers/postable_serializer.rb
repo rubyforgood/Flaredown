@@ -1,5 +1,5 @@
 class PostableSerializer
-  FAKE_ID = 'fake'.freeze
+  FAKE_ID = "fake".freeze
 
   attr_reader :postables, :tag_ids, :symptom_ids, :condition_ids, :treatment_ids, :postable_post_ids, :current_user
 

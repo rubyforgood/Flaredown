@@ -9,14 +9,14 @@
 # https://github.com/airbrake/airbrake-ruby#configuration
 if Flaredown.config.enable_airbrake?
   Airbrake.configure do |c|
-    c.host = ENV['AIRBRAKE_HOST']
+    c.host = ENV["AIRBRAKE_HOST"]
 
     # You must set both project_id & project_key. To find your project_id and
     # project_key navigate to your project's General Settings and copy the values
     # from the right sidebar.
     # https://github.com/airbrake/airbrake-ruby#project_id--project_key
-    c.project_id = ENV['AIRBRAKE_PROJECT_ID']
-    c.project_key = ENV['AIRBRAKE_PROJECT_KEY']
+    c.project_id = ENV["AIRBRAKE_PROJECT_ID"]
+    c.project_key = ENV["AIRBRAKE_PROJECT_KEY"]
 
     # Configures the root directory of your project. Expects a String or a
     # Pathname, which represents the path to your project. Providing this option
@@ -36,7 +36,7 @@ if Flaredown.config.enable_airbrake?
     # NOTE: This option must be set in order to make the 'ignore_environments'
     # option work.
     # https://github.com/airbrake/airbrake-ruby#environment
-    c.environment = ENV['AIRBRAKE_ENV']
+    c.environment = ENV["AIRBRAKE_ENV"]
 
     # Setting this option allows Airbrake to filter exceptions occurring in
     # unwanted environments such as :test. By default, it is equal to an empty
@@ -44,7 +44,7 @@ if Flaredown.config.enable_airbrake?
     # environments.
     # NOTE: This option *does not* work if you don't set the 'environment' option.
     # https://github.com/airbrake/airbrake-ruby#ignore_environments
-    c.ignore_environments = %w(test)
+    c.ignore_environments = %w[test]
 
     # A list of parameters that should be filtered out of what is sent to
     # Airbrake. By default, all "password" attributes will have their contents

@@ -1,9 +1,12 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  username: <%= ENV.fetch('PG_DATABASE_USERNAME') { 'root' } %>
-  password: <%= ENV.fetch('PG_DATABASE_PASSWORD') { '' } %>
+  host: localhost
+  database: flaredown_development
+  username: postgres
+  password: password
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default

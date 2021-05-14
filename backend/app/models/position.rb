@@ -7,7 +7,7 @@ class Position < ActiveRecord::Base
   def set_location_name
     state = geocoder_position.state || geocoder_position.province
 
-    self.location_name = [geocoder_position.city, state, geocoder_position.country].compact.join(', ')
+    self.location_name = [geocoder_position.city, state, geocoder_position.country].compact.join(", ")
     self.latitude = geocoder_position.latitude
     self.longitude = geocoder_position.longitude
   end

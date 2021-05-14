@@ -16,7 +16,7 @@ class Api::V1::SexesController < ApplicationController
     id = params.require(:id)
     # FIXME
     # rubocop:disable Style/SignalException
-    fail(ActionController::BadRequest, 'id param is not a valid sex id') unless Sex.all_ids.include?(id)
+    fail(ActionController::BadRequest, "id param is not a valid sex id") unless Sex.all_ids.include?(id)
     # rubocop:enable Style/SignalException
     id
   end

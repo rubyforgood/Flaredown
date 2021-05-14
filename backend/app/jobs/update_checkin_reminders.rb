@@ -1,5 +1,5 @@
 class UpdateCheckinReminders
-  require 'sidekiq/api'
+  require "sidekiq/api"
 
   include Sidekiq::Worker
 
@@ -17,7 +17,7 @@ class UpdateCheckinReminders
 
   def get_reminder_time(profile)
     time_zone_name = profile.time_zone_name
-    checkin_at_timezone = profile.checkin_reminder_at.strftime('%H:%M').in_time_zone(time_zone_name)
+    checkin_at_timezone = profile.checkin_reminder_at.strftime("%H:%M").in_time_zone(time_zone_name)
 
     # Select minutes
     (checkin_at_timezone - Time.current.in_time_zone(time_zone_name)).divmod(1.day)[1].divmod(1.minute)[0]

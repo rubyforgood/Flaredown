@@ -4,11 +4,11 @@ class Food < ActiveRecord::Base
     it: :italian
   }.freeze
 
-  has_many :food_translations, class_name: 'Food::Translation'
+  has_many :food_translations, class_name: "Food::Translation"
 
   translates :long_desc, :shrt_desc, :comname, :sciname
 
-  alias name long_desc
+  alias_method :name, :long_desc
 
   class << self
     def fts(query, limit, user_id)
@@ -18,7 +18,7 @@ class Food < ActiveRecord::Base
           {
             user_id: user_id,
             lang: LANG_MAP[I18n.locale] || :simple,
-            query: query.strip.split(/(\s*,\s*)|\s+/).map { |s| "#{s}:*" }.join('&'),
+            query: query.strip.split(/(\s*,\s*)|\s+/).map { |s| "#{s}:*" }.join("&"),
             limit: limit,
             locale: I18n.locale
           }

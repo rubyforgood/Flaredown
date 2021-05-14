@@ -21,7 +21,7 @@ class Api::V1::CountriesController < ApplicationController
     match_data = /^[[:alpha:]]{2}$/.match(id)
     # FIXME
     # rubocop:disable Style/SignalException
-    fail(ActionController::BadRequest, 'id param must be a 2 alphabetic characters string') if match_data.nil?
+    fail(ActionController::BadRequest, "id param must be a 2 alphabetic characters string") if match_data.nil?
     # rubocop:enable Style/SignalException
     match_data[0]
   end

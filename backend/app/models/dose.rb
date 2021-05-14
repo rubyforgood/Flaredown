@@ -1,10 +1,10 @@
 class Dose
-  include ActiveModel::Model, ActiveModel::Serialization
+  include ActiveModel::Serialization
+  include ActiveModel::Model
 
   attr_accessor :name
 
   def id
     name.parameterize
   end
-
 end

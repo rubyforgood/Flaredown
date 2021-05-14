@@ -22,8 +22,8 @@
 #
 
 class Profile < ActiveRecord::Base
-  enum pressure_units: %i(mb in)
-  enum temperature_units: %i(f c)
+  enum pressure_units: %i[mb in]
+  enum temperature_units: %i[f c]
 
   #
   # Associations
@@ -39,27 +39,25 @@ class Profile < ActiveRecord::Base
   #
 
   validates :country_id, inclusion: {
-    in: Country.codes,
-    message: '%{value} is not a valid country_id'
-  }, if: 'country_id.present?'
+    in: Country.codes
+  }, if: "country_id.present?"
 
   validates :sex_id, inclusion: {
-    in: Sex.all_ids,
-    message: '%{value} is not a valid sex_id'
-  }, if: 'sex_id.present?'
+    in: Sex.all_ids
+  }, if: "sex_id.present?"
 
   validates :day_habit_id, inclusion: {
     in: DayHabit.all_ids,
-    message: '%{value} is not a valid day_habit_id'
-  }, if: 'day_habit_id.present?'
+    message: "%{value} is not a valid day_habit_id"
+  }, if: "day_habit_id.present?"
 
   validates :education_level_id, inclusion: {
     in: EducationLevel.all_ids,
-    message: '%{value} is not a valid education_level_id'
-  }, if: 'education_level_id.present?'
+    message: "%{value} is not a valid education_level_id"
+  }, if: "education_level_id.present?"
 
-  validate :ethnicity_ids_are_valid, if: 'ethnicity_ids_string.present?'
-  validate :age_of_birth, if: 'birth_date.present?'
+  validate :ethnicity_ids_are_valid, if: "ethnicity_ids_string.present?"
+  validate :age_of_birth, if: "birth_date.present?"
 
   def ethnicity_ids_are_valid
     ethnicity_ids.each do |id|
@@ -78,10 +76,10 @@ class Profile < ActiveRecord::Base
 
   TIMEZONE_PARAMS = {
     time: [20, 0],
-    time_zone_name: 'America/New_York'
+    time_zone_name: "America/New_York"
   }.freeze
 
-  NOTIFICATION_ATTRS = %w(checkin_reminder notify_top_posts notify).freeze
+  NOTIFICATION_ATTRS = %w[checkin_reminder notify_top_posts notify].freeze
 
   #
   # Instance Methods
@@ -105,11 +103,11 @@ class Profile < ActiveRecord::Base
   end
 
   def ethnicity_ids
-    ethnicity_ids_string&.split(',') || []
+    ethnicity_ids_string&.split(",") || []
   end
 
   def ethnicity_ids=(ids)
-    self.ethnicity_ids_string = ids.join(',')
+    self.ethnicity_ids_string = ids.join(",")
   end
 
   def set_most_recent_dose(treatment_id, dose)
@@ -130,8 +128,7 @@ class Profile < ActiveRecord::Base
     send("most_recent_#{trackable_type}_position_for", trackable)
   end
 
-  %w(condition symptom treatment).each do |trackable_type|
-
+  %w[condition symptom treatment].each do |trackable_type|
     define_method "set_most_recent_#{trackable_type}_position" do |trackable, position|
       send(
         "most_recent_#{trackable_type.pluralize}_positions"
@@ -145,7 +142,6 @@ class Profile < ActiveRecord::Base
 
       trackables_positions[trackable.id.to_s].to_i
     end
-
   end
 
   private
@@ -159,7 +155,7 @@ class Profile < ActiveRecord::Base
   end
 
   def ensure_slug_name
-    slug_name = screen_name && screen_name.split(/\s/).map(&:capitalize).join('')
+    slug_name = screen_name && screen_name.split(/\s/).map(&:capitalize).join("")
     assign_attributes(slug_name: slug_name)
   end
 

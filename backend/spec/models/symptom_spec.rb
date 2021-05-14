@@ -9,10 +9,10 @@
 #  trackable_usages_count :integer          default(0)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Symptom, type: :model do
-  describe 'Respond to' do
+  describe "Respond to" do
     it { is_expected.to respond_to(:name) }
   end
 end

@@ -4,10 +4,10 @@ class PromotionRate
 
   MIN_SCORE_FOR_REVIWS = 8
 
-  field :date,  type: Date
+  field :date, type: Date
   field :score, type: Integer
   field :feedback, type: String
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :encrypted_user_id, type: String, encrypted: {type: :integer}
   field :user_created_at, type: Date
 
   belongs_to :checkin, index: true
@@ -19,38 +19,40 @@ class PromotionRate
 
   before_create :set_date_and_user_id
 
-  def self.group_by_score_and_date(start_str, end_str) # '17-09-2017'
+  # '17-09-2017'
+  def self.group_by_score_and_date(start_str, end_str)
     start_day = start_str.to_date
     end_day = end_str.to_date
 
     PromotionRate.collection.aggregate(
       [
-        { "$match": {
-          "date": {
+        {"$match": {
+          date: {
             "$gte": start_day,
             "$lte": end_day
           }
-        } },
-        "$group": { "_id": "$score", "count": { "$sum": 1 } }
+        }},
+        "$group": {_id: "$score", count: {"$sum": 1}}
       ]
     )
   end
 
-  def self.filter_low_scores_by_date(start_str, end_str) # '17-09-2017'
+  # '17-09-2017'
+  def self.filter_low_scores_by_date(start_str, end_str)
     start_day = start_str.to_date
     end_day = end_str.to_date
 
     PromotionRate.collection.aggregate(
       [
-        { "$match": {
-          "score": {
+        {"$match": {
+          score: {
             "$lte": MIN_SCORE_FOR_REVIWS
           },
-          "date": {
+          date: {
             "$gte": start_day,
             "$lte": end_day
           }
-        } }
+        }}
       ]
     )
   end

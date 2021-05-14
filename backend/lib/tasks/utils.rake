@@ -1,20 +1,20 @@
-require 'csv'
-require 'ruby-progressbar'
+require "csv"
+require "ruby-progressbar"
 
 namespace :utils do
   task csv_export: :environment do
-    headers = %w(
+    headers = %w[
       user_id age sex country checkin_date
       trackable_id trackable_type trackable_name trackable_value
-    )
+    ]
 
     progress_bar = ProgressBar.create(
-      title: 'Checkins',
+      title: "Checkins",
       total: Checkin.count,
-      format: '%t: |%B| %a / %E'
+      format: "%t: |%B| %a / %E"
     )
 
-    CSV.open('export.csv', 'wb') do |csv|
+    CSV.open("export.csv", "wb") do |csv|
       csv << headers
 
       User.all.each do |user|
@@ -26,9 +26,9 @@ namespace :utils do
           progress_bar.increment
 
           user_id = SymmetricEncryption.encrypt(user.id)
-          checkin_date = checkin.date.strftime('%Y-%m-%d')
+          checkin_date = checkin.date.strftime("%Y-%m-%d")
 
-          %w( condition symptom treatment ).each do |trackable_type|
+          %w[condition symptom treatment].each do |trackable_type|
             trackable_type_plural = trackable_type.pluralize
             trackable_type_capital = trackable_type.capitalize
             trackable_translation_class = "#{trackable_type_capital}::Translation".constantize
@@ -54,7 +54,7 @@ namespace :utils do
 
             csv << [
               user_id, age, sex, country, checkin_date,
-              tag_id, 'Tag', tag.name, nil
+              tag_id, "Tag", tag.name, nil
             ]
           end
 
@@ -63,7 +63,7 @@ namespace :utils do
 
             csv << [
               user_id, age, sex, country, checkin_date,
-              food_id, 'Food', food.long_desc, nil
+              food_id, "Food", food.long_desc, nil
             ]
           end
 
@@ -71,7 +71,7 @@ namespace :utils do
           if harvey_bradshaw_index.present?
             csv << [
               user_id, age, sex, country, checkin_date,
-              harvey_bradshaw_index.id, 'HBI', 'HBI', harvey_bradshaw_index.score
+              harvey_bradshaw_index.id, "HBI", "HBI", harvey_bradshaw_index.score
             ]
           end
 
@@ -81,10 +81,10 @@ namespace :utils do
 
           weather = Weather.find(weather_id)
 
-          %w(icon temperature_min temperature_max precip_intensity pressure humidity).each do |measure|
+          %w[icon temperature_min temperature_max precip_intensity pressure humidity].each do |measure|
             csv << [
               user_id, age, sex, country, checkin_date,
-              weather_id, 'Weather', measure, weather[measure]
+              weather_id, "Weather", measure, weather[measure]
             ]
           end
         end
@@ -93,6 +93,6 @@ namespace :utils do
 
     progress_bar.finish
 
-    puts 'All done.'
+    puts "All done."
   end
 end
