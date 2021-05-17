@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Api::V1::SymptomsController do
   let!(:user) { create(:user) }
@@ -11,8 +11,8 @@ RSpec.describe Api::V1::SymptomsController do
 
   before { sign_in user }
 
-  describe 'index' do
-    it 'returns all accessible symptoms' do
+  describe "index" do
+    it "returns all accessible symptoms" do
       get :index
       returned_symptom_ids = response_body[:symptoms].map { |c| c[:id] }
       accessible_symptom_ids = accessible_symptoms.map(&:id)
@@ -20,25 +20,25 @@ RSpec.describe Api::V1::SymptomsController do
     end
   end
 
-  describe 'show' do
-    context 'when symptom is accessible' do
-      it 'return the requested symptom' do
-        get :show, id: global_symptom.id
+  describe "show" do
+    context "when symptom is accessible" do
+      it "return the requested symptom" do
+        get :show, params: {id: global_symptom.id}
         expect(response_body[:symptom][:id]).to eq global_symptom.id
       end
     end
-    context 'when local symptom is accessible' do
-      it 'returns 200 (Authorized)' do
-        get :show, id: another_user_symptom.id
+    context "when local symptom is accessible" do
+      it "returns 200 (Authorized)" do
+        get :show, params: {id: another_user_symptom.id}
         expect(response.status).to eq 200
       end
     end
   end
 
-  describe 'create' do
-    let(:symptom_attributes) { { name: 'Headache' } }
-    it 'creates the symptom as personal for the current user' do
-      post :create, symptom: symptom_attributes
+  describe "create" do
+    let(:symptom_attributes) { {name: "Headache"} }
+    it "creates the symptom as personal for the current user" do
+      post :create, params: {symptom: symptom_attributes}
       created_symptom = response_body[:symptom]
       expect(created_symptom[:name]).to eq symptom_attributes[:name]
       expect(Symptom.find(created_symptom[:id]).global).to be false

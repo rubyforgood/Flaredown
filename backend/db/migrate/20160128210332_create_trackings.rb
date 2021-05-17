@@ -11,8 +11,7 @@ class CreateTrackings < ActiveRecord::Migration
 
     add_index :trackings, :trackable_type
     add_index(:trackings,
-              [:user_id, :trackable_id, :trackable_type, :start_at],
-              unique: true, name: 'index_trackings_unique_trackable'
-             )
+      [:user_id, :trackable_id, :trackable_type, :start_at],
+      unique: true, name: "index_trackings_unique_trackable")
   end
 end

@@ -11,10 +11,9 @@
 #  updated_at     :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :trackable_usage do
     user
     association :trackable, factory: :condition
   end
-
 end

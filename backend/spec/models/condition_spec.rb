@@ -9,14 +9,14 @@
 #  trackable_usages_count :integer          default(0)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Condition do
-  describe 'Respond to' do
+  describe "Respond to" do
     it { is_expected.to respond_to(:name) }
   end
 
-  describe 'Translations' do
+  describe "Translations" do
     before { I18n.locale = locale }
     subject { create(:condition) }
 

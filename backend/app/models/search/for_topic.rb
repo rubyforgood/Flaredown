@@ -1,5 +1,5 @@
 class Search::ForTopic < ::Search
-  alias super_query find_by_query
+  alias_method :super_query, :find_by_query
 
   protected
 
@@ -9,7 +9,7 @@ class Search::ForTopic < ::Search
 
   private
 
-  %w(tag symptom condition treatment).each do |trackable|
+  %w[tag symptom condition treatment].each do |trackable|
     define_method trackable.pluralize do
       @resource = trackable
 

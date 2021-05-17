@@ -5,7 +5,7 @@ class MergeTrackables::PatternIncludes
     parent = trackable_type.capitalize.constantize.find_by(id: parent_id)
     return unless parent
 
-    Pattern.where('includes.id' => { '$in' => rest_ids }).map do |item|
+    Pattern.where("includes.id" => {"$in" => rest_ids}).map do |item|
       item.includes
         .select { |hash| hash[:category] == trackable_type.tableize && rest_ids.include?(hash[:id]) }
         .map do |selected_hash|

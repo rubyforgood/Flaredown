@@ -1,0 +1,29 @@
+name: frontend
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container: 'ubuntu:18.04'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install System Dependencies
+        run: |
+          apt-get update && apt-get install -y build-essential libgmp3-dev libpq-dev zlib1g-dev git libssl1.0 ca-certificates postgresql-client libyaml-0-2
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '6.10.3'
+
+      - name: Install Frontend Dependencies
+        run: |
+          npm install -g
+          npm install -g bower
+          bower install
+        working-directory: frontend

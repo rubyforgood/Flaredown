@@ -1,9 +1,9 @@
 class SessionSerializer < ApplicationSerializer
   attributes :id,
-             :user_id,
-             :email,
-             :token,
-             :settings
+    :user_id,
+    :email,
+    :token,
+    :settings
 
   def id
     1
@@ -23,12 +23,11 @@ class SessionSerializer < ApplicationSerializer
 
   def settings
     {
-      base_url: ENV['BASE_URL'],
+      base_url: ENV["BASE_URL"],
       notification_channel: object.try(:notification_channel),
-      facebook_app_id: ENV['FACEBOOK_APP_ID'],
+      facebook_app_id: ENV["FACEBOOK_APP_ID"],
       discourse_url: Flaredown.config.discourse_url,
       discourse_enabled: Flaredown.config.discourse_enabled?
     }
   end
-
 end

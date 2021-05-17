@@ -59,7 +59,7 @@ class Checkin::Creator
   private
 
   def create_or_update_trackable_usages(checkin)
-    %w(Condition Symptom Treatment).each do |trackable_class_name|
+    %w[Condition Symptom Treatment].each do |trackable_class_name|
       trackable_class = trackable_class_name.constantize
       trackable_id_method = "#{trackable_class_name.downcase}_id"
       checkin_trackables_method = trackable_class_name.downcase.pluralize
@@ -72,5 +72,4 @@ class Checkin::Creator
       end
     end
   end
-
 end

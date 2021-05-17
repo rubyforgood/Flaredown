@@ -2,23 +2,23 @@ class Checkin
   include Mongoid::Document
 
   HBI_PERIODICITY = 7
-  PR_PERIODICITY  = 7
-  PR_START_FROM   = 7
+  PR_PERIODICITY = 7
+  PR_START_FROM = 7
 
   attr_accessor :includes
 
-  FIELD_TYPE = %w(tag food).freeze
+  FIELD_TYPE = %w[tag food].freeze
 
   #
   # Fields
   #
-  field :date,        type: Date
-  field :food_ids,    type: Array, default: []
-  field :note,        type: String
+  field :date, type: Date
+  field :food_ids, type: Array, default: []
+  field :note, type: String
   field :postal_code, type: String
-  field :tag_ids,     type: Array
-  field :weather_id,  type: Integer
-  field :encrypted_user_id, type: String, encrypted: { type: :integer }
+  field :tag_ids, type: Array
+  field :weather_id, type: Integer
+  field :encrypted_user_id, type: String, encrypted: {type: :integer}
   field :position_id, type: Integer
   field :promotion_skipped_at, type: Date
 
@@ -27,9 +27,9 @@ class Checkin
   #
   has_one :harvey_bradshaw_index
   has_one :promotion_rate, dependent: :destroy
-  has_many :treatments, class_name: 'Checkin::Treatment'
-  has_many :conditions, class_name: 'Checkin::Condition'
-  has_many :symptoms, class_name: 'Checkin::Symptom'
+  has_many :treatments, class_name: "Checkin::Treatment"
+  has_many :conditions, class_name: "Checkin::Condition"
+  has_many :symptoms, class_name: "Checkin::Symptom"
   accepts_nested_attributes_for :conditions, :symptoms, :treatments, allow_destroy: true
 
   #
@@ -42,7 +42,7 @@ class Checkin
   # Validations
   #
   validates :encrypted_user_id, presence: true
-  validates :date, presence: true, uniqueness: { scope: :encrypted_user_id }
+  validates :date, presence: true, uniqueness: {scope: :encrypted_user_id}
 
   #
   # Scopes
@@ -101,7 +101,7 @@ class Checkin
 
     field :condition_id, type: Integer
 
-    validates :condition_id, uniqueness: { scope: :checkin_id }
+    validates :condition_id, uniqueness: {scope: :checkin_id}
   end
 
   class Symptom
@@ -111,7 +111,7 @@ class Checkin
 
     field :symptom_id, type: Integer
 
-    validates :symptom_id, uniqueness: { scope: :checkin_id }
+    validates :symptom_id, uniqueness: {scope: :checkin_id}
   end
 
   class Treatment
@@ -134,12 +134,12 @@ class Checkin
     #
     # Validations
     #
-    validates :treatment_id, uniqueness: { scope: :checkin_id }
+    validates :treatment_id, uniqueness: {scope: :checkin_id}
   end
 
   def self.ids_by_category_attrs(category_name, trackable_id)
-    where(id: { '$in' => "Checkin::#{category_name.camelize}".constantize
-      .where("#{category_name}_id": trackable_id, :value.ne => nil).pluck(:checkin_id) })
+    where(id: {"$in" => "Checkin::#{category_name.camelize}".constantize
+      .where(:"#{category_name}_id" => trackable_id, :value.ne => nil).pluck(:checkin_id)})
   end
 
   private

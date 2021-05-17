@@ -4,7 +4,7 @@ class Api::V1::NotificationsController < ApplicationController
 
     authorize_collection :index, notifications
 
-    render json: { notifications: notifications.aggregated_by_kind_and_subject }
+    render json: {notifications: notifications.aggregated_by_kind_and_subject}
   end
 
   def update
@@ -13,9 +13,9 @@ class Api::V1::NotificationsController < ApplicationController
     authorize_collection :update, notifications
 
     if notifications.update_all(unread: false)
-      render json: { notifications: notifications.aggregated_by_kind_and_subject }
+      render json: {notifications: notifications.aggregated_by_kind_and_subject}
     else
-      render json: { errors: notifications.map(&:errors).compact }, status: :unprocessable_entity
+      render json: {errors: notifications.map(&:errors).compact}, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::NotificationsController < ApplicationController
     if notifications.destroy
       head :no_content
     else
-      render json: { errors: notifications.map(&:errors).compact }, status: :unprocessable_entity
+      render json: {errors: notifications.map(&:errors).compact}, status: :unprocessable_entity
     end
   end
 

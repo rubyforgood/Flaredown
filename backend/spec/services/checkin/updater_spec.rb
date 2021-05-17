@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Checkin::Updater do
   let(:user) { create(:user) }
@@ -6,17 +6,17 @@ RSpec.describe Checkin::Updater do
 
   subject { Checkin::Updater.new(user, params).update! }
 
-  context 'with permitted params' do
-    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { note: 'Blah' }) }
-    it 'returns updated checkin' do
+  context "with permitted params" do
+    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: {note: "Blah"}) }
+    it "returns updated checkin" do
       expect(subject.id).to eq checkin.id
       expect(subject.note).to eq params[:checkin][:note]
     end
   end
 
-  context 'with non-permitted params' do
-    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: { date: Date.yesterday }) }
-    it 'returns checkin with no changes' do
+  context "with non-permitted params" do
+    let(:params) { ActionController::Parameters.new(id: checkin.id.to_s, checkin: {date: Date.yesterday}) }
+    it "returns checkin with no changes" do
       expect(subject.id).to eq checkin.id
       expect(subject.date).not_to eq params[:checkin][:date]
     end
@@ -28,15 +28,15 @@ RSpec.describe Checkin::Updater do
     let(:params) do
       ActionController::Parameters.new(
         id: checkin.id.to_s,
-        checkin: { treatments_attributes: [{ treatment_id: treatment.id }] }
+        checkin: {treatments_attributes: [{treatment_id: treatment.id}]}
       )
     end
 
     before do
-      user.profile.set_most_recent_dose(treatment.id, '20 mg')
+      user.profile.set_most_recent_dose(treatment.id, "20 mg")
       user.profile.save!
     end
-    it 'auto-sets the most recently used dose on added treatments' do
+    it "auto-sets the most recently used dose on added treatments" do
       returned_treatment = subject.treatments[0]
       expect(returned_treatment.treatment_id).to eq treatment.id
       saved_dose = user.profile.most_recent_dose_for(treatment.id)
@@ -45,7 +45,6 @@ RSpec.describe Checkin::Updater do
   end
 
   context "trackable usages" do
-
     context "when removing a trackable" do
       let!(:checkin_condition) { create(:checkin_condition, checkin: checkin) }
       let!(:condition) { Condition.find(checkin_condition.condition_id) }
@@ -57,7 +56,7 @@ RSpec.describe Checkin::Updater do
             conditions_attributes: [{
               id: checkin_condition.id.to_s,
               condition_id: checkin_condition.condition_id,
-              _destroy: '1'
+              _destroy: "1"
             }]
           }
         )
@@ -105,11 +104,9 @@ RSpec.describe Checkin::Updater do
         end
       end
     end
-
   end
 
   context "trackables positions" do
-
     let(:n) { 5 }
     let(:trackables) do
       result = []
@@ -134,7 +131,7 @@ RSpec.describe Checkin::Updater do
         ActionController::Parameters.new(
           id: checkin.id.to_s,
           checkin: {
-            conditions_attributes: trackables_attrs + [{ condition_id: condition.id }]
+            conditions_attributes: trackables_attrs + [{condition_id: condition.id}]
           }
         )
       end
@@ -156,7 +153,7 @@ RSpec.describe Checkin::Updater do
       let(:pos) { 1 }
       before do
         trackable_to_remove = params[:checkin][:conditions_attributes].find { |a| a[:position].eql? pos }
-        trackable_to_remove[:_destroy] = '1'
+        trackable_to_remove[:_destroy] = "1"
       end
       it "updates positions of removed trackable's successors" do
         successors_attrs = params[:checkin][:conditions_attributes].select { |a| a[:position] > pos }
@@ -206,5 +203,4 @@ RSpec.describe Checkin::Updater do
       end
     end
   end
-
 end

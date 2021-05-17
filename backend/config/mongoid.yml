@@ -15,7 +15,6 @@ development:
         # Change the default write concern. (default = { w: 1 })
         # write:
         #   w: 1
-
         # Change the default read preference. Valid options for mode are: :secondary,
         # :secondary_preferred, :primary, :primary_preferred, :nearest
         # (default: primary)
@@ -131,8 +130,7 @@ test:
     default:
       database: flaredown_test
       hosts:
-        - localhost:27017
-        - mongodb:27017
+        - <%= ENV['MONGODB_HOST'] %>:27017
       options:
         read:
           mode: :primary

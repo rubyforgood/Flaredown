@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Checkin::Creator do
   let!(:user) { create(:user) }
@@ -12,9 +12,8 @@ RSpec.describe Checkin::Creator do
 
   subject { Checkin::Creator.new(user.id, date).create! }
 
-  describe 'create' do
-
-    it 'returns a new checkin prefilled with active trackables' do
+  describe "create" do
+    it "returns a new checkin prefilled with active trackables" do
       expect(subject.id).to be_present
       expect(subject.user_id).to eq user.id
       expect(subject.date).to eq date
@@ -38,10 +37,10 @@ RSpec.describe Checkin::Creator do
 
     context "when recent dose exists for treatment in user's profile" do
       before do
-        user.profile.set_most_recent_dose(treatment.id, '20 mg')
+        user.profile.set_most_recent_dose(treatment.id, "20 mg")
         user.profile.save!
       end
-      it 'sets dose from profile on the new checkin' do
+      it "sets dose from profile on the new checkin" do
         checkin_treatment = subject.treatments[0]
         expect(checkin_treatment.treatment_id).to eq treatment.id
         saved_dose = user.profile.most_recent_dose_for(treatment.id)
@@ -54,7 +53,7 @@ RSpec.describe Checkin::Creator do
         user.profile.set_most_recent_trackable_position(condition, 5)
         user.profile.save!
       end
-      it 'sets trackable position from profile on the new checkin' do
+      it "sets trackable position from profile on the new checkin" do
         checkin_condition = subject.conditions[0]
         expect(checkin_condition.condition_id).to eq condition.id
         saved_position = user.profile.most_recent_trackable_position_for(condition)
@@ -110,16 +109,16 @@ RSpec.describe Checkin::Creator do
       end
     end
 
-    context 'when postal code is set on previous checkin' do
+    context "when postal code is set on previous checkin" do
       let(:weather) { create :weather }
-      let(:postal_code) { '55403' }
+      let(:postal_code) { "55403" }
       let(:position) { Position.create(postal_code: postal_code) }
 
       let!(:previous_checkin) { create :checkin, user_id: user.id, position_id: position.id }
 
       before { expect(WeatherRetriever).to receive(:get).and_return(weather) }
 
-      it 'should ask for weather' do
+      it "should ask for weather" do
         expect(subject.position.postal_code).to eq(postal_code)
         expect(subject.weather_id).to eq(weather.id)
       end

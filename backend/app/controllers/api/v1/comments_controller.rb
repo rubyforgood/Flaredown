@@ -29,7 +29,7 @@ class Api::V1::CommentsController < ApplicationController
 
       render json: @comment, status: :created
     else
-      render json: { errors: @comment.errors }, status: :unprocessable_entity
+      render json: {errors: @comment.errors}, status: :unprocessable_entity
     end
   end
 

@@ -1,5 +1,4 @@
 class Search::ForDose < ::Search
-
   validates :query, presence: true
 
   validate :query_must_include_treatment_id
@@ -13,7 +12,7 @@ class Search::ForDose < ::Search
 
   def find_by_query
     q = name.present? ? treatments.where(value: /#{name}/i) : treatments
-    q = q.order_by('checkin.date' => 'desc').distinct(:value)
+    q = q.order_by("checkin.date" => "desc").distinct(:value)
     q.slice(0..10).map { |value| ::Dose.new(name: value) }
   end
 
@@ -21,7 +20,7 @@ class Search::ForDose < ::Search
 
   def treatments
     Checkin::Treatment.where(
-      :value.ne => nil, is_taken: true, treatment_id: treatment_id
+      :value.ne => nil, :is_taken => true, :treatment_id => treatment_id
     )
   end
 
@@ -33,5 +32,4 @@ class Search::ForDose < ::Search
     text = query[:name]
     Regexp.escape(text) if text
   end
-
 end

@@ -7,7 +7,7 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def failure
     Rails.logger.warn("Api::V1::OmniauthCallbacksController#failure: #{failure_message}".yellow)
-    render json: { errors: failure_message }, status: 401
+    render json: {errors: failure_message}, status: 401
   end
 
   private
@@ -17,12 +17,12 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user && user.invitation_token.nil?
       render json: user, root: false, serializer: SessionSerializer
     else
-      render json: { errors: 'User not found' }, status: 401
+      render json: {errors: "User not found"}, status: 401
     end
   end
 
   def oauth_params
-    @oauth_params ||= ActionController::Parameters.new(request.env['omniauth.auth'])
+    @oauth_params ||= ActionController::Parameters.new(request.env["omniauth.auth"])
   end
 
   def email_param

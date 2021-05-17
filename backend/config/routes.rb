@@ -1,22 +1,22 @@
 # rubocop:disable Metrics/BlockLength
 
 Rails.application.routes.draw do
-  root 'application#root'
+  root "application#root"
 
   # Authentication
   devise_for :users,
-             skip: [:sessions, :passwords, :registrations, :confirmations, :invitation],
-             skip_helpers: false,
-             controllers: {
-               omniauth_callbacks: 'api/v1/omniauth_callbacks'
-             }
+    skip: [:sessions, :passwords, :registrations, :confirmations, :invitation],
+    skip_helpers: false,
+    controllers: {
+      omniauth_callbacks: "api/v1/omniauth_callbacks"
+    }
 
   #
   # API
   #
   get "/api/minimum-client", to: "application#root"
 
-  namespace :api, defaults: { format: 'json' } do
+  namespace :api, defaults: {format: "json"} do
     scope module: :v1 do
       #
       # Chart list
@@ -98,8 +98,8 @@ Rails.application.routes.draw do
       #
       resources :notifications, only: [:index] do
         collection do
-          delete ':notificateable_type/:notificateable_id', action: :destroy
-          put ':notificateable_type/:notificateable_id', action: :update
+          delete ":notificateable_type/:notificateable_id", action: :destroy
+          put ":notificateable_type/:notificateable_id", action: :update
         end
       end
 
@@ -133,7 +133,7 @@ Rails.application.routes.draw do
       #
       # resources :activations, only: [:edit]
 
-      get '/unsubscribe/:notify_token', to: 'unsubscribes#update', as: :unsubscribe
+      get "/unsubscribe/:notify_token", to: "unsubscribes#update", as: :unsubscribe
 
       # Pusher
       #
@@ -148,7 +148,7 @@ Rails.application.routes.draw do
       # Registrations
       #
       resources :registrations, only: [:create] do
-        put 'destroy', on: :collection
+        put "destroy", on: :collection
       end
 
       #
@@ -176,9 +176,6 @@ Rails.application.routes.draw do
       #
       resources :tags, only: [:index, :show, :create]
 
-      #
-      #
-      #
       resources :topic_followings, only: [:show, :update]
 
       #
@@ -203,7 +200,7 @@ Rails.application.routes.draw do
 
       resources :patterns
       resources :charts_pattern, only: [:index]
-      post '/aws_ses/notification', to: 'aws_ses#notification'
+      post "/aws_ses/notification", to: "aws_ses#notification"
     end
   end
 end

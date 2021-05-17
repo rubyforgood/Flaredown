@@ -6,15 +6,15 @@
 #
 rackup DefaultRackup
 
-port Integer(ENV.fetch('PORT') { 3000 })
-environment ENV.fetch('RACK_ENV') { 'development' }
+port Integer(ENV.fetch("PORT") { 3000 })
+environment ENV.fetch("RACK_ENV") { "development" }
 
 # Configure "min" to be the minimum number of threads to use to answer
 # requests and "max" the maximum.
 #
 # The default is "0, 16".
 #
-threads_count = Integer(ENV.fetch('MAX_THREADS') { 16 })
+threads_count = Integer(ENV.fetch("MAX_THREADS") { 16 })
 threads threads_count, threads_count
 
 # Preload the application before starting the workers; this conflicts with
@@ -27,7 +27,7 @@ preload_app!
 #
 # The default is "0".
 #
-workers Integer(ENV.fetch('WEB_CONCURRENCY') { 0 })
+workers Integer(ENV.fetch("WEB_CONCURRENCY") { 0 })
 
 before_fork do
   ActiveRecord::Base.connection_pool.disconnect!

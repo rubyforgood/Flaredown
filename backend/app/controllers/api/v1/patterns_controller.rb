@@ -8,7 +8,7 @@ class Api::V1::PatternsController < ApplicationController
 
     @patterns =
       if pattern_ids.present?
-        Pattern.where(id: { '$in' => pattern_ids })
+        Pattern.where(id: {"$in" => pattern_ids})
       else
         Pattern.accessible_by(current_ability).where(encrypted_user_id: encrypted_user_id)
       end
@@ -42,7 +42,7 @@ class Api::V1::PatternsController < ApplicationController
     if pattern.destroy
       head :no_content
     else
-      render json: { errors: pattern.errors }, status: :unprocessable_entity
+      render json: {errors: pattern.errors}, status: :unprocessable_entity
     end
   end
 

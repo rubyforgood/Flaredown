@@ -10,7 +10,7 @@ class Invitation
   end
 
   def accept!(params = {})
-    User.accept_invitation!({ invitation_token: id }.merge(params))
+    User.accept_invitation!({invitation_token: id}.merge(params))
   end
 
   def self.find(id)

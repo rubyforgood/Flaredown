@@ -8,7 +8,7 @@
 #
 
 class Tag < ActiveRecord::Base
-  has_many :tag_translations, class_name: 'Tag::Translation'
+  has_many :tag_translations, class_name: "Tag::Translation"
 
   #
   # Localized attributes

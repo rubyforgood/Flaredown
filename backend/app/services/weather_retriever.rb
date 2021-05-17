@@ -35,7 +35,7 @@ class WeatherRetriever
         position.latitude,
         position.longitude,
         time: Time.zone.parse(date.to_s).to_i,
-        params: { exclude: 'currently,minutely,hourly,alerts,flags' }
+        params: {exclude: "currently,minutely,hourly,alerts,flags"}
       )
 
       Time.zone = tz
@@ -45,7 +45,7 @@ class WeatherRetriever
 
     def create_weather(the_day, position_id)
       Weather.create(
-        date: Date.strptime(the_day.time.to_s, '%s'),
+        date: Date.strptime(the_day.time.to_s, "%s"),
         humidity: (the_day.humidity * 100).round,
         icon: the_day.icon,
         position_id: position_id,

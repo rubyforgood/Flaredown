@@ -3,9 +3,9 @@ module PatternExtender
 
   def form_chart_data(options)
     @start_at = options[:start_at]
-    @end_at   = options[:end_at]
-    @pattern  = options[:pattern]
-    @user     = options[:user]
+    @end_at = options[:end_at]
+    @pattern = options[:pattern]
+    @user = options[:user]
 
     @chart_data = ChartsPattern.new(start_at: start_at, end_at: end_at, pattern: pattern, user: user).chart_data
 

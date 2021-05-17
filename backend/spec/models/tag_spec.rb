@@ -7,10 +7,10 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Tag, type: :model do
-  describe 'Respond to' do
+  describe "Respond to" do
     it { is_expected.to respond_to(:name) }
   end
 end

@@ -1,107 +1,112 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-send :ruby, ENV['GEMFILE_RUBY_VERSION'] if ENV['GEMFILE_RUBY_VERSION']
+ruby "2.6.5"
 
 # Configuration management. keep on top of Gemfile
-gem 'dotenv-rails', groups: [:development, :test]
+gem "dotenv-rails", groups: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7'
-gem 'rails-api'
-
-gem 'rake', '< 11.0'
+gem "rails", "~> 5.0.7.2"
+gem "rake"
 
 # JSON serializer
-gem 'active_model_serializers', '0.9.3'
+gem "active_model_serializers", "0.9.3"
 
 # Use postgresql and mongo as the database for Active Record
-gem 'pg'
-gem 'mongoid', '~> 5.0.0'
-gem 'where-or'
+gem "pg"
+gem "mongoid"
 
 # Use Puma as the app server
-gem 'puma'
+gem "puma"
 
 # Authentication libraries
-gem 'devise', '~> 3.5.3'
-gem 'cancancan', '~> 1.10'
-gem 'devise_invitable', '~> 1.5.2'
-gem 'omniauth', '~> 1.3.1'
-gem 'omniauth-facebook', '~> 3.0.0'
+gem "devise"
+gem "cancancan", "~> 1.10"
+gem "devise_invitable"
+gem "omniauth", "~> 1.8.1"
+gem "omniauth-facebook", "~> 3.0.0"
 
 # Colored output to console
-gem 'colored', '~> 1.2'
+gem "colored", "~> 1.2"
 
 # Background jobs
-gem 'sidekiq', '4.1.1'
+gem "sidekiq", "4.1.1"
 
 # Structured seed data
-gem 'seedbank'
+gem "seedbank"
 
 # ISO 3166 standard countries
-gem 'countries', require: 'countries/global'
+gem "countries", require: "countries/global"
 
 # Pusher Client
-gem 'pusher'
+gem "pusher"
 
 # ActiveRecord data translations
-gem 'globalize', '~> 5.0.0'
+gem "globalize"
 
 # Abort requests that are taking too long
 gem "rack-timeout"
 
 # exception tracking
-gem 'airbrake', '~> 5.4'
+gem "airbrake", "~> 5.4"
 
 # wrapper for forecast.io API, Dark Sky
-gem 'forecast_io'
+gem "forecast_io"
 
-gem 'geocoder'
-gem 'nearest_time_zone'
+gem "geocoder"
+gem "nearest_time_zone"
 
-gem 'symmetric-encryption'
+gem "symmetric-encryption"
 
-gem 'ruby-progressbar', require: false
+gem "ruby-progressbar", require: false
 
-gem 'kaminari-mongoid'
-gem 'kaminari-actionview'
-gem 'rack-cors', require: 'rack/cors'
+gem "kaminari-mongoid"
+gem "kaminari-actionview"
+gem "rack-cors", require: "rack/cors"
+gem "simplecov", require: false, group: :test
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
-  gem 'database_cleaner', '~> 1.5.1'
-  gem 'factory_girl_rails', '~> 4.5.0'
+  gem "bullet"
+  gem "byebug"
+  gem "database_cleaner"
+  gem "database_cleaner-mongoid"
+  gem "erb_lint", require: false
+  gem "factory_bot_rails"
   # Generate Fake data
-  gem 'ffaker', '~> 2.0.0'
-  gem 'rspec-rails', '~> 3.3.0'
-  gem 'pry-rails', '~>0.3'
-  gem 'pry-byebug', '~>3.3'
-  gem 'pry-doc', '~>0.8'
+  gem "ffaker"
+  gem "rspec-rails", "~> 4.1.0"
+  gem "pry-rails"
+  gem "pry-byebug"
+  gem "pry-doc"
+  gem "standardrb"
 end
 
 group :development do
-  gem 'annotate', '~>2.6'
-  gem 'awesome_print', '~>1.6'
-  gem 'better_errors', '~>2.1'
-  gem 'binding_of_caller', '~>0.7'
-  gem 'foreman'
-  gem 'letter_opener', '~>1.4'
-  gem 'quiet_assets', '~>1.1'
-  gem 'rubocop', require: false
+  gem "annotate"
+  gem "awesome_print", "~>1.6"
+  gem "better_errors", "~>2.1"
+  gem "binding_of_caller", "~>0.7"
+  gem "foreman", require: false
+  # thor > 0.19.1 prints some warnings to stderr
+  # This is fixed is thor > 0.20.0 but 0.19 is required by foreman.
+  # Foreman suggests not including foreman in your Gemfile
+  # https://github.com/erikhuda/thor/issues/538
+  gem "thor", "0.19.1"
+  gem "letter_opener"
+  gem "rubocop-rails", require: false
 end
 
 group :test do
-  gem 'shoulda-matchers'
-  gem 'mongoid-rspec'
-  gem 'webmock'
-  gem 'vcr'
+  gem "shoulda-matchers"
+  gem "mongoid-rspec"
+  gem "webmock"
+  gem "vcr"
 end
 
 group :production do
-  gem 'rails_12factor'
+  gem "rails_12factor"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

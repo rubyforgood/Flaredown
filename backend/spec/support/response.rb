@@ -4,10 +4,10 @@ module ResponseHelpers
   def response_body
     @response_body ||= ActiveSupport::HashWithIndifferentAccess.new(
       (begin
-         JSON.parse(response.body, symbolize_names: true)
-       rescue
-         {}
-       end)
+        JSON.parse(response.body, symbolize_names: true)
+      rescue
+        {}
+      end)
     )
   end
 end

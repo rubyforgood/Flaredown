@@ -7,5 +7,4 @@ class CheckinTreatmentSerializer < CheckinTrackableSerializer
   def dose
     ::Dose.new(name: object.value) if object.value.present?
   end
-
 end

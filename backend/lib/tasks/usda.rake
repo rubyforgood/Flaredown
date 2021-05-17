@@ -1,11 +1,11 @@
 namespace :usda do
-  FOODS_FILE = Rails.root.join('spec/fixtures/usda/FOOD_DES.txt')
+  FOODS_FILE = Rails.root.join("spec/fixtures/usda/FOOD_DES.txt")
   SURROUNDER = /\A~|~\z/
-  BLANK_STRING = ''
-  PROGRESS_FAIL = 'x'
-  PROGRESS_SUCCESS = '.'
+  BLANK_STRING = ""
+  PROGRESS_FAIL = "x"
+  PROGRESS_SUCCESS = "."
 
-  desc 'Load USDA data'
+  desc "Load USDA data"
   task load: :environment do
     puts "Loading foods:\n"
 
@@ -13,7 +13,7 @@ namespace :usda do
 
     FOODS_FILE.readlines.each do |food|
       begin
-        parsed_food = food.encode('UTF-8', invalid: :replace).split('^')
+        parsed_food = food.encode("UTF-8", invalid: :replace).split("^")
 
         created_food = Food.find_or_create_by(ndb_no: strip(parsed_food.first)) do |f|
           f.comname = strip(parsed_food[4])
@@ -21,7 +21,7 @@ namespace :usda do
           f.long_desc = strip(parsed_food[2])
           f.shrt_desc = strip(parsed_food[3])
         end
-      rescue StandardError => e
+      rescue => e
         puts food
 
         raise e

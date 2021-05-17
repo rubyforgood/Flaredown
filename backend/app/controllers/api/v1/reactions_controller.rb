@@ -18,7 +18,7 @@ class Api::V1::ReactionsController < ApplicationController
 
       head :no_content
     else
-      render json: { errors: reaction.errors }, status: :unprocessable_entity
+      render json: {errors: reaction.errors}, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +46,7 @@ class Api::V1::ReactionsController < ApplicationController
 
       render json: serialized_reaction(reaction), status: :created
     else
-      render json: { errors: reaction.errors }, status: :unprocessable_entity
+      render json: {errors: reaction.errors}, status: :unprocessable_entity
     end
   end
 

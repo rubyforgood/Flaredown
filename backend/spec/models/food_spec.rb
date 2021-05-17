@@ -1,26 +1,26 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Food do
-  describe 'Respond to' do
+  describe "Respond to" do
     it { is_expected.to respond_to(:long_desc) }
     it { is_expected.to respond_to(:shrt_desc) }
     it { is_expected.to respond_to(:comname) }
     it { is_expected.to respond_to(:sciname) }
   end
 
-  describe 'class methods' do
-    let!(:global_food) { create(:food, long_desc: 'TestFood') }
+  describe "class methods" do
+    let!(:global_food) { create(:food, long_desc: "TestFood") }
     let!(:same_food_1) { create(:food, long_desc: "TestFood #{FFaker::Lorem.word}") }
     let!(:same_food_2) { create(:food, long_desc: "TestFood #{FFaker::Lorem.word}") }
 
-    let!(:personal_food) { create(:food, :personal, long_desc: 'TestFood') }
+    let!(:personal_food) { create(:food, :personal, long_desc: "TestFood") }
     let!(:user_food) { create(:user_food, food: personal_food) }
 
-    let(:query) { { name: 'TestFood' } }
+    let(:query) { {name: "TestFood"} }
 
     MAX_ROWS = 2
 
-    describe 'fts' do
+    describe "fts" do
       it "return same global foods" do
         another_user = create(:user)
         result = Food.send(:fts, query[:name], MAX_ROWS, another_user.id)

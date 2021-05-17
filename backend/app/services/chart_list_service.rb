@@ -1,9 +1,9 @@
 class ChartListService
-  TRACKABLES = %w(symptom condition treatment).freeze
-  HBI_PAYLOAD = [[1, 'Harvey Bradshaw Index'.freeze, true].freeze].freeze
+  TRACKABLES = %w[symptom condition treatment].freeze
+  HBI_PAYLOAD = [[1, "Harvey Bradshaw Index".freeze, true].freeze].freeze
   WEATHERS_PAYLOAD = [
-    [1, 'Avg daily humidity'.freeze, true].freeze,
-    [2, 'Avg daily atmospheric pressure'.freeze, true].freeze
+    [1, "Avg daily humidity".freeze, true].freeze,
+    [2, "Avg daily atmospheric pressure".freeze, true].freeze
   ].freeze
 
   attr_reader :user

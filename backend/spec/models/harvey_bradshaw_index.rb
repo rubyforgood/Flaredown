@@ -1,13 +1,13 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe HarveyBradshawIndex do
   include Mongoid::Matchers
 
-  describe 'Relations' do
+  describe "Relations" do
     it { is_expected.to belong_to(:checkin) }
   end
 
-  describe 'Validations' do
+  describe "Validations" do
     it { is_expected.to validate_presence_of(:checkin) }
 
     it { is_expected.to validate_presence_of(:stools) }

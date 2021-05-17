@@ -14,6 +14,6 @@ class CreateWeathers < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :weathers, %i(date postal_code), unique: true
+    add_index :weathers, %i[date postal_code], unique: true
   end
 end

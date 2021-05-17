@@ -1,0 +1,19 @@
+# Auto generated files with errors to ignore.
+# Remove from this list as you refactor files.
+---
+ignore:
+- app/controllers/api/v1/aws_ses_controller.rb
+- app/controllers/api/v1/profiles_controller.rb
+- app/controllers/api/v1/sessions_controller.rb
+- app/jobs/group_top_posts_job.rb
+- app/models/search.rb
+- app/services/charts_pattern.rb
+- config/initializers/00_app.rb
+- config/puma.rb
+- config/routes.rb
+- lib/tasks/app.rake
+- lib/tasks/hbi_completeness.rake
+- lib/tasks/trackables.rake
+- lib/tasks/usda.rake
+- spec/models/food_spec.rb
+- spec/spec_helper.rb

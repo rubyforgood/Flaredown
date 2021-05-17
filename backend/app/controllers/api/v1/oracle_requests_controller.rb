@@ -31,7 +31,7 @@ class Api::V1::OracleRequestsController < ApplicationController
 
       render json: @oracle_request
     else
-      render json: { errors: 'Unauthorized' }, status: :unauthorised
+      render json: {errors: "Unauthorized"}, status: :unauthorised
     end
   end
 
@@ -51,6 +51,6 @@ class Api::V1::OracleRequestsController < ApplicationController
   end
 
   def oracle_token
-    request.headers['X-Oracle-Token']
+    request.headers["X-Oracle-Token"]
   end
 end

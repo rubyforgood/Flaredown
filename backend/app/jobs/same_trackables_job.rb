@@ -6,7 +6,7 @@ class SameTrackablesJob
     translation = options["translation"]
 
     trackable_class = trackable_type.capitalize.constantize
-    searchable_attr = trackable_class.name == 'Food' ? 'long_desc' : 'name'
+    searchable_attr = trackable_class.name == "Food" ? "long_desc" : "name"
 
     [].tap do |array|
       if translation.present?
@@ -25,13 +25,13 @@ class SameTrackablesJob
     end
   end
 
-  def find_duplicates(trackable_class, translation, searchable_attr = 'name')
-    escaped_translation = Regexp.escape(translation.squish).split(' ').join('s+')
+  def find_duplicates(trackable_class, translation, searchable_attr = "name")
+    escaped_translation = Regexp.escape(translation.squish).split(" ").join("s+")
     regex = "^\\s*#{escaped_translation}\\s*$"
 
     same_translations = trackable_class::Translation.where("#{searchable_attr} ~* ?", regex)
     same_translations.map(&:"#{searchable_attr}") if same_translations.length > 1
   rescue ActiveRecord::StatementInvalid
-    return
+    nil
   end
 end

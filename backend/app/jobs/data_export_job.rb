@@ -1,5 +1,5 @@
 class DataExportJob < ActiveJob::Base
-  SUBFIELD_SEPARATOR = '; '.freeze
+  SUBFIELD_SEPARATOR = "; ".freeze
 
   queue_as :default
 
@@ -25,9 +25,9 @@ class DataExportJob < ActiveJob::Base
   def checkin_row(checkin)
     row = [checkin.date]
 
-    symptoms_map = trackables_map(checkin.symptoms, 'symptom')
-    conditions_map = trackables_map(checkin.conditions, 'condition')
-    treatments_map = trackables_map(checkin.treatments, 'treatment')
+    symptoms_map = trackables_map(checkin.symptoms, "symptom")
+    conditions_map = trackables_map(checkin.conditions, "condition")
+    treatments_map = trackables_map(checkin.treatments, "treatment")
 
     condition_names.keys.each { |id| row << conditions_map[id] }
     symptom_names.keys.each { |id| row << symptoms_map[id] }
@@ -74,19 +74,20 @@ class DataExportJob < ActiveJob::Base
     name_slug = klass.name.underscore
     relation = :"#{name_slug}_translations"
 
+    # .pluck(:"#{name_slug}_id", field)
     klass
       .joins(relation)
-      .where(:id => ids, relation => { locale: user_locale })
-      .pluck(:"#{name_slug}_id", field)
+      .where(:id => ids, relation => {locale: user_locale})
+      .pluck(:id, field)
       .to_h
   end
 
   def headers
-    ['Date']
+    ["Date"]
       .concat(condition_names.values)
       .concat(symptom_names.values)
       .concat(treatment_names.values)
-      .concat(%w(Tags Foods))
+      .concat(%w[Tags Foods])
   end
 
   def trackables_map(trackables, type)

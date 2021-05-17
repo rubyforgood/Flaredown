@@ -24,30 +24,30 @@ class CollectionRetriever
     @occurrences = Checkin.collection.aggregate(
       [
         # Step 1: have one entry per object id
-        { "$unwind" => @ids_field },
+        {"$unwind" => @ids_field},
         # Step 2: group by object id and count occurrences
-        { "$group" => { _id: @ids_field, count: { "$sum" => 1 } } },
+        {"$group" => {_id: @ids_field, count: {"$sum" => 1}}},
         # Step 3: sort by occurrences, descending
-        { "$sort" => { count: -1 } },
+        {"$sort" => {count: -1}},
         # Step 4: limit to 10 results
-        { "$limit" => 10 }
+        {"$limit" => 10}
       ]
     )
 
-    @model.where(id: occurrences.map { |o| o['_id'] }, global: true)
+    @model.where(id: occurrences.map { |o| o["_id"] }, global: true)
   end
 
   def most_recent
     checkin_relations = Checkin.collection.aggregate(
       [
         # Step 1: filter by user
-        { "$match" => { encrypted_user_id: @current_user.encrypted_id } },
+        {"$match" => {encrypted_user_id: @current_user.encrypted_id}},
         # Step 2: have one entry per object id
-        { "$unwind" => @ids_field },
+        {"$unwind" => @ids_field},
         # Step 3: sort by checkin date, descending
-        { "$sort" => { date: -1 } },
+        {"$sort" => {date: -1}},
         # Step 4: limit to 10 results
-        { "$limit" => 10 }
+        {"$limit" => 10}
       ]
     )
 

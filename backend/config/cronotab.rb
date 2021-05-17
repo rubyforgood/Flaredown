@@ -1,4 +1,4 @@
-require 'rake'
+require "rake"
 
 Rails.app_class.load_tasks
 

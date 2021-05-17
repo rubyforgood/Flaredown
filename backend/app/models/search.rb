@@ -1,14 +1,14 @@
 class Search
-  include ActiveModel::Model,
-          ActiveModel::Serialization,
-          ActiveRecord::Sanitization::ClassMethods
+  include ActiveRecord::Sanitization::ClassMethods
+  include ActiveModel::Serialization
+  include ActiveModel::Model
 
   attr_accessor :resource, :scope, :user, :query
 
   #
   # Validations
   #
-  validates :resource, presence: true, inclusion: { in: %w(treatment symptom condition tag dose food topic) }
+  validates :resource, presence: true, inclusion: {in: %w[treatment symptom condition tag dose food topic]}
 
   def id
     Digest::SHA256.base64digest(resource)
@@ -34,8 +34,8 @@ class Search
       resources.where(*where_conditions).limit(MAX_ROWS)
     elsif scope.present?
       case scope
-      when 'random'
-        resources.limit(MAX_ROWS).order('RANDOM()')
+      when "random"
+        resources.limit(MAX_ROWS).order("RANDOM()")
       end
     else
       resources.limit(MAX_ROWS)
@@ -69,5 +69,4 @@ class Search
   def current_ability
     @current_ability ||= Ability.new(user)
   end
-
 end
