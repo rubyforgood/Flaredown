@@ -1,1 +1,1 @@
-web: sh boot.sh
+web: npm start
