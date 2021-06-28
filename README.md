@@ -1,7 +1,8 @@
 # Flaredown
-![build](https://github.com/Flaredown/FlaredownEmber-2/workflows/build-test_new-feature-branch/badge.svg)
-![standardrb lint TODO](https://github.com/build-test_new-feature-branch/actions/workflows/ruby_lint.yml/badge.svg)
-![brakeman TODO](https://github.com/build-test_new-feature-branch/workflows/brakeman/badge.svg)
+[![rspec](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/rspec.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/rspec.yml)
+[![frontend](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/frontend.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/frontend.yml)
+[![ERB lint](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/erb_lint.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/erb_lint.yml)
+[![standardrb lint](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/ruby_lint.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/ruby_lint.yml)
 
 Flaredown makes it easy for people to track symptoms over time, and learn how to control them. Our goal is to analyze the aggregate data from users of this tool to understand the probably effects of treatments and environmental stressors on chronic illness.
 
