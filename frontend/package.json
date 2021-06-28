@@ -81,7 +81,7 @@
     "express-sabayon": "hone/express-sabayon",
     "express-serve-static-gzip": "hone/express-serve-static-gzip",
     "fastboot-express-middleware": "^1.0.0-rc.7",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "node-sass": "^4.5.3",
     "process-nextick-args": "^1.0.7",
     "webp-middleware": "^0.3.2"
