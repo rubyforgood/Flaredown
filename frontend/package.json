@@ -14,7 +14,9 @@
   },
   "repository": "",
   "engines": {
-    "node": "6.10.3"
+    "node": "6.10.3",
+    "npm": "6.x",
+    "bower": "1.x"
   },
   "author": "",
   "license": "MIT",
