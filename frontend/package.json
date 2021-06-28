@@ -22,6 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "active-model-adapter": "2.1.1",
+    "bower": "^1.8.12",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
     "ember-at-js": "0.0.1",
