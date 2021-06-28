@@ -82,7 +82,7 @@
     "express": "^4.14.1",
     "express-cluster": "0.0.4",
     "express-sabayon": "^0.0.1",
-    "express-serve-static-gzip": "hone/express-serve-static-gzip",
+    "express-static-gzip": "2.1.1",
     "fastboot-express-middleware": "^1.0.0-rc.7",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
