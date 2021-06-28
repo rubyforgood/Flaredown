@@ -8,7 +8,8 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "bower install && ember build",
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "build": "ember build",
     "start": "ember server --port 4300",
     "test": "ember test"
   },
