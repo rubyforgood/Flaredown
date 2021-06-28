@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build",
+    "build": "bower install && ember build",
     "start": "ember server --port 4300",
     "test": "ember test"
   },
