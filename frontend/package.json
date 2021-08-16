@@ -15,7 +15,7 @@
   },
   "repository": "",
   "engines": {
-    "node": "6.10.3",
+    "node": "6.10.3f",
     "bower": "1.x"
   },
   "author": "",
@@ -30,7 +30,6 @@
     "broccoli-stew": "^1.4.0",
     "ember-ajax": "^3.0.0",
     "ember-at-js": "0.0.1",
-    "ember-cli-airbrake": "0.2.1",
     "ember-cli-app-version": "^3.0.0",
     "ember-cli-babel": "^6.3.0",
     "ember-cli-bourbon": "1.2.0",
