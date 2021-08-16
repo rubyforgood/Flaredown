@@ -15,7 +15,7 @@
   },
   "repository": "",
   "engines": {
-    "node": "6.10.3f",
+    "node": "6.10.3",
     "bower": "1.x"
   },
   "author": "",
