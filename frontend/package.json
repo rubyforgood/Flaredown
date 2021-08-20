@@ -17,15 +17,11 @@
     "test": "ember test"
   },
   "dependencies": {
-    "ember-cli": "2.14.0",
     "express": "^4.14.1",
     "express-cluster": "0.0.4",
     "express-sabayon": "^0.0.1",
     "express-static-gzip": "2.1.1",
     "fastboot-express-middleware": "^1.0.0-rc.7",
-    "lodash": "^4.17.4",
-    "node-sass": "^4.5.3",
-    "process-nextick-args": "^1.0.7",
     "webp-middleware": "^0.3.2"
   },
   "devDependencies": {
@@ -38,6 +34,7 @@
     "broccoli-stew": "^1.4.0",
     "ember-ajax": "^3.0.0",
     "ember-at-js": "0.0.1",
+    "ember-cli": "2.14.0",
     "ember-cli-app-version": "^3.0.0",
     "ember-cli-babel": "^6.3.0",
     "ember-cli-bourbon": "1.2.0",
@@ -79,6 +76,7 @@
     "ember-time-field": "^0.1.5",
     "ember-truth-helpers": "1.2.0",
     "loader.js": "^4.2.3",
+    "node-sass": "^4.5.3",
     "torii": "^0.8.0"
   },
   "engines": {
