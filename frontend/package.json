@@ -81,7 +81,8 @@
   },
   "engines": {
     "bower": "1.x",
-    "node": "6.10.3"
+    "node": "12",
+    "npm": "7"
   },
   "ember-addon": {
     "paths": [
