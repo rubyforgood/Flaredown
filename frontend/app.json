@@ -1,0 +1,24 @@
+{
+  "buildpacks": [
+    {
+      "url": "https://github.com/lstoll/heroku-buildpack-monorepo"
+    }
+    {
+      "url": "https://buildpack-registry.s3.amazonaws.com/buildpacks/aedev/emberjs.tgz"
+    }
+  ],
+  "env": {
+    "ACME_KEY_1": {
+      "description": "used to identify folder with heroku-buildpack-monorepo",
+      "value": "frontend"
+    },
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "flaredown-webapp",
+  "scripts": {},
+  "stack": "heroku-20"
+}
