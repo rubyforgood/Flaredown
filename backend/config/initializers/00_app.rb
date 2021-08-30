@@ -18,10 +18,6 @@ module Flaredown
       3
     end
 
-    def enable_airbrake?
-      Rails.env.production?
-    end
-
     def discourse_enabled?
       Rails.env.production? || ENV.fetch("DISCOURSE_ENABLED") { false }
     end

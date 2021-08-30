@@ -5,7 +5,6 @@ module ExceptionLogger
     # keep this on top
     if Rails.env.production?
       rescue_from "Exception" do |exception|
-        Airbrake.notify(exception)
         render json: {errors: exception.message}, status: :unprocessable_entity
       end
     end
