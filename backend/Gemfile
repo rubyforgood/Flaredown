@@ -47,9 +47,6 @@ gem "globalize"
 # Abort requests that are taking too long
 gem "rack-timeout"
 
-# exception tracking
-gem "airbrake", "~> 5.4"
-
 # wrapper for forecast.io API, Dark Sky
 gem "forecast_io"
 
