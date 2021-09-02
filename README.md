@@ -11,7 +11,7 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 ## Environment
 
 * PostgreSQL 9.4
-* MongoDB 3.0.10
+* MongoDB 3.0.10 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 3.2.6
 * Ruby 2.3.1 (see [RVM](https://rvm.io/) also)
 * Node 6.10.3
