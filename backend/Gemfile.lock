@@ -67,6 +67,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bson (4.12.0)
     bson (4.12.0-java)
+    bugsnag (6.22.1)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     bullet (6.1.4)
       activesupport (>= 3.0.0)
@@ -412,6 +414,7 @@ DEPENDENCIES
   awesome_print (~> 1.6)
   better_errors (~> 2.1)
   binding_of_caller (~> 0.7)
+  bugsnag (~> 6.22)
   bullet
   byebug
   cancancan (~> 1.10)
