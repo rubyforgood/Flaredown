@@ -14,7 +14,7 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 * MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 6.2.3
 * Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
-* Node 6.10.3
+* Node 14.18.0
 
 You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
 
