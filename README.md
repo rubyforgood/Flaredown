@@ -1,8 +1,8 @@
 # Flaredown
-[![rspec](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/rspec.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/rspec.yml)
-[![frontend](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/frontend.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/frontend.yml)
-[![ERB lint](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/erb_lint.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/erb_lint.yml)
-[![standardrb lint](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/ruby_lint.yml/badge.svg)](https://github.com/Flaredown/FlaredownEmber-2/actions/workflows/ruby_lint.yml)
+[![rspec](https://github.com/rubyforgood/Flaredown/actions/workflows/rspec.yml/badge.svg)](https://github.com/rubyforgood/Flaredown/actions/workflows/rspec.yml)
+[![frontend](https://github.com/rubyforgood/Flaredown/actions/workflows/frontend.yml/badge.svg)](https://github.com/rubyforgood/Flaredown/actions/workflows/frontend.yml)
+[![ERB lint](https://github.com/rubyforgood/Flaredown/actions/workflows/erb_lint.yml/badge.svg)](https://github.com/rubyforgood/Flaredown/actions/workflows/erb_lint.yml)
+[![standardrb lint](https://github.com/rubyforgood/Flaredown/actions/workflows/ruby_lint.yml/badge.svg)](https://github.com/rubyforgood/Flaredown/actions/workflows/ruby_lint.yml)
 
 Flaredown makes it easy for people to track symptoms over time, and learn how to control them. Our goal is to analyze the aggregate data from users of this tool to understand the probable effects of treatments and environmental stressors on chronic illness.
 
@@ -13,7 +13,7 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 * PostgreSQL 9.4
 * MongoDB 3.0.10 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 3.2.6
-* Ruby 2.3.1 (see [RVM](https://rvm.io/) also)
+* Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
 * Node 6.10.3
 
 
@@ -24,7 +24,10 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 ```bash
 cd backend
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-bundle install --without production -j5 --retry 10
+bundle config set --local without 'production'
+bundle config set --local jobs 5
+bundle config set --local retry 10
+bundle install
 cp env-example .env # You may adjust it however you like
                     # RVM is going to autoload this on every 'cd' to the dirrectory
 bundle exec rake app:setup
