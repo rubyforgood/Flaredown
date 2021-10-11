@@ -3,9 +3,11 @@ name: frontend
 on:
   push:
     branches:
+      - '**'
+  pull_request:
+    branches:
       - main
       - master
-  pull_request:
 
 env:
   NODE_VERSION: 14
