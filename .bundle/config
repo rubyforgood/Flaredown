@@ -1,0 +1,2 @@
+---
+BUNDLE_BUILD__PG: "--with-ldflags=-L/usr/local/opt/libpq/lib --with-pg-include=/usr/local/opt/libpq/include"
