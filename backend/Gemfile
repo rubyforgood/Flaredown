@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.6.5"
+ruby "2.6.8"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: [:development, :test]
