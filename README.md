@@ -39,7 +39,6 @@ bundle exec rake app:setup
 ```bash
 cd frontend
 npm install
-bower install
 ```
 
 ## Running / Development
