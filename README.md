@@ -24,7 +24,10 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 ```bash
 cd backend
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-bundle install --without production -j5 --retry 10
+bundle config set --local without 'production'
+bundle config set --local jobs 5
+bundle config set --local retry 10
+bundle install
 cp env-example .env # You may adjust it however you like
                     # RVM is going to autoload this on every 'cd' to the dirrectory
 bundle exec rake app:setup
