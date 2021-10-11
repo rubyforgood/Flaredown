@@ -6,7 +6,7 @@
 
 Flaredown makes it easy for people to track symptoms over time, and learn how to control them. Our goal is to analyze the aggregate data from users of this tool to understand the probable effects of treatments and environmental stressors on chronic illness.
 
-Note from April 2021: this app has not received maintenance lately but we are working to get a github actions build running so we can upgrade the heroku stack away from Cedar-14 and make other important updates. Help would be appreciated! Please join us in [slack #flaredown](https://rubyforgood.herokuapp.com/) or raise a github issue, or email the contact@flaredown email which is currently checked every few days.    
+Note from April 2021: this app has not received maintenance lately but we are working to get a github actions build running so we can upgrade the heroku stack away from Cedar-14 and make other important updates. Help would be appreciated! Please join us in [slack #flaredown](https://rubyforgood.herokuapp.com/) or raise a github issue, or email the contact@flaredown email which is currently checked every few days.
 
 ## Environment
 
@@ -24,7 +24,10 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 ```bash
 cd backend
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-bundle install --without production -j5 --retry 10
+bundle config set --local without 'production'
+bundle config set --local jobs 5
+bundle config set --local retry 10
+bundle install
 cp env-example .env # You may adjust it however you like
                     # RVM is going to autoload this on every 'cd' to the dirrectory
 bundle exec rake app:setup
