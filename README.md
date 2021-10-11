@@ -10,11 +10,13 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 
 ## Environment
 
-* PostgreSQL 9.4
-* MongoDB 3.0.10 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+* PostgreSQL 12.3
+* MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 3.2.6
 * Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
 * Node 6.10.3
+
+You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
 
 On macOS, you can install libpq by running `brew install libpq && brew link --force libpq && bundle config --local build.pg "--with-ldflags=-L$(brew --prefix libpq)/lib --with-pg-include=$(brew --prefix libpq)/include"`, which is required for `bundle install` to succeed.
 
