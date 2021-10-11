@@ -30,7 +30,7 @@ bundle config set --local jobs 5
 bundle config set --local retry 10
 bundle install
 cp env-example .env # You may adjust it however you like
-                    # RVM is going to autoload this on every 'cd' to the dirrectory
+                    # RVM is going to autoload this on every 'cd' to the directory
 bundle exec rake app:setup
 ```
 
