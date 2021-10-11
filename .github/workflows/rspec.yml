@@ -30,7 +30,7 @@ jobs:
         options: --entrypoint redis-server
 
       db:
-        image: postgres:12.3
+        image: postgres:11.13
         env:
           POSTGRES_PASSWORD: password
         ports:
