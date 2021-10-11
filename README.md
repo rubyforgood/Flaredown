@@ -16,6 +16,7 @@ Note from April 2021: this app has not received maintenance lately but we are wo
 * Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
 * Node 6.10.3
 
+On macOS, you can install libpq by running `brew install libpq && brew link --force libpq && bundle config --local build.pg "--with-ldflags=-L$(brew --prefix libpq)/lib --with-pg-include=$(brew --prefix libpq)/include"`, which is required for `bundle install` to succeed.
 
 ## Installation
 
