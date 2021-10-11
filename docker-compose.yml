@@ -5,7 +5,7 @@ volumes:
   redis:
 services:
   postgres:
-    image: postgres:11.13-alpine
+    image: postgres:12.8-alpine
     environment:
       POSTGRES_PASSWORD: password
       PGDATA: /data
@@ -20,7 +20,7 @@ services:
     ports:
       - 27017:27017
   redis:
-    image: redis:3.2.6-alpine
+    image: redis:6.2.3-alpine
     volumes:
       - redis:/data
     ports:
