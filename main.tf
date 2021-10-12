@@ -80,7 +80,7 @@ resource "heroku_review_app_config" "flaredown" {
   pipeline_id = heroku_pipeline.flaredown-pipeline.id
   org_repo = "rubyforgood/Flaredown"
   automatic_review_apps = true
-  base_name = "${var.heroku_prefix}flaredown-review"
+  base_name = "${var.heroku_prefix}flaredown"
 
   deploy_target {
     id = "us"
