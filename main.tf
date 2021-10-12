@@ -66,3 +66,12 @@ resource "heroku_pipeline_coupling" "staging" {
   pipeline = heroku_pipeline.flaredown-pipeline.id
   stage = "staging"
 }
+
+resource "herokux_app_github_integration" "staging" {
+  app_id = heroku_app.staging.uuid
+  branch = "master"
+  auto_deploy = true
+  wait_for_ci = true
+
+  depends_on = [herokux_pipeline_github_integration.flaredown-pipeline-github]
+}
