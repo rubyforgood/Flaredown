@@ -11,6 +11,7 @@ on:
   pull_request:
     branches:
       - main
+      - master
     paths-ignore:
       - 'docs/**'
       - '*.md'
@@ -25,12 +26,12 @@ jobs:
 
     services:
       redis:
-        image: redis
+        image: redis:6.2.3-alpine
         ports: ['6379:6379']
         options: --entrypoint redis-server
 
       db:
-        image: postgres:12.3
+        image: postgres:12.8-alpine
         env:
           POSTGRES_PASSWORD: password
         ports:
@@ -52,7 +53,7 @@ jobs:
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.4.0
         with:
-          mongodb-version: 4.4
+          mongodb-version: 4.4.9
 
       - name: Install PostgreSQL client
         run: |

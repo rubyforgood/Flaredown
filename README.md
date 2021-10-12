@@ -6,15 +6,17 @@
 
 Flaredown makes it easy for people to track symptoms over time, and learn how to control them. Our goal is to analyze the aggregate data from users of this tool to understand the probable effects of treatments and environmental stressors on chronic illness.
 
-Note from April 2021: this app has not received maintenance lately but we are working to upgrade the heroku stack away from Cedar-14 and make other important updates. Help would be appreciated! Please join us in [slack #flaredown](https://rubyforgood.herokuapp.com/) or raise a github issue, or email the contact@flaredown email which is currently checked every few days.
+Help would be appreciated! Please join us in [slack #flaredown](https://rubyforgood.herokuapp.com/) or raise a github issue, or email the contact@flaredown email which is currently checked every few days.
 
 ## Environment
 
-* PostgreSQL 12.3
+* PostgreSQL 12.8
 * MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
-* Redis 3.2.6
+* Redis 6.2.3
 * Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
-* Node 6.10.3
+* Node 14.18.0
+
+You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
 
 You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
 
@@ -32,7 +34,7 @@ bundle config set --local jobs 5
 bundle config set --local retry 10
 bundle install
 cp env-example .env # You may adjust it however you like
-                    # RVM is going to autoload this on every 'cd' to the dirrectory
+                    # RVM is going to autoload this on every 'cd' to the directory
 bundle exec rake app:setup
 ```
 
@@ -41,7 +43,6 @@ bundle exec rake app:setup
 ```bash
 cd frontend
 npm install
-bower install
 ```
 
 ## Running / Development
