@@ -27,7 +27,10 @@ class RankedEnum
   end
 
   def name
-    I18n.t "#{key}.#{id}"
+    I18n.t! "#{key}.#{id}"
+  rescue I18n::MissingTranslationData
+    # This avoids strings in the UI like "translation missing: pt.sex.male"
+    I18n.t "#{key}.#{id}", locale: :en
   end
 
   def key
