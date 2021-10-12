@@ -75,3 +75,19 @@ resource "herokux_app_github_integration" "staging" {
 
   depends_on = [herokux_pipeline_github_integration.flaredown-pipeline-github]
 }
+
+resource "heroku_review_app_config" "flaredown" {
+  pipeline_id = heroku_pipeline.flaredown-pipeline.id
+  org_repo = "rubyforgood/Flaredown"
+  automatic_review_apps = true
+  base_name = "${var.heroku_prefix}flaredown-review"
+
+  deploy_target {
+    id = "us"
+    type = "region"
+  }
+
+  destroy_stale_apps = true
+  stale_days = 5
+  wait_for_ci = true
+}
