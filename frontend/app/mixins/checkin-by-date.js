@@ -28,12 +28,12 @@ export default Ember.Mixin.create({
   routeToNewCheckin(date, step) {
     var newCheckin = this.get('store').createRecord('checkin', {date: date});
     newCheckin.save().then(savedCheckin => {
-      this.router.transitionTo('checkin.show', savedCheckin.get('id'), step ? step : 'start');
+      this.router.transitionTo('checkin.show', savedCheckin.get('id'), step ? step : 'conditions');
     });
   },
 
   routeToCheckin(checkin, step) {
-    this.router.transitionTo("checkin.show", checkin.id, step ? step : "start")
+    this.router.transitionTo('checkin.show', checkin.id, step ? step : 'conditions')
   },
 
   actions: {

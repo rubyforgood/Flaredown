@@ -9,7 +9,6 @@ const {
 
 export default Service.extend({
   checkinSeed: [
-    'start',
     'conditions',
     'symptoms',
     'treatments',

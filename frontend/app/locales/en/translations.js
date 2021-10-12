@@ -32,9 +32,6 @@ export default {
     },
 
     checkin: {
-      start: {
-        hint: "Tap <b>next</b> to get started!",
-      },
       conditions: {
         title: "How active were your conditions today?",
         shortTitle: "Conditions",
