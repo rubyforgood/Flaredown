@@ -12,7 +12,7 @@ class MergeTrackables::UserTrackableAssociation
 
     klass.where(trackable_type.to_sym => rest).map do |user_trackable_type|
       parent_user_trackable = klass.find_by(trackable_type.to_sym => parent,
-                                            :user_id => user_trackable_type.user_id)
+        :user_id => user_trackable_type.user_id)
 
       if parent_user_trackable.present?
         user_trackable_type.destroy
