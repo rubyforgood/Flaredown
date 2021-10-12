@@ -66,6 +66,24 @@ Deployments target [Heroku](https://heroku.com). The traditional deployment is m
 
 Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail. MongoDB is provided by mongodb.com.
 
+### New pipeline
+
+A new pipeline is being built to unify and automate the deployment of the application. It is based around [Heroku Pipelines](https://devcenter.heroku.com/articles/pipelines) and [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps) and uses [the Heroku Terraform provider](https://registry.terraform.io/providers/heroku/heroku/latest/docs) to [build the entire pipeline from code](https://devcenter.heroku.com/articles/using-terraform-with-heroku).
+
+Prerequisites:
+* [Install Terraform v1.0.8](https://www.terraform.io/downloads.html).
+* Login to Heroku (`heroku login`) in order to [configure credentials via a `.netrc` file in your home directory](https://registry.terraform.io/providers/heroku/heroku/latest/docs#netrc) for use by Terraform. [Use isolated credentials](https://devcenter.heroku.com/articles/using-terraform-with-heroku#authorization) if desired.
+* Initialize your Terraform state via `terraform init`.
+
+Once setup, you can run `terraform plan` to see what changes are necessary to converge pipeline state. Run `terraform apply` to converge necessary changes. Read about [the core Terraform workflow](https://www.terraform.io/guides/core-workflow.html) for more details.
+
+There are some variables that you can set (using `-var`) to customise the convergence:
+* `heroku_prefix` - prefix added to resource names (eg `-var 'heroku_prefix=myprefix-'`)
+
+**IMPORTANT NOTE**: Read about [best practices for using Terraform to manage Heroku](https://devcenter.heroku.com/articles/using-terraform-with-heroku#best-practices) before working with the CD pipeline either via the Heroku Dashboard or Terraform.
+
+TODO: Use [Terraform Cloud](https://www.terraform.io/cloud) for collaborative convergence?
+
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.
 

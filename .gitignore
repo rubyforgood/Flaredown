@@ -6,3 +6,6 @@ backend/dump
 
 dump.rdb
 .rbenv-gemsets
+
+.terraform
+terraform.tfstate*
