@@ -3,9 +3,9 @@ import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin'
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
 const {
-  get,
   set,
   Route,
+  RSVP,
 } = Ember;
 
 export default Route.extend(AuthenticatedRouteMixin, CheckinByDate, {
@@ -13,9 +13,9 @@ export default Route.extend(AuthenticatedRouteMixin, CheckinByDate, {
     set(this, 'date', transition.queryParams.date);
   },
 
-  model() {
-    const date = get(this, 'date') || moment(new Date()).format('YYYY-MM-DD');
+  model(params) {
+    const date = params.date_key || moment(new Date()).format('YYYY-MM-DD');
 
-    return this.checkinByDate(date)
+    return RSVP.hash({ checkins: this.checkinByDate(date), date: date })
   },
 });

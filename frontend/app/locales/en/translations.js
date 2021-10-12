@@ -34,7 +34,6 @@ export default {
     checkin: {
       start: {
         hint: "Tap <b>next</b> to get started!",
-        title: "You haven't checked in yet today",
       },
       conditions: {
         title: "How active were your conditions today?",

@@ -1,15 +1,11 @@
 {{#if isSummary}}
   <h2 class="summary-title">{{step.title}}</h2>
 
-  {{checkin/days-nav big=isSummary checkin=checkin step=step}}
-
   {{save-status record=checkin}}
 
   {{checkin/summary-step onStepCompleted=(action 'moveToNextStep')
                          onGoBack=(action 'moveToPrevStep') }}
 {{else}}
-  {{checkin/days-nav big=isSummary checkin=checkin step=step}}
-
   {{#if isStart}}
     {{checkin/start-step
       step=step

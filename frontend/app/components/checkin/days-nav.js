@@ -16,7 +16,7 @@ export default Component.extend(CheckinByDate, {
     max: moment().toDate(),
   },
 
-  currentDate: Ember.computed.alias('checkin.date'),
+  currentDate: Ember.computed.alias('date'),
 
   checkinDate: computed('currentDate', function() {
     return moment(get(this, 'currentDate')).toDate();
@@ -29,6 +29,7 @@ export default Component.extend(CheckinByDate, {
   isToday: Ember.computed('currentDate', function() {
     return moment(this.get('currentDate')).isSame(new Date(), 'day');
   }),
+
   isntToday: Ember.computed.not('isToday'),
 
   checkinDateLabel: computed('checkinDate', function() {
@@ -39,13 +40,14 @@ export default Component.extend(CheckinByDate, {
     goToYesterday() {
       const yesterday = moment(this.get('currentDate')).subtract(1, 'days');
 
-      this.routeToCheckin(yesterday.format("YYYY-MM-DD"), this.get('step.stepName'));
+      this.routeToCheckinsForDate(yesterday.format("YYYY-MM-DD"));
     },
+
     goToTomorrow() {
       if (this.get('isntToday')) {
         const tomorrow = moment(this.get('currentDate')).add(1, 'days');
 
-        this.routeToCheckin(tomorrow.format("YYYY-MM-DD"), this.get('step.stepName'));
+        this.routeToCheckinsForDate(tomorrow.format("YYYY-MM-DD"));
       }
     },
 
@@ -56,8 +58,7 @@ export default Component.extend(CheckinByDate, {
     checkinDateChanged(date) {
       const checkinDate = moment(date);
 
-      this.routeToCheckin(checkinDate.format("YYYY-MM-DD"), get(this, 'step.stepName'));
+      this.routeToCheckinsForDate(checkinDate.format("YYYY-MM-DD"));
     },
   }
-
 });
