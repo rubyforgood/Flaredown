@@ -40,24 +40,24 @@ class Profile < ActiveRecord::Base
 
   validates :country_id, inclusion: {
     in: Country.codes
-  }, if: -> {country_id.present?}
+  }, if: -> { country_id.present? }
 
   validates :sex_id, inclusion: {
     in: Sex.all_ids
-  }, if: -> {sex_id.present?}
+  }, if: -> { sex_id.present? }
 
   validates :day_habit_id, inclusion: {
     in: DayHabit.all_ids,
     message: "%{value} is not a valid day_habit_id"
-  }, if: -> {day_habit_id.present?}
+  }, if: -> { day_habit_id.present? }
 
   validates :education_level_id, inclusion: {
     in: EducationLevel.all_ids,
     message: "%{value} is not a valid education_level_id"
-  }, if: -> {education_level_id.present?}
+  }, if: -> { education_level_id.present? }
 
-  validate :ethnicity_ids_are_valid, if: -> {ethnicity_ids_string.present?}
-  validate :age_of_birth, if: -> {birth_date.present?}
+  validate :ethnicity_ids_are_valid, if: -> { ethnicity_ids_string.present? }
+  validate :age_of_birth, if: -> { birth_date.present? }
 
   def ethnicity_ids_are_valid
     ethnicity_ids.each do |id|

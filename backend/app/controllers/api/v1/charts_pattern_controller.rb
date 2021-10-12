@@ -12,8 +12,8 @@ class Api::V1::ChartsPatternController < ApplicationController
 
     @extended_patterns = @patterns.map do |pattern|
       pattern.extend(PatternExtender).form_chart_data(start_at: start_at,
-                                                      end_at: end_at,
-                                                      pattern: pattern)
+        end_at: end_at,
+        pattern: pattern)
     end
 
     render json: @extended_patterns, meta: {color_ids: Flaredown::Colorable::IDS}
