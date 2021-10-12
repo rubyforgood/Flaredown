@@ -8,7 +8,7 @@
     }
   ],
   "env": {
-    "ACME_KEY_1": {
+    "APP_BASE": {
       "description": "used to identify folder with heroku-buildpack-monorepo",
       "value": "frontend"
     }
