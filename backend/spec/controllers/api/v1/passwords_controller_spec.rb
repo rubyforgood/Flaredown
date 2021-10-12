@@ -12,22 +12,22 @@ RSpec.describe Api::V1::PasswordsController do
           email: nil,
           password: nil,
           password_confirmation: nil,
-          reset_password_token: nil,
+          reset_password_token: nil
         }
       end
 
       context "for an email that exists in the database" do
         it "returns a password reset object" do
           expect_any_instance_of(User).to receive(:send_reset_password_instructions).and_return true
-          post :create, params: { password: password_params.merge(email: user.email) }
+          post :create, params: {password: password_params.merge(email: user.email)}
           expect(response.status).to eq 200
           expect(response_body[:password]).to include({"email" => user.email})
         end
 
         it "finds a user by case-insensitive email address" do
-          other_user = create :user, email: "areallycamelcaseemail@gmail.com"
+          other_user = create :user, email: "arEALLycAMELcaSeemAIl@gmail.com"
           expect_any_instance_of(User).to receive(:send_reset_password_instructions).and_return true
-          post :create, params: { password: password_params.merge(email: "AReallyCamelCaseEmail@GmAiL.CoM") }
+          post :create, params: {password: password_params.merge(email: "AReallyCamelCaseEmail@GmAiL.CoM")}
           expect(response.status).to eq 200
           expect(response_body[:password]).to include({"email" => other_user.email})
         end
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::PasswordsController do
       context "for an email that does not exist in the database" do
         it "returns a 404" do
           expect_any_instance_of(User).to_not receive(:send_reset_password_instructions)
-          post :create, params: { password: password_params.merge(email: "Idonotexist@example.com") }
+          post :create, params: {password: password_params.merge(email: "Idonotexist@example.com")}
           expect(response.status).to eq 404
         end
       end
