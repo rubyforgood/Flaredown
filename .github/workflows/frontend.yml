@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - run: npm install -g npm@latest
       - run: npm install
         working-directory: ./frontend
       - run: npm run test
