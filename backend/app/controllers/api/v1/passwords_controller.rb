@@ -12,7 +12,7 @@ class Api::V1::PasswordsController < ApplicationController
   end
 
   def create
-    user = User.find_by!(email: email_param)
+    user = User.find_by!("LOWER(email) = ?", email_param.downcase)
 
     return unless user.send_reset_password_instructions
 
