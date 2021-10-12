@@ -33,7 +33,7 @@ export default Ember.Mixin.create({
   },
 
   routeToCheckin(checkin, step) {
-    this.router.transitionTo('checkin.show', checkin.id, step ? step : 'conditions')
+    this.router.transitionTo('checkin.show', checkin.id, step ? step : 'summary')
   },
 
   actions: {
