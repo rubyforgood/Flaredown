@@ -16,7 +16,7 @@ RSpec.describe Api::V1::PasswordsController do
         }
       end
 
-      context "for an that email exists in the database" do
+      context "for an email that exists in the database" do
         it "returns a password reset object" do
           expect_any_instance_of(User).to receive(:send_reset_password_instructions).and_return true
           post :create, params: { password: password_params.merge(email: user.email) }
