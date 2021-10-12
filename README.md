@@ -18,8 +18,6 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 
 You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
 
-You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
-
 On macOS, you can install libpq by running `brew install libpq && brew link --force libpq && bundle config --local build.pg "--with-ldflags=-L$(brew --prefix libpq)/lib --with-pg-include=$(brew --prefix libpq)/include"`, which is required for `bundle install` to succeed.
 
 ## Installation
