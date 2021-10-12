@@ -42,7 +42,6 @@ class Checkin
   # Validations
   #
   validates :encrypted_user_id, presence: true
-  validates :date, presence: true, uniqueness: {scope: :encrypted_user_id}
 
   #
   # Scopes

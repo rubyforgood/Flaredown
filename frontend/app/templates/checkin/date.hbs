@@ -1,0 +1,7 @@
+<li class="nav-link"><a href="#" {{action "goToNewCheckin"}}>Add Checkin</a></li>
+
+{{checkin/days-nav big=isSummary checkin=checkin step=step}}
+
+{{#each model as |checkin|}}
+  <li class="nav-link"><a href="#" {{action "goToCheckin" checkin}}>{{ checkin.id }}</a></li>
+{{/each}}

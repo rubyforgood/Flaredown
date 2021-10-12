@@ -12,36 +12,60 @@ export default Ember.Mixin.create({
     return new Ember.RSVP.Promise((resolve,reject) => {
       this.get('store').query('checkin', {date: date}).then(results => {
         var records = results.toArray();
+        console.log(records)
         if (Ember.isEmpty(records)) {
           reject();
         } else {
-          resolve(records[0]);
+          resolve(records);
         }
       });
     });
   },
 
-  routeToCheckin(date, step) {
+  routeToTodaysCheckin(date, step) {
     this.checkinByDate(date).then( checkin => {
-      let defaultStep = checkin.get('isBlank') ? 'start' : 'summary';
+      let defaultStep = checkin[0].get('isBlank') ? 'start' : 'summary';
       if (typeof FastBoot === 'undefined') {
-        this.router.transitionTo('checkin.show', checkin.get('id'), step ? step : defaultStep);
+        this.router.transitionTo('checkin.show', checkin[0].get('id'), step ? step : defaultStep); // probably want to change this [0] business
       }
-    }, () => {
-      this.routeToNewCheckin(date, step);
+    });
+  },
+
+  routeToTodaysCheckins(date, step) {
+    this.checkinByDate(date).then( checkins => {
+      if (typeof FastBoot === 'undefined') {
+        console.log('here');
+        this.router.transitionTo('checkin.date', date);
+      }
     });
   },
 
   routeToNewCheckin(date, step) {
+    console.log("creating new...")
     var newCheckin = this.get('store').createRecord('checkin', {date: date});
     newCheckin.save().then(savedCheckin => {
       this.router.transitionTo('checkin.show', savedCheckin.get('id'), step ? step : 'start');
     });
   },
 
+  routeToCheckin(checkin, step) {
+    this.router.transitionTo("checkin.show", checkin.id, step ? step : "start")
+  },
+
   actions: {
     goToTodaysCheckin() {
-      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
+      this.routeToTodaysCheckin(moment(new Date()).format("YYYY-MM-DD"));
+    },
+    goToTodaysCheckins() {
+      console.log("actions");
+      this.routeToTodaysCheckins(moment(new Date()).format("YYYY-MM-DD"));
+    },
+    goToNewCheckin() {
+      // add specific date here
+      this.routeToNewCheckin(moment(new Date()).format("YYYY-MM-DD"));
+    },
+    goToCheckin(checkin) {
+      this.routeToCheckin(checkin)
     },
   },
 });
