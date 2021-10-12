@@ -4,10 +4,16 @@ terraform {
       source = "heroku/heroku"
       version = "~> 4.6"
     }
+
+    herokux = {
+      source = "davidji99/herokux"
+      version = "0.30.4"
+    }
   }
 }
 
 provider "heroku" {}
+provider "herokux" {}
 
 variable "heroku_prefix" {
   type = string
@@ -49,6 +55,12 @@ resource "heroku_addon_attachment" "postgres" {
 resource "heroku_pipeline" "flaredown-pipeline" {
   name = "${var.heroku_prefix}flaredown-pipeline"
 }
+
+resource "herokux_pipeline_github_integration" "flaredown-pipeline-github" {
+  pipeline_id = heroku_pipeline.flaredown-pipeline.id
+  org_repo = "rubyforgood/Flaredown"
+}
+
 resource "heroku_pipeline_coupling" "staging" {
   app = heroku_app.staging.name
   pipeline = heroku_pipeline.flaredown-pipeline.id
