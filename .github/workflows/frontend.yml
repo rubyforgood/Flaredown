@@ -10,7 +10,7 @@ on:
       - master
 
 env:
-  NODE_VERSION: 14.18.0
+  NODE_VERSION: 12.22.6
 
 jobs:
   test-app:
