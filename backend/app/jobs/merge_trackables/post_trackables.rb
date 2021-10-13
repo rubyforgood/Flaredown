@@ -7,7 +7,7 @@ class MergeTrackables::PostTrackables
     Post.where(trackable_key.to_sym.in => rest_ids).map do |post|
       updated_ids = post.send(trackable_key) - rest_ids + [parent_id]
 
-      post.update_attributes(trackable_key.to_sym => updated_ids.uniq)
+      post.update(trackable_key.to_sym => updated_ids.uniq)
     end
 
     p "PERFORM MergeTrackables::RemoveDuplicates"

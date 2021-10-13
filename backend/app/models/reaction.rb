@@ -39,7 +39,7 @@ class Reaction
     def values_count_with_participated(encrypted_user_id)
       normalized_reactions(
         encrypted_user_id,
-        map_reduce(MAP_COUNT, reduce_count(encrypted_user_id)).out(inline: true).to_a
+        map_reduce(MAP_COUNT, reduce_count(encrypted_user_id)).out(inline: 1).to_a
       )
     end
 

@@ -51,6 +51,21 @@ rake run
 
 Visit your app at [http://localhost:4300](http://localhost:4300)
 
+## CI
+
+Several checks are configured to run on all commits using Github Actions, including lint, build and test steps. Definitions can be found in [./github/workflows](./github/workflows). Those checks which always run are required to be successful for PRs to be mergable.
+
+## Deployment
+
+Deployments target [Heroku](https://heroku.com). The traditional deployment is manually configured and is composed of two distinct applications (frontend and api) in two environments (staging and production), with automatic deployments to staging of commits to master:
+
+* [flaredown-staging-api](https://dashboard.heroku.com/apps/flaredown-staging-api)
+* [flaredown-staging-webapp](https://dashboard.heroku.com/apps/flaredown-staging-webapp) (https://app.flaredown.com)
+* [flaredown-api](https://dashboard.heroku.com/apps/flaredown-api)
+* [flaredown-webapp](https://dashboard.heroku.com/apps/flaredown-webapp) (https://staging.flaredown.com) (Temporarily https://https://flaredown-staging.webapp.herokuapp.com/ due to https://github.com/rubyforgood/Flaredown/issues/506)
+
+Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail. MongoDB is provided by mongodb.com.
+
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.
 
