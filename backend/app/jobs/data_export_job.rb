@@ -18,7 +18,7 @@ class DataExportJob < ActiveJob::Base
 
     set_attributes(user.locale, checkins)
 
-    csv_data = CSV.generate do |csv|
+    CSV.generate do |csv|
       csv << headers
 
       checkins.each { |checkin| csv << checkin_row(checkin) }
@@ -98,7 +98,7 @@ class DataExportJob < ActiveJob::Base
   def trackables_map(trackables, type)
     id_field = "#{type}_id"
 
-    trackables.map {|c| [c[id_field], c.value]}.to_h
+    trackables.map { |c| [c[id_field], c.value] }.to_h
   end
 
   # special handling to allow distinguishing between treatments with no dosage, and treatments not taken
@@ -113,11 +113,7 @@ class DataExportJob < ActiveJob::Base
 
   def treatment_value(is_taken, value)
     if is_taken
-      if value
-        value
-      else
-        "Taken"
-      end
+      value || "Taken"
     else
       "Not Taken"
     end
