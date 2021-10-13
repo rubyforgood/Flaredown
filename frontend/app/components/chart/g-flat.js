@@ -6,7 +6,6 @@ const {
   set,
   computed,
   Component,
-  isPresent,
   computed: { alias },
 } = Ember;
 
@@ -51,17 +50,29 @@ export default Component.extend(Graphable, {
     const modelName = get(this, 'name');
 
     return timeline.map(day => {
-      var checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
+      var filteredCheckins = get(this, 'checkins').filter((checkin) => (
+        get(checkin, 'formattedDate') === moment(day).format("YYYY-MM-DD")
+      ))
       var coordinate = { x: day, y: null };
 
-      if(isPresent(checkin)) {
-        let item = key === 'tags' || key === 'foods' ?
-          get(checkin, key).findBy('name', modelName)
+      if(filteredCheckins.length) {
+        var items = key === 'tags' || key === 'foods' ?
+          filteredCheckins.map(item => (
+            get(item, key).findBy('name', modelName)
+          )).filter(Boolean)
         :
-          get(checkin, key).findBy(`${type}.id`, modelId);
+          filteredCheckins.map(item => (
+            get(item, key).findBy(`${type}.id`, modelId)
+          )).filter(Boolean)
 
-        if (isPresent(item) && (get(item, 'isTaken') || key === 'tags' || key === 'foods')) {
-          coordinate.label = get(item, 'value');
+        var takenItems = items.filter((item) => (get(item, 'isTaken')))
+
+        if (items.length && (takenItems.length || key === 'tags' || key === 'foods')) {
+          var itemValues = [...takenItems, ...items].map(item => (get(item, 'value'))).filter(Boolean)
+
+          var label = itemValues.join(", ")
+
+          coordinate.label = label;
           coordinate.y = true;
         }
       }
