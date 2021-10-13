@@ -47,7 +47,7 @@ namespace :oneoff do
           trackable_id = checkin_trackable.send("#{trackable_type.downcase}_id")
           key = "#{trackable_type}-#{trackable_id}"
           if colors_hash[key].present?
-            checkin_trackable.update_attributes!(color_id: colors_hash[key])
+            checkin_trackable.update!(color_id: colors_hash[key])
           else
             if checkin_trackable.color_id.nil?
               trackable = trackable_type.constantize.find(trackable_id)
@@ -80,7 +80,7 @@ namespace :oneoff do
       end
       user.trackings.active_at(Time.now).each do |tracking|
         key = "#{tracking.trackable_type.downcase}-#{tracking.trackable_id}"
-        tracking.update_attributes!(color_id: colors_hash[key]) if colors_hash[key].present?
+        tracking.update!(color_id: colors_hash[key]) if colors_hash[key].present?
       end
       Rails.logger.info("[#{__method__}] Colors: #{colors_hash}")
     end
@@ -94,7 +94,7 @@ namespace :oneoff do
     Profile.all.each do |profile|
       if profile.screen_name.blank?
         generated_screen_name = profile.user.email.split("@")[0]
-        profile.update_attributes!(screen_name: generated_screen_name)
+        profile.update!(screen_name: generated_screen_name)
       end
     end
   end
@@ -119,15 +119,15 @@ namespace :oneoff do
     Checkin.all.each do |checkin|
       checkin.conditions.sort_by { |t| t.position.to_i }
         .each_with_index do |condition, i|
-          condition.update_attributes!(position: i)
+          condition.update!(position: i)
         end
       checkin.symptoms.sort_by { |t| t.position.to_i }
         .each_with_index do |symptom, i|
-          symptom.update_attributes!(position: i)
+          symptom.update!(position: i)
         end
       checkin.treatments.sort_by { |t| t.position.to_i }
         .each_with_index do |treatment, i|
-          treatment.update_attributes!(position: i)
+          treatment.update!(position: i)
         end
     end
   end

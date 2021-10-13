@@ -12,7 +12,7 @@ class Api::V1::PromotionRatesController < ApplicationController
   end
 
   def update
-    @promotion_rate.update_attributes(resource_params.merge(additional_params))
+    @promotion_rate.update(resource_params.merge(additional_params))
 
     render json: @promotion_rate
   end

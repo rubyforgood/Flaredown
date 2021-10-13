@@ -17,7 +17,7 @@ class MergeTrackables::CheckinTrackables
     Checkin.where("#{trackable_type}_ids" => {"$in" => rest_ids}).map do |checkin|
       updated_ids = checkin.send("#{trackable_type}_ids") - rest_ids + [parent_id]
 
-      checkin.update_attributes("#{trackable_type}_ids".to_sym => updated_ids.uniq)
+      checkin.update("#{trackable_type}_ids".to_sym => updated_ids.uniq)
     end
   end
 
@@ -26,7 +26,7 @@ class MergeTrackables::CheckinTrackables
     return unless klass
 
     klass.where("#{trackable_type}_id".to_sym.in => rest_ids).map do |checkin|
-      checkin.update_attributes("#{trackable_type}_id".to_sym => parent_id)
+      checkin.update("#{trackable_type}_id".to_sym => parent_id)
     end
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe Search, type: :model do
   let(:treatment) { create(:user_treatment, user: user).treatment }
   let(:query) { {name: "terra"} }
 
-  before { treatment.update_attributes!(name: "Mediterranean Diet") }
+  before { treatment.update!(name: "Mediterranean Diet") }
 
   subject { Search.new(resource: "treatment", query: query, user: user) }
 

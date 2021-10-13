@@ -3,7 +3,7 @@ class MergeTrackables::Trackings
 
   def perform(trackable_type, parent_id, rest_ids)
     Tracking.where(trackable_id: rest_ids, trackable_type: trackable_type.camelcase).map do |tracking|
-      tracking.update_attributes(trackable_id: parent_id)
+      tracking.update(trackable_id: parent_id)
     end
 
     p "PERFORM MergeTrackables::TopicFollowing"

@@ -56,7 +56,7 @@ if email.present?
     # Stop tracking something at some random iteration
     if i % divisors_range.to_a.sample == 0
       tracking = active_trackings.sample
-      tracking.update_attributes!(end_at: day)
+      tracking.update!(end_at: day)
       puts "Stop tracking #{tracking.trackable.name}"
     end
 

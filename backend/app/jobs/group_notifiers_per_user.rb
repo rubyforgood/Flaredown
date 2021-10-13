@@ -25,6 +25,6 @@ class GroupNotifiersPerUser
   private
 
   def clean_notifications(active_notifications)
-    active_notifications.batch_size(500).each { |notification| notification.update_attributes(delivered: true) }
+    active_notifications.batch_size(500).each { |notification| notification.update(delivered: true) }
   end
 end
