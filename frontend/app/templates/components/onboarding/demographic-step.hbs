@@ -43,7 +43,6 @@
   {{#form-field for="dayWalkingHours"
                 label="How many hours a day do you spend walking or exercising, on average?"}}
     {{input type="number"   id="input-num" keyUp=(action "validateNumber") value=profile.dayWalkingHours  maxlength=2 class="fs-private" min=0 max=24 pattern="[0-9]"}}
-    {{!-- {{<input type="text" pattern="/^[0-9]{2}/g" value="" class="fs-private" min="0" max="24" maxlength="2">}} --}}
   {{/form-field}}
 
 {{/form-for}}
