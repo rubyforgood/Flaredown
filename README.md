@@ -53,7 +53,7 @@ Visit your app at [http://localhost:4300](http://localhost:4300)
 
 ## CI
 
-Several checks are configured to run on all commits using Github Actions, including lint, build and test steps. Definitions can be found in [./github/workflows]. Those checks which always run are required to be successful for PRs to be mergable.
+Several checks are configured to run on all commits using Github Actions, including lint, build and test steps. Definitions can be found in [./github/workflows](./github/workflows). Those checks which always run are required to be successful for PRs to be mergable.
 
 ## Deployment
 
