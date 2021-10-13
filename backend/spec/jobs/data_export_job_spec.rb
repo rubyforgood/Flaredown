@@ -9,9 +9,9 @@ describe DataExportJob do
   let(:user) { create :user }
   let(:checkin) { create :checkin, user_id: user.id, tag_ids: [tag.id], food_ids: [food.id] }
   let(:perform_now) { perform_enqueued_jobs { described_class.perform_later(user.id) } }
-  let(:checkin_treatment) { create :checkin_treatment, checkin_id: checkin.id }
 
   context "base functionality" do
+    let(:checkin_treatment) { create :checkin_treatment, checkin_id: checkin.id, value: "1mg", is_taken: true }
     let(:expected_csv) do
       csv = "Date,#{Treatment.find(checkin_treatment.treatment_id).name},Tags,Foods\n"
 
