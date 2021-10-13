@@ -14,7 +14,7 @@ class Api::V1::ReactionsController < ApplicationController
 
     if reaction.destroy
       UpdatePostCountersJob.perform_async(parent_id: reaction_params[:reactable_id],
-                                          parent_type: reaction_params[:reactable_type])
+        parent_type: reaction_params[:reactable_type])
 
       head :no_content
     else
@@ -31,7 +31,7 @@ class Api::V1::ReactionsController < ApplicationController
 
     if reaction.save
       UpdatePostCountersJob.perform_async(parent_id: reaction_params[:reactable_id],
-                                          parent_type: reaction_params[:reactable_type])
+        parent_type: reaction_params[:reactable_type])
 
       unless reaction.encrypted_user_id == reaction.reactable.encrypted_user_id
         Notification.create(

@@ -6,7 +6,7 @@ ruby "2.6.5"
 gem "dotenv-rails", groups: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 5.0.7.2"
+gem "rails", "~> 5.2.6"
 gem "rake"
 
 # JSON serializer
@@ -21,7 +21,7 @@ gem "puma"
 
 # Authentication libraries
 gem "devise"
-gem "cancancan", "~> 1.10"
+gem "cancancan", "~> 2.2.0"
 gem "devise_invitable"
 gem "omniauth", "~> 1.8.1"
 gem "omniauth-facebook", "~> 3.0.0"
