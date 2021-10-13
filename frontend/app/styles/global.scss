@@ -82,7 +82,7 @@
 
 // Highlight unread notification
 .unreadNotification {
-  background: $lightprimary;
+  background: $secondary;
 }
 
 footer {
@@ -432,7 +432,7 @@ input[type="submit"] {
     .tooltip-header {
       display: flex;
       padding: 0 5px;
-      background-color: $lightprimary;
+      background-color: $secondary;
       color: $primary;
       justify-content: space-between;
       align-items: center;
@@ -587,4 +587,3 @@ input[type="submit"] {
 .birthdayForm {
   margin-top: 0.5em;
 }
-
