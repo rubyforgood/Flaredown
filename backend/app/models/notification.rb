@@ -78,7 +78,7 @@ class Notification
     private
 
     def reduce_count
-      map_reduce(MAP_COUNT, REDUCE_COUNT).out(inline: true).to_a
+      map_reduce(MAP_COUNT, REDUCE_COUNT).out(inline: 1).to_a
     end
 
     def normalized_notifications(group)
