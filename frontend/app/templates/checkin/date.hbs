@@ -1,7 +1,15 @@
-<li class="nav-link"><a href="#" {{action "goToNewCheckin" model.date}}>Add Checkin</a></li>
-
 {{checkin/days-nav big=isSummary date=model.date}}
 
-{{#each model.checkins as |checkin|}}
-  <li class="nav-link"><a href="#" {{action "goToCheckin" checkin}}>{{ checkin.id }}</a></li>
-{{/each}}
+<div class="flaredown-white-box">
+  {{#if model.checkins}}
+    <div>You've had <strong>{{model.checkins.length}}</strong> check-ins today.</div>
+  {{else}}
+    <div>You have no check-ins for today.</div>
+  {{/if}}
+
+  {{#each model.checkins as |checkin|}}
+    <li class="nav-link"><a href="#" {{action "goToCheckin" checkin}}>{{ checkin.date}}</a></li>
+  {{/each}}
+
+  <button class="primary-btn" {{action "goToNewCheckin" model.date}}>Start a new Check-in</button>
+</div>
