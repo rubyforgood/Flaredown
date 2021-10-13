@@ -7,7 +7,7 @@ export default Ember.Component.extend(CheckinByDate, {
 
   actions: {
     completeStep() {
-      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
+      this.routeToCheckinsForDate(moment(new Date()).format("YYYY-MM-DD"));
     },
 
     goBack() {

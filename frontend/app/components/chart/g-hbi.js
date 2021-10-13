@@ -132,14 +132,21 @@ export default Component.extend(Colorable, Graphable, {
     } = getProperties(this, 'field', 'timeline', 'checkins');
 
     return (timeline || []).map(day => {
-      let checkin = checkins.findBy('formattedDate', moment(day).format('YYYY-MM-DD'));
+      let filteredCheckins = checkins.filter((checkin) => (
+        get(checkin, 'formattedDate') === moment(day).format("YYYY-MM-DD")
+      ))
       let coordinate = { x: day, y: null };
 
-      if (isPresent(checkin)) {
-        let item = get(checkin, 'harveyBradshawIndex');
+      if (filteredCheckins.length) {
+        let items = filteredCheckins.map((checkin) => (
+          get(checkin, 'harveyBradshawIndex')
+        )).filter(Boolean)
 
-        if (isPresent(item)) {
-          coordinate.y = get(item, field);
+        if (items.length) {
+          let itemValues = items.map(checkin => get(checkin, field)).filter(Boolean)
+          let value = itemValues.reduce((acc, val) => (acc + val), 0) / itemValues.length
+
+          coordinate.y = value
         }
       }
 
