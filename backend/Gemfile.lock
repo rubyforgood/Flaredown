@@ -79,6 +79,8 @@ GEM
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
     cancancan (2.2.0)
+    cancancan-mongoid (2.0.0)
+      cancancan (>= 2.0, < 4)
     coderay (1.1.3)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -434,6 +436,7 @@ DEPENDENCIES
   bullet
   byebug
   cancancan (~> 2.2.0)
+  cancancan-mongoid
   colored (~> 1.2)
   countries
   database_cleaner
