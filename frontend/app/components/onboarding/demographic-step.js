@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
- 
   model: Ember.computed.alias('parentView.model'),
   profile: Ember.computed.alias('model.profile'),
 
@@ -38,7 +37,6 @@ export default Ember.Component.extend({
     goBack() {
       this.get('onGoBack')();
     }
-      
   }
 
 });
