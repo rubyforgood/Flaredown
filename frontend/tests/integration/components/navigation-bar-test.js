@@ -11,5 +11,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{navigation-bar}}`);
 
-  assert.equal(this.$().text().trim().replace(/\s{2,}/g,' '), 'Checkin History Settings');
+  assert.equal(this.$().text().trim().replace(/\s{2,}/g,' '), 'Checkins History Settings');
 });
