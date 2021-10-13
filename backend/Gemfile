@@ -30,7 +30,7 @@ gem "omniauth-facebook", "~> 3.0.0"
 gem "colored", "~> 1.2"
 
 # Background jobs
-gem "sidekiq", "5.2.0"
+gem "sidekiq", "~> 6.2"
 
 # Structured seed data
 gem "seedbank"
