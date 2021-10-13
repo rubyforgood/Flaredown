@@ -25,7 +25,7 @@ class Checkin::Updater
   end
 
   def update!
-    checkin.update_attributes!(permitted_params.except(:postal_code))
+    checkin.update!(permitted_params.except(:postal_code))
 
     if checkin.date.today?
       save_most_recent_doses

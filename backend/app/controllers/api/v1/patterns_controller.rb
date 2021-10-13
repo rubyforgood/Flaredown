@@ -29,7 +29,7 @@ class Api::V1::PatternsController < ApplicationController
   end
 
   def update
-    @pattern.update_attributes(pattern_params)
+    @pattern.update(pattern_params)
 
     render json: @pattern
   end

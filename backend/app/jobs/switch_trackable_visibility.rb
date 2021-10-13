@@ -8,9 +8,9 @@ class SwitchTrackableVisibility < ApplicationJob
     trackable = trackable_usage.trackable.reload
 
     if trackable.trackable_usages_count >= Flaredown.config.trackables_min_popularity
-      trackable.update_attributes(global: true)
+      trackable.update(global: true)
     else
-      trackable.update_attributes(global: false) if trackable.global? # rubocop:disable Style/IfInsideElse
+      trackable.update(global: false) if trackable.global? # rubocop:disable Style/IfInsideElse
     end
   end
 end

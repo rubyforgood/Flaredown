@@ -6,7 +6,7 @@ class Api::V1::TopicFollowingsController < ApplicationController
   end
 
   def update
-    if @topic_following.update_attributes(update_params)
+    if @topic_following.update(update_params)
       render json: @topic_following, status: :ok
     else
       render json: {errors: @topic_following.errors}, status: :unprocessable_entity

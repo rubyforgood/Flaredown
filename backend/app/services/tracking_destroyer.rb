@@ -18,7 +18,7 @@ class TrackingDestroyer
     if same_tracking.present?
       tracking.destroy
     else
-      tracking.update_attributes!(end_at: Time.zone.today)
+      tracking.update!(end_at: Time.zone.today)
     end
   end
 end
