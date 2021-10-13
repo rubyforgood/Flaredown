@@ -8,7 +8,12 @@ class Api::V1::PostsController < ApplicationController
     else
       @posts = DiscussionPosts.new(params, current_user).show_list
 
-      render json: @posts.order(last_commented: :desc, created_at: :desc).page(params[:page]).per(10)
+      results = @posts
+        .includes([:comments, :notifications, :reactions])
+        .order(last_commented: :desc, created_at: :desc)
+        .page(params[:page])
+        .per(10)
+      render json: results
     end
   end
 
