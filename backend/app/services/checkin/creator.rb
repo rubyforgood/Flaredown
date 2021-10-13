@@ -46,7 +46,7 @@ class Checkin::Creator
         }
       end
     end
-    checkin.update_attributes!(
+    checkin.update!(
       conditions_attributes: condition_attrs,
       symptoms_attributes: symptom_attrs,
       treatments_attributes: treatment_attrs

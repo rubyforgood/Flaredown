@@ -22,7 +22,7 @@ RSpec.describe TrackableCreator do
     end
     context "when non-global same condition exists" do
       let!(:same_condition) { create(:user_condition).condition }
-      before { same_condition.update_attributes!(name: condition_name.titleize) }
+      before { same_condition.update!(name: condition_name.titleize) }
       it "returns existing condition and associates it to user" do
         expect(subject.id).to eq same_condition.id
         expect(UserCondition.find_by(user_id: user.id, condition_id: same_condition.id)).to be_present

@@ -27,7 +27,7 @@ class Api::V1::OracleRequestsController < ApplicationController
 
   def update
     if @oracle_request.can_edit?(oracle_token)
-      @oracle_request.update_attributes!(create_params)
+      @oracle_request.update!(create_params)
 
       render json: @oracle_request
     else
