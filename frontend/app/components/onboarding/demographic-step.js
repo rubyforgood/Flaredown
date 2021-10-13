@@ -28,7 +28,6 @@ export default Ember.Component.extend({
         return;
       }
       inputVar.disabled = false;
-      console.log(event.target.value)
     },
     completeStep() {
       this.get('profile').save().then( () => {
