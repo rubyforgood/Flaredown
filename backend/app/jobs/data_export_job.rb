@@ -23,7 +23,7 @@ class DataExportJob < ActiveJob::Base
   private
 
   def checkin_row(checkin)
-    row = [checkin.date]
+    row = [checkin.date, checkin.note]
 
     symptoms_map = trackables_map(checkin.symptoms, "symptom")
     conditions_map = trackables_map(checkin.conditions, "condition")
@@ -83,7 +83,7 @@ class DataExportJob < ActiveJob::Base
   end
 
   def headers
-    ["Date"]
+    ["Date", "Notes"]
       .concat(condition_names.values)
       .concat(symptom_names.values)
       .concat(treatment_names.values)
