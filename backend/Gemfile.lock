@@ -282,8 +282,6 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.1.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack-timeout (0.6.0)
@@ -368,10 +366,10 @@ GEM
       rake (>= 10.0)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
-    sidekiq (5.2.0)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.2.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -475,7 +473,7 @@ DEPENDENCIES
   ruby-progressbar
   seedbank
   shoulda-matchers
-  sidekiq (= 5.2.0)
+  sidekiq (~> 6.2)
   simplecov
   standardrb
   symmetric-encryption
@@ -488,4 +486,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.2.17
+   2.2.29

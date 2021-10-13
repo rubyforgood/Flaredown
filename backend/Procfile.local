@@ -1,3 +1,3 @@
 web: bundle exec puma -C config/puma.rb
-worker: bundle exec sidekiq -C config/sidekiq.yml -L log/sidekiq.log
+worker: bundle exec sidekiq -C config/sidekiq.yml
 tunnel: bundle exec bin/localtunnel
