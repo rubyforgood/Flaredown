@@ -1,25 +1,6 @@
 class Reaction
   include Mongoid::Document
 
-  ID = "_id".freeze
-  VALUE = "value".freeze
-  TOTAL = "total".freeze
-  USER_ID = "encrypted_user_id".freeze
-  PARTICIPATED = "participated".freeze
-
-  MAP_COUNT = <<-JS.strip_heredoc.freeze
-    function() {
-      emit(
-        this.value,
-        {
-          _id: this._id.str,
-          total: 1,
-          encrypted_user_id: this.encrypted_user_id
-        }
-      );
-    }
-  JS
-
   field :value, type: String
   field :encrypted_user_id, type: String, encrypted: {type: :integer}
 
@@ -37,52 +18,17 @@ class Reaction
     end
 
     def values_count_with_participated(encrypted_user_id)
-      normalized_reactions(
-        encrypted_user_id,
-        map_reduce(MAP_COUNT, reduce_count(encrypted_user_id)).out(inline: 1).to_a
-      )
-    end
+      reactions_for_user = where(encrypted_user_id: encrypted_user_id).pluck(:value)
 
-    private
-
-    def normalized_reactions(encrypted_user_id, raw_reactions)
-      raw_reactions.map do |reaction|
-        participated = reaction.dig(VALUE, PARTICIPATED)
-
+      aggregation = criteria.group(:_id => "$value", :count.sum => 1)
+      collection.aggregate(aggregation.pipeline).map do |reaction|
         {
-          id: reaction.dig(VALUE, ID),
-          value: reaction[ID],
-          count: reaction.dig(VALUE, TOTAL).to_i,
-          participated: participated.nil? ? reaction.dig(VALUE, USER_ID) == encrypted_user_id : participated
+          id: SecureRandom.hex(16), # needed for Ember UI - is there a better way?
+          value: reaction["_id"],
+          count: reaction["count"],
+          participated: reactions_for_user.include?(reaction["_id"])
         }
       end
-    end
-
-    def reduce_count(encrypted_user_id)
-      <<-JS.strip_heredoc.freeze
-        function(key, valuesGroup){
-          var r = {
-            total: 0,
-            participated: false,
-          };
-
-          for (var idx  = 0; idx < valuesGroup.length; idx++) {
-            var value = valuesGroup[idx];
-
-            r.total += valuesGroup[idx].total;
-
-            if (!r._id) {
-              r._id = value._id;
-            }
-
-            if (!r.participated && value.encrypted_user_id === "#{encrypted_user_id}") {
-              r.participated = true;
-            }
-          }
-
-          return r;
-        }
-      JS
     end
   end
 end
