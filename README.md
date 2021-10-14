@@ -62,9 +62,14 @@ Deployments target [Heroku](https://heroku.com). The traditional deployment is m
 * [flaredown-staging-api](https://dashboard.heroku.com/apps/flaredown-staging-api)
 * [flaredown-staging-webapp](https://dashboard.heroku.com/apps/flaredown-staging-webapp) (https://app.flaredown.com)
 * [flaredown-api](https://dashboard.heroku.com/apps/flaredown-api)
-* [flaredown-webapp](https://dashboard.heroku.com/apps/flaredown-webapp) (https://staging.flaredown.com) (Temporarily https://https://flaredown-staging.webapp.herokuapp.com/ due to https://github.com/rubyforgood/Flaredown/issues/506)
+* [flaredown-webapp](https://dashboard.heroku.com/apps/flaredown-webapp) (https://staging.flaredown.com) (Temporarily https://flaredown-staging-webapp.herokuapp.com/login due to https://github.com/rubyforgood/Flaredown/issues/506)
 
 Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail. MongoDB is provided by mongodb.com.
+
+## Style Guide
+
+### 🎨 [Figma Assets](https://www.figma.com/proto/MBVn73pD6JbBkxd65KSZHr/Flaredown-Guide?page-id=0%3A1&node-id=1%3A3&viewport=241%2C48%2C0.45&scaling=contain&starting-point-node-id=1%3A3)
+
 
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.
