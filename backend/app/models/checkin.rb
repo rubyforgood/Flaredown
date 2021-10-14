@@ -79,7 +79,6 @@ class Checkin
 
   def available_for_hbi?
     return true if harvey_bradshaw_index
-    return false unless date.today?
     return true unless latest_hbi
 
     HBI_PERIODICITY - ((latest_hbi.date)...date).count < 1
