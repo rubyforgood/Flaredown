@@ -18,15 +18,17 @@ class Reaction
     end
 
     def values_count_with_participated(encrypted_user_id)
-      reactions_for_user = where(encrypted_user_id: encrypted_user_id).pluck(:value)
+      reactions_for_user = where(encrypted_user_id: encrypted_user_id).pluck(:value, :_id).to_h
 
       aggregation = criteria.group(:_id => "$value", :count.sum => 1)
       collection.aggregate(aggregation.pipeline).map do |reaction|
+        # A real ID is only required when the current user has reacted. Otherwise the value is meaningless
+        # Use a random string to try to demonstrate that
         {
-          id: SecureRandom.hex(16), # needed for Ember UI - is there a better way?
+          id: (reactions_for_user[reaction["_id"]] || SecureRandom.hex(16)).to_s,
           value: reaction["_id"],
           count: reaction["count"],
-          participated: reactions_for_user.include?(reaction["_id"])
+          participated: reactions_for_user.keys.include?(reaction["_id"])
         }
       end
     end
