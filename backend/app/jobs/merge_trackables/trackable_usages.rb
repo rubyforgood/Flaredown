@@ -18,7 +18,7 @@ class MergeTrackables::TrackableUsages
 
         tr_usage.destroy
       else
-        tr_usage.update_attributes(trackable_id: parent.id)
+        tr_usage.update(trackable_id: parent.id)
 
         parent.increment!(:trackable_usages_count)
       end

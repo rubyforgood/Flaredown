@@ -63,7 +63,7 @@ RSpec.describe Api::V1::TrackingsController do
   describe "destroy" do
     context "when destroying a current user's tracking" do
       context "when tracking started in the past" do
-        before { current_tracking.update_attributes!(start_at: Time.zone.today - 2.days) }
+        before { current_tracking.update!(start_at: Time.zone.today - 2.days) }
         it "sets end_date on that tracking" do
           delete :destroy, params: {id: current_tracking.id}
           end_at = current_tracking.reload.end_at

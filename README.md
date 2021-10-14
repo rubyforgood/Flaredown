@@ -13,7 +13,7 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * PostgreSQL 12.8
 * MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 6.2.3
-* Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
+* Ruby 2.7.4 (see [RVM](https://rvm.io/) also)
 * Node 12.22.6
 
 You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
@@ -50,6 +50,26 @@ rake run
 ```
 
 Visit your app at [http://localhost:4300](http://localhost:4300)
+
+## CI
+
+Several checks are configured to run on all commits using Github Actions, including lint, build and test steps. Definitions can be found in [./github/workflows](./github/workflows). Those checks which always run are required to be successful for PRs to be mergable.
+
+## Deployment
+
+Deployments target [Heroku](https://heroku.com). The traditional deployment is manually configured and is composed of two distinct applications (frontend and api) in two environments (staging and production), with automatic deployments to staging of commits to master:
+
+* [flaredown-staging-api](https://dashboard.heroku.com/apps/flaredown-staging-api)
+* [flaredown-staging-webapp](https://dashboard.heroku.com/apps/flaredown-staging-webapp) (https://app.flaredown.com)
+* [flaredown-api](https://dashboard.heroku.com/apps/flaredown-api)
+* [flaredown-webapp](https://dashboard.heroku.com/apps/flaredown-webapp) (https://staging.flaredown.com) (Temporarily https://flaredown-staging-webapp.herokuapp.com/login due to https://github.com/rubyforgood/Flaredown/issues/506)
+
+Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail. MongoDB is provided by mongodb.com.
+
+## Style Guide
+
+### 🎨 [Figma Assets](https://www.figma.com/proto/MBVn73pD6JbBkxd65KSZHr/Flaredown-Guide?page-id=0%3A1&node-id=1%3A3&viewport=241%2C48%2C0.45&scaling=contain&starting-point-node-id=1%3A3)
+
 
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.

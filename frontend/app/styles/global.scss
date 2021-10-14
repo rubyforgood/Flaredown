@@ -82,7 +82,7 @@
 
 // Highlight unread notification
 .unreadNotification {
-  background: $lightprimary;
+  background: $secondary;
 }
 
 footer {
@@ -432,7 +432,7 @@ input[type="submit"] {
     .tooltip-header {
       display: flex;
       padding: 0 5px;
-      background-color: $lightprimary;
+      background-color: $secondary;
       color: $primary;
       justify-content: space-between;
       align-items: center;
@@ -588,3 +588,14 @@ input[type="submit"] {
   margin-top: 0.5em;
 }
 
+
+//Form Elements
+.checkbox{
+  display:flex;
+  justify-content: start;
+  flex-direction: row-reverse;
+}
+input[type=checkbox]{
+  height: 1em;
+  width: 1em;
+}

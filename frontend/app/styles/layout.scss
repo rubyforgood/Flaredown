@@ -84,7 +84,7 @@ header.navigation {
 
   // Unauthenticated User styles
   &.unauthenticatedNav {
-    background: $lightprimary;
+    background: $secondary;
     min-height: 50px;
     margin-bottom: 2em;
     cursor: pointer;
@@ -304,7 +304,7 @@ span.ember-power-select-clear-btn {
 
   .cur {
     color: $primary;
-    background: $lightprimary;
+    background: $secondary;
   }
 
   strong {

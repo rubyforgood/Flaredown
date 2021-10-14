@@ -1,16 +1,16 @@
 source "https://rubygems.org"
 
-ruby "2.6.5"
+ruby "2.7.4"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 5.2.6"
+gem "rails", "~> 6.1.4.1"
 gem "rake"
 
 # JSON serializer
-gem "active_model_serializers", "0.9.3"
+gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
 gem "pg"
@@ -21,7 +21,8 @@ gem "puma"
 
 # Authentication libraries
 gem "devise"
-gem "cancancan", "~> 2.2.0"
+gem "cancancan", "~> 3.3.0"
+gem "cancancan-mongoid"
 gem "devise_invitable"
 gem "omniauth", "~> 1.8.1"
 gem "omniauth-facebook", "~> 3.0.0"
@@ -30,7 +31,7 @@ gem "omniauth-facebook", "~> 3.0.0"
 gem "colored", "~> 1.2"
 
 # Background jobs
-gem "sidekiq", "4.1.1"
+gem "sidekiq", "~> 6.2"
 
 # Structured seed data
 gem "seedbank"
@@ -85,11 +86,6 @@ group :development do
   gem "better_errors", "~>2.1"
   gem "binding_of_caller", "~>0.7"
   gem "foreman", require: false
-  # thor > 0.19.1 prints some warnings to stderr
-  # This is fixed is thor > 0.20.0 but 0.19 is required by foreman.
-  # Foreman suggests not including foreman in your Gemfile
-  # https://github.com/erikhuda/thor/issues/538
-  gem "thor", "0.19.1"
   gem "letter_opener"
   gem "rubocop-rails", require: false
 end

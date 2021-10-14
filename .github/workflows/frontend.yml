@@ -3,7 +3,8 @@ name: frontend
 on:
   push:
     branches:
-      - '**'
+      - main
+      - master
   pull_request:
     branches:
       - main
@@ -13,7 +14,28 @@ env:
   NODE_VERSION: 12.22.6
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/**'
+            frontend:
+              - 'frontend/**'
+              - '.github/workflows/**'
+
   test-app:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
     name: Test app
     runs-on: ubuntu-latest
     timeout-minutes: 7
@@ -22,6 +44,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
       - run: npm install -g npm@latest
       - run: npm install
         working-directory: ./frontend
