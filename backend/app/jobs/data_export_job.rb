@@ -41,14 +41,12 @@ class DataExportJob < ActiveJob::Base
     row << tag_names.slice(*checkin.tag_ids).values.join(SUBFIELD_SEPARATOR)
     row << food_names.slice(*checkin.food_ids).values.join(SUBFIELD_SEPARATOR)
 
-    if checkin.weather.present?
-      row << checkin.weather.summary
-      row << checkin.weather.temperature_max
-      row << checkin.weather.temperature_min
-      row << checkin.weather.pressure
-      row << checkin.weather.precip_intensity
-      row << checkin.weather.humidity
-    end
+    row << checkin.weather&.summary
+    row << checkin.weather&.temperature_max
+    row << checkin.weather&.temperature_min
+    row << checkin.weather&.pressure
+    row << checkin.weather&.precip_intensity
+    row << checkin.weather&.humidity
   end
 
   def set_attributes(locale, checkins)
