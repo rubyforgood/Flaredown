@@ -24,7 +24,6 @@ jobs:
       run:
         working-directory: backend
     env:
-      BUNDLE_GEMFILE: backend/Gemfile
       MONGODB_HOST: localhost
       MONGODB_PORT: 27017
       POSTGRES_HOST: localhost
@@ -62,6 +61,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: backend
           bundler-cache: true
 
       - name: Start MongoDB

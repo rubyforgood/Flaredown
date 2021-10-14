@@ -11,8 +11,6 @@ jobs:
     defaults:
       run:
         working-directory: backend
-    env:
-      BUNDLE_GEMFILE: backend/Gemfile
 
     steps:
       - uses: actions/checkout@v2.3.4
@@ -20,6 +18,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: backend
           bundler-cache: true
 
       - name: Build & Run
