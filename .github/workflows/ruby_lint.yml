@@ -8,7 +8,6 @@ on:
 jobs:
   ruby-lint:
     runs-on: ubuntu-latest
-    container: 'ubuntu:18.04'
     defaults:
       run:
         working-directory: backend
@@ -24,8 +23,6 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7.4'
-        env:
-          ImageOS: ubuntu18
 
       - name: Configure Ruby
         run: |
