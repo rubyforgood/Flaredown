@@ -29,7 +29,18 @@
 }
 
 .delete-btn {
-  border: 1px solid black;
+  display: flex;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
+
+}
+
+.delete-btn h5 {
+  margin-bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .flaredown-transparent-box {
