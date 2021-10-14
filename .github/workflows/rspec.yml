@@ -19,10 +19,19 @@ on:
 
 jobs:
   rspec:
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
-    runs-on: ubuntu-latest
+    env:
+      MONGODB_HOST: localhost
+      MONGODB_PORT: 27017
+      POSTGRES_HOST: localhost
+      DATABASE_HOST: localhost
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PORT: 5432
 
     services:
       redis:
@@ -45,9 +54,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
 
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get -yqq install libpq-dev
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: backend
           bundler-cache: true
 
       - name: Start MongoDB
@@ -55,35 +69,11 @@ jobs:
         with:
           mongodb-version: 4.4.9
 
-      - name: Install PostgreSQL client
+      - name: Load database schema
         run: |
-          sudo apt-get -yqq install libpq-dev
-      - name: Build App
-        env:
-          MONGODB_HOST: localhost
-          MONGODB_PORT: 27017
-          POSTGRES_HOST: localhost
-          DATABASE_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_PORT: 5432
-        run: |
-          bundle install
           bundle exec rake db:create
           bundle exec rake db:schema:load
-      - name: Run rspec
-        env:
-          MONGODB_HOST: localhost
-          MONGODB_PORT: 27017
-          POSTGRES_HOST: localhost
-          DATABASE_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_PORT: 5432
-          INTERCOM_SECRET: secret
-          BASE_URL: test.com
 
+      - name: Run rspec
         run: |
           bundle exec rspec
