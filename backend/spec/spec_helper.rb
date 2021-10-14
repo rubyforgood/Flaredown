@@ -25,12 +25,6 @@ RSpec.configure do |config|
   config.before(:suite) do
     # TestEnv.init
   end
-
-  # config.after(:each) do |example|
-  #   if example.exception
-  #     Pry.start(example)
-  #   end
-  # end
 end
 
 ActiveRecord::Migration.maintain_test_schema!
