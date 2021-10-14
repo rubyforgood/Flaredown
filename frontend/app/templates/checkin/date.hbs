@@ -1,15 +1,34 @@
+
 {{checkin/days-nav big=isSummary date=model.date}}
 
 <div class="flaredown-white-box">
   {{#if model.checkins}}
-    <div>You've had <strong>{{model.checkins.length}}</strong> check-ins today.</div>
+    <div class="checkins-list-container">
+      <img src="/assets/checkins.svg" />
+      <h5 class="checkins-text">You've had <strong>{{pluralize model.checkins.length "check-in"}}</strong>   {{checkToday model.date "today"}}</h5>
+    </div>
+    <div class="checkins-list">
+      {{#each model.checkins as |checkin index|}}
+        <a href="#" {{action "goToCheckin" checkin}}>
+          <li class="nav-link">
+            <div>{{indexPlusOne index}}) Check-in </div>
+            <div class="arrow-check-in">›</div>
+          </li>
+        </a>
+        {{#unless (eq checkin model.checkins.lastObject)}}
+          <div class="separator-line"></div>
+        {{/unless}}
+      {{/each}}
+    </div>
   {{else}}
-    <div>You have no check-ins for today.</div>
+    <div class="empty-state">
+      <img src="/assets/empty.svg" />
+
+      <div>You have no check-ins {{checkToday model.date "for today"}}.</div>
+    </div>
   {{/if}}
 
-  {{#each model.checkins as |checkin|}}
-    <li class="nav-link"><a href="#" {{action "goToCheckin" checkin}}>{{ checkin.date}}</a></li>
-  {{/each}}
+
 
   <button class="primary-btn" {{action "goToNewCheckin" model.date}}>Start a new Check-in</button>
 </div>

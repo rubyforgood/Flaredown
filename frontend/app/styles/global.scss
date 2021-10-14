@@ -69,6 +69,50 @@
     padding: 0;
     position: relative;
   }
+
+  .empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 28px;
+
+    img {
+      padding-bottom: $space_md;
+    }
+  }
+  .separator-line {
+    height: 1px;
+    display: flex;
+    background: $grey;
+    opacity: .3;
+  }
+  .checkins-list-container {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    flex-direction: row;
+    padding-bottom: $space_md;
+    .checkins-text {
+      padding-left: $space_md;
+      margin-bottom: 0;
+    }
+  }
+  .arrow-check-in {
+    color:#73c1ba;
+    font-size: 2em;
+  }
+  .checkins-list {
+    padding-top: $space_sm;
+    padding-bottom: $space_lg;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: $space_sm 0;
+  }
 }
 
 .x-to-remove {
