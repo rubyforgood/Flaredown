@@ -11,6 +11,8 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    env:
+      BUNDLE_GEMFILE: backend/Gemfile
 
     steps:
       - uses: actions/checkout@v2.3.4
