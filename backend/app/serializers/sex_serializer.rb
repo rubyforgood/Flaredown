@@ -1,2 +1,0 @@
-class SexSerializer < RankedEnumSerializer
-end
