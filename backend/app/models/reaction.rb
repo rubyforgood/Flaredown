@@ -28,7 +28,7 @@ class Reaction
           id: (reactions_for_user[reaction["_id"]] || SecureRandom.hex(16)).to_s,
           value: reaction["_id"],
           count: reaction["count"],
-          participated: reactions_for_user.keys.include?(reaction["_id"])
+          participated: reactions_for_user.key?(reaction["_id"])
         }
       end
     end
