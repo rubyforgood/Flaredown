@@ -23,7 +23,7 @@ RSpec.describe Food do
     describe "fts" do
       it "return same global foods" do
         another_user = create(:user)
-        result = Food.send(:fts, query[:name], MAX_ROWS, another_user.id)
+        result = Food.fts(query[:name], MAX_ROWS, another_user.id)
 
         expect(result).to eq [global_food, same_food_1]
         expect(result.count).to eq MAX_ROWS
@@ -32,7 +32,7 @@ RSpec.describe Food do
       end
 
       it "retrun local and global foods for author" do
-        expect(Food.send(:fts, query[:name], MAX_ROWS, user_food.user_id)).to eq [global_food, personal_food]
+        expect(Food.fts(query[:name], MAX_ROWS, user_food.user_id)).to eq [global_food, personal_food]
       end
     end
   end
