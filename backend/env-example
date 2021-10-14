@@ -64,3 +64,6 @@ FULLSTORY_ORG=
 
 # MongoDB
 MONGODB_HOST=localhost
+
+# Open Weather
+OPEN_WEATHER_API_KEY=
