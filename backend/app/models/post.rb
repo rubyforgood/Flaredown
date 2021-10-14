@@ -58,6 +58,6 @@ class Post
   def topic_presence
     TOPIC_TYPES.each { |topic| return true if send(topic.pluralize).any? }
 
-    errors.add(:topics, "should have at list one entry")
+    errors.add(:topics, "should have at least one of associated #{TOPIC_TYPES.join(",")}")
   end
 end
