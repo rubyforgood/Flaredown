@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Colorable from 'flaredown/mixins/colorable';
 import Graphable from 'flaredown/components/chart/graphable';
 
-const { $, Component, computed, get, isPresent } = Ember;
+const { $, Component, computed, get } = Ember;
 
 export default Component.extend(Colorable, Graphable, {
   colorId: '35',

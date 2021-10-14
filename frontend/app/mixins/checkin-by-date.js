@@ -9,7 +9,7 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 
   checkinByDate(date) {
-    return new Ember.RSVP.Promise((resolve, _) => {
+    return new Ember.RSVP.Promise((resolve) => {
       this.get('store').query('checkin', {date: date}).then(results => {
         var records = results.toArray();
         resolve(records);
@@ -17,8 +17,8 @@ export default Ember.Mixin.create({
     });
   },
 
-  routeToCheckinsForDate(date, step) {
-    this.checkinByDate(date).then( checkins => {
+  routeToCheckinsForDate(date) {
+    this.checkinByDate(date).then(() => {
       if (typeof FastBoot === 'undefined') {
         this.router.transitionTo('checkin.date', date);
       }

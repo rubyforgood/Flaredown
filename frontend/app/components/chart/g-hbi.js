@@ -7,7 +7,6 @@ const {
   get,
   computed,
   Component,
-  isPresent,
   getProperties,
 } = Ember;
 

@@ -10,7 +10,7 @@ export default Component.extend({
     let monthArray = [];
 
     for(let i = 1; i<= 12; i++) {
-      monthArray.push(i);
+      monthArray.push(i.toString());
     }
 
     return monthArray;
@@ -22,7 +22,7 @@ export default Component.extend({
     const startYear = this.get('startYear');
 
     for (let i=endYear; i>=startYear; i--) {
-      yearsArray.push(i);
+      yearsArray.push(i.toString());
     }
 
     return yearsArray;
@@ -40,7 +40,7 @@ export default Component.extend({
       const month = get(this, 'birthDate.month');
 
       for (let d = 1; d <= this.daysInMonth(month, year); d ++) {
-        days.push(d);
+        days.push(d.toString());
       }
     }
 
