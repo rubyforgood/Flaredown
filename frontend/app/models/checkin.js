@@ -28,7 +28,6 @@ export default Model.extend({
   tagIds: attr(),
   foodIds: attr(),
   postalCode: attr('string'),
-  availableForHbi: attr('boolean'),
   availableForPromotion: attr('boolean'),
   locationName: attr('string'),
   promotionSkippedAt: attr('string'),
@@ -129,10 +128,6 @@ export default Model.extend({
   }),
 
   conditionsObserver: observer('conditions', 'conditions.[]', function() {
-    if (!get(this, 'availableForHbi')) {
-      return;
-    }
-
     get(this, 'conditions')
       .then(conditions => RSVP.all(conditions.map(c => get(c, 'condition'))))
       .then(conditions => set(
@@ -140,5 +135,5 @@ export default Model.extend({
         'shouldShowHbiStep',
         conditions.any(condition => get(condition, 'name') === "Crohn's disease")
       ));
-  }),
+  }).on('init'),
 });
