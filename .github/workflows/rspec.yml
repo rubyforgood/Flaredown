@@ -32,6 +32,8 @@ jobs:
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_PORT: 5432
+      INTERCOM_SECRET: secret
+      BASE_URL: test.com
 
     services:
       redis:
