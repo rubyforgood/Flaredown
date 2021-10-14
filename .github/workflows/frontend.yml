@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-          cache-dependency-path: frontent/package-lock.json
+          cache-dependency-path: frontend/package-lock.json
       - run: npm install -g npm@latest
       - run: npm install
         working-directory: ./frontend
