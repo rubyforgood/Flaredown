@@ -26,10 +26,10 @@
     }
 
     button.discussion-btn {
-      background-color: $lilaс;
+      background-color: $primary;
       &:hover,
       &:focus {
-        background-color: darken($lilaс, 30%);
+        background-color: darken($primary, 30%);
       }
     }
   }
