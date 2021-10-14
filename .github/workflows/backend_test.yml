@@ -1,4 +1,4 @@
-name: rspec
+name: backend_test
 
 on:
   push:
