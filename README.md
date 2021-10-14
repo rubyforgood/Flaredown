@@ -66,6 +66,11 @@ Deployments target [Heroku](https://heroku.com). The traditional deployment is m
 
 Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail. MongoDB is provided by mongodb.com.
 
+## Style Guide
+
+### 🎨 [Figma Assets](https://www.figma.com/proto/MBVn73pD6JbBkxd65KSZHr/Flaredown-Guide?page-id=0%3A1&node-id=1%3A3&viewport=241%2C48%2C0.45&scaling=contain&starting-point-node-id=1%3A3)
+
+
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.
 
