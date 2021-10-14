@@ -11,17 +11,21 @@ describe Reaction do
 
   context "#values_count_with_participated" do
     it "should indicate counts and when the given user has already used the requested reaction" do
-      create(:reaction, encrypted_user_id: user.encrypted_id, value: ":smile:")
+      reaction = create(:reaction, encrypted_user_id: user.encrypted_id, value: ":smile:")
       create(:reaction, encrypted_user_id: other_user.encrypted_id, value: ":smile:")
       create(:reaction, encrypted_user_id: other_user.encrypted_id, value: ":smirk:")
 
       expect(subject.class.values_count_with_participated(user.encrypted_id)).to match_array([
         hash_including({
+          # A real reaction ID is only required/meaningful when the current user has reacted.
+          # Otherwise the value is meaningless.
+          id: reaction.id.to_s,
           value: ":smile:",
           count: 2,
           participated: true
         }),
         hash_including({
+          # id is not relevant here because the user did not react
           value: ":smirk:",
           count: 1,
           participated: false
