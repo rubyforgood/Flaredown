@@ -13,9 +13,9 @@ describe DataExportJob do
   context "base functionality" do
     let(:checkin_treatment) { create :checkin_treatment, checkin_id: checkin.id, value: "1mg", is_taken: true }
     let(:expected_csv) do
-      csv = "Date,#{Treatment.find(checkin_treatment.treatment_id).name},Tags,Foods\n"
+      csv = "Date,#{Treatment.find(checkin_treatment.treatment_id).name},Tags,Foods,Weather summary,Weather max temperature,Weather min temperature,Weather pressure,Weather precipitation intensity,Weather humidity\n"
 
-      csv << "#{checkin.date},#{checkin_treatment.value},#{tag.name},#{food.long_desc}\n"
+      csv << "#{checkin.date},#{checkin_treatment.value},#{tag.name},#{food.long_desc},,,,,,\n"
     end
 
     it "passes valid csv to mailer" do
@@ -28,12 +28,13 @@ describe DataExportJob do
 
   context "creating CSV data" do
     context "with treatments" do
+      let(:extra_headers) { "Tags,Foods,Weather summary,Weather max temperature,Weather min temperature,Weather pressure,Weather precipitation intensity,Weather humidity" }
       it "reports treatments with dosages" do
         ct = create :checkin_treatment, checkin_id: checkin.id, value: "1mg", is_taken: true
 
         expect(subject.csv_data(user)).to eq <<~CSV
-          Date,#{Treatment.find(ct.treatment_id).name},Tags,Foods
-          #{checkin.date},#{ct.value},#{tag.name},#{food.long_desc}
+          Date,#{Treatment.find(ct.treatment_id).name},#{extra_headers}
+          #{checkin.date},#{ct.value},#{tag.name},#{food.long_desc},,,,,,
         CSV
       end
 
@@ -41,8 +42,8 @@ describe DataExportJob do
         ct = create :checkin_treatment, checkin_id: checkin.id, value: nil, is_taken: true
 
         expect(subject.csv_data(user)).to eq <<~CSV
-          Date,#{Treatment.find(ct.treatment_id).name},Tags,Foods
-          #{checkin.date},Taken,#{tag.name},#{food.long_desc}
+          Date,#{Treatment.find(ct.treatment_id).name},#{extra_headers}
+          #{checkin.date},Taken,#{tag.name},#{food.long_desc},,,,,,
         CSV
       end
 
@@ -50,8 +51,8 @@ describe DataExportJob do
         ct = create :checkin_treatment, checkin_id: checkin.id, value: nil, is_taken: false
 
         expect(subject.csv_data(user)).to eq <<~CSV
-          Date,#{Treatment.find(ct.treatment_id).name},Tags,Foods
-          #{checkin.date},Not Taken,#{tag.name},#{food.long_desc}
+          Date,#{Treatment.find(ct.treatment_id).name},#{extra_headers}
+          #{checkin.date},Not Taken,#{tag.name},#{food.long_desc},,,,,,
         CSV
       end
 
@@ -60,8 +61,8 @@ describe DataExportJob do
         ct = create :checkin_treatment, checkin_id: checkin.id, value: "1mg", is_taken: false
 
         expect(subject.csv_data(user)).to eq <<~CSV
-          Date,#{Treatment.find(ct.treatment_id).name},Tags,Foods
-          #{checkin.date},Not Taken,#{tag.name},#{food.long_desc}
+          Date,#{Treatment.find(ct.treatment_id).name},#{extra_headers}
+          #{checkin.date},Not Taken,#{tag.name},#{food.long_desc},,,,,,
         CSV
       end
     end
