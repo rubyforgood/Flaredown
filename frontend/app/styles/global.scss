@@ -587,3 +587,15 @@ input[type="submit"] {
 .birthdayForm {
   margin-top: 0.5em;
 }
+
+
+//Form Elements
+.checkbox{
+  display:flex;
+  justify-content: start;
+  flex-direction: row-reverse;
+}
+input[type=checkbox]{
+  height: 1em;
+  width: 1em;
+}
