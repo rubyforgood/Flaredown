@@ -11,10 +11,10 @@ on:
 
 jobs:
   erb_lint:
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
-    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2.3.4
