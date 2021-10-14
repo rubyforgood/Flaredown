@@ -15,7 +15,7 @@ describe Reaction do
       create(:reaction, encrypted_user_id: other_user.encrypted_id, value: ":smile:")
       create(:reaction, encrypted_user_id: other_user.encrypted_id, value: ":smirk:")
 
-      expect(subject.class.values_count_with_participated(user.encrypted_id)).to match([
+      expect(subject.class.values_count_with_participated(user.encrypted_id)).to match_array([
         hash_including({
           value: ":smile:",
           count: 2,
