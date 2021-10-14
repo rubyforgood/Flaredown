@@ -29,14 +29,14 @@
   }
 
   .btn-filter {
-    color: $lilaс;
+    color: $primary;
     padding: .5em 1em;
     background-color: transparent;
-    border: 1px solid $lilaс;
+    border: 1px solid $primary;
 
     &.active {
       color: white;
-      background-color: $lilaс;
+      background-color: $primary;
     }
   }
 }
