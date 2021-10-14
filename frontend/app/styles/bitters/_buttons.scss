@@ -20,7 +20,7 @@
 
   &:hover,
   &:focus {
-    background-color: $primary;
+    background-color: shade($action-color, 20%);
     color: #fff;
   }
 
@@ -29,7 +29,7 @@
     opacity: 0.5;
 
     &:hover {
-      background-color: $primary;
+      background-color: $action-color;
     }
   }
 }
