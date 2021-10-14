@@ -13,7 +13,7 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * PostgreSQL 12.8
 * MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 6.2.3
-* Ruby 2.6.5 (see [RVM](https://rvm.io/) also)
+* Ruby 2.7.4 (see [RVM](https://rvm.io/) also)
 * Node 12.22.6
 
 You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
@@ -65,6 +65,11 @@ Deployments target [Heroku](https://heroku.com). The traditional deployment is m
 * [flaredown-webapp](https://dashboard.heroku.com/apps/flaredown-webapp) (https://staging.flaredown.com) (Temporarily https://https://flaredown-staging.webapp.herokuapp.com/ due to https://github.com/rubyforgood/Flaredown/issues/506)
 
 Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail. MongoDB is provided by mongodb.com.
+
+## Style Guide
+
+### 🎨 [Figma Assets](https://www.figma.com/proto/MBVn73pD6JbBkxd65KSZHr/Flaredown-Guide?page-id=0%3A1&node-id=1%3A3&viewport=241%2C48%2C0.45&scaling=contain&starting-point-node-id=1%3A3)
+
 
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.

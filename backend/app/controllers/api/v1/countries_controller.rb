@@ -2,7 +2,7 @@ class Api::V1::CountriesController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    render json: Country.all
+    render json: Country.all, each_serializer: CountrySerializer, root: false
   end
 
   def show
@@ -11,7 +11,7 @@ class Api::V1::CountriesController < ApplicationController
     # rubocop:disable Style/SignalException
     fail ActiveRecord::RecordNotFound if country.nil?
     # rubocop:enable Style/SignalException
-    render json: country
+    render json: country, serializer: CountrySerializer
   end
 
   private

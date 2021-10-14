@@ -7,17 +7,22 @@ class DataExportJob < ActiveJob::Base
 
   def perform(user_id)
     user = User.find(user_id)
+
+    data = csv_data(user)
+
+    UserDataMailer.trackings_csv(user.email, data).deliver_later
+  end
+
+  def csv_data(user)
     checkins = user.checkins.includes(:conditions, :symptoms, :treatments).order_by(date: :asc)
 
     set_attributes(user.locale, checkins)
 
-    csv_data = CSV.generate do |csv|
+    CSV.generate do |csv|
       csv << headers
 
       checkins.each { |checkin| csv << checkin_row(checkin) }
     end
-
-    UserDataMailer.trackings_csv(user.email, csv_data).deliver_later
   end
 
   private
@@ -27,7 +32,7 @@ class DataExportJob < ActiveJob::Base
 
     symptoms_map = trackables_map(checkin.symptoms, "symptom")
     conditions_map = trackables_map(checkin.conditions, "condition")
-    treatments_map = trackables_map(checkin.treatments, "treatment")
+    treatments_map = treatments_map(checkin.treatments)
 
     condition_names.keys.each { |id| row << conditions_map[id] }
     symptom_names.keys.each { |id| row << symptoms_map[id] }
@@ -94,5 +99,23 @@ class DataExportJob < ActiveJob::Base
     id_field = "#{type}_id"
 
     trackables.map { |c| [c[id_field], c.value] }.to_h
+  end
+
+  # special handling to allow distinguishing between treatments with no dosage, and treatments not taken
+  def treatments_map(treatments)
+    treatments.map do |treatment|
+      [
+        treatment["treatment_id"],
+        treatment_value(treatment.is_taken, treatment.value)
+      ]
+    end.to_h
+  end
+
+  def treatment_value(is_taken, value)
+    if is_taken
+      value || "Taken"
+    else
+      "Not Taken"
+    end
   end
 end
