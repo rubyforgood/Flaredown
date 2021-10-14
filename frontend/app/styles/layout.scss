@@ -277,7 +277,20 @@ span.ember-power-select-clear-btn {
   margin-bottom: 1.5em;
 
   .profile-circle {
+    display:flex;
+    justify-content: center;
     margin-bottom: 0.5em;
+  }
+  .pictureLetter{
+    align-self: center;
+    height: 80px;
+    width:80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    background-color: #E18E8D;
+    border-radius: 100%;
   }
 }
 
