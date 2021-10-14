@@ -1,4 +1,4 @@
-name: ruby-lint
+name: backend-lint
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       - master
 
 jobs:
-  ruby-lint:
+  standardrb:
     runs-on: ubuntu-latest
     defaults:
       run:
