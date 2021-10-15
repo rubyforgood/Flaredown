@@ -1,18 +1,20 @@
 module Api
   module V1
-    module ReactionRelatable
-      extend ActiveSupport::Concern
+    module Concerns
+      module ReactionRelatable
+        extend ActiveSupport::Concern
 
-      included do
-        attributes :reactions
-      end
+        included do
+          attributes :reactions
+        end
 
-      def reactions
-        ReactionSerializer.new(
-          object.reactions.values_count_with_participated(current_user&.encrypted_id),
-          object.id,
-          object.class.name
-        )
+        def reactions
+          ReactionSerializer.new(
+            object.reactions.values_count_with_participated(current_user&.encrypted_id),
+            object.id,
+            object.class.name
+          )
+        end
       end
     end
   end

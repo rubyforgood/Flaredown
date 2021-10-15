@@ -1,9 +1,9 @@
 module Api
   module V1
     class PostSerializer < ApplicationSerializer
-      include Notificatable
-      include TopicSerializable
-      include ReactionRelatable
+      include Concerns::Notificatable
+      include Concerns::TopicSerializable
+      include Concerns::ReactionRelatable
 
       attributes :id, :body, :title, :type, :user_name, :comments_count, :postable_id, :priority
 
