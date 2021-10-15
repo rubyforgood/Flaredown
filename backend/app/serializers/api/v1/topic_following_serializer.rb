@@ -1,7 +1,7 @@
 module Api
   module V1
     class TopicFollowingSerializer < ApplicationSerializer
-      include TopicSerializable
+      include Concerns::TopicSerializable
     end
   end
 end

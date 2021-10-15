@@ -1,8 +1,8 @@
 module Api
   module V1
     class CommentSerializer < ApplicationSerializer
-      include Notificatable
-      include ReactionRelatable
+      include Concerns::Notificatable
+      include Concerns::ReactionRelatable
 
       attributes :post_id, :body, :user_name, :postable_id, :type
 
