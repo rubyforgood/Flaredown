@@ -37,10 +37,10 @@ class Notification
     end
 
     def count_by_types
-      group = criteria.group(_id: "$kind", count: { "$sum": 1 })
+      group = criteria.group(_id: "$kind", count: {"$sum": 1})
       aggregate = collection.aggregate(group.pipeline)
       aggregate.reduce({}) { |acc, notification|
-        h = { notification["_id"] => notification["count"] }
+        h = {notification["_id"] => notification["count"]}
         acc.merge(h)
       }
     end
