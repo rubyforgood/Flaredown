@@ -3,7 +3,7 @@ class WeatherRetriever
     def get(date, postal_code)
       position = Position.find_or_create_by(postal_code: postal_code)
 
-      weather = Weather.find_by(date: date, position_id: position&.id)
+      weather = Weather.find_by(date: date, position_id: position.id)
 
       return weather if weather.present?
 
@@ -13,29 +13,40 @@ class WeatherRetriever
         return
       end
 
-      forecast = get_forecast(date, position)
-      the_day = forecast&.daily&.data&.first
-
-      if the_day.blank?
-        Rails.logger.warn "No forecast found for position #{position.inspect}: #{forecast.inspect}"
-
-        return
+      weather = if date == Date.today
+        fetch_current_weather(position)
+      else
+        fetch_past_weather(date, position)
       end
 
-      create_weather(the_day, position.id)
+      # the_day = forecast&.daily&.data&.first
+
+      # if the_day.blank?
+      #   Rails.logger.warn "No forecast found for position #{position.inspect}: #{forecast.inspect}"
+
+      #   return
+      # end
+
+      # create_weather(the_day, position.id)
     end
 
     private
 
-    def get_forecast(date, position)
+    def fetch_current_weather(position)
+      OpenWeather.new.current_weather(
+        lat: position.latitude,
+        lon: position.longitude
+      )
+    end
+
+    def fetch_past_weather(date, position)
       tz = Time.zone
       Time.zone = NearestTimeZone.to(position.latitude, position.longitude)
 
-      forecast = ForecastIO.forecast(
-        position.latitude,
-        position.longitude,
-        time: Time.zone.parse(date.to_s).to_i,
-        params: {exclude: "currently,minutely,hourly,alerts,flags"}
+      weather = OpenWeather.new.timemachine(
+        lat: position.latitude,
+        lon: position.longitude,
+        dt: Time.zone.parse(date.to_s).to_i,
       )
 
       Time.zone = tz

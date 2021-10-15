@@ -191,8 +191,6 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     i18n_data (0.13.0)
-    json (2.6.0)
-    json (2.6.0-java)
     jwt (2.3.0)
     kaminari-actionview (1.2.1)
       actionview
@@ -267,9 +265,6 @@ GEM
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
-    open_weather_sdk (1.0.4)
-      httparty
-      json
     orm_adapter (0.5.0)
     parallel (1.21.0)
     parser (3.0.2.0)
@@ -476,6 +471,7 @@ DEPENDENCIES
   foreman
   geocoder
   globalize
+  httparty
   kaminari-actionview
   kaminari-mongoid
   letter_opener
@@ -484,7 +480,6 @@ DEPENDENCIES
   nearest_time_zone
   omniauth (~> 1.8.1)
   omniauth-facebook (~> 3.0.0)
-  open_weather_sdk
   pg
   pry-byebug
   pry-doc
