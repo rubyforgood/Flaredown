@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Colorable from 'flaredown/mixins/colorable';
 import Graphable from 'flaredown/components/chart/graphable';
 
-const { $, Component, computed, get, isPresent } = Ember;
+const { $, Component, computed, get } = Ember;
 
 export default Component.extend(Colorable, Graphable, {
   colorId: '35',
@@ -98,14 +98,18 @@ export default Component.extend(Colorable, Graphable, {
 
   data: computed('checkins', function() {
     return (get(this, 'timeline') || []).map(day => {
-      let checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format('YYYY-MM-DD'));
+      let filteredCheckins = get(this, 'checkins').filter((checkin) => (
+        get(checkin, 'formattedDate') === moment(day).format("YYYY-MM-DD")
+      ))
       let coordinate = { x: day, y: null };
 
-      if (isPresent(checkin)) {
-        let item = get(checkin, 'weather');
+      if (filteredCheckins.length) {
+        let itemWeathers = filteredCheckins.map(checkin => get(checkin, 'weather')).filter(Boolean)
 
-        if (isPresent(item)) {
-          coordinate.y = get(item, get(this, 'field'));
+        if (itemWeathers.length) {
+          let itemsValues = itemWeathers.map(checkin => get(checkin, get(this, 'field')))
+          let weatherValue = itemsValues.reduce((acc, val) => (acc + val), 1)  / itemsValues.length
+          coordinate.y = weatherValue
         }
       }
 

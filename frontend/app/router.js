@@ -27,6 +27,7 @@ Router.map(function() {
   this.route('onboarding', { path: '/onboarding/:step_key' });
 
   this.route('checkin', function() {
+    this.route('date', { path: '/:date_key' });
     this.route('show', { path: '/:checkin_id/:step_key' });
   });
 

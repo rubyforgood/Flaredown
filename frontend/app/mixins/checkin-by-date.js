@@ -9,39 +9,42 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 
   checkinByDate(date) {
-    return new Ember.RSVP.Promise((resolve,reject) => {
+    return new Ember.RSVP.Promise((resolve) => {
       this.get('store').query('checkin', {date: date}).then(results => {
         var records = results.toArray();
-        if (Ember.isEmpty(records)) {
-          reject();
-        } else {
-          resolve(records[0]);
-        }
+        resolve(records);
       });
     });
   },
 
-  routeToCheckin(date, step) {
-    this.checkinByDate(date).then( checkin => {
-      let defaultStep = checkin.get('isBlank') ? 'start' : 'summary';
+  routeToCheckinsForDate(date) {
+    this.checkinByDate(date).then(() => {
       if (typeof FastBoot === 'undefined') {
-        this.router.transitionTo('checkin.show', checkin.get('id'), step ? step : defaultStep);
+        this.router.transitionTo('checkin.date', date);
       }
-    }, () => {
-      this.routeToNewCheckin(date, step);
     });
   },
 
   routeToNewCheckin(date, step) {
     var newCheckin = this.get('store').createRecord('checkin', {date: date});
     newCheckin.save().then(savedCheckin => {
-      this.router.transitionTo('checkin.show', savedCheckin.get('id'), step ? step : 'start');
+      this.router.transitionTo('checkin.show', savedCheckin.get('id'), step ? step : 'conditions');
     });
   },
 
+  routeToCheckin(checkin, step) {
+    this.router.transitionTo('checkin.show', checkin.id, step ? step : 'summary')
+  },
+
   actions: {
-    goToTodaysCheckin() {
-      this.routeToCheckin(moment(new Date()).format("YYYY-MM-DD"));
+    goToTodaysCheckins() {
+      this.routeToCheckinsForDate(moment(new Date()).format("YYYY-MM-DD"));
+    },
+    goToNewCheckin(date) {
+      this.routeToNewCheckin(moment(date).format("YYYY-MM-DD"));
+    },
+    goToCheckin(checkin) {
+      this.routeToCheckin(checkin)
     },
   },
 });

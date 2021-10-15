@@ -45,16 +45,24 @@ export default Component.extend(Graphable, {
     var timeline = get(this, 'timeline') || [];
 
     return timeline.map( (day) => {
-      var checkin = get(this, 'checkins').findBy('formattedDate', moment(day).format("YYYY-MM-DD"));
-
+      var filteredCheckins = get(this, 'checkins').filter((checkin) => (
+        get(checkin, 'formattedDate') === moment(day).format("YYYY-MM-DD")
+      ))
       var coordinate = { x: day, y: null };
 
-      if(isPresent(checkin)) {
-        var item = get(checkin, key).findBy(`${type}.id`, get(trackable, 'id'));
+      if(filteredCheckins.length) {
+        var items = filteredCheckins.map(item => (
+          get(item, key).findBy(`${type}.id`, get(trackable, 'id'))
+        )).filter(Boolean)
 
-        if (isPresent(item) && $.isNumeric(get(item, 'value'))) {
-          coordinate.label = get(item, 'value');
-          coordinate.y = get(item, 'value');
+        if (items.length) {
+          var allItemValues = items.map(item => (get(item, 'value')))
+          var averageItemValue = allItemValues.reduce((acc, val) => (acc + val), 0) / allItemValues.length
+
+          if (isPresent(averageItemValue) && $.isNumeric(averageItemValue)) {
+            coordinate.label = averageItemValue
+            coordinate.y = averageItemValue
+          }
         }
       }
 
