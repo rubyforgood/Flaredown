@@ -35,7 +35,7 @@ describe Notification do
       expect(Notification.all.count_by_types).to eq({
         "comment" => 2,
         "mention" => 2,
-        "reaction" => 4,
+        "reaction" => 4
       })
     end
   end
