@@ -31,7 +31,7 @@ export default Route.extend(CheckinByDate, AuthenticatedRouteMixin, {
 
             this.checkinByDate(date).then(
               () => {
-                this.routeToCheckin(date);
+                this.routeToCheckinsForDate(date);
               },
               () => {
                 this.routeToNewCheckin(date);
