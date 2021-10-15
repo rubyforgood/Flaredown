@@ -16,13 +16,13 @@ Here are the basic steps to submit a pull request. Make sure that you're working
 
 3. Run the tests. We only take pull requests with passing tests, and it's great to know that you have a clean slate: `bundle exec rake`
 
-4. Add a test for your change. If you are adding functionality or fixing a  bug, you should add a test!
+4. Add a test for your change. If you are adding functionality or fixing a bug, you should add a test!
 
 5. Make the test pass.
 
 6. Push to your fork and submit a pull request. Include the issue number (ex. `Resolves #1`) in the PR description.
 
-7. For any changes, please create a feature branch and open a PR for it when you feel it's ready to merge. Even if there's no real disagreement about a PR, at least one other person on the team needs to look over a PR before merging. The purpose of this review requirement is to ensure shared knowledge of the app and its changes and to take advantage of the benefits of working together changes without any single person being a bottleneck to making progress.
+7. For any changes, please create a feature branch and open a PR for it when you feel it's ready to merge. Even if there's no real disagreement about a PR, at least one other person on the team needs to look over a PR before merging. The purpose of this review requirement is to ensure shared knowledge of the app and its changes and to take advantage of the benefits of working together without anyone being a bottleneck.
 
 At this point you're waiting on us–we'll try to respond to your PR quickly. We may suggest some changes or improvements or alternatives.
 
