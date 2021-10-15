@@ -5,35 +5,6 @@ class Notification
 
   after_initialize :set_defaults
 
-  ID = "_id".freeze
-  VALUE = "value".freeze
-  TOTAL = "total".freeze
-
-  MAP_COUNT = <<-JS.strip_heredoc.gsub(/\s+/, " ").freeze
-    function() {
-      emit(
-        this.kind,
-        {
-          total: 1,
-        }
-      );
-    }
-  JS
-
-  REDUCE_COUNT = <<-JS.strip_heredoc.gsub(/\s+/, " ").freeze
-    function(key, valuesGroup){
-      var r = {
-        total: 0,
-      };
-
-      for (var idx  = 0; idx < valuesGroup.length; idx++) {
-        r.total += valuesGroup[idx].total;
-      }
-
-      return r;
-    }
-  JS
-
   field :kind, type: String
   field :encrypted_user_id, type: String, encrypted: {type: :integer}
   field :encrypted_notify_user_id, type: String, encrypted: {type: :integer}
@@ -66,7 +37,12 @@ class Notification
     end
 
     def count_by_types
-      reduce_count.map { |n| [n[ID], n.dig(VALUE, TOTAL).to_i] }.to_h
+      group = criteria.group(_id: "$kind", count: {"$sum": 1})
+      aggregate = collection.aggregate(group.pipeline)
+      aggregate.reduce({}) { |acc, notification|
+        h = {notification["_id"] => notification["count"]}
+        acc.merge(h)
+      }
     end
 
     def groupped_by_post_and_kind(encrypted_user_id)
@@ -76,10 +52,6 @@ class Notification
     end
 
     private
-
-    def reduce_count
-      map_reduce(MAP_COUNT, REDUCE_COUNT).out(inline: 1).to_a
-    end
 
     def normalized_notifications(group)
       group.map do |group_keys, notifications|
