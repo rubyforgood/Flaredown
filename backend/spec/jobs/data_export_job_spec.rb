@@ -66,5 +66,17 @@ describe DataExportJob do
         CSV
       end
     end
+    context "with weather" do
+      let(:extra_headers) { "Tags,Foods,Weather summary,Weather max temperature,Weather min temperature,Weather pressure,Weather precipitation intensity,Weather humidity" }
+      it "includes weather data" do
+        checkin.weather_id = FactoryBot.create(:weather).id
+        checkin.save
+
+        expect(subject.csv_data(user)).to eq <<~CSV
+          Date,#{extra_headers}
+          #{checkin.date},#{tag.name},#{food.long_desc},,1.5,1.5,1.5,1.5,1.5
+        CSV
+      end
+    end
   end
 end
