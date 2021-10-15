@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="20px" height="20px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-    <title>discussion-search</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="discussion-search" fill-rule="nonzero" fill="#BDBDBD">
-            <g id="path0_stroke-link" transform="translate(3.902232, 12.511981) rotate(135.000000) translate(-3.902232, -12.511981) translate(0.402231, 11.511981)">
-                <path d="M1.00000031,0 C0.447715139,0 0,0.447720139 0,1.00000031 C0,1.55228548 0.447715139,2.00000062 1.00000031,2.00000062 L1.00000031,0 Z M5.59966173,2.00000062 C6.1519519,2.00000062 6.59966204,1.55228548 6.59966204,1.00000031 C6.59966204,0.447720139 6.1519519,0 5.59966173,0 L5.59966173,2.00000062 Z M1.00000031,2.00000062 L5.59966173,2.00000062 L5.59966173,0 L1.00000031,0 L1.00000031,2.00000062 Z" id="path0_stroke"></path>
-            </g>
-            <g id="path1_stroke-link" transform="translate(3.000000, 0.000000)">
-                <path d="M10,6 C10,8.20914 8.20914,10 6,10 L6,12 C9.31371,12 12,9.31371 12,6 L10,6 Z M6,10 C3.79086,10 2,8.20914 2,6 L0,6 C0,9.31371 2.68629,12 6,12 L6,10 Z M2,6 C2,3.79086 3.79086,2 6,2 L6,0 C2.68629,0 0,2.68629 0,6 L2,6 Z M6,2 C8.20914,2 10,3.79086 10,6 L12,6 C12,2.68629 9.31371,0 6,0 L6,2 Z" id="path1_stroke"></path>
-            </g>
-        </g>
-    </g>
+<svg width="20" height="20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="magnifying-glass" class="svg-inline--fa fa-magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path fill="currentColor" d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z">
+    
+    </path>
 </svg>

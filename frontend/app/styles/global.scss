@@ -599,3 +599,8 @@ input[type=checkbox]{
   height: 1em;
   width: 1em;
 }
+
+.flex-container.right-nav a:nth-child(2) {
+  padding-right: 8px;
+  padding-left: 8px;
+}
