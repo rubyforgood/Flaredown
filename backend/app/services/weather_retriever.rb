@@ -13,21 +13,27 @@ class WeatherRetriever
         return
       end
 
+      past = false
       weather = if date == Date.today
         fetch_current_weather(position)
       else
+        past = true
         fetch_past_weather(date, position)
       end
 
-      # the_day = forecast&.daily&.data&.first
+      the_day = if past
+        weather["current"]
+      else
+        weather["daily"].first
+      end
 
-      # if the_day.blank?
-      #   Rails.logger.warn "No forecast found for position #{position.inspect}: #{forecast.inspect}"
+      if the_day.blank?
+        Rails.logger.warn "No forecast found for position #{position.inspect}: #{forecast.inspect}"
 
-      #   return
-      # end
+        return
+      end
 
-      # create_weather(the_day, position.id)
+      create_weather(the_day, position.id)
     end
 
     private
@@ -46,25 +52,25 @@ class WeatherRetriever
       weather = OpenWeather.new.timemachine(
         lat: position.latitude,
         lon: position.longitude,
-        dt: Time.zone.parse(date.to_s).to_i,
+        date: date.to_time.to_i,
       )
 
       Time.zone = tz
 
-      forecast
+      weather
     end
 
     def create_weather(the_day, position_id)
       Weather.create(
-        date: Date.strptime(the_day.time.to_s, "%s"),
-        humidity: (the_day.humidity * 100).round,
-        icon: the_day.icon,
+        date: Time.at(the_day["dt"]),
+        humidity: the_day["humidity"],
+        icon: the_day["weather"].first["icon"], # build icon url instead
         position_id: position_id,
-        precip_intensity: the_day.precipIntensity,
-        pressure: the_day.pressure.round,
-        summary: the_day.summary,
-        temperature_max: the_day.temperatureMax.round,
-        temperature_min: the_day.temperatureMin.round
+        precip_intensity: the_day["rain"].is_a?(Hash) ? the_day["rain"]["1h"] : the_day["rain"],
+        pressure: the_day["pressure"],
+        summary: the_day["weather"].first["description"],
+        temperature_max: the_day["temp"].is_a?(Hash) ? the_day["temp"]["max"] : the_day["temp"],
+        temperature_min: the_day["temp"].is_a?(Hash) ? the_day["temp"]["min"] : the_day["temp"]
       )
     end
   end
