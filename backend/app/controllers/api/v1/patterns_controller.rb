@@ -25,7 +25,7 @@ module Api
       end
 
       def create
-        @pattern = PatternCreator.new(pattern_params).create
+        @pattern = PatternCreator.new(pattern_params.to_h).create
 
         render json: @pattern
       end
