@@ -67,11 +67,16 @@ class ChartsPattern
     category = chart[:category]
     id = chart[:id]
 
-    if %w[conditions symptoms treatments].include? category
-      static_trackables_coordinates(category, scoped_checkins.map(&:id), id)
-    else
-      health_factors_trackables_coordinate(category, scoped_checkins, id)
-    end
+    collected_data =
+      if %w[conditions symptoms treatments].include? category
+        static_trackables_coordinates(category, scoped_checkins.map(&:id), id)
+      else
+        health_factors_trackables_coordinate(category, scoped_checkins, id)
+      end
+
+    average = collected_data.inject(0.0) { |result, datum| result + datum[:y].to_f } / collected_data.count
+
+    [{ x: collected_data[0]&.fetch(:x), y: average }]
   end
 
   def static_trackables_coordinates(category, checkin_ids, id)
