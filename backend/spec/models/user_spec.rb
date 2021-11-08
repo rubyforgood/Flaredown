@@ -56,4 +56,16 @@ RSpec.describe User do
       end
     end
   end
+
+  describe "#last_checkin" do
+    it "sees most recent checkin as more recent than less recent checkin when they are on the same day" do
+      date = "2020-01-02"
+      user = create(:user)
+      create(:checkin, date: Date.parse(date) - 5.days, user_id: user.id)
+      last = create(:checkin, date: Date.parse(date) + 2.hours, user_id: user.id)
+      create(:checkin, date: Date.parse(date), user_id: user.id)
+      create(:checkin, date: Date.parse(date) + 1.hour, user_id: user.id)
+      expect(user.last_checkin).to eq(last)
+    end
+  end
 end

@@ -95,6 +95,7 @@ group :test do
   gem "mongoid-rspec"
   gem "webmock"
   gem "vcr"
+  gem "timecop" # travel_to isn't working? TODO figure this out
 end
 
 group :production do
