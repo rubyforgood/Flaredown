@@ -39,7 +39,7 @@ class Tracking < ActiveRecord::Base
   #
   # Scopes
   #
-  scope :active_at, ->(at) { where("start_at <= :at AND (end_at > :at OR end_at IS NULL)", at: at.strftime("%F")) }
+  scope :active_at, ->(at) { where("start_at <= :at AND (end_at >= :at OR end_at IS NULL)", at: at.strftime("%F")) }
   scope :by_trackable_type, ->(trackable_type) { where(trackable_type: trackable_type) }
 
   #

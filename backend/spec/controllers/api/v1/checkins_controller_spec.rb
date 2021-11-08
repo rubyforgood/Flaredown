@@ -32,7 +32,6 @@ RSpec.describe Api::V1::CheckinsController do
   end
 
   describe "create" do
-
     it "returns new checkin" do
       Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 5))
       post :create, params: {checkin: {date: date}}
