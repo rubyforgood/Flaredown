@@ -8,10 +8,17 @@ RSpec.describe Api::V1::CheckinsController do
 
   describe "index" do
     context "when checkin exists for the requested date" do
-      before { create(:checkin, date: Date.parse(date), user_id: user.id) }
+      before do
+        create(:checkin, date: Date.parse(date), user_id: user.id)
+        create(:checkin, date: Date.parse(date) + 1.hour, user_id: user.id)
+        create(:checkin, date: Date.parse(date) + 5.days, user_id: user.id)
+        create(:checkin, date: Date.parse(date) - 5.days, user_id: user.id)
+      end
+
       it "returns correct checkin" do
         get :index, params: {date: date}
-        expect(response_body[:checkins].count).to eq 1
+        expect(response_body[:checkins].count).to eq 2
+        expect(response_body[:checkins].pluck(:date).map(&:to_s).sort).to eq ["2016-01-06T00:00:00.000+00:00", "2016-01-06T01:00:00.000+00:00"]
         returned_checkin = response_body[:checkins][0]
         expect(Date.parse(returned_checkin[:date])).to eq Date.parse(date)
       end
@@ -26,9 +33,22 @@ RSpec.describe Api::V1::CheckinsController do
 
   describe "create" do
     it "returns new checkin" do
+      Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 5))
       post :create, params: {checkin: {date: date}}
-      returned_checkin = response_body[:checkin]
-      expect(Date.parse(returned_checkin[:date])).to eq Date.parse(date)
+      returned_checkin_1 = response_body[:checkin]
+      expect(DateTime.parse(returned_checkin_1[:date]).to_s).to eq "2016-01-06T00:00:00+00:00"
+
+      Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 6))
+      post :create, params: {checkin: {date: date}}
+      returned_checkin_3 = response_body[:checkin]
+      expect(DateTime.parse(returned_checkin_3[:date]).to_s).to eq "2016-01-06T00:00:00+00:00"
+
+      Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 7))
+      post :create, params: {checkin: {date: date}}
+      returned_checkin_2 = response_body[:checkin]
+      expect(DateTime.parse(returned_checkin_2[:date]).to_s).to eq "2016-01-06T00:00:00+00:00"
+
+      expect(user.last_checkin.date).to eq(returned_checkin_3[:date])
     end
   end
 

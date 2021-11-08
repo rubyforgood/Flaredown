@@ -12,7 +12,7 @@ class Checkin
   #
   # Fields
   #
-  field :date, type: Date
+  field :date, type: DateTime
   field :food_ids, type: Array, default: []
   field :note, type: String
   field :postal_code, type: String
