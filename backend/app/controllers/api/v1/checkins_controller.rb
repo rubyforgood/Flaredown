@@ -20,11 +20,9 @@ module Api
       def create
         date = params.require(:checkin).require(:date)
         parsed = DateTime.parse(date)
-        if parsed.today?
-          # for current day, save time so that user.last_checkin works properly with multiple checkins per day
-          parsed = DateTime.new
-        end
-        checkin = Checkin::Creator.new(current_user.id, parsed).create!
+        now = DateTime.now
+        save_date = DateTime.new(parsed.year, parsed.month, parsed.day, now.hour, now.minute, now.second)
+        checkin = Checkin::Creator.new(current_user.id, save_date).create!
         render json: checkin
       end
 
