@@ -50,7 +50,7 @@ RSpec.describe Api::V1::CheckinsController do
         returned_checkin_3 = response_body[:checkin]
         expect(DateTime.parse(returned_checkin_3[:date]).to_s).to eq "2016-01-06T19:04:05+00:00"
       end
-      expect(user.last_checkin.date).to eq(DateTime.new(2016, 1, 6, 19, 4, 7))
+      expect(user.last_checkin.date).to eq(DateTime.new(2016, 1, 6, 3, 4, 7))
     end
   end
 
