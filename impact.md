@@ -6,13 +6,39 @@
 
 ### Elevator pitch
 
-TODO 2 paragraphs or less
-
+Flaredown helps patients track and manage their own chronic illness symptoms and communicate more effectively with medical professionals and get diagnosis and treatment. 
 
 ### Long pitch
 
-TODO longer pitch, pictures, impact, technology, and so on.
+Flaredown helps patients track and manage their own chronic illness symptoms and communicate more effectively with medical professionals and get diagnosis and treatment. Flaredown helps patients (users) reduce their "time to diagnosis" because patients with chronic conditions which can take upwards of five years for many patients and is expensive and miserable as people don't know what they have and therefore can't treat it. It helps enormously with better communication with doctors by showing consistently collected data. Flaredown data helps users track data which helps users apply for disability benefits as they can show their charts over time (this has really worked for real people!) Many chronic diseases prevent in very individual way and it can be hard for a patient to collect and understand solid  data about what treatments work and don't work, and to keep the energy and focus to collect and manage their own data in their own spreadsheet. On the research side, Flaredown is proud to provide the anonymized data set for usage by researchers who can help find solutions!
 
+![flaredown-chart](https://user-images.githubusercontent.com/578159/146847812-69e4938b-232f-417a-a9f1-e789334431bd.png)
+
+#### Numbers about users
+
+As of 15 October 2021:
+625408 total checkins in the system
+66233 checkins since 1 year ago (Oct 2020)
+40325 checkins since 6 months ago
+6548 checkins since 1 month ago
+76869 users in the system
+5979 users created since 6 months ago
+966 users created since 1 month ago
+
+#### Built by people around the world
+
+TODO talk about all the cool people with personal connections who have helped build flaredown
+
+#### Example user feedback
+
+1. I love your app. I am suffering from fibromyalgia and have recently changed physicians. Getting my new PCP to know me has been a real challenge and I think this is definitely a tool to leave with him at each appointment.
+2. I have POTS and several other chronic conditions and I was using multiple apps to help tracks symptoms and find patterns until [I found Flaredown].
+3. ...this is such a good and useful app already. It's helped me a great deal. Thirteen years into a CFS relapse, I know more about my illness from using Flaredown for the last few months than I did in all the years prior.
+4. I never kept track of symptoms before using this app, I was just in pain and I went with it. The pain makes your memory pretty rough a lot of the time so it's hard for me to remember after it's happened if a symptom was truly that bad or not. with this app though you can see through chart/graph the correlations and similarities of your symptoms and what affects them day to day. anyone with any chronic illness I highly recommend using this app.
+5. I've had ME/CFS since 1987 and Flaredown is the best help I've ever gotten. I'm grateful for the time you and your team put into this app, it's a great resource for us.
+6. Ok this is not sponsored or anything but this has been so far the best tracker app for chronic illness YET!! This is definitely something to check out, you can track symptoms, how active the symptoms are, and see if there are any patterns...I love it and so far living for it!! Thought I would share because I think it could be a helpful tool for others to use.
+7. [From the history] you can make charts of your symptoms and tags. I've brought these as printouts to my doctors and they've found them useful, especially when I have a flare of symptoms. It helps me and them see what's working for recovery. I've also made charts to see if certain activities aggravate my symptoms.
+8. ...besides my automatic blood pressure cuff, I'd have to say the flaredown app is my favorite. I've been using it since July 31st and really it's made a difference in seeing how my symptoms range and vary day to day and how certain factors affect my symptoms like weather and food.
 
 ### Submission 
 
@@ -33,9 +59,10 @@ Flaredown LLC (no-profit, wholly owned by maintainer Logan)
 #### Value of the Project
 
 1. Flaredown helps patients (users) reduce their "time to diagnosis" because patients with chronic conditions which can take upwards of five years for many patients and is expensive and miserable as people don't know what they have and therefore can't treat it. 
-2. Help users track data which helps users apply for disability benefits as they can show their charts over time (this has really worked!)
-3. Many chronic diseases prevent in very individual way and it can be hard for a patient to collect and understand solid  data about what treatments work and don't work.
-4. On the research side, providing the anonymized data set for usage by researchers who can help find solutions!
+2. Better communication with doctors by showing consistently collected data
+3. Help users track data which helps users apply for disability benefits as they can show their charts over time (this has really worked!)
+4. Many chronic diseases prevent in very individual way and it can be hard for a patient to collect and understand solid  data about what treatments work and don't work.
+5. On the research side, providing the anonymized data set for usage by researchers who can help find solutions!
 
 #### Any useful links
 
