@@ -23,6 +23,10 @@ Many chronic diseases prevent in very individual way and it can be hard for a pa
 On the research side, Flaredown is proud to provide the anonymized data set for usage by researchers who can help find solutions!
 
 ![flaredown-chart](https://user-images.githubusercontent.com/578159/146847812-69e4938b-232f-417a-a9f1-e789334431bd.png)
+![flaredown-graph](https://user-images.githubusercontent.com/578159/146848768-23b60bbd-fb3a-44e1-90e3-1b4d71a8e16c.png)
+![flaredown-symptoms](https://user-images.githubusercontent.com/578159/146848774-e7e3d15a-fffd-4a07-8535-135a4d02c8f6.png)
+![flaredown-circle-words](https://user-images.githubusercontent.com/578159/146848776-26cb3142-f362-448b-80e0-366ec6956edc.png)
+
 
 #### Numbers about users
 
