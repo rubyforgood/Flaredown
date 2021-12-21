@@ -10,13 +10,28 @@ Flaredown helps patients track and manage their own chronic illness symptoms and
 
 ### Long pitch
 
-Flaredown helps patients track and manage their own chronic illness symptoms and communicate more effectively with medical professionals and get diagnosis and treatment. Flaredown helps patients (users) reduce their "time to diagnosis" because patients with chronic conditions which can take upwards of five years for many patients and is expensive and miserable as people don't know what they have and therefore can't treat it. It helps enormously with better communication with doctors by showing consistently collected data. Flaredown data helps users track data which helps users apply for disability benefits as they can show their charts over time (this has really worked for real people!) Many chronic diseases prevent in very individual way and it can be hard for a patient to collect and understand solid  data about what treatments work and don't work, and to keep the energy and focus to collect and manage their own data in their own spreadsheet. On the research side, Flaredown is proud to provide the anonymized data set for usage by researchers who can help find solutions!
+Flaredown helps patients track and manage their own chronic illness symptoms and communicate more effectively with medical professionals and get diagnosis and treatment. 
+
+Flaredown helps patients (users) reduce their "time to diagnosis" because patients with chronic conditions which can take upwards of five years for many patients and is expensive and miserable as people don't know what they have and therefore can't treat it. 
+
+It helps enormously with better communication with doctors by showing consistently collected data. 
+
+Flaredown data helps users track data which helps users apply for disability benefits as they can show their charts over time (this has really worked for real people!) 
+
+Many chronic diseases prevent in very individual way and it can be hard for a patient to collect and understand solid  data about what treatments work and don't work, and to keep the energy and focus to collect and manage their own data in their own spreadsheet. 
+
+On the research side, Flaredown is proud to provide the anonymized data set for usage by researchers who can help find solutions!
 
 ![flaredown-chart](https://user-images.githubusercontent.com/578159/146847812-69e4938b-232f-417a-a9f1-e789334431bd.png)
+![flaredown-graph](https://user-images.githubusercontent.com/578159/146848768-23b60bbd-fb3a-44e1-90e3-1b4d71a8e16c.png)
+![flaredown-symptoms](https://user-images.githubusercontent.com/578159/146848774-e7e3d15a-fffd-4a07-8535-135a4d02c8f6.png)
+![flaredown-circle-words](https://user-images.githubusercontent.com/578159/146848776-26cb3142-f362-448b-80e0-366ec6956edc.png)
+
 
 #### Numbers about users
 
 As of 15 October 2021:
+```
 625408 total checkins in the system
 66233 checkins since 1 year ago (Oct 2020)
 40325 checkins since 6 months ago
@@ -24,6 +39,10 @@ As of 15 October 2021:
 76869 users in the system
 5979 users created since 6 months ago
 966 users created since 1 month ago
+```
+
+As of December 2021, there are checkins in the system from 183 different countries!
+
 
 #### Built by people around the world
 
@@ -43,7 +62,7 @@ TODO talk about all the cool people with personal connections who have helped bu
 ### Submission 
 
 #### Name of the partner organization(s) your project is helping: 
-Flaredown LLC (no-profit, wholly owned by maintainer Logan)
+Flaredown LLC (no-profit but not a registered nonprofit, wholly owned by maintainer Logan)
 
 #### What we need:
 - Mobile app launch new version
@@ -66,12 +85,12 @@ Flaredown LLC (no-profit, wholly owned by maintainer Logan)
 
 #### Any useful links
 
-https://github.com/rubyforgood/Flaredown
-http://flaredown.com/
-https://www.kaggle.com/flaredown/flaredown-autoimmune-symptom-tracker
-The original crowdfunding https://www.indiegogo.com/projects/flaredown-decode-your-chronic-illness#/
-https://www.sciencedirect.com/science/article/pii/S2452109420302657
-https://medium.com/flaredown/decoding-chronic-illness-307239e9dac1 (old but useful on data insights)
+1. https://github.com/rubyforgood/Flaredown
+1. http://flaredown.com/
+1. https://www.kaggle.com/flaredown/flaredown-autoimmune-symptom-tracker
+1. The original crowdfunding https://www.indiegogo.com/projects/flaredown-decode-your-chronic-illness#/
+1. https://www.sciencedirect.com/science/article/pii/S2452109420302657
+1. https://medium.com/flaredown/decoding-chronic-illness-307239e9dac1 (old but useful on data insights)
 
 #### Long/technical description of the ask
 
