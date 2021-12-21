@@ -41,6 +41,9 @@ As of 15 October 2021:
 966 users created since 1 month ago
 ```
 
+As of December 2021, there are checkins in the system from 183 different countries!
+
+
 #### Built by people around the world
 
 TODO talk about all the cool people with personal connections who have helped build flaredown
