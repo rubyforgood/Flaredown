@@ -65,7 +65,7 @@
     "ember-time-field": "^0.1.5",
     "ember-truth-helpers": "1.2.0",
     "loader.js": "^4.2.3",
-    "node-sass": "^4.5.3",
+    "node-sass": "^7.0.0",
     "torii": "^0.8.0"
   },
   "engines": {
