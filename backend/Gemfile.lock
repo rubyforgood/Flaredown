@@ -297,7 +297,7 @@ GEM
     pusher-signature (0.1.8)
     racc (1.6.0)
     racc (1.6.0-java)
-    rack (2.2.3)
+    rack (2.2.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-test (1.1.0)
