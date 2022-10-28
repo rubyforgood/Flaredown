@@ -30,7 +30,7 @@
 
   <div class="checkbox" style="margin: 0.5em 0 1em;">
     {{input type="checkbox" checked=model.acceptPrivacyTerms}}
-    I accept the {{#link-to 'terms-of-service'}}Terms&nbsp;of&nbsp;Service{{/link-to}} and {{#link-to 'privacy-policy'}}Privacy&nbsp;Policy{{/link-to}}
+    I accept the&nbsp;{{#link-to 'terms-of-service'}}Terms&nbsp;of&nbsp;Service{{/link-to}}&nbsp;and&nbsp;{{#link-to 'privacy-policy'}}Privacy&nbsp;Policy{{/link-to}}
     {{#if (eq model.acceptPrivacyTerms false)}}
       <p class="error-message" style="margin-top: 0; font-weight: bold; font-size: 0.9em;">
         Please, accept the Terms of Service and Privacy Policy.

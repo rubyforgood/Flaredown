@@ -3,7 +3,7 @@ require 'rake'
 desc "run application"
 task :run do
   pids = [
-    spawn("cd backend && foreman start -f Procfile.local"),
+    spawn("cd backend && bundle install && foreman start -f Procfile.local"),
     spawn("cd frontend && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://localhost:3000")
   ]
 
