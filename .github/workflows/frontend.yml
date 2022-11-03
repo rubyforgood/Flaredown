@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  NODE_VERSION: 12.22.6
+  NODE_VERSION: 14.21.0
 
 jobs:
   changes:
