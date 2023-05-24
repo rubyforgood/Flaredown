@@ -60,7 +60,7 @@ gem "ruby-progressbar", require: false
 
 gem "kaminari-mongoid"
 gem "kaminari-actionview"
-gem "rack-cors", require: "rack/cors"
+gem "rack-cors", "1.1.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
 gem "simplecov", require: false, group: :test
 
 group :development, :test do
