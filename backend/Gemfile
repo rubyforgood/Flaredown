@@ -13,19 +13,19 @@ gem "rake"
 gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-gem "pg"
-gem "mongoid"
+gem "pg", "1.2.3"
+gem "mongoid", "7.3.3"
 
 # Use Puma as the app server
-gem "puma"
+gem "puma", "5.6.4"
 
 # Authentication libraries
-gem "devise"
+gem "devise", "4.8.0"
 gem "cancancan", "~> 3.3.0"
-gem "cancancan-mongoid"
-gem "devise_invitable"
-gem "omniauth", "~> 1.8.1"
-gem "omniauth-facebook", "~> 3.0.0"
+gem "cancancan-mongoid", "2.0.0"
+gem "devise_invitable", "2.0.5"
+gem "omniauth", "1.8.1"
+gem "omniauth-facebook", "3.0.0"
 
 # Colored output to console
 gem "colored", "~> 1.2"

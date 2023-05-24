@@ -424,7 +424,7 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (2.1.0)
     uniform_notifier (1.14.2)
-    vcr (6.0.0)
+    vcr (6.1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     webmock (3.14.0)
@@ -456,13 +456,13 @@ DEPENDENCIES
   bullet
   byebug
   cancancan (~> 3.3.0)
-  cancancan-mongoid
+  cancancan-mongoid (= 2.0.0)
   colored (~> 1.2)
   countries
   database_cleaner
   database_cleaner-mongoid
-  devise
-  devise_invitable
+  devise (= 4.8.0)
+  devise_invitable (= 2.0.5)
   dotenv-rails
   erb_lint
   factory_bot_rails
@@ -474,16 +474,16 @@ DEPENDENCIES
   kaminari-actionview
   kaminari-mongoid
   letter_opener
-  mongoid
+  mongoid (= 7.3.3)
   mongoid-rspec
   nearest_time_zone
-  omniauth (~> 1.8.1)
-  omniauth-facebook (~> 3.0.0)
-  pg
+  omniauth (= 1.8.1)
+  omniauth-facebook (= 3.0.0)
+  pg (= 1.2.3)
   pry-byebug
   pry-doc
   pry-rails
-  puma
+  puma (= 5.6.4)
   pusher
   rack-cors
   rack-timeout
