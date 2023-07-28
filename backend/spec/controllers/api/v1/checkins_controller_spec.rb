@@ -1,5 +1,4 @@
 require "rails_helper"
-include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Api::V1::CheckinsController do
   let!(:user) { create(:user) }
