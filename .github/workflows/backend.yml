@@ -94,7 +94,7 @@ jobs:
     services:
       redis:
         image: redis:6.2.3-alpine
-        ports: ['6379:6379']
+        ports: ["6379:6379"]
         options: --entrypoint redis-server
 
       db:
