@@ -92,7 +92,6 @@ end
 group :test do
   gem "mongoid-rspec"
   gem "shoulda-matchers"
-  gem "timecop" # travel_to isn't working? TODO figure this out
   gem "vcr"
   gem "webmock"
 end
