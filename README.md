@@ -15,14 +15,21 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * Redis 6.2.3
 * Ruby 2.7.4 (see [RVM](https://rvm.io/) also)
 * Node 12.22.6
-
-You can spin up instances of the required data-stores in Docker containers using `docker compose up` in the project root.
-
-On macOS, you can install libpq by running `brew install libpq && brew link --force libpq && bundle config --local build.pg "--with-ldflags=-L$(brew --prefix libpq)/lib --with-pg-include=$(brew --prefix libpq)/include"`, which is required for `bundle install` to succeed.
-
 ## Installation
 
+_If you are running on an M1 mac, run the following command before you start the installation process:_
+```bash
+$env /usr/bin/arch -arm64 /bin/zsh ---login
+```
+
+_Remove all gems before you proceed_
+```bash
+gem uninstall -aIx
+```
+
 ### Backend
+
+On macOS, you can install libpq by running `brew install libpq && brew link --force libpq && bundle config --local build.pg "--with-ldflags=-L$(brew --prefix libpq)/lib --with-pg-include=$(brew --prefix libpq)/include"`, which is required for `bundle install` to succeed.
 
 ```bash
 cd backend
@@ -34,6 +41,8 @@ bundle install
 cp env-example .env # You may adjust it however you like
                     # RVM is going to autoload this on every 'cd' to the directory
 bundle exec rake app:setup
+
+gem install foreman
 ```
 
 ### Frontend
@@ -44,6 +53,11 @@ npm install
 ```
 
 ## Running / Development
+
+From the project root:
+```bash
+docker compose up
+```
 
 ```bash
 rake run
