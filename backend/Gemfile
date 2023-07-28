@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-ruby "2.7.4"
+ruby "3.0.6"
 
 # Configuration management. keep on top of Gemfile
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4.1"
@@ -13,16 +13,16 @@ gem "rake"
 gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-gem "pg", "1.2.3"
 gem "mongoid", "7.3.3"
+gem "pg", "1.2.3"
 
 # Use Puma as the app server
 gem "puma", "5.6.4"
 
 # Authentication libraries
-gem "devise", "4.8.0"
 gem "cancancan", "~> 3.3.0"
 gem "cancancan-mongoid", "2.0.0"
+gem "devise", "4.8.0"
 gem "devise_invitable", "2.0.5"
 gem "omniauth", "1.8.1"
 gem "omniauth-facebook", "3.0.0"
@@ -58,8 +58,8 @@ gem "symmetric-encryption"
 
 gem "ruby-progressbar", require: false
 
-gem "kaminari-mongoid"
 gem "kaminari-actionview"
+gem "kaminari-mongoid"
 gem "rack-cors", "1.1.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
 gem "simplecov", require: false, group: :test
 
@@ -73,10 +73,10 @@ group :development, :test do
   gem "factory_bot_rails"
   # Generate Fake data
   gem "ffaker"
-  gem "rspec-rails", "~> 4.1.0"
-  gem "pry-rails"
   gem "pry-byebug"
   gem "pry-doc"
+  gem "pry-rails"
+  gem "rspec-rails", "~> 4.1.0"
   gem "standardrb"
 end
 
@@ -84,18 +84,17 @@ group :development do
   gem "annotate"
   gem "awesome_print", "~>1.6"
   gem "better_errors", "~>2.1"
-  gem "binding_of_caller", "~>0.7"
   gem "foreman", require: false
   gem "letter_opener"
   gem "rubocop-rails", require: false
 end
 
 group :test do
-  gem "shoulda-matchers"
   gem "mongoid-rspec"
-  gem "webmock"
-  gem "vcr"
+  gem "shoulda-matchers"
   gem "timecop" # travel_to isn't working? TODO figure this out
+  gem "vcr"
+  gem "webmock"
 end
 
 group :production do
@@ -103,6 +102,6 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "bugsnag", "~> 6.22"
