@@ -85,8 +85,6 @@ GEM
       html_tokenizer (~> 0.0.6)
       parser (>= 2.4)
       smart_properties
-    binding_of_caller (0.8.0)
-      debug_inspector (>= 0.0.1)
     bson (4.12.1)
     bson (4.12.1-java)
     bugsnag (6.24.0)
@@ -120,7 +118,6 @@ GEM
     database_cleaner-mongoid (2.0.1)
       database_cleaner-core (~> 2.0.0)
       mongoid
-    debug_inspector (1.1.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.8.0)
@@ -451,7 +448,6 @@ DEPENDENCIES
   annotate
   awesome_print (~> 1.6)
   better_errors (~> 2.1)
-  binding_of_caller (~> 0.7)
   bugsnag (~> 6.22)
   bullet
   byebug
