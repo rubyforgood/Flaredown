@@ -17,7 +17,7 @@ jobs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.3.4
 
       - uses: dorny/paths-filter@v2
         id: filter
@@ -39,7 +39,7 @@ jobs:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -60,7 +60,7 @@ jobs:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.3.4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -110,7 +110,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.3.4
 
       - name: Install PostgreSQL client
         run: |
