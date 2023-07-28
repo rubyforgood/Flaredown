@@ -66,6 +66,7 @@
     "ember-truth-helpers": "1.2.0",
     "loader.js": "^4.2.3",
     "node-sass": "^7.0.0",
+    "phantomjs-prebuilt": "^2.1.16",
     "torii": "^0.8.0"
   },
   "engines": {
