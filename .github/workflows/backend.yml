@@ -45,7 +45,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           working-directory: backend
-          bundler-cache: false
+          bundler-cache: true
+          ruby-version: "3.0"
 
       - name: Build & Run
         run: |
@@ -65,7 +66,8 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: false
+          bundler-cache: true
+          ruby-version: "3.0"
 
       - name: ERB lint
         run: |
@@ -120,7 +122,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           working-directory: backend
-          bundler-cache: false
+          bundler-cache: true
+          ruby-version: "3.0"
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.4.0
