@@ -1,20 +1,20 @@
 source "https://rubygems.org"
 
-ruby "3.0.6"
+ruby "3.2.2"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.4.1"
+gem "rails", "~> 6.1.7.4"
 gem "rake"
 
 # JSON serializer
 gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "7.3.3"
-gem "pg", "1.2.3"
+gem "mongoid", "7.5.3"
+gem "pg", "1.5.3"
 
 # Use Puma as the app server
 gem "puma", "5.6.4"
@@ -72,12 +72,13 @@ group :development, :test do
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   # Generate Fake data
-  gem "ffaker"
+  gem "ffaker", "2.21.0"
   gem "pry-byebug"
   gem "pry-doc"
   gem "pry-rails"
   gem "rspec-rails", "~> 4.1.0"
   gem "standardrb"
+  gem "psych", "~> 3.3"
 end
 
 group :development do
