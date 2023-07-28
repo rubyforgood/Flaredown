@@ -1,4 +1,5 @@
 require "rails_helper"
+include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Api::V1::CheckinsController do
   let!(:user) { create(:user) }
@@ -33,19 +34,19 @@ RSpec.describe Api::V1::CheckinsController do
 
   describe "create" do
     it "returns new checkin" do
-      Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 5)) do
+      travel_to(DateTime.new(2020, 1, 2, 3, 4, 5)) do
         post :create, params: {checkin: {date: date}}
         returned_checkin_1 = response_body[:checkin]
         expect(DateTime.parse(returned_checkin_1[:date]).to_s).to eq "2016-01-06T03:04:05+00:00"
       end
 
-      Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 6)) do
+      travel_to(DateTime.new(2020, 1, 2, 3, 4, 6)) do
         post :create, params: {checkin: {date: date}}
         returned_checkin_2 = response_body[:checkin]
         expect(DateTime.parse(returned_checkin_2[:date]).to_s).to eq "2016-01-06T03:04:05+00:00"
       end
 
-      Timecop.freeze(DateTime.new(2020, 1, 2, 3, 4, 7)) do
+      travel_to(DateTime.new(2020, 1, 2, 3, 4, 7)) do
         post :create, params: {checkin: {date: date}}
         returned_checkin_3 = response_body[:checkin]
         expect(DateTime.parse(returned_checkin_3[:date]).to_s).to eq "2016-01-06T03:04:05+00:00"
