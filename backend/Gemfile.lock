@@ -417,7 +417,7 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     thread_safe (0.3.6-java)
-    timecop (0.9.4)
+    timecop (0.9.6)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.3)
