@@ -170,7 +170,7 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    ffaker (2.20.0)
+    ffaker (2.21.0)
     ffi (1.15.5-java)
     forecast_io (2.0.2)
       faraday
