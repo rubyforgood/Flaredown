@@ -34,12 +34,6 @@ LOCALTUNNEL_PORT=4300
 FACEBOOK_APP_ID=
 FACEBOOK_APP_SECRET=
 
-# Airbrake
-AIRBRAKE_ENV=
-AIRBRAKE_HOST=
-AIRBRAKE_PROJECT_ID=
-AIRBRAKE_PROJECT_KEY=
-
 # Discourse
 DISCOURSE_ENABLED=false
 DISCOURSE_URL=
@@ -49,9 +43,6 @@ DISCOURSE_SECRET=
 # Intercom
 INTERCOM_APP_ID=
 INTERCOM_SECRET=
-
-# Userengage
-USERENGAGE_API_KEY=
 
 # Google ReCaptcha
 # https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do
