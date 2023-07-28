@@ -171,7 +171,7 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     ffaker (2.20.0)
-    ffi (1.15.4-java)
+    ffi (1.15.5-java)
     forecast_io (2.0.2)
       faraday
       hashie
@@ -291,7 +291,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-    pry-doc (1.2.0)
+    pry-doc (1.4.0)
       pry (~> 0.11)
       yard (~> 0.9.11)
     pry-rails (0.3.9)
@@ -449,7 +449,7 @@ GEM
     websocket-driver (0.7.6-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    yard (0.9.26)
+    yard (0.9.34)
     zeitwerk (2.6.9)
 
 PLATFORMS
@@ -516,7 +516,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.0.6p216
+   ruby 3.1.4p223
 
 BUNDLED WITH
    2.2.33
