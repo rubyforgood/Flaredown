@@ -60,7 +60,7 @@ jobs:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v3
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -94,7 +94,7 @@ jobs:
     services:
       redis:
         image: redis:6.2.3-alpine
-        ports: ['6379:6379']
+        ports: ["6379:6379"]
         options: --entrypoint redis-server
 
       db:
