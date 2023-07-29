@@ -28,7 +28,7 @@ RSpec.describe 'api/v1/countries', type: :request do
 
     get('show country') do
       response(200, 'successful') do
-        let(:id) { '123' }
+        let(:id) { 'US' }
 
         after do |example|
           example.metadata[:response][:content] = {
