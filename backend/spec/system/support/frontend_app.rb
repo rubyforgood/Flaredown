@@ -10,7 +10,10 @@ module SystemSpec
 
       puts "Starting frontend app at #{frontend_app_url}"
       puts `pwd`
-      puts `ls`
+      puts "ls .."
+      puts `ls ..`
+      puts "ls ../.."
+      puts `ls ../..`
       @pid ||= Process.spawn(
         frontend_app_cmd,
         [:out, :err] => log,
