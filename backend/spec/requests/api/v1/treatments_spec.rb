@@ -1,6 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/treatments', type: :request do
+  before { sign_in create(:user) }
 
   path '/api/treatments' do
 

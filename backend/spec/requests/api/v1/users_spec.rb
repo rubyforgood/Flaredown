@@ -1,6 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/users', type: :request do
+  before { sign_in create(:user) }
 
   path '/api/users/{id}' do
     # You'll want to customize the parameter types...

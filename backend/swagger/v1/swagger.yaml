@@ -4,7 +4,103 @@ info:
   title: API V1
   version: v1
 paths:
-<<<<<<< HEAD
+  "/api/checkins":
+    get:
+      summary: list checkins
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: page'
+    post:
+      summary: create checkin
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: checkin'
+  "/api/checkins/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show checkin
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
+    patch:
+      summary: update checkin
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
+    put:
+      summary: update checkin
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
+  "/api/conditions":
+    get:
+      summary: list conditions
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                conditions: []
+    post:
+      summary: create condition
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: condition'
+  "/api/conditions/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show condition
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/countries":
     get:
       summary: list countries
@@ -1031,91 +1127,47 @@ paths:
                   created_at:
                   updated_at:
                   name: United States
-||||||| parent of 64d8356f (Add swagger request specs for controllers and regenerate swagger file)
-=======
-  "/api/checkins":
-    get:
-      summary: list checkins
-      responses:
-        '200':
-          description: successful
-    post:
-      summary: create checkin
-      responses:
-        '200':
-          description: successful
-  "/api/checkins/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show checkin
-      responses:
-        '200':
-          description: successful
-    patch:
-      summary: update checkin
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update checkin
-      responses:
-        '200':
-          description: successful
-  "/api/conditions":
-    get:
-      summary: list conditions
-      responses:
-        '200':
-          description: successful
-    post:
-      summary: create condition
-      responses:
-        '200':
-          description: successful
-  "/api/conditions/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show condition
-      responses:
-        '200':
-          description: successful
-  "/api/countries":
-    get:
-      summary: list countries
-      responses:
-        '200':
-          description: successful
-  "/api/countries/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show country
-      responses:
-        '200':
-          description: successful
   "/api/day_habits":
     get:
       summary: list day_habits
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                day_habits:
+                - id: lying_down
+                  created_at:
+                  updated_at:
+                  name: Lying down
+                  rank: 1
+                  description: bedridden
+                - id: sitting_down
+                  created_at:
+                  updated_at:
+                  name: Sitting down or at a computer
+                  rank: 2
+                  description: e.g. student, programmer, architect
+                - id: on_feet
+                  created_at:
+                  updated_at:
+                  name: On your feet
+                  rank: 3
+                  description: e.g. physician, retail salesperson, tour guide
+                - id: driving
+                  created_at:
+                  updated_at:
+                  name: Driving around
+                  rank: 4
+                  description: e.g. pharmaceutical representative, taxi driver, truck
+                    driver
+                - id: working_with_hands
+                  created_at:
+                  updated_at:
+                  name: Working with your hands
+                  rank: 5
+                  description: e.g. farmer, fishery worker, landscaper
   "/api/day_habits/{id}":
     parameters:
     - name: id
@@ -1129,12 +1181,46 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Bad request: id param is not a valid day_habit id'
   "/api/education_levels":
     get:
       summary: list education_levels
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                education_levels:
+                - id: less_than_hi_school
+                  created_at:
+                  updated_at:
+                  name: Less than high school
+                  rank: 1
+                - id: hi_school
+                  created_at:
+                  updated_at:
+                  name: High school diploma
+                  rank: 2
+                - id: college_degree
+                  created_at:
+                  updated_at:
+                  name: Some college or associate's degree
+                  rank: 3
+                - id: bachelors_degree
+                  created_at:
+                  updated_at:
+                  name: Bachelor's degree
+                  rank: 4
+                - id: advanced_degree
+                  created_at:
+                  updated_at:
+                  name: Advanced degree
+                  rank: 5
   "/api/education_levels/{id}":
     parameters:
     - name: id
@@ -1148,12 +1234,76 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Bad request: id param is not a valid education_level id'
   "/api/ethnicities":
     get:
       summary: list ethnicities
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                ethnicities:
+                - id: latino
+                  created_at:
+                  updated_at:
+                  name: Latino or Hispanic
+                  rank: 1
+                - id: white
+                  created_at:
+                  updated_at:
+                  name: European or White
+                  rank: 2
+                - id: east_asian
+                  created_at:
+                  updated_at:
+                  name: East Asian
+                  rank: 3
+                - id: south_asian
+                  created_at:
+                  updated_at:
+                  name: South Asian
+                  rank: 4
+                - id: black
+                  created_at:
+                  updated_at:
+                  name: African American or Black
+                  rank: 5
+                - id: oceanian
+                  created_at:
+                  updated_at:
+                  name: Pacific Islander or Oceanian
+                  rank: 6
+                - id: middle_eastern
+                  created_at:
+                  updated_at:
+                  name: Middle Eastern or North African
+                  rank: 7
+                - id: native_american
+                  created_at:
+                  updated_at:
+                  name: Native American or Alaska Native
+                  rank: 8
+                - id: african
+                  created_at:
+                  updated_at:
+                  name: Sub-Saharan African
+                  rank: 9
+                - id: other
+                  created_at:
+                  updated_at:
+                  name: Other
+                  rank: 10
+                - id: not_sure
+                  created_at:
+                  updated_at:
+                  name: I'm not sure
+                  rank: 11
   "/api/ethnicities/{id}":
     parameters:
     - name: id
@@ -1167,12 +1317,22 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Bad request: id param is not a valid ethnicity id'
   "/api/passwords":
     post:
       summary: create password
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: password'
   "/api/passwords/{id}":
     parameters:
     - name: id
@@ -1186,27 +1346,58 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                password:
+                  id: '123'
+                  created_at: '2023-07-29T19:26:08.597Z'
+                  updated_at: '2023-07-29T19:26:08.608Z'
+                  email: user18@example.com
+                  reset_password_token: '123'
+                  current_password:
+                  password:
+                  password_confirmation:
     patch:
       summary: update password
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: password'
     put:
       summary: update password
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: password'
   "/api/posts":
     get:
       summary: list posts
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                posts: []
     post:
       summary: create post
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: post'
   "/api/posts/{id}":
     parameters:
     - name: id
@@ -1220,6 +1411,11 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/profiles":
     get:
       summary: list profiles
@@ -1239,40 +1435,94 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
     patch:
       summary: update profile
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
     put:
       summary: update profile
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/registrations/destroy":
     put:
       summary: delete registration
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
   "/api/registrations":
     post:
       summary: create registration
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: registration'
   "/api/searches":
     get:
       summary: show search
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                  resource:
+                  - can't be blank
+                  - is not included in the list
   "/api/sexes":
     get:
       summary: list sexes
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                sexes:
+                - id: male
+                  created_at:
+                  updated_at:
+                  name: Male
+                  rank: 1
+                - id: female
+                  created_at:
+                  updated_at:
+                  name: Female
+                  rank: 2
+                - id: other
+                  created_at:
+                  updated_at:
+                  name: Other
+                  rank: 3
+                - id: doesnt_say
+                  created_at:
+                  updated_at:
+                  name: Prefer not to say
+                  rank: 4
   "/api/sexes/{id}":
     parameters:
     - name: id
@@ -1286,7 +1536,11 @@ paths:
       responses:
         '200':
           description: successful
->>>>>>> 64d8356f (Add swagger request specs for controllers and regenerate swagger file)
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Bad request: id param is not a valid sex id'
   "/api/symptoms/{id}":
     get:
       summary: show symptom
@@ -1305,8 +1559,8 @@ paths:
               example:
                 symptom:
                   id: 1
-                  created_at: '2023-07-29T19:11:40.154Z'
-                  updated_at: '2023-07-29T19:11:40.154Z'
+                  created_at: '2023-07-29T19:26:09.396Z'
+                  updated_at: '2023-07-29T19:26:09.396Z'
                   type: symptom
                   color_id:
                   users_count: 0
@@ -1346,11 +1600,20 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                tags: []
     post:
       summary: create tag
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: tag'
   "/api/tags/{id}":
     parameters:
     - name: id
@@ -1364,17 +1627,32 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/trackings":
     get:
       summary: list trackings
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: trackable_type'
     post:
       summary: create tracking
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: tracking'
   "/api/trackings/{id}":
     parameters:
     - name: id
@@ -1388,22 +1666,41 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
     delete:
       summary: delete tracking
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/treatments":
     get:
       summary: list treatments
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                treatments: []
     post:
       summary: create treatment
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - 'Required parameter missing: treatment'
   "/api/treatments/{id}":
     parameters:
     - name: id
@@ -1417,6 +1714,11 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/users/{id}":
     parameters:
     - name: id
@@ -1430,22 +1732,41 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
     patch:
       summary: update user
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
     put:
       summary: update user
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                errors:
+                - Resource Not Found
   "/api/weathers":
     get:
       summary: list weathers
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                weathers: []
 servers:
 - url: http://localhost:3000
   description: local documentation

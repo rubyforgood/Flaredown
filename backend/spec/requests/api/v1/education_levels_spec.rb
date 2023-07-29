@@ -1,6 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/education_levels', type: :request do
+  before { sign_in create(:user) }
 
   path '/api/education_levels' do
 
