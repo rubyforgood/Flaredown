@@ -6,3 +6,5 @@ backend/dump
 
 dump.rdb
 .rbenv-gemsets
+
+.idea/*
