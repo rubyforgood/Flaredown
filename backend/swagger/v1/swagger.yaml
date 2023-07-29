@@ -4,6 +4,7 @@ info:
   title: API V1
   version: v1
 paths:
+<<<<<<< HEAD
   "/api/countries":
     get:
       summary: list countries
@@ -1030,6 +1031,262 @@ paths:
                   created_at:
                   updated_at:
                   name: United States
+||||||| parent of 64d8356f (Add swagger request specs for controllers and regenerate swagger file)
+=======
+  "/api/checkins":
+    get:
+      summary: list checkins
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create checkin
+      responses:
+        '200':
+          description: successful
+  "/api/checkins/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show checkin
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update checkin
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update checkin
+      responses:
+        '200':
+          description: successful
+  "/api/conditions":
+    get:
+      summary: list conditions
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create condition
+      responses:
+        '200':
+          description: successful
+  "/api/conditions/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show condition
+      responses:
+        '200':
+          description: successful
+  "/api/countries":
+    get:
+      summary: list countries
+      responses:
+        '200':
+          description: successful
+  "/api/countries/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show country
+      responses:
+        '200':
+          description: successful
+  "/api/day_habits":
+    get:
+      summary: list day_habits
+      responses:
+        '200':
+          description: successful
+  "/api/day_habits/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show day_habit
+      responses:
+        '200':
+          description: successful
+  "/api/education_levels":
+    get:
+      summary: list education_levels
+      responses:
+        '200':
+          description: successful
+  "/api/education_levels/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show education_level
+      responses:
+        '200':
+          description: successful
+  "/api/ethnicities":
+    get:
+      summary: list ethnicities
+      responses:
+        '200':
+          description: successful
+  "/api/ethnicities/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show ethnicity
+      responses:
+        '200':
+          description: successful
+  "/api/passwords":
+    post:
+      summary: create password
+      responses:
+        '200':
+          description: successful
+  "/api/passwords/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show password
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update password
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update password
+      responses:
+        '200':
+          description: successful
+  "/api/posts":
+    get:
+      summary: list posts
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create post
+      responses:
+        '200':
+          description: successful
+  "/api/posts/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show post
+      responses:
+        '200':
+          description: successful
+  "/api/profiles":
+    get:
+      summary: list profiles
+      responses:
+        '200':
+          description: successful
+  "/api/profiles/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show profile
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update profile
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update profile
+      responses:
+        '200':
+          description: successful
+  "/api/registrations/destroy":
+    put:
+      summary: delete registration
+      responses:
+        '200':
+          description: successful
+  "/api/registrations":
+    post:
+      summary: create registration
+      responses:
+        '200':
+          description: successful
+  "/api/searches":
+    get:
+      summary: show search
+      responses:
+        '200':
+          description: successful
+  "/api/sexes":
+    get:
+      summary: list sexes
+      responses:
+        '200':
+          description: successful
+  "/api/sexes/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show sex
+      responses:
+        '200':
+          description: successful
+>>>>>>> 64d8356f (Add swagger request specs for controllers and regenerate swagger file)
   "/api/symptoms/{id}":
     get:
       summary: show symptom
@@ -1083,6 +1340,112 @@ paths:
                         required: true
                 required:
                 - symptom
+  "/api/tags":
+    get:
+      summary: list tags
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create tag
+      responses:
+        '200':
+          description: successful
+  "/api/tags/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show tag
+      responses:
+        '200':
+          description: successful
+  "/api/trackings":
+    get:
+      summary: list trackings
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create tracking
+      responses:
+        '200':
+          description: successful
+  "/api/trackings/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show tracking
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete tracking
+      responses:
+        '200':
+          description: successful
+  "/api/treatments":
+    get:
+      summary: list treatments
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create treatment
+      responses:
+        '200':
+          description: successful
+  "/api/treatments/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show treatment
+      responses:
+        '200':
+          description: successful
+  "/api/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show user
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update user
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update user
+      responses:
+        '200':
+          description: successful
+  "/api/weathers":
+    get:
+      summary: list weathers
+      responses:
+        '200':
+          description: successful
 servers:
 - url: http://localhost:3000
   description: local documentation
