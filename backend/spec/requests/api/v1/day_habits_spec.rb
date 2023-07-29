@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/day_habits', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/day_habits' do
 
     get('list day_habits') do

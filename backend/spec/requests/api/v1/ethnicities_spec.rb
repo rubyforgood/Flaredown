@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/ethnicities', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/ethnicities' do
 
     get('list ethnicities') do

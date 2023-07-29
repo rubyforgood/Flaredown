@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/profiles', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/profiles' do
 
     get('list profiles') do

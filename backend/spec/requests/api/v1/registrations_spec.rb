@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/registrations', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/registrations/destroy' do
 
     put('delete registration') do

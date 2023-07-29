@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/posts', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/posts' do
 
     get('list posts') do

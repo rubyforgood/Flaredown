@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/passwords', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/passwords' do
 
     post('create password') do

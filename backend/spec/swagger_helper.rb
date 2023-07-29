@@ -36,4 +36,8 @@ RSpec.configure do |config|
   # the key, this may want to be changed to avoid putting yaml in json files.
   # Defaults to json. Accepts ':json' and ':yaml'.
   config.swagger_format = :yaml
+
+  config.before(:each, type: :request) do
+    sign_in create(:user)
+  end
 end

@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/countries', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/countries' do
 
     get('list countries') do

@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/conditions', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/conditions' do
 
     get('list conditions') do
