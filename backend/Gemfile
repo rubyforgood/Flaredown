@@ -86,7 +86,6 @@ group :development do
   gem "better_errors", "~>2.1"
   gem "foreman", require: false
   gem "letter_opener"
-  gem "rubocop-rails", require: false
 end
 
 group :test do
