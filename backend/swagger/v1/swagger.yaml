@@ -1,0 +1,52 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/symptoms/{id}":
+    get:
+      summary: show symptom
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symptom:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        required: true
+                      updated_at:
+                        type: string
+                        required: true
+                      created_at:
+                        type: string
+                        required: true
+                      type:
+                        type: string
+                        required: true
+                      users_count:
+                        type: integer
+                        required: true
+                      name:
+                        type: string
+                        required: true
+                required:
+                - symptom
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
