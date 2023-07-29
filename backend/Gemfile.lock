@@ -146,7 +146,7 @@ GEM
       rubocop
       smart_properties
     erubi (1.12.0)
-    factory_bot (6.2.0)
+    factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
