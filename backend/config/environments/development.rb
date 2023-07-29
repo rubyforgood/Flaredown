@@ -1,12 +1,14 @@
 Rails.application.configure do
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
-    # Bullet.growl         = true
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
+  unless ENV['DEPENDENCIES_NEXT']
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.alert = true
+      Bullet.bullet_logger = true
+      Bullet.console = true
+      # Bullet.growl         = true
+      Bullet.rails_logger = true
+      Bullet.add_footer = true
+    end
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -35,28 +37,32 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  unless ENV['DEPENDENCIES_NEXT']
+    config.assets.debug = true
 
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+    # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+    # yet still be able to expire them through the digest params.
+    config.assets.digest = true
 
-  # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
-  config.assets.raise_runtime_errors = true
-
+    # Adds additional error checking when serving assets at runtime.
+    # Checks for improperly declared sprockets dependencies.
+    # Raises helpful error messages.
+    config.assets.raise_runtime_errors = true
+  end
+  
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Delivery with letter opener
   config.action_mailer.delivery_method = :letter_opener
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
-    Bullet.rails_logger = true
+  unless ENV['DEPENDENCIES_NEXT']
+    config.after_initialize do
+      Bullet.enable = true
+      Bullet.alert = true
+      Bullet.bullet_logger = true
+      Bullet.console = true
+      Bullet.rails_logger = true
+    end
   end
 end
