@@ -62,6 +62,8 @@ gem "kaminari-actionview"
 gem "kaminari-mongoid"
 gem "rack-cors", "1.1.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
 gem "simplecov", require: false, group: :test
+gem 'rswag-api'
+gem 'rswag-ui'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -78,6 +80,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "standardrb"
+  gem 'rswag-specs'
 end
 
 group :development do
