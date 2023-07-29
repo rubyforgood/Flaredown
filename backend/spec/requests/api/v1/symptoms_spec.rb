@@ -2,9 +2,7 @@ require "rails_helper"
 require "swagger_helper"
 
 RSpec.describe "api/v1/symptoms", type: :request do
-  let!(:user) { create(:user) }
-
-  before { sign_in user }
+  before { sign_in create(:user) }
 
   path "/api/symptoms/{id}" do
     get("show symptom") do
