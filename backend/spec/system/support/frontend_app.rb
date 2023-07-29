@@ -12,7 +12,7 @@ module SystemSpec
       @pid ||= Process.spawn(
         frontend_app_cmd,
         [:out, :err] => log,
-        chdir: "../frontend"
+        :chdir => "../frontend"
       )
 
       timeout = 15.seconds
@@ -32,10 +32,10 @@ module SystemSpec
       Process.wait @pid
     end
 
-  private
+    private
 
     def test_connection_to_frontend_app(timeout = 0)
-       system(
+      system(
         test_connection_cmd(timeout),
         out: "/dev/null"
       )

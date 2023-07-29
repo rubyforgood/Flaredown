@@ -16,4 +16,4 @@ Capybara.save_path = ENV.fetch("CAPYBARA_ARTIFACTS", "./tmp/capybara")
 Capybara.server_port = ENV["SYSTEM_SPEC_BACKEND_PORT"]
 
 # Where to find frontend app; see ./frontend_app.rb
-Capybara.app_host = "http://localhost:#{ENV['SYSTEM_SPEC_FRONTEND_PORT']}"
+Capybara.app_host = "http://localhost:#{ENV["SYSTEM_SPEC_FRONTEND_PORT"]}"
