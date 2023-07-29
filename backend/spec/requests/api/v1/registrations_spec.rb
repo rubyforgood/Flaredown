@@ -1,11 +1,11 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/countries', type: :request do
+RSpec.describe 'api/v1/registrations', type: :request do
   before { sign_in create(:user) }
 
-  path '/api/countries' do
+  path '/api/registrations/destroy' do
 
-    get('list countries') do
+    put('delete registration') do
       response(200, 'successful') do
 
         after do |example|
@@ -20,13 +20,10 @@ RSpec.describe 'api/v1/countries', type: :request do
     end
   end
 
-  path '/api/countries/{id}' do
-    # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
+  path '/api/registrations' do
 
-    get('show country') do
+    post('create registration') do
       response(200, 'successful') do
-        let(:id) { 'US' }
 
         after do |example|
           example.metadata[:response][:content] = {
