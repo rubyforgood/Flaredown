@@ -43,7 +43,7 @@ else
 end
 gem "devise_invitable", "2.0.5"
 gem "omniauth", "1.8.1"
-gem "omniauth-facebook", "3.0.0"
+gem "omniauth-facebook", "9.0.0"
 
 # Colored output to console
 gem "colored", "~> 1.2"
