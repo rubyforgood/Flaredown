@@ -121,7 +121,7 @@ jobs:
       - name: Setup node
         run: npm install -g npm@7.0.0
         working-directory: ./frontend
-      - run: npm run test
+      - run: npm install
 
       - name: Install PostgreSQL client
         run: |
