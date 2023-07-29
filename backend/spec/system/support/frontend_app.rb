@@ -12,8 +12,8 @@ module SystemSpec
       puts `pwd`
       puts "ls .."
       puts `ls ..`
-      puts "ls ../.."
-      puts `ls ../..`
+      puts "ls ../frontend"
+      puts `ls ../frontend`
       @pid ||= Process.spawn(
         frontend_app_cmd,
         [:out, :err] => log,
