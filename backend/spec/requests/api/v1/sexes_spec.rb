@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/sexes', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/sexes' do
 
     get('list sexes') do

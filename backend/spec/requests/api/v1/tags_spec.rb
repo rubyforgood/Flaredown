@@ -1,8 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/tags', type: :request do
-  before { sign_in create(:user) }
-
   path '/api/tags' do
 
     get('list tags') do
