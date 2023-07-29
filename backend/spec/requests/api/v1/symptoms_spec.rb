@@ -6,37 +6,6 @@ RSpec.describe 'api/v1/symptoms', type: :request do
 
   before { sign_in user }
 
-  path '/api/symptoms' do
-
-    get('list symptoms') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    post('create symptom') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
   path '/api/symptoms/{id}' do
 
     get('show symptom') do
