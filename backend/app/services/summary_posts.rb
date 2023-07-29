@@ -15,7 +15,7 @@ class SummaryPosts < AdditionalPosts
 
   def show_list
     posts = list.first(SUMMARY_POSTS)
-    posts.count == SUMMARY_POSTS ? posts : posts + add_last_new_posts(SUMMARY_POSTS - posts.count, posts.map(&:_id))
+    (posts.count == SUMMARY_POSTS) ? posts : posts + add_last_new_posts(SUMMARY_POSTS - posts.count, posts.map(&:_id))
   end
 
   def list

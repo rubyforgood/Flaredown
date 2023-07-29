@@ -6,7 +6,7 @@ class SameTrackablesJob
     translation = options["translation"]
 
     trackable_class = trackable_type.capitalize.constantize
-    searchable_attr = trackable_class.name == "Food" ? "long_desc" : "name"
+    searchable_attr = (trackable_class.name == "Food") ? "long_desc" : "name"
 
     [].tap do |array|
       if translation.present?
