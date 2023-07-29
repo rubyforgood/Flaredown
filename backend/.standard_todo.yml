@@ -16,8 +16,6 @@ ignore:
   - Lint/DuplicateMethods
   - Layout/SpaceInsideHashLiteralBraces
   - Style/QuotedSymbols
-- app/services/checkin/creator.rb:
-  - Metrics/MethodLength
 - lib/tasks/app.rake:
   - Lint/ConstantDefinitionInBlock
   - Style/GlobalStdStream
