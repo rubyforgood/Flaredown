@@ -1,13 +1,17 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/users', type: :request do
+  before { sign_in create(:user) }
+
+
   path '/api/users/{id}' do
-    # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
+
+    let(:id) { User.pick(:id) }
+
 
     get('show user') do
       response(200, 'successful') do
-        let(:id) { '123' }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -21,8 +25,22 @@ RSpec.describe 'api/v1/users', type: :request do
     end
 
     patch('update user') do
+      consumes 'application/json'
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+          user: {
+            type: :object,
+            properties: {
+              email: { type: :string },
+            }
+        }
+        },
+        required: [ 'user' ]
+      }
       response(200, 'successful') do
-        let(:id) { '123' }
+
+        let(:params) { {user: { email: 'updatedemail@example.com'} } }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -37,7 +55,6 @@ RSpec.describe 'api/v1/users', type: :request do
 
     put('update user') do
       response(200, 'successful') do
-        let(:id) { '123' }
 
         after do |example|
           example.metadata[:response][:content] = {

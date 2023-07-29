@@ -1351,8 +1351,8 @@ paths:
               example:
                 password:
                   id: '123'
-                  created_at: '2023-07-29T19:26:08.597Z'
-                  updated_at: '2023-07-29T19:26:08.608Z'
+                  created_at: '2023-07-29T21:16:17.837Z'
+                  updated_at: '2023-07-29T21:16:17.847Z'
                   email: user18@example.com
                   reset_password_token: '123'
                   current_password:
@@ -1559,8 +1559,8 @@ paths:
               example:
                 symptom:
                   id: 1
-                  created_at: '2023-07-29T19:26:09.396Z'
-                  updated_at: '2023-07-29T19:26:09.396Z'
+                  created_at: '2023-07-29T21:16:18.623Z'
+                  updated_at: '2023-07-29T21:16:18.623Z'
                   type: symptom
                   color_id:
                   users_count: 0
@@ -1735,18 +1735,92 @@ paths:
           content:
             application/json:
               example:
-                errors:
-                - Resource Not Found
+                user:
+                  id: 44
+                  created_at: '2023-07-29T21:16:19.276Z'
+                  updated_at: '2023-07-29T21:16:19.288Z'
+                  email: user44@example.com
+                  intercom_hash: 1b72b549ef1f8a6f2badcc28b160b8e42d547ea019a2e01a5e0cdec805cb1038
+                  topic_following_id: 64c581a30fabf06c40d60ded
+                  profile_id: 44
+                profiles:
+                - id: 44
+                  created_at: '2023-07-29T21:16:19.280Z'
+                  updated_at: '2023-07-29T21:16:19.280Z'
+                  screen_name:
+                  birth_date:
+                  country_id:
+                  sex_id:
+                  onboarding_step_id: onboarding-personal
+                  ethnicity_ids: []
+                  day_habit_id:
+                  education_level_id:
+                  day_walking_hours:
+                  pressure_units: mb
+                  temperature_units: f
+                  beta_tester: false
+                  notify_token: feb69ef67925d11393521bc5db6a2be2
+                  notify: true
+                  checkin_reminder: true
+                  checkin_reminder_at:
+                    hours: 20
+                    minutes: 0
+                  time_zone_name: America/New_York
+                  notify_top_posts: true
     patch:
       summary: update user
+      parameters: []
       responses:
         '200':
           description: successful
           content:
             application/json:
               example:
-                errors:
-                - Resource Not Found
+                user:
+                  id: 45
+                  created_at: '2023-07-29T21:16:19.345Z'
+                  updated_at: '2023-07-29T21:16:19.379Z'
+                  email: updatedemail@example.com
+                  intercom_hash: 7ab8b7681a8d33388b86b73953e0df9e6305458416f3a5293ca0ca37335a3328
+                  topic_following_id: 64c581a30fabf06c40d60dee
+                  profile_id: 45
+                profiles:
+                - id: 45
+                  created_at: '2023-07-29T21:16:19.349Z'
+                  updated_at: '2023-07-29T21:16:19.349Z'
+                  screen_name:
+                  birth_date:
+                  country_id:
+                  sex_id:
+                  onboarding_step_id: onboarding-personal
+                  ethnicity_ids: []
+                  day_habit_id:
+                  education_level_id:
+                  day_walking_hours:
+                  pressure_units: mb
+                  temperature_units: f
+                  beta_tester: false
+                  notify_token: 62ff91cef790c63fd310e939f1dec155
+                  notify: true
+                  checkin_reminder: true
+                  checkin_reminder_at:
+                    hours: 20
+                    minutes: 0
+                  time_zone_name: America/New_York
+                  notify_top_posts: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+              required:
+              - user
     put:
       summary: update user
       responses:
@@ -1756,7 +1830,7 @@ paths:
             application/json:
               example:
                 errors:
-                - Resource Not Found
+                - 'Required parameter missing: user'
   "/api/weathers":
     get:
       summary: list weathers
