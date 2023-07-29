@@ -11,3 +11,9 @@ Capybara.default_normalize_ws = true
 # Where to store system tests artifacts (e.g. screenshots, downloaded files, etc.).
 # It could be useful to be able to configure this path from the outside (e.g., on CI).
 Capybara.save_path = ENV.fetch("CAPYBARA_ARTIFACTS", "./tmp/capybara")
+
+# Port on which to fire up the rails backend.
+Capybara.server_port = ENV["SYSTEM_SPEC_BACKEND_PORT"]
+
+# Where to find frontend app; see ./frontend_app.rb
+Capybara.app_host = "http://localhost:#{ENV['SYSTEM_SPEC_FRONTEND_PORT']}"
