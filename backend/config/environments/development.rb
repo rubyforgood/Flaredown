@@ -1,5 +1,5 @@
 Rails.application.configure do
-  unless ENV['DEPENDENCIES_NEXT']
+  unless ENV["DEPENDENCIES_NEXT"]
     config.after_initialize do
       Bullet.enable = true
       Bullet.alert = true
@@ -37,7 +37,7 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  unless ENV['DEPENDENCIES_NEXT']
+  unless ENV["DEPENDENCIES_NEXT"]
     config.assets.debug = true
 
     # Asset digests allow you to set far-future HTTP expiration dates on all assets,
@@ -49,14 +49,14 @@ Rails.application.configure do
     # Raises helpful error messages.
     config.assets.raise_runtime_errors = true
   end
-  
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Delivery with letter opener
   config.action_mailer.delivery_method = :letter_opener
 
-  unless ENV['DEPENDENCIES_NEXT']
+  unless ENV["DEPENDENCIES_NEXT"]
     config.after_initialize do
       Bullet.enable = true
       Bullet.alert = true

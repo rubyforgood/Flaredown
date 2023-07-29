@@ -1,5 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
-  if ENV['DEPENDENCIES_NEXT']
+  if ENV["DEPENDENCIES_NEXT"]
     primary_abstract_class
   else
     self.abstract_class = true
