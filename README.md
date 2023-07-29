@@ -13,7 +13,7 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * PostgreSQL 12.8
 * MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 6.2.3
-* Ruby 2.7.4 (see [RVM](https://rvm.io/) also)
+* Ruby 3.0.6 (see [RVM](https://rvm.io/) also)
 * Node 12.22.6
 ## Installation
 
