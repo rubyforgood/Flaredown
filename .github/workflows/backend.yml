@@ -90,6 +90,7 @@ jobs:
       POSTGRES_PORT: 5432
       INTERCOM_SECRET: secret
       BASE_URL: test.com
+      NODE_VERSION: 12.22.6
 
     services:
       redis:
@@ -111,6 +112,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Setup node
+        run: |
+          npm install -g npm@7.0.0
+          npm install
 
       - name: Install PostgreSQL client
         run: |
