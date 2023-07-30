@@ -44,7 +44,7 @@ RSpec.describe RankedEnum do
     it "creates a translatable name (that does not exist in the code base) for a ranked enum model instance" do
       mock = MockClassOverride.new("some-id", "some-rank")
 
-      expect(mock.name).to eq "translation missing: en.mock_class_override.some-id"
+      expect(mock.name).to eq "Translation missing: en.mock_class_override.some-id"
     end
   end
 end
