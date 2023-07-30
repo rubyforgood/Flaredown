@@ -1,8 +1,6 @@
 require "swagger_helper"
 
 RSpec.describe "api/v1/users", type: :request do
-  before { sign_in create(:user) }
-
   path "/api/users/{id}" do
     parameter name: "id", in: :path, type: :string, description: "id"
 
