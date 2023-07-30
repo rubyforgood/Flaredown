@@ -53,6 +53,9 @@ module SystemSpec
 
     def frontend_app_cmd
       [
+        "BASE_URL=#{frontend_app_url}",
+        "FRONTEND_PORT=#{frontend_port}",
+        "PORT=#{backend_port}",
         "./node_modules/.bin/ember", "serve",
         "--port", frontend_port,
         "--proxy", "http://localhost:#{backend_port}"
