@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user!
 
       def index
-        render json: Country.all, each_serializer: CountrySerializer, root: false
+        render json: Country.all, each_serializer: CountrySerializer
       end
 
       def show
