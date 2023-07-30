@@ -19,7 +19,7 @@ RSpec.describe Api::V1::PostsController do
       create(:post, user_id: other_user.id)
       symptom = post.symptom_ids
 
-      get :index, params: { id: symptom[0], type: 'symptom' }
+      get :index, params: {id: symptom[0], type: "symptom"}
 
       expect(response_body[:posts].size).to eq 1
     end
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::PostsController do
       topic_user_is_following.symptom_ids = post.symptom_ids
       topic_user_is_following.save
 
-      get :index, params: { following: true }
+      get :index, params: {following: true}
 
       expect(response_body[:posts].size).to eq 1
     end
