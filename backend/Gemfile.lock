@@ -528,13 +528,10 @@ DEPENDENCIES
   rails_12factor
   rake
   rspec-rails
-<<<<<<< HEAD
-=======
   rswag-api
   rswag-specs
   rswag-ui
   rubocop-rails
->>>>>>> 9d534a25 (feat: add rswag gem)
   ruby-progressbar
   seedbank
   shoulda-matchers
