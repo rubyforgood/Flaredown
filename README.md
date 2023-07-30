@@ -86,6 +86,6 @@ Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail
 
 
 ## License
-Copyright 2015-2017 Logan Merriam and contributors.
+Copyright 2015-2023 Logan Merriam and contributors.
 
 Flaredown is open source software made available under the GPLv3 License. For details see the LICENSE file.
