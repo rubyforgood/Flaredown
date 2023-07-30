@@ -98,7 +98,7 @@ jobs:
         options: --entrypoint redis-server
 
       db:
-        image: postgres:13-alpine
+        image: postgres:14-alpine
         env:
           POSTGRES_PASSWORD: password
         ports:
