@@ -87,7 +87,7 @@ GEM
       smart_properties
     bson (4.12.1)
     bson (4.12.1-java)
-    bugsnag (6.24.0)
+    bugsnag (6.26.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     bullet (6.1.5)
