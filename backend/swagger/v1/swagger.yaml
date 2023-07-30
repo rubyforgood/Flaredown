@@ -10,21 +10,11 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: page'
     post:
       summary: create checkin
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: checkin'
   "/api/checkins/{id}":
     parameters:
     - name: id
@@ -38,51 +28,27 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
     patch:
       summary: update checkin
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
     put:
       summary: update checkin
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/conditions":
     get:
       summary: list conditions
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                conditions: []
     post:
       summary: create condition
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: condition'
   "/api/conditions/{id}":
     parameters:
     - name: id
@@ -96,1016 +62,12 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/countries":
     get:
       summary: list countries
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-              - id: TJ
-                created_at:
-                updated_at:
-                name: Tajikistan
-              - id: JM
-                created_at:
-                updated_at:
-                name: Jamaica
-              - id: HT
-                created_at:
-                updated_at:
-                name: Haiti
-              - id: ST
-                created_at:
-                updated_at:
-                name: Sao Tome and Principe
-              - id: MS
-                created_at:
-                updated_at:
-                name: Montserrat
-              - id: AE
-                created_at:
-                updated_at:
-                name: United Arab Emirates
-              - id: PK
-                created_at:
-                updated_at:
-                name: Pakistan
-              - id: NL
-                created_at:
-                updated_at:
-                name: Netherlands
-              - id: LU
-                created_at:
-                updated_at:
-                name: Luxembourg
-              - id: BZ
-                created_at:
-                updated_at:
-                name: Belize
-              - id: IR
-                created_at:
-                updated_at:
-                name: Iran, Islamic Republic of
-              - id: BO
-                created_at:
-                updated_at:
-                name: Bolivia
-              - id: UY
-                created_at:
-                updated_at:
-                name: Uruguay
-              - id: GH
-                created_at:
-                updated_at:
-                name: Ghana
-              - id: SA
-                created_at:
-                updated_at:
-                name: Saudi Arabia
-              - id: CI
-                created_at:
-                updated_at:
-                name: Côte d'Ivoire
-              - id: MF
-                created_at:
-                updated_at:
-                name: Saint Martin (French part)
-              - id: TF
-                created_at:
-                updated_at:
-                name: French Southern Territories
-              - id: AI
-                created_at:
-                updated_at:
-                name: Anguilla
-              - id: QA
-                created_at:
-                updated_at:
-                name: Qatar
-              - id: SX
-                created_at:
-                updated_at:
-                name: Sint Maarten (Dutch part)
-              - id: LY
-                created_at:
-                updated_at:
-                name: Libya
-              - id: BV
-                created_at:
-                updated_at:
-                name: Bouvet Island
-              - id: PG
-                created_at:
-                updated_at:
-                name: Papua New Guinea
-              - id: KG
-                created_at:
-                updated_at:
-                name: Kyrgyzstan
-              - id: GQ
-                created_at:
-                updated_at:
-                name: Equatorial Guinea
-              - id: EH
-                created_at:
-                updated_at:
-                name: Western Sahara
-              - id: NU
-                created_at:
-                updated_at:
-                name: Niue
-              - id: PR
-                created_at:
-                updated_at:
-                name: Puerto Rico
-              - id: GD
-                created_at:
-                updated_at:
-                name: Grenada
-              - id: KR
-                created_at:
-                updated_at:
-                name: Korea, Republic of
-              - id: HM
-                created_at:
-                updated_at:
-                name: Heard Island and McDonald Islands
-              - id: SM
-                created_at:
-                updated_at:
-                name: San Marino
-              - id: SL
-                created_at:
-                updated_at:
-                name: Sierra Leone
-              - id: CD
-                created_at:
-                updated_at:
-                name: Congo, The Democratic Republic of the
-              - id: MK
-                created_at:
-                updated_at:
-                name: North Macedonia
-              - id: TR
-                created_at:
-                updated_at:
-                name: Turkey
-              - id: DZ
-                created_at:
-                updated_at:
-                name: Algeria
-              - id: GE
-                created_at:
-                updated_at:
-                name: Georgia
-              - id: PS
-                created_at:
-                updated_at:
-                name: Palestine, State of
-              - id: BB
-                created_at:
-                updated_at:
-                name: Barbados
-              - id: UA
-                created_at:
-                updated_at:
-                name: Ukraine
-              - id: GP
-                created_at:
-                updated_at:
-                name: Guadeloupe
-              - id: PF
-                created_at:
-                updated_at:
-                name: French Polynesia
-              - id: NA
-                created_at:
-                updated_at:
-                name: Namibia
-              - id: BW
-                created_at:
-                updated_at:
-                name: Botswana
-              - id: SY
-                created_at:
-                updated_at:
-                name: Syrian Arab Republic
-              - id: TG
-                created_at:
-                updated_at:
-                name: Togo
-              - id: DO
-                created_at:
-                updated_at:
-                name: Dominican Republic
-              - id: AQ
-                created_at:
-                updated_at:
-                name: Antarctica
-              - id: CH
-                created_at:
-                updated_at:
-                name: Switzerland
-              - id: MG
-                created_at:
-                updated_at:
-                name: Madagascar
-              - id: FO
-                created_at:
-                updated_at:
-                name: Faroe Islands
-              - id: VG
-                created_at:
-                updated_at:
-                name: Virgin Islands, British
-              - id: GI
-                created_at:
-                updated_at:
-                name: Gibraltar
-              - id: BN
-                created_at:
-                updated_at:
-                name: Brunei Darussalam
-              - id: LA
-                created_at:
-                updated_at:
-                name: Lao People's Democratic Republic
-              - id: IS
-                created_at:
-                updated_at:
-                name: Iceland
-              - id: EE
-                created_at:
-                updated_at:
-                name: Estonia
-              - id: UM
-                created_at:
-                updated_at:
-                name: United States Minor Outlying Islands
-              - id: LT
-                created_at:
-                updated_at:
-                name: Lithuania
-              - id: RS
-                created_at:
-                updated_at:
-                name: Serbia
-              - id: MR
-                created_at:
-                updated_at:
-                name: Mauritania
-              - id: AD
-                created_at:
-                updated_at:
-                name: Andorra
-              - id: HU
-                created_at:
-                updated_at:
-                name: Hungary
-              - id: TK
-                created_at:
-                updated_at:
-                name: Tokelau
-              - id: MY
-                created_at:
-                updated_at:
-                name: Malaysia
-              - id: AO
-                created_at:
-                updated_at:
-                name: Angola
-              - id: CV
-                created_at:
-                updated_at:
-                name: Cabo Verde
-              - id: NF
-                created_at:
-                updated_at:
-                name: Norfolk Island
-              - id: PA
-                created_at:
-                updated_at:
-                name: Panama
-              - id: GW
-                created_at:
-                updated_at:
-                name: Guinea-Bissau
-              - id: BE
-                created_at:
-                updated_at:
-                name: Belgium
-              - id: PT
-                created_at:
-                updated_at:
-                name: Portugal
-              - id: GB
-                created_at:
-                updated_at:
-                name: United Kingdom
-              - id: IM
-                created_at:
-                updated_at:
-                name: Isle of Man
-              - id: US
-                created_at:
-                updated_at:
-                name: United States
-              - id: YE
-                created_at:
-                updated_at:
-                name: Yemen
-              - id: HK
-                created_at:
-                updated_at:
-                name: Hong Kong
-              - id: AZ
-                created_at:
-                updated_at:
-                name: Azerbaijan
-              - id: CC
-                created_at:
-                updated_at:
-                name: Cocos (Keeling) Islands
-              - id: ML
-                created_at:
-                updated_at:
-                name: Mali
-              - id: SK
-                created_at:
-                updated_at:
-                name: Slovakia
-              - id: VU
-                created_at:
-                updated_at:
-                name: Vanuatu
-              - id: TL
-                created_at:
-                updated_at:
-                name: Timor-Leste
-              - id: HR
-                created_at:
-                updated_at:
-                name: Croatia
-              - id: SR
-                created_at:
-                updated_at:
-                name: Suriname
-              - id: MU
-                created_at:
-                updated_at:
-                name: Mauritius
-              - id: CZ
-                created_at:
-                updated_at:
-                name: Czechia
-              - id: PM
-                created_at:
-                updated_at:
-                name: Saint Pierre and Miquelon
-              - id: LS
-                created_at:
-                updated_at:
-                name: Lesotho
-              - id: WS
-                created_at:
-                updated_at:
-                name: Samoa
-              - id: KM
-                created_at:
-                updated_at:
-                name: Comoros
-              - id: IT
-                created_at:
-                updated_at:
-                name: Italy
-              - id: BI
-                created_at:
-                updated_at:
-                name: Burundi
-              - id: WF
-                created_at:
-                updated_at:
-                name: Wallis and Futuna
-              - id: GN
-                created_at:
-                updated_at:
-                name: Guinea
-              - id: SG
-                created_at:
-                updated_at:
-                name: Singapore
-              - id: CO
-                created_at:
-                updated_at:
-                name: Colombia
-              - id: CN
-                created_at:
-                updated_at:
-                name: China
-              - id: AW
-                created_at:
-                updated_at:
-                name: Aruba
-              - id: MA
-                created_at:
-                updated_at:
-                name: Morocco
-              - id: FI
-                created_at:
-                updated_at:
-                name: Finland
-              - id: VA
-                created_at:
-                updated_at:
-                name: Holy See (Vatican City State)
-              - id: ZW
-                created_at:
-                updated_at:
-                name: Zimbabwe
-              - id: KY
-                created_at:
-                updated_at:
-                name: Cayman Islands
-              - id: BH
-                created_at:
-                updated_at:
-                name: Bahrain
-              - id: PY
-                created_at:
-                updated_at:
-                name: Paraguay
-              - id: EC
-                created_at:
-                updated_at:
-                name: Ecuador
-              - id: LR
-                created_at:
-                updated_at:
-                name: Liberia
-              - id: RU
-                created_at:
-                updated_at:
-                name: Russian Federation
-              - id: PL
-                created_at:
-                updated_at:
-                name: Poland
-              - id: OM
-                created_at:
-                updated_at:
-                name: Oman
-              - id: MT
-                created_at:
-                updated_at:
-                name: Malta
-              - id: SS
-                created_at:
-                updated_at:
-                name: South Sudan
-              - id: DE
-                created_at:
-                updated_at:
-                name: Germany
-              - id: TM
-                created_at:
-                updated_at:
-                name: Turkmenistan
-              - id: SJ
-                created_at:
-                updated_at:
-                name: Svalbard and Jan Mayen
-              - id: MM
-                created_at:
-                updated_at:
-                name: Myanmar
-              - id: TT
-                created_at:
-                updated_at:
-                name: Trinidad and Tobago
-              - id: IL
-                created_at:
-                updated_at:
-                name: Israel
-              - id: BD
-                created_at:
-                updated_at:
-                name: Bangladesh
-              - id: NR
-                created_at:
-                updated_at:
-                name: Nauru
-              - id: LK
-                created_at:
-                updated_at:
-                name: Sri Lanka
-              - id: UG
-                created_at:
-                updated_at:
-                name: Uganda
-              - id: NG
-                created_at:
-                updated_at:
-                name: Nigeria
-              - id: BQ
-                created_at:
-                updated_at:
-                name: Bonaire, Sint Eustatius and Saba
-              - id: MX
-                created_at:
-                updated_at:
-                name: Mexico
-              - id: CW
-                created_at:
-                updated_at:
-                name: Curaçao
-              - id: SI
-                created_at:
-                updated_at:
-                name: Slovenia
-              - id: MN
-                created_at:
-                updated_at:
-                name: Mongolia
-              - id: CA
-                created_at:
-                updated_at:
-                name: Canada
-              - id: AX
-                created_at:
-                updated_at:
-                name: Åland Islands
-              - id: VN
-                created_at:
-                updated_at:
-                name: Vietnam
-              - id: TW
-                created_at:
-                updated_at:
-                name: Taiwan
-              - id: JP
-                created_at:
-                updated_at:
-                name: Japan
-              - id: IO
-                created_at:
-                updated_at:
-                name: British Indian Ocean Territory
-              - id: RO
-                created_at:
-                updated_at:
-                name: Romania
-              - id: BG
-                created_at:
-                updated_at:
-                name: Bulgaria
-              - id: GU
-                created_at:
-                updated_at:
-                name: Guam
-              - id: BR
-                created_at:
-                updated_at:
-                name: Brazil
-              - id: AM
-                created_at:
-                updated_at:
-                name: Armenia
-              - id: ZM
-                created_at:
-                updated_at:
-                name: Zambia
-              - id: DJ
-                created_at:
-                updated_at:
-                name: Djibouti
-              - id: JE
-                created_at:
-                updated_at:
-                name: Jersey
-              - id: AT
-                created_at:
-                updated_at:
-                name: Austria
-              - id: CM
-                created_at:
-                updated_at:
-                name: Cameroon
-              - id: SE
-                created_at:
-                updated_at:
-                name: Sweden
-              - id: FJ
-                created_at:
-                updated_at:
-                name: Fiji
-              - id: KZ
-                created_at:
-                updated_at:
-                name: Kazakhstan
-              - id: GL
-                created_at:
-                updated_at:
-                name: Greenland
-              - id: GY
-                created_at:
-                updated_at:
-                name: Guyana
-              - id: CX
-                created_at:
-                updated_at:
-                name: Christmas Island
-              - id: MW
-                created_at:
-                updated_at:
-                name: Malawi
-              - id: TN
-                created_at:
-                updated_at:
-                name: Tunisia
-              - id: ZA
-                created_at:
-                updated_at:
-                name: South Africa
-              - id: TO
-                created_at:
-                updated_at:
-                name: Tonga
-              - id: CY
-                created_at:
-                updated_at:
-                name: Cyprus
-              - id: MV
-                created_at:
-                updated_at:
-                name: Maldives
-              - id: PN
-                created_at:
-                updated_at:
-                name: Pitcairn
-              - id: RW
-                created_at:
-                updated_at:
-                name: Rwanda
-              - id: NI
-                created_at:
-                updated_at:
-                name: Nicaragua
-              - id: KN
-                created_at:
-                updated_at:
-                name: Saint Kitts and Nevis
-              - id: BJ
-                created_at:
-                updated_at:
-                name: Benin
-              - id: ET
-                created_at:
-                updated_at:
-                name: Ethiopia
-              - id: GM
-                created_at:
-                updated_at:
-                name: Gambia
-              - id: TZ
-                created_at:
-                updated_at:
-                name: Tanzania
-              - id: VC
-                created_at:
-                updated_at:
-                name: Saint Vincent and the Grenadines
-              - id: FK
-                created_at:
-                updated_at:
-                name: Falkland Islands (Malvinas)
-              - id: SD
-                created_at:
-                updated_at:
-                name: Sudan
-              - id: MC
-                created_at:
-                updated_at:
-                name: Monaco
-              - id: AU
-                created_at:
-                updated_at:
-                name: Australia
-              - id: CL
-                created_at:
-                updated_at:
-                name: Chile
-              - id: DK
-                created_at:
-                updated_at:
-                name: Denmark
-              - id: FR
-                created_at:
-                updated_at:
-                name: France
-              - id: TC
-                created_at:
-                updated_at:
-                name: Turks and Caicos Islands
-              - id: CU
-                created_at:
-                updated_at:
-                name: Cuba
-              - id: AL
-                created_at:
-                updated_at:
-                name: Albania
-              - id: MZ
-                created_at:
-                updated_at:
-                name: Mozambique
-              - id: BS
-                created_at:
-                updated_at:
-                name: Bahamas
-              - id: NE
-                created_at:
-                updated_at:
-                name: Niger
-              - id: GT
-                created_at:
-                updated_at:
-                name: Guatemala
-              - id: LI
-                created_at:
-                updated_at:
-                name: Liechtenstein
-              - id: NP
-                created_at:
-                updated_at:
-                name: Nepal
-              - id: BF
-                created_at:
-                updated_at:
-                name: Burkina Faso
-              - id: PW
-                created_at:
-                updated_at:
-                name: Palau
-              - id: KW
-                created_at:
-                updated_at:
-                name: Kuwait
-              - id: IN
-                created_at:
-                updated_at:
-                name: India
-              - id: GA
-                created_at:
-                updated_at:
-                name: Gabon
-              - id: TV
-                created_at:
-                updated_at:
-                name: Tuvalu
-              - id: MO
-                created_at:
-                updated_at:
-                name: Macao
-              - id: SH
-                created_at:
-                updated_at:
-                name: Saint Helena, Ascension and Tristan da Cunha
-              - id: MD
-                created_at:
-                updated_at:
-                name: Moldova
-              - id: CK
-                created_at:
-                updated_at:
-                name: Cook Islands
-              - id: AR
-                created_at:
-                updated_at:
-                name: Argentina
-              - id: SC
-                created_at:
-                updated_at:
-                name: Seychelles
-              - id: IE
-                created_at:
-                updated_at:
-                name: Ireland
-              - id: ES
-                created_at:
-                updated_at:
-                name: Spain
-              - id: LB
-                created_at:
-                updated_at:
-                name: Lebanon
-              - id: BM
-                created_at:
-                updated_at:
-                name: Bermuda
-              - id: RE
-                created_at:
-                updated_at:
-                name: Réunion
-              - id: KI
-                created_at:
-                updated_at:
-                name: Kiribati
-              - id: AG
-                created_at:
-                updated_at:
-                name: Antigua and Barbuda
-              - id: MQ
-                created_at:
-                updated_at:
-                name: Martinique
-              - id: SV
-                created_at:
-                updated_at:
-                name: El Salvador
-              - id: JO
-                created_at:
-                updated_at:
-                name: Jordan
-              - id: TH
-                created_at:
-                updated_at:
-                name: Thailand
-              - id: SO
-                created_at:
-                updated_at:
-                name: Somalia
-              - id: MH
-                created_at:
-                updated_at:
-                name: Marshall Islands
-              - id: CG
-                created_at:
-                updated_at:
-                name: Congo
-              - id: KP
-                created_at:
-                updated_at:
-                name: Korea, Democratic People's Republic of
-              - id: GF
-                created_at:
-                updated_at:
-                name: French Guiana
-              - id: BA
-                created_at:
-                updated_at:
-                name: Bosnia and Herzegovina
-              - id: YT
-                created_at:
-                updated_at:
-                name: Mayotte
-              - id: GS
-                created_at:
-                updated_at:
-                name: South Georgia and the South Sandwich Islands
-              - id: KE
-                created_at:
-                updated_at:
-                name: Kenya
-              - id: PE
-                created_at:
-                updated_at:
-                name: Peru
-              - id: BT
-                created_at:
-                updated_at:
-                name: Bhutan
-              - id: SZ
-                created_at:
-                updated_at:
-                name: Eswatini
-              - id: CR
-                created_at:
-                updated_at:
-                name: Costa Rica
-              - id: TD
-                created_at:
-                updated_at:
-                name: Chad
-              - id: DM
-                created_at:
-                updated_at:
-                name: Dominica
-              - id: NC
-                created_at:
-                updated_at:
-                name: New Caledonia
-              - id: GR
-                created_at:
-                updated_at:
-                name: Greece
-              - id: GG
-                created_at:
-                updated_at:
-                name: Guernsey
-              - id: HN
-                created_at:
-                updated_at:
-                name: Honduras
-              - id: VI
-                created_at:
-                updated_at:
-                name: Virgin Islands, U.S.
-              - id: CF
-                created_at:
-                updated_at:
-                name: Central African Republic
-              - id: SN
-                created_at:
-                updated_at:
-                name: Senegal
-              - id: AF
-                created_at:
-                updated_at:
-                name: Afghanistan
-              - id: MP
-                created_at:
-                updated_at:
-                name: Northern Mariana Islands
-              - id: PH
-                created_at:
-                updated_at:
-                name: Philippines
-              - id: BY
-                created_at:
-                updated_at:
-                name: Belarus
-              - id: LV
-                created_at:
-                updated_at:
-                name: Latvia
-              - id: 'NO'
-                created_at:
-                updated_at:
-                name: Norway
-              - id: EG
-                created_at:
-                updated_at:
-                name: Egypt
-              - id: KH
-                created_at:
-                updated_at:
-                name: Cambodia
-              - id: IQ
-                created_at:
-                updated_at:
-                name: Iraq
-              - id: LC
-                created_at:
-                updated_at:
-                name: Saint Lucia
-              - id: NZ
-                created_at:
-                updated_at:
-                name: New Zealand
-              - id: BL
-                created_at:
-                updated_at:
-                name: Saint Barthélemy
-              - id: UZ
-                created_at:
-                updated_at:
-                name: Uzbekistan
-              - id: ID
-                created_at:
-                updated_at:
-                name: Indonesia
-              - id: ER
-                created_at:
-                updated_at:
-                name: Eritrea
-              - id: VE
-                created_at:
-                updated_at:
-                name: Venezuela
-              - id: FM
-                created_at:
-                updated_at:
-                name: Micronesia, Federated States of
-              - id: SB
-                created_at:
-                updated_at:
-                name: Solomon Islands
-              - id: ME
-                created_at:
-                updated_at:
-                name: Montenegro
-              - id: AS
-                created_at:
-                updated_at:
-                name: American Samoa
   "/api/countries/{id}":
     parameters:
     - name: id
@@ -1119,55 +81,12 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                country:
-                  id: US
-                  created_at:
-                  updated_at:
-                  name: United States
   "/api/day_habits":
     get:
       summary: list day_habits
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                day_habits:
-                - id: lying_down
-                  created_at:
-                  updated_at:
-                  name: Lying down
-                  rank: 1
-                  description: bedridden
-                - id: sitting_down
-                  created_at:
-                  updated_at:
-                  name: Sitting down or at a computer
-                  rank: 2
-                  description: e.g. student, programmer, architect
-                - id: on_feet
-                  created_at:
-                  updated_at:
-                  name: On your feet
-                  rank: 3
-                  description: e.g. physician, retail salesperson, tour guide
-                - id: driving
-                  created_at:
-                  updated_at:
-                  name: Driving around
-                  rank: 4
-                  description: e.g. pharmaceutical representative, taxi driver, truck
-                    driver
-                - id: working_with_hands
-                  created_at:
-                  updated_at:
-                  name: Working with your hands
-                  rank: 5
-                  description: e.g. farmer, fishery worker, landscaper
   "/api/day_habits/{id}":
     parameters:
     - name: id
@@ -1181,46 +100,12 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Bad request: id param is not a valid day_habit id'
   "/api/education_levels":
     get:
       summary: list education_levels
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                education_levels:
-                - id: less_than_hi_school
-                  created_at:
-                  updated_at:
-                  name: Less than high school
-                  rank: 1
-                - id: hi_school
-                  created_at:
-                  updated_at:
-                  name: High school diploma
-                  rank: 2
-                - id: college_degree
-                  created_at:
-                  updated_at:
-                  name: Some college or associate's degree
-                  rank: 3
-                - id: bachelors_degree
-                  created_at:
-                  updated_at:
-                  name: Bachelor's degree
-                  rank: 4
-                - id: advanced_degree
-                  created_at:
-                  updated_at:
-                  name: Advanced degree
-                  rank: 5
   "/api/education_levels/{id}":
     parameters:
     - name: id
@@ -1234,76 +119,12 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Bad request: id param is not a valid education_level id'
   "/api/ethnicities":
     get:
       summary: list ethnicities
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                ethnicities:
-                - id: latino
-                  created_at:
-                  updated_at:
-                  name: Latino or Hispanic
-                  rank: 1
-                - id: white
-                  created_at:
-                  updated_at:
-                  name: European or White
-                  rank: 2
-                - id: east_asian
-                  created_at:
-                  updated_at:
-                  name: East Asian
-                  rank: 3
-                - id: south_asian
-                  created_at:
-                  updated_at:
-                  name: South Asian
-                  rank: 4
-                - id: black
-                  created_at:
-                  updated_at:
-                  name: African American or Black
-                  rank: 5
-                - id: oceanian
-                  created_at:
-                  updated_at:
-                  name: Pacific Islander or Oceanian
-                  rank: 6
-                - id: middle_eastern
-                  created_at:
-                  updated_at:
-                  name: Middle Eastern or North African
-                  rank: 7
-                - id: native_american
-                  created_at:
-                  updated_at:
-                  name: Native American or Alaska Native
-                  rank: 8
-                - id: african
-                  created_at:
-                  updated_at:
-                  name: Sub-Saharan African
-                  rank: 9
-                - id: other
-                  created_at:
-                  updated_at:
-                  name: Other
-                  rank: 10
-                - id: not_sure
-                  created_at:
-                  updated_at:
-                  name: I'm not sure
-                  rank: 11
   "/api/ethnicities/{id}":
     parameters:
     - name: id
@@ -1317,22 +138,12 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Bad request: id param is not a valid ethnicity id'
   "/api/passwords":
     post:
       summary: create password
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: password'
   "/api/passwords/{id}":
     parameters:
     - name: id
@@ -1346,58 +157,27 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                password:
-                  id: '123'
-                  created_at: '2023-07-29T22:44:52.661Z'
-                  updated_at: '2023-07-29T22:44:52.671Z'
-                  email: user18@example.com
-                  reset_password_token: '123'
-                  current_password:
-                  password:
-                  password_confirmation:
     patch:
       summary: update password
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: password'
     put:
       summary: update password
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: password'
   "/api/posts":
     get:
       summary: list posts
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                posts: []
     post:
       summary: create post
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: post'
   "/api/posts/{id}":
     parameters:
     - name: id
@@ -1411,11 +191,6 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/profiles":
     get:
       summary: list profiles
@@ -1435,94 +210,40 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
     patch:
       summary: update profile
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
     put:
       summary: update profile
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/registrations/destroy":
     put:
       summary: delete registration
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
   "/api/registrations":
     post:
       summary: create registration
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: registration'
   "/api/searches":
     get:
       summary: show search
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                  resource:
-                  - can't be blank
-                  - is not included in the list
   "/api/sexes":
     get:
       summary: list sexes
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                sexes:
-                - id: male
-                  created_at:
-                  updated_at:
-                  name: Male
-                  rank: 1
-                - id: female
-                  created_at:
-                  updated_at:
-                  name: Female
-                  rank: 2
-                - id: other
-                  created_at:
-                  updated_at:
-                  name: Other
-                  rank: 3
-                - id: doesnt_say
-                  created_at:
-                  updated_at:
-                  name: Prefer not to say
-                  rank: 4
   "/api/sexes/{id}":
     parameters:
     - name: id
@@ -1536,11 +257,6 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Bad request: id param is not a valid sex id'
   "/api/symptoms/{id}":
     get:
       summary: show symptom
@@ -1556,15 +272,6 @@ paths:
           description: successful
           content:
             application/json:
-              example:
-                symptom:
-                  id: 1
-                  created_at: '2023-07-29T22:44:53.365Z'
-                  updated_at: '2023-07-29T22:44:53.365Z'
-                  type: symptom
-                  color_id:
-                  users_count: 0
-                  name: Symptom1
               schema:
                 type: object
                 properties:
@@ -1600,20 +307,11 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                tags: []
     post:
       summary: create tag
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: tag'
   "/api/tags/{id}":
     parameters:
     - name: id
@@ -1627,32 +325,17 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/trackings":
     get:
       summary: list trackings
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: trackable_type'
     post:
       summary: create tracking
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: tracking'
   "/api/trackings/{id}":
     parameters:
     - name: id
@@ -1666,41 +349,23 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
     delete:
       summary: delete tracking
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/treatments":
     get:
       summary: list treatments
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                treatments: []
     post:
       summary: create treatment
+      parameters: []
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: treatment'
   "/api/treatments/{id}":
     parameters:
     - name: id
@@ -1714,11 +379,6 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - Resource Not Found
   "/api/users/{id}":
     parameters:
     - name: id
@@ -1732,121 +392,18 @@ paths:
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                user:
-                  id: 44
-                  created_at: '2023-07-29T22:44:53.954Z'
-                  updated_at: '2023-07-29T22:44:53.966Z'
-                  email: user44@example.com
-                  intercom_hash: 1b72b549ef1f8a6f2badcc28b160b8e42d547ea019a2e01a5e0cdec805cb1038
-                  topic_following_id: 64c596650fabf076afb69632
-                  profile_id: 44
-                profiles:
-                - id: 44
-                  created_at: '2023-07-29T22:44:53.958Z'
-                  updated_at: '2023-07-29T22:44:53.958Z'
-                  screen_name:
-                  birth_date:
-                  country_id:
-                  sex_id:
-                  onboarding_step_id: onboarding-personal
-                  ethnicity_ids: []
-                  day_habit_id:
-                  education_level_id:
-                  day_walking_hours:
-                  pressure_units: mb
-                  temperature_units: f
-                  beta_tester: false
-                  notify_token: 436550160eed6aa631b6947f8c84ed89
-                  notify: true
-                  checkin_reminder: true
-                  checkin_reminder_at:
-                    hours: 20
-                    minutes: 0
-                  time_zone_name: America/New_York
-                  notify_top_posts: true
     patch:
       summary: update user
       parameters: []
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                user:
-                  id: 45
-                  created_at: '2023-07-29T22:44:54.029Z'
-                  updated_at: '2023-07-29T22:44:54.066Z'
-                  email: updatedemail@example.com
-                  intercom_hash: 7ab8b7681a8d33388b86b73953e0df9e6305458416f3a5293ca0ca37335a3328
-                  topic_following_id: 64c596660fabf076afb69633
-                  profile_id: 45
-                profiles:
-                - id: 45
-                  created_at: '2023-07-29T22:44:54.032Z'
-                  updated_at: '2023-07-29T22:44:54.032Z'
-                  screen_name:
-                  birth_date:
-                  country_id:
-                  sex_id:
-                  onboarding_step_id: onboarding-personal
-                  ethnicity_ids: []
-                  day_habit_id:
-                  education_level_id:
-                  day_walking_hours:
-                  pressure_units: mb
-                  temperature_units: f
-                  beta_tester: false
-                  notify_token: 743ad1a9a5340b98725f5f3e343c9bec
-                  notify: true
-                  checkin_reminder: true
-                  checkin_reminder_at:
-                    hours: 20
-                    minutes: 0
-                  time_zone_name: America/New_York
-                  notify_top_posts: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-              required:
-              - user
-            examples:
-              request_example_1:
-                summary: A request example
-                value:
-                  user:
-                    email: updatedemail@example.com
-    put:
-      summary: update user
-      responses:
-        '200':
-          description: successful
-          content:
-            application/json:
-              example:
-                errors:
-                - 'Required parameter missing: user'
   "/api/weathers":
     get:
       summary: list weathers
       responses:
         '200':
           description: successful
-          content:
-            application/json:
-              example:
-                weathers: []
 servers:
 - url: http://localhost:3000
   description: local documentation

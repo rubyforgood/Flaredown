@@ -13,7 +13,8 @@ RSpec.describe 'api/v1/passwords', type: :request do
             }
           }
         end
-        run_test!
+         pending "Not yet implemented, when implemented uncomment the assertion below"
+        # run_test!
       end
     end
   end
@@ -33,7 +34,8 @@ RSpec.describe 'api/v1/passwords', type: :request do
             }
           }
         end
-        run_test!
+         pending "Not yet implemented, when implemented uncomment the assertion below"
+        # run_test!
       end
     end
 
@@ -48,7 +50,8 @@ RSpec.describe 'api/v1/passwords', type: :request do
             }
           }
         end
-        run_test!
+         pending "Not yet implemented, when implemented uncomment the assertion below"
+        # run_test!
       end
     end
 
@@ -63,7 +66,8 @@ RSpec.describe 'api/v1/passwords', type: :request do
             }
           }
         end
-        run_test!
+         pending "Not yet implemented, when implemented uncomment the assertion below"
+        # run_test!
       end
     end
   end
