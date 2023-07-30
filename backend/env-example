@@ -55,3 +55,10 @@ FULLSTORY_ORG=
 
 # MongoDB
 MONGODB_HOST=localhost
+
+# System spec server ports
+SYSTEM_SPEC_BACKEND_PORT=3003
+SYSTEM_SPEC_FRONTEND_PORT=4303
+
+# Run system specs with a headless chrome instance
+HEADLESS_CHROME=true

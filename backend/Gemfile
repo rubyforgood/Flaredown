@@ -89,6 +89,8 @@ group :development do
 end
 
 group :test do
+  gem "capybara"
+  gem "cuprite"
   gem "mongoid-rspec"
   gem "shoulda-matchers"
   gem "vcr"
