@@ -30,7 +30,7 @@ RSpec.describe RankedEnum do
     it "searches for a specific ID" do
       searched_id = MockClassOverride.find("two")
 
-      expect(searched_id.id).to eq 'two'
+      expect(searched_id.id).to eq "two"
     end
 
     # TODO: Actually make this test grab the cache
