@@ -11,19 +11,17 @@ RSpec.describe "api/v1/ethnicities", type: :request do
             }
           }
         end
-        pending "Not yet implemented, when implemented uncomment the assertion below"
-        # run_test!
+        run_test!
       end
     end
   end
 
   path "/api/ethnicities/{id}" do
-    # You'll want to customize the parameter types...
     parameter name: "id", in: :path, type: :string, description: "id"
 
     get("show ethnicity") do
       response(200, "successful") do
-        let(:id) { "123" }
+        let(:id) { "latino" }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -32,8 +30,7 @@ RSpec.describe "api/v1/ethnicities", type: :request do
             }
           }
         end
-        pending "Not yet implemented, when implemented uncomment the assertion below"
-        # run_test!
+        run_test!
       end
     end
   end
