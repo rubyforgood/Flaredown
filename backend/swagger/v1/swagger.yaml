@@ -1133,6 +1133,65 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                ethnicities:
+                - id: latino
+                  created_at:
+                  updated_at:
+                  name: Latino or Hispanic
+                  rank: 1
+                - id: white
+                  created_at:
+                  updated_at:
+                  name: European or White
+                  rank: 2
+                - id: east_asian
+                  created_at:
+                  updated_at:
+                  name: East Asian
+                  rank: 3
+                - id: south_asian
+                  created_at:
+                  updated_at:
+                  name: South Asian
+                  rank: 4
+                - id: black
+                  created_at:
+                  updated_at:
+                  name: African American or Black
+                  rank: 5
+                - id: oceanian
+                  created_at:
+                  updated_at:
+                  name: Pacific Islander or Oceanian
+                  rank: 6
+                - id: middle_eastern
+                  created_at:
+                  updated_at:
+                  name: Middle Eastern or North African
+                  rank: 7
+                - id: native_american
+                  created_at:
+                  updated_at:
+                  name: Native American or Alaska Native
+                  rank: 8
+                - id: african
+                  created_at:
+                  updated_at:
+                  name: Sub-Saharan African
+                  rank: 9
+                - id: other
+                  created_at:
+                  updated_at:
+                  name: Other
+                  rank: 10
+                - id: not_sure
+                  created_at:
+                  updated_at:
+                  name: I'm not sure
+                  rank: 11
   "/api/ethnicities/{id}":
     parameters:
     - name: id
@@ -1146,6 +1205,15 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                ethnicity:
+                  id: latino
+                  created_at:
+                  updated_at:
+                  name: Latino or Hispanic
+                  rank: 1
   "/api/passwords":
     post:
       summary: create password
@@ -1283,8 +1351,8 @@ paths:
               example:
                 symptom:
                   id: 1
-                  created_at: '2023-07-30T15:01:28.579Z'
-                  updated_at: '2023-07-30T15:01:28.579Z'
+                  created_at: '2023-07-30T15:13:37.870Z'
+                  updated_at: '2023-07-30T15:13:37.870Z'
                   type: symptom
                   color_id:
                   users_count: 0
