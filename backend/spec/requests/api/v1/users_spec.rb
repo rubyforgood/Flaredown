@@ -22,6 +22,7 @@ RSpec.describe "api/v1/users", type: :request do
 
     patch("update user") do
       parameter name: :user, in: :body
+
       response(200, "successful") do
         let(:user) { {user: {email: "updatedemail@example.com"}} }
         after do |example|
