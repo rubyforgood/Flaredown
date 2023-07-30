@@ -77,12 +77,11 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    better_html (1.0.16)
-      actionview (>= 4.0)
-      activesupport (>= 4.0)
+    better_html (2.0.2)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
       ast (~> 2.0)
       erubi (~> 1.4)
-      html_tokenizer (~> 0.0.6)
       parser (>= 2.4)
       smart_properties
     bson (4.12.1)
@@ -137,10 +136,9 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    erb_lint (0.1.1)
+    erb_lint (0.4.0)
       activesupport
-      better_html (~> 1.0.7)
-      html_tokenizer
+      better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
       rainbow
       rubocop
@@ -186,7 +184,6 @@ GEM
       request_store (~> 1.0)
     hashdiff (1.0.1)
     hashie (3.5.7)
-    html_tokenizer (0.0.7)
     httpclient (2.8.3)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -413,7 +410,7 @@ GEM
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
     sixarm_ruby_unaccent (1.2.0)
-    smart_properties (1.16.3)
+    smart_properties (1.17.0)
     spoon (0.0.6)
       ffi
     sprockets (4.2.0)
