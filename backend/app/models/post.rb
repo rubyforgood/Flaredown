@@ -29,7 +29,7 @@ class Post
   end
 
   def self.fts(q)
-    where('$text': {'$search': q, '$language': I18n.locale.to_s})
+    where("$text": {"$search": q, "$language": I18n.locale.to_s})
   end
 
   def self.by_followings(followings)

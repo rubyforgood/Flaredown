@@ -99,7 +99,7 @@ class Profile < ActiveRecord::Base
     today = Time.zone.today
     age = today.year - birth_date.year
 
-    today < birth_date + age.years ? age - 1 : age
+    (today < birth_date + age.years) ? age - 1 : age
   end
 
   def ethnicity_ids

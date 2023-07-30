@@ -66,7 +66,7 @@ describe CollectionRetriever do
 
         before do
           today = Time.zone.today
-          (0..4).each do |i|
+          5.times do |i|
             create(
               :checkin,
               :user_id => user.id,

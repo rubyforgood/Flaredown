@@ -2,18 +2,32 @@
 # Remove from this list as you refactor files.
 ---
 ignore:
-- app/controllers/api/v1/aws_ses_controller.rb
-- app/controllers/api/v1/profiles_controller.rb
-- app/controllers/api/v1/sessions_controller.rb
-- app/jobs/group_top_posts_job.rb
-- app/models/search.rb
-- app/services/charts_pattern.rb
-- config/initializers/00_app.rb
-- config/puma.rb
-- config/routes.rb
-- lib/tasks/app.rake
-- lib/tasks/hbi_completeness.rake
-- lib/tasks/trackables.rake
-- lib/tasks/usda.rake
-- spec/models/food_spec.rb
-- spec/spec_helper.rb
+- app/controllers/api/v1/aws_ses_controller.rb:
+  - Security/Open
+- app/controllers/api/v1/profiles_controller.rb:
+  - Style/SafeNavigation
+- app/controllers/api/v1/sessions_controller.rb:
+  - Style/SafeNavigation
+- app/jobs/group_top_posts_job.rb:
+  - Style/SafeNavigation
+- app/models/search.rb:
+  - Lint/Void
+- app/services/charts_pattern.rb:
+  - Lint/DuplicateMethods
+  - Layout/SpaceInsideHashLiteralBraces
+  - Style/QuotedSymbols
+- lib/tasks/app.rake:
+  - Lint/ConstantDefinitionInBlock
+  - Style/GlobalStdStream
+  - Lint/Loop
+- lib/tasks/hbi_completeness.rake:
+  - Lint/ConstantDefinitionInBlock
+- lib/tasks/trackables.rake:
+  - Lint/ConstantDefinitionInBlock
+  - Lint/UselessAssignment
+- lib/tasks/usda.rake:
+  - Lint/ConstantDefinitionInBlock
+- spec/models/food_spec.rb:
+  - Lint/ConstantDefinitionInBlock
+- spec/spec_helper.rb:
+  - Style/StringLiterals

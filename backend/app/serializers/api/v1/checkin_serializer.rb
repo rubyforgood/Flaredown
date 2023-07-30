@@ -39,7 +39,7 @@ module Api
         plural_name = name.pluralize
 
         define_method(plural_name.to_sym) do
-          query = object.includes ? {"#{name}_id" => {'$in': (object.includes[plural_name] || []).map(&:to_i)}} : {}
+          query = object.includes ? {"#{name}_id" => {"$in": (object.includes[plural_name] || []).map(&:to_i)}} : {}
 
           object.send(plural_name).where(query)
         end

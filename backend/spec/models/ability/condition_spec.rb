@@ -64,7 +64,7 @@ RSpec.describe Ability do
 
     context "popular conditions" do
       before { create_list(:user_condition, Flaredown.config.trackables_min_popularity, condition: popular_condition) }
-      let(:popular_condition_ids) { Ability.new(user).send("popular_trackable_ids", "Condition") }
+      let(:popular_condition_ids) { Ability.new(user).send(:popular_trackable_ids, "Condition") }
 
       it { expect(popular_condition_ids).to eq([popular_condition.id]) }
     end

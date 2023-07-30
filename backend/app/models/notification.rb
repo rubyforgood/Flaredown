@@ -19,7 +19,7 @@ class Notification
   index notificateable_id: 1, notificateable_type: 1
 
   def set_defaults
-    assign_attributes(post_id: (notificateable._type == "Comment" ? notificateable.post_id : notificateable.id).to_s)
+    assign_attributes(post_id: ((notificateable._type == "Comment") ? notificateable.post_id : notificateable.id).to_s)
   end
 
   class << self

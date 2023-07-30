@@ -3,7 +3,7 @@ class MergeTrackables::Dispatcher
 
   def perform(trackable_type, translation = nil)
     trackable_class = trackable_type.capitalize.constantize
-    searchable_attr = trackable_class.name == "Food" ? "long_desc" : "name"
+    searchable_attr = (trackable_class.name == "Food") ? "long_desc" : "name"
 
     return find_duplicates(trackable_type, trackable_class, translation, searchable_attr) if translation.present?
 
