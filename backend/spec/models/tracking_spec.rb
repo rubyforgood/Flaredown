@@ -36,7 +36,6 @@ RSpec.describe Tracking, type: :model do
               .with_message("is already tracking this trackable")
               .with_message("is not included in the list")
               .with_message("can't be blank")
-              
           )
         end
       end

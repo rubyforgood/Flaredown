@@ -1,7 +1,7 @@
 module Api
   module V1
     class PostSerializer < ApplicationSerializer
-      require_dependency 'api/v1/concerns/notificatable'
+      require_dependency "api/v1/concerns/notificatable"
       include Api::V1::Concerns::Notificatable
       # before rails 7, these additional concerns were included,
       # but they don't seem to work anymore?  TBD
