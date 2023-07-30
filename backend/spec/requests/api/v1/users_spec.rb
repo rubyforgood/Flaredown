@@ -15,7 +15,7 @@ RSpec.describe "api/v1/users", type: :request do
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end
@@ -23,8 +23,7 @@ RSpec.describe "api/v1/users", type: :request do
     patch("update user") do
       parameter name: :user, in: :body
       response(200, "successful") do
-
-        let(:user) { { user: { email: "updatedemail@example.com" } } }
+        let(:user) { {user: {email: "updatedemail@example.com"}} }
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {

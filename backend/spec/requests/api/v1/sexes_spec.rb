@@ -1,40 +1,38 @@
-require 'swagger_helper'
+require "swagger_helper"
 
-RSpec.describe 'api/v1/sexes', type: :request do
-  path '/api/sexes' do
-
-    get('list sexes') do
-      response(200, 'successful') do
-
+RSpec.describe "api/v1/sexes", type: :request do
+  path "/api/sexes" do
+    get("list sexes") do
+      response(200, "successful") do
         after do |example|
           example.metadata[:response][:content] = {
-            'application/json' => {
+            "application/json" => {
               example: JSON.parse(response.body, symbolize_names: true)
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end
   end
 
-  path '/api/sexes/{id}' do
+  path "/api/sexes/{id}" do
     # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
+    parameter name: "id", in: :path, type: :string, description: "id"
 
-    get('show sex') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+    get("show sex") do
+      response(200, "successful") do
+        let(:id) { "123" }
 
         after do |example|
           example.metadata[:response][:content] = {
-            'application/json' => {
+            "application/json" => {
               example: JSON.parse(response.body, symbolize_names: true)
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end

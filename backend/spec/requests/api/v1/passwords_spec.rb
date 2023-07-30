@@ -1,72 +1,70 @@
-require 'swagger_helper'
+require "swagger_helper"
 
-RSpec.describe 'api/v1/passwords', type: :request do
-  path '/api/passwords' do
-
-    post('create password') do
-      response(200, 'successful') do
-
+RSpec.describe "api/v1/passwords", type: :request do
+  path "/api/passwords" do
+    post("create password") do
+      response(200, "successful") do
         after do |example|
           example.metadata[:response][:content] = {
-            'application/json' => {
+            "application/json" => {
               example: JSON.parse(response.body, symbolize_names: true)
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end
   end
 
-  path '/api/passwords/{id}' do
+  path "/api/passwords/{id}" do
     # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
+    parameter name: "id", in: :path, type: :string, description: "id"
 
-    get('show password') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+    get("show password") do
+      response(200, "successful") do
+        let(:id) { "123" }
 
         after do |example|
           example.metadata[:response][:content] = {
-            'application/json' => {
+            "application/json" => {
               example: JSON.parse(response.body, symbolize_names: true)
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end
 
-    patch('update password') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+    patch("update password") do
+      response(200, "successful") do
+        let(:id) { "123" }
 
         after do |example|
           example.metadata[:response][:content] = {
-            'application/json' => {
+            "application/json" => {
               example: JSON.parse(response.body, symbolize_names: true)
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end
 
-    put('update password') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+    put("update password") do
+      response(200, "successful") do
+        let(:id) { "123" }
 
         after do |example|
           example.metadata[:response][:content] = {
-            'application/json' => {
+            "application/json" => {
               example: JSON.parse(response.body, symbolize_names: true)
             }
           }
         end
-         pending "Not yet implemented, when implemented uncomment the assertion below"
+        pending "Not yet implemented, when implemented uncomment the assertion below"
         # run_test!
       end
     end
