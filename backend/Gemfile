@@ -1,32 +1,21 @@
 source "https://rubygems.org"
-plugin "bootboot", "~> 0.2.1"
 
-if ENV["DEPENDENCIES_NEXT"]
-  ruby "3.2.2"
-else
-  ruby "3.0.6"
-end
+ruby "3.2.2"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-if ENV["DEPENDENCIES_NEXT"]
-  gem "rails", "~> 7.0.5.1"
-else
-  gem "rails", "~> 6.1.7.4"
-end
+gem "rails", "~> 7.0.1"
+
 gem "rake"
 
 # JSON serializer
 gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-if ENV["DEPENDENCIES_NEXT"]
-  gem "mongoid", "8.1.1"
-else
-  gem "mongoid", "7.3.3"
-end
+gem "mongoid", "8.1.1"
+
 
 gem "pg", "1.5.3"
 
@@ -36,11 +25,8 @@ gem "puma", "5.6.4"
 # Authentication libraries
 gem "cancancan", "~> 3.3.0"
 gem "cancancan-mongoid", "2.0.0"
-if ENV["DEPENDENCIES_NEXT"]
-  gem "devise", "4.9.2"
-else
-  gem "devise", "4.8.0"
-end
+gem "devise", "4.9.2"
+
 gem "devise_invitable", "2.0.5"
 gem "omniauth", "1.8.1"
 gem "omniauth-facebook", "9.0.0"
@@ -83,9 +69,6 @@ gem "simplecov", require: false, group: :test
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  unless ENV["DEPENDENCIES_NEXT"]
-    gem "bullet"
-  end
   gem "byebug"
   gem "database_cleaner"
   gem "database_cleaner-mongoid"
@@ -123,11 +106,3 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "bugsnag", "~> 6.22"
-Plugin.send(:load_plugin, "bootboot") if Plugin.installed?("bootboot")
-
-if ENV["DEPENDENCIES_NEXT"]
-  enable_dual_booting if Plugin.installed?("bootboot")
-
-  # Add any gem you want here, they will be loaded only when running
-  # bundler command prefixed with `DEPENDENCIES_NEXT=1`.
-end
