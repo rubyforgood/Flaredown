@@ -11,11 +11,15 @@ RSpec.configure do |config|
     driven_by Capybara.javascript_driver
   end
 
-  config.before(:suite) do
-    SystemSpec::FrontendApp.instance.start
-  end
+  # System specs are excluded by default in ~/.rspec
+  # bin/system_spec provides a thin shim that includes them
+  unless config.exclusion_filter[:type] == "system"
+    config.before(:suite) do
+      SystemSpec::FrontendApp.instance.start
+    end
 
-  config.after(:suite) do
-    SystemSpec::FrontendApp.instance.stop
+    config.after(:suite) do
+      SystemSpec::FrontendApp.instance.stop
+    end
   end
 end
