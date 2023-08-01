@@ -1,11 +1,6 @@
-# First, load Cuprite Capybara integration
 require "capybara/cuprite"
 
-# Then, we need to register our driver to be able to use it later
-# with #driven_by method.
-# NOTE: The name :cuprite is already registered by Rails.
-# See https://github.com/rubycdp/cuprite/issues/180
-Capybara.register_driver(:better_cuprite) do |app|
+Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(
     app,
     window_size: [1200, 800],
@@ -16,5 +11,4 @@ Capybara.register_driver(:better_cuprite) do |app|
   )
 end
 
-# Configure Capybara to use :better_cuprite driver by default
-Capybara.default_driver = Capybara.javascript_driver = :better_cuprite
+Capybara.default_driver = Capybara.javascript_driver = :cuprite
