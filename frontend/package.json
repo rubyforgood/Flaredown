@@ -72,7 +72,7 @@
   "engines": {
     "bower": "1.x",
     "node": "12.22.6",
-    "npm": ">=7.0.0"
+    "npm": "7.x"
   },
   "ember-addon": {
     "paths": [
