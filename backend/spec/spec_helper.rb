@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.infer_spec_type_from_file_location!
 

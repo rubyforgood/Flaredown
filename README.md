@@ -65,6 +65,10 @@ rake run
 
 Visit your app at [http://localhost:4300](http://localhost:4300)
 
+### Open API Documentation
+This project is using the [rswag](https://github.com/rswag/rswag) gem to generate interactive api documentation. You can access this documentation locally at [http://localhost:3000/api-docs/index.html](http://localhost:3000/api-docs/index.html).
+If you make changes to the api, you will need to run `bundle exec rake rswag` from the backend directory to update the generated examples.
+
 ## CI
 
 Several checks are configured to run on all commits using Github Actions, including lint, build and test steps. Definitions can be found in [./github/workflows](./github/workflows). Those checks which always run are required to be successful for PRs to be mergable.
