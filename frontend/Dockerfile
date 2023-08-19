@@ -5,7 +5,7 @@ RUN npm i -g npm@7
 
 WORKDIR /app
 
-COPY package*.json node_modules bower.json .bowerrc .npmrc ./
+COPY package*.json bower.json .bowerrc .npmrc ./
 
 RUN npm install
 
