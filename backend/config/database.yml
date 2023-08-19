@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
+  host: <%= ENV.fetch('PG_DATABASE_HOST') { 'localhost' } %>
   database: flaredown_development
   username: postgres
   password: password
