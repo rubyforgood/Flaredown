@@ -11,7 +11,4 @@ RUN npm install
 
 COPY . .
 
-# Rebuild node-sass for the current environment
-RUN npm rebuild node-sass
-
 CMD ["npm", "start"]
