@@ -15,7 +15,14 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * Redis 6.2.3
 * Ruby 3.0.6 (see [RVM](https://rvm.io/) also)
 * Node 12.22.6
+
 ## Installation
+
+All dependencies are dockerized, including the application and can be run using `docker compose` so there's no dependencies to install other than docker.
+
+If you want to run the application on your own machine see the next sections on dependency installations
+
+### Mac
 
 _If you are running on an M1 mac, run the following command before you start the installation process:_
 ```bash
@@ -54,7 +61,22 @@ npm install
 
 ## Running / Development
 
+### Docker
+
 From the project root:
+
+```bash
+docker compose --profile dev up
+```
+
+This will build and run all the containers necessary to run the application locally.
+
+Visit your app at [http://localhost:4300](http://localhost:4300)
+
+### Local Machine Installation
+
+From the project root:
+
 ```bash
 docker compose up
 ```
@@ -62,8 +84,6 @@ docker compose up
 ```bash
 rake run
 ```
-
-Visit your app at [http://localhost:4300](http://localhost:4300)
 
 ## CI
 
