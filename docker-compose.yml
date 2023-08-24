@@ -49,7 +49,7 @@ services:
       - 4300:4300
     volumes:
       - ./frontend:/app
-    command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://localhost:3000"
+    command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000"
     profiles:
       - dev
   app-setup:
