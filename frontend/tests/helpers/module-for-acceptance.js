@@ -1,7 +1,7 @@
 import { module } from 'qunit';
-import { resolve } from 'rsvp';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
+import Ember from 'ember';
 
 const { RSVP: { Promise } } = Ember;
 
