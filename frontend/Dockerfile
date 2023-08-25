@@ -9,6 +9,9 @@ COPY package*.json bower.json .bowerrc .npmrc ./
 
 RUN npm install
 
+# May no be needed in future version of node
+ENV OPENSSL_CONF=/dev/null
+
 COPY . .
 
 CMD ["npm", "start"]
