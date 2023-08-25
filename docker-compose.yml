@@ -46,9 +46,10 @@ services:
       - backend
     ports:
       - 4300:4300
+      - 65535:65535
     volumes:
       - ./frontend:/app
-    command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000"
+    command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000 --live-reload-host frontend --live-reload-port 65535"
     profiles:
       - dev
   app-setup:
