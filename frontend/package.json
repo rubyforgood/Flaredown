@@ -60,7 +60,7 @@
     "ember-radio-button": "1.0.7",
     "ember-resolver": "^4.0.0",
     "ember-router-scroll": "0.1.1",
-    "ember-simple-auth": "1.4.0",
+    "ember-simple-auth": "^1.9.2",
     "ember-social-share": "^0.3.0",
     "ember-source": "~2.18.0",
     "ember-time-field": "^0.3.0",
