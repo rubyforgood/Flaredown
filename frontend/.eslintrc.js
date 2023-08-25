@@ -15,6 +15,10 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/new-module-imports': 'off',
+    'ember/avoid-leaking-state-in-ember-objects': 'off',
+    'ember/no-on-calls-in-components': 'off',
+    'ember/closure-actions': 'off',
   },
   globals: {
     d3: true,
