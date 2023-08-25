@@ -19,6 +19,7 @@ module.exports = {
     'ember/avoid-leaking-state-in-ember-objects': 'off',
     'ember/no-on-calls-in-components': 'off',
     'ember/closure-actions': 'off',
+    'ember/no-side-effects': 'off',
   },
   globals: {
     d3: true,
