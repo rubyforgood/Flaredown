@@ -61,7 +61,7 @@
     "ember-resolver": "^4.0.0",
     "ember-router-scroll": "0.1.1",
     "ember-simple-auth": "1.4.0",
-    "ember-social-share": "0.2.9",
+    "ember-social-share": "^0.3.0",
     "ember-source": "~2.18.0",
     "ember-time-field": "^0.1.5",
     "ember-truth-helpers": "1.2.0",
