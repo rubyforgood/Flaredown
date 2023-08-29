@@ -1,4 +1,4 @@
-FROM node:12.22.6
+FROM --platform=linux/amd64 node:12.22.6
 
 # Force npm version 7
 RUN npm i -g npm@7
