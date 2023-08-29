@@ -61,6 +61,9 @@ npm install
 
 ## Running / Development
 
+### General
+It is necessary to populate environment parameters. You can take `backend/env-example` and add it to a new file in `backend/.env` and `frontend/.env`. You'll need to create a [Facebook dev app](https://developers.facebook.com/docs/development/create-an-app) and paste your own ID the frontend env file's `FACEBOOK_APP_ID` parameter. This is not necessary in the backend env but we have not yet cleaned up these two files into the necessary components.
+
 ### Docker
 
 From the project root:
@@ -104,6 +107,8 @@ Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail
 
 ### 🎨 [Figma Assets](https://www.figma.com/proto/MBVn73pD6JbBkxd65KSZHr/Flaredown-Guide?page-id=0%3A1&node-id=1%3A3&viewport=241%2C48%2C0.45&scaling=contain&starting-point-node-id=1%3A3)
 
+## Common Problems
+* On first load, the app displays a blank beige screen instead of the login screen. Temporary fix is to add  `console.log(process.env.FACEBOOK_APP_ID)` right inside of the module.exports at the top of the `frontend/config/environment.js` file. You can then refresh the page (no need to kill Docker) and this should fix it. You can now remove the log.
 
 ## License
 Copyright 2015-2017 Logan Merriam and contributors.
