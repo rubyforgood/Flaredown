@@ -8,3 +8,6 @@ dump.rdb
 .rbenv-gemsets
 
 .idea/*
+.bundle
+
+frontend/.env

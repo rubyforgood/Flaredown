@@ -41,6 +41,7 @@ services:
     profiles:
       - tunnel
   frontend:
+    platform: linux/amd64
     build: frontend
     depends_on:
       - backend
