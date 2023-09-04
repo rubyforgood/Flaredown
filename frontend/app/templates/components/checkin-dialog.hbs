@@ -3,62 +3,62 @@
 
   {{save-status record=checkin}}
 
-  {{checkin/summary-step onStepCompleted=(action 'moveToNextStep')
-                         onGoBack=(action 'moveToPrevStep') }}
+  {{checkin/summary-step onStepCompleted=(action "moveToNextStep")
+                         onGoBack=(action "moveToPrevStep") }}
 {{else}}
   {{#if isStart}}
     {{checkin/start-step
       step=step
-      onGoBack=(action 'moveToPrevStep')
-      onStepCompleted=(action 'moveToNextStep')
+      onGoBack=(action "moveToPrevStep")
+      onStepCompleted=(action "moveToNextStep")
     }}
 
   {{else if isConditions}}
     {{checkin/trackables-step
       step=step
       trackeds=checkin.conditions
-      trackableType='condition'
-      onStepCompleted=(action 'moveToNextStep')
-      onGoBack=(action 'moveToPrevStep')
+      trackableType="condition"
+      onStepCompleted=(action "moveToNextStep")
+      onGoBack=(action "moveToPrevStep")
     }}
 
   {{else if isHarveyBradshawIndex}}
     {{checkin/hbi-step
       step=step
-      onGoBack=(action 'moveToPrevStep')
-      onStepCompleted=(action 'moveToNextStep')
+      onGoBack=(action "moveToPrevStep")
+      onStepCompleted=(action "moveToNextStep")
     }}
 
   {{else if isPromotionRate}}
     {{checkin/promotion-step
       step=step
-      onGoBack=(action 'moveToPrevStep')
-      onStepCompleted=(action 'moveToNextStep')
+      onGoBack=(action "moveToPrevStep")
+      onStepCompleted=(action "moveToNextStep")
     }}
 
   {{else if isSymptoms}}
     {{checkin/trackables-step
       step=step
       trackeds=checkin.symptoms
-      trackableType='symptom'
-      onStepCompleted=(action 'moveToNextStep')
-      onGoBack=(action 'moveToPrevStep')
+      trackableType="symptom"
+      onStepCompleted=(action "moveToNextStep")
+      onGoBack=(action "moveToPrevStep")
     }}
 
   {{else if isTreatments}}
     {{checkin/trackables-step
       step=step
       trackeds=checkin.treatments
-      trackableType='treatment'
-      onStepCompleted=(action 'moveToNextStep')
-      onGoBack=(action 'moveToPrevStep')
+      trackableType="treatment"
+      onStepCompleted=(action "moveToNextStep")
+      onGoBack=(action "moveToPrevStep")
     }}
 
   {{else if isHeathFactors}}
     {{checkin/health-factors-step
       step=step
-      onGoBack=(action 'moveToPrevStep')
-      onStepCompleted=(action 'moveToNextStep')
+      onGoBack=(action "moveToPrevStep")
+      onStepCompleted=(action "moveToNextStep")
     }}
   {{/if}}
 {{/if}}

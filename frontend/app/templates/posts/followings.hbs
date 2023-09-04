@@ -24,7 +24,7 @@
 
   {{#each model.topics as |topic|}}
     <div class="followed-topic">
-      {{#link-to 'posts.topic' topic.modelType topic.id}}{{topic.name}}  &rsaquo;{{/link-to}}
+      {{#link-to "posts.topic" topic.modelType topic.id}}{{topic.name}}  &rsaquo;{{/link-to}}
       <span {{action "removeTopic" topic}} class="x-to-remove">{{closeSymbol}}</span>
     </div>
   {{/each}}

@@ -11,7 +11,7 @@
   {{/each}}
 
   <div class="loadMore centered">
-    <a href="#" {{action "requestData"}} class="{{checkinNavClass}}">
+    <a href="#" {{action "requestData"}} class={{checkinNavClass}}>
       {{t "sharedPatterns.dialog.loadMore"}}
     </a>
   </div>
@@ -34,5 +34,5 @@
 {{/unless}}
 
 <div class="sharedBottom centered">
-  {{#link-to 'chart'}}{{t "sharedPatterns.dialog.done"}}{{/link-to}}
+  {{#link-to "chart"}}{{t "sharedPatterns.dialog.done"}}{{/link-to}}
 </div>

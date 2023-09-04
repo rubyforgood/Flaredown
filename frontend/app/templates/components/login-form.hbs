@@ -1,14 +1,14 @@
 {{#form-for onSubmit=(action "authenticateWithDevise")}}
   <div class="form-field">
     <label for="identification">Email</label>
-    {{input value=identification placeholder='Enter Email' class='form-control fs-private' type='email'}}
+    {{input value=identification placeholder="Enter Email" class="form-control fs-private" type="email"}}
   </div>
   <div class="form-field">
     <label for="password">Password</label>
-    {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+    {{input value=password placeholder="Enter Password" class="form-control" type="password"}}
   </div>
   <p>
-    Not a member yet? {{#link-to 'signup'}}Signup Now{{/link-to}}
+    Not a member yet? {{#link-to "signup"}}Signup Now{{/link-to}}
   </p>
   {{input type="submit" class="btn btn-default right" value="Login"}}
 {{/form-for}}
@@ -20,4 +20,4 @@
     </p>
   </div>
 {{/if}}
-{{#link-to 'password.reset'}}Forgot password{{/link-to}}
+{{#link-to "password.reset"}}Forgot password{{/link-to}}

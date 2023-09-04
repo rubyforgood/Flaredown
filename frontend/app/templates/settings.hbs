@@ -1,4 +1,4 @@
-{{ navigation-links title='Settings' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
+{{ navigation-links title="Settings" optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
 
 <div class="flaredown-white-box vert-offset-top-1 vert-offset-top-3-conditional">
   <h3>Account</h3>
@@ -8,9 +8,9 @@
   {{data-export-initiator}}
   <br>
 
-  <div id = 'delete_acc_link'> {{#link-to 'delete'}}Delete my account{{/link-to}} </div>
+  <div id="delete_acc_link"> {{#link-to "delete"}}Delete my account{{/link-to}} </div>
   <br>
-  <a {{action 'invalidateSession'}}>Logout</a>
+  <a {{action "invalidateSession"}}>Logout</a>
 </div>
 
 <div class="flaredown-white-box">
@@ -28,17 +28,17 @@
 <div class="flaredown-white-box">
   <h3>Email</h3>
 
-    {{#if session.isAuthenticated}}
-      {{#form-for for=session.actualUser onSubmit="save"}}
-        {{#form-field for="email" label="Email"}}
-          {{input value=session.actualUser.email placeholder='Email' class='form-control'}}
-        {{/form-field}}
-      {{/form-for}}
-    {{/if}}
+  {{#if session.isAuthenticated}}
+    {{#form-for for=session.actualUser onSubmit="save"}}
+      {{#form-field for="email" label="Email"}}
+        {{input value=session.actualUser.email placeholder="Email" class="form-control"}}
+      {{/form-field}}
+    {{/form-for}}
+  {{/if}}
 
-    {{#unless session.isAuthenticated}}
-      {{#link-to 'login'}}Back to Login{{/link-to}}
-    {{/unless}}
+  {{#unless session.isAuthenticated}}
+    {{#link-to "login"}}Back to Login{{/link-to}}
+  {{/unless}}
 
-    <button {{action 'updateEmail'}} class="btn btn-primary" disabled={{isLoading}} style="    background-color: #73C1BA;">{{if isLoading "Updating..." "Update your email"}}</button>
+  <button {{action "updateEmail"}} class="btn btn-primary" disabled={{isLoading}} style="    background-color: #73C1BA;">{{if isLoading "Updating..." "Update your email"}}</button>
 </div>

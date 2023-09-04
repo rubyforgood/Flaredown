@@ -1,10 +1,9 @@
-
 {{checkin/days-nav big=isSummary date=model.date}}
 
 <div class="flaredown-white-box">
   {{#if model.checkins}}
     <div class="checkins-list-container">
-      <img src="/assets/checkins.svg" />
+      <img src="/assets/checkins.svg">
       <h5 class="checkins-text">You've had <strong>{{pluralize model.checkins.length "check-in"}}</strong>   {{checkToday model.date "today"}}</h5>
     </div>
     <div class="checkins-list">
@@ -15,15 +14,14 @@
             <div class="arrow-check-in">›</div>
           </li>
         </a>
-        {{#unless (eq checkin model.checkins.lastObject)}}
+        {{#if (not (eq checkin model.checkins.lastObject))}}
           <div class="separator-line"></div>
-        {{/unless}}
+        {{/if}}
       {{/each}}
     </div>
   {{else}}
     <div class="empty-state">
-      <img src="/assets/empty.svg" />
-
+      <img src="/assets/empty.svg" >
       <div>You have no check-ins{{checkToday model.date " for today"}}.</div>
     </div>
   {{/if}}

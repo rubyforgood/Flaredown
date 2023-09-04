@@ -1,11 +1,11 @@
 <text class="title {{model.fillClass}}" transform="translate(5, -5)">{{model.name}}</text>
-<text class="hide-control" {{action 'hideChart'}}>HIDE</text>
+<text class="hide-control" {{action "hideChart"}}>HIDE</text>
 
-<rect class="g-background" height="{{height}}"></rect>
+<rect class="g-background" height={{height}}></rect>
 
 <line
   x1="0"
-  x2="{{width}}"
+  x2={{width}}
   class="ruler-line {{model.strokeClass}}"
   transform="translate(0, {{halfHeight}})"
 />

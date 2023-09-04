@@ -16,23 +16,23 @@
   {{#form-field for="birthDate" label="Birth Date" class="birthdayForm"}}
     {{birth-date birthDate=model.birthDate}}
     {{#if (and isError isShowError)}}
-      <p class="error-message" style="margin-top: 0;">
+      <p class="error-message">
         You must be 16 years or older to use this app according to international privacy regulations. Sorry :(
       </p>
     {{else}}
       {{#if isBlankError}}
-        <p class="error-message" style="margin-top: 0;">
+        <p class="error-message">
           can't be blank
         </p>
       {{/if}}
     {{/if}}
   {{/form-field}}
 
-  <div class="checkbox" style="margin: 0.5em 0 1em;">
+  <div class="checkbox">
     {{input type="checkbox" checked=model.acceptPrivacyTerms}}
-    I accept the&nbsp;{{#link-to 'terms-of-service'}}Terms&nbsp;of&nbsp;Service{{/link-to}}&nbsp;and&nbsp;{{#link-to 'privacy-policy'}}Privacy&nbsp;Policy{{/link-to}}
+    I accept the&nbsp;{{#link-to "terms-of-service"}}Terms&nbsp;of&nbsp;Service{{/link-to}}&nbsp;and&nbsp;{{#link-to "privacy-policy"}}Privacy&nbsp;Policy{{/link-to}}
     {{#if (eq model.acceptPrivacyTerms false)}}
-      <p class="error-message" style="margin-top: 0; font-weight: bold; font-size: 0.9em;">
+      <p class="error-message">
         Please, accept the Terms of Service and Privacy Policy.
       </p>
     {{/if}}
@@ -43,7 +43,7 @@
   {{/form-field}}
 
   <br>
-  <p>Already have an account? {{#link-to 'login'}}Log in{{/link-to}}</p>
+  <p>Already have an account? {{#link-to "login"}}Log in{{/link-to}}</p>
   {{input type="submit" class="btn-primary" value="Create account"}}
 {{/form-for}}
 

@@ -1,5 +1,5 @@
-{{#link-to 'settings' class='bottom-link'}}
-  {{inline-svg 'settings-icon' class='icon'}}
+{{#link-to "settings" class="bottom-link"}}
+  {{inline-svg "settings-icon" class="icon"}}
 
   <label>SETTINGS</label>
 {{/link-to}}
@@ -8,11 +8,11 @@
   {{#if notifications.unread}}
     {{nav/discussions-unread}}
   {{else}}
-    {{#link-to 'posts' class='bottom-link'}}
-     {{inline-svg 'discuss' class='icon'}}
+    {{#link-to "posts" class="bottom-link"}}
+      {{inline-svg "discuss" class="icon"}}
 
-     <label>CHAT</label>
-   {{/link-to}}
+      <label>CHAT</label>
+    {{/link-to}}
   {{/if}}
 {{/if}}
 
@@ -23,13 +23,13 @@
   <label>EXPLORE</label>
 </div> --}}
 
-{{#link-to 'chart' class='bottom-link'}}
-  {{inline-svg 'history_2' class='icon'}}
+{{#link-to "chart" class="bottom-link"}}
+  {{inline-svg "history_2" class="icon"}}
 
   <label>HISTORY</label>
 {{/link-to}}
 
-<a href="/" {{action "goToTodaysCheckins"}} class="{{checkinNavClass}}">
+<a href="/" {{action "goToTodaysCheckins"}} class={{checkinNavClass}}>
   {{inline-svg 'checkin_2' class='icon'}}
 
   <label>CHECKIN</label>

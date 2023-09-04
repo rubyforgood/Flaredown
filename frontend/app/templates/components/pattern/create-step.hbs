@@ -23,7 +23,7 @@
       disabled=isChartEnablerDisabled
       options=options
       placeholder=chartEnablerPlaceholder
-      onchange=(action 'handleChange')
+      onchange=(action "handleChange")
       searchField="label"
       renderInPlace=true
       searchEnabled=true
@@ -36,9 +36,9 @@
   <br>
   <div class="history-container">
     {{#if model.isNew}}
-    <span class="history-cancel" {{action 'cancel'}}>Cancel</span>
+      <span class="history-cancel" {{action "cancel"}}>Cancel</span>
     {{else}}
-      <span class="history-remove" {{action 'deletePattern'}}>{{deleteText}}</span>
+      <span class="history-remove" {{action "deletePattern"}}>{{deleteText}}</span>
     {{/if}}
 
     <button class="history-btn btn" {{action "savePattern"}} disabled={{disableSaveBtn}}>
@@ -46,4 +46,3 @@
     </button>
   </div>
 {{/form-for}}
-

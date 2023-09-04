@@ -1,5 +1,5 @@
 {{#each post.topics as |topic|}}
-  {{#link-to 'posts.topic' topic.modelType topic.id}}
+  {{#link-to "posts.topic" topic.modelType topic.id}}
     <span class="badge-default vert-offset-bottom-0_5 badge-post-topics">{{topic.name}}</span>
   {{/link-to}}
 {{/each}}

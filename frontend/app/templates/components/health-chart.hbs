@@ -1,10 +1,10 @@
 {{#if chartLoaded }}
-  <svg width='100%' height={{SVGHeight}}>
+  <svg width="100%" height={{SVGHeight}}>
     <g class="health-chart-viewport" transform="translate(0, {{seriePadding}})">
       {{#each-in series as |category charts|}}
         {{#each charts as |chart|}}
           {{#if chart.blank}}
-            {{#if (includes category 'conditions' 'symptoms')}}
+            {{#if (includes category "conditions" "symptoms")}}
               {{chart/g-blank-trackable
                 model=chart.model
                 width=seriesWidth
@@ -15,7 +15,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (includes category 'treatments' 'tags' 'foods')}}
+            {{else if (includes category "treatments" "tags" "foods")}}
               {{chart/g-blank-flat
                 model=chart.model
                 width=seriesWidth
@@ -28,7 +28,7 @@
               }}
             {{/if}}
           {{else}}
-            {{#if (includes category 'conditions' 'symptoms')}}
+            {{#if (includes category "conditions" "symptoms")}}
               {{chart/g-trackable
                 endAt=endAt
                 model=chart.model
@@ -41,7 +41,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (includes category 'treatments' 'tags' 'foods')}}
+            {{else if (includes category "treatments" "tags" "foods")}}
               {{chart/g-flat
                 endAt=endAt
                 model=chart.model
@@ -54,7 +54,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (includes category 'harveyBradshawIndices')}}
+            {{else if (includes category "harveyBradshawIndices")}}
               {{chart/g-hbi
                 name=chart.name
                 field=chart.field
@@ -67,7 +67,7 @@
                 timeline=timeline
                 chartOffset=chart.chartOffset
               }}
-            {{else if (includes category 'weathersMeasures')}}
+            {{else if (includes category "weathersMeasures")}}
               {{chart/g-weather
                 name=chart.name
                 unit=chart.unit
@@ -101,7 +101,7 @@
     </g>
 
     {{#if openInfoWindow }}
-      <line x1="{{xPosition}}" y1="0" x2="{{xPosition}}" y2="{{totalSeriesHeight}}" class="vertical-line" />
+      <line x1={{xPosition}} y1="0" x2={{xPosition}} y2={{totalSeriesHeight}} class="vertical-line" />
     {{/if}}
   </svg>
 
@@ -124,7 +124,7 @@
     date=centeredDate
     endAt=endAt
     startAt=startAt
-    onNavigate=(action 'navigate')
+    onNavigate=(action "navigate")
   }}
 {{else}}
   {{partial "application/three-bounce-spinner"}}

@@ -1,21 +1,21 @@
 <text class="title {{fillClass}}" transform="translate(5,-5)">{{name}}</text>
-<text class="hide-control" {{action 'hideChart'}}>HIDE</text>
+<text class="hide-control" {{action "hideChart"}}>HIDE</text>
 
-<rect class="g-background" height="{{height}}"></rect>
+<rect class="g-background" height={{height}}></rect>
 
 {{chart/g-ruler yScale=yScale yRulers=yRulers width=width}}
 
-<path class="line {{strokeClass}}" d="{{lineFunction}}" transform="{{nestedTransform}}"></path>
+<path class="line {{strokeClass}}" d={{lineFunction}} transform={{nestedTransform}}></path>
 
-<g transform="{{nestedTransform}}">
+<g transform={{nestedTransform}}>
   {{#if openPointTooltip}}
-    <text x="{{currentPoint.tip.x}}" y="{{currentPoint.tip.y}}" class="tool-tip {{fillClass}}" >
+    <text x={{currentPoint.tip.x}} y={{currentPoint.tip.y}} class="tool-tip {{fillClass}}" >
       {{currentPoint.tip.label}}
     </text>
   {{/if}}
 
   {{#each points as |point|}}
-    <circle cx="{{point.x}}" cy="{{point.y}}" r="4" class="point {{strokeClass}}" stroke-width="2" fill="white"
+    <circle cx={{point.x}} cy={{point.y}} r="4" class="point {{strokeClass}}" stroke-width="2" fill="white"
       {{action "openPointTooltip" point on="mouseEnter"}}
       {{action "closePointTooltip" point on="mouseLeave"}}
     />
