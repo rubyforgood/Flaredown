@@ -33,7 +33,6 @@
     "ember-cli": "3.4.4",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^6.16.0",
-    "ember-cli-bourbon": "^2.0.1",
     "ember-cli-dependency-checker": "^3.0.0",
     "ember-cli-dotenv": "1.2.0",
     "ember-cli-eslint": "^4.2.3",
@@ -86,5 +85,8 @@
       "lib/full-story",
       "lib/heap-analytics"
     ]
+  },
+  "dependencies": {
+    "bourbon": "^6.0.0"
   }
 }
