@@ -4,7 +4,7 @@
 <div class="treatment-data">
   <h4 class="name {{unless isTaken 'untaken'}}" {{action "titleClicked"}}>
     &nbsp;{{treatment.name}}
-    <span class="x-to-remove" {{action 'removeTreatment'}}>×</span>
+    <span class="x-to-remove" {{action "removeTreatment"}}>×</span>
   </h4>
 
   {{#if isTaken}}
@@ -29,12 +29,12 @@
         {{/power-select-with-create}}
 
       {{else}}
-        <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action 'edit'}}>
+        <a href="#" class="indented dose {{model.borderClass}} {{model.clrClass}}" {{action "edit"}}>
           {{if dose dose.name "No dose"}}
         </a>
       {{/if}}
       {{#if dose}}
-        &nbsp;<span class="x-to-remove" {{action 'clearDose'}}>×</span>
+        &nbsp;<span class="x-to-remove" {{action "clearDose"}}>×</span>
       {{/if}}
     </div>
   {{/if}}

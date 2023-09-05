@@ -1,7 +1,7 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
-  <h4>{{#link-to 'posts.show' post class="colorable-clr-39"}}{{post.title}}{{/link-to}}</h4>
+  <h4>{{#link-to "posts.show" post class="colorable-clr-39"}}{{post.title}}{{/link-to}}</h4>
 
   <p>{{truncate-text post.body limit=elipsis}}</p>
 
@@ -10,6 +10,6 @@
   {{emoji-reactions reactable=post isAuthenticatedUser=isAuthenticatedUser}}
 
   {{#if post.commentsCount}}
-    {{#link-to 'posts.show' post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
+    {{#link-to "posts.show" post class="colorable-clr-38"}}{{post.commentsCount}} comments{{/link-to}}
   {{/if}}
 {{/if}}

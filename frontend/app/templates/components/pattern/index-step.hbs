@@ -1,6 +1,6 @@
 {{#if authorPage}}
   <div class="sharePatternLink">
-    {{#link-to 'patterns' class="history-index-btn btn"}}
+    {{#link-to "patterns" class="history-index-btn btn"}}
       Share Patterns
     {{/link-to}}
   </div>
@@ -9,13 +9,13 @@
 {{/if}}
 
 {{#each patterns as |pattern|}}
-  <div class='pattern-block'>
+  <div class="pattern-block">
     <span class="pattern-name">{{pattern.name}}</span>
-    <span class='pattern-edit' {{action 'edit' pattern}}>Edit</span>
+    <span class="pattern-edit" {{action "edit" pattern}}>Edit</span>
   </div>
 
-  {{#with (find-by 'pattern_id' pattern.id chartData) as |data|}}
-    <div class='chart-legend'>
+  {{#with (find-by "pattern_id" pattern.id chartData) as |data|}}
+    <div class="chart-legend">
       {{#each data.series as |item|}}
         {{pattern/chart-legend-item item=item}}
       {{/each}}
@@ -53,7 +53,7 @@
   endAt=endAt
   startAt=startAt
   patternNavbar=true
-  onNavigate=(action 'navigate')
+  onNavigate=(action "navigate")
   onChangeStartAt=(action (mut startAt))
   onChangeEndAt=(action (mut endAt))
 }}

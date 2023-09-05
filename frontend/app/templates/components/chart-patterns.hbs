@@ -1,4 +1,4 @@
-<div class='history-box'>
+<div class="history-box">
   {{#if patterns.isPending}}
     {{partial "application/three-bounce-spinner"}}
   {{else if (eq currentStep STEPS.INITIAL)}}
@@ -20,13 +20,13 @@
       onCanceled=(action (mut currentStep) STEPS.INDEX)
     }}
 
-    {{else if (eq currentStep STEPS.INDEX)}}
-      {{pattern/index-step
-        patterns=patterns
-        authorPage=true
-        onEdit=(action 'edit')
-        onCreate=(action 'create')
-        onRequest=(action 'requestData')
-      }}
-    {{/if}}
+  {{else if (eq currentStep STEPS.INDEX)}}
+    {{pattern/index-step
+      patterns=patterns
+      authorPage=true
+      onEdit=(action "edit")
+      onCreate=(action "create")
+      onRequest=(action "requestData")
+    }}
+  {{/if}}
 </div>

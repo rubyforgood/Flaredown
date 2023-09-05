@@ -10,7 +10,7 @@ const {
 } = Ember;
 
 export default Controller.extend(BackNavigateable, SearchableDropdown, {
-  disabled: computed('model.body', 'model.title', 'model.topics.[]', function() {
+  disabled: computed('model.{body,title,topics.[]}', function() {
     const { body, title, topics } = getProperties(get(this, 'model'), 'body', 'title', 'topics');
 
     return !(body && title && topics.length);

@@ -1,6 +1,6 @@
 <div class="back container step-back">
   {{#if (and showBack stepHasPrev)}}
-    <a class="{{if disabled 'disabled'}}" {{action "backward"}}>{{backLabel}}</a>
+    <a class={{if disabled "disabled"}} {{action "backward"}}>{{backLabel}}</a>
   {{else if (not showBack stepHasPrev)}}
     <button class="btn-primary summary-btn discussion-btn" {{action "discussion"}}>
       {{inline-svg 'discuss_white' class='icon'}}
@@ -13,7 +13,7 @@
 
 <div class="forward container step-forward">
   {{#if linkForward}}
-    <a class="{{if disabled 'disabled'}}" {{action "forward"}}>{{forwardLabel}}</a>
+    <a class={{if disabled "disabled"}} {{action "forward"}}>{{forwardLabel}}</a>
   {{else}}
     <button class="btn-primary summary-btn {{if disabled 'disabled'}}" {{action "forward"}}>
       {{forwardLabel}}

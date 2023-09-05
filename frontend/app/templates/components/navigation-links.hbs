@@ -1,20 +1,20 @@
 <div class="flex-container left-nav">
   {{#if navigateBackHistory}}
-    <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg 'left-arrow' class='icon'}}</a>
+    <a {{action "navigateBack" class="mobile-back-button"}}>{{inline-svg "left-arrow" class="icon"}}</a>
   {{/if}}
 </div>
 
-<h5 class="centered page-title">{{if isAuthenticatedUser title 'Join our awesome community!'}}</h5>
+<h5 class="centered page-title">{{if isAuthenticatedUser title "Join our awesome community!"}}</h5>
 
 <div class="flex-container right-nav">
   <a href="/" {{action "toggleSearchBar"}}>
-    {{inline-svg 'discussion-search' class='icon'}}
+    {{inline-svg "discussion-search" class="icon"}}
   </a>
-  {{#link-to 'posts.profile'}}{{inline-svg 'discussion-profile' class='icon'}}{{/link-to}}
+  {{#link-to "posts.profile"}}{{inline-svg "discussion-profile" class="icon"}}{{/link-to}}
 
   {{#if session.currentUser}}
-    {{#link-to 'notifications' class=(if notifications.unread 'notification' '')}}
-      {{inline-svg 'discussion-notification' class='icon'}}
+    {{#link-to "notifications" class=(if notifications.unread "notification" "")}}
+      {{inline-svg "discussion-notification" class="icon"}}
     {{/link-to}}
   {{/if}}
 </div>
@@ -30,14 +30,14 @@
       renderInPlace=true
       allowClear=true
       as |object| }}
-        {{object.name}}
-        <div class="typeTopickable">
-          {{capitalize object.modelType}} - {{pluralize object.usersCount "user"}}
-        </div>
+      {{object.name}}
+      <div class="typeTopickable">
+        {{capitalize object.modelType}} - {{pluralize object.usersCount "user"}}
+      </div>
     {{/power-select}}
 
     <a href="/" {{action "toggleSearchBar"}}>
-      {{inline-svg 'close' class='icon'}}
+      {{inline-svg "close" class="icon"}}
     </a>
   </div>
 {{/if}}

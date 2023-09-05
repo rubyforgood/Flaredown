@@ -3,33 +3,32 @@
 {{#form-for for=profile}}
 
   {{#radio-button
-      value=false
-      groupValue=profile.checkinReminder
-      changed="changeReminder"}}
-      {{reminderOff}}
+    value=false
+    groupValue=profile.checkinReminder
+    changed="changeReminder"}}
+    {{reminderOff}}
   {{/radio-button}}
 
   {{#radio-button
-      value=true
-      groupValue=profile.checkinReminder
-      changed="changeReminder"}}
-      {{reminderOn}}
+    value=true
+    groupValue=profile.checkinReminder
+    changed="changeReminder"}}
+    {{reminderOn}}
   {{/radio-button}}
 
   {{#form-field for="checkinReminderHours" classNameBindings="checkinReminderEnabled:checkinReminders:hideTag"}}
 
-      {{custom-pick-a-time on-selected=(action 'timeChanged') options=options placeholder=null class="checkinReminderTime"}}
+    {{custom-pick-a-time on-selected=(action "timeChanged") options=options placeholder=null class="checkinReminderTime"}}
 
-      {{#power-select options=timezones
-                      placeholder="Select a timezone"
-                      selected=model.timeZoneName
-                      onchange=(action (mut model.timeZoneName))
-                      renderInPlace=true
-                      searchEnabled=true
-                      as |timezone| }}
-        {{timezone}}
-      {{/power-select}}
+    {{#power-select options=timezones
+      placeholder="Select a timezone"
+      selected=model.timeZoneName
+      onchange=(action (mut model.timeZoneName))
+      renderInPlace=true
+      searchEnabled=true
+      as |timezone| }}
+      {{timezone}}
+    {{/power-select}}
   {{/form-field}}
-
 
 {{/form-for}}

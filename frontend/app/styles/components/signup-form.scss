@@ -8,5 +8,16 @@
 
   .checkbox {
     flex-direction: row;
+    margin: 0.5em 0 1em;
+
+    .error-message {
+      margin-top: 0;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+  }
+
+  .birthdayForm .error-message {
+    margin-top: 0;
   }
 }

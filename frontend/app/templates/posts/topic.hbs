@@ -1,5 +1,5 @@
 <div class="pull-down"></div>
-{{ navigation-links title='Topic' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated }}
+{{ navigation-links title="Topic" optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated }}
 
 <header class="flaredown-transparent-box centered">
   <h3 class="topic-name">{{model.topic.name}}</h3>
@@ -10,12 +10,12 @@
       &middot;
       {{pluralize model.topic.usersCount "user"}}
     {{/if}}
- </div>
+  </div>
 </header>
 
 {{#if session.isAuthenticated}}
   <header class="centered vert-offset-bottom-1">
-    <a {{action "toggleTopicFollowing"}}>{{if isFollowed 'Unfollow' 'Follow'}} this topic</a>
+    <a {{action "toggleTopicFollowing"}}>{{if isFollowed "Unfollow" "Follow"}} this topic</a>
   </header>
 {{/if}}
 
@@ -34,7 +34,7 @@
 {{/if}}
 
 {{#unless session.isAuthenticated}}
-{{!--   {{additional-info}}
- --}}
+  {{!--   {{additional-info}}
+  --}}
   {{join-footer}}
 {{/unless}}

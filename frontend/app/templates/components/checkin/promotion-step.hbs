@@ -8,7 +8,7 @@
 
     <ul class="prRate">
       {{#each prRates as |prRate|}}
-        <li class="{{if (eq selectedRate prRate) 'active'}}" {{action (mut selectedRate) prRate}}>
+        <li class={{if (eq selectedRate prRate) "active"}} {{action (mut selectedRate) prRate}}>
           {{prRate}}
         </li>
       {{/each}}
@@ -34,7 +34,7 @@
       pr=pr
       onForward=onStepCompleted
       onBackward=onGoBack
-      forwardLabel='Next'
+      forwardLabel="Next"
       stepHasPrev=step.prevId
       title=step.title
       feedBackLabel=feedBackLabel

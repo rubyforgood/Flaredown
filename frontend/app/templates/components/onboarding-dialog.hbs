@@ -6,50 +6,50 @@
 {{#if isPersonal}}
   {{onboarding/personal-step
     step=step
-    onGoBack=(action 'moveToPrevStep')
-    onStepCompleted=(action 'moveToNextStep')
+    onGoBack=(action "moveToPrevStep")
+    onStepCompleted=(action "moveToNextStep")
   }}
 
 {{else if isDemographic}}
   {{onboarding/demographic-step
     step=step
-    onGoBack=(action 'moveToPrevStep')
-    onStepCompleted=(action 'moveToNextStep')
+    onGoBack=(action "moveToPrevStep")
+    onStepCompleted=(action "moveToNextStep")
   }}
 
 {{else if isConditions}}
   {{onboarding/conditions-step
     step=step
-    onStepCompleted=(action 'moveToNextStep')
-    onGoBack=(action 'moveToPrevStep')
+    onStepCompleted=(action "moveToNextStep")
+    onGoBack=(action "moveToPrevStep")
   }}
 
 {{else if isSymptoms}}
   {{onboarding/symptoms-step
     step=step
-    onStepCompleted=(action 'moveToNextStep')
-    onGoBack=(action 'moveToPrevStep')
+    onStepCompleted=(action "moveToNextStep")
+    onGoBack=(action "moveToPrevStep")
   }}
 
 {{else if isTreatments}}
   {{onboarding/treatments-step
     step=step
-    onStepCompleted=(action 'moveToNextStep')
-    onGoBack=(action 'moveToPrevStep')
+    onStepCompleted=(action "moveToNextStep")
+    onGoBack=(action "moveToPrevStep")
   }}
 
 {{else if isReminder}}
   {{onboarding/reminder-step
     model=model
     step=step
-    onStepCompleted=(action 'moveToNextStep')
-    onGoBack=(action 'moveToPrevStep')
+    onStepCompleted=(action "moveToNextStep")
+    onGoBack=(action "moveToPrevStep")
   }}
 
 {{else if isCompleted}}
   {{onboarding/completed-step
     step=step
-    onGoBack=(action 'moveToPrevStep')
+    onGoBack=(action "moveToPrevStep")
   }}
 
 {{/if}}

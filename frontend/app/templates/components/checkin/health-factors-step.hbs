@@ -4,25 +4,25 @@
   <h3>Food</h3>
 
   {{checkin/multi-select-group
-    idsKey='foodIds'
-    modelName='food'
-    relationName='foods'
-    onBeforeAdd=(action 'onBeforeAddFood')
+    idsKey="foodIds"
+    modelName="food"
+    relationName="foods"
+    onBeforeAdd=(action "onBeforeAddFood")
   }}
 
   <h3 class="vert-offset-top-2">Tags</h3>
 
   {{checkin/multi-select-group
-    idsKey='tagIds'
-    modelName='tag'
+    idsKey="tagIds"
+    modelName="tag"
     badgeStyle=true
-    relationName='tags'
-    onBeforeAdd=(action 'onBeforeAddTag')
+    relationName="tags"
+    onBeforeAdd=(action "onBeforeAddTag")
   }}
 
   {{step-controls
     step=step
-    forwardLabel='Next'
+    forwardLabel="Next"
     onBackward=(action "goBack")
     onForward=(action "completeStep")
   }}

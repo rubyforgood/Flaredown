@@ -1,39 +1,39 @@
 <div class="pull-down"></div>
-{{ navigation-links title='Post' optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
+{{ navigation-links title="Post" optionObjects=foundTopics onSearch=(action "searchObjects") onGo=(action "goToTopic") isAuthenticatedUser=session.isAuthenticated}}
 
 <div class="flaredown-post-page vert-offset-top-1">
-<header class="flaredown-transparent-box centered">
-  <h3>{{post.title}}</h3>
-</header>
+  <header class="flaredown-transparent-box centered">
+    <h3>{{post.title}}</h3>
+  </header>
 
-{{#posts/topic-post post=post updateNotifications=true}}
-  <p class="colorable-clr-38">{{post.userName}}</p>
-  <p>{{post.bodyWithBr}}</p>
+  {{#posts/topic-post post=post updateNotifications=true}}
+    <p class="colorable-clr-38">{{post.userName}}</p>
+    <p>{{post.bodyWithBr}}</p>
 
-  {{posts/post-topics post=post}}
+    {{posts/post-topics post=post}}
 
-  {{emoji-reactions reactable=post isAuthenticatedUser=session.isAuthenticated}}
+    {{emoji-reactions reactable=post isAuthenticatedUser=session.isAuthenticated}}
 
-  {{share-socials url=post.show title=post.title text=post.body}}
+    {{share-socials url=post.show title=post.title text=post.body}}
 
-  {{#scroll-to-anchor anchor=anchor}}
-    {{#each post.comments as |comment|}}
-      {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
-    {{/each}}
-  {{/scroll-to-anchor}}
-{{/posts/topic-post}}
+    {{#scroll-to-anchor anchor=anchor}}
+      {{#each post.comments as |comment|}}
+        {{posts/post-comment comment=comment isAuthenticatedUser=session.isAuthenticated}}
+      {{/each}}
+    {{/scroll-to-anchor}}
+  {{/posts/topic-post}}
 
-{{#if session.isAuthenticated}}
-  <div class="flaredown-white-box new-comment">
+  {{#if session.isAuthenticated}}
+    <div class="flaredown-white-box new-comment">
 
-    {{at-js-autocomplete value=newComment.body postId=post.id}}
+      {{at-js-autocomplete value=newComment.body postId=post.id}}
 
-    <button {{action "submitComment" on="mouseDown"}} class="primary-btn" disabled={{disabled}}>Submit</button>
-  </div>
-{{/if}}
+      <button {{action "submitComment" on="mouseDown"}} class="primary-btn" disabled={{disabled}}>Submit</button>
+    </div>
+  {{/if}}
 
-{{#unless session.isAuthenticated}}
-  {{!-- {{additional-info}} --}}
-  {{join-footer}}
-{{/unless}}
+  {{#unless session.isAuthenticated}}
+    {{!-- {{additional-info}} --}}
+    {{join-footer}}
+  {{/unless}}
 </div>
