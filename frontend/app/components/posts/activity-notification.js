@@ -31,7 +31,7 @@ export default Component.extend({
     return get(this, 'notification.kind') === 'comment' ? 'responded' : 'reacted';
   }),
 
-  fullResponse: computed('people', 'notification.kind', 'notification.notifier_username', function() {
+  fullResponse: computed('people', 'notification.{kind,notifier_username}', function() {
     if(get(this, 'notification.kind') === 'mention') {
 
       return (`<b>${get(this, 'notification.notifier_username')}</b> mentioned you in a comment` ).htmlSafe();
