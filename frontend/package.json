@@ -57,7 +57,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-power-select": "^1.10.4",
     "ember-power-select-with-create": "^0.5.0",
-    "ember-radio-button": "1.0.7",
+    "ember-radio-button": "^2.0.1",
     "ember-resolver": "^4.0.0",
     "ember-router-scroll": "0.1.1",
     "ember-simple-auth": "^1.9.2",
