@@ -81,5 +81,8 @@
       "lib/full-story",
       "lib/heap-analytics"
     ]
+  },
+  "dependencies": {
+    "spinkit": "^2.0.1"
   }
 }
