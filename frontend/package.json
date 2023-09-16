@@ -73,7 +73,7 @@
   },
   "engines": {
     "bower": "1.x",
-    "node": "^14",
+    "node": "14.x",
     "npm": "7.x"
   },
   "ember-addon": {
