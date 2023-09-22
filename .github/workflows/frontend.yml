@@ -40,7 +40,7 @@ jobs:
     timeout-minutes: 7
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
           cache: npm
@@ -61,7 +61,7 @@ jobs:
     timeout-minutes: 7
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
           cache: npm
