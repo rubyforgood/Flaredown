@@ -13,12 +13,6 @@ module.exports = function(defaults) {
       }
     },
 
-    sassOptions: {
-      includePaths: [
-        'bower_components/spinkit/scss'
-      ]
-    },
-
     fingerprint: {
       exclude: [
         'weather/clear-day',
@@ -60,6 +54,9 @@ module.exports = function(defaults) {
   });
 
   vendorLib = map(vendorLib, (content) => `if (typeof FastBoot === 'undefined') { ${content} \n }`);
+
+  // Spinkit
+  app.import('node_modules/spinkit/spinkit.css')
 
   // d3
   app.import(app.bowerDirectory + '/d3/d3.min.js');

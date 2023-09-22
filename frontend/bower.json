@@ -1,7 +1,6 @@
 {
   "name": "flaredown",
   "dependencies": {
-    "spinkit": "~1.2",
     "bourbon": "4.2.3",
     "neat": "~1.7.2",
     "pace": "vectart/pace",
