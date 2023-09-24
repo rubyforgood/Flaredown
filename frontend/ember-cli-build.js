@@ -7,6 +7,14 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
+    babel: {
+      sourceMaps: 'inline'
+    },
+
+    'ember-cli-babel': {
+      includePolyfill: true
+    },
+
     dotEnv: {
       path: {
         development: '../backend/.env',
@@ -48,7 +56,9 @@ module.exports = function(defaults) {
 
   let vendorLib = new Funnel(assetPath, {
     files: [
-    '/pace/pace.js', '/pusher/dist/pusher.js', '/drag-drop-polyfill/release/drag-drop-polyfill.js', '/moment-timezone/builds/moment-timezone-with-data.js'
+      '/pace/pace.js',
+      '/pusher/dist/pusher.js',
+      '/drag-drop-polyfill/release/drag-drop-polyfill.js',
     ],
     destDir: '/assets',
   });
@@ -60,10 +70,6 @@ module.exports = function(defaults) {
 
   // d3
   app.import(app.bowerDirectory + '/d3/d3.min.js');
-
-  // MomentJS
-  app.import(app.bowerDirectory + '/momentjs/moment.js');
-  app.import(app.bowerDirectory + '/moment-range/dist/moment-range.js');
 
   // HTML5 Drag and Drop Polyfill for Mobile
   app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-scroll-behaviour.js');
