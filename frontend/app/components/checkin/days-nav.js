@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
 
 const {

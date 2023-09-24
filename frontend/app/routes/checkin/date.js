@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'flaredown/mixins/authenticated-route-mixin';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
+import moment from 'moment';
 
 const {
   set,
