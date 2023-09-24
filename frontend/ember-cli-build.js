@@ -11,9 +11,7 @@ module.exports = function(defaults) {
       sourceMaps: 'inline'
     },
 
-    'ember-cli-babel': {
-      includePolyfill: true
-    },
+    'ember-cli-babel': {},
 
     dotEnv: {
       path: {
