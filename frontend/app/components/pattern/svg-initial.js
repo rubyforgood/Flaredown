@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
+import moment from 'moment';
 
 const {
   get,
