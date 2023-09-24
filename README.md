@@ -13,7 +13,7 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * PostgreSQL 12.8
 * MongoDB 4.4.9 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 * Redis 6.2.3
-* Ruby 3.0.6 (see [RVM](https://rvm.io/) also)
+* Ruby 3.2.2 (see [RVM](https://rvm.io/) also)
 * Node 12.22.6
 
 ## Installation
@@ -111,6 +111,6 @@ Addons are used for Heroku Postgres, Heroku Redis, Heroku Scheduler + Papertrail
 * On first load, the app displays a blank beige screen instead of the login screen. Temporary fix is to add  `console.log(process.env.FACEBOOK_APP_ID)` right inside of the module.exports at the top of the `frontend/config/environment.js` file. You can then refresh the page (no need to kill Docker) and this should fix it. You can now remove the log.
 
 ## License
-Copyright 2015-2017 Logan Merriam and contributors.
+Copyright 2015-2023 Logan Merriam and contributors.
 
 Flaredown is open source software made available under the GPLv3 License. For details see the LICENSE file.
