@@ -59,6 +59,14 @@ cd frontend
 npm install
 ```
 
+### iOS / Android
+
+```bash
+cd native
+npm run ios // run on iOS simulator
+npm run android // run on Android simulator
+```
+
 ## Running / Development
 
 ### General
