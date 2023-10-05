@@ -4,7 +4,7 @@ module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
 
   // If you want to add a new alias to the config.
-  config.entry = ['./node_modules/expo/AppEntry.js']
+  config.entry = ['./AppEntry.js']
 
   // Maybe you want to turn off compression in dev mode.
   if (config.mode === 'development') {

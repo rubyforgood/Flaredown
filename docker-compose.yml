@@ -55,7 +55,7 @@ services:
     command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000 --live-reload-host frontend --live-reload-port 65535"
     profiles:
       - dev
-  native:
+  native: 
     build:
       context: ./native
       args:
@@ -73,7 +73,6 @@ services:
       - ./native:/opt/native/app:delegated
       - ./native/package.json:/opt/native/package.json
       - ./native/package-lock.json:/opt/native/package-lock.json
-      - ./native/node_modules/expo/AppEntry.js:/opt/native/app/node_modules/expo/AppEntry.js
       - notused:/opt/native/app/node_modules
     healthcheck:
       disable: true
