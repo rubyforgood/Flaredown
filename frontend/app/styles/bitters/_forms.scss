@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 fieldset {
   background-color: transparent;
   border: 0;
@@ -7,14 +9,14 @@ fieldset {
 
 legend {
   font-weight: 600;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: math.div($small-spacing, 2);
   padding: 0;
 }
 
 label {
   display: block;
   font-weight: 600;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: math.div($small-spacing, 2);
 }
 
 input,
@@ -34,7 +36,7 @@ select[multiple] {
   font-family: $base-font-family;
   font-size: $base-font-size;
   margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
+  padding: math.div($base-spacing, 3);
   transition: border-color $base-duration $base-timing;
   width: 100%;
 
@@ -69,7 +71,7 @@ textarea {
 [type="checkbox"],
 [type="radio"] {
   display: inline;
-  margin-right: $small-spacing / 2;
+  margin-right: math.div($small-spacing, 2);
 }
 
 [type="file"] {
