@@ -434,7 +434,7 @@ GEM
       rubocop-performance (~> 1.18.0)
     standardrb (1.0.1)
       standard
-    symmetric-encryption (4.4.0)
+    symmetric-encryption (4.6.0)
       coercible (~> 1.0)
     thor (1.2.2)
     thread_safe (0.3.6)
