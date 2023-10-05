@@ -19,6 +19,7 @@ services:
     environment: *backend-services-hosts
     profiles:
       - dev
+      - native
   workers:
     build: backend
     command: bundle exec sidekiq -C config/sidekiq.yml
@@ -31,6 +32,7 @@ services:
     environment: *backend-services-hosts
     profiles:
       - dev
+      - native
   tunnel:
     build: backend
     command: bundle exec bin/localtunnel
@@ -53,6 +55,29 @@ services:
     command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000 --live-reload-host frontend --live-reload-port 65535"
     profiles:
       - dev
+  native: 
+    build:
+      context: ./native
+      args:
+        - NODE_ENV=development
+    environment:
+      - NODE_ENV=development
+    tty: true
+    ports:
+      - '19006:19006'
+      - '19001:19001'
+      - '19002:19002'
+    depends_on:
+      - backend
+    volumes:
+      - ./native:/opt/native/app:delegated
+      - ./native/package.json:/opt/native/package.json
+      - ./native/package-lock.json:/opt/native/package-lock.json
+      - notused:/opt/native/app/node_modules
+    healthcheck:
+      disable: true
+    profiles:
+      - native
   app-setup:
     build: backend
     command: bundle exec rails app:setup
@@ -87,3 +112,4 @@ volumes:
   postgres:
   mongodb:
   redis:
+  notused:

@@ -59,6 +59,13 @@ cd frontend
 npm install
 ```
 
+### React Native
+
+```bash
+cd native
+npm install
+```
+
 ## Running / Development
 
 ### General
@@ -75,6 +82,19 @@ docker compose --profile dev up
 This will build and run all the containers necessary to run the application locally.
 
 Visit your app at [http://localhost:4300](http://localhost:4300)
+
+
+### Docker (React Native)
+
+From the project root:
+
+```bash
+docker compose --profile dev native
+``` 
+
+This will build and run all the containers necessary to run the application locally.
+
+Visit your app at [http://localhost:19006](http://localhost:19006)
 
 ### Local Machine Installation
 
