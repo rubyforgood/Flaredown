@@ -1,0 +1,126 @@
+2023-06-19 12:38:43	brew upgrade asdf aswcli chezmoi broot fzf heroku postgresql@14 whalebird	1s
+2023-06-19 12:41:07	brew upgrade asdf awwcli chezmoi broot fzf heroku postgresql@14 whalebird	1s
+2023-06-19 12:41:20	brew upgrade asdf awscli chezmoi broot fzf heroku postgresql@14 whalebird	1m
+2023-06-26 14:26:06	brew upgrade heroku elgato-control-center	34s
+2023-08-08 23:51:02	$ heroku git:remote -a flaredown-frontend	1m
+2023-08-09 00:01:27	heroku config:set -a flaredown-linda-frontend APP_BASE=frontend	744ms
+2023-08-09 00:04:52	heroku config	544ms
+2023-08-09 00:06:09	heroku config:set -a flaredown-linda-frontend	414ms
+2023-08-09 00:06:22	heroku apps:stacks -a flaredown-linda-frontend	445ms
+2023-08-09 00:06:50	heroku apps:stacks:set heroku20 -a flaredown-linda-frontend	640ms
+2023-08-09 00:07:02	heroku apps:stacks:set heroku-20 -a flaredown-linda-frontend	595ms
+2023-08-09 00:08:19	heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-linda-frontend	594ms
+2023-08-09 00:08:52	heroku buildpacks:add aedev/emberjs -a flaredown-linda-frontend	835ms
+2023-08-09 00:09:02	git push heroku main	42ms
+2023-08-09 00:19:26	heroku config:set -a flaredown-linda-frontend facebook_app_id=1	836ms
+2023-08-09 00:19:34	heroku config:set -a flaredown-linda-frontend facebook_app_secret=sekret	674ms
+2023-08-09 00:20:18	heroku config:get -a flaredown-linda-frontend facebook_app_secret=sekret	506ms
+2023-08-09 00:20:25	heroku config:get -a flaredown-linda-frontend	264ms
+2023-08-09 00:20:31	heroku help config	298ms
+2023-08-09 00:20:44	heroku config:get -a flaredown-linda-frontend facebook_app_secret	443ms
+2023-08-09 00:21:56	heroku help restart	395ms
+2023-08-09 00:22:14	heroku restart -a flaredown-linda-frontend	757ms
+2023-08-09 00:33:48	heroku config:set -a flaredown-linda-backend APP_BASE=backend	760ms
+2023-08-09 00:34:39	heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-linda-backend	716ms
+2023-08-09 00:35:17	heroku logs --tail -a flaredown-linda-backend	0s
+2023-08-09 00:37:29	heroku apps:stacks:set heroku-20 -a flaredown-linda-backend	561ms
+2023-08-09 00:38:17	heroku buildpacks:remove https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-linda-backend	672ms
+2023-08-09 00:38:40	heroku buildpacks:remove https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-linda-backend	556ms
+2023-08-09 00:38:46	heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-linda-backend	475ms
+2023-08-09 00:39:27	heroku buildpacks:add heroku/ruby -a flaredown-linda-backend	863ms
+2023-08-09 00:49:57	heroku config:set -a flaredown-linda-backend SYMMETRIC_ENCRYPTION_KEY_1=1234567890ABCDEF	654ms
+2023-08-09 00:50:32	heroku config:set -a flaredown-linda-backend SYMMETRIC_ENCRYPTION_KEY_1_IV=1234567890ABCDEF SYMMETRIC_ENCRYPTION_PRIVATE_RSA=1234567890ABCDEF	715ms
+2023-08-09 00:50:46	heroku restart -a flaredown-linda-backend	678ms
+2023-08-09 00:54:37	heroku config:set -a flaredown-linda-backend SYMMETRIC_ENCRYPTION_KEY_1_IV=1234567890ABCDEF SYMMETRIC_ENCRYPTION_PRIVATE_RSA== <<KEY
+2023-08-23 18:44:44	brew upgrade awscli broot chezmoi gh git heroku mailpit sqlite trailer tailscale	4m
+2023-08-28 15:00:00	brew upgrade awscli heroku sqlite viddy 1password-cli	3m
+2023-08-29 00:35:31	heroku	1s
+2023-08-29 00:35:42	heroku apps	791ms
+2023-08-29 00:36:10	heroku buildpacks -a flaredown-staging-webapp	720ms
+2023-08-29 00:37:15	heroku buildpacks:remove https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-staging-webapp	843ms
+2023-08-29 00:37:38	heroku buildpacks:remove https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-staging-webapp	728ms
+2023-08-29 00:38:05	h buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-staging-webapp	674ms
+2023-08-29 00:38:42	heroku buildpacks:add aedev/emberjs -a flaredown-staging-webapp	1s
+2023-08-29 00:38:49	git push heroku master	382ms
+2023-08-29 00:39:32	heroku apps:rename flaredown-staging-webapp	667ms
+2023-08-29 00:39:53	heroku apps:rename flaredown-staging-webapp --app flaredown-frontend	613ms
+2023-08-29 00:40:33	git remote rm heroku	59ms
+2023-08-29 00:43:38	git push heroku master	5s
+2023-08-29 00:44:10	heroku	640ms
+2023-08-29 00:44:56	git rm heroku	120ms
+2023-08-29 00:45:07	git remote rm heroku	57ms
+2023-08-29 00:45:52	heroku config:set - APP_BASE=frontend -a flaredown-staging-webapp	734ms
+2023-08-29 00:46:04	heroku config:set APP_BASE=frontend -a flaredown-staging-webapp	932ms
+2023-08-29 00:46:19	git push heroku	55ms
+2023-08-29 00:46:40	heroku git:remote -a flaredown-staging-webapp	584ms
+2023-08-29 00:46:48	git push heroku	2m
+2023-08-29 00:49:26	git push heroku master	2m
+2023-08-29 00:52:07	heroku config	930ms
+2023-08-29 00:52:20	heroku config -a flaredown-webapp	585ms
+2023-08-29 00:53:28	git push heroku master:main	2m
+2023-08-29 01:03:06	heroku stack	920ms
+2023-08-29 01:03:18	heroku help stack	461ms
+2023-08-29 01:03:35	heroku stack heroku-20 -a flaredown-staging-webapp	830ms
+2023-08-29 01:03:45	heroku help stack	484ms
+2023-08-29 01:04:18	heroku stack:set heroku-20 -a flaredown-staging-webapp	890ms
+2023-08-29 01:04:41	git push heroku master:main	2m
+2023-08-29 01:08:08	heroku addon	3s
+2023-08-29 01:09:08	heroku FACEBOOK_APP_ID=-	2s
+2023-08-29 01:09:29	heroku config:set FACEBOOK_APP_ID=appId	1s
+2023-08-29 01:12:14	git push heroku jp/test:main	893ms
+2023-08-29 01:12:39	git push heroku jp/test:main	691ms
+2023-08-29 01:12:44	git push heroku jp/test:main --force	2m
+2023-08-29 01:19:56	heroku buildpacks:add https://github.com/lstoll/heroku-buildpack-monorepo -a flaredown-staging-api	1s
+2023-08-29 01:20:06	heroku buildpacks:add heroku/ruby -a flaredown-staging-api	954ms
+2023-08-29 01:20:21	heroku config:set APP_BASE=backend -a flaredown-staging-api	898ms
+2023-08-29 01:20:29	heroku git:remote -a flaredown-staging-api	579ms
+2023-08-29 01:20:34	git push heroku master	6s
+2023-08-29 01:21:30	heroku stack:set heroku-20 -a flaredown-staging-api	907ms
+2023-08-29 01:21:34	git push heroku master	34s
+2023-08-29 01:30:30	heroku config:set SYMMETRIC_ENCRYPTION_KEY_1=w85BE6QLa0WwflqsqbX/HPvCGAs9arM17e5y6JE1fGI+4tWnLET4z7/cuivNAJNMIHUs1sbXeZdyvK8vXQ9U65Q8YS6ztABefRxIYfkZ8izgBSd9mgnJMrW9WySukE4c+TgD7xMh6QXSdE0DsiVvSaHM7BbZgTn8HHAM5SBOEVedh+JabE7CgeF20NWSCq1aaxqu6V6HEeAoJXAD0FNcAsXzBfKt4uTWpnTf1pth3NEZpAs2RgxnkuGKBINAqvUubrsU4Y7zMomN8HiH/VPZ9vsmiNwSsYNy/N9c/PADVWFdsZ/HALMhu+rut3LXbZ7UvTL86nPaoUpX810hJwrWYg==	1s
+2023-08-29 01:31:02	heroku config:set SYMMETRIC_ENCRYPTION_KEY_1_IV=nflVMxobT+hiWlOZ	1s
+2023-08-29 01:31:17	heroku config:set SYMMETRIC_ENCRYPTION_PRIVATE_RSA="-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAx5u1aCyAvBdzMzdPcJzJkKjCR9Y0FB0G81c+3fXOBCDUto8W\ne0ihUKKxcZU/xCflfcebCTdZ8GIP1u/zprp393lmewDtfVVMtPKkPvibwyB+ZkCF\n6xPZ9jvbR/RbmzzuxXrP60UcPq4bMRjF8N2MxAGQvtX2tEAtWXJNDQr91lHeA+k2\nTMYSI+A3HSITLocYdRAHmIHiEYxy5gGAGyBz88Fx53WzfWXBe6/PA0wg7fHgcpIB\ndcIa/QK4GmbcPqph+w+IpwC+o5LPyo2ShSPD9sI9Ld1h8DSMVLoy8i0TbEV99lRl\n3dgmKrZWMiGNVRBgnR2bZhr25on7Z0XQhZypwwIDAQABAoIBAQCSOozUCz4oDRnU\n3GEzA3lao3bof5DZZ0ZvQGwK2Qca2R5bu0lh+ZxL4VQS/J6hSgUCdxcp0kXuJzip\nYlHhw9sdDe+4jr5swe+W4+bVRvV9JjHTINO6mmljzQfgl7AAcswNGeJ13cRKWuwK\ntLZVtUhpUyhB1aeM9zMBww2VT4cT2MuFv/UdrOJQGVr5emaQG6XZnZljAHAO0QHR\nigSbObFeeS+b+Miu1bfMigKd7z6y8zIEFogNdnOu0T8UA8QrfwfgX8Kn5H6n3ev+\niIYfjTfMVGANLVBaEzvgYbSGJw+cb3DdrxXChQG9ryWgdtsVEVDPP05MlE5blEcc\ngrkWnBoZAoGBAPTILUtVbxpENVsugZK4L903ewCYShkJD8+vHakZkkAX5H1Dlral\npbmnoHgrfLyDLgZhrtNvA4/jIXISG+2HcnzocmckV+4Inke884oRsi7NG8O3j5ZM\nR++3ZBuFRKNuPqL5xRp/h1F5zzwQWxC7tt4d8FISQGK7Ni5BWYNE2WTfAoGBANDB\ni9FModYkkhtoDveJSNyRSIGWlZp84Dd4ijIVI4O3jGiHAvW+EC3zmw+gq+dXNnc6\nevUktqKTsqD5ueiivJO8Ccnbj5iswulcmtWsQAulBhUf9YUA92uTxHNiPvaAuM1n\nrp+fi3IBhl2BVxc1lsw10S03n1WDILoJ+nSQmtOdAoGBALrjnxl2aDZgv3AXqNxR\nflHjCymgHGrS7Vx+8iFqoawH0e8FzKs0+7wszKsTYNA5Q8mhiS5rAwg3vRBv3RzU\nnkfZ3Yb8S5o0wEw7aqIO8sEi3sDmhF2XbhELLwaIEKjLAk3Cb4fUuIcvflb4kd7L\nw0oBB7xRrRD0qOBWCrbbuTN3AoGBAJgoyxnWqoulAl45ndct2M70ko3qTcdaSDAG\ni2xv3gAPFKfH6Q9n5vEnhBmC+mnYNtn25VKz3O9piqUtASYhICTqxZO9ltAo9LUW\nC8G9GL2kHmfdcJ7ukml2PpX/wXb5YjpN3Yl5yDFkDSUwtmMza2QTwhEcXuX8eyk/\nRrAaCtA9AoGAAaZ7TuDKObCSjAszT025QL94PEunl7MUEYg56harHOmOy3j21M7B\nZi0yXh1BYAEIOrHGYp5HTnkRYwNYSBlz6CCcvy891m8EYAOIOH6zVXFUtO9+vuw+\nCRYqF6mqyDw8dEp7ILbmc9kHK6i7lxfd8vE674F0Ii9RCjs+k+4d/nI=\n-----END RSA PRIVATE KEY-----\n"	926ms
+2023-08-29 01:31:43	git push heroku master	35s
+2023-08-29 01:33:59	heroku config:set SYMMETRIC_ENCRYPTION_KEY_1=w85BE6QLa0WwflqsqbX/HPvCGAs9arM17e5y6JE1fGI+4tWnLET4z7/cuivNAJNMIHUs1sbXeZdyvK8vXQ9U65Q8YS6ztABefRxIYfkZ8izgBSd9mgnJMrW9WySukE4c+TgD7xMh6QXSdE0DsiVvSaHM7BbZgTn8HHAM5SBOEVedh+JabE7CgeF20NWSCq1aaxqu6V6HEeAoJXAD0FNcAsXzBfKt4uTWpnTf1pth3NEZpAs2RgxnkuGKBINAqvUubrsU4Y7zMomN8HiH/VPZ9vsmiNwSsYNy/N9c/PADVWFdsZ/HALMhu+rut3LXbZ7UvTL86nPaoUpX810hJwrWYg== -a flaredown-staging-api	1s
+2023-08-29 01:34:12	heroku config:set SYMMETRIC_ENCRYPTION_KEY_1_IV=nflVMxobT+hiWlOZ -a flaredown-staging-api	923ms
+2023-08-29 01:34:25	heroku config:set SYMMETRIC_ENCRYPTION_PRIVATE_RSA="-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAx5u1aCyAvBdzMzdPcJzJkKjCR9Y0FB0G81c+3fXOBCDUto8W\ne0ihUKKxcZU/xCflfcebCTdZ8GIP1u/zprp393lmewDtfVVMtPKkPvibwyB+ZkCF\n6xPZ9jvbR/RbmzzuxXrP60UcPq4bMRjF8N2MxAGQvtX2tEAtWXJNDQr91lHeA+k2\nTMYSI+A3HSITLocYdRAHmIHiEYxy5gGAGyBz88Fx53WzfWXBe6/PA0wg7fHgcpIB\ndcIa/QK4GmbcPqph+w+IpwC+o5LPyo2ShSPD9sI9Ld1h8DSMVLoy8i0TbEV99lRl\n3dgmKrZWMiGNVRBgnR2bZhr25on7Z0XQhZypwwIDAQABAoIBAQCSOozUCz4oDRnU\n3GEzA3lao3bof5DZZ0ZvQGwK2Qca2R5bu0lh+ZxL4VQS/J6hSgUCdxcp0kXuJzip\nYlHhw9sdDe+4jr5swe+W4+bVRvV9JjHTINO6mmljzQfgl7AAcswNGeJ13cRKWuwK\ntLZVtUhpUyhB1aeM9zMBww2VT4cT2MuFv/UdrOJQGVr5emaQG6XZnZljAHAO0QHR\nigSbObFeeS+b+Miu1bfMigKd7z6y8zIEFogNdnOu0T8UA8QrfwfgX8Kn5H6n3ev+\niIYfjTfMVGANLVBaEzvgYbSGJw+cb3DdrxXChQG9ryWgdtsVEVDPP05MlE5blEcc\ngrkWnBoZAoGBAPTILUtVbxpENVsugZK4L903ewCYShkJD8+vHakZkkAX5H1Dlral\npbmnoHgrfLyDLgZhrtNvA4/jIXISG+2HcnzocmckV+4Inke884oRsi7NG8O3j5ZM\nR++3ZBuFRKNuPqL5xRp/h1F5zzwQWxC7tt4d8FISQGK7Ni5BWYNE2WTfAoGBANDB\ni9FModYkkhtoDveJSNyRSIGWlZp84Dd4ijIVI4O3jGiHAvW+EC3zmw+gq+dXNnc6\nevUktqKTsqD5ueiivJO8Ccnbj5iswulcmtWsQAulBhUf9YUA92uTxHNiPvaAuM1n\nrp+fi3IBhl2BVxc1lsw10S03n1WDILoJ+nSQmtOdAoGBALrjnxl2aDZgv3AXqNxR\nflHjCymgHGrS7Vx+8iFqoawH0e8FzKs0+7wszKsTYNA5Q8mhiS5rAwg3vRBv3RzU\nnkfZ3Yb8S5o0wEw7aqIO8sEi3sDmhF2XbhELLwaIEKjLAk3Cb4fUuIcvflb4kd7L\nw0oBB7xRrRD0qOBWCrbbuTN3AoGBAJgoyxnWqoulAl45ndct2M70ko3qTcdaSDAG\ni2xv3gAPFKfH6Q9n5vEnhBmC+mnYNtn25VKz3O9piqUtASYhICTqxZO9ltAo9LUW\nC8G9GL2kHmfdcJ7ukml2PpX/wXb5YjpN3Yl5yDFkDSUwtmMza2QTwhEcXuX8eyk/\nRrAaCtA9AoGAAaZ7TuDKObCSjAszT025QL94PEunl7MUEYg56harHOmOy3j21M7B\nZi0yXh1BYAEIOrHGYp5HTnkRYwNYSBlz6CCcvy891m8EYAOIOH6zVXFUtO9+vuw+\nCRYqF6mqyDw8dEp7ILbmc9kHK6i7lxfd8vE674F0Ii9RCjs+k+4d/nI=\n-----END RSA PRIVATE KEY-----\n" -a flaredown-staging-api	850ms
+2023-08-29 01:34:28	git push heroku	35s
+2023-08-29 01:38:45	heroku config -a flaredown-staging-webapp	730ms
+2023-08-29 01:38:54	heroku config -a flaredown-staging-api	526ms
+2023-08-29 01:40:03	heroku keystore	3s
+2023-08-29 01:47:31	heroku console -a flaredown-api	11m
+2023-08-29 01:48:56	heroku config -a flaredown-staging-api	654ms
+2023-08-29 01:49:48	heroku console -a flaredown-staging-api	6s
+2023-08-29 01:50:03	heroku console -a flaredown-staging-api	4s
+2023-08-29 01:50:18	heroku console	4s
+2023-08-29 01:50:34	heroku console -a flaredown-staging-api	6s
+2023-08-29 01:51:00	heroku console -a flaredown-staging-api	5s
+2023-08-29 01:51:27	heroku confg -a flaredown-api | grep SYMMETRIC	5s
+2023-08-29 01:51:42	heroku config -a flaredown-api | grep SYMMETRIC	655ms
+2023-08-29 01:51:57	heroku config -a flaredown-staging-api | grep SYMMETRIC	634ms
+2023-08-29 01:52:35	heroku config:set SYMMETRIC_ENCRYPTION_PRIVATE_RSA="-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAx5u1aCyAvBdzMzdPcJzJkKjCR9Y0FB0G81c+3fXOBCDUto8W\ne0ihUKKxcZU/xCflfcebCTdZ8GIP1u/zprp393lmewDtfVVMtPKkPvibwyB+ZkCF\n6xPZ9jvbR/RbmzzuxXrP60UcPq4bMRjF8N2MxAGQvtX2tEAtWXJNDQr91lHeA+k2\nTMYSI+A3HSITLocYdRAHmIHiEYxy5gGAGyBz88Fx53WzfWXBe6/PA0wg7fHgcpIB\ndcIa/QK4GmbcPqph+w+IpwC+o5LPyo2ShSPD9sI9Ld1h8DSMVLoy8i0TbEV99lRl\n3dgmKrZWMiGNVRBgnR2bZhr25on7Z0XQhZypwwIDAQABAoIBAQCSOozUCz4oDRnU\n3GEzA3lao3bof5DZZ0ZvQGwK2Qca2R5bu0lh+ZxL4VQS/J6hSgUCdxcp0kXuJzip\nYlHhw9sdDe+4jr5swe+W4+bVRvV9JjHTINO6mmljzQfgl7AAcswNGeJ13cRKWuwK\ntLZVtUhpUyhB1aeM9zMBww2VT4cT2MuFv/UdrOJQGVr5emaQG6XZnZljAHAO0QHR\nigSbObFeeS+b+Miu1bfMigKd7z6y8zIEFogNdnOu0T8UA8QrfwfgX8Kn5H6n3ev+\niIYfjTfMVGANLVBaEzvgYbSGJw+cb3DdrxXChQG9ryWgdtsVEVDPP05MlE5blEcc\ngrkWnBoZAoGBAPTILUtVbxpENVsugZK4L903ewCYShkJD8+vHakZkkAX5H1Dlral\npbmnoHgrfLyDLgZhrtNvA4/jIXISG+2HcnzocmckV+4Inke884oRsi7NG8O3j5ZM\nR++3ZBuFRKNuPqL5xRp/h1F5zzwQWxC7tt4d8FISQGK7Ni5BWYNE2WTfAoGBANDB\ni9FModYkkhtoDveJSNyRSIGWlZp84Dd4ijIVI4O3jGiHAvW+EC3zmw+gq+dXNnc6\nevUktqKTsqD5ueiivJO8Ccnbj5iswulcmtWsQAulBhUf9YUA92uTxHNiPvaAuM1n\nrp+fi3IBhl2BVxc1lsw10S03n1WDILoJ+nSQmtOdAoGBALrjnxl2aDZgv3AXqNxR\nflHjCymgHGrS7Vx+8iFqoawH0e8FzKs0+7wszKsTYNA5Q8mhiS5rAwg3vRBv3RzU\nnkfZ3Yb8S5o0wEw7aqIO8sEi3sDmhF2XbhELLwaIEKjLAk3Cb4fUuIcvflb4kd7L\nw0oBB7xRrRD0qOBWCrbbuTN3AoGBAJgoyxnWqoulAl45ndct2M70ko3qTcdaSDAG\ni2xv3gAPFKfH6Q9n5vEnhBmC+mnYNtn25VKz3O9piqUtASYhICTqxZO9ltAo9LUW\nC8G9GL2kHmfdcJ7ukml2PpX/wXb5YjpN3Yl5yDFkDSUwtmMza2QTwhEcXuX8eyk/\nRrAaCtA9AoGAAaZ7TuDKObCSjAszT025QL94PEunl7MUEYg56harHOmOy3j21M7B\nZi0yXh1BYAEIOrHGYp5HTnkRYwNYSBlz6CCcvy891m8EYAOIOH6zVXFUtO9+vuw+\nCRYqF6mqyDw8dEp7ILbmc9kHK6i7lxfd8vE674F0Ii9RCjs+k+4d/nI=\n-----END RSA PRIVATE KEY-----\n" -a flaredown-staging-api	887ms
+2023-08-29 01:52:48	heroku config:set SYMMETRIC_ENCRYPTION_PRIVATE_RSA="-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAx5u1aCyAvBdzMzdPcJzJkKjCR9Y0FB0G81c+3fXOBCDUto8W\ne0ihUKKxcZU/xCflfcebCTdZ8GIP1u/zprp393lmewDtfVVMtPKkPvibwyB+ZkCF\n6xPZ9jvbR/RbmzzuxXrP60UcPq4bMRjF8N2MxAGQvtX2tEAtWXJNDQr91lHeA+k2\nTMYSI+A3HSITLocYdRAHmIHiEYxy5gGAGyBz88Fx53WzfWXBe6/PA0wg7fHgcpIB\ndcIa/QK4GmbcPqph+w+IpwC+o5LPyo2ShSPD9sI9Ld1h8DSMVLoy8i0TbEV99lRl\n3dgmKrZWMiGNVRBgnR2bZhr25on7Z0XQhZypwwIDAQABAoIBAQCSOozUCz4oDRnU\n3GEzA3lao3bof5DZZ0ZvQGwK2Qca2R5bu0lh+ZxL4VQS/J6hSgUCdxcp0kXuJzip\nYlHhw9sdDe+4jr5swe+W4+bVRvV9JjHTINO6mmljzQfgl7AAcswNGeJ13cRKWuwK\ntLZVtUhpUyhB1aeM9zMBww2VT4cT2MuFv/UdrOJQGVr5emaQG6XZnZljAHAO0QHR\nigSbObFeeS+b+Miu1bfMigKd7z6y8zIEFogNdnOu0T8UA8QrfwfgX8Kn5H6n3ev+\niIYfjTfMVGANLVBaEzvgYbSGJw+cb3DdrxXChQG9ryWgdtsVEVDPP05MlE5blEcc\ngrkWnBoZAoGBAPTILUtVbxpENVsugZK4L903ewCYShkJD8+vHakZkkAX5H1Dlral\npbmnoHgrfLyDLgZhrtNvA4/jIXISG+2HcnzocmckV+4Inke884oRsi7NG8O3j5ZM\nR++3ZBuFRKNuPqL5xRp/h1F5zzwQWxC7tt4d8FISQGK7Ni5BWYNE2WTfAoGBANDB\ni9FModYkkhtoDveJSNyRSIGWlZp84Dd4ijIVI4O3jGiHAvW+EC3zmw+gq+dXNnc6\nevUktqKTsqD5ueiivJO8Ccnbj5iswulcmtWsQAulBhUf9YUA92uTxHNiPvaAuM1n\nrp+fi3IBhl2BVxc1lsw10S03n1WDILoJ+nSQmtOdAoGBALrjnxl2aDZgv3AXqNxR\nflHjCymgHGrS7Vx+8iFqoawH0e8FzKs0+7wszKsTYNA5Q8mhiS5rAwg3vRBv3RzU\nnkfZ3Yb8S5o0wEw7aqIO8sEi3sDmhF2XbhELLwaIEKjLAk3Cb4fUuIcvflb4kd7L\nw0oBB7xRrRD0qOBWCrbbuTN3AoGBAJgoyxnWqoulAl45ndct2M70ko3qTcdaSDAG\ni2xv3gAPFKfH6Q9n5vEnhBmC+mnYNtn25VKz3O9piqUtASYhICTqxZO9ltAo9LUW\nC8G9GL2kHmfdcJ7ukml2PpX/wXb5YjpN3Yl5yDFkDSUwtmMza2QTwhEcXuX8eyk/\nRrAaCtA9AoGAAaZ7TuDKObCSjAszT025QL94PEunl7MUEYg56harHOmOy3j21M7B\nZi0yXh1BYAEIOrHGYp5HTnkRYwNYSBlz6CCcvy891m8EYAOIOH6zVXFUtO9+vuw+\nCRYqF6mqyDw8dEp7ILbmc9kHK6i7lxfd8vE674F0Ii9RCjs+k+4d/nI=\n-----END RSA PRIVATE KEY-----\n" -a flaredown-staging-api	772ms
+2023-08-29 01:52:55	heroku config -a flaredown-staging-api | grep SYMMETRIC	528ms
+2023-08-29 01:53:39	heroku config:set SYMMETRIC_ENCRYPTION_PRIVATE_RSA=""-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAx5u1aCyAvBdzMzdPcJzJkKjCR9Y0FB0G81c+3fXOBCDUto8W\ne0ihUKKxcZU/xCflfcebCTdZ8GIP1u/zprp393lmewDtfVVMtPKkPvibwyB+ZkCF\n6xPZ9jvbR/RbmzzuxXrP60UcPq4bMRjF8N2MxAGQvtX2tEAtWXJNDQr91lHeA+k2\nTMYSI+A3HSITLocYdRAHmIHiEYxy5gGAGyBz88Fx53WzfWXBe6/PA0wg7fHgcpIB\ndcIa/QK4GmbcPqph+w+IpwC+o5LPyo2ShSPD9sI9Ld1h8DSMVLoy8i0TbEV99lRl\n3dgmKrZWMiGNVRBgnR2bZhr25on7Z0XQhZypwwIDAQABAoIBAQCSOozUCz4oDRnU\n3GEzA3lao3bof5DZZ0ZvQGwK2Qca2R5bu0lh+ZxL4VQS/J6hSgUCdxcp0kXuJzip\nYlHhw9sdDe+4jr5swe+W4+bVRvV9JjHTINO6mmljzQfgl7AAcswNGeJ13cRKWuwK\ntLZVtUhpUyhB1aeM9zMBww2VT4cT2MuFv/UdrOJQGVr5emaQG6XZnZljAHAO0QHR\nigSbObFeeS+b+Miu1bfMigKd7z6y8zIEFogNdnOu0T8UA8QrfwfgX8Kn5H6n3ev+\niIYfjTfMVGANLVBaEzvgYbSGJw+cb3DdrxXChQG9ryWgdtsVEVDPP05MlE5blEcc\ngrkWnBoZAoGBAPTILUtVbxpENVsugZK4L903ewCYShkJD8+vHakZkkAX5H1Dlral\npbmnoHgrfLyDLgZhrtNvA4/jIXISG+2HcnzocmckV+4Inke884oRsi7NG8O3j5ZM\nR++3ZBuFRKNuPqL5xRp/h1F5zzwQWxC7tt4d8FISQGK7Ni5BWYNE2WTfAoGBANDB\ni9FModYkkhtoDveJSNyRSIGWlZp84Dd4ijIVI4O3jGiHAvW+EC3zmw+gq+dXNnc6\nevUktqKTsqD5ueiivJO8Ccnbj5iswulcmtWsQAulBhUf9YUA92uTxHNiPvaAuM1n\nrp+fi3IBhl2BVxc1lsw10S03n1WDILoJ+nSQmtOdAoGBALrjnxl2aDZgv3AXqNxR\nflHjCymgHGrS7Vx+8iFqoawH0e8FzKs0+7wszKsTYNA5Q8mhiS5rAwg3vRBv3RzU\nnkfZ3Yb8S5o0wEw7aqIO8sEi3sDmhF2XbhELLwaIEKjLAk3Cb4fUuIcvflb4kd7L\nw0oBB7xRrRD0qOBWCrbbuTN3AoGBAJgoyxnWqoulAl45ndct2M70ko3qTcdaSDAG\ni2xv3gAPFKfH6Q9n5vEnhBmC+mnYNtn25VKz3O9piqUtASYhICTqxZO9ltAo9LUW\nC8G9GL2kHmfdcJ7ukml2PpX/wXb5YjpN3Yl5yDFkDSUwtmMza2QTwhEcXuX8eyk/\nRrAaCtA9AoGAAaZ7TuDKObCSjAszT025QL94PEunl7MUEYg56harHOmOy3j21M7B\nZi0yXh1BYAEIOrHGYp5HTnkRYwNYSBlz6CCcvy891m8EYAOIOH6zVXFUtO9+vuw+\nCRYqF6mqyDw8dEp7ILbmc9kHK6i7lxfd8vE674F0Ii9RCjs+k+4d/nI=\n-----END RSA PRIVATE KEY-----\n"" -a flaredown-staging-api	602ms
+2023-08-29 01:55:15	git push heroku master	54s
+2023-08-29 01:58:05	heroku addons	822ms
+2023-08-29 01:58:12	heroku addons:scheduler	4s
+2023-08-29 01:59:25	heroku addons:create scheduler:standard	1s
+2023-08-29 02:00:45	heroku addons:create papertrail:choklad -a flaredown-staging-api	1s
+2023-08-29 02:01:52	heroku addons:create rediscloud:30 -a flaredown-staging-api	1s
+2023-08-29 02:03:23	heroku console -a flaredown-staging-api	24s
+2023-08-29 02:06:44	heroku run rake db:version -a flaredown-staging-api	9s
+2023-08-29 02:21:58	heroku restart -a flaredown-staging-api	1s
+2023-08-29 02:22:46	heroku run rake db:setup	11s
+2023-08-29 02:23:32	heroku config	709ms
+2023-08-29 02:24:29	heroku run rake db:setup -a flaredown-staging-api	9s
+2023-08-29 02:25:06	heroku run rake db:schema:load -a flaredown-staging-api	12s
+2023-08-29 02:25:32	heroku run rake db:seed -a flaredown-staging-api	3m
+2023-08-29 02:36:10	heroku config:set STATIC_URL=https://flaredown-staging-webapp-749110b0a96e.herokuapp.com -a flaredown-staging-webapp
+heroku config:set API_HOST=https://flaredown-staging-api-fc0ece27610a.herokuapp.com -a flaredown-staging-webapp	1s
+2023-08-29 02:38:02	git push heroku jp/test:master -a flaredown-staging-webapp	56ms
+2023-08-29 02:38:25	heroku git:remote -a flaredown-staging-webapp	706ms
+2023-08-29 02:38:42	git push heroku jp/test:master -f	2m
+2023-09-01 14:46:24	brew upgrade act awscli bitwarden-cli heroku commander-one trailer	1m
+2023-09-07 21:00:50	atuin history list | grep heroku	93ms
+2023-09-07 21:01:13	atuin history list | grep heroku > ~/flaredown.txt	0s
