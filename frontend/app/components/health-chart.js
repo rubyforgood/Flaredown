@@ -1,7 +1,11 @@
 import Ember from 'ember';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 import Resizable from './chart/resizable';
 import FieldsByUnits from 'flaredown/mixins/fields-by-units';
 import DatesRetriever from 'flaredown/mixins/chart/dates-retriever';
+
+const moment = extendMoment(Moment);
 
 const {
   get,
