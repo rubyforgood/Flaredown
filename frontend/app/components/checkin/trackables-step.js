@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import moment from 'moment';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 const {

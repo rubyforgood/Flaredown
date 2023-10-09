@@ -1,4 +1,5 @@
-import { helper } from "@ember/component/helper";
+import { helper } from '@ember/component/helper';
+import moment from 'moment';
 
 export function checkToday(params) {
   let [date, displayText] = params;

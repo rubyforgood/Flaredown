@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import CheckinByDate from 'flaredown/mixins/checkin-by-date';
+import moment from 'moment';
 
 export default Ember.Component.extend(CheckinByDate, {
 

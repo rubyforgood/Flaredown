@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { translationMacro as t } from "ember-i18n";
+import moment from 'moment-timezone';
 
 const {
   get,
@@ -28,7 +29,7 @@ export default Component.extend({
   title: null,
 
   timezones: computed(function() {
-    let originNames = typeof moment !== 'undefined' && moment.tz && moment.tz.names();
+    let originNames = moment.tz.names();
 
     if(originNames) {
       return originNames.map((timezone) => {
