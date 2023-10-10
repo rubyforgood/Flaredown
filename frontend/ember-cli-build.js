@@ -55,7 +55,6 @@ module.exports = function(defaults) {
   let vendorLib = new Funnel(assetPath, {
     files: [
       '/pace/pace.js',
-      '/pusher/dist/pusher.js',
       '/drag-drop-polyfill/release/drag-drop-polyfill.js',
     ],
     destDir: '/assets',

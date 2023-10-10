@@ -87,6 +87,7 @@
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.43",
+    "pusher-js": "^3.0.0",
     "spinkit": "^2.0.1"
   }
 }

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ENV from 'flaredown/config/environment';
+import Pusher from 'pusher-js';
 
 export default Ember.Object.extend({
   setConnection: Ember.on('init', function() {
