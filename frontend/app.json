@@ -2,7 +2,7 @@
   "buildpacks": [
     {
       "url": "https://github.com/lstoll/heroku-buildpack-monorepo"
-    }
+    },
     {
       "url": "https://buildpack-registry.s3.amazonaws.com/buildpacks/aedev/emberjs.tgz"
     }
@@ -11,7 +11,7 @@
     "ACME_KEY_1": {
       "description": "used to identify folder with heroku-buildpack-monorepo",
       "value": "frontend"
-    },
+    }
   },
   "formation": {
     "web": {
