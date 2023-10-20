@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = function(environment) {
-
-  console.log('environment: ' + process.env.FACEBOOK_APP_ID)
   var ENV = {
     rootURL: '/',
     environment: environment,
