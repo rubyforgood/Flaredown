@@ -22,6 +22,10 @@
     left: auto;
     right: auto;
   }
+
+  *,::after,::before {
+    box-sizing: border-box;
+}
 }
 
 @mixin media($query) {
