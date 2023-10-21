@@ -48,8 +48,8 @@ gem "globalize"
 # Abort requests that are taking too long
 gem "rack-timeout"
 
-# wrapper for forecast.io API, Dark Sky
-gem "forecast_io"
+# wrapper for tomorrow.io API
+gem "tomorrowio_rb"
 
 gem "geocoder"
 gem "nearest_time_zone"
