@@ -19,6 +19,13 @@ module.exports = function(defaults) {
       }
     },
 
+    sassOptions: {
+      includePaths: [
+        'node_modules/bourbon/core',
+        'node_modules/bourbon-neat/core',
+      ]
+    },
+
     fingerprint: {
       exclude: [
         'weather/clear-day',

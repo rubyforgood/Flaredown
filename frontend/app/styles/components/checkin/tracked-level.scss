@@ -34,7 +34,7 @@
 
       .tooltip {
         @include position(absolute, null 0 3em 0);
-        @include transition (all 0.2s ease-in-out);
+        transition: all 0.2s ease-in-out;
         background-color: black;
         background: black;
         border-radius: 3px;

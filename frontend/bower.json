@@ -1,8 +1,6 @@
 {
   "name": "flaredown",
   "dependencies": {
-    "bourbon": "4.2.3",
-    "neat": "~1.7.2",
     "pace": "vectart/pace",
     "d3": "~3.5.13",
     "drag-drop-polyfill": "2.0.0-beta.1",
