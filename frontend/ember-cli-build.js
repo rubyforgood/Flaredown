@@ -62,7 +62,6 @@ module.exports = function(defaults) {
   let vendorLib = new Funnel(assetPath, {
     files: [
       '/pace/pace.js',
-      '/drag-drop-polyfill/release/drag-drop-polyfill.js',
     ],
     destDir: '/assets',
   });
@@ -76,9 +75,8 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/d3/d3.min.js');
 
   // HTML5 Drag and Drop Polyfill for Mobile
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-scroll-behaviour.js');
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.css');
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-icons.css');
+  app.import('node_modules/mobile-drag-drop/default.css')
+  app.import('node_modules/mobile-drag-drop/icons.css')
 
   // At-js
   app.import(app.bowerDirectory + '/At.js/dist/css/jquery.atwho.css');

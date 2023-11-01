@@ -3,7 +3,6 @@
   "dependencies": {
     "pace": "vectart/pace",
     "d3": "~3.5.13",
-    "drag-drop-polyfill": "2.0.0-beta.1",
     "pickadate": "^3.5.6",
     "At.js": "^1.5.4"
   }
