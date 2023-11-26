@@ -436,7 +436,7 @@ GEM
     thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     timeout (0.4.0)
-    tomorrowio_rb (0.0.2)
+    tomorrowio_rb (0.0.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.3)
@@ -515,7 +515,6 @@ DEPENDENCIES
   simplecov
   standardrb
   symmetric-encryption
-  tomorrowio_rb
   tzinfo-data
   vcr
   webmock

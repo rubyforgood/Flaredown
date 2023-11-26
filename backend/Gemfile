@@ -49,7 +49,7 @@ gem "globalize"
 gem "rack-timeout"
 
 # wrapper for tomorrow.io API
-gem "tomorrowio_rb"
+gem "tomorrowio_rb", "~>0.0.3"
 
 gem "geocoder"
 gem "nearest_time_zone"
