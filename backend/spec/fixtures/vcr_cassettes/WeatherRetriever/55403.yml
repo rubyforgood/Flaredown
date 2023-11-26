@@ -41,7 +41,7 @@ http_interactions:
   recorded_at: Tue, 11 May 2021 19:30:17 GMT
 - request:
     method: get
-    uri: https://api.darksky.net/forecast/MY_MEGA_FORECAST_IO_KEY/44.9714936,-93.280848,1452060000?exclude=currently,minutely,hourly,alerts,flags
+    uri: https://api.tomorrow.io/v4/weather/forecast/?location=44.9714936%2C-93.280848&timesteps=1d&units=metric&apikey=MY_MEGA_TOMORROW_IO_KEY"
     body:
       encoding: US-ASCII
       string: ''
