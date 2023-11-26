@@ -37,24 +37,24 @@ class WeatherRetriever
     end
 
     def create_weather(forecast, position_id)
-      today = forecast.body["timelines"]["daily"][0]
-      the_time = today["time"]
-      rain_intensity = today["rainIntensity"]
-      sleet_intensity = today["sleetIntensity"]
-      snow_intensity = today["snowIntensity"]
+      today = forecast.body.dig(:timelines, :daily, 0)
+      the_time = today.dig(:time)
+      rain_intensity = today.dig(:rainIntensity)
+      sleet_intensity = today.dig(:sleetIntensity)
+      snow_intensity = today.dig(:snowIntensity)
       icon = get_icon_legacy(today)
-      summary "General conditions are #{icon}, with an average temperature of #{today["temperatureAvg"].to_s}."
+      summary = "General conditions are #{icon}, with an average temperature of #{today["temperatureAvg"].to_s}."
 
       Weather.create(
         date: Date.strptime(the_time, "%Y-%m-%d"),
-        humidity: today["humidityAvg"].round,
-        icon: ,
+        humidity: today.dig(:humidityAvg).round,
+        icon: icon,
         position_id: position_id,
         precip_intensity: rain_intensity + sleet_intensity + snow_intensity,
-        pressure: today["pressureSurfaceLevel"],
+        pressure: today.dig(:pressureSurfaceLevel),
         summary: summary,
-        temperature_max: today["temperatureMax"],
-        temperature_min: today["temperatureMin"]
+        temperature_max: today.dig(:temperatureMax),
+        temperature_min: today.dig(temperatureMin)
       )
     end
 
