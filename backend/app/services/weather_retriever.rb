@@ -1,6 +1,6 @@
 class WeatherRetriever
   class << self
-    def get(date, latitude, longitude)
+    def get(date, postal_code)
       position = Position.find_or_create_by(postal_code: postal_code)
 
       weather = Weather.find_by(date: date, position_id: position&.id)
