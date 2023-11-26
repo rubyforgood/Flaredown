@@ -58,7 +58,6 @@ class Search
             end
           conditions << ["lower(#{key}) LIKE ?", pattern]
         end
-        conditions
       end
   end
 

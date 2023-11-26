@@ -27,13 +27,11 @@ class WeatherRetriever
     private
 
     def get_forecast(date, position)
-      forecast = Tomorrowiorb.forecast(
+      Tomorrowiorb.forecast(
         "#{position.latitude},#{position.longitude}",
         ["1d"],
         "metric"
       )
-
-      forecast
     end
 
     def create_weather(forecast, position_id)
@@ -43,7 +41,7 @@ class WeatherRetriever
       sleet_intensity = today.dig(:sleetIntensity)
       snow_intensity = today.dig(:snowIntensity)
       icon = get_icon_legacy(today)
-      summary = "General conditions are #{icon}, with an average temperature of #{today["temperatureAvg"].to_s}."
+      summary = "General conditions are #{icon}, with an average temperature of #{today["temperatureAvg"]}."
 
       Weather.create(
         date: Date.strptime(the_time, "%Y-%m-%d"),
@@ -64,31 +62,31 @@ class WeatherRetriever
       # Icons and codes found here: https://docs.tomorrow.io/reference/data-layers-weather-codes
       # Icon files here: https://github.com/Tomorrow-IO-API/tomorrow-weather-codes
       # Daily forecast is always daytime weather codes / icons regardless of actual time
-      if today["weatherCodeMin"]
-        code = today["weatherCodeMin"]
+      code = if today["weatherCodeMin"]
+        today["weatherCodeMin"]
       elsif today["weatherCodeFullDay"]
-        code = today["weatherCodeFullDay"]
+        today["weatherCodeFullDay"]
       else
-        code = today["weatherCode"]
+        today["weatherCode"]
       end
-      
+
       case code
       when 1000, 1100
-        return "clear-day"
+        "clear-day"
       when 1101
-        return "partly-cloudy-day"
+        "partly-cloudy-day"
       when 1102, 1001, 8000
-        return "cloudy"
+        "cloudy"
       when 2000, 2100
-        return "fog"
+        "fog"
       when 4000, 4001, 4200, 4201
-        return "rain"
+        "rain"
       when 5000, 5001, 5100, 5101
-        return "snow"
+        "snow"
       when 6000, 6001, 6200, 6201, 7000, 7101, 7102
-        return "sleet"
+        "sleet"
       else
-        return "default"
+        "default"
       end
     end
   end
