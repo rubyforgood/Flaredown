@@ -14,7 +14,7 @@ RUN gem install bundler:2.1.4
 COPY Gemfile Gemfile.lock ./
 
 # install the gems
-RUN bundle install
+RUN bundle install --full-index
 
 # copy the rest of the application files to the container
 COPY . .

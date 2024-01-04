@@ -76,7 +76,7 @@ class ChartsPattern
 
     average = collected_data.inject(0.0) { |result, datum| result + datum[:y].to_f } / collected_data.count
 
-    [{ x: collected_data[0]&.fetch(:x), y: average }]
+    [{x: collected_data[0]&.fetch(:x), y: average}]
   end
 
   def static_trackables_coordinates(category, checkin_ids, id)
@@ -88,7 +88,7 @@ class ChartsPattern
     category_name = category.singularize
 
     "Checkin::#{category_name.camelize}".constantize.where(
-      checkin_id: {'$in': checkin_ids},
+      checkin_id: {"$in": checkin_ids},
       "#{category_name}_id": id
     ).map do |tr|
       coord = {x: tr.checkin.date, y: tr.value}

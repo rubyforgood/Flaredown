@@ -22,7 +22,7 @@ describe WeatherRetriever, :vcr do
 
     before { expect(Weather).not_to receive(:create) }
     before { expect(Geocoder).not_to receive(:search) }
-    before { expect(ForecastIO).not_to receive(:forecast) }
+    before { expect(Tomorrowiorb).not_to receive(:forecast) }
 
     it { expect(perform).to eq(weather) }
     it { expect { perform }.not_to change { Weather.count } }

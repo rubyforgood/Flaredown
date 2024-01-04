@@ -10,3 +10,5 @@ dump.rdb
 .idea/*
 .bundle
 frontend/.env
+
+.DS_Store

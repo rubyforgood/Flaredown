@@ -1,4 +1,4 @@
-require 'rake'
+require "rake"
 
 desc "run application"
 task :run do
@@ -17,7 +17,7 @@ task :run do
   end
 end
 
-{ production: 'flaredown', staging: 'flaredown-staging'}.each do |env, application|
+{production: "flaredown", staging: "flaredown-staging"}.each do |env, application|
   namespace env.to_sym do
     desc "restart application"
     task :restart do
@@ -27,21 +27,21 @@ end
 
     desc "deploy application"
     task :deploy do
-      Rake::Task["#{env.to_s}:deploy:backend"].invoke
-      Rake::Task["#{env.to_s}:deploy:frontend"].invoke
+      Rake::Task["#{env}:deploy:backend"].invoke
+      Rake::Task["#{env}:deploy:frontend"].invoke
     end
 
     namespace :deploy do
       desc "deploy frontend application"
       task :frontend do
         log "Deploy frontend #{application} with revision: #{revision}"
-        deploy_to "git@heroku.com:#{application}-webapp.git",  'frontend'
+        deploy_to "git@heroku.com:#{application}-webapp.git", "frontend"
       end
 
       desc "deploy backend application"
       task :backend do
         log "Deploy backend #{application} with revision: #{revision}"
-        deploy_to "git@heroku.com:#{application}-api.git",  'backend'
+        deploy_to "git@heroku.com:#{application}-api.git", "backend"
         migrate "#{application}-api"
       end
     end
@@ -57,7 +57,6 @@ end
       system("heroku run rake app:invite --app #{application}-api")
     end
   end
-
 end
 
 def deploy_to(remote, subtree)
@@ -73,7 +72,7 @@ def restart(application)
 end
 
 def revision
-  ENV.fetch('REVISION') {'master'}
+  ENV.fetch("REVISION") { "master" }
 end
 
 def log(message)

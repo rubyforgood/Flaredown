@@ -6,20 +6,20 @@ def shut_down
 end
 
 # Trap ^C
-Signal.trap('INT') do
+Signal.trap("INT") do
   shut_down
   exit
 end
 
 # Trap `Kill `
-Signal.trap('TERM') do
+Signal.trap("TERM") do
   shut_down
   exit
 end
 
-if ENV['LOCALTUNNEL_ENABLED'] && ENV['LOCALTUNNEL_ENABLED'].eql?('true')
+if ENV["LOCALTUNNEL_ENABLED"] && ENV["LOCALTUNNEL_ENABLED"].eql?("true")
   begin
-    system "lt --port #{ENV['LOCALTUNNEL_PORT']} --subdomain #{ENV['LOCALTUNNEL_SUBDOMAIN']}"
+    system "lt --port #{ENV["LOCALTUNNEL_PORT"]} --subdomain #{ENV["LOCALTUNNEL_SUBDOMAIN"]}"
   rescue => e
     puts e.message
     retry

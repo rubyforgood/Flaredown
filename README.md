@@ -108,6 +108,11 @@ docker compose up
 rake run
 ```
 
+## Running tests locally
+1. Run `docker compose build backend` to ensure the latest backend is being run
+2. To run all tests run `script/backend rspec spec spec`, or you can run a specific test suite such as `script/backend rspec spec spec/services/weather_retriever_spec.rb `
+3. Debugging tip: in Ruby code you can add a line that says `debugger` and rspec will automatically break on that line and give you an interactive Ruby shell
+
 ## CI
 
 Several checks are configured to run on all commits using Github Actions, including lint, build and test steps. Definitions can be found in [./github/workflows](./github/workflows). Those checks which always run are required to be successful for PRs to be mergable.

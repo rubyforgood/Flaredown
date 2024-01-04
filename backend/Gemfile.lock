@@ -170,10 +170,6 @@ GEM
     faraday-rack (1.0.0)
     ffaker (2.21.0)
     ffi (1.15.5-java)
-    forecast_io (2.0.2)
-      faraday
-      hashie
-      multi_json
     foreman (0.87.2)
     geocoder (1.7.0)
     globalid (1.2.1)
@@ -440,6 +436,7 @@ GEM
     thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     timeout (0.4.0)
+    tomorrowio_rb (0.0.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.3)
@@ -488,7 +485,6 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   ffaker
-  forecast_io
   foreman
   geocoder
   globalize
@@ -519,6 +515,7 @@ DEPENDENCIES
   simplecov
   standardrb
   symmetric-encryption
+  tomorrowio_rb (~> 0.0.3)
   tzinfo-data
   vcr
   webmock
