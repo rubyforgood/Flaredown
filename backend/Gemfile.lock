@@ -171,7 +171,7 @@ GEM
     ffaker (2.21.0)
     ffi (1.15.5-java)
     foreman (0.87.2)
-    geocoder (1.7.0)
+    geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     globalize (6.0.1)
