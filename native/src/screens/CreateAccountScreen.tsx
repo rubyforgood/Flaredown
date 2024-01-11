@@ -4,28 +4,31 @@ import { Text } from "react-native-paper";
 
 import { Theme } from "../Theme";
 import BackButton from "../components/BackButton";
-import Background from "../components/Background";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 import Link from "../components/Link";
 import TextInput from "../components/TextInput";
+import { emailValidator } from "../helpers/emailValidator";
+import { passwordValidator } from "../helpers/passwordValidator";
+import { usernameValidator } from "../helpers/usernameValidator";
 
 export default function CreateAccountScreen({ navigation }) {
-  const [name, setName] = useState({ value: "", error: "" });
+  const [username, setUsername] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
   const onSignUpPressed = () => {
-    // const nameError = nameValidator(name.value);
-    // const emailError = emailValidator(email.value);
-    // const passwordError = passwordValidator(password.value);
-    // if (emailError || passwordError || nameError) {
-    //   setName({ ...name, error: nameError });
-    //   setEmail({ ...email, error: emailError });
-    //   setPassword({ ...password, error: passwordError });
-    //   return;
-    // }
+    const usernameError = usernameValidator(username.value);
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
+    if (emailError || passwordError || usernameError) {
+      setUsername({ ...username, error: usernameError });
+      setEmail({ ...email, error: emailError });
+      setPassword({ ...password, error: passwordError });
+      return;
+    }
     navigation.reset({
       index: 0,
       routes: [{ name: "Dashboard" }],
@@ -33,17 +36,17 @@ export default function CreateAccountScreen({ navigation }) {
   };
 
   return (
-    <Background>
+    <Layout navigation={navigation}>
       <BackButton goBack={navigation.goBack} />
       <Header>Create account</Header>
       <Card>
         <TextInput
-          label="Name"
+          label="Username"
           returnKeyType="next"
-          value={name.value}
-          onChangeText={(text) => setName({ value: text, error: "" })}
-          error={!!name.error}
-          errorText={name.error}
+          value={username.value}
+          onChangeText={(text) => setUsername({ value: text, error: "" })}
+          error={!!username.error}
+          errorText={username.error}
         />
         <TextInput
           label="Email"
@@ -78,7 +81,7 @@ export default function CreateAccountScreen({ navigation }) {
           <Link onPress={() => navigation.replace("LoginScreen")}>Log in</Link>
         </View>
       </Card>
-    </Background>
+    </Layout>
   );
 }
 

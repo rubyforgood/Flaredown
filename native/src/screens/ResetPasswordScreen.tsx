@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 
 import BackButton from "../components/BackButton";
-import Background from "../components/Background";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 import TextInput from "../components/TextInput";
+import { emailValidator } from "../helpers/emailValidator";
 
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
 
   const sendResetPasswordEmail = () => {
-    // const emailError = emailValidator(email.value);
-    // if (emailError) {
-    //   setEmail({ ...email, error: emailError });
-    //   return;
-    // }
+    const emailError = emailValidator(email.value);
+    if (emailError) {
+      setEmail({ ...email, error: emailError });
+      return;
+    }
     navigation.navigate("LoginScreen");
   };
 
   return (
-    <Background>
+    <Layout navigation={navigation}>
       <BackButton goBack={navigation.goBack} />
       <Header>Reset password</Header>
       <Card>
@@ -45,6 +46,6 @@ export default function ResetPasswordScreen({ navigation }) {
           Continue
         </Button>
       </Card>
-    </Background>
+    </Layout>
   );
 }

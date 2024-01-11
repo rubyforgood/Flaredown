@@ -1,14 +1,14 @@
 import { View } from "react-native";
 
-import Background from "../components/Background";
+import Layout from "../components/Layout";
 import Link from "../components/Link";
 
 export default function Dashboard({ navigation }) {
   return (
-    <Background>
+    <Layout navigation={navigation}>
       <View>
         <Link onPress={() => navigation.replace("LoginScreen")}>Log out</Link>
       </View>
-    </Background>
+    </Layout>
   );
 }
