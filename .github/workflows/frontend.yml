@@ -42,7 +42,8 @@ jobs:
           node-version: 14
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-      - run: npm ci
+      - run: npm install -g npm@7.0.0
+      - run: npm install
         working-directory: ./frontend
       - run: npm run test
         working-directory: ./frontend
@@ -60,7 +61,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
-      - run: npm ci
+      - run: npm install -g npm@7.0.0
+      - run: npm install
         working-directory: ./frontend
       - run: npm run test
         working-directory: ./frontend
