@@ -42,8 +42,7 @@ jobs:
           node-version: 18
           cache: npm
           cache-dependency-path: native/package-lock.json
-      - run: npm install -g npm
-      - run: npm install
+      - run: npm ci
         working-directory: ./native
       - run: npm run test
         working-directory: ./native
@@ -61,8 +60,7 @@ jobs:
           node-version: 18
           cache: npm
           cache-dependency-path: native/package-lock.json
-      - run: npm install -g npm
-      - run: npm install
+      - run: npm ci
         working-directory: ./native
       - run: npm run lint
         working-directory: ./native
@@ -80,8 +78,7 @@ jobs:
           node-version: 18
           cache: npm
           cache-dependency-path: native/package-lock.json
-      - run: npm install -g npm
-      - run: npm install
+      - run: npm ci
         working-directory: ./native
       - run: npm run tsc
         working-directory: ./native
