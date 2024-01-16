@@ -42,8 +42,45 @@ jobs:
           node-version: 18
           cache: npm
           cache-dependency-path: native/package-lock.json
-      - run: npm install -g npm
-      - run: npm install
+      - run: npm ci
         working-directory: ./native
       - run: npm run test
         working-directory: ./native
+
+  lint:
+    name: Lint
+    needs: changes
+    if: ${{ needs.changes.outputs.native == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+      - run: npm ci
+        working-directory: ./native
+      - run: npm run lint
+        working-directory: ./native
+
+  type-check:
+    name: Type check
+    needs: changes
+    if: ${{ needs.changes.outputs.native == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+      - run: npm ci
+        working-directory: ./native
+      - run: npm run tsc
+        working-directory: ./native
+
+    
