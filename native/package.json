@@ -9,8 +9,8 @@
     "web": "expo start --web",
     "test": "jest",
     "tsc": "tsc",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint . && prettier -c .",
+    "lint:fix": "eslint . --fix && prettier . --write"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
