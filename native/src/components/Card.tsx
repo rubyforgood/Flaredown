@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Card } from "react-native-paper";
+import { Card } from "tamagui";
 
 export default function Background({ children }) {
   return <Card style={styles.card}>{children}</Card>;

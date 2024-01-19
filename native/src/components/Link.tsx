@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { Theme } from "../Theme";
 
 interface LinkProps {
   onPress: () => void;
@@ -19,6 +18,6 @@ export default function Link({ onPress, children }: LinkProps) {
 const styles = StyleSheet.create({
   link: {
     fontWeight: "bold",
-    color: Theme.colors.primary,
+    // color: Theme.colors.primary,
   },
 });

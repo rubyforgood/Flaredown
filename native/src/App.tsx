@@ -1,19 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { Provider } from "react-native-paper";
+import { TamaguiProvider } from "tamagui";
 
-import { Theme } from "./Theme";
 import CreateAccountScreen from "./screens/CreateAccountScreen";
 import Dashboard from "./screens/Dashboard";
 import LoginScreen from "./screens/LoginScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+// this provides some helpful reset styles to ensure a more consistent look
+// only import this from your web app, not native
+import "@tamagui/core/reset.css";
+import tamaguiConfig from "../tamagui.config";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Provider theme={Theme}>
+    <TamaguiProvider config={tamaguiConfig}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="LoginScreen"
@@ -33,6 +36,6 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </Provider>
+    </TamaguiProvider>
   );
 }

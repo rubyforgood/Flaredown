@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Text } from "tamagui";
 
-import { Theme } from "../Theme";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import Card from "../components/Card";
@@ -90,6 +89,6 @@ const styles = StyleSheet.create({
   },
   forgot: {
     fontSize: 13,
-    color: Theme.colors.secondary,
+    // color: Theme.colors.secondary,
   },
 });

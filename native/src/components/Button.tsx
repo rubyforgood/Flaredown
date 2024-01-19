@@ -1,23 +1,21 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Button as PaperButton } from "react-native-paper";
-
-import { Theme } from "../Theme";
+import { Button as TamaguiButton } from "tamagui";
 
 export default function Button({ mode, style = {}, children, ...props }) {
   return (
-    <PaperButton
+    <TamaguiButton
       style={[
         styles.button,
-        mode === "outlined" && { backgroundColor: Theme.colors.surface },
+        mode === "outlined", // && { backgroundColor: Theme.colors.surface },
         style,
       ]}
-      labelStyle={styles.text}
-      mode={mode}
+      // labelStyle={styles.text}
+      // mode={mode}
       {...props}
     >
       {children}
-    </PaperButton>
+    </TamaguiButton>
   );
 }
 

@@ -1,17 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { TextInput as Input } from "react-native-paper";
-
-import { Theme } from "../Theme";
+import { Input } from "tamagui";
 
 export default function TextInput({ errorText, description = "", ...props }) {
   return (
     <View style={styles.container}>
       <Input
         style={styles.input}
-        selectionColor={Theme.colors.primary}
-        underlineColor="transparent"
-        mode="outlined"
+        // selectionColor={Theme.colors.primary}
+        // underlineColor="transparent"
+        // mode="outlined"
         {...props}
       />
       {description && !errorText ? (
@@ -28,16 +26,16 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   input: {
-    backgroundColor: Theme.colors.surface,
+    // backgroundColor: Theme.colors.surface,
   },
   description: {
     fontSize: 13,
-    color: Theme.colors.secondary,
+    // color: Theme.colors.secondary,
     paddingTop: 8,
   },
   error: {
     fontSize: 13,
-    color: Theme.colors.error,
+    // color: Theme.colors.error,
     paddingTop: 8,
   },
 });
