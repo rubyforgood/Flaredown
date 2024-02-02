@@ -93,7 +93,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
-    cancancan (3.3.0)
+    cancancan (3.5.0)
     cancancan-mongoid (2.0.0)
       cancancan (>= 2.0, < 4)
     capybara (3.39.2)
@@ -494,7 +494,7 @@ DEPENDENCIES
   bugsnag (~> 6.22)
   bullet
   byebug
-  cancancan (~> 3.3.0)
+  cancancan (~> 3.5.0)
   cancancan-mongoid (= 2.0.0)
   capybara
   colored (~> 1.2)
