@@ -71,9 +71,6 @@ module.exports = function(defaults) {
   // Spinkit
   app.import('node_modules/spinkit/spinkit.css')
 
-  // d3
-  app.import(app.bowerDirectory + '/d3/d3.min.js');
-
   // HTML5 Drag and Drop Polyfill for Mobile
   app.import('node_modules/mobile-drag-drop/default.css')
   app.import('node_modules/mobile-drag-drop/icons.css')

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Graphable from 'flaredown/components/chart/graphable';
+import * as d3 from "d3";
 
 const {
   get,

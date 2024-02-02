@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import moment from 'moment';
+import * as d3 from "d3";
 
 export default Ember.Component.extend( {
   tagName: 'g',
