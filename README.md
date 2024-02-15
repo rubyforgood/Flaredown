@@ -77,10 +77,10 @@ npm install
 
 ### Prerequisites
 
-Populate the necessary environment parameters with `cp backend/env-example backend/.env && cp backend/env-example frontend/.env`
-
-Create a [Facebook dev app](https://developers.facebook.com/docs/development/create-an-app) and paste your own ID into `frontend/.env` file's `FACEBOOK_APP_ID` parameter.
-Note: This is not necessary in `backend/.env` but we have not yet cleaned up these two files into the necessary components.
+- Populate the necessary environment parameters with `cp backend/env-example backend/.env && cp backend/env-example frontend/.env`
+- Create a [Facebook dev app](https://developers.facebook.com/docs/development/create-an-app) and paste your own ID into `frontend/.env` file's `FACEBOOK_APP_ID` parameter.
+    - Note: This is not necessary in `backend/.env` but we have not yet cleaned up these two files into the necessary components.
+- Seed your database using `make seed` or `bundle exec rails app:setup`
 
 ### Running
 
@@ -91,8 +91,6 @@ rake run
 ```
 
 Visit your app at [http://localhost:4300](http://localhost:4300) for the current ember application, or [http://localhost:19006](http://localhost:19006) for the React Native version.
-
-heeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeee
 
 ## Running tests locally
 
