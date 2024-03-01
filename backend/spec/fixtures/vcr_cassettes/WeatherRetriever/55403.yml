@@ -37,7 +37,7 @@ http_interactions:
   recorded_at: Tue, 05 Dec 2023 18:17:54 GMT
 - request:
     method: get
-    uri: https://api.tomorrow.io/v4/weather/forecast?apikey=MY_MEGA_TOMORROW_IO_KEY&location=44.967486,-93.2897678&timesteps=1d&units=metric
+    uri: https://api.tomorrow.io/v4/weather/forecast?apikey=MY_MEGA_TOMORROW_IO_KEY&location=44.967486,-93.2897678&timesteps=1d&units=imperial
     body:
       encoding: US-ASCII
       string: ''
