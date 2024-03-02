@@ -30,7 +30,7 @@ class WeatherRetriever
       Tomorrowiorb.forecast(
         "#{position.latitude},#{position.longitude}",
         ["1d"],
-        "metric"
+        "imperial"
       )
     end
 
