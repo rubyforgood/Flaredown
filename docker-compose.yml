@@ -33,15 +33,6 @@ services:
     profiles:
       - dev
       - native
-  tunnel:
-    build: backend
-    command: bundle exec bin/localtunnel
-    depends_on:
-      - backend
-    volumes:
-      - ./backend:/app
-    profiles:
-      - tunnel
   frontend:
     platform: linux/amd64
     build: frontend
@@ -55,7 +46,7 @@ services:
     command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000 --live-reload-host frontend --live-reload-port 65535"
     profiles:
       - dev
-  native: 
+  native:
     build:
       context: ./native
       args:
