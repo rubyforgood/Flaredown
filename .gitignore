@@ -12,3 +12,5 @@ dump.rdb
 frontend/.env
 
 .DS_Store
+
+TODO.md

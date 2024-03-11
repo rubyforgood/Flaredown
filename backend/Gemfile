@@ -70,7 +70,6 @@ group :development, :test do
   gem "database_cleaner"
   gem "database_cleaner-mongoid"
   gem "erb_lint", require: false
-  # rubocop?
   gem "factory_bot_rails"
   # Generate Fake data
   gem "ffaker"
