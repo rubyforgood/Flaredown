@@ -1,107 +1,108 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-ruby "3.1.3"
+ruby '3.1.3'
 
 # Configuration management. keep on top of Gemfile
-gem "dotenv-rails", groups: %i[development test]
+gem 'dotenv-rails', groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.7.6"
-gem "rake"
+gem 'rails', '~> 6.1.7.6'
+gem 'rake'
 
 # JSON serializer
-gem "active_model_serializers", "0.9.8"
+gem 'active_model_serializers', '0.9.8'
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "7.3.3"
-gem "pg", "1.2.3"
+gem 'mongoid', '7.3.3'
+gem 'pg', '1.2.3'
 
 # Use Puma as the app server
-gem "puma", "6.4.2"
+gem 'puma', '6.4.2'
 
 # Authentication libraries
-gem "cancancan", "~> 3.3.0"
-gem "cancancan-mongoid", "2.0.0"
-gem "devise", "4.8.0"
-gem "devise_invitable", "2.0.9"
-gem "omniauth", "1.8.1"
-gem "omniauth-facebook", "3.0.0"
+gem 'cancancan', '~> 3.3.0'
+gem 'cancancan-mongoid', '2.0.0'
+gem 'devise', '4.8.0'
+gem 'devise_invitable', '2.0.9'
+gem 'omniauth', '1.8.1'
+gem 'omniauth-facebook', '3.0.0'
 
 # Colored output to console
-gem "colored", "~> 1.2"
+gem 'colored', '~> 1.2'
 
 # Background jobs
-gem "sidekiq", "~> 6.5"
+gem 'sidekiq', '~> 6.5'
 
 # Structured seed data
-gem "seedbank"
+gem 'seedbank'
 
 # ISO 3166 standard countries
-gem "countries", require: "countries/global"
+gem 'countries', require: 'countries/global'
 
 # Pusher Client
-gem "pusher"
+gem 'pusher'
 
 # ActiveRecord data translations
-gem "globalize"
+gem 'globalize'
 
 # Abort requests that are taking too long
-gem "rack-timeout"
+gem 'rack-timeout'
 
 # wrapper for tomorrow.io API
-gem "tomorrowio_rb", "~>0.0.3"
+gem 'tomorrowio_rb', '~>0.0.3'
 
-gem "geocoder"
-gem "nearest_time_zone"
+gem 'geocoder'
+gem 'nearest_time_zone'
 
-gem "symmetric-encryption"
+gem 'symmetric-encryption'
 
-gem "ruby-progressbar", require: false
+gem 'ruby-progressbar', require: false
 
-gem "kaminari-actionview"
-gem "kaminari-mongoid"
-gem "rack-cors", "2.0.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
-gem "simplecov", require: false, group: :test
+gem 'kaminari-actionview'
+gem 'kaminari-mongoid'
+gem 'rack-cors', '2.0.1', require: 'rack/cors' # freezing to gemfile.lock version because heroku is not respecting lockfile
+gem 'simplecov', require: false, group: :test
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "bullet"
-  gem "byebug"
-  gem "database_cleaner"
-  gem "database_cleaner-mongoid"
-  gem "erb_lint", require: false
-  gem "factory_bot_rails"
+  gem 'bullet'
+  gem 'byebug'
+  gem 'database_cleaner'
+  gem 'database_cleaner-mongoid'
+  gem 'erb_lint', require: false
+  # rubocop?
+  gem 'factory_bot_rails'
   # Generate Fake data
-  gem "ffaker"
-  gem "pry-byebug"
-  gem "pry-doc"
-  gem "pry-rails"
-  gem "rspec-rails"
-  gem "standardrb"
+  gem 'ffaker'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'standardrb'
 end
 
 group :development do
-  gem "annotate"
-  gem "awesome_print", "~>1.6"
-  gem "better_errors", "~>2.1"
-  gem "foreman", require: false
-  gem "letter_opener"
+  gem 'annotate'
+  gem 'awesome_print', '~>1.6'
+  gem 'better_errors', '~>2.1'
+  gem 'foreman', require: false
+  gem 'letter_opener'
 end
 
 group :test do
-  gem "capybara"
-  gem "cuprite"
-  gem "mongoid-rspec"
-  gem "shoulda-matchers"
-  gem "vcr"
-  gem "webmock"
+  gem 'capybara'
+  gem 'cuprite'
+  gem 'mongoid-rspec'
+  gem 'shoulda-matchers'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
-  gem "rails_12factor"
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "bugsnag", "~> 6.22"
+gem 'bugsnag', '~> 6.22'
