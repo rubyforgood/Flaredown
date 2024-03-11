@@ -84,8 +84,6 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    brakeman (6.1.2)
-      racc
     bson (4.12.1)
     bson (4.12.1-java)
     bugsnag (6.26.0)
@@ -493,7 +491,6 @@ DEPENDENCIES
   annotate
   awesome_print (~> 1.6)
   better_errors (~> 2.1)
-  brakeman (= 6.1.2)
   bugsnag (~> 6.22)
   bullet
   byebug
