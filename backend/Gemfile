@@ -12,6 +12,9 @@ gem "rake"
 # JSON serializer
 gem "active_model_serializers", "0.9.8"
 
+# Brakeman security scanner
+gem "brakeman", "6.1.2"
+
 # Use postgresql and mongo as the database for Active Record
 gem "mongoid", "7.3.3"
 gem "pg", "1.2.3"
