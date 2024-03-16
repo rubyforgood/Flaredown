@@ -1,4 +1,4 @@
-FROM ruby:3.0
+FROM ruby:3.1.3
 
 # set working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ RUN apt-get update -qq && \
       apt-get install -y nodejs postgresql-client
 
 # install bundler
-RUN gem install bundler:2.1.4
+RUN gem install bundler:2.5.6
 
 # copy the Gemfile and Gemfile.lock to the container
 COPY Gemfile Gemfile.lock ./
