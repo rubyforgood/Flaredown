@@ -135,3 +135,20 @@ jobs:
       - name: Run rspec
         run: |
           bundle exec rspec
+
+  brakeman:
+    name: Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: backend
+          bundler-cache: true
+      - name: Brakeman
+        uses: reviewdog/action-brakeman@v2
+        with:
+          brakeman_version: gemfile
+          reporter: github-pr-review

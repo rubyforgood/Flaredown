@@ -84,6 +84,7 @@ group :development do
   gem "annotate"
   gem "awesome_print", "~>1.6"
   gem "better_errors", "~>2.1"
+  gem "brakeman", "6.1.2"
   gem "foreman", require: false
   gem "letter_opener"
 end
