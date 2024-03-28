@@ -462,16 +462,16 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.9.8)
   annotate
-  awesome_print (~> 1.6)
-  better_errors (~> 2.1)
-  brakeman (= 6.1.2)
-  bugsnag (~> 6.22)
+  awesome_print
+  better_errors
+  brakeman
+  bugsnag
   bullet
   byebug
   cancancan (~> 3.5.0)
   cancancan-mongoid (= 2.0.0)
   capybara
-  colored (~> 1.2)
+  colored
   countries
   cuprite
   database_cleaner
@@ -493,7 +493,7 @@ DEPENDENCIES
   nearest_time_zone
   omniauth (= 1.8.1)
   omniauth-facebook (= 3.0.0)
-  pg (= 1.5.6)
+  pg
   pry-byebug
   pry-doc
   pry-rails
