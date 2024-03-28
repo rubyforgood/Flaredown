@@ -10,24 +10,44 @@ ignore:
   - Style/SafeNavigation
 - app/jobs/group_top_posts_job.rb:
   - Style/SafeNavigation
-- app/models/search.rb:
-  - Lint/Void
+- app/jobs/merge_trackables/checkin_trackables.rb:
+  - Performance/StringIdentifierArgument
+  - Lint/SymbolConversion
+- app/jobs/merge_trackables/dispatcher.rb:
+  - Lint/SymbolConversion
+- app/jobs/merge_trackables/user_trackable_association.rb:
+  - Lint/SymbolConversion
+- app/models/ability.rb:
+  - Lint/SymbolConversion
+- app/models/concerns/topicable.rb:
+  - Performance/StringIdentifierArgument
+- app/models/profile.rb:
+  - Performance/StringIdentifierArgument
+- app/models/registration.rb:
+  - Layout/MultilineMethodCallIndentation
 - app/services/charts_pattern.rb:
   - Lint/DuplicateMethods
-  - Layout/SpaceInsideHashLiteralBraces
-  - Style/QuotedSymbols
+  - Performance/StringIdentifierArgument
+- app/services/checkin/updater.rb:
+  - Lint/SymbolConversion
+  - Style/RedundantParentheses
+- app/services/trackable_creator.rb:
+  - Lint/SymbolConversion
 - lib/tasks/app.rake:
   - Lint/ConstantDefinitionInBlock
   - Style/GlobalStdStream
   - Lint/Loop
 - lib/tasks/hbi_completeness.rake:
   - Lint/ConstantDefinitionInBlock
+- lib/tasks/oneoff.rake:
+  - Performance/StringIdentifierArgument
+  - Layout/MultilineMethodCallIndentation
 - lib/tasks/trackables.rake:
   - Lint/ConstantDefinitionInBlock
   - Lint/UselessAssignment
 - lib/tasks/usda.rake:
   - Lint/ConstantDefinitionInBlock
+- lib/tasks/utils.rake:
+  - Performance/StringIdentifierArgument
 - spec/models/food_spec.rb:
   - Lint/ConstantDefinitionInBlock
-- spec/spec_helper.rb:
-  - Style/StringLiterals
