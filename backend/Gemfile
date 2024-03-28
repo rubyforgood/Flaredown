@@ -6,7 +6,7 @@ ruby file: ".ruby-version"
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.7.6"
+gem "rails", "~> 6.1.7.7"
 gem "rake"
 
 # JSON serializer
