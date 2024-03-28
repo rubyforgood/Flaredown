@@ -72,7 +72,6 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     bcrypt (3.1.20)
-    bcrypt (3.1.20-java)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -87,7 +86,6 @@ GEM
     brakeman (6.1.2)
       racc
     bson (4.12.1)
-    bson (4.12.1-java)
     bugsnag (6.26.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
@@ -132,7 +130,6 @@ GEM
       database_cleaner-core (~> 2.0.0)
       mongoid
     date (3.3.4)
-    date (3.3.4-java)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.8.0)
@@ -188,7 +185,6 @@ GEM
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
     ffaker (2.21.0)
-    ffi (1.15.5-java)
     foreman (0.87.2)
     geocoder (1.8.2)
     globalid (1.2.1)
@@ -204,7 +200,6 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n_data (0.13.0)
     json (2.7.1)
-    json (2.7.1-java)
     jwt (2.3.0)
     kaminari-actionview (1.2.1)
       actionview
@@ -267,15 +262,8 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nio4r (2.7.0-java)
     nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
-    nokogiri (1.16.2-java)
-      racc (~> 1.4)
-    nokogiri (1.16.2-x64-mingw32)
-      racc (~> 1.4)
-    nokogiri (1.16.2-x86-mingw32)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -297,14 +285,9 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.6)
-    pg (1.5.6-x86-mingw32)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry (0.14.2-java)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-      spoon (~> 0.0)
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
@@ -316,15 +299,12 @@ GEM
     public_suffix (5.0.3)
     puma (5.6.8)
       nio4r (~> 2.0)
-    puma (5.6.8-java)
-      nio4r (~> 2.0)
     pusher (2.0.2)
       httpclient (~> 2.8)
       multi_json (~> 1.15)
       pusher-signature (~> 0.1.8)
     pusher-signature (0.1.8)
     racc (1.7.3)
-    racc (1.7.3-java)
     rack (2.2.8)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
@@ -426,8 +406,6 @@ GEM
     simplecov_json_formatter (0.1.4)
     sixarm_ruby_unaccent (1.2.0)
     smart_properties (1.17.0)
-    spoon (0.0.6)
-      ffi
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -453,7 +431,6 @@ GEM
       coercible (~> 1.0)
     thor (1.3.0)
     thread_safe (0.3.6)
-    thread_safe (0.3.6-java)
     timeout (0.4.1)
     tomorrowio_rb (0.0.3)
     tzinfo (2.0.6)
@@ -472,8 +449,6 @@ GEM
     webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
-    websocket-driver (0.7.6-java)
-      websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -481,11 +456,7 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
-  java
   ruby
-  x64-mingw32
-  x86-mingw32
-  x86-mswin32
 
 DEPENDENCIES
   active_model_serializers (= 0.9.8)
@@ -546,7 +517,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.1.3p185
+   ruby 3.2.3p157
 
 BUNDLED WITH
    2.5.6
