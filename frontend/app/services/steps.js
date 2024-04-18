@@ -28,7 +28,7 @@ export default Service.extend({
     'completed',
   ],
 
-  steps: computed('exclusions.harvey_bradshaw', 'exclusions.promotion_rate', function() {
+  steps: computed('exclusions.{harvey_bradshaw,promotion_rate}', function() {
     const { checkinSeed, onboardingSeed } = getProperties(this, 'checkinSeed', 'onboardingSeed');
 
     return Object.assign(
@@ -38,7 +38,7 @@ export default Service.extend({
     );
   }),
 
-  exclusions: computed('checkin.shouldShowHbiStep', 'checkin.shouldShowPrStep', function() {
+  exclusions: computed('checkin.{shouldShowHbiStep,shouldShowPrStep}', function() {
     let schedulePage = {};
 
     get(this, 'checkin.shouldShowHbiStep') ? {} : schedulePage.harvey_bradshaw = true;

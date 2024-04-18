@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import moment from 'moment';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
 
 const {
@@ -33,7 +34,7 @@ export default Component.extend(TrackablesFromType, {
     return moment(this.get('checkin.date')).isSame(new Date(), 'day');
   }),
 
-  sortedTrackeds: computed('trackeds.[]', 'trackeds.@each.position', function() {
+  sortedTrackeds: computed('trackeds.{[],@each.position}', function() {
     return this.get('trackeds').toArray().sortBy('position');
   }),
 

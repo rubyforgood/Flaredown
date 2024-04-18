@@ -1,27 +1,106 @@
-version: '3'
-volumes:
-  postgres:
-  mongodb:
-  redis:
+version: '3.8'
+x-backend-services-hosts:
+  &backend-services-hosts
+  MONGODB_HOST: mongodb
+  REDIS_URL: redis://redis:6379
+  PG_DATABASE_HOST: postgres
+
 services:
+  backend:
+    build: backend
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/app
+    environment: *backend-services-hosts
+    profiles:
+      - dev
+      - native
+  workers:
+    build: backend
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    depends_on:
+      - redis
+      - mongodb
+      - postgres
+    volumes:
+      - ./backend:/app
+    environment: *backend-services-hosts
+    profiles:
+      - dev
+      - native
+  frontend:
+    platform: linux/amd64
+    build: frontend
+    depends_on:
+      - backend
+    ports:
+      - 4300:4300
+      - 65535:65535
+    volumes:
+      - ./frontend:/app
+    command: sh -c "cd /app && rm -rfd ./dist && ./node_modules/.bin/ember serve --port 4300 --proxy http://backend:3000 --live-reload-host frontend --live-reload-port 65535"
+    profiles:
+      - dev
+  native:
+    build:
+      context: ./native
+      args:
+        - NODE_ENV=development
+    environment:
+      - NODE_ENV=development
+    tty: true
+    ports:
+      - '19006:19006'
+      - '19001:19001'
+      - '19002:19002'
+    depends_on:
+      - backend
+    volumes:
+      - ./native:/opt/native/app:delegated
+      - ./native/package.json:/opt/native/package.json
+      - ./native/package-lock.json:/opt/native/package-lock.json
+      - notused:/opt/native/app/node_modules
+    healthcheck:
+      disable: true
+    profiles:
+      - native
+  app-setup:
+    build: backend
+    command: bundle exec rails app:setup
+    depends_on:
+      - postgres
+    environment: *backend-services-hosts
+    profiles:
+      - tools
   postgres:
     image: postgres:12.8-alpine
+    restart: always
     environment:
       POSTGRES_PASSWORD: password
       PGDATA: /data
     volumes:
       - postgres:/data
-    ports:
-      - 5432:5432
+    expose:
+      - 5432
   mongodb:
     image: mongo:4.4.9
     volumes:
       - mongodb:/data/db
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
   redis:
     image: redis:6.2.3-alpine
     volumes:
       - redis:/data
-    ports:
-      - 6379:6379
+    expose:
+      - 6379
+volumes:
+  postgres:
+  mongodb:
+  redis:
+  notused:

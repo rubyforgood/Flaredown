@@ -3,7 +3,7 @@
   margin-top: 20px;
   .back,
   .forward {
-    @include span-columns(6);
+    @include grid-column(6);
     text-align: center;
     a {
       margin-top: 8px;

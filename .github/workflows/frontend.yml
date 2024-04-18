@@ -10,9 +10,6 @@ on:
       - main
       - master
 
-env:
-  NODE_VERSION: 12.22.6
-
 jobs:
   changes:
     runs-on: ubuntu-latest
@@ -20,9 +17,8 @@ jobs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
     steps:
-      - uses: actions/checkout@v2.3.4
-
-      - uses: dorny/paths-filter@v2
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
@@ -34,18 +30,37 @@ jobs:
               - '.github/workflows/**'
 
   test-app:
+    name: Test app
     needs: changes
     if: ${{ needs.changes.outputs.frontend == 'true' }}
-    name: Test app
     runs-on: ubuntu-latest
     timeout-minutes: 7
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 14
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+      - run: npm install -g npm@7.0.0
+      - run: npm install
+        working-directory: ./frontend
+      - run: npm run test
+        working-directory: ./frontend
+
+  node-next-test:
+    strategy:
+      matrix:
+        node_version: ['16', '18', '20']
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node_version }}
       - run: npm install -g npm@7.0.0
       - run: npm install
         working-directory: ./frontend

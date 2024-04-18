@@ -14,47 +14,80 @@ class WeatherRetriever
       end
 
       forecast = get_forecast(date, position)
-      the_day = forecast&.daily&.data&.first
 
-      if the_day.blank?
-        Rails.logger.warn "No forecast found for position #{position.inspect}: #{forecast.inspect}"
+      if forecast.status != 200
+        Rails.logger.warn "No forecast found for position #{position.inspect}: response code was #{forecast.status}, headers were #{forecast.headers}, body contained #{forecast.body}"
 
         return
       end
 
-      create_weather(the_day, position.id)
+      create_weather(forecast, position.id)
     end
 
     private
 
     def get_forecast(date, position)
-      tz = Time.zone
-      Time.zone = NearestTimeZone.to(position.latitude, position.longitude)
-
-      forecast = ForecastIO.forecast(
-        position.latitude,
-        position.longitude,
-        time: Time.zone.parse(date.to_s).to_i,
-        params: {exclude: "currently,minutely,hourly,alerts,flags"}
+      Tomorrowiorb.forecast(
+        "#{position.latitude},#{position.longitude}",
+        ["1d"],
+        "imperial"
       )
-
-      Time.zone = tz
-
-      forecast
     end
 
-    def create_weather(the_day, position_id)
+    def create_weather(forecast, position_id)
+      today = JSON.parse(forecast.body, symbolize_names: true).dig(:timelines, :daily, 0)
+      the_time = today.dig(:time)
+      today = today.dig(:values)
+      rain_intensity = today.dig(:rainIntensityAvg)
+      sleet_intensity = today.dig(:sleetIntensityAvg)
+      snow_intensity = today.dig(:snowIntensityAvg)
+      icon = get_icon_legacy(today)
+      summary = "General conditions are #{icon}, with an average temperature of #{today[:temperatureAvg]}."
       Weather.create(
-        date: Date.strptime(the_day.time.to_s, "%s"),
-        humidity: (the_day.humidity * 100).round,
-        icon: the_day.icon,
+        date: Date.strptime(the_time, "%Y-%m-%d"),
+        humidity: today.dig(:humidityAvg).round,
+        icon: icon,
         position_id: position_id,
-        precip_intensity: the_day.precipIntensity,
-        pressure: the_day.pressure.round,
-        summary: the_day.summary,
-        temperature_max: the_day.temperatureMax.round,
-        temperature_min: the_day.temperatureMin.round
+        precip_intensity: rain_intensity + sleet_intensity + snow_intensity,
+        pressure: today.dig(:pressureSurfaceLevelAvg),
+        summary: summary,
+        temperature_max: today.dig(:temperatureMax),
+        temperature_min: today.dig(:temperatureMin)
       )
+    end
+
+    def get_icon_legacy(today)
+      # Our icons do not coverage their full range of weather codes. We could pull in their icons (linked below) on the frontend to expand options
+      # This method adapts their weather codes to our existing icons as best as possible
+      # Icons and codes found here: https://docs.tomorrow.io/reference/data-layers-weather-codes
+      # Icon files here: https://github.com/Tomorrow-IO-API/tomorrow-weather-codes
+      # Daily forecast is always daytime weather codes / icons regardless of actual time
+      code = if today["weatherCodeMin"]
+        today["weatherCodeMin"]
+      elsif today["weatherCodeFullDay"]
+        today["weatherCodeFullDay"]
+      else
+        today["weatherCode"]
+      end
+
+      case code
+      when 1000, 1100
+        "clear-day"
+      when 1101
+        "partly-cloudy-day"
+      when 1102, 1001, 8000
+        "cloudy"
+      when 2000, 2100
+        "fog"
+      when 4000, 4001, 4200, 4201
+        "rain"
+      when 5000, 5001, 5100, 5101
+        "snow"
+      when 6000, 6001, 6200, 6201, 7000, 7101, 7102
+        "sleet"
+      else
+        "default"
+      end
     end
   end
 end

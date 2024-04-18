@@ -1,5 +1,7 @@
+@use 'sass:math';
+
 // Typography
-$base-font-family: $helvetica;
+$base-font-family: $font-stack-helvetica;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
@@ -12,7 +14,7 @@ $heading-line-height: 1.2;
 // Other Sizes
 $base-border-radius: 3px;
 $base-spacing: $base-line-height * 1em;
-$small-spacing: $base-spacing / 2;
+$small-spacing: math.div($base-spacing, 2);
 $base-z-index: 0;
 $bottom-nav-height: 3.25rem;
 

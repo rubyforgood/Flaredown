@@ -1,4 +1,4 @@
-/* jshint node: true */
+'use strict';
 
 module.exports = function(environment) {
   var ENV = {
@@ -63,8 +63,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.apiHost = 'http://localhost:3000';
-    var STATIC_URL = 'http://localhost:4300';
+    ENV.apiHost    = 'http://localhost:' + (process.env.PORT || '3000');
+    var STATIC_URL = 'http://localhost:' + (process.env.FRONTEND_PORT || '4300');
   }
 
   if (environment === 'test') {
@@ -76,6 +76,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
     ENV.apiHost = 'http://localhost:3000';
     var STATIC_URL = 'http://localhost:4300';
   }

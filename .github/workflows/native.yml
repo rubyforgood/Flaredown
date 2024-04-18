@@ -1,0 +1,86 @@
+name: native
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      native: ${{ steps.filter.outputs.native }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/**'
+            native:
+              - 'native/**'
+              - '.github/workflows/**'
+
+  test-app:
+    name: Test app
+    needs: changes
+    if: ${{ needs.changes.outputs.native == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+      - run: npm ci
+        working-directory: ./native
+      - run: npm run test
+        working-directory: ./native
+
+  lint:
+    name: Lint
+    needs: changes
+    if: ${{ needs.changes.outputs.native == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+      - run: npm ci
+        working-directory: ./native
+      - run: npm run lint
+        working-directory: ./native
+
+  type-check:
+    name: Type check
+    needs: changes
+    if: ${{ needs.changes.outputs.native == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+      - run: npm ci
+        working-directory: ./native
+      - run: npm run tsc
+        working-directory: ./native
+
+    

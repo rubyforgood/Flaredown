@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "3.2.3"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: %i[development test]
@@ -15,24 +15,24 @@ gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
 gem "mongoid", "8.1.1"
-gem "pg", "1.5.3"
+gem "pg"
 
 # Use Puma as the app server
-gem "puma", "5.6.4"
+gem "puma", "5.6.8"
 
 # Authentication libraries
-gem "cancancan", "~> 3.3.0"
+gem "cancancan", "~> 3.5.0"
 gem "cancancan-mongoid", "2.0.0"
 gem "devise", "4.9.2"
-gem "devise_invitable", "2.0.5"
+gem "devise_invitable", "2.0.9"
 gem "omniauth", "1.8.1"
 gem "omniauth-facebook", "9.0.0"
 
 # Colored output to console
-gem "colored", "~> 1.2"
+gem "colored"
 
 # Background jobs
-gem "sidekiq", "~> 6.4"
+gem "sidekiq", "~> 7.2"
 
 # Structured seed data
 gem "seedbank"
@@ -49,8 +49,8 @@ gem "globalize"
 # Abort requests that are taking too long
 gem "rack-timeout"
 
-# wrapper for forecast.io API, Dark Sky
-gem "forecast_io"
+# wrapper for tomorrow.io API
+gem "tomorrowio_rb", "~>0.0.3"
 
 gem "geocoder"
 gem "nearest_time_zone"
@@ -61,7 +61,7 @@ gem "ruby-progressbar", require: false
 
 gem "kaminari-actionview"
 gem "kaminari-mongoid"
-gem "rack-cors", "1.1.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
+gem "rack-cors", "2.0.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
 gem "simplecov", require: false, group: :test
 
 group :development, :test do
@@ -82,13 +82,16 @@ end
 
 group :development do
   gem "annotate"
-  gem "awesome_print", "~>1.9"
-  gem "better_errors", "~>2.9"
+  gem "awesome_print"
+  gem "better_errors"
+  gem "brakeman"
   gem "foreman", require: false
   gem "letter_opener"
 end
 
 group :test do
+  gem "capybara"
+  gem "cuprite"
   gem "mongoid-rspec"
   gem "shoulda-matchers"
   gem "vcr"
@@ -102,4 +105,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "bugsnag", "~> 6.22"
+gem "bugsnag"

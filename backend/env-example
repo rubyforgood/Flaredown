@@ -25,11 +25,6 @@ SMTP_USER=
 SMTP_PASS=
 SMTP_DOMAIN=
 
-# Localtunnel configuration
-LOCALTUNNEL_ENABLED=false
-LOCALTUNNEL_SUBDOMAIN=safeflaredown
-LOCALTUNNEL_PORT=4300
-
 # Facebook
 FACEBOOK_APP_ID=
 FACEBOOK_APP_SECRET=
@@ -55,3 +50,10 @@ FULLSTORY_ORG=
 
 # MongoDB
 MONGODB_HOST=localhost
+
+# System spec server ports
+SYSTEM_SPEC_BACKEND_PORT=3003
+SYSTEM_SPEC_FRONTEND_PORT=4303
+
+# Run system specs with a headless chrome instance
+HEADLESS_CHROME=true

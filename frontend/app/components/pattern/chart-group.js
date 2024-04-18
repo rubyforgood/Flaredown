@@ -1,6 +1,6 @@
 import Ember from 'ember';
-
-/* global d3 */
+import moment from 'moment';
+import * as d3 from "d3";
 
 const {
   get,

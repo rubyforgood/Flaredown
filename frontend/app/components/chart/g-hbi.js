@@ -1,6 +1,8 @@
 import Ember from 'ember';
+import moment from 'moment';
 import Colorable from 'flaredown/mixins/colorable';
 import Graphable from 'flaredown/components/chart/graphable';
+import * as d3 from "d3";
 
 const {
   $,

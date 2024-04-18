@@ -7,7 +7,7 @@ export default Component.extend({
   tagName: '',
   apiHost: ENV.apiHost,
 
-  authHeader: computed('session.data.authenticated.token', 'session.currentUser.email', function() {
+  authHeader: computed('session.{data.authenticated.token,currentUser.email}', function() {
     return `Token token="${get(this, 'session.data.authenticated.token')}", ` +
       `email="${get(this, 'session.currentUser.email')}"`;
   }),

@@ -1,15 +1,18 @@
-/*jshint node:true*/
-/* global require, module */
+'use strict';
 
-const fs = require('fs');
 const map = require('broccoli-stew').map;
 const Funnel = require('broccoli-funnel');
-const mergeTrees = require('broccoli-merge-trees');
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
+    babel: {
+      sourceMaps: 'inline'
+    },
+
+    'ember-cli-babel': {},
+
     dotEnv: {
       path: {
         development: '../backend/.env',
@@ -18,7 +21,8 @@ module.exports = function(defaults) {
 
     sassOptions: {
       includePaths: [
-        'bower_components/spinkit/scss'
+        'node_modules/bourbon/core',
+        'node_modules/bourbon-neat/core',
       ]
     },
 
@@ -57,24 +61,19 @@ module.exports = function(defaults) {
 
   let vendorLib = new Funnel(assetPath, {
     files: [
-    '/pace/pace.js', '/pusher/dist/pusher.js', '/drag-drop-polyfill/release/drag-drop-polyfill.js', '/moment-timezone/builds/moment-timezone-with-data.js'
+      '/pace/pace.js',
     ],
     destDir: '/assets',
   });
 
   vendorLib = map(vendorLib, (content) => `if (typeof FastBoot === 'undefined') { ${content} \n }`);
 
-  // d3
-  app.import(app.bowerDirectory + '/d3/d3.min.js');
-
-  // MomentJS
-  app.import(app.bowerDirectory + '/momentjs/moment.js');
-  app.import(app.bowerDirectory + '/moment-range/dist/moment-range.js');
+  // Spinkit
+  app.import('node_modules/spinkit/spinkit.css')
 
   // HTML5 Drag and Drop Polyfill for Mobile
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-scroll-behaviour.js');
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill.css');
-  app.import(app.bowerDirectory + '/drag-drop-polyfill/release/drag-drop-polyfill-icons.css');
+  app.import('node_modules/mobile-drag-drop/default.css')
+  app.import('node_modules/mobile-drag-drop/icons.css')
 
   // At-js
   app.import(app.bowerDirectory + '/At.js/dist/css/jquery.atwho.css');

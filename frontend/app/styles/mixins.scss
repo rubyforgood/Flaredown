@@ -14,3 +14,22 @@
 	@include card;
 	max-width: 500px;
 }
+
+@mixin outer-container {
+  @include clearfix;
+  box-sizing: border-box;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+
+  *,::after,::before {
+    box-sizing: border-box;
+}
+}
+
+@mixin media($query) {
+  @media screen and (min-width: $query) {
+    @content;
+  }
+}

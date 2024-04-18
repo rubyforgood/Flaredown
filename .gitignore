@@ -8,3 +8,9 @@ dump.rdb
 .rbenv-gemsets
 
 .idea/*
+.bundle
+frontend/.env
+
+.DS_Store
+
+TODO.md

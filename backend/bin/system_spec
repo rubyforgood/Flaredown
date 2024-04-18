@@ -1,0 +1,4 @@
+# Eg:
+#   bin/system_spec
+#   bin/system_spec --format doc spec/system/signup_spec.rb
+bundle exec rspec --tag type:system "$@"
