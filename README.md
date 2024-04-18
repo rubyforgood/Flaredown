@@ -13,7 +13,7 @@ Help would be appreciated! Please join us in [slack #flaredown](https://rubyforg
 * PostgreSQL 12.8
 * MongoDB 4.4.9
 * Redis 6.2.3
-* Ruby 3.2.3 (see [RVM](https://rvm.io/) also)
+* Ruby 3.2.3
 * Node 12.22.6
 
 ## Installation
