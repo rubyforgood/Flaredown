@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby file: ".ruby-version"
+ruby "3.2.3"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: %i[development test]
