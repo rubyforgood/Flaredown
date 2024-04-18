@@ -13,6 +13,9 @@ stopNative: ## Stop the react native project
 build: ## Build the project
 	docker compose build backend
 
+shell: ## Open a shell in the backend container
+	docker compose run --rm backend /bin/bash --login
+
 specs: ## Run the specs
 	docker compose --profile dev run --rm backend rspec spec spec
 
