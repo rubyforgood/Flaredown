@@ -13,7 +13,7 @@ gem "rake"
 gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "7.3.3"
+gem "mongoid", "9.0.0"
 gem "pg"
 
 # Use Puma as the app server
