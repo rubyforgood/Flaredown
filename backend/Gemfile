@@ -6,14 +6,15 @@ ruby "3.2.3"
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.7.7"
+gem "rails", "7.0.1"
+
 gem "rake"
 
 # JSON serializer
 gem "active_model_serializers", "0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "7.3.3"
+gem "mongoid", "8.1.1"
 gem "pg"
 
 # Use Puma as the app server
@@ -22,10 +23,10 @@ gem "puma", "5.6.8"
 # Authentication libraries
 gem "cancancan", "~> 3.5.0"
 gem "cancancan-mongoid", "2.0.0"
-gem "devise", "4.8.0"
+gem "devise", "4.9.2"
 gem "devise_invitable", "2.0.9"
 gem "omniauth", "1.8.1"
-gem "omniauth-facebook", "3.0.0"
+gem "omniauth-facebook", "9.0.0"
 
 # Colored output to console
 gem "colored"
@@ -65,7 +66,6 @@ gem "simplecov", require: false, group: :test
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "bullet"
   gem "byebug"
   gem "database_cleaner"
   gem "database_cleaner-mongoid"
