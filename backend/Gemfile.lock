@@ -357,7 +357,8 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rouge (4.2.1)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
@@ -432,6 +433,7 @@ GEM
       rubocop-performance (~> 1.20.2)
     standardrb (1.0.1)
       standard
+    strscan (3.1.0)
     symmetric-encryption (4.6.0)
       coercible (~> 1.0)
     thor (1.3.1)
