@@ -445,6 +445,7 @@ GEM
     vcr (6.2.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    warning (1.4.0)
     webmock (3.23.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -462,7 +463,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (= 0.9.8)
+  active_model_serializers (~> 0.9)
   annotate
   awesome_print
   better_errors
@@ -472,15 +473,15 @@ DEPENDENCIES
   bullet
   byebug
   cancancan (~> 3.5.0)
-  cancancan-mongoid (= 2.0.0)
+  cancancan-mongoid (~> 2.0)
   capybara
   colored
   countries (~> 4.0)
   cuprite
   database_cleaner
   database_cleaner-mongoid
-  devise (= 4.8.0)
-  devise_invitable (= 2.0.9)
+  devise (~> 4.8)
+  devise_invitable (~> 2.0)
   dotenv-rails
   erb_lint
   factory_bot_rails
@@ -493,11 +494,11 @@ DEPENDENCIES
   kaminari-mongoid
   launchy (~> 2.5)
   letter_opener
-  mongoid (= 7.3.3)
+  mongoid (~> 7.3)
   mongoid-rspec
   nearest_time_zone
-  omniauth (= 1.8.1)
-  omniauth-facebook (= 3.0.0)
+  omniauth (~> 1.8)
+  omniauth-facebook (~> 3.0)
   pg
   pry-byebug
   pry-doc
@@ -521,6 +522,7 @@ DEPENDENCIES
   tomorrowio_rb (~> 0.0.3)
   tzinfo-data
   vcr
+  warning
   webmock
 
 RUBY VERSION

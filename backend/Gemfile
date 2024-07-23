@@ -11,10 +11,10 @@ gem "rake"
 gem 'sprockets-rails'
 
 # JSON serializer
-gem "active_model_serializers", "0.9.8"
+gem "active_model_serializers", "~> 0.9"
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "7.3.3"
+gem "mongoid", "~> 7.3"
 gem "pg"
 
 # Use Puma as the app server
@@ -22,11 +22,11 @@ gem "puma", "5.6.8"
 
 # Authentication libraries
 gem "cancancan", "~> 3.5.0"
-gem "cancancan-mongoid", "2.0.0"
-gem "devise", "4.8.0"
-gem "devise_invitable", "2.0.9"
-gem "omniauth", "1.8.1"
-gem "omniauth-facebook", "3.0.0"
+gem "cancancan-mongoid", "~> 2.0"
+gem "devise", "~> 4.8"
+gem "devise_invitable", "~> 2.0"
+gem "omniauth", "~> 1.8"
+gem "omniauth-facebook", "~> 3.0"
 
 # Colored output to console
 gem "colored"
@@ -82,6 +82,8 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "standardrb"
+
+  gem "warning"
 end
 
 group :development do
