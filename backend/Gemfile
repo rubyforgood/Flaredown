@@ -38,7 +38,10 @@ gem "sidekiq", "~> 7.2"
 gem "seedbank"
 
 # ISO 3166 standard countries
-gem "countries", "~>4.0", require: "countries/global"
+gem "countries", "~>4.0", require: "countries/global" # PINNED
+gem "bson", "~> 4.15" # PINNED
+gem "faraday", "~> 1.8" # PINNED
+gem "launchy", "~> 2.5" # PINNED
 
 # Pusher Client
 gem "pusher"

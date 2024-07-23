@@ -467,6 +467,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   brakeman
+  bson (~> 4.15)
   bugsnag
   bullet
   byebug
@@ -483,12 +484,14 @@ DEPENDENCIES
   dotenv-rails
   erb_lint
   factory_bot_rails
+  faraday (~> 1.8)
   ffaker
   foreman
   geocoder
   globalize
   kaminari-actionview
   kaminari-mongoid
+  launchy (~> 2.5)
   letter_opener
   mongoid (= 7.3.3)
   mongoid-rspec
