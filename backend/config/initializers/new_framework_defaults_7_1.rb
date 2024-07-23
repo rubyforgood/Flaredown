@@ -8,6 +8,7 @@
 #
 # Read the Guide for Upgrading Ruby on Rails for more info on each option.
 # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html
+# https://guides.rubyonrails.org/configuring.html#default-values-for-target-version-7-1
 
 ###
 # No longer add autoloaded paths into `$LOAD_PATH`. This means that you won't be able
@@ -17,7 +18,7 @@
 # of the bootsnap cache if you use it.
 #
 # To set this configuration, add the following line to `config/application.rb` (NOT this file):
-#   config.add_autoload_paths_to_load_path = false
+#   config.add_autoload_paths_to_load_path = false (DONE)
 
 ###
 # Remove the default X-Download-Options headers since it is used only by Internet Explorer.
@@ -40,7 +41,6 @@ Rails.application.config.action_controller.allow_deprecated_parameters_hash_equa
 ###
 # Active Record Encryption now uses SHA-256 as its hash digest algorithm.
 #
-# TODO:
 # There are 3 scenarios to consider.
 #
 # 1. If you have data encrypted with previous Rails versions, and you have
@@ -57,7 +57,9 @@ Rails.application.config.action_controller.allow_deprecated_parameters_hash_equa
 # 3. If you don't currently have data encrypted with Active Record encryption, you can disable this setting to
 # configure the default behavior starting 7.1+:
 #++
-# Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = false
+# - NOTE: I don't see `key_generator_hash_digest_class`` or `encrypts` used anywhwere
+#   - If app is using Active Record Encryption, will need to do 1 or 2 above
+Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = false
 
 ###
 # No longer run after_commit callbacks on the first of multiple Active Record
@@ -134,7 +136,7 @@ Rails.application.config.active_record.query_log_tags_format = :sqlcommenter
 # For more information, see
 # https://guides.rubyonrails.org/v7.1/configuring.html#config-active-support-message-serializer
 #
-# NOTE: Does this apply here?
+# NOTE: Does rolling deploy apply here?
 # If you are performing a rolling deploy of a Rails 7.1 upgrade, wherein servers
 # that have not yet been upgraded must be able to read messages from upgraded
 # servers, first deploy without changing the serializer, then set the serializer
@@ -148,7 +150,7 @@ Rails.application.config.active_support.message_serializer = :json_allow_marshal
 # cannot be read by older versions of Rails. However, messages that use the old
 # format can still be read, regardless of whether this optimization is enabled.
 #
-# NOTE: Same as above - applicable?
+# NOTE: Does rolling deploy apply here?
 # To perform a rolling deploy of a Rails 7.1 upgrade, wherein servers that have
 # not yet been upgraded must be able to read messages from upgraded servers,
 # leave this optimization off on the first deploy, then enable it on a
@@ -205,7 +207,7 @@ Rails.application.config.active_record.default_column_serializer = nil
 # Enable a performance optimization that serializes Active Record models
 # in a faster and more compact way.
 #
-# NOTE: Rolling deploy again - applicable?
+# NOTE: Does rolling deploy apply here?
 # To perform a rolling deploy of a Rails 7.1 upgrade, wherein servers that have
 # not yet been upgraded must be able to read caches from upgraded servers,
 # leave this optimization off on the first deploy, then enable it on a
@@ -232,7 +234,6 @@ Rails.application.config.active_record.generate_secure_token_on = :initialize
 
 ###
 # ** Please read carefully, this must be configured in config/application.rb **
-# TODO: create issue for this to be done after deploying
 # Change the format of the cache entry.
 #
 # Changing this default means that all new cache entries added to the cache
@@ -243,6 +244,8 @@ Rails.application.config.active_record.generate_secure_token_on = :initialize
 # and you have no plans to rollback.
 # When you're ready to change format, add this to `config/application.rb` (NOT
 # this file):
+# NOTE: Leaving commented in case of rollback.
+#   - TODO: Create issue for this to be done after deploying?
 #   config.active_support.cache_format_version = 7.1
 
 ###
@@ -265,16 +268,7 @@ Rails.application.config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.b
 #
 # In previous versions of Rails, Action Text always used `Rails::HTML4::Sanitizer` as its vendor.
 #++
-# FIXME: Causes:
-# An error occurred while loading ./spec/system/signup_spec.rb.
-# Failure/Error: require File.expand_path("../../config/environment", __FILE__)
-
-# FrozenError:
-#   can't modify frozen Array: []
-# Also for zeitwerk:check
-# NoMethodError: undefined method `action_text' for #<Rails::Application::Configuration:0x000000000077d8> (NoMethodError)
-# /app/config/initializers/new_framework_defaults_7_1.rb:277:in `<top (required)>'
-# /app/config/environment.rb:5:in `<top (required)>'
+# NOTE: App is not using Action Text, I think this will be ignored if unset & load_defaults: 7.1 is enabled.
 # Rails.application.config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
 
 ###
