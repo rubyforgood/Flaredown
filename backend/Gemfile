@@ -79,8 +79,6 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "standardrb"
-
-  gem "warning"
 end
 
 group :development do
