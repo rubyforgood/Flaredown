@@ -9,6 +9,8 @@ gem "dotenv-rails", groups: %i[development test]
 gem "rails", "~> 6.1.7.7"
 gem "rake"
 
+gem 'sprockets-rails'
+
 # JSON serializer
 gem "active_model_serializers", "0.9.8"
 
@@ -37,7 +39,7 @@ gem "sidekiq", "~> 7.2"
 gem "seedbank"
 
 # ISO 3166 standard countries
-gem "countries", require: "countries/global"
+gem "countries", "~>4.0 ", require: "countries/global"
 
 # Pusher Client
 gem "pusher"

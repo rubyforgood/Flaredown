@@ -474,7 +474,7 @@ DEPENDENCIES
   cancancan-mongoid (= 2.0.0)
   capybara
   colored
-  countries
+  countries (~> 4.0)
   cuprite
   database_cleaner
   database_cleaner-mongoid
@@ -512,6 +512,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq (~> 7.2)
   simplecov
+  sprockets-rails
   standardrb
   symmetric-encryption
   tomorrowio_rb (~> 0.0.3)
