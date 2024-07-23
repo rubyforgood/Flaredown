@@ -8,7 +8,6 @@ gem "dotenv-rails", groups: %i[development test]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.7.7"
 gem "rake"
-
 gem 'sprockets-rails'
 
 # JSON serializer
@@ -39,7 +38,7 @@ gem "sidekiq", "~> 7.2"
 gem "seedbank"
 
 # ISO 3166 standard countries
-gem "countries", "~>4.0 ", require: "countries/global"
+gem "countries", "~>4.0", require: "countries/global"
 
 # Pusher Client
 gem "pusher"
