@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-shared_examples_for 'fiveable' do
+shared_examples_for "fiveable" do
   include Mongoid::Matchers
 
   it { is_expected.to respond_to(:value) }

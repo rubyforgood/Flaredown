@@ -13,13 +13,13 @@ WebMock.disable_net_connect!(allow_localhost: true)
 Geocoder.configure(lookup: :test, ip_lookup: :test)
 minneapolis_geo = {
   # match the WeatherRetriever vcr stub
-  'coordinates'  => [44.967486,-93.2897678],
-  'address'      => 'Minneapolis, Minnesota, USA',
-  'state'        => 'Minnesota',
-  'state_code'   => 'MN',
-  'country'      => 'United States',
-  'country_code' => 'US',
-  'postal_code'  => '55403',
+  "coordinates" => [44.967486, -93.2897678],
+  "address" => "Minneapolis, Minnesota, USA",
+  "state" => "Minnesota",
+  "state_code" => "MN",
+  "country" => "United States",
+  "country_code" => "US",
+  "postal_code" => "55403"
 }
 Geocoder::Lookup::Test.set_default_stub([minneapolis_geo])
 
