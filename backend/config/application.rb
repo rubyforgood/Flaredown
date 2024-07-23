@@ -19,6 +19,8 @@ Bundler.require(*Rails.groups)
 
 module Flaredown
   class Application < Rails::Application
+    config.autoloader = :zeitwerk
+
     # https://medium.com/@Nicholson85/handling-cors-issues-in-your-rails-api-120dfbcb8a24
     # fix CORS issues in staging?
     config.middleware.insert_before 0, Rack::Cors do
@@ -33,8 +35,6 @@ module Flaredown
     config.autoload_paths << Rails.root.join("lib")
     config.autoload_paths << Rails.root.join("lib/*")
     config.autoload_paths << Rails.root.join("lib/**/*")
-    config.autoload_paths << Rails.root.join("app/serializers/concerns")
-    config.autoload_paths << Rails.root.join("app/serializers/api/v1/concerns")
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
