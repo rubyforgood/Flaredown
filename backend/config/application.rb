@@ -1,16 +1,17 @@
-require File.expand_path("../boot", __FILE__)
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
 require "active_record/railtie"
+# require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
 require "action_view/railtie"
-require "sprockets/railtie"
 # require "action_cable/engine"
-# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -19,8 +20,9 @@ Bundler.require(*Rails.groups)
 
 module Flaredown
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    # TODO: flip to 7.1 - see config/initializers/new_framework_defaults_7_1.rb
     config.load_defaults 6.1
-    config.autoloader = :zeitwerk
 
     # https://medium.com/@Nicholson85/handling-cors-issues-in-your-rails-api-120dfbcb8a24
     # fix CORS issues in staging?
@@ -30,12 +32,25 @@ module Flaredown
         resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
       end
     end
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
-    config.autoload_paths << Rails.root.join("lib")
-    config.autoload_paths << Rails.root.join("lib/*")
-    config.autoload_paths << Rails.root.join("lib/**/*")
+
+    config.add_autoload_paths_to_load_path = false
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w(assets tasks))
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+    config.eager_load_paths << Rails.root.join("lib")
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
