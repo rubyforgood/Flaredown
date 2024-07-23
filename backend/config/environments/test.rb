@@ -29,7 +29,7 @@ Rails.application.configure do
   config.cache_store = :null_store
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
-  config.action_dispatch.show_exceptions = :rescuable # NOTE: previously: false
+  config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -41,9 +41,6 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # NOTE: removed by app:update, I added it back
-  # Randomize the order test cases are executed.
-  config.active_support.test_order = :random
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
