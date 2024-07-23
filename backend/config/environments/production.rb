@@ -29,11 +29,6 @@ Rails.application.configure do
   # Do not fall back to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
-  # PREVIOUSLY ----
-  # # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # # yet still be able to expire them through the digest params.
-  # config.assets.digest = true
-  -------
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
@@ -48,11 +43,6 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # PREVIOUSLY ----
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  # config.log_level = :debug
-  # -----
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
@@ -64,7 +54,7 @@ Rails.application.configure do
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -85,13 +75,6 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners. (false by default)
   config.active_support.report_deprecations = :notify
-  NOTE: previously: -----
-  # # Send deprecation notices to registered listeners.
-  # config.active_support.deprecation = :notify
-
-  # # Use default logging formatter so that PID and timestamp are not suppressed.
-  # config.log_formatter = ::Logger::Formatter.new
-  # ------
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
