@@ -503,7 +503,6 @@ DEPENDENCIES
   awesome_print
   better_errors
   brakeman
-  bson (~> 4.15)
   bugsnag
   bullet
   byebug
@@ -511,7 +510,7 @@ DEPENDENCIES
   cancancan-mongoid (~> 2.0)
   capybara
   colored
-  countries (~> 4.0)
+  countries
   cuprite
   database_cleaner
   database_cleaner-mongoid
@@ -520,14 +519,12 @@ DEPENDENCIES
   dotenv-rails
   erb_lint
   factory_bot_rails
-  faraday (~> 1.8)
   ffaker
   foreman
   geocoder
   globalize
   kaminari-actionview
   kaminari-mongoid
-  launchy (~> 2.5)
   letter_opener
   mongoid (= 8.1.3)
   mongoid-rspec
