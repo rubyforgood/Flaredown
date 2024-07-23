@@ -19,6 +19,7 @@ Bundler.require(*Rails.groups)
 
 module Flaredown
   class Application < Rails::Application
+    config.load_defaults 6.1
     config.autoloader = :zeitwerk
 
     # https://medium.com/@Nicholson85/handling-cors-issues-in-your-rails-api-120dfbcb8a24
