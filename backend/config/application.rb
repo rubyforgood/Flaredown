@@ -22,8 +22,9 @@ Bundler.require(*Rails.groups)
 module Flaredown
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    # TODO: flip to 7.1 - see config/initializers/new_framework_defaults_7_1.rb
-    config.load_defaults 6.1
+    config.load_defaults 7.1
+    config.add_autoload_paths_to_load_path = false
+    config.active_support.cache_format_version = 7.1
 
     # https://medium.com/@Nicholson85/handling-cors-issues-in-your-rails-api-120dfbcb8a24
     # fix CORS issues in staging?

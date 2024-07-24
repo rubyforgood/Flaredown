@@ -244,9 +244,9 @@ Rails.application.config.active_record.generate_secure_token_on = :initialize
 # and you have no plans to rollback.
 # When you're ready to change format, add this to `config/application.rb` (NOT
 # this file):
-# NOTE: Leaving commented in case of rollback.
-#   - TODO: Create issue for this to be done after deploying?
-#   config.active_support.cache_format_version = 7.1
+# NOTE: Does rolling deploy apply here?
+#   - TODO: If so, revert change in app config & create issue for this to be done after deploying?
+#   config.active_support.cache_format_version = 7.1 (DOME)
 
 ###
 # Configure Action View to use HTML5 standards-compliant sanitizers when they are supported on your
@@ -268,7 +268,7 @@ Rails.application.config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.b
 #
 # In previous versions of Rails, Action Text always used `Rails::HTML4::Sanitizer` as its vendor.
 #++
-# NOTE: App is not using Action Text, I think this will be ignored if unset & load_defaults: 7.1 is enabled.
+# NOTE: App is not using Action Text, this is ignored when load_defaults: 7.1 is enabled.
 # Rails.application.config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
 
 ###
