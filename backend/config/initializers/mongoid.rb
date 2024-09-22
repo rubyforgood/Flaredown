@@ -1,3 +1,7 @@
+Mongoid.configure do |config|
+  config.load_defaults 8.1
+end
+
 Mongoid::Document.send(:include, ActiveModel::SerializerSupport)
 Mongoid::Criteria.delegate(:active_model_serializer, to: :to_a)
 

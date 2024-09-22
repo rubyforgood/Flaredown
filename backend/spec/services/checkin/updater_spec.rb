@@ -190,7 +190,8 @@ RSpec.describe Checkin::Updater do
         end
       end
       context "on a past checkin" do
-        before { checkin.update!(date: Time.zone.today - 1.day) }
+        let(:checkin) { create(:checkin, user_id: user.id, date: Time.zone.today - 1.day) }
+
         it "updates trackables positions in checkin but doesn't save them in profile" do
           params[:checkin][:conditions_attributes].each do |condition_attr|
             checkin_condition = subject.conditions.find(condition_attr[:id])

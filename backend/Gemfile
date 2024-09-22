@@ -6,14 +6,15 @@ ruby "3.2.3"
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.7.7"
+gem "rails", "~> 7.1.0"
 gem "rake"
+gem "sprockets-rails"
 
 # JSON serializer
-gem "active_model_serializers", "0.9.8"
+gem "active_model_serializers", "~> 0.9"
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "7.3.3"
+gem "mongoid", "8.1.3" # https://www.mongodb.com/docs/mongoid/current/reference/compatibility/#rails-compatibility
 gem "pg"
 
 # Use Puma as the app server
@@ -21,11 +22,11 @@ gem "puma", "5.6.8"
 
 # Authentication libraries
 gem "cancancan", "~> 3.5.0"
-gem "cancancan-mongoid", "2.0.0"
-gem "devise", "4.8.0"
-gem "devise_invitable", "2.0.9"
-gem "omniauth", "1.8.1"
-gem "omniauth-facebook", "3.0.0"
+gem "cancancan-mongoid", "~> 2.0"
+gem "devise", "~> 4.8"
+gem "devise_invitable", "~> 2.0"
+gem "omniauth", "~> 1.8"
+gem "omniauth-facebook", "~> 3.0"
 
 # Colored output to console
 gem "colored"

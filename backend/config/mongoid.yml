@@ -3,7 +3,11 @@ development:
   clients:
     # Defines the default client. (required)
     default:
-      # Defines the name of the default database that Mongoid can connect to.
+      # Mongoid can connect to a URI accepted by the driver:
+      # uri: mongodb://user:password@mongodb.domain.com:27017/flaredown_development
+
+      # Otherwise define the parameters separately.
+      # This defines the name of the default database that Mongoid can connect to.
       # (required).
       database: flaredown_development
       # Provides the hosts the default client can connect to. Must be an array
@@ -11,9 +15,14 @@ development:
       hosts:
         - <%= ENV['MONGODB_HOST'] || "localhost" %>:27017
       options:
+        # Note that all options listed below are Ruby driver client options (the mongo gem).
+        # Please refer to the driver documentation of the version of the mongo gem you are using
+        # for the most up-to-date list of options.
+        #
         # Change the default write concern. (default = { w: 1 })
         # write:
         #   w: 1
+
         # Change the default read preference. Valid options for mode are: :secondary,
         # :secondary_preferred, :primary, :primary_preferred, :nearest
         # (default: primary)
@@ -33,11 +42,13 @@ development:
         #   - 'dbOwner'
 
         # Change the default authentication mechanism. Valid options are: :scram,
-        # :mongodb_cr, :mongodb_x509, and :plain. (default on 3.0 is :scram, default
-        # on 2.4 and 2.6 is :plain)
+        # :mongodb_cr, :mongodb_x509, and :plain. Note that all authentication
+        # mechanisms require username and password, with the exception of :mongodb_x509.
+        # Default on mongoDB 3.0 is :scram, default on 2.4 and 2.6 is :plain.
         # auth_mech: :scram
 
-        # The database or source to authenticate the user against. (default: admin)
+        # The database or source to authenticate the user against.
+        # (default: the database specified above or admin)
         # auth_source: admin
 
         # Force a the driver cluster to behave in a certain manner instead of auto-
@@ -46,11 +57,11 @@ development:
         # connect: :direct
 
         # Changes the default time in seconds the server monitors refresh their status
-        # via ismaster commands. (default: 10)
+        # via hello commands. (default: 10)
         # heartbeat_frequency: 10
 
-        # The time in seconds for selecting servers for a near read preference. (default: 5)
-        # local_threshold: 5
+        # The time in seconds for selecting servers for a near read preference. (default: 0.015)
+        # local_threshold: 0.015
 
         # The timeout in seconds for selecting a server for an operation. (default: 30)
         # server_selection_timeout: 30
@@ -66,11 +77,16 @@ development:
         # wait_queue_timeout: 5
 
         # The time to wait to establish a connection before timing out, in seconds.
-        # (default: 5)
-        # connect_timeout: 5
+        # (default: 10)
+        # connect_timeout: 10
 
-        # The timeout to wait to execute operations on a socket before raising an error.
-        # (default: 5)
+        # How long to wait for a response for each operation sent to the
+        # server. This timeout should be set to a value larger than the
+        # processing time for the longest operation that will be executed
+        # by the application. Note that this is a client-side timeout;
+        # the server may continue executing an operation after the client
+        # aborts it with the SocketTimeout exception.
+        # (default: nil, meaning no timeout)
         # socket_timeout: 5
 
         # The name of the replica set to connect to. Servers provided as seeds that do
@@ -91,21 +107,45 @@ development:
         # A passphrase for the private key.
         # ssl_key_pass_phrase: password
 
-        # Whether or not to do peer certification validation. (default: false)
+        # Whether to do peer certification validation. (default: true)
         # ssl_verify: true
 
-        # The file containing a set of concatenated certification authority certifications
+        # The file containing concatenated certificate authority certificates
         # used to validate certs passed from the other end of the connection.
         # ssl_ca_cert: /path/to/ca.cert
 
+        # Whether to truncate long log lines. (default: true)
+        # truncate_logs: true
 
   # Configure Mongoid specific options. (optional)
   options:
-    # Includes the root model name in json serialization. (default: false)
+    # Application name that is printed to the mongodb logs upon establishing
+    # a connection in server versions >= 3.4. Note that the name cannot
+    # exceed 128 bytes. It is also used as the database name if the
+    # database name is not explicitly defined. (default: nil)
+    # app_name: MyApplicationName
+
+    # Mark belongs_to associations as required by default, so that saving a
+    # model with a missing belongs_to association will trigger a validation
+    # error. (default: true)
+    # belongs_to_required_by_default: true
+
+    # Raise an exception when a field is redefined. (default: false)
+    # duplicate_fields_exception: false
+
+    # Include the root model name in json serialization. (default: false)
     # include_root_in_json: false
 
     # Include the _type field in serialization. (default: false)
     # include_type_for_serialization: false
+
+    # Whether to join nested persistence contexts for atomic operations
+    # to parent contexts by default. (default: false)
+    # join_contexts: false
+
+    # Set the Mongoid and Ruby driver log levels when Mongoid is not using
+    # Ruby on Rails logger instance. (default: :info)
+    # log_level: :info
 
     # Preload all models in development, needed when models use
     # inheritance. (default: false)
@@ -119,11 +159,20 @@ development:
     # existing method. (default: false)
     # scope_overwrite_exception: false
 
-    # Use Active Support's time zone in conversions. (default: true)
+    # Use ActiveSupport's time zone in time operations instead of
+    # the Ruby default time zone. See the time zone section below for
+    # further information. (default: true)
     # use_activesupport_time_zone: true
 
-    # Ensure all times are UTC in the app side. (default: false)
+    # Return stored times as UTC. See the time zone section below for
+    # further information. Most applications should not use this option.
+    # (default: false)
     # use_utc: false
+
+    # (Deprecated) In MongoDB 4.0 and earlier, set whether to create
+    # indexes in the background by default. (default: false)
+    # background_indexing: false
+
 test:
   clients:
     default:

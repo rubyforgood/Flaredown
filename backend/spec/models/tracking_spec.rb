@@ -25,9 +25,13 @@ RSpec.describe Tracking, type: :model do
     it { is_expected.to validate_presence_of(:user) }
     it { is_expected.to validate_presence_of(:trackable) }
     it { is_expected.to validate_inclusion_of(:trackable_type).in_array(%w[Condition Symptom Treatment]) }
+
     context "without foreign key checks" do
+      subject { create :tracking, :for_condition, :active }
+
       before { disable_foreign_key_checks("trackings") }
       after { enable_foreign_key_checks("trackings") }
+
       it do
         is_expected.to(
           validate_uniqueness_of(:user_id)

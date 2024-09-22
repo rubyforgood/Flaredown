@@ -4,6 +4,6 @@ if ENV["RAILS_ENV"] == "test"
   SimpleCov.start "rails"
   puts "required simplecov"
 end
-APP_PATH = File.expand_path("../../config/application", __FILE__)
+APP_PATH = File.expand_path("../config/application", __dir__)
 require_relative "../config/boot"
 require "rails/commands"
