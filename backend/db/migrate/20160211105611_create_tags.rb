@@ -1,4 +1,4 @@
-class CreateTags < ActiveRecord::Migration
+class CreateTags < ActiveRecord::Migration[7.1]
   def up
     create_table :tags do |t|
       t.timestamps null: false
