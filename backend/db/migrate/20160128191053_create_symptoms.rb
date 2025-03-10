@@ -1,4 +1,4 @@
-class CreateSymptoms < ActiveRecord::Migration[5.1]
+class CreateSymptoms < ActiveRecord::Migration[7.1]
   def up
     create_table :symptoms do |t|
       t.boolean :global, default: true

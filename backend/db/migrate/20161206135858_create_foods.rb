@@ -1,4 +1,4 @@
-class CreateFoods < ActiveRecord::Migration[5.1]
+class CreateFoods < ActiveRecord::Migration[7.1]
   def change
     create_table :foods do |t|
       t.string :ndb_no

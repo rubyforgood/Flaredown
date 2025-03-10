@@ -1,4 +1,4 @@
-class AddRejectedTypeToProfiles < ActiveRecord::Migration[5.1]
+class AddRejectedTypeToProfiles < ActiveRecord::Migration[7.1]
   def change
     add_column :profiles, :rejected_type, :string
   end

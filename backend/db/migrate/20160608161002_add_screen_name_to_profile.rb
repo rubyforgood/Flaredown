@@ -1,4 +1,4 @@
-class AddScreenNameToProfile < ActiveRecord::Migration[5.1]
+class AddScreenNameToProfile < ActiveRecord::Migration[7.1]
   def change
     add_column :profiles, :screen_name, :string
   end

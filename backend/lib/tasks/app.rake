@@ -44,7 +44,7 @@ namespace :app do
       Rake::Task["db:create"].invoke
       Rake::Task["db:migrate"].invoke
     end
-    Rake::Task["db:fixtures:load"].invoke
+    #Rake::Task["db:schema:load"].invoke
     Rake::Task["db:seed"].invoke
   rescue ::PG::ObjectInUse => e
     puts "\n#{e.message}.".red
