@@ -1,4 +1,4 @@
-class CreateConditions < ActiveRecord::Migration
+class CreateConditions < ActiveRecord::Migration[7.1]
   def up
     create_table :conditions do |t|
       t.boolean :global, default: true

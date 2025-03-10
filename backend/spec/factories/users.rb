@@ -26,9 +26,22 @@
 #
 
 FactoryBot.define do
+
+  def initialize_profile
+    create_profile!(
+      checkin_reminder: true,
+      onboarding_step_id: "onboarding-personal",
+      most_recent_doses: {},
+      most_recent_conditions_positions: {},
+      most_recent_symptoms_positions: {},
+      most_recent_treatments_positions: {}
+    )
+  end
+
   factory :user do
     sequence(:email) { |number| "user#{number}@example.com" }
     password { "password123" }
     password_confirmation { "password123" }
+    after(:create) { initialize_profile }
   end
 end

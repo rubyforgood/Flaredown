@@ -1,4 +1,4 @@
-class AddCheckinReminderToProfiles < ActiveRecord::Migration
+class AddCheckinReminderToProfiles < ActiveRecord::Migration[7.1]
   def change
     add_column :profiles, :checkin_reminder, :boolean, default: false
     add_column :profiles, :checkin_reminder_at, :datetime

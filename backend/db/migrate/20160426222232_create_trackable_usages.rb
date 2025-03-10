@@ -1,4 +1,4 @@
-class CreateTrackableUsages < ActiveRecord::Migration
+class CreateTrackableUsages < ActiveRecord::Migration[7.1]
   def change
     create_table :trackable_usages do |t|
       t.belongs_to :user, index: true, foreign_key: true

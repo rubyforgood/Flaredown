@@ -1,4 +1,4 @@
-class AddDemographicsToProfiles < ActiveRecord::Migration
+class AddDemographicsToProfiles < ActiveRecord::Migration[7.1]
   def change
     add_column :profiles, :ethnicity_ids_string, :string
     add_column :profiles, :day_habit_id, :string
