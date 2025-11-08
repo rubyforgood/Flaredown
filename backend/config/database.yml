@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   host: <%= ENV.fetch('PG_DATABASE_HOST') { 'localhost' } %>
   database: flaredown_development
-  username: postgres
+  username: <%= ENV.fetch('PG_DATABASE_USERNAME') { 'postgres' } %>
   password: password
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000

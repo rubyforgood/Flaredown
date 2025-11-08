@@ -1,4 +1,4 @@
-class AddTrackableAbilityToFoods < ActiveRecord::Migration
+class AddTrackableAbilityToFoods < ActiveRecord::Migration[5.1]
   def change
     add_column :foods, :trackable_usages_count, :integer, default: 0
 

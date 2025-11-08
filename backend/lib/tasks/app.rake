@@ -42,8 +42,9 @@ namespace :app do
     if Rails.env.development?
       Rake::Task["db:drop"].invoke
       Rake::Task["db:create"].invoke
+      Rake::Task["db:migrate"].invoke
     end
-    Rake::Task["db:structure:load"].invoke
+    Rake::Task["db:fixtures:load"].invoke
     Rake::Task["db:seed"].invoke
   rescue ::PG::ObjectInUse => e
     puts "\n#{e.message}.".red
