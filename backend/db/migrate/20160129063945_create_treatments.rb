@@ -1,4 +1,4 @@
-class CreateTreatments < ActiveRecord::Migration
+class CreateTreatments < ActiveRecord::Migration[5.1]
   def up
     create_table :treatments do |t|
       t.boolean :global, default: true

@@ -1,4 +1,4 @@
-class AddNotifyTokenToProfiles < ActiveRecord::Migration
+class AddNotifyTokenToProfiles < ActiveRecord::Migration[5.1]
   def up
     add_column :profiles, :notify_token, :string
     Profile.find_each(batch_size: 500) do |profile|

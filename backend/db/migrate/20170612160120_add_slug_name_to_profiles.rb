@@ -1,4 +1,4 @@
-class AddSlugNameToProfiles < ActiveRecord::Migration
+class AddSlugNameToProfiles < ActiveRecord::Migration[5.1]
   def up
     add_column :profiles, :slug_name, :string
     add_index :profiles, :slug_name

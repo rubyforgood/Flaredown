@@ -1,4 +1,4 @@
-class CreateUserTags < ActiveRecord::Migration
+class CreateUserTags < ActiveRecord::Migration[5.1]
   def change
     create_table :user_tags do |t|
       t.belongs_to :user, index: true, foreign_key: true
