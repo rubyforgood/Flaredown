@@ -21,7 +21,6 @@
     "active-model-adapter": "^2.2.0",
     "bourbon": "^5.1.0",
     "bourbon-neat": "^4.0.0",
-    "bower": "^1.8.14",
     "broccoli-asset-rev": "^2.5.0",
     "broccoli-funnel": "^1.1.0",
     "broccoli-merge-trees": "^1.2.4",
@@ -73,9 +72,8 @@
     "torii": "^0.8.0"
   },
   "engines": {
-    "bower": "1.x",
-    "node": "14.x",
-    "npm": "7.x"
+    "node": "13.x",
+    "npm": "6.x"
   },
   "ember-addon": {
     "paths": [
@@ -84,6 +82,7 @@
     ]
   },
   "dependencies": {
+    "bower": "^1.8.14",
     "mobile-drag-drop": "^2.2.0",
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",

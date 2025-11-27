@@ -1,0 +1,4 @@
+heroku buildpacks --app flaredown-webapp
+heroku buildpacks:set heroku/nodejs --app flaredown-webapp -i 2
+heroku buildpacks:set https://github.com/lstoll/heroku-buildpack-monorepo --app flaredown-webapp -i 1
+ 
