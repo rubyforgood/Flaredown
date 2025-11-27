@@ -6,7 +6,7 @@
 
 Flaredown makes it easy for people to track symptoms over time, and learn how to control them. Our goal is to analyze the aggregate data from users of this tool to understand the probable effects of treatments and environmental stressors on chronic illness.
 
-Help would be appreciated! Please join us in [slack #flaredown](https://rubyforgood.herokuapp.com/), raise a GitHub issue, or email <contact@flaredown>.
+Help would be appreciated! Please join us in [slack #flaredown](https://join.slack.com/t/rubyforgood/shared_invite/zt-3ej5oyume-_rhWjVi3bYi83RyS3nuxTg), raise a GitHub issue, or email <contact@flaredown>.
 
 ## Environment
 
