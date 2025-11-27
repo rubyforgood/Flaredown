@@ -12,9 +12,10 @@
   "author": "",
   "scripts": {
     "postinstall": "patch-package && ./node_modules/bower/bin/bower install",
-    "build": "ember build",
+    "build": "ember build --environment=production",
     "lint:js": "eslint ./*.js app config lib server tests",
-    "start": "ember serve --port 4300",
+    "start": "serve dist -l ${PORT:-4300} -s",
+    "dev": "ember serve --port 4300",
     "test": "ember test"
   },
   "devDependencies": {
@@ -92,6 +93,7 @@
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.43",
     "pusher-js": "^3.0.0",
+    "serve": "^14.2.5",
     "spinkit": "^2.0.1"
   }
 }
