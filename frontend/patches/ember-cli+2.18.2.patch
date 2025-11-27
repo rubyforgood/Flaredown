@@ -1,0 +1,11 @@
+diff --git a/node_modules/ember-cli/lib/utilities/attempt-never-index.js b/node_modules/ember-cli/lib/utilities/attempt-never-index.js
+index 383a2ad..b4b10a5 100644
+--- a/node_modules/ember-cli/lib/utilities/attempt-never-index.js
++++ b/node_modules/ember-cli/lib/utilities/attempt-never-index.js
+@@ -23,5 +23,5 @@ module.exports = function(dir) {
+   const fs = require('fs-extra');
+ 
+   fs.mkdirsSync(dir);
+-  fs.writeFileSync(path);
++  fs.writeFileSync(path, '');
+ };

@@ -11,7 +11,7 @@
   "license": "MIT",
   "author": "",
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
+    "postinstall": "patch-package && ./node_modules/bower/bin/bower install",
     "build": "ember build",
     "lint:js": "eslint ./*.js app config lib server tests",
     "start": "ember serve --port 4300",
@@ -21,6 +21,7 @@
     "active-model-adapter": "^2.2.0",
     "bourbon": "^5.1.0",
     "bourbon-neat": "^4.0.0",
+    "bower": "^1.8.14",
     "broccoli-asset-rev": "^2.5.0",
     "broccoli-funnel": "^1.1.0",
     "broccoli-merge-trees": "^1.2.4",
@@ -66,13 +67,17 @@
     "ember-time-field": "^0.3.0",
     "ember-truth-helpers": "1.2.0",
     "eslint-plugin-ember": "^5.0.0",
+    "fs-extra": "^4.0.3",
     "loader.js": "^4.2.3",
+    "patch-package": "^8.0.1",
     "phantomjs-prebuilt": "^2.1.16",
     "sass": "^1.68.0",
-    "torii": "^0.8.0"
+    "torii": "^0.8.0",
+    "webpack": "^5.103.0"
   },
   "engines": {
-    "node": "13.x",
+    "bower": "1.x",
+    "node": "14.x",
     "npm": "6.x"
   },
   "ember-addon": {
@@ -82,7 +87,6 @@
     ]
   },
   "dependencies": {
-    "bower": "^1.8.14",
     "mobile-drag-drop": "^2.2.0",
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",
