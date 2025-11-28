@@ -79,6 +79,11 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
     ENV.apiHost = 'http://localhost:3000';
     var STATIC_URL = 'http://localhost:4300';
+
+    // Disable reCAPTCHA in test environment to prevent loading errors
+    ENV.gReCaptcha = {
+      siteKey: null
+    };
   }
 
   if (environment === 'production') {
