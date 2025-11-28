@@ -71,7 +71,6 @@
     "fs-extra": "^4.0.3",
     "loader.js": "^4.2.3",
     "patch-package": "^8.0.1",
-    "phantomjs-prebuilt": "^2.1.16",
     "sass": "^1.68.0",
     "torii": "^0.8.0",
     "webpack": "^5.103.0"
@@ -92,7 +91,7 @@
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.43",
-    "pusher-js": "^3.0.0",
+    "pusher-js": "^8.4.0",
     "serve": "^14.2.5",
     "spinkit": "^2.0.1"
   }
