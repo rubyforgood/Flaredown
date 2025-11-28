@@ -26,7 +26,7 @@ gem "cancancan-mongoid", "~> 2.0"
 gem "devise", "~> 4.8"
 gem "devise_invitable", "~> 2.0"
 gem "omniauth", "~> 1.8"
-gem "omniauth-facebook", "~> 3.0"
+gem "omniauth-facebook", "~> 10.0"
 
 # Colored output to console
 gem "colored"
