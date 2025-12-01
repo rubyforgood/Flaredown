@@ -87,7 +87,7 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    ast (2.4.2)
+    ast (2.4.3)
     awesome_print (1.9.2)
     base64 (0.3.0)
     bcrypt (3.1.20)
@@ -96,9 +96,9 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    better_html (2.1.1)
-      actionview (>= 6.0)
-      activesupport (>= 6.0)
+    better_html (2.2.0)
+      actionview (>= 7.0)
+      activesupport (>= 7.0)
       ast (~> 2.0)
       erubi (~> 1.4)
       parser (>= 2.4)
@@ -172,12 +172,12 @@ GEM
       railties (>= 6.1)
     drb (2.2.3)
     erb (6.0.0)
-    erb_lint (0.5.0)
+    erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
       rainbow
-      rubocop
+      rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
     factory_bot (6.4.6)
@@ -231,7 +231,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.7.1)
+    json (2.16.0)
     jwt (2.3.0)
     kaminari-actionview (1.2.1)
       actionview
@@ -241,7 +241,7 @@ GEM
       kaminari-core (~> 1.0)
       mongoid
     kdtree (0.4)
-    language_server-protocol (3.17.0.3)
+    language_server-protocol (3.17.0.5)
     launchy (2.5.2)
       addressable (~> 2.8)
     letter_opener (1.10.0)
@@ -312,14 +312,15 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    parallel (1.24.0)
-    parser (3.3.0.5)
+    parallel (1.27.0)
+    parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
     pg (1.5.6)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
+    prism (1.6.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -396,7 +397,7 @@ GEM
       tsort
     redis-client (0.26.1)
       connection_pool
-    regexp_parser (2.9.0)
+    regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
     request_store (1.5.0)
@@ -435,8 +436,9 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.31.2)
-      parser (>= 3.3.0.4)
+    rubocop-ast (1.48.0)
+      parser (>= 3.3.7.2)
+      prism (~> 1.4)
     rubocop-performance (1.20.2)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.30.0, < 2.0)
@@ -493,7 +495,7 @@ GEM
     tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.5.0)
+    unicode-display_width (2.6.0)
     uniform_notifier (1.16.0)
     vcr (6.3.1)
       base64
