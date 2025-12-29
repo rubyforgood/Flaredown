@@ -26,7 +26,6 @@
 #
 
 FactoryBot.define do
-
   def initialize_profile
     create_profile!(
       checkin_reminder: true,

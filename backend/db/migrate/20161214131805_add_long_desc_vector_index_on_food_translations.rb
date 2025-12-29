@@ -1,4 +1,4 @@
-class AddLongDescVectorIndexOnFoodTranslations < ActiveRecord::Migration[7.1]
+class AddLongDescVectorIndexOnFoodTranslations < ActiveRecord::Migration[5.1]
   disable_ddl_transaction!
 
   def up
