@@ -23,7 +23,7 @@ gem "puma", "5.6.8"
 # Authentication libraries
 gem "cancancan", "~> 3.6.1"
 gem "cancancan-mongoid", "~> 2.0"
-gem "devise", "~> 4.8"
+gem "devise", "~> 5.0"
 gem "devise_invitable", "~> 2.0"
 gem "omniauth", "~> 1.8"
 gem "omniauth-facebook", "~> 3.0"
