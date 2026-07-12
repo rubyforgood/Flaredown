@@ -293,7 +293,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
-    nio4r (2.7.3)
+    nio4r (2.7.5)
     nokogiri (1.18.10)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -335,7 +335,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (5.6.8)
+    puma (8.0.2)
       nio4r (~> 2.0)
     pusher (2.0.3)
       httpclient (~> 2.8)
@@ -553,7 +553,7 @@ DEPENDENCIES
   pry-byebug
   pry-doc
   pry-rails
-  puma (= 5.6.8)
+  puma (= 8.0.2)
   pusher
   rack-cors (= 2.0.1)
   rack-timeout
