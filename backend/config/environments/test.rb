@@ -53,6 +53,12 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Likewise, don't push Active Job work to Redis from the suite. This overrides
+  # the :sidekiq adapter set in config/application.rb, and only affects the
+  # Active Job path (perform_later/deliver_later); workers invoked through
+  # Sidekiq's own perform_async are unaffected.
+  config.active_job.queue_adapter = :test
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
