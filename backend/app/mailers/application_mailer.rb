@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: Rails.application.secrets.smtp_email_from
+  default from: ENV["SMTP_EMAIL_FROM"]
 
   REGEXP = /\A\s*([-\p{L}\d+._]{1,64})@((?:[-\p{L}\d]+\.)+\p{L}{2,})\s*\z/i
 

@@ -12,7 +12,7 @@ RSpec.describe CheckinReminderMailer, type: :mailer do
     end
 
     it "renders the body" do
-      body = I18n.t("checkin_reminder_mailer.body.text", base_url: Rails.application.secrets.base_url)
+      body = I18n.t("checkin_reminder_mailer.body.text", base_url: ENV["BASE_URL"])
       expect(mail.body.encoded.strip.tr('\"', "")).to match(body)
     end
 

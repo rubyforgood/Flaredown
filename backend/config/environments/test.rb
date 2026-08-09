@@ -1,5 +1,17 @@
 require "active_support/core_ext/integer/time"
 
+# Values the `test:` block of config/secrets.yml used to supply. Set here rather
+# than in a .env file so the suite runs the same way locally, in Docker and in
+# CI. This file is loaded before config/initializers, which is where
+# TOMORROW_IO_KEY is read. The API key is not a real one: it has to match the
+# URI recorded in the WeatherRetriever VCR cassettes.
+#
+# Assigned when blank rather than when nil: env-example ships SMTP_EMAIL_FROM
+# with an empty value, so a developer's .env sets it to "" rather than leaving
+# it unset.
+ENV["TOMORROW_IO_KEY"] = "MY_MEGA_TOMORROW_IO_KEY" if ENV["TOMORROW_IO_KEY"].blank?
+ENV["SMTP_EMAIL_FROM"] = "from@some.email" if ENV["SMTP_EMAIL_FROM"].blank?
+
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped

@@ -1,1 +1,1 @@
-Tomorrowiorb.api_key = Rails.application.secrets.tomorrow_io_key
+Tomorrowiorb.api_key = ENV["TOMORROW_IO_KEY"]
