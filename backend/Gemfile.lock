@@ -516,7 +516,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.9)
+  active_model_serializers (~> 0.9.8)
   annotate
   awesome_print
   better_errors
