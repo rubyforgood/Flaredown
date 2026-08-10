@@ -10,10 +10,10 @@ Help would be appreciated! Please join us in [slack #flaredown](https://join.sla
 
 ## Environment
 
-* PostgreSQL 12.8
-* MongoDB 4.4.9
-* Redis 6.2.3
-* Ruby 3.2.3
+* PostgreSQL 17.10
+* MongoDB 8.0.28
+* Redis 7.2.15
+* Ruby 3.4.10
 * Node 12.22.6
 
 ## Installation
