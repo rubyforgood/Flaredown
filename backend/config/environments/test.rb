@@ -12,6 +12,11 @@ require "active_support/core_ext/integer/time"
 ENV["TOMORROW_IO_KEY"] = "MY_MEGA_TOMORROW_IO_KEY" if ENV["TOMORROW_IO_KEY"].blank?
 ENV["SMTP_EMAIL_FROM"] = "from@some.email" if ENV["SMTP_EMAIL_FROM"].blank?
 
+# Also not real. The Facebook strategy captures these at boot, and spec/requests/
+# omniauth_spec.rb signs its fbsr_<app_id> cookie with the secret.
+ENV["FACEBOOK_APP_ID"] = "1234567890" if ENV["FACEBOOK_APP_ID"].blank?
+ENV["FACEBOOK_APP_SECRET"] = "facebook-app-secret" if ENV["FACEBOOK_APP_SECRET"].blank?
+
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped

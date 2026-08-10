@@ -237,7 +237,12 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], {}
+  # auth_scheme is set explicitly because oauth2 2.0 changed its default from
+  # :request_body to :basic_auth. Facebook's token endpoint reads client_id and
+  # client_secret as request parameters and ignores the Authorization header, so
+  # taking the new default would send it a request with no credentials at all.
+  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"],
+    client_options: {auth_scheme: :request_body}
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
