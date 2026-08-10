@@ -54,6 +54,13 @@ Visit your app at [http://localhost:4300](http://localhost:4300).
 
 Frontend dependency changes are handled automatically by Docker. For a full reset of all local Docker data, including databases and dependency volumes, run `docker compose down -v`, then run the database setup command again afterward.
 
+If you already had the stack running before the PostgreSQL 17 and MongoDB 8 upgrade, you have to do that reset once. Neither database will start against a data directory written by an older major version, so `docker compose --profile dev up` fails until the old volumes are gone. The local data is disposable:
+
+```bash
+docker compose down -v
+docker compose --profile tools run --rm app-setup
+```
+
 ### Running natively
 
 #### Mac Prerequisites
@@ -79,7 +86,6 @@ On macOS, you can install `libpq` by running `brew install libpq && brew link --
 ```bash
 cd backend
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-bundle config set --local without 'production'
 bundle config set --local jobs 5
 bundle config set --local retry 10
 bundle install
