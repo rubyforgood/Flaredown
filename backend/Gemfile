@@ -6,7 +6,7 @@ ruby "3.2.3"
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 8.1.0"
 gem "rake"
 gem "sprockets-rails"
 
@@ -16,16 +16,16 @@ gem "sprockets-rails"
 gem "active_model_serializers", "~> 0.9.8"
 
 # Use postgresql and mongo as the database for Active Record
-gem "mongoid", "8.1.3" # https://www.mongodb.com/docs/mongoid/current/reference/compatibility/#rails-compatibility
+gem "mongoid", "9.1.0" # https://www.mongodb.com/docs/mongoid/current/reference/compatibility/#rails-compatibility
 gem "pg"
 
 # Use Puma as the app server
-gem "puma", "5.6.8"
+gem "puma", "8.0.2"
 
 # Authentication libraries
 gem "cancancan", "~> 3.6.1"
 gem "cancancan-mongoid", "~> 2.0"
-gem "devise", "~> 4.8"
+gem "devise", "~> 5.0"
 gem "devise_invitable", "~> 2.0"
 gem "omniauth", "~> 2.1"
 gem "omniauth-facebook", "~> 11.0"
@@ -34,7 +34,7 @@ gem "omniauth-facebook", "~> 11.0"
 gem "colored"
 
 # Background jobs
-gem "sidekiq", "~> 7.3"
+gem "sidekiq", "~> 8.1"
 
 # Structured seed data
 gem "seedbank"
@@ -84,7 +84,9 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate"
+  # Successor to `annotate`, which was last released in 2022 and requires
+  # activerecord < 8.0.
+  gem "annotaterb"
   gem "awesome_print"
   gem "better_errors"
   gem "brakeman"

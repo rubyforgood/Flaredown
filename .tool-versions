@@ -2,4 +2,4 @@ nodejs 12.22.6
 ruby 3.2.3
 postgres 12.8
 mongodb 4.4.9
-redis 6.2.3
+redis 7.2.15

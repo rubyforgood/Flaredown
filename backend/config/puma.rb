@@ -1,11 +1,5 @@
 #!/usr/bin/env puma
 
-# Load "path" as a rackup file.
-#
-# The default is "config.ru".
-#
-rackup DefaultRackup
-
 port Integer(ENV.fetch("PORT") { 3000 })
 environment ENV.fetch("RACK_ENV") { "development" }
 
@@ -33,7 +27,7 @@ before_fork do
   ActiveRecord::Base.connection_pool.disconnect!
 end
 
-on_worker_boot do
+before_worker_boot do
   # Worker specific setup for Rails 4.1+
   # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
   ActiveSupport.on_load(:active_record) do

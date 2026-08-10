@@ -97,7 +97,7 @@ services:
     expose:
       - 27017
   redis:
-    image: redis:6.2.3-alpine
+    image: redis:7.2.15-alpine
     volumes:
       - redis:/data
     expose:
