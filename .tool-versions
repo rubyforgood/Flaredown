@@ -1,5 +1,5 @@
 nodejs 12.22.6
 ruby 3.4.10
-postgres 12.8
-mongodb 4.4.9
+postgres 17.10
+mongodb 8.0.28
 redis 7.2.15

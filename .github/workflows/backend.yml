@@ -98,7 +98,7 @@ jobs:
         options: --entrypoint redis-server
 
       db:
-        image: postgres:12.8-alpine
+        image: postgres:17.10-alpine
         env:
           POSTGRES_PASSWORD: password
         ports:
@@ -125,7 +125,7 @@ jobs:
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.10.0
         with:
-          mongodb-version: 4.4.9
+          mongodb-version: 8.0.28
 
       - name: Load database schema
         run: |

@@ -81,7 +81,7 @@ services:
     profiles:
       - tools
   postgres:
-    image: postgres:12.8-alpine
+    image: postgres:17.10-alpine
     restart: always
     environment:
       POSTGRES_PASSWORD: password
@@ -91,7 +91,7 @@ services:
     expose:
       - 5432
   mongodb:
-    image: mongo:4.4.9
+    image: mongo:8.0.28
     volumes:
       - mongodb:/data/db
     expose:
