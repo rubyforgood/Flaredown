@@ -9,6 +9,15 @@ RSpec.describe "OmniAuth", type: :request do
   let(:app_id) { ENV["FACEBOOK_APP_ID"] }
   let(:app_secret) { ENV["FACEBOOK_APP_SECRET"] }
 
+  # Devise clears OmniAuth's path_prefix when it loads and sets it to
+  # omniauth_path_prefix only when devise_for draws its routes. The strategy runs
+  # ahead of the router, so until that has happened it takes callback_path to be
+  # "/facebook/callback", does not recognise these requests as callbacks, and
+  # passes them to the app with no omniauth.auth. Routes are drawn lazily unless
+  # eager loading is on, which is why the examples below otherwise pass in a full
+  # run -- an earlier spec has already drawn them -- and fail on their own.
+  before { Rails.application.reload_routes_unless_loaded }
+
   around do |example|
     example.run
   ensure
