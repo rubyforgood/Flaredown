@@ -17,6 +17,11 @@ ENV["SMTP_EMAIL_FROM"] = "from@some.email" if ENV["SMTP_EMAIL_FROM"].blank?
 ENV["FACEBOOK_APP_ID"] = "1234567890" if ENV["FACEBOOK_APP_ID"].blank?
 ENV["FACEBOOK_APP_SECRET"] = "facebook-app-secret" if ENV["FACEBOOK_APP_SECRET"].blank?
 
+# Flaredown.config.discourse_url is a bare ENV.fetch, so rendering
+# SessionSerializer raises KeyError wherever DISCOURSE_URL is unset. A .env hides
+# that locally; CI has no .env.
+ENV["DISCOURSE_URL"] = "https://community.flaredown.test" if ENV["DISCOURSE_URL"].blank?
+
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
