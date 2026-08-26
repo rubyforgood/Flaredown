@@ -46,7 +46,7 @@ class Food < ActiveRecord::Base
           ) OR foods.global IS TRUE
         ) f
         WHERE f.searchable @@ to_tsquery(:lang, :query)
-        ORDER BY ts_rank_cd(f.searchable, to_tsquery(:lang, :query), 1) DESC
+        ORDER BY ts_rank_cd(f.searchable, to_tsquery(:lang, :query), 1) DESC, f.id ASC
         LIMIT :limit
       SQL
     end
