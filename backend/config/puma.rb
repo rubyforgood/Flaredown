@@ -1,11 +1,5 @@
 #!/usr/bin/env puma
 
-# Load "path" as a rackup file.
-#
-# The default is "config.ru".
-#
-rackup DefaultRackup
-
 port Integer(ENV.fetch("PORT") { 3000 })
 environment ENV.fetch("RACK_ENV") { "development" }
 
