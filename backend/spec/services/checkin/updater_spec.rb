@@ -91,6 +91,32 @@ RSpec.describe Checkin::Updater do
       end
     end
 
+    context "when the current location is resubmitted with no weather" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {postal_code: original_position.postal_code, weather_id: nil}
+        )
+      end
+
+      it "preserves the current weather" do
+        expect(subject.weather_id).to eq(weather.id)
+      end
+    end
+
+    context "when blank weather is submitted without a location" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {weather_id: nil}
+        )
+      end
+
+      it "preserves the current weather" do
+        expect(subject.weather_id).to eq(weather.id)
+      end
+    end
+
     context "when submitted weather belongs to a different position" do
       let(:other_position) { Position.create!(postal_code: "90210") }
       let(:other_weather) do

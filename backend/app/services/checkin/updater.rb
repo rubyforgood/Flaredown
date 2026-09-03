@@ -31,16 +31,18 @@ class Checkin::Updater
     if location_requested?
       if position.persisted?
         update_params[:position_id] = position.id
-        if position.id != checkin.position_id || update_params.key?(:weather_id)
+        if position.id != checkin.position_id
           update_params[:weather_id] = matching_weather_id(update_params[:weather_id], position.id)
+        else
+          update_params = validate_weather_update(update_params, position.id)
         end
       else
         # A rejected replacement must not detach weather that still belongs to
         # the existing, valid check-in location.
         update_params = update_params.except(:weather_id)
       end
-    elsif update_params.key?(:weather_id)
-      update_params[:weather_id] = matching_weather_id(update_params[:weather_id], checkin.position_id)
+    else
+      update_params = validate_weather_update(update_params, checkin.position_id)
     end
 
     checkin.update!(update_params)
@@ -74,6 +76,15 @@ class Checkin::Updater
       position_id: position_id,
       date: checkin.date.to_date
     )&.id
+  end
+
+  def validate_weather_update(update_params, position_id)
+    return update_params unless update_params.key?(:weather_id)
+    return update_params.except(:weather_id) if update_params[:weather_id].blank?
+
+    update_params.merge(
+      weather_id: matching_weather_id(update_params[:weather_id], position_id)
+    )
   end
 
   def update_trackables_positions(params)

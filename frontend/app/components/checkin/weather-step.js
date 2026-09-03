@@ -77,11 +77,13 @@ export default Component.extend({
         .queryRecord('weather', { date: get(checkin, 'date'), postal_code: newPostalCode })
         // Weather can be missing for a day (no forecast, API down) without the
         // location being wrong, so save the location either way. If this is only
-        // a retry of the saved location, however, a request failure must not
-        // erase weather the check-in already has.
-        .catch(() => newPostalCode === existingPostalCode ? existingWeather : null)
+        // a retry of the saved location, however, an empty result or request
+        // failure must not erase weather the check-in already has.
+        .catch(() => null)
         .then(record => {
-          setProperties(checkin, { postalCode: newPostalCode, weather: record });
+          const weather = record || (newPostalCode === existingPostalCode ? existingWeather : null);
+
+          setProperties(checkin, { postalCode: newPostalCode, weather });
 
           return checkin.save();
         })

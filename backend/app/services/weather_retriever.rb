@@ -22,40 +22,41 @@ class WeatherRetriever
 
       return if forecast_miss_cached?(date, position.id)
 
-      # This row lock is the short-term concurrency guard for a cache fill. The
-      # existing unique index on (date, postal_code) cannot arbitrate these writes
-      # because current records are keyed by position_id and leave postal_code nil.
-      # Long term, deduplicate existing rows and replace it with a unique index on
-      # (date, position_id), which will enforce the invariant for every writer.
+      if historical_date?(date, position)
+        Rails.logger.warn "No forecast for #{date} at position #{position.id}: the date is before the position's current day"
+
+        return
+      end
+
+      # Do not hold a database transaction open while waiting on the weather
+      # vendor. Concurrent misses may fetch the same forecast, but the short lock
+      # below still makes their final cache write converge on one record.
+      forecast = get_forecast(position)
+
+      if forecast.status != 200
+        Rails.logger.warn "No forecast found for position #{position.id}: response code was #{forecast.status}"
+        cache_forecast_miss(date, position.id)
+
+        return
+      end
+
+      day = daily_forecast_on(forecast, date, position)
+
+      if day.blank?
+        Rails.logger.warn "No forecast for #{date} at position #{position.id}: the date is outside the forecast window"
+        cache_forecast_miss(date, position.id)
+
+        return
+      end
+
+      # The existing unique index on (date, postal_code) cannot arbitrate these
+      # writes because current records are keyed by position_id and leave
+      # postal_code nil. Until a unique (date, position_id) index can replace it,
+      # serialize just the final cache recheck and write.
       position.with_lock do
         weather = Weather.find_by(date: date, position_id: position.id)
 
         return weather if weather.present?
-        return if forecast_miss_cached?(date, position.id)
-
-        if historical_date?(date, position)
-          Rails.logger.warn "No forecast for #{date} at position #{position.id}: the date is before the position's current day"
-
-          return
-        end
-
-        forecast = get_forecast(position)
-
-        if forecast.status != 200
-          Rails.logger.warn "No forecast found for position #{position.id}: response code was #{forecast.status}"
-          cache_forecast_miss(date, position.id)
-
-          return
-        end
-
-        day = daily_forecast_on(forecast, date, position)
-
-        if day.blank?
-          Rails.logger.warn "No forecast for #{date} at position #{position.id}: the date is outside the forecast window"
-          cache_forecast_miss(date, position.id)
-
-          return
-        end
 
         create_weather(day, date, position.id)
       end

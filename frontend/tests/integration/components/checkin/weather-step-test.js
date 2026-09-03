@@ -217,6 +217,27 @@ test('retrying the saved location does not erase weather when the request fails'
   });
 });
 
+test('retrying the saved location does not erase weather when no weather is returned', function(assert) {
+  const existingWeather = weatherStub();
+  const checkin = checkinStub({
+    postalCode: '55403',
+    locationName: LOCATION_NAME,
+    weather: existingWeather,
+  });
+
+  weatherResponse = () => RSVP.resolve(null);
+  this.set('checkin', checkin);
+
+  this.render(hbs`{{checkin/weather-step checkin=checkin}}`);
+  this.$('.grey.clickable').click();
+  this.$('.save-status').click();
+
+  return settled().then(() => {
+    assert.equal(get(checkin, 'weather'), existingWeather, 'the existing weather is preserved');
+    assert.equal(this.$('.measurement').length, 5, 'the existing measurements remain visible');
+  });
+});
+
 test('changing location clears weather from the old location when the request fails', function(assert) {
   const checkin = checkinStub({
     postalCode: '55403',

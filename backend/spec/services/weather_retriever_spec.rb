@@ -186,11 +186,11 @@ describe WeatherRetriever, :vcr do
       }.to_json
     end
 
-    it "serializes the cache fill and only requests one vendor forecast" do
+    it "does not hold the position lock while requesting the vendor forecast" do
       result = concurrent_retrieval(forecast_body)
 
-      expect(result[:second_reached_vendor]).to be(false)
-      expect(result[:call_count]).to eq(1)
+      expect(result[:second_reached_vendor]).to be(true)
+      expect(result[:call_count]).to eq(2)
       expect(result[:weathers].map(&:id).uniq.length).to eq(1)
       expect(Weather.where(date: date, position_id: position.id).count).to eq(1)
     end
@@ -198,14 +198,12 @@ describe WeatherRetriever, :vcr do
     context "when the position is being created by the requests" do
       before { position.destroy! }
 
-      it "creates one position and only requests one vendor forecast" do
+      it "creates one position and one weather record" do
         first_geocode_started = Queue.new
         release_first_geocode = Queue.new
         second_geocode_started = Queue.new
         geocode_count = 0
         geocode_count_lock = Mutex.new
-        forecast_count = 0
-        forecast_count_lock = Mutex.new
         geocode_result = double(
           city: "Minneapolis", state: "Minnesota", province: nil,
           country: "United States", latitude: 44.967486, longitude: -93.2897678
@@ -224,10 +222,7 @@ describe WeatherRetriever, :vcr do
 
           [geocode_result]
         end
-        allow(Tomorrowiorb).to receive(:forecast) do
-          forecast_count_lock.synchronize { forecast_count += 1 }
-          response
-        end
+        allow(Tomorrowiorb).to receive(:forecast).and_return(response)
 
         retrieve = lambda do
           ActiveRecord::Base.connection_pool.with_connection do
@@ -252,7 +247,7 @@ describe WeatherRetriever, :vcr do
         resolved_positions = Position.where(postal_code: postal_code)
 
         expect(second_reached_geocoder).to be(false)
-        expect(forecast_count).to eq(1)
+        expect(geocode_count).to eq(1)
         expect(weathers.map(&:id).uniq.length).to eq(1)
         expect(resolved_positions.count).to eq(1)
         expect(Weather.where(date: date, position_id: resolved_positions.first.id).count).to eq(1)
