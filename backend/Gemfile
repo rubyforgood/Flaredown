@@ -46,7 +46,7 @@ gem "countries", require: "countries/global"
 gem "pusher"
 
 # ActiveRecord data translations
-gem "globalize"
+gem "globalize", "~> 7.1"
 
 # Abort requests that are taking too long
 gem "rack-timeout"
