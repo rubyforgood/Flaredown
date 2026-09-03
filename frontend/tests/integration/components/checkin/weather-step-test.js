@@ -117,7 +117,7 @@ test('clicking the saved location reopens the input, prefilled', function(assert
   this.set('checkin', checkinStub({ postalCode: '55403', locationName: LOCATION_NAME }));
 
   this.render(hbs`{{checkin/weather-step checkin=checkin}}`);
-  this.$('.clickable').click();
+  this.$('.grey.clickable').click();
 
   assert.equal(this.$('input').val(), '55403', 'the input is prefilled with the postal code');
   assert.ok(text(this).indexOf('Set location:') > -1, 'the copy is about changing the location');
@@ -193,6 +193,48 @@ test('it keeps the location when the weather request fails', function(assert) {
   return settled().then(() => {
     assert.equal(get(checkin, 'postalCode'), '55403', 'the postal code is still saved');
     assert.equal(this.$('input').length, 0, 'the location input is hidden');
+  });
+});
+
+test('retrying the saved location does not erase weather when the request fails', function(assert) {
+  const existingWeather = weatherStub();
+  const checkin = checkinStub({
+    postalCode: '55403',
+    locationName: LOCATION_NAME,
+    weather: existingWeather,
+  });
+
+  weatherResponse = () => RSVP.reject(new Error('500 from the weather endpoint'));
+  this.set('checkin', checkin);
+
+  this.render(hbs`{{checkin/weather-step checkin=checkin}}`);
+  this.$('.grey.clickable').click();
+  this.$('.save-status').click();
+
+  return settled().then(() => {
+    assert.equal(get(checkin, 'weather'), existingWeather, 'the existing weather is preserved');
+    assert.equal(this.$('.measurement').length, 5, 'the existing measurements remain visible');
+  });
+});
+
+test('changing location clears weather from the old location when the request fails', function(assert) {
+  const checkin = checkinStub({
+    postalCode: '55403',
+    locationName: LOCATION_NAME,
+    weather: weatherStub(),
+  });
+
+  weatherResponse = () => RSVP.reject(new Error('500 from the weather endpoint'));
+  this.set('checkin', checkin);
+
+  this.render(hbs`{{checkin/weather-step checkin=checkin}}`);
+  this.$('.grey.clickable').click();
+  this.$('input').val('10001').trigger('input');
+  this.$('.save-status').click();
+
+  return settled().then(() => {
+    assert.equal(get(checkin, 'postalCode'), '10001', 'the new location is saved');
+    assert.equal(get(checkin, 'weather'), null, 'weather from the old location is cleared');
   });
 });
 

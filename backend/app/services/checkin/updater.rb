@@ -25,7 +25,25 @@ class Checkin::Updater
   end
 
   def update!
-    checkin.update!(permitted_params.except(:postal_code))
+    position = requested_position
+    update_params = permitted_params.except(:postal_code)
+
+    if location_requested?
+      if position.persisted?
+        update_params[:position_id] = position.id
+        if position.id != checkin.position_id || update_params.key?(:weather_id)
+          update_params[:weather_id] = matching_weather_id(update_params[:weather_id], position.id)
+        end
+      else
+        # A rejected replacement must not detach weather that still belongs to
+        # the existing, valid check-in location.
+        update_params = update_params.except(:weather_id)
+      end
+    elsif update_params.key?(:weather_id)
+      update_params[:weather_id] = matching_weather_id(update_params[:weather_id], checkin.position_id)
+    end
+
+    checkin.update!(update_params)
 
     if checkin.date.today?
       save_most_recent_doses
@@ -33,17 +51,30 @@ class Checkin::Updater
     end
     update_trackable_usages
 
-    position = Position.find_or_create_by(postal_code: permitted_params[:postal_code])
-
-    if position.persisted?
-      checkin.position_id = position.id
-      checkin.save!
-    end
-
     checkin
   end
 
   private
+
+  def location_requested?
+    permitted_params.key?(:postal_code)
+  end
+
+  def requested_position
+    return unless location_requested?
+
+    Position.find_or_create_by(postal_code: permitted_params[:postal_code])
+  end
+
+  def matching_weather_id(weather_id, position_id)
+    return if weather_id.blank?
+
+    Weather.find_by(
+      id: weather_id,
+      position_id: position_id,
+      date: checkin.date.to_date
+    )&.id
+  end
 
   def update_trackables_positions(params)
     %w[Condition Symptom Treatment].each do |trackable_class_name|

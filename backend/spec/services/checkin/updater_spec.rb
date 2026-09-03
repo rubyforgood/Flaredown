@@ -22,6 +22,113 @@ RSpec.describe Checkin::Updater do
     end
   end
 
+  context "when changing the check-in location" do
+    let(:original_position) { Position.create!(postal_code: "55403") }
+    let(:weather) { create(:weather, date: checkin.date.to_date, position_id: original_position.id) }
+
+    before do
+      checkin.update!(position_id: original_position.id, weather_id: weather.id)
+    end
+
+    context "when the replacement location cannot be geocoded" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {note: "Updated note", postal_code: "not a place", weather_id: nil}
+        )
+      end
+
+      before { allow(Geocoder).to receive(:search).with("not a place").and_return([]) }
+
+      it "preserves the existing position and weather while saving other changes" do
+        updated = subject
+
+        expect(updated.note).to eq("Updated note")
+        expect(updated.position_id).to eq(original_position.id)
+        expect(updated.weather_id).to eq(weather.id)
+      end
+    end
+
+    context "when the replacement location is valid but has no weather" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {postal_code: "10001", weather_id: nil}
+        )
+      end
+
+      it "updates the position and clears weather from the old location" do
+        updated = subject
+
+        expect(updated.position_id).not_to eq(original_position.id)
+        expect(updated.weather_id).to be_nil
+      end
+    end
+
+    context "when a partial request omits weather for a valid replacement location" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {postal_code: "10001"}
+        )
+      end
+
+      it "does not retain weather from the old location" do
+        expect(subject.weather_id).to be_nil
+      end
+    end
+
+    context "when a partial request resubmits the current valid location" do
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {postal_code: original_position.postal_code}
+        )
+      end
+
+      it "preserves the current weather" do
+        expect(subject.weather_id).to eq(weather.id)
+      end
+    end
+
+    context "when submitted weather belongs to a different position" do
+      let(:other_position) { Position.create!(postal_code: "90210") }
+      let(:other_weather) do
+        create(:weather, date: checkin.date.to_date, postal_code: nil, position_id: other_position.id)
+      end
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {postal_code: "10001", weather_id: other_weather.id}
+        )
+      end
+
+      it "does not attach weather from the wrong location" do
+        expect(subject.weather_id).to be_nil
+      end
+    end
+
+    context "when submitted weather matches the replacement location and date" do
+      let(:replacement_position) { Position.create!(postal_code: "10001") }
+      let(:replacement_weather) do
+        create(:weather, date: checkin.date.to_date, postal_code: nil, position_id: replacement_position.id)
+      end
+      let(:params) do
+        ActionController::Parameters.new(
+          id: checkin.id.to_s,
+          checkin: {postal_code: replacement_position.postal_code, weather_id: replacement_weather.id}
+        )
+      end
+
+      it "attaches the matching weather" do
+        updated = subject
+
+        expect(updated.position_id).to eq(replacement_position.id)
+        expect(updated.weather_id).to eq(replacement_weather.id)
+      end
+    end
+  end
+
   context "when recent dose exists for treatment in user's profile" do
     let(:treatment) { create(:treatment) }
 

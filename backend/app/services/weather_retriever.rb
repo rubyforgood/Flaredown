@@ -1,39 +1,79 @@
+require "digest"
+
 class WeatherRetriever
+  FORECAST_MISS_TTL = 5.minutes
+
   class << self
     def get(date, postal_code)
       date = date.to_date
-      position = Position.find_or_create_by(postal_code: postal_code)
+      position = find_or_create_position(postal_code)
+
+      if position.persisted?
+        weather = Weather.find_by(date: date, position_id: position.id)
+
+        return weather if weather.present?
+      end
 
       if position&.latitude.blank? || position&.longitude.blank?
-        Rails.logger.warn "No coordinates found for postal_code #{postal_code}: #{position.inspect}"
+        Rails.logger.warn "No coordinates found for weather position"
 
         return
       end
 
-      weather = Weather.find_by(date: date, position_id: position.id)
+      return if forecast_miss_cached?(date, position.id)
 
-      return weather if weather.present?
+      # This row lock is the short-term concurrency guard for a cache fill. The
+      # existing unique index on (date, postal_code) cannot arbitrate these writes
+      # because current records are keyed by position_id and leave postal_code nil.
+      # Long term, deduplicate existing rows and replace it with a unique index on
+      # (date, position_id), which will enforce the invariant for every writer.
+      position.with_lock do
+        weather = Weather.find_by(date: date, position_id: position.id)
 
-      forecast = get_forecast(position)
+        return weather if weather.present?
+        return if forecast_miss_cached?(date, position.id)
 
-      if forecast.status != 200
-        Rails.logger.warn "No forecast found for position #{position.inspect}: response code was #{forecast.status}, headers were #{forecast.headers}, body contained #{forecast.body}"
+        if historical_date?(date, position)
+          Rails.logger.warn "No forecast for #{date} at position #{position.id}: the date is before the position's current day"
 
-        return
+          return
+        end
+
+        forecast = get_forecast(position)
+
+        if forecast.status != 200
+          Rails.logger.warn "No forecast found for position #{position.id}: response code was #{forecast.status}"
+          cache_forecast_miss(date, position.id)
+
+          return
+        end
+
+        day = daily_forecast_on(forecast, date, position)
+
+        if day.blank?
+          Rails.logger.warn "No forecast for #{date} at position #{position.id}: the date is outside the forecast window"
+          cache_forecast_miss(date, position.id)
+
+          return
+        end
+
+        create_weather(day, date, position.id)
       end
-
-      day = daily_forecast_on(forecast, date, position)
-
-      if day.blank?
-        Rails.logger.warn "No forecast for #{date} at position #{position.inspect}: the forecast endpoint only covers today onwards"
-
-        return
-      end
-
-      create_weather(day, date, position.id)
     end
 
     private
+
+    # Position has no unique postal_code index, so a row lock cannot protect the
+    # instant before that row exists. A transaction-scoped advisory lock on a
+    # one-way location hash makes first creation converge on one row without
+    # putting the submitted address in SQL logs.
+    def find_or_create_position(postal_code)
+      Position.transaction(requires_new: true) do
+        lock_id = Digest::SHA256.digest(postal_code.to_s).unpack1("q>")
+        Position.connection.execute("SELECT pg_advisory_xact_lock(#{lock_id})")
+        Position.find_or_create_by(postal_code: postal_code)
+      end
+    end
 
     def get_forecast(position)
       Tomorrowiorb.forecast(
@@ -51,9 +91,33 @@ class WeatherRetriever
     # window (a back-filled check-in, say) have no forecast to store.
     def daily_forecast_on(forecast, date, position)
       daily = JSON.parse(forecast.body, symbolize_names: true).dig(:timelines, :daily) || []
-      time_zone = NearestTimeZone.to(position.latitude.to_f, position.longitude.to_f).presence || "UTC"
+      time_zone = time_zone_for(position)
 
       daily.find { |day| local_date(day[:time], time_zone) == date }
+    end
+
+    def historical_date?(date, position)
+      date < Time.current.in_time_zone(time_zone_for(position)).to_date
+    end
+
+    def time_zone_for(position)
+      NearestTimeZone.to(position.latitude.to_f, position.longitude.to_f).presence || "UTC"
+    end
+
+    def forecast_miss_cached?(date, position_id)
+      Rails.cache.read(forecast_miss_cache_key(date, position_id)) == true
+    end
+
+    def cache_forecast_miss(date, position_id)
+      Rails.cache.write(
+        forecast_miss_cache_key(date, position_id),
+        true,
+        expires_in: FORECAST_MISS_TTL
+      )
+    end
+
+    def forecast_miss_cache_key(date, position_id)
+      "weather_retriever/forecast_miss/#{position_id}/#{date.iso8601}"
     end
 
     def local_date(time, time_zone)
@@ -85,9 +149,9 @@ class WeatherRetriever
 
       Rails.logger.warn "Could not store weather for #{date} at position #{position_id}: #{weather.errors.full_messages.to_sentence}"
 
-      # Another request cached this day while we were fetching it. Hand back the
-      # record that won rather than an unsaved one, whose nil id callers would
-      # store as "this check-in has no weather".
+      # Do not hand callers an unsaved record whose nil id would be persisted as
+      # "this check-in has no weather". The lookup also tolerates a writer that
+      # does not participate in the position-row locking protocol above.
       Weather.find_by(date: date, position_id: position_id)
     end
 
