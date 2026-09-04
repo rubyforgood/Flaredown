@@ -41,3 +41,13 @@ RSpec.configure do |config|
 end
 
 ActiveRecord::Migration.maintain_test_schema!
+
+# Every assertion helper in ActiveJob::TestHelper raises when the test adapter is
+# missing, except `perform_enqueued_jobs` with a block: that one returns early and
+# runs nothing, so a job spec would quietly assert nothing rather than fail. Rails
+# 8.1 still behaves this way, so this guard is not a temporary workaround.
+unless ActiveJob::Base.queue_adapter.is_a?(ActiveJob::QueueAdapters::TestAdapter)
+  raise "Active Job is using #{ActiveJob::Base.queue_adapter.class}, not the test adapter. " \
+    "`perform_enqueued_jobs` would silently do nothing. Set " \
+    "`config.active_job.queue_adapter = :test` in config/environments/test.rb."
+end
