@@ -31,9 +31,7 @@ module Api
 
         if time_changed || initial_onboarding_reminder
           delete_old_job(@profile.reminder_job_id)
-
-          job_id = CheckinReminderJob.perform_in(get_reminder_time.minutes, @profile.id, @profile.checkin_reminder_at)
-          @profile.update_column(:reminder_job_id, job_id)
+          @profile.update_column(:reminder_job_id, schedule_reminder)
         end
 
         current_user.profile.reload
@@ -57,6 +55,19 @@ module Api
         user_time = checkin_reminder_at && checkin_reminder_at.values.join(":")
 
         {checkin_reminder_at: user_time.try(:to_time, :utc)}
+      end
+
+      # Returns the id of the newly scheduled job, or nil when there is no time to
+      # remind at (e.g. the user opted out of reminders during onboarding).
+      def schedule_reminder
+        return if @profile.checkin_reminder_at.blank?
+
+        CheckinReminderJob.perform_in(
+          get_reminder_time.minutes,
+          @profile.id,
+          # Sidekiq only accepts native JSON types as job arguments.
+          @profile.checkin_reminder_at.iso8601
+        )
       end
 
       def get_reminder_time
