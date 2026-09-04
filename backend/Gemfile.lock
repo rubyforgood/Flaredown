@@ -558,7 +558,7 @@ DEPENDENCIES
   pusher
   rack-cors (= 2.0.1)
   rack-timeout
-  rails (~> 7.2.0)
+  rails (~> 7.2.0, >= 7.2.3.2)
   rake
   rspec-rails
   ruby-progressbar
