@@ -5,7 +5,13 @@ module Api
       skip_before_action :authenticate_user!, only: [:index]
 
       def index
-        render json: @comments.where(:id.in => params[:ids]).order_by(created_at: :asc)
+        # CommentSerializer renders each comment's reactions, so without eager loading
+        # this is one extra query per comment. PostsController#index already does the
+        # same for its own associations.
+        render json: @comments
+          .where(:id.in => params[:ids])
+          .includes(:reactions)
+          .order_by(created_at: :asc)
       end
 
       def show
