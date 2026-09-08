@@ -15,8 +15,8 @@ module Api
         authorize! :destroy, reaction
 
         if reaction.destroy
-          UpdatePostCountersJob.perform_async(parent_id: reaction_params[:reactable_id],
-            parent_type: reaction_params[:reactable_type])
+          UpdatePostCountersJob.perform_async("parent_id" => reaction_params[:reactable_id],
+            "parent_type" => reaction_params[:reactable_type])
 
           head :no_content
         else
@@ -32,8 +32,8 @@ module Api
         authorize! method_name, reaction
 
         if reaction.save
-          UpdatePostCountersJob.perform_async(parent_id: reaction_params[:reactable_id],
-            parent_type: reaction_params[:reactable_type])
+          UpdatePostCountersJob.perform_async("parent_id" => reaction_params[:reactable_id],
+            "parent_type" => reaction_params[:reactable_type])
 
           unless reaction.encrypted_user_id == reaction.reactable.encrypted_user_id
             Notification.create(
