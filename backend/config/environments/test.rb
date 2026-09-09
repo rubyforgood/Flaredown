@@ -41,6 +41,12 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Run jobs through the Active Job test adapter rather than Sidekiq. Until
+  # Rails 7.2, ActiveJob::TestHelper installed this itself; it now leaves an
+  # explicitly-configured adapter alone (config/application.rb sets :sidekiq),
+  # which silently turns perform_enqueued_jobs into a no-op.
+  config.active_job.queue_adapter = :test
+
   # Fail on deprecation warnings rather than printing them. Deprecations are the
   # advance notice of the next framework upgrade's breakage, and on stderr they
   # scroll past unread.

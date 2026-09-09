@@ -6,7 +6,10 @@ ruby "3.2.3"
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.1.0"
+# The lower bound is not redundant with the lockfile: 7.2.3.2 caps `minitest < 6`,
+# so a from-scratch resolve prefers the newer minitest and silently settles on
+# 7.2.3 -- dropping the 7.2.3.1 and 7.2.3.2 security releases.
+gem "rails", "~> 7.2.0", ">= 7.2.3.2"
 gem "rake"
 gem "sprockets-rails"
 
