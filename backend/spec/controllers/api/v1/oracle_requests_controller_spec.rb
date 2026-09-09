@@ -32,7 +32,7 @@ RSpec.describe Api::V1::OracleRequestsController do
   end
 
   describe "update" do
-    let!(:oracle_request) { OracleRequest.create!(age: 30, token: "the-token") }
+    let!(:oracle_request) { create(:oracle_request, age: 30, token: "the-token") }
 
     it "accepts an edit from the holder of the token" do
       request.headers["X-Oracle-Token"] = "the-token"
@@ -74,7 +74,7 @@ RSpec.describe Api::V1::OracleRequestsController do
   end
 
   describe "show" do
-    let!(:oracle_request) { OracleRequest.create!(age: 30, token: "the-token") }
+    let!(:oracle_request) { create(:oracle_request, age: 30, token: "the-token") }
 
     it "returns the request" do
       get :show, params: {id: oracle_request.id.to_s}

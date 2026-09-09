@@ -29,7 +29,7 @@ RSpec.describe Api::V1::PromotionRatesController do
   end
 
   describe "update" do
-    let!(:promotion_rate) { PromotionRate.create!(checkin_id: checkin.id, score: 5) }
+    let!(:promotion_rate) { create(:promotion_rate, checkin_id: checkin.id, score: 5) }
 
     it "updates the score and feedback" do
       put :update, params: {
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::PromotionRatesController do
   end
 
   describe "show" do
-    let!(:promotion_rate) { PromotionRate.create!(checkin_id: checkin.id, score: 5) }
+    let!(:promotion_rate) { create(:promotion_rate, checkin_id: checkin.id, score: 5) }
 
     it "returns the rating" do
       get :show, params: {id: promotion_rate.id.to_s}

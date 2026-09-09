@@ -6,7 +6,7 @@ RSpec.describe Api::V1::TopicFollowingsController do
   let(:symptom) { create(:symptom) }
 
   let!(:topic_following) do
-    TopicFollowing.create!(encrypted_user_id: user.encrypted_id, tag_ids: [tag.id])
+    create(:topic_following, encrypted_user_id: user.encrypted_id, tag_ids: [tag.id])
   end
 
   before { sign_in user }
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::TopicFollowingsController do
 
     context "when it belongs to somebody else" do
       let!(:topic_following) do
-        TopicFollowing.create!(encrypted_user_id: create(:user).encrypted_id)
+        create(:topic_following)
       end
 
       it "is refused" do
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::TopicFollowingsController do
 
     context "when it belongs to somebody else" do
       let!(:topic_following) do
-        TopicFollowing.create!(encrypted_user_id: create(:user).encrypted_id)
+        create(:topic_following)
       end
 
       it "is refused and changes nothing" do

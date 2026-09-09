@@ -52,7 +52,7 @@ RSpec.describe Api::V1::HarveyBradshawIndicesController do
 
   describe "show" do
     let!(:index) do
-      HarveyBradshawIndex.create!(attributes.merge(checkin_id: checkin.id))
+      create(:harvey_bradshaw_index, attributes.merge(checkin_id: checkin.id))
     end
 
     it "returns the requested index" do
