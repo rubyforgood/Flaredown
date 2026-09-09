@@ -35,25 +35,37 @@ RSpec.describe Api::V1::PostablesController do
 
       get :index
 
-      expect(response_body[:posts].map { |p| p[:_id] }).to include parent_post_id
+      expect(response_body[:posts].map { |p| p[:id] }).to include parent_post_id
       expect(response_body[:postables].first[:post_ids]).not_to include parent_post_id
     end
 
-    # Documents current behaviour rather than endorsing it. PostableSerializer builds its
-    # sideloads with a bare `ActiveModel::ArraySerializer`, which resolves a serializer by
-    # unqualified class name -- it looks for `PostSerializer`, but this app defines
-    # `Api::V1::PostSerializer`. AMS finds nothing and falls back to `DefaultSerializer`,
-    # i.e. the raw Mongoid document. So these records are emitted with `_id` instead of
-    # `id`, without the serializer's `type`/`user_name`/`priority`, and with
-    # `encrypted_user_id` exposed. Passing `namespace:` or `each_serializer:` would fix it,
-    # but that changes the payload shape for both clients, so it is left alone here.
-    it "emits sideloaded records as raw documents, not through Api::V1 serializers" do
+    it "emits sideloaded records through the Api::V1 serializers" do
       get :index
 
       sideloaded_post = response_body[:posts].first
-      expect(sideloaded_post).to have_key "_id"
-      expect(sideloaded_post).to have_key "encrypted_user_id"
-      expect(sideloaded_post).not_to have_key "type"
+      expect(sideloaded_post).to have_key "id"
+      expect(sideloaded_post).not_to have_key "_id"
+      expect(sideloaded_post["type"]).to eq "post"
+      expect(sideloaded_post).to have_key "user_name"
+    end
+
+    # The raw document carries the Postgres/Mongo join key. Nothing outside the API needs
+    # it, and it used to be handed to the client whenever this endpoint was called.
+    it "does not expose encrypted_user_id on sideloaded records" do
+      get :index
+
+      expect(response_body[:posts].first).not_to have_key "encrypted_user_id"
+      expect(response_body[:comments].first).not_to have_key "encrypted_user_id"
+    end
+
+    it "serializes the other sideloaded collections too" do
+      tag = create(:tag)
+      create(:post, encrypted_user_id: user.encrypted_id, tag_ids: [tag.id])
+
+      get :index
+
+      expect(response_body[:tags].first).to have_key "id"
+      expect(response_body[:tags].first).not_to have_key "_id"
     end
   end
 end

@@ -78,25 +78,19 @@ RSpec.describe Api::V1::PatternsController do
     end
   end
 
-  # `show` reads its id from `pattern_params`, which is `params.require(:pattern)` and
-  # does not permit `:id` -- so a plain GET has no `pattern` key and fails the require,
-  # and even supplying one yields a nil id. The action ignores the `@pattern` that
-  # `load_and_authorize_resource` already loaded for it. Documented rather than fixed:
-  # the clients do not call it, and repairing it is an API change.
   describe "show" do
-    it "returns 422 for a plain request" do
+    it "returns the requested pattern" do
       get :show, params: {id: own_pattern.id.to_s}
 
-      expect(response).to have_http_status :unprocessable_entity
-      expect(response_body[:errors]).to include "Required parameter missing: pattern"
+      expect(response).to have_http_status :ok
+      expect(response_body[:pattern][:id]).to eq own_pattern.id.to_s
+      expect(response_body[:pattern][:name]).to eq "Flare week"
     end
 
-    it "returns 404 even when a pattern id is nested in the expected place" do
-      get :show, params: {id: own_pattern.id.to_s, pattern: {id: own_pattern.id.to_s}}
+    it "refuses to return somebody else's pattern" do
+      get :show, params: {id: their_pattern.id.to_s}
 
-      # `:id` is not in the permit list, so the lookup runs with a nil id and Mongoid
-      # raises DocumentNotFound -- the pattern is there, the action just cannot see it.
-      expect(response).to have_http_status :not_found
+      expect(response.status).to eq 401
     end
   end
 end

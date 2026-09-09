@@ -24,14 +24,19 @@ RSpec.describe PatternCreator do
       expect(SymmetricEncryption.decrypt(pattern.encrypted_user_id).to_i).to eq user.id
     end
 
-    # start_at and end_at are read off the options and kept as attributes, but `create`
-    # never passes them to Pattern, so a range supplied here is silently dropped.
-    it "does not persist the start and end dates it was given" do
-      creator = build(start_at: 3.days.ago.to_date.to_s, end_at: Date.current.to_s)
+    it "persists the start and end dates it was given" do
+      start_at = 3.days.ago.to_date.to_s
+      end_at = Date.current.to_s
 
-      pattern = creator.create
+      pattern = build(start_at: start_at, end_at: end_at).create
 
-      expect(creator.start_at).to be_present
+      expect(pattern.start_at.to_date).to eq start_at.to_date
+      expect(pattern.end_at.to_date).to eq end_at.to_date
+    end
+
+    it "leaves the dates unset when none are given" do
+      pattern = build.create
+
       expect(pattern.start_at).to be_nil
       expect(pattern.end_at).to be_nil
     end

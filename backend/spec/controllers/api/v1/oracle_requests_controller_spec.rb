@@ -57,18 +57,20 @@ RSpec.describe Api::V1::OracleRequestsController do
       expect(answer["correction"]).to eq "Eczema"
     end
 
-    # The refusal branch renders `status: :unauthorised` -- the British spelling, which
-    # is not one of Rack's status symbols -- so it raises ArgumentError instead of
-    # answering 401. In production `ExceptionLogger`'s `rescue_from "Exception"` turns
-    # that into a 422 quoting the invalid symbol. The edit is still correctly refused,
-    # which is why this has gone unnoticed; only the status and message are wrong.
-    it "refuses an edit from somebody without the token, but with the wrong status" do
+    it "refuses an edit from somebody without the token" do
       request.headers["X-Oracle-Token"] = "the-wrong-token"
 
-      expect {
-        put :update, params: {id: oracle_request.id.to_s, oracle_request: {age: 31}}
-      }.to raise_error(ArgumentError, /unauthorised/)
+      put :update, params: {id: oracle_request.id.to_s, oracle_request: {age: 31}}
 
+      expect(response).to have_http_status :unauthorized
+      expect(response_body[:errors]).to eq "Unauthorized"
+      expect(oracle_request.reload.age).to eq 30
+    end
+
+    it "refuses an edit when no token is supplied at all" do
+      put :update, params: {id: oracle_request.id.to_s, oracle_request: {age: 31}}
+
+      expect(response).to have_http_status :unauthorized
       expect(oracle_request.reload.age).to eq 30
     end
   end

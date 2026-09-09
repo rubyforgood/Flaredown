@@ -14,6 +14,8 @@ class PatternCreator
     Pattern.create(
       name: name,
       includes: includes,
+      start_at: start_at,
+      end_at: end_at,
       encrypted_user_id: encrypted_user_id
     )
   end
