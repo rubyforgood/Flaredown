@@ -7,9 +7,10 @@ module Api
         if date.blank? && params.require(:page)
           render json: current_user.checkins.where(:note.nin => [nil, ""]).order_by(date: :desc).page(params[:page]).per(10)
         else
-          render json: current_user.checkins.includes([:harvey_bradshaw_index, :promotion_rate, :conditions, :symptoms, :treatments]).select { |x|
-            x.date.to_date == Date.parse(date)
-          }
+          day = Date.parse(date)
+          checkins = current_user.checkins.by_date(day.beginning_of_day, day.end_of_day)
+          # to_a so the criteria is loaded and eager loaded once, not once per serializer pass
+          render json: checkins.includes([:harvey_bradshaw_index, :promotion_rate, :conditions, :symptoms, :treatments]).to_a
         end
       end
 

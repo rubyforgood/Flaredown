@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import moment from 'moment';
 import TrackablesFromType from 'flaredown/mixins/trackables-from-type';
+import { isCheckinToday } from 'flaredown/utils/checkin-day';
 
 const {
   get,
@@ -24,14 +24,19 @@ export default Component.extend(TrackablesFromType, {
 
   setupTracking() {
     this.get('tracking').setup({
-      at: new Date(this.get('checkin.date')),
+      // TrackingsController#create stamps `start_at` with the server's own clock,
+      // so the window we look existing trackings up in has to be anchored to now.
+      // Anchoring it to the check-in's stored date puts it a day out for anyone
+      // whose local day differs from UTC's, and `untrack` then misses the tracking
+      // it is meant to remove. These lookups only happen on today's check-in.
+      at: new Date(),
       trackableType: this.get('trackableType').capitalize()
     });
   },
 
   checkin: alias('model.checkin'),
-  isTodaysCheckin: computed('checkin', function() {
-    return moment(this.get('checkin.date')).isSame(new Date(), 'day');
+  isTodaysCheckin: computed('checkin.date', function() {
+    return isCheckinToday(this.get('checkin.date'));
   }),
 
   sortedTrackeds: computed('trackeds.{[],@each.position}', function() {

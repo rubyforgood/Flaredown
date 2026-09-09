@@ -44,7 +44,7 @@ CI (`.github/workflows/{backend,frontend,native}.yml`) uses path filters — bac
 The backend uses **both PostgreSQL and MongoDB simultaneously**, split by data type:
 
 - **PostgreSQL (ActiveRecord)** — relational/reference data: `User` (Devise auth), `Condition`, `Symptom`, `Treatment`, `Food`, `Tag`, `Profile`, `Weather`, and the `user_*` join tables. These models subclass `ActiveRecord::Base` and carry a `# == Schema Information` header. Schema lives in `db/schema.rb` + `db/structure.sql`; migrations in `db/migrate/`.
-- **MongoDB (Mongoid 8)** — high-volume, user-generated, schemaless data: `Checkin` (the core daily symptom/treatment/tag log), `Comment`, `Reaction`, `Pattern`, `Notification`, `HarveyBradshawIndex`, `Feedback`, `PromotionRate`, `OracleRequest`. These `include Mongoid::Document`. Config in `config/mongoid.yml`.
+- **MongoDB (Mongoid 9)** — high-volume, user-generated, schemaless data: `Checkin` (the core daily symptom/treatment/tag log), `Comment`, `Reaction`, `Pattern`, `Notification`, `HarveyBradshawIndex`, `Feedback`, `PromotionRate`, `OracleRequest`. These `include Mongoid::Document`. Config in `config/mongoid.yml`.
 
 The two stores are linked by an **encrypted foreign key**: Mongo documents store `encrypted_user_id` (symmetric-encryption gem, see `config/symmetric-encryption.yml`) rather than a plain `user_id`, and dereference it back to the Postgres `User`. When querying check-in data by user, filter on `encrypted_user_id`, not `user_id`. `Checkin` embeds condition/symptom/treatment sub-documents inline.
 

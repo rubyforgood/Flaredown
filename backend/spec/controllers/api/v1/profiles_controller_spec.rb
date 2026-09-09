@@ -1,4 +1,9 @@
 require "rails_helper"
+require "sidekiq/testing"
+
+# Requiring sidekiq/testing switches Sidekiq into fake mode for the whole suite;
+# keep the default as-is and opt in per example group instead.
+Sidekiq::Testing.disable!
 
 RSpec.describe Api::V1::ProfilesController do
   let(:user) { create(:user) }
@@ -78,6 +83,64 @@ RSpec.describe Api::V1::ProfilesController do
         it "returns 422 (unprocessable_entity)" do
           put :update, params: {id: profile.id, profile: profile_attributes}
           expect(response.status).to eq 422
+        end
+      end
+    end
+
+    context "reminder scheduling" do
+      before { sign_in user }
+
+      around do |example|
+        Sidekiq::Testing.fake! do
+          CheckinReminderJob.clear
+          example.run
+        end
+      end
+
+      context "when the user opts out of reminders" do
+        let(:opt_out_params) { {checkin_reminder: false, onboarding_reminder: true} }
+
+        it "responds successfully without scheduling a reminder" do
+          put :update, params: {id: profile.id, profile: opt_out_params}
+
+          expect(response.status).to eq 200
+          expect(CheckinReminderJob.jobs).to be_empty
+        end
+
+        it "clears a previously scheduled job id" do
+          profile.update_column(:reminder_job_id, "stale-job-id")
+
+          put :update, params: {id: profile.id, profile: opt_out_params}
+
+          expect(profile.reload.reminder_job_id).to be_nil
+        end
+      end
+
+      context "when the user picks a reminder time" do
+        let(:reminder_params) do
+          {
+            checkin_reminder: true,
+            onboarding_reminder: true,
+            time_zone_name: "America/New_York",
+            checkin_reminder_at: {hours: 20, minutes: 30}
+          }
+        end
+
+        it "schedules a reminder and stores its job id" do
+          put :update, params: {id: profile.id, profile: reminder_params}
+
+          expect(response.status).to eq 200
+          expect(CheckinReminderJob.jobs.size).to eq 1
+          expect(profile.reload.reminder_job_id).to eq CheckinReminderJob.jobs.first["jid"]
+        end
+
+        it "passes only native JSON types to the job" do
+          put :update, params: {id: profile.id, profile: reminder_params}
+
+          profile_id, reminder_at = CheckinReminderJob.jobs.first["args"]
+          expect(profile_id).to eq profile.id
+          expect(reminder_at).to be_a String
+          expect(Time.parse(reminder_at).utc.strftime("%H:%M")).to eq "20:30"
         end
       end
     end

@@ -22,6 +22,15 @@ RSpec.describe Api::V1::CheckinsController do
         returned_checkin = response_body[:checkins][0]
         expect(Date.parse(returned_checkin[:date])).to eq Date.parse(date)
       end
+
+      it "filters by date in the database instead of loading every checkin" do
+        commands = capture_mongo_commands { get :index, params: {date: date} }
+
+        checkin_finds = commands.select { |command| command.command["find"] == "checkins" }
+
+        expect(checkin_finds.size).to eq 1
+        expect(checkin_finds.first.command["filter"]["date"].keys).to match_array ["$gte", "$lte"]
+      end
     end
     context "when checkin doesn't exist for the passed date" do
       it "returns no results" do
