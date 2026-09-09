@@ -24,9 +24,19 @@ describe CollectionRetriever do
         let(:objects) { create_list(model_slug, 20) }
         let(:object_ids) { objects.map(&:id) }
 
+        # Nested slices give every object a known occurrence count. The first 2
+        # objects land in all five check-ins, the next 3 in four of them, and so
+        # on, so the counts run:
+        #
+        #   5 5 | 4 4 4 | 3 3 3 3 3 || 2 2 2 2 2 | 1 1 1 1 1
+        #
+        # The top ten therefore have a real spread (5 down to 3), and the tenth
+        # and eleventh differ (3 vs 2), so the `$limit 10` in
+        # CollectionRetriever#most_popular never has to break a tie at the
+        # cut-off. `object_ids.sample(5)` left both of those to chance.
         before do
-          5.times do
-            create(:checkin, ids_key => object_ids.sample(5))
+          [20, 15, 10, 5, 2].each do |size|
+            create(:checkin, ids_key => object_ids.first(size))
           end
         end
 
@@ -49,9 +59,11 @@ describe CollectionRetriever do
 
         it "makes occurrences counts available after retrieve" do
           subject.retrieve
-          max_occurrence = subject.occurrences.to_a.first["count"]
-          min_occurrence = subject.occurrences.to_a.last["count"]
-          expect(min_occurrence).to be < max_occurrence
+
+          # Which objects tie at a given count is not defined -- the aggregation
+          # sorts on count alone -- but the counts themselves are.
+          expect(subject.occurrences.map { |o| o["count"] }).to eq [5, 5, 4, 4, 4, 3, 3, 3, 3, 3]
+
           subject.occurrences.each do |o|
             expected_count = occurrences_for(o["_id"], ids_key)
             expect(o["count"]).to eq expected_count
