@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Flaredown is a chronic-illness symptom tracker. It is a monorepo with three deployable apps:
 
-- `backend/` — Rails 7.2 API (Ruby 3.4.10), the only backend for all clients.
+- `backend/` — Rails 8.0 API (Ruby 3.4.10), the only backend for all clients.
 - `frontend/` — Ember.js 2.18 web app (the production web client at app.flaredown.com), proxies API calls to the backend.
 - `native/` — Expo / React Native + TypeScript app (newer, in-progress replacement for the Ember client).
 
