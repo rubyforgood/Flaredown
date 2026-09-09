@@ -1,8 +1,10 @@
 import Ember from 'ember';
 
-let { Component, computed, computed: { alias, notEmpty }, get, set, setProperties } = Ember;
+let { Component, computed, computed: { alias, notEmpty }, get, inject: { service }, isBlank, set, setProperties } = Ember;
 
 export default Component.extend({
+  store: service(),
+
   classNames: ['centered'],
   weatherTypes: [
     'clear-day',
@@ -18,10 +20,11 @@ export default Component.extend({
   ],
 
   newPostalCode: '',
-  inputVisible: false,
+  manuallyOpened: false,
   validPostalCode: true,
 
   checkin: alias('parentView.model.checkin'),
+  hasLocation: notEmpty('checkin.locationName'),
   hasWeather: notEmpty('weather'),
   pressureUnits: alias('session.currentUser.profile.pressureUnits'),
   temperatureUnits: alias('session.currentUser.profile.temperatureUnits'),
@@ -49,43 +52,56 @@ export default Component.extend({
     return get(this, 'weatherTypes').includes(icon) ? icon : 'default';
   }),
 
-  willRender() {
-    this._super(...arguments);
-
-    if (!get(this, 'hasWeather')) {
-      set(this, 'inputVisible', true);
-    }
-  },
+  // The location lives on the check-in and is carried over to the next one, so we
+  // only ask for it while the check-in has none, or while the user is changing it.
+  // A day without weather is not a day without a location: the forecast may just
+  // not be available for it.
+  inputVisible: computed('hasLocation', 'manuallyOpened', function() {
+    return get(this, 'manuallyOpened') || !get(this, 'hasLocation');
+  }),
 
   actions: {
     updatePostalCode() {
-      const date = get(this, 'checkin.date');
+      const checkin = get(this, 'checkin');
       const newPostalCode = get(this, 'newPostalCode');
+      const existingPostalCode = get(checkin, 'postalCode');
+      const existingWeather = get(checkin, 'weather');
 
-      if(get(newPostalCode, 'length') === 0) {
+      if(isBlank(newPostalCode)) {
         set(this, 'validPostalCode', false);
-      } else {
-        this
-          .store
-          .queryRecord('weather', { date: date, postal_code: newPostalCode })
-          .then(record => {
-            let checkin = get(this, 'checkin');
 
-            setProperties(checkin, { postalCode: newPostalCode, weather: record });
-
-
-            if(!record) {
-              set(this, 'validPostalCode', false);
-            }
-
-            return checkin.save();
-          })
-          .then(() => set(this, 'inputVisible', false));
+        return;
       }
+
+      return get(this, 'store')
+        .queryRecord('weather', { date: get(checkin, 'date'), postal_code: newPostalCode })
+        // Weather can be missing for a day (no forecast, API down) without the
+        // location being wrong, so save the location either way. If this is only
+        // a retry of the saved location, however, an empty result or request
+        // failure must not erase weather the check-in already has.
+        .catch(() => null)
+        .then(record => {
+          const weather = record || (newPostalCode === existingPostalCode ? existingWeather : null);
+
+          setProperties(checkin, { postalCode: newPostalCode, weather });
+
+          return checkin.save();
+        })
+        .then(() => {
+          // The API only echoes a postal code back once it has geocoded it into a
+          // position, so this is what tells us the location itself was understood.
+          const accepted = get(checkin, 'postalCode') === newPostalCode;
+
+          setProperties(this, { validPostalCode: accepted, manuallyOpened: !accepted });
+        });
     },
 
     showInput() {
-      setProperties(this, { inputVisible: true, newPostalCode: get(this, 'checkin.postalCode') });
+      setProperties(this, {
+        manuallyOpened: true,
+        validPostalCode: true,
+        newPostalCode: get(this, 'checkin.postalCode'),
+      });
     },
 
     toggleTemperatureUnits() {

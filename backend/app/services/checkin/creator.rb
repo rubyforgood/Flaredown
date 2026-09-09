@@ -9,7 +9,7 @@ class Checkin::Creator
   # FIXME
   # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
   def create!
-    prev_checkin = user.last_checkin
+    prev_checkin = user.checkins.where(:position_id.ne => nil).order_by(date: :desc).first
     checkin = Checkin.new(user_id: user.id, date: date, tag_ids: [], food_ids: [])
 
     if prev_checkin && prev_checkin.position.present?

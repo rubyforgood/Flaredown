@@ -39,6 +39,17 @@ describe Api::V1::WeathersController do
       it { is_expected.to include(*expected_keys) }
       it { is_expected.not_to include(*not_expected_keys) }
       it { expect(response).to have_http_status(:ok) }
+      it { expect(json_response[:weather][:id]).to eq(weather.id) }
+    end
+
+    describe "index when no weather is available" do
+      let(:json_response) { JSON.parse(response.body, symbolize_names: true) }
+
+      before { expect(WeatherRetriever).to receive(:get).and_return(nil) }
+      before { index_action }
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(json_response).to eq(weathers: []) }
     end
   end
 end

@@ -109,18 +109,59 @@ RSpec.describe Checkin::Creator do
       end
     end
 
-    context "when postal code is set on previous checkin" do
-      let(:weather) { create :weather }
+    context "when a location is set on the previous checkin", :vcr do
+      # The recorded forecast is Minneapolis from 2023-12-05 onwards, so pin "today"
+      # inside that window: the trackings above are only active from today.
+      let!(:date) { Date.parse("2023-12-05") }
+      let(:cassete) { "WeatherRetriever/#{postal_code}" }
       let(:postal_code) { "55403" }
-      let(:position) { Position.create(postal_code: postal_code) }
+      let(:position) { VCR.use_cassette(cassete) { Position.create(postal_code: postal_code) } }
 
-      let!(:previous_checkin) { create :checkin, user_id: user.id, position_id: position.id }
+      let!(:previous_checkin) do
+        create :checkin, user_id: user.id, date: date - 1.day, position_id: position.id
+      end
 
-      before { expect(WeatherRetriever).to receive(:get).and_return(weather) }
+      subject { VCR.use_cassette(cassete) { Checkin::Creator.new(user.id, date).create! } }
 
-      it "should ask for weather" do
+      around { |example| travel_to(date) { example.run } }
+
+      before { allow(Tomorrowiorb).to receive(:api_key).and_return("MY_MEGA_TOMORROW_IO_KEY") }
+
+      it "carries the location over and asks for that day's weather" do
         expect(subject.position.postal_code).to eq(postal_code)
-        expect(subject.weather_id).to eq(weather.id)
+        expect(subject.weather).to be_present
+        expect(subject.weather.date).to eq(date)
+      end
+
+      context "when the weather for that date cannot be retrieved" do
+        before { allow(WeatherRetriever).to receive(:get).and_return(nil) }
+
+        it "still carries the location over" do
+          expect(subject.position.postal_code).to eq(postal_code)
+          expect(subject.weather_id).to be_nil
+        end
+      end
+
+      context "when a newer checkin has no location" do
+        let!(:previous_checkin) do
+          create :checkin, user_id: user.id, date: date - 2.days, position_id: position.id
+        end
+        let!(:newer_checkin) { create :checkin, user_id: user.id, date: date - 1.day }
+
+        it "carries the latest saved location over" do
+          expect(subject.position_id).to eq(position.id)
+          expect(subject.position.postal_code).to eq(postal_code)
+        end
+      end
+
+      context "when the weather vendor times out" do
+        before { allow(Tomorrowiorb).to receive(:forecast).and_raise(Faraday::TimeoutError) }
+
+        it "still creates the checkin with the saved location" do
+          expect(subject).to be_persisted
+          expect(subject.position_id).to eq(position.id)
+          expect(subject.weather_id).to be_nil
+        end
       end
     end
   end

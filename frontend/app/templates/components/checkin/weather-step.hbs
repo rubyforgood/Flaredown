@@ -2,12 +2,14 @@
 
 {{#if inputVisible}}
   <div class="grey">
-    {{#if hasWeather}}
-      Set location:
-    {{else if validPostalCode }}
-      To enable weather tracking,
-      <br>
-      enter your location below
+    {{#if validPostalCode}}
+      {{#if hasLocation}}
+        Set location:
+      {{else}}
+        To enable weather tracking,
+        <br>
+        enter your location below
+      {{/if}}
     {{else}}
       We couldn't find that location
       <br>
@@ -56,4 +58,6 @@
       <label>Humidity</label>
     </div>
   </div>
+{{else if hasLocation}}
+  <div class="grey vert-offset-top-1">Weather data is not available for this day.</div>
 {{/if}}
