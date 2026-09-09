@@ -232,10 +232,10 @@ GEM
       reline (>= 0.4.2)
     json (2.7.1)
     jwt (2.3.0)
-    kaminari-actionview (1.2.1)
+    kaminari-actionview (1.2.2)
       actionview
-      kaminari-core (= 1.2.1)
-    kaminari-core (1.2.1)
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     kaminari-mongoid (1.0.2)
       kaminari-core (~> 1.0)
       mongoid
