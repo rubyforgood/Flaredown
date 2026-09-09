@@ -3,7 +3,11 @@ class Notification
   include Mongoid::Timestamps
   include Usernameable
 
-  after_initialize :set_defaults
+  # Only derive post_id when it is not already stored. This runs on every instantiation,
+  # including records loaded from the database, and it reaches through `notificateable`,
+  # so without the guard every Notification loaded costs an extra query to recompute a
+  # value it was already holding.
+  after_initialize :set_defaults, if: -> { post_id.blank? }
 
   field :kind, type: String
   field :encrypted_user_id, type: String, encrypted: {type: :integer}

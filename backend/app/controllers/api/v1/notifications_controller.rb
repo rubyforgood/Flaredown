@@ -2,7 +2,11 @@ module Api
   module V1
     class NotificationsController < ApplicationController
       def index
-        notifications = Notification.where(encrypted_notify_user_id: current_user.encrypted_id)
+        # The aggregation reaches through `notificateable` to title each group, so without
+        # eager loading this is one query per notification.
+        notifications = Notification
+          .where(encrypted_notify_user_id: current_user.encrypted_id)
+          .includes(:notificateable)
 
         authorize_collection :index, notifications
 
@@ -41,7 +45,9 @@ module Api
         parameters[:notificateable_type] = parameters[:notificateable_type].titleize
         parameters[:encrypted_notify_user_id] = current_user.encrypted_id
 
-        parameters
+        # Mongoid 9 requires a query expression to be a Hash and raises InvalidQuery on
+        # an ActionController::Parameters, which Mongoid 8 accepted.
+        parameters.to_h
       end
 
       def authorize_collection(name, collection)
