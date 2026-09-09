@@ -94,7 +94,8 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate"
+  # Maintained fork of annotate, which caps `activerecord < 8.0`
+  gem "annotaterb"
   gem "awesome_print"
   gem "better_errors"
   gem "brakeman"
