@@ -1,5 +1,24 @@
 require "rails_helper"
 
+# == Schema Information
+#
+# Table name: foods
+#
+#  id                     :integer          not null, primary key
+#  comname                :string
+#  global                 :boolean          default(TRUE)
+#  long_desc              :string           not null
+#  ndb_no                 :string
+#  sciname                :string
+#  shrt_desc              :string
+#  trackable_usages_count :integer          default(0)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_foods_on_ndb_no  (ndb_no)
+#
 RSpec.describe Food do
   describe "Respond to" do
     it { is_expected.to respond_to(:long_desc) }

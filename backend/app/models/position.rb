@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: positions
+#
+#  id            :integer          not null, primary key
+#  latitude      :decimal(10, 7)
+#  location_name :string           not null
+#  longitude     :decimal(10, 7)
+#  postal_code   :string           not null
+#
 class Position < ActiveRecord::Base
   validates :postal_code, presence: true
   validate :geocoder_position_present
