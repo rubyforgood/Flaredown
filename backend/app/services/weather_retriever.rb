@@ -60,6 +60,8 @@ class WeatherRetriever
 
         create_weather(day, date, position.id)
       end
+    rescue Faraday::Error, JSON::ParserError => error
+      handle_retrieval_error(error, date, position)
     end
 
     private
@@ -82,6 +84,14 @@ class WeatherRetriever
         ["1d"],
         "imperial"
       )
+    end
+
+    def handle_retrieval_error(error, date, position)
+      position_context = position&.persisted? ? " at position #{position.id}" : " before resolving a position"
+      Rails.logger.warn "Weather retrieval failed for #{date}#{position_context}: #{error.class}"
+      cache_forecast_miss(date, position.id) if position&.persisted?
+
+      nil
     end
 
     # The forecast endpoint takes no date: it always answers with a daily timeline

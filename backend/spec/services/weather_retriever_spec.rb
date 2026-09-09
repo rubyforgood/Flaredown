@@ -383,4 +383,52 @@ describe WeatherRetriever, :vcr do
       described_class.get(date, postal_code)
     end
   end
+
+  context "the forecast API raises a transport error" do
+    let!(:position) { VCR.use_cassette(cassete) { Position.create!(postal_code: postal_code) } }
+
+    before do
+      allow(Tomorrowiorb).to receive(:forecast).and_raise(
+        Faraday::TimeoutError, "request timed out for #{postal_code}"
+      )
+    end
+
+    it "returns nothing and does not store weather" do
+      expect(perform).to be_nil
+      expect(Weather.count).to eq(0)
+    end
+
+    it "logs safe context without the submitted location" do
+      expect(Rails.logger).to receive(:warn) do |message|
+        expect(message).to include("position #{position.id}", Faraday::TimeoutError.name)
+        expect(message).not_to include(postal_code, position.latitude.to_s, position.longitude.to_s)
+      end
+
+      perform
+    end
+  end
+
+  context "the forecast API returns malformed JSON" do
+    let!(:position) { VCR.use_cassette(cassete) { Position.create!(postal_code: postal_code) } }
+
+    before do
+      allow(Tomorrowiorb).to receive(:forecast).and_return(
+        Tomorrowiorb::TomorrowioResponse.new(200, {}, "not JSON")
+      )
+    end
+
+    it "returns nothing and does not store weather" do
+      expect(perform).to be_nil
+      expect(Weather.count).to eq(0)
+    end
+
+    it "logs the parse failure without the submitted location" do
+      expect(Rails.logger).to receive(:warn) do |message|
+        expect(message).to include("position #{position.id}", JSON::ParserError.name)
+        expect(message).not_to include(postal_code, position.latitude.to_s, position.longitude.to_s)
+      end
+
+      perform
+    end
+  end
 end

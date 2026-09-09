@@ -141,6 +141,28 @@ RSpec.describe Checkin::Creator do
           expect(subject.weather_id).to be_nil
         end
       end
+
+      context "when a newer checkin has no location" do
+        let!(:previous_checkin) do
+          create :checkin, user_id: user.id, date: date - 2.days, position_id: position.id
+        end
+        let!(:newer_checkin) { create :checkin, user_id: user.id, date: date - 1.day }
+
+        it "carries the latest saved location over" do
+          expect(subject.position_id).to eq(position.id)
+          expect(subject.position.postal_code).to eq(postal_code)
+        end
+      end
+
+      context "when the weather vendor times out" do
+        before { allow(Tomorrowiorb).to receive(:forecast).and_raise(Faraday::TimeoutError) }
+
+        it "still creates the checkin with the saved location" do
+          expect(subject).to be_persisted
+          expect(subject.position_id).to eq(position.id)
+          expect(subject.weather_id).to be_nil
+        end
+      end
     end
   end
 end
