@@ -23,12 +23,12 @@ gem "mongoid", "9.0.11" # https://www.mongodb.com/docs/mongoid/current/reference
 gem "pg"
 
 # Use Puma as the app server
-gem "puma", "~> 6.6"
+gem "puma", "~> 7.2"
 
 # Authentication libraries
 gem "cancancan", "~> 3.6.1"
 gem "cancancan-mongoid", "~> 2.0"
-gem "devise", "~> 4.8"
+gem "devise", "~> 5.0"
 gem "devise_invitable", "~> 2.0"
 gem "omniauth", "~> 1.8"
 gem "omniauth-facebook", "~> 3.0"
@@ -66,7 +66,7 @@ gem "ruby-progressbar", require: false
 
 gem "kaminari-actionview"
 gem "kaminari-mongoid"
-gem "rack-cors", "2.0.1", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
+gem "rack-cors", "2.0.2", require: "rack/cors" # freezing to gemfile.lock version because heroku is not respecting lockfile
 gem "simplecov", require: false, group: :test
 
 group :development, :test do
