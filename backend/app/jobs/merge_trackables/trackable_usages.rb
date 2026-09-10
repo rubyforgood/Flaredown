@@ -18,9 +18,10 @@ class MergeTrackables::TrackableUsages
 
         tr_usage.destroy
       else
+        # `belongs_to :trackable, counter_cache: true` already moves the count from the
+        # duplicate to the parent when the foreign key changes; incrementing here as well
+        # counted every merged usage twice.
         tr_usage.update(trackable_id: parent.id)
-
-        parent.increment!(:trackable_usages_count)
       end
     end
 
