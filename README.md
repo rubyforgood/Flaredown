@@ -12,7 +12,7 @@ Help would be appreciated! Please join us in [slack #flaredown](https://join.sla
 * PostgreSQL 12.8
 * MongoDB 4.4.9
 * Redis 6.2.3
-* Ruby 3.2.3
+* Ruby 3.4.10
 * Node 22 (the frontend supports Node 18 and newer; `frontend/.nvmrc` pins the version CI builds against)
 
 ## Installation
