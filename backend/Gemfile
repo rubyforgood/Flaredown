@@ -1,15 +1,12 @@
 source "https://rubygems.org"
 
-ruby "3.2.3"
+ruby "3.4.10"
 
 # Configuration management. keep on top of Gemfile
 gem "dotenv-rails", groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# The lower bound is not redundant with the lockfile: 7.2.3.2 caps `minitest < 6`,
-# so a from-scratch resolve prefers the newer minitest and silently settles on
-# 7.2.3 -- dropping the 7.2.3.1 and 7.2.3.2 security releases.
-gem "rails", "~> 7.2.0", ">= 7.2.3.2"
+gem "rails", "~> 8.1.0"
 gem "rake"
 gem "sprockets-rails"
 
@@ -47,6 +44,13 @@ gem "countries", require: "countries/global"
 
 # Pusher Client
 gem "pusher"
+
+# Ruby 3.4 moved mutex_m from the default gems to the bundled gems, so it is no
+# longer requirable from inside the bundle unless it is in the Gemfile.
+# httpclient/auth.rb requires it, pusher requires httpclient, and the failure is
+# a partially-defined HTTPClient class rather than a LoadError -- webmock
+# swallows the LoadError and then dies aliasing a method that was never reached.
+gem "mutex_m"
 
 # ActiveRecord data translations
 gem "globalize", "~> 7.1"
@@ -87,7 +91,8 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate"
+  # Maintained fork of annotate, which caps `activerecord < 8.0`
+  gem "annotaterb"
   gem "awesome_print"
   gem "better_errors"
   gem "brakeman"
