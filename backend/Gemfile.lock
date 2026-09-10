@@ -283,6 +283,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.4.1)
+    mutex_m (0.3.0)
     nearest_time_zone (0.0.4)
       andand
       kdtree
@@ -331,9 +332,9 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    pry-doc (1.5.0)
+    pry-doc (1.7.0)
       pry (~> 0.11)
-      yard (~> 0.9.11)
+      yard (~> 0.9.21)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
     public_suffix (7.0.5)
@@ -546,6 +547,7 @@ DEPENDENCIES
   letter_opener
   mongoid (= 9.0.11)
   mongoid-rspec
+  mutex_m
   nearest_time_zone
   omniauth (~> 1.8)
   omniauth-facebook (~> 3.0)
@@ -574,7 +576,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.3p157
+   ruby 3.4.10p104
 
 BUNDLED WITH
    2.5.6
