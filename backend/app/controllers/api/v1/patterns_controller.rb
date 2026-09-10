@@ -19,9 +19,7 @@ module Api
       end
 
       def show
-        pattern = Pattern.find_by(id: pattern_params[:id])
-
-        render json: pattern
+        render json: @pattern
       end
 
       def create

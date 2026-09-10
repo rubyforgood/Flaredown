@@ -1,8 +1,8 @@
 module Api
   module V1
     class AwsSesController < ApplicationController
-      skip_authorize_resource only: [:mail_it, :notification]
-      skip_before_action :authenticate_user!, only: [:mail_it, :notification]
+      skip_authorize_resource only: [:notification]
+      skip_before_action :authenticate_user!, only: [:notification]
 
       def notification
         message_type = request.headers["x-amz-sns-message-type"]

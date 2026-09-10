@@ -11,11 +11,19 @@ Rails.application.configure do
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
 
-  # Eager loading loads your entire application. When running a single test locally,
-  # this is usually not necessary, and can slow down your test suite. However, it's
-  # recommended that you enable it in continuous integration systems to ensure eager
-  # loading is working properly before deploying your code.
-  config.eager_load = ENV["CI"].present?
+  # Eager loading loads your entire application. The Rails default here is
+  # `ENV["CI"].present?`, which makes local and CI runs load different amounts of code.
+  # Two things went wrong with that:
+  #
+  #   1. SimpleCov starts without `track_files`, so it only measures files that were
+  #      actually loaded. Locally that silently excluded 68 app files the suite never
+  #      touches, reporting 95.54% against a denominator defined by the tests
+  #      themselves; CI eager-loaded those same files and reported 86.35%.
+  #   2. Eager loading is what catches autoload and NameError breakage. Gating it on CI
+  #      meant that whole class of bug could only ever fail on CI, never locally.
+  #
+  # Measured cost of always eager loading: about 0.5s on boot (2.7s -> 3.2s).
+  config.eager_load = true
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true

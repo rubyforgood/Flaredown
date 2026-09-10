@@ -33,7 +33,7 @@ module Api
 
           render json: @oracle_request
         else
-          render json: {errors: "Unauthorized"}, status: :unauthorised
+          render json: {errors: "Unauthorized"}, status: :unauthorized
         end
       end
 

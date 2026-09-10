@@ -10,7 +10,7 @@ class EmailRejectDispatcher
       if test_case_type == "Bounce"
         emails = body.dig("mail", "destination") || []
 
-        {bounce: emails}
+        {"bounce" => emails}
       elsif message_raw
         generate_recipients(message_raw)
       end
@@ -26,6 +26,6 @@ class EmailRejectDispatcher
     emails = message.dig("mail", "destination") || []
     rejected_type = message["notificationType"].downcase
 
-    {rejected_type.to_sym => emails}
+    {rejected_type => emails}
   end
 end

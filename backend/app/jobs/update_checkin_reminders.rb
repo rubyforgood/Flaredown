@@ -11,7 +11,11 @@ class UpdateCheckinReminders
 
     Sidekiq::ScheduledSet.new.find_job(profile.reminder_job_id)&.delete
 
-    job_id = CheckinReminderJob.perform_in(get_reminder_time(profile).minutes, profile_id, profile.checkin_reminder_at)
+    # Sidekiq only accepts native JSON types as job arguments, and checkin_reminder_at
+    # is a datetime column. ProfilesController#schedule_reminder does the same.
+    job_id = CheckinReminderJob.perform_in(
+      get_reminder_time(profile).minutes, profile_id, profile.checkin_reminder_at.iso8601
+    )
     profile.update_column(:reminder_job_id, job_id)
   end
 
