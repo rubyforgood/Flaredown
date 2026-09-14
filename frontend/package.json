@@ -68,7 +68,7 @@
     "ember-time-field": "^0.3.0",
     "ember-truth-helpers": "1.2.0",
     "eslint-plugin-ember": "^5.0.0",
-    "fs-extra": "^4.0.3",
+    "fs-extra": "^11.4.0",
     "loader.js": "^4.2.3",
     "patch-package": "^8.0.1",
     "sass": "^1.68.0",
