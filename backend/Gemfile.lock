@@ -103,7 +103,7 @@ GEM
     brakeman (6.1.2)
       racc
     bson (5.2.0)
-    bugsnag (6.27.1)
+    bugsnag (6.30.0)
       concurrent-ruby (~> 1.0)
     builder (3.3.0)
     bullet (8.2.0)
